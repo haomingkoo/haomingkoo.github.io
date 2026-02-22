@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haoming Koo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080808;
+      --surface:   #111111;
+      --border:    #1e1e1e;
+      --accent:    #3b82f6;
+      --accent-dim: rgba(59,130,246,.12);
+      --text:      #f0f0f0;
+      --muted:     #6b7280;
+      --live:      #22c55e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      /* dot grid */
+      background-image:
+        radial-gradient(circle at 60% 10%, rgba(59,130,246,.08) 0%, transparent 55%),
+        radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 100% 100%, 28px 28px;
+    }
+
+    /* ── Layout ─────────────────────────────────────────────────────────── */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+
+    /* ── Nav ─────────────────────────────────────────────────────────────── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0 24px;
+    }
+    .nav-logo {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      letter-spacing: .02em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ────────────────────────────────────────────────────────────── */
+    .hero {
+      padding: 72px 0 64px;
+      display: flex;
+      align-items: center;
+      gap: 56px;
+    }
+    .hero-inner { flex: 1; min-width: 0; }
+
+    .hero-label {
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp .6s ease forwards;
+    }
+    .hero-title {
+      font-size: clamp(36px, 7vw, 64px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #f0f0f0 30%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      animation: fadeUp .6s .1s ease forwards;
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp .6s .2s ease forwards;
+    }
+
+    /* ── Hero visual ─────────────────────────────────────────────────────── */
+    .hero-visual {
+      width: 340px;
+      flex-shrink: 0;
+      opacity: 0;
+      animation: fadeUp .7s .25s ease forwards;
+      /* swap src on the <img> tag below to use a real photo */
+    }
+    .hero-visual svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    @media (max-width: 700px) {
+      .hero { flex-direction: column; gap: 36px; padding: 56px 0 48px; }
+      .hero-visual { width: 100%; }
+    }
+
+    /* ── Section header ──────────────────────────────────────────────────── */
+    .section { padding: 20px 0 64px; }
+    .section-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp .6s .3s ease forwards;
+    }
+
+    /* ── Cards grid ──────────────────────────────────────────────────────── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 26px 24px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+      opacity: 0;
+    }
+    .card:nth-child(1) { animation: fadeUp .6s .35s ease forwards; }
+    .card:nth-child(2) { animation: fadeUp .6s .45s ease forwards; }
+    .card:nth-child(3) { animation: fadeUp .6s .55s ease forwards; }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(59,130,246,.35);
+      box-shadow: 0 8px 32px rgba(59,130,246,.1);
+    }
+    /* non-link cards (building/soon) */
+    .card[aria-disabled="true"] { cursor: default; }
+    .card[aria-disabled="true"]:hover {
+      transform: none;
+      border-color: var(--border);
+      box-shadow: none;
+    }
+
+    /* badge row */
+    .card-top { display: flex; align-items: center; justify-content: space-between; }
+
+    .badge {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 99px;
+    }
+    .badge-live {
+      background: rgba(34,197,94,.12);
+      color: var(--live);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-live::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--live);
+      animation: pulse 2s infinite;
+    }
+    .badge-building {
+      background: rgba(251,191,36,.1);
+      color: #f59e0b;
+    }
+    .badge-soon {
+      background: rgba(107,114,128,.12);
+      color: var(--muted);
+    }
+
+    .card-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .card-name {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -.01em;
+    }
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+    .card-link-hint {
+      font-size: 12px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    /* ── Footer ──────────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeUp .6s .65s ease forwards;
+    }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ── Animations ──────────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .4; transform: scale(1.4); }
+    }
+
+    /* ── Responsive ──────────────────────────────────────────────────────── */
+    @media (max-width: 520px) {
+      footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav>
+      <a class="nav-logo" href="#">HK</a>
+      <div class="nav-links">
+        <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:koohaoming@gmail.com">Contact</a>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="hero-label">builder &middot; data &middot; markets</p>
+        <h1 class="hero-title">Haoming Koo</h1>
+        <p class="hero-sub">
+          Designing real-world AI systems across industries.
+        </p>
+      </div>
+
+      <!--
+        Hero visual — pure SVG abstract market chart.
+        To use a real photo instead, replace the <svg>…</svg> block with:
+          <img src="hero.jpg" alt="" style="width:100%;border-radius:16px;object-fit:cover;" />
+      -->
+      <div class="hero-visual">
+        <svg viewBox="0 0 380 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#3b82f6" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="areaGrad2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#1e3a5f" stop-opacity=".3"/>
+              <stop offset="100%" stop-color="#1e3a5f" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Panel background -->
+          <rect width="380" height="260" rx="16" fill="#0c0c0c" stroke="#1e1e1e" stroke-width="1"/>
+
+          <!-- Subtle grid -->
+          <line x1="24" y1="222" x2="356" y2="222" stroke="#1c1c1c" stroke-width=".8"/>
+          <line x1="24" y1="178" x2="356" y2="178" stroke="#1c1c1c" stroke-width=".8"/>
+          <line x1="24" y1="134" x2="356" y2="134" stroke="#1c1c1c" stroke-width=".8"/>
+          <line x1="24" y1="90"  x2="356" y2="90"  stroke="#1c1c1c" stroke-width=".8"/>
+
+          <!-- Ticker bar -->
+          <text x="24" y="32" fill="#374151" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".08em">SPY</text>
+          <text x="66" y="32" fill="#1f2937" font-size="10" font-family="Inter,sans-serif">|</text>
+          <text x="76" y="32" fill="#374151" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".08em">QQQ</text>
+          <text x="118" y="32" fill="#1f2937" font-size="10" font-family="Inter,sans-serif">|</text>
+          <text x="128" y="32" fill="#374151" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".08em">^VIX</text>
+
+          <!-- Live pill -->
+          <circle cx="324" cy="27" r="4" fill="#22c55e">
+            <animate attributeName="opacity" values="1;.3;1" dur="2.5s" repeatCount="indefinite"/>
+          </circle>
+          <text x="332" y="31" fill="#22c55e" font-size="9" font-family="Inter,sans-serif" opacity=".75" font-weight="500">LIVE</text>
+
+          <!-- Secondary line area -->
+          <polygon points="24,215 70,198 116,205 162,182 208,186 254,162 300,152 346,138 356,135 356,222 24,222"
+                   fill="url(#areaGrad2)"/>
+          <!-- Secondary line -->
+          <polyline points="24,215 70,198 116,205 162,182 208,186 254,162 300,152 346,138 356,135"
+                    stroke="#1e3a5f" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+
+          <!-- Main line area -->
+          <polygon points="24,200 70,178 116,192 162,154 208,161 254,122 300,108 346,88 356,76 356,222 24,222"
+                   fill="url(#areaGrad)"/>
+          <!-- Main line -->
+          <polyline points="24,200 70,178 116,192 162,154 208,161 254,122 300,108 346,88 356,76"
+                    stroke="#3b82f6" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"
+                    filter="url(#glow)"/>
+
+          <!-- Interior nodes -->
+          <circle cx="162" cy="154" r="3.5" fill="#3b82f6" opacity=".6"/>
+          <circle cx="254" cy="122" r="3.5" fill="#3b82f6" opacity=".7"/>
+          <circle cx="300" cy="108" r="3.5" fill="#3b82f6" opacity=".7"/>
+
+          <!-- Live end-node -->
+          <circle cx="356" cy="76" r="5" fill="#3b82f6" filter="url(#glow)">
+            <animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="356" cy="76" r="12" fill="#3b82f6" opacity=".08">
+            <animate attributeName="r"       values="10;18;10" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".08;0;.08" dur="2s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- Return label -->
+          <text x="290" y="96" fill="#3b82f6" font-size="9.5" font-family="Inter,sans-serif" opacity=".85" font-weight="500">+14.2%</text>
+
+          <!-- Bottom axis ticks -->
+          <text x="22"  y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">Sep</text>
+          <text x="112" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">Nov</text>
+          <text x="206" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">Jan</text>
+          <text x="300" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">Mar</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section">
+      <p class="section-label">Projects</p>
+      <div class="cards">
+
+        <!-- Trader Koo — LIVE -->
+        <a class="card"
+           href="https://trader-koo-production.up.railway.app"
+           target="_blank" rel="noopener">
+          <div class="card-top">
+            <span class="card-icon">📈</span>
+            <span class="badge badge-live">Live</span>
+          </div>
+          <p class="card-name">Trader Koo</p>
+          <p class="card-desc">
+            S&amp;P 500 market dashboard with daily AI chart-pattern detection,
+            candle signals, 52-week extremes, and macro context — updated every night.
+          </p>
+          <span class="card-link-hint">View live &rsaquo;</span>
+        </a>
+
+        <!-- Wine Intelligence — BUILDING -->
+        <div class="card" aria-disabled="true">
+          <div class="card-top">
+            <span class="card-icon">🍷</span>
+            <span class="badge badge-building">Building</span>
+          </div>
+          <p class="card-name">Wine Intelligence</p>
+          <p class="card-desc">
+            Price and critic-score comparison across major wine retailers.
+            Find the best-value bottles without the noise.
+          </p>
+        </div>
+
+        <!-- Travel Journal — SOON -->
+        <div class="card" aria-disabled="true">
+          <div class="card-top">
+            <span class="card-icon">✈️</span>
+            <span class="badge badge-soon">Soon</span>
+          </div>
+          <p class="card-name">Travel Journal</p>
+          <p class="card-desc">
+            A curated log of places, food, and moments worth revisiting.
+            Minimal format, maximum signal.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <span class="footer-copy">&copy; 2026 Haoming Koo</span>
+      <div class="footer-links">
+        <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
