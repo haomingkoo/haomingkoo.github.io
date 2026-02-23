@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wine Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --surface: #111111;
+      --surface-2: #0d0d0d;
+      --border: #1e1e1e;
+      --accent: #3b82f6;
+      --accent-dim: rgba(59,130,246,.12);
+      --text: #f0f0f0;
+      --muted: #6b7280;
+      --good: #22c55e;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 60% 10%, rgba(59,130,246,.08) 0%, transparent 55%),
+        radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 100% 100%, 28px 28px;
+    }
+
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 28px 52px; }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0 24px;
+    }
+    .nav-logo {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      letter-spacing: .02em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 0 26px;
+    }
+    .hero-title {
+      font-size: clamp(30px, 6vw, 46px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      background: linear-gradient(135deg, #f0f0f0 28%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .status-pill {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .status-pill strong { color: var(--text); font-weight: 600; }
+
+    .panel {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .panel + .panel { margin-top: 14px; }
+    .panel-title {
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field label {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .field input, .field select, .btn {
+      height: 38px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: #0b0b0b;
+      color: var(--text);
+      padding: 0 12px;
+      font-size: 14px;
+      outline: none;
+    }
+    .field input:focus, .field select:focus {
+      border-color: rgba(59,130,246,.45);
+      box-shadow: 0 0 0 2px rgba(59,130,246,.14);
+    }
+    .btn {
+      cursor: pointer;
+      font-weight: 600;
+      transition: border-color .2s, background .2s;
+    }
+    .btn:hover { border-color: rgba(59,130,246,.42); }
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(59,130,246,.2), rgba(59,130,246,.08));
+      border-color: rgba(59,130,246,.32);
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      background: #0c0c0c;
+    }
+    .chip strong { color: var(--text); }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+      background: var(--surface);
+    }
+    th, td {
+      padding: 12px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-weight: 600;
+      background: #0d0d0d;
+    }
+    tr:hover td { background: rgba(59,130,246,.04); }
+
+    .wine-name { font-weight: 600; color: var(--text); }
+    .subline { color: var(--muted); font-size: 12px; }
+
+    .delta-pos { color: var(--bad); font-weight: 600; }
+    .delta-neg { color: var(--good); font-weight: 600; }
+    .delta-zero { color: var(--muted); font-weight: 600; }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 12px;
+    }
+    .links a:hover { text-decoration: underline; }
+    .muted { color: var(--muted); }
+
+    .error {
+      margin-top: 12px;
+      color: var(--bad);
+      font-size: 13px;
+      min-height: 18px;
+    }
+
+    .sort-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(120px, 1fr));
+      gap: 10px;
+      align-items: end;
+    }
+
+    @media (max-width: 1100px) {
+      .filter-grid { grid-template-columns: repeat(3, minmax(160px, 1fr)); }
+      .sort-grid { grid-template-columns: repeat(4, minmax(140px, 1fr)); }
+    }
+    @media (max-width: 780px) {
+      .hero { flex-direction: column; align-items: flex-start; }
+      .filter-grid { grid-template-columns: repeat(2, minmax(145px, 1fr)); }
+      .sort-grid { grid-template-columns: repeat(2, minmax(145px, 1fr)); }
+      .container { padding: 0 16px 40px; }
+      .nav-links { gap: 14px; }
+    }
+    @media (max-width: 520px) {
+      .filter-grid { grid-template-columns: 1fr; }
+      .sort-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a class="nav-logo" href="./index.html">HK</a>
+      <div class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <h1 class="hero-title">Wine Intelligence</h1>
+        <p class="hero-sub">Filter and rank value deals from Platinum vs Grand Cru + Vivino quality signals.</p>
+      </div>
+      <div class="status-pill">
+        Latest Pull: <strong id="latestPull">Loading...</strong>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="panel-title">Filters & Sort</p>
+      <form id="filtersForm" class="filter-grid">
+        <div class="field">
+          <label for="search">Search Wine</label>
+          <input id="search" type="text" placeholder="e.g. Barolo, Champagne" />
+        </div>
+        <div class="field">
+          <label for="cheaperSide">Cheaper Side</label>
+          <select id="cheaperSide">
+            <option value="all" selected>All</option>
+            <option value="Platinum Cheaper">Platinum Cheaper</option>
+            <option value="Grand Cru Cheaper">Grand Cru Cheaper</option>
+            <option value="Same Price">Same Price</option>
+            <option value="No Match">No Match</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="minRating">Min Vivino Rating</label>
+          <input id="minRating" type="number" value="0" min="0" max="5" step="0.1" />
+        </div>
+        <div class="field">
+          <label for="minRaters">Min # Ratings</label>
+          <input id="minRaters" type="number" value="0" min="0" step="1" />
+        </div>
+        <div class="field">
+          <label for="maxPrice">Max Platinum Price</label>
+          <input id="maxPrice" type="number" value="" min="0" step="0.01" placeholder="No cap" />
+        </div>
+        <div class="field">
+          <label for="sortBy">Sort By</label>
+          <select id="sortBy">
+            <option value="vivino_rating" selected>Vivino Rating</option>
+            <option value="vivino_num_ratings"># Ratings</option>
+            <option value="price_diff_pct">% Difference</option>
+            <option value="price_platinum">Platinum Price</option>
+            <option value="wine_name">Wine Name</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sortOrder">Sort Order</label>
+          <select id="sortOrder">
+            <option value="desc">Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+        </div>
+        <div class="field" style="justify-content: flex-end;">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" type="submit">Apply</button>
+        </div>
+      </form>
+      <div class="error" id="errorText"></div>
+    </section>
+
+    <section class="panel">
+      <p class="panel-title">Snapshot</p>
+      <div class="stats-row">
+        <div class="chip">Rows: <strong id="rowCount">0</strong></div>
+        <div class="chip">Total Deals: <strong id="totalDeals">0</strong></div>
+        <div class="chip">Total Snapshots: <strong id="totalSnapshots">0</strong></div>
+        <div class="chip">Retention: <strong id="retentionDays">-</strong> days</div>
+        <div class="chip">Freshness: <strong id="freshnessStatus">-</strong></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="panel-title">Deals</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Wine</th>
+              <th>Price Delta</th>
+              <th>Platinum</th>
+              <th>Grand Cru</th>
+              <th>Vivino</th>
+              <th>Links</th>
+            </tr>
+          </thead>
+          <tbody id="dealsBody">
+            <tr><td colspan="6" class="muted">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="panel-title">Multi Sort</p>
+      <form id="sortForm" class="sort-grid">
+        <div class="field">
+          <label for="sort1Field">Primary Field</label>
+          <select id="sort1Field">
+            <option value="vivino_rating" selected>Vivino Rating</option>
+            <option value="vivino_num_ratings"># Ratings</option>
+            <option value="price_diff_pct">% Difference</option>
+            <option value="price_platinum">Platinum Price</option>
+            <option value="price_grand_cru">Grand Cru Price</option>
+            <option value="wine_name">Wine Name</option>
+            <option value="vintage">Vintage</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sort1Order">Primary Order</label>
+          <select id="sort1Order">
+            <option value="desc" selected>Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sort2Field">Secondary Field</label>
+          <select id="sort2Field">
+            <option value="">None</option>
+            <option value="vivino_num_ratings"># Ratings</option>
+            <option value="price_diff_pct">% Difference</option>
+            <option value="price_platinum">Platinum Price</option>
+            <option value="price_grand_cru">Grand Cru Price</option>
+            <option value="wine_name">Wine Name</option>
+            <option value="vintage">Vintage</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sort2Order">Secondary Order</label>
+          <select id="sort2Order">
+            <option value="desc" selected>Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sort3Field">Tertiary Field</label>
+          <select id="sort3Field">
+            <option value="">None</option>
+            <option value="price_diff_pct">% Difference</option>
+            <option value="price_platinum">Platinum Price</option>
+            <option value="price_grand_cru">Grand Cru Price</option>
+            <option value="wine_name">Wine Name</option>
+            <option value="vintage">Vintage</option>
+            <option value="vivino_num_ratings"># Ratings</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sort3Order">Tertiary Order</label>
+          <select id="sort3Order">
+            <option value="desc" selected>Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" type="submit">Apply Multi Sort</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    const PRODUCTION_API_BASE = "https://grandcru-value-api.up.railway.app";
+    const LOCAL_API_BASE = "http://127.0.0.1:8010";
+    const DEBUG_API_PARAM = "api_base";
+
+    const filtersForm = document.getElementById("filtersForm");
+    const sortForm = document.getElementById("sortForm");
+    const dealsBody = document.getElementById("dealsBody");
+    const errorText = document.getElementById("errorText");
+    let currentRows = [];
+
+    const ui = {
+      latestPull: document.getElementById("latestPull"),
+      rowCount: document.getElementById("rowCount"),
+      totalDeals: document.getElementById("totalDeals"),
+      totalSnapshots: document.getElementById("totalSnapshots"),
+      retentionDays: document.getElementById("retentionDays"),
+      freshnessStatus: document.getElementById("freshnessStatus"),
+      search: document.getElementById("search"),
+      cheaperSide: document.getElementById("cheaperSide"),
+      minRating: document.getElementById("minRating"),
+      minRaters: document.getElementById("minRaters"),
+      maxPrice: document.getElementById("maxPrice"),
+      sortBy: document.getElementById("sortBy"),
+      sortOrder: document.getElementById("sortOrder"),
+      sort1Field: document.getElementById("sort1Field"),
+      sort1Order: document.getElementById("sort1Order"),
+      sort2Field: document.getElementById("sort2Field"),
+      sort2Order: document.getElementById("sort2Order"),
+      sort3Field: document.getElementById("sort3Field"),
+      sort3Order: document.getElementById("sort3Order"),
+    };
+
+    const host = window.location.hostname;
+    const isLocalHost = host === "localhost" || host === "127.0.0.1";
+    const debugApiBase = new URLSearchParams(window.location.search).get(DEBUG_API_PARAM);
+    const API_BASE = (debugApiBase || (isLocalHost ? LOCAL_API_BASE : PRODUCTION_API_BASE)).replace(/\/+$/, "");
+
+    function getApiBase() {
+      return API_BASE;
+    }
+
+    function formatMoney(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) return "N/A";
+      return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+    }
+
+    function formatDateTime(iso) {
+      if (!iso) return "N/A";
+      const dt = new Date(iso);
+      if (Number.isNaN(dt.getTime())) return "N/A";
+      return dt.toLocaleString();
+    }
+
+    function formatDelta(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) return { text: "N/A", cls: "delta-zero" };
+      if (value < 0) return { text: `${value.toFixed(2)}%`, cls: "delta-neg" };
+      if (value > 0) return { text: `+${value.toFixed(2)}%`, cls: "delta-pos" };
+      return { text: "0.00%", cls: "delta-zero" };
+    }
+
+    async function fetchJson(url) {
+      const res = await fetch(url);
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`${res.status} ${res.statusText} - ${text.slice(0, 160)}`);
+      }
+      return await res.json();
+    }
+
+    function buildDealsUrl() {
+      const base = getApiBase();
+      const params = new URLSearchParams();
+      params.set("limit", "500");
+      params.set("offset", "0");
+      params.set("only_platinum_cheaper", "false");
+
+      const search = ui.search.value.trim();
+      const cheaperSide = ui.cheaperSide.value.trim();
+      const minRating = ui.minRating.value.trim();
+      const minRaters = ui.minRaters.value.trim();
+      const maxPrice = ui.maxPrice.value.trim();
+      const sortBy = ui.sortBy.value.trim();
+      const sortOrder = ui.sortOrder.value.trim();
+
+      if (search) params.set("search", search);
+      if (cheaperSide) params.set("cheaper_side", cheaperSide);
+      if (minRating) params.set("min_vivino_rating", minRating);
+      if (minRaters) params.set("min_vivino_num_ratings", minRaters);
+      if (maxPrice) params.set("max_platinum_price", maxPrice);
+      if (sortBy) params.set("sort_by", sortBy);
+      if (sortOrder) params.set("sort_order", sortOrder);
+
+      return `${base}/deals?${params.toString()}`;
+    }
+
+    function compareValues(a, b, order) {
+      const aMissing = a === null || a === undefined || Number.isNaN(a);
+      const bMissing = b === null || b === undefined || Number.isNaN(b);
+      if (aMissing && bMissing) return 0;
+      if (aMissing) return 1;
+      if (bMissing) return -1;
+
+      let result = 0;
+      if (typeof a === "string" || typeof b === "string") {
+        result = String(a).localeCompare(String(b), undefined, { sensitivity: "base" });
+      } else {
+        result = Number(a) - Number(b);
+      }
+      return order === "asc" ? result : -result;
+    }
+
+    function getSortableValue(row, field) {
+      if (!field) return null;
+      if (field === "wine_name") return row.wine_name || "";
+      if (field === "vintage") return row.vintage ?? null;
+      return row[field] ?? null;
+    }
+
+    function getSortCriteria() {
+      return [
+        { field: ui.sort1Field.value, order: ui.sort1Order.value },
+        { field: ui.sort2Field.value, order: ui.sort2Order.value },
+        { field: ui.sort3Field.value, order: ui.sort3Order.value },
+      ].filter(c => c.field);
+    }
+
+    function sortRows(rows) {
+      const criteria = getSortCriteria();
+      if (!criteria.length) return [...rows];
+      return [...rows].sort((left, right) => {
+        for (const { field, order } of criteria) {
+          const cmp = compareValues(getSortableValue(left, field), getSortableValue(right, field), order);
+          if (cmp !== 0) return cmp;
+        }
+        return (left.id || 0) - (right.id || 0);
+      });
+    }
+
+    function renderDeals(rows) {
+      ui.rowCount.textContent = String(rows.length);
+      if (!rows.length) {
+        dealsBody.innerHTML = `<tr><td colspan="6" class="muted">No rows for current filters.</td></tr>`;
+        return;
+      }
+
+      dealsBody.innerHTML = rows.map((row) => {
+        const delta = formatDelta(row.price_diff_pct);
+        const rating = row.vivino_rating !== null && row.vivino_rating !== undefined ? Number(row.vivino_rating).toFixed(2) : "N/A";
+        const ratingCount = row.vivino_num_ratings !== null && row.vivino_num_ratings !== undefined
+          ? Number(row.vivino_num_ratings).toLocaleString()
+          : "N/A";
+
+        const wineMeta = [
+          row.vintage ? `Vintage ${row.vintage}` : null,
+          row.volume || null,
+          row.quantity ? `${row.quantity}x` : null,
+        ].filter(Boolean).join(" · ");
+
+        return `
+          <tr>
+            <td>
+              <div class="wine-name">${row.wine_name || "Unknown"}</div>
+              <div class="subline">${wineMeta || "No metadata"}</div>
+            </td>
+            <td class="${delta.cls}">${delta.text}</td>
+            <td>${formatMoney(row.price_platinum)}</td>
+            <td>${formatMoney(row.price_grand_cru)}</td>
+            <td>
+              <div>${rating}</div>
+              <div class="subline">${ratingCount} ratings</div>
+            </td>
+            <td>
+              <div class="links">
+                ${row.platinum_url ? `<a href="${row.platinum_url}" target="_blank" rel="noopener">Platinum</a>` : `<span class="muted">Platinum N/A</span>`}
+                ${row.grand_cru_url ? `<a href="${row.grand_cru_url}" target="_blank" rel="noopener">Grand Cru</a>` : `<span class="muted">Grand Cru N/A</span>`}
+                ${row.vivino_url ? `<a href="${row.vivino_url}" target="_blank" rel="noopener">Vivino</a>` : `<span class="muted">Vivino N/A</span>`}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    async function loadHealth() {
+      const health = await fetchJson(`${getApiBase()}/health`);
+      ui.totalDeals.textContent = String(health.total_deals ?? 0);
+      ui.totalSnapshots.textContent = String(health.total_snapshots ?? 0);
+      ui.retentionDays.textContent = String(health.history_retention_days ?? "-");
+      ui.latestPull.textContent = formatDateTime(health.latest_ingestion?.finished_at);
+      ui.freshnessStatus.textContent = health.ingestion_stale ? "Stale" : "Fresh";
+    }
+
+    async function loadDeals() {
+      const rows = await fetchJson(buildDealsUrl());
+      currentRows = Array.isArray(rows) ? rows : [];
+      renderDeals(sortRows(currentRows));
+    }
+
+    async function refreshDashboard() {
+      errorText.textContent = "";
+      try {
+        await Promise.all([loadHealth(), loadDeals()]);
+      } catch (err) {
+        dealsBody.innerHTML = `<tr><td colspan="6" class="muted">Unable to load data.</td></tr>`;
+        errorText.textContent = `Failed to load dashboard: ${err.message}`;
+      }
+    }
+
+    filtersForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      await refreshDashboard();
+    });
+
+    sortForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      renderDeals(sortRows(currentRows));
+    });
+
+    function init() {
+      refreshDashboard();
+    }
+
+    init();
+  </script>
+</body>
+</html>
