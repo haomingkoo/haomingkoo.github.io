@@ -298,18 +298,18 @@
           <img src="hero.jpg" alt="" style="width:100%;border-radius:16px;object-fit:cover;" />
       -->
       <div class="hero-visual">
-        <svg viewBox="0 0 380 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg id="market-chart" viewBox="0 0 380 260" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#3b82f6" stop-opacity=".18"/>
+              <stop offset="0%"   stop-color="#3b82f6" stop-opacity=".15"/>
               <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
             </linearGradient>
             <linearGradient id="areaGrad2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#1e3a5f" stop-opacity=".3"/>
-              <stop offset="100%" stop-color="#1e3a5f" stop-opacity="0"/>
+              <stop offset="0%"   stop-color="#6b7280" stop-opacity=".12"/>
+              <stop offset="100%" stop-color="#6b7280" stop-opacity="0"/>
             </linearGradient>
             <filter id="glow">
-              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feGaussianBlur stdDeviation="2.5" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
@@ -317,63 +317,111 @@
           <!-- Panel background -->
           <rect width="380" height="260" rx="16" fill="#0c0c0c" stroke="#1e1e1e" stroke-width="1"/>
 
-          <!-- Subtle grid -->
-          <line x1="24" y1="222" x2="356" y2="222" stroke="#1c1c1c" stroke-width=".8"/>
-          <line x1="24" y1="178" x2="356" y2="178" stroke="#1c1c1c" stroke-width=".8"/>
-          <line x1="24" y1="134" x2="356" y2="134" stroke="#1c1c1c" stroke-width=".8"/>
-          <line x1="24" y1="90"  x2="356" y2="90"  stroke="#1c1c1c" stroke-width=".8"/>
+          <!-- Grid lines -->
+          <line x1="24" y1="214" x2="356" y2="214" stroke="#1c1c1c" stroke-width=".8"/>
+          <line x1="24" y1="175" x2="356" y2="175" stroke="#1c1c1c" stroke-width=".8"/>
+          <line x1="24" y1="136" x2="356" y2="136" stroke="#1c1c1c" stroke-width=".8"/>
+          <line x1="24" y1="97"  x2="356" y2="97"  stroke="#1c1c1c" stroke-width=".8"/>
 
-          <!-- Ticker bar -->
-          <text x="24" y="32" fill="#374151" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".08em">SPY</text>
-          <text x="66" y="32" fill="#1f2937" font-size="10" font-family="Inter,sans-serif">|</text>
-          <text x="76" y="32" fill="#374151" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".08em">QQQ</text>
-          <text x="118" y="32" fill="#1f2937" font-size="10" font-family="Inter,sans-serif">|</text>
-          <text x="128" y="32" fill="#374151" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".08em">^VIX</text>
+          <!-- Ticker labels (updated by JS) -->
+          <text id="mc-spy-label" x="24" y="32" fill="#3b82f6" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".04em">SPY —</text>
+          <text id="mc-qqq-label" x="120" y="32" fill="#6b7280" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".04em">QQQ —</text>
 
-          <!-- Live pill -->
-          <circle cx="324" cy="27" r="4" fill="#22c55e">
-            <animate attributeName="opacity" values="1;.3;1" dur="2.5s" repeatCount="indefinite"/>
-          </circle>
-          <text x="332" y="31" fill="#22c55e" font-size="9" font-family="Inter,sans-serif" opacity=".75" font-weight="500">LIVE</text>
+          <!-- "as of" date (updated by JS) -->
+          <text id="mc-asof" x="356" y="32" fill="#374151" font-size="9" font-family="Inter,sans-serif" text-anchor="end">loading…</text>
 
-          <!-- Secondary line area -->
-          <polygon points="24,215 70,198 116,205 162,182 208,186 254,162 300,152 346,138 356,135 356,222 24,222"
-                   fill="url(#areaGrad2)"/>
-          <!-- Secondary line -->
-          <polyline points="24,215 70,198 116,205 162,182 208,186 254,162 300,152 346,138 356,135"
-                    stroke="#1e3a5f" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- QQQ area + line (updated by JS) -->
+          <polygon id="mc-qqq-area" points="24,214 356,214" fill="url(#areaGrad2)"/>
+          <polyline id="mc-qqq-line" points="24,175 356,175"
+                    stroke="#4b5563" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
 
-          <!-- Main line area -->
-          <polygon points="24,200 70,178 116,192 162,154 208,161 254,122 300,108 346,88 356,76 356,222 24,222"
-                   fill="url(#areaGrad)"/>
-          <!-- Main line -->
-          <polyline points="24,200 70,178 116,192 162,154 208,161 254,122 300,108 346,88 356,76"
-                    stroke="#3b82f6" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"
+          <!-- SPY area + line (updated by JS) -->
+          <polygon id="mc-spy-area" points="24,214 356,214" fill="url(#areaGrad)"/>
+          <polyline id="mc-spy-line" points="24,175 356,175"
+                    stroke="#3b82f6" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"
                     filter="url(#glow)"/>
 
-          <!-- Interior nodes -->
-          <circle cx="162" cy="154" r="3.5" fill="#3b82f6" opacity=".6"/>
-          <circle cx="254" cy="122" r="3.5" fill="#3b82f6" opacity=".7"/>
-          <circle cx="300" cy="108" r="3.5" fill="#3b82f6" opacity=".7"/>
+          <!-- Live end-node (anchored by JS) -->
+          <circle id="mc-end-dot" cx="356" cy="175" r="4.5" fill="#3b82f6" filter="url(#glow)"/>
 
-          <!-- Live end-node -->
-          <circle cx="356" cy="76" r="5" fill="#3b82f6" filter="url(#glow)">
-            <animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="356" cy="76" r="12" fill="#3b82f6" opacity=".08">
-            <animate attributeName="r"       values="10;18;10" dur="2s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values=".08;0;.08" dur="2s" repeatCount="indefinite"/>
-          </circle>
-
-          <!-- Return label -->
-          <text x="290" y="96" fill="#3b82f6" font-size="9.5" font-family="Inter,sans-serif" opacity=".85" font-weight="500">+14.2%</text>
-
-          <!-- Bottom axis ticks -->
-          <text x="22"  y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">Sep</text>
-          <text x="112" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">Nov</text>
-          <text x="206" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">Jan</text>
-          <text x="300" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">Mar</text>
+          <!-- Date axis (updated by JS) -->
+          <text id="mc-date-0"   x="24"  y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">—</text>
+          <text id="mc-date-mid" x="183" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">—</text>
+          <text id="mc-date-end" x="356" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
         </svg>
+
+        <script>
+        (function () {
+          var API = 'https://trader.kooexperience.com/api/market-summary?days=90';
+          var CX0 = 24, CX1 = 356, CY0 = 56, CY1 = 214; // chart drawing area
+
+          function fmtMon(d) {
+            return new Date(d + 'T00:00:00').toLocaleString('en-US', { month: 'short' });
+          }
+          function fmtChg(v) {
+            return (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+          }
+          function makePoints(pcts, n) {
+            return pcts.map(function(p, i) {
+              var x = (CX0 + (i / (n - 1)) * (CX1 - CX0)).toFixed(1);
+              var y = toY(p);
+              return x + ',' + y;
+            }).join(' ');
+          }
+
+          var toY; // set after we know the range
+
+          fetch(API, { signal: AbortSignal.timeout(8000) })
+            .then(function(r) { return r.ok ? r.json() : Promise.reject('api error'); })
+            .then(function(data) {
+              var spy = data.tickers && data.tickers.SPY;
+              var qqq = data.tickers && data.tickers.QQQ;
+              if (!spy || !qqq) throw new Error('missing');
+
+              var base_spy = spy.history[0].close;
+              var base_qqq = qqq.history[0].close;
+              var spyPct = spy.history.map(function(h) { return (h.close - base_spy) / base_spy * 100; });
+              var qqqPct = qqq.history.map(function(h) { return (h.close - base_qqq) / base_qqq * 100; });
+
+              var all = spyPct.concat(qqqPct);
+              var lo = Math.min.apply(null, all);
+              var hi = Math.max.apply(null, all);
+              var range = hi - lo || 1;
+              var pad = range * 0.15;
+              toY = function(p) {
+                return (CY1 - ((p - lo + pad) / (range + 2 * pad)) * (CY1 - CY0)).toFixed(1);
+              };
+
+              var N = spy.history.length;
+              var spyPts = makePoints(spyPct, N);
+              var qqqPts = makePoints(qqqPct, N);
+
+              // Build area polygon (line points + bottom-right + bottom-left)
+              var lastX = CX1.toFixed(1);
+              var lastSpyY = toY(spyPct[N - 1]);
+              var lastQqqY = toY(qqqPct[N - 1]);
+
+              document.getElementById('mc-spy-line').setAttribute('points', spyPts);
+              document.getElementById('mc-qqq-line').setAttribute('points', qqqPts);
+              document.getElementById('mc-spy-area').setAttribute('points', spyPts + ' ' + lastX + ',' + CY1 + ' ' + CX0 + ',' + CY1);
+              document.getElementById('mc-qqq-area').setAttribute('points', qqqPts + ' ' + lastX + ',' + CY1 + ' ' + CX0 + ',' + CY1);
+              document.getElementById('mc-end-dot').setAttribute('cx', lastX);
+              document.getElementById('mc-end-dot').setAttribute('cy', lastSpyY);
+
+              document.getElementById('mc-spy-label').textContent = 'SPY ' + fmtChg(spy.change_pct_period);
+              document.getElementById('mc-qqq-label').textContent = 'QQQ ' + fmtChg(qqq.change_pct_period);
+              document.getElementById('mc-asof').textContent = 'as of ' + data.as_of;
+
+              var dates = spy.history.map(function(h) { return h.date; });
+              document.getElementById('mc-date-0').textContent   = fmtMon(dates[0]);
+              document.getElementById('mc-date-mid').textContent = fmtMon(dates[Math.floor(N / 2)]);
+              document.getElementById('mc-date-end').textContent = fmtMon(dates[N - 1]);
+            })
+            .catch(function() {
+              document.getElementById('mc-asof').textContent = 'data unavailable';
+            });
+        })();
+        </script>
       </div>
     </section>
 
