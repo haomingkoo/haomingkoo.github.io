@@ -304,10 +304,6 @@
               <stop offset="0%"   stop-color="#3b82f6" stop-opacity=".15"/>
               <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
             </linearGradient>
-            <linearGradient id="areaGrad2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#6b7280" stop-opacity=".12"/>
-              <stop offset="100%" stop-color="#6b7280" stop-opacity="0"/>
-            </linearGradient>
             <filter id="glow">
               <feGaussianBlur stdDeviation="2.5" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -318,100 +314,98 @@
           <rect width="380" height="260" rx="16" fill="#0c0c0c" stroke="#1e1e1e" stroke-width="1"/>
 
           <!-- Grid lines -->
-          <line x1="24" y1="214" x2="356" y2="214" stroke="#1c1c1c" stroke-width=".8"/>
-          <line x1="24" y1="175" x2="356" y2="175" stroke="#1c1c1c" stroke-width=".8"/>
-          <line x1="24" y1="136" x2="356" y2="136" stroke="#1c1c1c" stroke-width=".8"/>
-          <line x1="24" y1="97"  x2="356" y2="97"  stroke="#1c1c1c" stroke-width=".8"/>
+          <line x1="56" y1="214" x2="356" y2="214" stroke="#1c1c1c" stroke-width=".8"/>
+          <line x1="56" y1="175" x2="356" y2="175" stroke="#1c1c1c" stroke-width=".8"/>
+          <line x1="56" y1="136" x2="356" y2="136" stroke="#1c1c1c" stroke-width=".8"/>
+          <line x1="56" y1="97"  x2="356" y2="97"  stroke="#1c1c1c" stroke-width=".8"/>
 
-          <!-- Ticker labels (updated by JS) -->
-          <text id="mc-spy-label" x="24" y="32" fill="#3b82f6" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".04em">SPY —</text>
-          <text id="mc-qqq-label" x="120" y="32" fill="#6b7280" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".04em">QQQ —</text>
+          <!-- Y axis price labels (updated by JS) -->
+          <text id="mc-y0" x="52" y="217" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
+          <text id="mc-y1" x="52" y="178" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
+          <text id="mc-y2" x="52" y="139" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
+          <text id="mc-y3" x="52" y="100" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
 
-          <!-- "as of" date (updated by JS) -->
-          <text id="mc-asof" x="356" y="32" fill="#374151" font-size="9" font-family="Inter,sans-serif" text-anchor="end">loading…</text>
-
-          <!-- QQQ area + line (updated by JS) -->
-          <polygon id="mc-qqq-area" points="24,214 356,214" fill="url(#areaGrad2)"/>
-          <polyline id="mc-qqq-line" points="24,175 356,175"
-                    stroke="#4b5563" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Header: ticker + price + return -->
+          <text x="56" y="32" fill="#3b82f6" font-size="10" font-family="Inter,sans-serif" font-weight="700">SPY</text>
+          <text id="mc-spy-info" x="80" y="32" fill="#4b5563" font-size="9.5" font-family="Inter,sans-serif">—</text>
+          <!-- "daily close · as of [date]" -->
+          <text id="mc-asof" x="356" y="32" fill="#2a2a2a" font-size="8.5" font-family="Inter,sans-serif" text-anchor="end">loading…</text>
 
           <!-- SPY area + line (updated by JS) -->
-          <polygon id="mc-spy-area" points="24,214 356,214" fill="url(#areaGrad)"/>
-          <polyline id="mc-spy-line" points="24,175 356,175"
+          <polygon id="mc-spy-area" points="56,214 356,214" fill="url(#areaGrad)"/>
+          <polyline id="mc-spy-line" points="56,175 356,175"
                     stroke="#3b82f6" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"
                     filter="url(#glow)"/>
 
-          <!-- Live end-node (anchored by JS) -->
-          <circle id="mc-end-dot" cx="356" cy="175" r="4.5" fill="#3b82f6" filter="url(#glow)"/>
+          <!-- End-node (anchored by JS) -->
+          <circle id="mc-end-dot" cx="356" cy="175" r="4" fill="#3b82f6" filter="url(#glow)"/>
 
           <!-- Date axis (updated by JS) -->
-          <text id="mc-date-0"   x="24"  y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">—</text>
-          <text id="mc-date-mid" x="183" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">—</text>
+          <text id="mc-date-0"   x="56"  y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif">—</text>
+          <text id="mc-date-mid" x="206" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">—</text>
           <text id="mc-date-end" x="356" y="242" fill="#2a2a2a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
         </svg>
 
         <script>
         (function () {
           var API = 'https://trader.kooexperience.com/api/market-summary?days=90';
-          var CX0 = 24, CX1 = 356, CY0 = 56, CY1 = 214; // chart drawing area
+          var CX0 = 56, CX1 = 356, CY0 = 56, CY1 = 214;
+          var GRID_YS = [214, 175, 136, 97];
 
           function fmtMon(d) {
             return new Date(d + 'T00:00:00').toLocaleString('en-US', { month: 'short' });
           }
           function fmtChg(v) {
-            return (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
-          }
-          function makePoints(pcts, n) {
-            return pcts.map(function(p, i) {
-              var x = (CX0 + (i / (n - 1)) * (CX1 - CX0)).toFixed(1);
-              var y = toY(p);
-              return x + ',' + y;
-            }).join(' ');
+            return (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
           }
 
-          var toY; // set after we know the range
+          var lo, fullRange;
+          function toY(price) {
+            return (CY1 - ((price - lo) / fullRange) * (CY1 - CY0)).toFixed(1);
+          }
+          function makePoints(closes, n) {
+            return closes.map(function(p, i) {
+              var x = (CX0 + (i / (n - 1)) * (CX1 - CX0)).toFixed(1);
+              return x + ',' + toY(p);
+            }).join(' ');
+          }
 
           fetch(API, { signal: AbortSignal.timeout(8000) })
             .then(function(r) { return r.ok ? r.json() : Promise.reject('api error'); })
             .then(function(data) {
               var spy = data.tickers && data.tickers.SPY;
-              var qqq = data.tickers && data.tickers.QQQ;
-              if (!spy || !qqq) throw new Error('missing');
+              if (!spy) throw new Error('missing');
 
-              var base_spy = spy.history[0].close;
-              var base_qqq = qqq.history[0].close;
-              var spyPct = spy.history.map(function(h) { return (h.close - base_spy) / base_spy * 100; });
-              var qqqPct = qqq.history.map(function(h) { return (h.close - base_qqq) / base_qqq * 100; });
+              var closes = spy.history.map(function(h) { return h.close; });
+              var priceMin = Math.min.apply(null, closes);
+              var priceMax = Math.max.apply(null, closes);
+              var range = priceMax - priceMin || 1;
+              var pad = range * 0.1;
+              lo = priceMin - pad;
+              fullRange = range + 2 * pad;
 
-              var all = spyPct.concat(qqqPct);
-              var lo = Math.min.apply(null, all);
-              var hi = Math.max.apply(null, all);
-              var range = hi - lo || 1;
-              var pad = range * 0.15;
-              toY = function(p) {
-                return (CY1 - ((p - lo + pad) / (range + 2 * pad)) * (CY1 - CY0)).toFixed(1);
-              };
-
-              var N = spy.history.length;
-              var spyPts = makePoints(spyPct, N);
-              var qqqPts = makePoints(qqqPct, N);
-
-              // Build area polygon (line points + bottom-right + bottom-left)
+              var N = closes.length;
+              var pts = makePoints(closes, N);
               var lastX = CX1.toFixed(1);
-              var lastSpyY = toY(spyPct[N - 1]);
-              var lastQqqY = toY(qqqPct[N - 1]);
+              var lastY = toY(closes[N - 1]);
 
-              document.getElementById('mc-spy-line').setAttribute('points', spyPts);
-              document.getElementById('mc-qqq-line').setAttribute('points', qqqPts);
-              document.getElementById('mc-spy-area').setAttribute('points', spyPts + ' ' + lastX + ',' + CY1 + ' ' + CX0 + ',' + CY1);
-              document.getElementById('mc-qqq-area').setAttribute('points', qqqPts + ' ' + lastX + ',' + CY1 + ' ' + CX0 + ',' + CY1);
+              document.getElementById('mc-spy-line').setAttribute('points', pts);
+              document.getElementById('mc-spy-area').setAttribute('points', pts + ' ' + lastX + ',' + CY1 + ' ' + CX0 + ',' + CY1);
               document.getElementById('mc-end-dot').setAttribute('cx', lastX);
-              document.getElementById('mc-end-dot').setAttribute('cy', lastSpyY);
+              document.getElementById('mc-end-dot').setAttribute('cy', lastY);
 
-              document.getElementById('mc-spy-label').textContent = 'SPY ' + fmtChg(spy.change_pct_period);
-              document.getElementById('mc-qqq-label').textContent = 'QQQ ' + fmtChg(qqq.change_pct_period);
-              document.getElementById('mc-asof').textContent = 'as of ' + data.as_of;
+              // Y axis: price at each grid line
+              GRID_YS.forEach(function(gy, i) {
+                var price = lo + ((CY1 - gy) / (CY1 - CY0)) * fullRange;
+                document.getElementById('mc-y' + i).textContent = '$' + Math.round(price);
+              });
 
+              // Header
+              document.getElementById('mc-spy-info').textContent =
+                '$' + spy.price.toFixed(2) + '  ' + fmtChg(spy.change_pct_1d) + ' today  ·  ' + fmtChg(spy.change_pct_period) + ' (90d)';
+              document.getElementById('mc-asof').textContent = 'daily close · ' + data.as_of;
+
+              // Date axis
               var dates = spy.history.map(function(h) { return h.date; });
               document.getElementById('mc-date-0').textContent   = fmtMon(dates[0]);
               document.getElementById('mc-date-mid').textContent = fmtMon(dates[Math.floor(N / 2)]);
