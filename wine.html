@@ -509,8 +509,14 @@
 
       if (search) params.set("search", search);
       if (cheaperSide) params.set("cheaper_side", cheaperSide);
-      if (minRating) params.set("min_vivino_rating", minRating);
-      if (minRaters) params.set("min_vivino_num_ratings", minRaters);
+      const minRatingNum = Number(minRating);
+      const minRatersNum = Number(minRaters);
+      if (minRating && Number.isFinite(minRatingNum) && minRatingNum > 0) {
+        params.set("min_vivino_rating", minRating);
+      }
+      if (minRaters && Number.isFinite(minRatersNum) && minRatersNum > 0) {
+        params.set("min_vivino_num_ratings", minRaters);
+      }
       if (maxPrice) params.set("max_platinum_price", maxPrice);
       if (sortBy) params.set("sort_by", sortBy);
       if (sortOrder) params.set("sort_order", sortOrder);
