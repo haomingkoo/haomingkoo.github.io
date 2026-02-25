@@ -236,6 +236,51 @@
       margin-top: 4px;
     }
 
+    /* ── Embedded Lab ───────────────────────────────────────────────────── */
+    .embed-section {
+      padding: 6px 0 68px;
+    }
+    .embed-shell {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 100%);
+      box-shadow: 0 8px 32px rgba(0,0,0,.35);
+      opacity: 0;
+      animation: fadeUp .6s .55s ease forwards;
+    }
+    .embed-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      background: #0b0b0b;
+      flex-wrap: wrap;
+    }
+    .embed-title {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .embed-open {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 12.5px;
+      letter-spacing: .02em;
+    }
+    .embed-open:hover { color: var(--text); }
+    .embed-frame {
+      width: 100%;
+      height: 900px;
+      border: 0;
+      display: block;
+      background: #0a0a0a;
+    }
+
     /* ── Footer ──────────────────────────────────────────────────────────── */
     footer {
       border-top: 1px solid var(--border);
@@ -269,6 +314,9 @@
     /* ── Responsive ──────────────────────────────────────────────────────── */
     @media (max-width: 520px) {
       footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+    }
+    @media (max-width: 900px) {
+      .embed-frame { height: 760px; }
     }
   </style>
 </head>
@@ -501,7 +549,23 @@
           </p>
           <span class="card-link-hint">View live &rsaquo;</span>
         </a>
+      </div>
+    </section>
 
+    <!-- Embedded Handwriting Lab -->
+    <section class="embed-section">
+      <p class="section-label">Try It Live</p>
+      <div class="embed-shell">
+        <div class="embed-head">
+          <span class="embed-title">Handwriting Lab Embed</span>
+          <a class="embed-open" href="https://handwriting-lab-production.up.railway.app/" target="_blank" rel="noopener">Open in full page &rsaquo;</a>
+        </div>
+        <iframe
+          class="embed-frame"
+          title="Handwriting Lab"
+          loading="lazy"
+          src="https://handwriting-lab-production.up.railway.app/">
+        </iframe>
       </div>
     </section>
 
