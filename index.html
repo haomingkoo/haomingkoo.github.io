@@ -275,7 +275,7 @@
     .embed-open:hover { color: var(--text); }
     .embed-frame {
       width: 100%;
-      height: 900px;
+      height: clamp(620px, 84vh, 920px);
       border: 0;
       display: block;
       background: #0a0a0a;
@@ -313,10 +313,16 @@
 
     /* ── Responsive ──────────────────────────────────────────────────────── */
     @media (max-width: 520px) {
+      .container { padding: 0 16px; }
+      .nav-links { gap: 12px; }
       footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .embed-frame { height: 580px; }
     }
     @media (max-width: 900px) {
       .embed-frame { height: 760px; }
+    }
+    @media (max-width: 700px) {
+      .embed-frame { height: 660px; }
     }
   </style>
 </head>
