@@ -29,6 +29,7 @@
       color: var(--text);
       font-family: 'Inter', system-ui, sans-serif;
       font-size: 15px;
+      -webkit-text-size-adjust: 100%;
       line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
@@ -197,7 +198,13 @@
     }
     tr:hover td { background: rgba(59,130,246,.04); }
 
-    .wine-name { font-weight: 600; color: var(--text); }
+    .wine-name {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.35;
+      word-break: break-word;
+    }
     .subline { color: var(--muted); font-size: 12px; }
 
     .delta-pos { color: var(--bad); font-weight: 600; }
@@ -230,6 +237,27 @@
       gap: 10px;
       align-items: end;
     }
+    .table-tools {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: #0c0c0c;
+      padding: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .table-tools .field input,
+    .table-tools .field select,
+    .table-tools .btn {
+      height: 36px;
+      font-size: 13px;
+    }
+    .tools-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 2px 0;
+    }
 
     @media (max-width: 1100px) {
       .filter-grid { grid-template-columns: repeat(3, minmax(160px, 1fr)); }
@@ -241,6 +269,9 @@
       .sort-grid { grid-template-columns: repeat(2, minmax(145px, 1fr)); }
       .container { padding: 0 16px 40px; }
       .nav-links { gap: 14px; }
+      th, td { padding: 10px 9px; font-size: 12px; }
+      .wine-name { font-size: 12px; line-height: 1.3; }
+      .subline { font-size: 11px; }
     }
     @media (max-width: 520px) {
       .filter-grid { grid-template-columns: 1fr; }
@@ -251,9 +282,9 @@
 <body>
   <div class="container">
     <nav>
-      <a class="nav-logo" href="./index.html">HK</a>
+      <a class="nav-logo" href="https://kooexperience.com/">HK</a>
       <div class="nav-links">
-        <a href="./index.html">Home</a>
+        <a href="https://kooexperience.com/">Home</a>
         <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
       </div>
     </nav>
@@ -269,60 +300,6 @@
     </section>
 
     <section class="panel">
-      <p class="panel-title">Filters & Sort</p>
-      <form id="filtersForm" class="filter-grid">
-        <div class="field">
-          <label for="search">Search Wine</label>
-          <input id="search" type="text" placeholder="e.g. Barolo, Champagne" />
-        </div>
-        <div class="field">
-          <label for="cheaperSide">Cheaper Side</label>
-          <select id="cheaperSide">
-            <option value="all" selected>All</option>
-            <option value="Platinum Cheaper">Platinum Cheaper</option>
-            <option value="Grand Cru Cheaper">Grand Cru Cheaper</option>
-            <option value="Same Price">Same Price</option>
-            <option value="No Match">No Match</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="minRating">Min Vivino Rating</label>
-          <input id="minRating" type="number" value="0" min="0" max="5" step="0.1" />
-        </div>
-        <div class="field">
-          <label for="minRaters">Min # Ratings</label>
-          <input id="minRaters" type="number" value="0" min="0" step="1" />
-        </div>
-        <div class="field">
-          <label for="maxPrice">Max Platinum Price</label>
-          <input id="maxPrice" type="number" value="" min="0" step="0.01" placeholder="No cap" />
-        </div>
-        <div class="field">
-          <label for="sortBy">Sort By</label>
-          <select id="sortBy">
-            <option value="vivino_rating" selected>Vivino Rating</option>
-            <option value="vivino_num_ratings"># Ratings</option>
-            <option value="price_diff_pct">% Difference</option>
-            <option value="price_platinum">Platinum Price</option>
-            <option value="wine_name">Wine Name</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="sortOrder">Sort Order</label>
-          <select id="sortOrder">
-            <option value="desc">Descending</option>
-            <option value="asc">Ascending</option>
-          </select>
-        </div>
-        <div class="field" style="justify-content: flex-end;">
-          <label>&nbsp;</label>
-          <button class="btn btn-primary" type="submit">Apply</button>
-        </div>
-      </form>
-      <div class="error" id="errorText"></div>
-    </section>
-
-    <section class="panel">
       <p class="panel-title">Snapshot</p>
       <div class="stats-row">
         <div class="chip">Rows: <strong id="rowCount">0</strong></div>
@@ -335,6 +312,124 @@
 
     <section class="panel">
       <p class="panel-title">Deals</p>
+      <div class="table-tools">
+        <form id="filtersForm" class="filter-grid">
+          <div class="field">
+            <label for="search">Search Wine</label>
+            <input id="search" type="text" placeholder="e.g. Barolo, Champagne" />
+          </div>
+          <div class="field">
+            <label for="cheaperSide">Cheaper Side</label>
+            <select id="cheaperSide">
+              <option value="all" selected>All</option>
+              <option value="Platinum Cheaper">Platinum Cheaper</option>
+              <option value="Grand Cru Cheaper">Grand Cru Cheaper</option>
+              <option value="Same Price">Same Price</option>
+              <option value="No Match">No Match</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="minRating">Min Vivino Rating</label>
+            <input id="minRating" type="number" value="0" min="0" max="5" step="0.1" />
+          </div>
+          <div class="field">
+            <label for="minRaters">Min # Ratings</label>
+            <input id="minRaters" type="number" value="0" min="0" step="1" />
+          </div>
+          <div class="field">
+            <label for="maxPrice">Max Platinum Price</label>
+            <input id="maxPrice" type="number" value="" min="0" step="0.01" placeholder="No cap" />
+          </div>
+          <div class="field">
+            <label for="sortBy">Sort By</label>
+            <select id="sortBy">
+              <option value="vivino_rating" selected>Vivino Rating</option>
+              <option value="vivino_num_ratings"># Ratings</option>
+              <option value="price_diff_pct">% Difference</option>
+              <option value="price_platinum">Platinum Price</option>
+              <option value="wine_name">Wine Name</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sortOrder">Sort Order</label>
+            <select id="sortOrder">
+              <option value="desc">Descending</option>
+              <option value="asc">Ascending</option>
+            </select>
+          </div>
+          <div class="field" style="justify-content: flex-end;">
+            <label>&nbsp;</label>
+            <button class="btn btn-primary" type="submit">Apply</button>
+          </div>
+        </form>
+
+        <div class="tools-divider"></div>
+
+        <form id="sortForm" class="sort-grid">
+          <div class="field">
+            <label for="sort1Field">Primary Field</label>
+            <select id="sort1Field">
+              <option value="vivino_rating" selected>Vivino Rating</option>
+              <option value="vivino_num_ratings"># Ratings</option>
+              <option value="price_diff_pct">% Difference</option>
+              <option value="price_platinum">Platinum Price</option>
+              <option value="price_grand_cru">Grand Cru Price</option>
+              <option value="wine_name">Wine Name</option>
+              <option value="vintage">Vintage</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sort1Order">Primary Order</label>
+            <select id="sort1Order">
+              <option value="desc" selected>Descending</option>
+              <option value="asc">Ascending</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sort2Field">Secondary Field</label>
+            <select id="sort2Field">
+              <option value="">None</option>
+              <option value="vivino_num_ratings"># Ratings</option>
+              <option value="price_diff_pct">% Difference</option>
+              <option value="price_platinum">Platinum Price</option>
+              <option value="price_grand_cru">Grand Cru Price</option>
+              <option value="wine_name">Wine Name</option>
+              <option value="vintage">Vintage</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sort2Order">Secondary Order</label>
+            <select id="sort2Order">
+              <option value="desc" selected>Descending</option>
+              <option value="asc">Ascending</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sort3Field">Tertiary Field</label>
+            <select id="sort3Field">
+              <option value="">None</option>
+              <option value="price_diff_pct">% Difference</option>
+              <option value="price_platinum">Platinum Price</option>
+              <option value="price_grand_cru">Grand Cru Price</option>
+              <option value="wine_name">Wine Name</option>
+              <option value="vintage">Vintage</option>
+              <option value="vivino_num_ratings"># Ratings</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sort3Order">Tertiary Order</label>
+            <select id="sort3Order">
+              <option value="desc" selected>Descending</option>
+              <option value="asc">Ascending</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>&nbsp;</label>
+            <button class="btn btn-primary" type="submit">Apply Multi Sort</button>
+          </div>
+        </form>
+      </div>
+      <div class="error" id="errorText"></div>
       <div class="table-wrap">
         <table>
           <thead>
@@ -354,72 +449,6 @@
       </div>
     </section>
 
-    <section class="panel">
-      <p class="panel-title">Multi Sort</p>
-      <form id="sortForm" class="sort-grid">
-        <div class="field">
-          <label for="sort1Field">Primary Field</label>
-          <select id="sort1Field">
-            <option value="vivino_rating" selected>Vivino Rating</option>
-            <option value="vivino_num_ratings"># Ratings</option>
-            <option value="price_diff_pct">% Difference</option>
-            <option value="price_platinum">Platinum Price</option>
-            <option value="price_grand_cru">Grand Cru Price</option>
-            <option value="wine_name">Wine Name</option>
-            <option value="vintage">Vintage</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="sort1Order">Primary Order</label>
-          <select id="sort1Order">
-            <option value="desc" selected>Descending</option>
-            <option value="asc">Ascending</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="sort2Field">Secondary Field</label>
-          <select id="sort2Field">
-            <option value="">None</option>
-            <option value="vivino_num_ratings"># Ratings</option>
-            <option value="price_diff_pct">% Difference</option>
-            <option value="price_platinum">Platinum Price</option>
-            <option value="price_grand_cru">Grand Cru Price</option>
-            <option value="wine_name">Wine Name</option>
-            <option value="vintage">Vintage</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="sort2Order">Secondary Order</label>
-          <select id="sort2Order">
-            <option value="desc" selected>Descending</option>
-            <option value="asc">Ascending</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="sort3Field">Tertiary Field</label>
-          <select id="sort3Field">
-            <option value="">None</option>
-            <option value="price_diff_pct">% Difference</option>
-            <option value="price_platinum">Platinum Price</option>
-            <option value="price_grand_cru">Grand Cru Price</option>
-            <option value="wine_name">Wine Name</option>
-            <option value="vintage">Vintage</option>
-            <option value="vivino_num_ratings"># Ratings</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="sort3Order">Tertiary Order</label>
-          <select id="sort3Order">
-            <option value="desc" selected>Descending</option>
-            <option value="asc">Ascending</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>&nbsp;</label>
-          <button class="btn btn-primary" type="submit">Apply Multi Sort</button>
-        </div>
-      </form>
-    </section>
   </div>
 
   <script>
