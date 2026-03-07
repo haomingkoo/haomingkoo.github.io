@@ -1,520 +1,850 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Haoming Koo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haoming Koo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    :root {
-      --bg:        #080808;
-      --surface:   #111111;
-      --border:    #1e1e1e;
-      --accent:    #3b82f6;
-      --accent-dim: rgba(59,130,246,.12);
-      --text:      #f0f0f0;
-      --muted:     #6b7280;
-      --live:      #22c55e;
-    }
+      :root {
+        --bg: #080808;
+        --surface: #111111;
+        --border: #1e1e1e;
+        --accent: #3b82f6;
+        --accent-dim: rgba(59, 130, 246, 0.12);
+        --text: #f0f0f0;
+        --muted: #6b7280;
+        --live: #22c55e;
+      }
 
-    html { scroll-behavior: smooth; }
+      html {
+        scroll-behavior: smooth;
+      }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', system-ui, sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px;
+        line-height: 1.6;
+        min-height: 100vh;
+        overflow-x: hidden;
 
-      /* dot grid */
-      background-image:
-        radial-gradient(circle at 60% 10%, rgba(59,130,246,.08) 0%, transparent 55%),
-        radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px);
-      background-size: 100% 100%, 28px 28px;
-    }
+        /* dot grid */
+        background-image:
+          radial-gradient(
+            circle at 60% 10%,
+            rgba(59, 130, 246, 0.08) 0%,
+            transparent 55%
+          ),
+          radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+        background-size:
+          100% 100%,
+          28px 28px;
+      }
 
-    /* ── Layout ─────────────────────────────────────────────────────────── */
-    .container { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+      /* ── Layout ─────────────────────────────────────────────────────────── */
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
 
-    /* ── Nav ─────────────────────────────────────────────────────────────── */
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 28px 0 24px;
-    }
-    .nav-logo {
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: .04em;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .nav-links { display: flex; gap: 28px; }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 13.5px;
-      letter-spacing: .02em;
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--text); }
+      /* ── Nav ─────────────────────────────────────────────────────────────── */
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 0 24px;
+      }
+      .nav-logo {
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 28px;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 13.5px;
+        letter-spacing: 0.02em;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
 
-    /* ── Hero ────────────────────────────────────────────────────────────── */
-    .hero {
-      padding: 72px 0 64px;
-      display: flex;
-      align-items: center;
-      gap: 56px;
-    }
-    .hero-inner { flex: 1; min-width: 0; }
+      /* ── Hero ────────────────────────────────────────────────────────────── */
+      .hero {
+        padding: 72px 0 64px;
+        display: flex;
+        align-items: center;
+        gap: 56px;
+      }
+      .hero-inner {
+        flex: 1;
+        min-width: 0;
+      }
 
-    .hero-label {
-      font-size: 12.5px;
-      font-weight: 500;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: fadeUp .6s ease forwards;
-    }
-    .hero-title {
-      font-size: clamp(36px, 7vw, 64px);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -.03em;
-      margin-bottom: 24px;
-      background: linear-gradient(135deg, #f0f0f0 30%, #3b82f6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      opacity: 0;
-      animation: fadeUp .6s .1s ease forwards;
-    }
-    .hero-sub {
-      font-size: 16px;
-      color: var(--muted);
-      font-weight: 300;
-      opacity: 0;
-      animation: fadeUp .6s .2s ease forwards;
-    }
+      .hero-label {
+        font-size: 12.5px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeUp 0.6s ease forwards;
+      }
+      .hero-title {
+        font-size: clamp(36px, 7vw, 64px);
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        margin-bottom: 24px;
+        background: linear-gradient(135deg, #f0f0f0 30%, #3b82f6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        opacity: 0;
+        animation: fadeUp 0.6s 0.1s ease forwards;
+      }
+      .hero-sub {
+        font-size: 16px;
+        color: var(--muted);
+        font-weight: 300;
+        opacity: 0;
+        animation: fadeUp 0.6s 0.2s ease forwards;
+      }
 
-    /* ── Hero visual ─────────────────────────────────────────────────────── */
-    .hero-visual {
-      width: 340px;
-      flex-shrink: 0;
-      opacity: 0;
-      animation: fadeUp .7s .25s ease forwards;
-      /* swap src on the <img> tag below to use a real photo */
-    }
-    .hero-visual svg {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    @media (max-width: 700px) {
-      .hero { flex-direction: column; gap: 36px; padding: 56px 0 48px; }
-      .hero-visual { width: 100%; }
-    }
+      /* ── Hero visual ─────────────────────────────────────────────────────── */
+      .hero-visual {
+        width: 340px;
+        flex-shrink: 0;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.25s ease forwards;
+        /* swap src on the <img> tag below to use a real photo */
+      }
+      .hero-visual svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      @media (max-width: 700px) {
+        .hero {
+          flex-direction: column;
+          gap: 36px;
+          padding: 56px 0 48px;
+        }
+        .hero-visual {
+          width: 100%;
+        }
+      }
 
-    /* ── Section header ──────────────────────────────────────────────────── */
-    .section { padding: 20px 0 64px; }
-    .section-label {
-      font-size: 11.5px;
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp .6s .3s ease forwards;
-    }
+      /* ── Section header ──────────────────────────────────────────────────── */
+      .section {
+        padding: 20px 0 64px;
+      }
+      .section-label {
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 28px;
+        opacity: 0;
+        animation: fadeUp 0.6s 0.3s ease forwards;
+      }
 
-    /* ── Cards grid ──────────────────────────────────────────────────────── */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-    }
+      /* ── Cards grid ──────────────────────────────────────────────────────── */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 16px;
+      }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 28px 26px 24px;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
-      opacity: 0;
-    }
-    .card:nth-child(1) { animation: fadeUp .6s .35s ease forwards; }
-    .card:nth-child(2) { animation: fadeUp .6s .45s ease forwards; }
-    .card:nth-child(3) { animation: fadeUp .6s .55s ease forwards; }
-    .card:nth-child(4) { animation: fadeUp .6s .65s ease forwards; }
-    .card:nth-child(5) { animation: fadeUp .6s .75s ease forwards; }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 28px 26px 24px;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition:
+          transform 0.22s ease,
+          border-color 0.22s ease,
+          box-shadow 0.22s ease;
+        opacity: 0;
+      }
+      .card:nth-child(1) {
+        animation: fadeUp 0.6s 0.35s ease forwards;
+      }
+      .card:nth-child(2) {
+        animation: fadeUp 0.6s 0.45s ease forwards;
+      }
+      .card:nth-child(3) {
+        animation: fadeUp 0.6s 0.55s ease forwards;
+      }
+      .card:nth-child(4) {
+        animation: fadeUp 0.6s 0.65s ease forwards;
+      }
+      .card:nth-child(5) {
+        animation: fadeUp 0.6s 0.75s ease forwards;
+      }
+      .card:nth-child(6) {
+        animation: fadeUp 0.6s 0.85s ease forwards;
+      }
 
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(59,130,246,.35);
-      box-shadow: 0 8px 32px rgba(59,130,246,.1);
-    }
-    /* non-link cards (building/soon) */
-    .card[aria-disabled="true"] { cursor: default; }
-    .card[aria-disabled="true"]:hover {
-      transform: none;
-      border-color: var(--border);
-      box-shadow: none;
-    }
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(59, 130, 246, 0.35);
+        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+      }
+      /* non-link cards (building/soon) */
+      .card[aria-disabled="true"] {
+        cursor: default;
+      }
+      .card[aria-disabled="true"]:hover {
+        transform: none;
+        border-color: var(--border);
+        box-shadow: none;
+      }
 
-    /* badge row */
-    .card-top { display: flex; align-items: center; justify-content: space-between; }
+      /* badge row */
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-    .badge {
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 99px;
-    }
-    .badge-live {
-      background: rgba(34,197,94,.12);
-      color: var(--live);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .badge-live::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--live);
-      animation: pulse 2s infinite;
-    }
-    .badge-building {
-      background: rgba(251,191,36,.1);
-      color: #f59e0b;
-    }
-    .badge-soon {
-      background: rgba(107,114,128,.12);
-      color: var(--muted);
-    }
+      .badge {
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 3px 9px;
+        border-radius: 99px;
+      }
+      .badge-live {
+        background: rgba(34, 197, 94, 0.12);
+        color: var(--live);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .badge-live::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--live);
+        animation: pulse 2s infinite;
+      }
+      .badge-building {
+        background: rgba(251, 191, 36, 0.1);
+        color: #f59e0b;
+      }
+      .badge-soon {
+        background: rgba(107, 114, 128, 0.12);
+        color: var(--muted);
+      }
 
-    .card-icon {
-      font-size: 22px;
-      line-height: 1;
-    }
+      .card-icon {
+        font-size: 22px;
+        line-height: 1;
+      }
 
-    .card-name {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: -.01em;
-    }
-    .card-desc {
-      font-size: 13.5px;
-      color: var(--muted);
-      line-height: 1.55;
-      flex: 1;
-    }
-    .card-link-hint {
-      font-size: 12px;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 4px;
-    }
+      .card-name {
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: -0.01em;
+      }
+      .card-desc {
+        font-size: 13.5px;
+        color: var(--muted);
+        line-height: 1.55;
+        flex: 1;
+      }
+      .card-link-hint {
+        font-size: 12px;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 4px;
+      }
 
-    /* ── Footer ──────────────────────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 0 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      opacity: 0;
-      animation: fadeUp .6s .65s ease forwards;
-    }
-    .footer-copy { font-size: 13px; color: var(--muted); }
-    .footer-links { display: flex; gap: 20px; }
-    .footer-links a {
-      font-size: 13px;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color .2s;
-    }
-    .footer-links a:hover { color: var(--text); }
+      /* ── Footer ──────────────────────────────────────────────────────────── */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 32px 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        opacity: 0;
+        animation: fadeUp 0.6s 0.65s ease forwards;
+      }
+      .footer-copy {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .footer-links {
+        display: flex;
+        gap: 20px;
+      }
+      .footer-links a {
+        font-size: 13px;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: var(--text);
+      }
 
-    /* ── Animations ──────────────────────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: .4; transform: scale(1.4); }
-    }
+      /* ── Animations ──────────────────────────────────────────────────────── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.4;
+          transform: scale(1.4);
+        }
+      }
 
-    /* ── Responsive ──────────────────────────────────────────────────────── */
-    @media (max-width: 520px) {
-      .container { padding: 0 16px; }
-      .nav-links { gap: 12px; }
-      footer { flex-direction: column; gap: 16px; align-items: flex-start; }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
+      /* ── Responsive ──────────────────────────────────────────────────────── */
+      @media (max-width: 520px) {
+        .container {
+          padding: 0 16px;
+        }
+        .nav-links {
+          gap: 12px;
+        }
+        footer {
+          flex-direction: column;
+          gap: 16px;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Nav -->
+      <nav>
+        <a class="nav-logo" href="#">HK</a>
+        <div class="nav-links">
+          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener"
+            >GitHub</a
+          >
+          <a href="mailto:haomingkoo@gmail.com">Contact</a>
+        </div>
+      </nav>
 
-    <!-- Nav -->
-    <nav>
-      <a class="nav-logo" href="#">HK</a>
-      <div class="nav-links">
-        <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
-        <a href="mailto:haomingkoo@gmail.com">Contact</a>
-      </div>
-    </nav>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-inner">
+          <p class="hero-label">builder &middot; data &middot; markets</p>
+          <h1 class="hero-title">Haoming Koo</h1>
+          <p class="hero-sub">
+            Designing real-world AI systems across industries.
+          </p>
+        </div>
 
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-inner">
-        <p class="hero-label">builder &middot; data &middot; markets</p>
-        <h1 class="hero-title">Haoming Koo</h1>
-        <p class="hero-sub">
-          Designing real-world AI systems across industries.
-        </p>
-      </div>
-
-      <!--
+        <!--
         Hero visual — pure SVG abstract market chart.
         To use a real photo instead, replace the <svg>…</svg> block with:
           <img src="hero.jpg" alt="" style="width:100%;border-radius:16px;object-fit:cover;" />
       -->
-      <div class="hero-visual">
-        <svg id="market-chart" viewBox="0 0 380 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#3b82f6" stop-opacity=".15"/>
-              <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
-            </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="2.5" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
+        <div class="hero-visual">
+          <svg
+            id="market-chart"
+            viewBox="0 0 380 260"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3b82f6" stop-opacity=".15" />
+                <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="2.5" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
 
-          <!-- Panel background -->
-          <rect width="380" height="260" rx="16" fill="#0c0c0c" stroke="#1e1e1e" stroke-width="1"/>
+            <!-- Panel background -->
+            <rect
+              width="380"
+              height="260"
+              rx="16"
+              fill="#0c0c0c"
+              stroke="#1e1e1e"
+              stroke-width="1"
+            />
 
-          <!-- Grid lines -->
-          <line x1="56" y1="214" x2="356" y2="214" stroke="#252525" stroke-width=".8"/>
-          <line x1="56" y1="175" x2="356" y2="175" stroke="#252525" stroke-width=".8"/>
-          <line x1="56" y1="136" x2="356" y2="136" stroke="#252525" stroke-width=".8"/>
-          <line x1="56" y1="97"  x2="356" y2="97"  stroke="#252525" stroke-width=".8"/>
+            <!-- Grid lines -->
+            <line
+              x1="56"
+              y1="214"
+              x2="356"
+              y2="214"
+              stroke="#252525"
+              stroke-width=".8"
+            />
+            <line
+              x1="56"
+              y1="175"
+              x2="356"
+              y2="175"
+              stroke="#252525"
+              stroke-width=".8"
+            />
+            <line
+              x1="56"
+              y1="136"
+              x2="356"
+              y2="136"
+              stroke="#252525"
+              stroke-width=".8"
+            />
+            <line
+              x1="56"
+              y1="97"
+              x2="356"
+              y2="97"
+              stroke="#252525"
+              stroke-width=".8"
+            />
 
-          <!-- Y axis price labels (updated by JS) -->
-          <text id="mc-y0" x="52" y="217" fill="#4b5563" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
-          <text id="mc-y1" x="52" y="178" fill="#4b5563" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
-          <text id="mc-y2" x="52" y="139" fill="#4b5563" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
-          <text id="mc-y3" x="52" y="100" fill="#4b5563" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
+            <!-- Y axis price labels (updated by JS) -->
+            <text
+              id="mc-y0"
+              x="52"
+              y="217"
+              fill="#4b5563"
+              font-size="8"
+              font-family="Inter,sans-serif"
+              text-anchor="end"
+            >
+              —
+            </text>
+            <text
+              id="mc-y1"
+              x="52"
+              y="178"
+              fill="#4b5563"
+              font-size="8"
+              font-family="Inter,sans-serif"
+              text-anchor="end"
+            >
+              —
+            </text>
+            <text
+              id="mc-y2"
+              x="52"
+              y="139"
+              fill="#4b5563"
+              font-size="8"
+              font-family="Inter,sans-serif"
+              text-anchor="end"
+            >
+              —
+            </text>
+            <text
+              id="mc-y3"
+              x="52"
+              y="100"
+              fill="#4b5563"
+              font-size="8"
+              font-family="Inter,sans-serif"
+              text-anchor="end"
+            >
+              —
+            </text>
 
-          <!-- Header: ticker + price + return -->
-          <text x="56" y="32" fill="#3b82f6" font-size="10" font-family="Inter,sans-serif" font-weight="700">SPY</text>
-          <text id="mc-spy-info" x="80" y="32" fill="#6b7280" font-size="9.5" font-family="Inter,sans-serif">—</text>
-          <!-- "daily close · as of [date]" -->
-          <text id="mc-asof" x="356" y="32" fill="#4b5563" font-size="8.5" font-family="Inter,sans-serif" text-anchor="end">loading…</text>
+            <!-- Header: ticker + price + return -->
+            <text
+              x="56"
+              y="32"
+              fill="#3b82f6"
+              font-size="10"
+              font-family="Inter,sans-serif"
+              font-weight="700"
+            >
+              SPY
+            </text>
+            <text
+              id="mc-spy-info"
+              x="80"
+              y="32"
+              fill="#6b7280"
+              font-size="9.5"
+              font-family="Inter,sans-serif"
+            >
+              —
+            </text>
+            <!-- "daily close · as of [date]" -->
+            <text
+              id="mc-asof"
+              x="356"
+              y="32"
+              fill="#4b5563"
+              font-size="8.5"
+              font-family="Inter,sans-serif"
+              text-anchor="end"
+            >
+              loading…
+            </text>
 
-          <!-- SPY area + line (updated by JS) -->
-          <polygon id="mc-spy-area" points="56,214 356,214" fill="url(#areaGrad)"/>
-          <polyline id="mc-spy-line" points="56,175 356,175"
-                    stroke="#3b82f6" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"
-                    filter="url(#glow)"/>
+            <!-- SPY area + line (updated by JS) -->
+            <polygon
+              id="mc-spy-area"
+              points="56,214 356,214"
+              fill="url(#areaGrad)"
+            />
+            <polyline
+              id="mc-spy-line"
+              points="56,175 356,175"
+              stroke="#3b82f6"
+              stroke-width="2"
+              fill="none"
+              stroke-linejoin="round"
+              stroke-linecap="round"
+              filter="url(#glow)"
+            />
 
-          <!-- End-node (anchored by JS) -->
-          <circle id="mc-end-dot" cx="356" cy="175" r="4" fill="#3b82f6" filter="url(#glow)"/>
+            <!-- End-node (anchored by JS) -->
+            <circle
+              id="mc-end-dot"
+              cx="356"
+              cy="175"
+              r="4"
+              fill="#3b82f6"
+              filter="url(#glow)"
+            />
 
-          <!-- Date axis (updated by JS) -->
-          <text id="mc-date-0"   x="56"  y="242" fill="#4b5563" font-size="8" font-family="Inter,sans-serif">—</text>
-          <text id="mc-date-mid" x="206" y="242" fill="#4b5563" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">—</text>
-          <text id="mc-date-end" x="356" y="242" fill="#4b5563" font-size="8" font-family="Inter,sans-serif" text-anchor="end">—</text>
-        </svg>
+            <!-- Date axis (updated by JS) -->
+            <text
+              id="mc-date-0"
+              x="56"
+              y="242"
+              fill="#4b5563"
+              font-size="8"
+              font-family="Inter,sans-serif"
+            >
+              —
+            </text>
+            <text
+              id="mc-date-mid"
+              x="206"
+              y="242"
+              fill="#4b5563"
+              font-size="8"
+              font-family="Inter,sans-serif"
+              text-anchor="middle"
+            >
+              —
+            </text>
+            <text
+              id="mc-date-end"
+              x="356"
+              y="242"
+              fill="#4b5563"
+              font-size="8"
+              font-family="Inter,sans-serif"
+              text-anchor="end"
+            >
+              —
+            </text>
+          </svg>
 
-        <script>
-        (function () {
-          var API = 'https://trader.kooexperience.com/api/market-summary?days=90';
-          var CX0 = 56, CX1 = 356, CY0 = 56, CY1 = 214;
-          var GRID_YS = [214, 175, 136, 97];
+          <script>
+            (function () {
+              var API =
+                "https://trader.kooexperience.com/api/market-summary?days=90";
+              var CX0 = 56,
+                CX1 = 356,
+                CY0 = 56,
+                CY1 = 214;
+              var GRID_YS = [214, 175, 136, 97];
 
-          function fmtMon(d) {
-            return new Date(d + 'T00:00:00').toLocaleString('en-US', { month: 'short' });
-          }
-          function fmtChg(v) {
-            return (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
-          }
+              function fmtMon(d) {
+                return new Date(d + "T00:00:00").toLocaleString("en-US", {
+                  month: "short",
+                });
+              }
+              function fmtChg(v) {
+                return (v >= 0 ? "+" : "") + v.toFixed(2) + "%";
+              }
 
-          var lo, fullRange;
-          function toY(price) {
-            return (CY1 - ((price - lo) / fullRange) * (CY1 - CY0)).toFixed(1);
-          }
-          function makePoints(closes, n) {
-            return closes.map(function(p, i) {
-              var x = (CX0 + (i / (n - 1)) * (CX1 - CX0)).toFixed(1);
-              return x + ',' + toY(p);
-            }).join(' ');
-          }
+              var lo, fullRange;
+              function toY(price) {
+                return (CY1 - ((price - lo) / fullRange) * (CY1 - CY0)).toFixed(
+                  1,
+                );
+              }
+              function makePoints(closes, n) {
+                return closes
+                  .map(function (p, i) {
+                    var x = (CX0 + (i / (n - 1)) * (CX1 - CX0)).toFixed(1);
+                    return x + "," + toY(p);
+                  })
+                  .join(" ");
+              }
 
-          fetch(API, { signal: AbortSignal.timeout(8000) })
-            .then(function(r) { return r.ok ? r.json() : Promise.reject('api error'); })
-            .then(function(data) {
-              var spy = data.tickers && data.tickers.SPY;
-              if (!spy) throw new Error('missing');
+              fetch(API, { signal: AbortSignal.timeout(8000) })
+                .then(function (r) {
+                  return r.ok ? r.json() : Promise.reject("api error");
+                })
+                .then(function (data) {
+                  var spy = data.tickers && data.tickers.SPY;
+                  if (!spy) throw new Error("missing");
 
-              var closes = spy.history.map(function(h) { return h.close; });
-              var priceMin = Math.min.apply(null, closes);
-              var priceMax = Math.max.apply(null, closes);
-              var range = priceMax - priceMin || 1;
-              var pad = range * 0.1;
-              lo = priceMin - pad;
-              fullRange = range + 2 * pad;
+                  var closes = spy.history.map(function (h) {
+                    return h.close;
+                  });
+                  var priceMin = Math.min.apply(null, closes);
+                  var priceMax = Math.max.apply(null, closes);
+                  var range = priceMax - priceMin || 1;
+                  var pad = range * 0.1;
+                  lo = priceMin - pad;
+                  fullRange = range + 2 * pad;
 
-              var N = closes.length;
-              var pts = makePoints(closes, N);
-              var lastX = CX1.toFixed(1);
-              var lastY = toY(closes[N - 1]);
+                  var N = closes.length;
+                  var pts = makePoints(closes, N);
+                  var lastX = CX1.toFixed(1);
+                  var lastY = toY(closes[N - 1]);
 
-              document.getElementById('mc-spy-line').setAttribute('points', pts);
-              document.getElementById('mc-spy-area').setAttribute('points', pts + ' ' + lastX + ',' + CY1 + ' ' + CX0 + ',' + CY1);
-              document.getElementById('mc-end-dot').setAttribute('cx', lastX);
-              document.getElementById('mc-end-dot').setAttribute('cy', lastY);
+                  document
+                    .getElementById("mc-spy-line")
+                    .setAttribute("points", pts);
+                  document
+                    .getElementById("mc-spy-area")
+                    .setAttribute(
+                      "points",
+                      pts + " " + lastX + "," + CY1 + " " + CX0 + "," + CY1,
+                    );
+                  document
+                    .getElementById("mc-end-dot")
+                    .setAttribute("cx", lastX);
+                  document
+                    .getElementById("mc-end-dot")
+                    .setAttribute("cy", lastY);
 
-              // Y axis: price at each grid line
-              GRID_YS.forEach(function(gy, i) {
-                var price = lo + ((CY1 - gy) / (CY1 - CY0)) * fullRange;
-                document.getElementById('mc-y' + i).textContent = '$' + Math.round(price);
-              });
+                  // Y axis: price at each grid line
+                  GRID_YS.forEach(function (gy, i) {
+                    var price = lo + ((CY1 - gy) / (CY1 - CY0)) * fullRange;
+                    document.getElementById("mc-y" + i).textContent =
+                      "$" + Math.round(price);
+                  });
 
-              // Header
-              document.getElementById('mc-spy-info').textContent =
-                '$' + spy.price.toFixed(2) + '  ' + fmtChg(spy.change_pct_1d) + ' today  ·  ' + fmtChg(spy.change_pct_period) + ' (90d)';
-              document.getElementById('mc-asof').textContent = 'daily close · ' + data.as_of;
+                  // Header
+                  document.getElementById("mc-spy-info").textContent =
+                    "$" +
+                    spy.price.toFixed(2) +
+                    "  " +
+                    fmtChg(spy.change_pct_1d) +
+                    " today  ·  " +
+                    fmtChg(spy.change_pct_period) +
+                    " (90d)";
+                  document.getElementById("mc-asof").textContent =
+                    "daily close · " + data.as_of;
 
-              // Date axis
-              var dates = spy.history.map(function(h) { return h.date; });
-              document.getElementById('mc-date-0').textContent   = fmtMon(dates[0]);
-              document.getElementById('mc-date-mid').textContent = fmtMon(dates[Math.floor(N / 2)]);
-              document.getElementById('mc-date-end').textContent = fmtMon(dates[N - 1]);
-            })
-            .catch(function() {
-              document.getElementById('mc-asof').textContent = 'data unavailable';
-            });
-        })();
-        </script>
-      </div>
-    </section>
+                  // Date axis
+                  var dates = spy.history.map(function (h) {
+                    return h.date;
+                  });
+                  document.getElementById("mc-date-0").textContent = fmtMon(
+                    dates[0],
+                  );
+                  document.getElementById("mc-date-mid").textContent = fmtMon(
+                    dates[Math.floor(N / 2)],
+                  );
+                  document.getElementById("mc-date-end").textContent = fmtMon(
+                    dates[N - 1],
+                  );
+                })
+                .catch(function () {
+                  document.getElementById("mc-asof").textContent =
+                    "data unavailable";
+                });
+            })();
+          </script>
+        </div>
+      </section>
 
-    <!-- Projects -->
-    <section class="section">
-      <p class="section-label">Projects</p>
-      <div class="cards">
+      <!-- Projects -->
+      <section class="section">
+        <p class="section-label">Projects</p>
+        <div class="cards">
+          <!-- Trader Koo — LIVE -->
+          <a
+            class="card"
+            href="https://trader.kooexperience.com"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="card-top">
+              <span class="card-icon">📈</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <p class="card-name">Trader Koo</p>
+            <p class="card-desc">
+              S&amp;P 500 market dashboard with daily AI chart-pattern
+              detection, candle signals, 52-week extremes, and macro context —
+              updated every night.
+            </p>
+            <span class="card-link-hint">View live &rsaquo;</span>
+          </a>
 
-        <!-- Trader Koo — LIVE -->
-        <a class="card"
-           href="https://trader.kooexperience.com"
-           target="_blank" rel="noopener">
-          <div class="card-top">
-            <span class="card-icon">📈</span>
-            <span class="badge badge-live">Live</span>
-          </div>
-          <p class="card-name">Trader Koo</p>
-          <p class="card-desc">
-            S&amp;P 500 market dashboard with daily AI chart-pattern detection,
-            candle signals, 52-week extremes, and macro context — updated every night.
-          </p>
-          <span class="card-link-hint">View live &rsaquo;</span>
-        </a>
+          <!-- Preflight — LIVE -->
+          <a
+            class="card"
+            href="https://preflight.kooexperience.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="card-top">
+              <span class="card-icon">🔬</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <p class="card-name">Preflight</p>
+            <p class="card-desc">
+              Upload any CSV or Parquet — get instant data health checks, EDA
+              charts, correlation maps, and baseline ML models with CV metrics.
+            </p>
+            <span class="card-link-hint">View live &rsaquo;</span>
+          </a>
 
-        <!-- Preflight — LIVE -->
-        <a class="card"
-           href="https://preflight.kooexperience.com/"
-           target="_blank" rel="noopener">
-          <div class="card-top">
-            <span class="card-icon">🔬</span>
-            <span class="badge badge-live">Live</span>
-          </div>
-          <p class="card-name">Preflight</p>
-          <p class="card-desc">
-            Upload any CSV or Parquet — get instant data health checks, EDA charts,
-            correlation maps, and baseline ML models with CV metrics.
-          </p>
-          <span class="card-link-hint">View live &rsaquo;</span>
-        </a>
+          <!-- Handwriting Lab — LIVE -->
+          <a
+            class="card"
+            href="https://handwriting.kooexperience.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="card-top">
+              <span class="card-icon">✍️</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <p class="card-name">Handwriting Lab</p>
+            <p class="card-desc">
+              Rotation-aware digit recognition playground with canvas
+              prediction, confusion matrix reporting, and training pipeline
+              documentation.
+            </p>
+            <span class="card-link-hint">View live &rsaquo;</span>
+          </a>
 
-                <!-- Handwriting Lab — LIVE -->
-        <a class="card" href="https://handwriting.kooexperience.com/" target="_blank" rel="noopener">
-          <div class="card-top">
-            <span class="card-icon">✍️</span>
-            <span class="badge badge-live">Live</span>
-          </div>
-          <p class="card-name">Handwriting Lab</p>
-          <p class="card-desc">
-            Rotation-aware digit recognition playground with canvas prediction,
-            confusion matrix reporting, and training pipeline documentation.
-          </p>
-          <span class="card-link-hint">View live &rsaquo;</span>
-        </a>
+          <!-- Photo Compliance Studio — LIVE -->
+          <a
+            class="card"
+            href="https://studio.kooexperience.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="card-top">
+              <span class="card-icon">🪪</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <p class="card-name">Photo Compliance Studio</p>
+            <p class="card-desc">
+              Passport-style photo compliance checks with country rules, quality
+              diagnostics, and guided correction outputs.
+            </p>
+            <span class="card-link-hint">View live &rsaquo;</span>
+          </a>
 
-                <!-- Photo Compliance Studio — LIVE -->
-        <a class="card"
-           href="https://studio.kooexperience.com/"
-           target="_blank" rel="noopener">
-          <div class="card-top">
-            <span class="card-icon">🪪</span>
-            <span class="badge badge-live">Live</span>
-          </div>
-          <p class="card-name">Photo Compliance Studio</p>
-          <p class="card-desc">
-            Passport-style photo compliance checks with country rules,
-            quality diagnostics, and guided correction outputs.
-          </p>
-          <span class="card-link-hint">View live &rsaquo;</span>
-        </a>
+          <!-- Wine Intelligence — LIVE -->
+          <a class="card" href="./wine.html">
+            <div class="card-top">
+              <span class="card-icon">🍷</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <p class="card-name">Wine Intelligence</p>
+            <p class="card-desc">
+              Price and critic-score comparison across major wine retailers.
+              Find the best-value bottles without the noise.
+            </p>
+            <span class="card-link-hint">View live &rsaquo;</span>
+          </a>
 
-        <!-- Wine Intelligence — LIVE -->
-        <a class="card" href="./wine.html">
-          <div class="card-top">
-            <span class="card-icon">🍷</span>
-            <span class="badge badge-live">Live</span>
-          </div>
-          <p class="card-name">Wine Intelligence</p>
-          <p class="card-desc">
-            Price and critic-score comparison across major wine retailers.
-            Find the best-value bottles without the noise.
-          </p>
-          <span class="card-link-hint">View live &rsaquo;</span>
-        </a>
-      </div>
-    </section>
+          <!-- LionWeather — LIVE -->
+          <a
+            class="card"
+            href="https://lionweather.kooexperience.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="card-top">
+              <span class="card-icon">🦁</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <p class="card-name">LionWeather</p>
+            <p class="card-desc">
+              AI-powered weather forecasting for Singapore, Malaysia, and
+              Indonesia with real-time data collection and ML predictions.
+            </p>
+            <span class="card-link-hint">View live &rsaquo;</span>
+          </a>
+        </div>
+      </section>
 
-    <!-- Footer -->
-    <footer>
-      <span class="footer-copy">&copy; 2026 Haoming Koo</span>
-      <div class="footer-links">
-        <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-    </footer>
-
-  </div>
-</body>
+      <!-- Footer -->
+      <footer>
+        <span class="footer-copy">&copy; 2026 Haoming Koo</span>
+        <div class="footer-links">
+          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener"
+            >GitHub</a
+          >
+          <a
+            href="https://linkedin.com/in/haomingkoo"
+            target="_blank"
+            rel="noopener"
+            >LinkedIn</a
+          >
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>
