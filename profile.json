@@ -1,0 +1,336 @@
+{
+  "name": "Haoming Koo",
+  "headline": "AI Engineer & Digital Transformation Leader | $600M+ Business Impact | Production ML Systems | Ex-Micron | MSc (NUS)",
+  "location": "Singapore",
+  "email": "haomingkoo@gmail.com",
+  "linkedin": "https://linkedin.com/in/haomingkoo",
+  "github": "https://github.com/haomingkoo",
+  "website": "https://kooexperience.com",
+  "nationality": "Singapore Citizen",
+
+  "summary": "AI engineer and transformation leader with 7+ years delivering AI-enabled programs across semiconductor manufacturing, cloud infrastructure, and data platforms. Led cross-site digital transformation at Micron across four fabs, aligning 3,000+ engineers on a unified data and analytics ecosystem. Driven more than USD 600M in business impact through yield optimisation, cycle-time reduction, risk analytics, and platform unification. Currently building and deploying production ML systems at AI Singapore across computer vision, sequence modelling, and NLP. Passionate about the intersection of AI engineering and operational transformation — turning technical depth into measurable business outcomes.",
+
+  "topSkills": [
+    "AI Engineering & MLOps",
+    "Production ML Systems",
+    "Digital & Cloud Transformation (GCP/AWS)",
+    "Computer Vision & Deep Learning",
+    "GenAI, RAG & LLM Applications",
+    "Global Program Leadership"
+  ],
+
+  "technicalSkills": {
+    "languages": ["Python", "SQL", "JavaScript", "R", "MATLAB"],
+    "mlAndAI": ["PyTorch", "TensorFlow", "scikit-learn", "OpenCV", "YOLOv8", "LightGBM", "ResNet-50", "CNN", "LSTM", "Transfer Learning", "SHAP"],
+    "genAI": ["LLM Prompt Engineering", "RAG (Retrieval-Augmented Generation)", "GenAI Workflow Automation", "n8n", "MCP", "OpenAI APIs", "Hugging Face"],
+    "mlOps": ["Docker", "GitLab CI/CD", "Git", "MLflow", "Airflow", "Kedro", "PySpark", "Model Lifecycle Management"],
+    "cloud": ["Google Cloud Platform (GCP)", "AWS (S3, Lambda, SageMaker)", "Snowflake"],
+    "fullStack": ["React", "FastAPI", "Flask", "Node.js", "HTML/CSS/JS", "REST APIs", "MongoDB", "PostgreSQL", "SQLite"],
+    "dataAndViz": ["Tableau", "Power BI", "Plotly", "Jupyter", "Pandas", "NumPy"],
+    "automation": ["UiPath", "Power Automate", "RPA"],
+    "semiconductor": ["SPC", "MES", "EQMS", "Digital Twins", "SEMulator3D", "KLA CIRCL/Surfscan/Voyager", "JMP", "SAP"],
+    "methodologies": ["Agile/Scrum", "Lean Six Sigma", "ISO 9001", "Design Thinking", "Red-Team UAT Testing", "Secure-by-Design"]
+  },
+
+  "spokenLanguages": [
+    { "language": "English", "proficiency": "Native" },
+    { "language": "Chinese (Mandarin)", "proficiency": "Native" },
+    { "language": "Japanese", "proficiency": "Elementary" }
+  ],
+
+  "experience": [
+    {
+      "company": "AI Singapore",
+      "roles": [
+        {
+          "title": "Associate AI Engineer | AI Apprenticeship Programme (AIAP)",
+          "startDate": "2026-01",
+          "endDate": null,
+          "location": "Singapore",
+          "description": "Full-time AI engineering apprenticeship under AI Singapore's national AI programme. Building and deploying end-to-end ML systems across structured data, computer vision, and sequential modelling domains.",
+          "bullets": [
+            "Delivered production-ready pipelines using GitLab CI/CD, Docker, and Google Cloud — including backend inference services and frontend UIs",
+            "Built CNN architectures and transfer learning models for image classification and object detection",
+            "Developed LSTM-based sequence modelling systems for time-series prediction",
+            "Implemented containerised deployment, model lifecycle management, and MLOps automation",
+            "Built 6 live portfolio applications integrating ML models with cloud-hosted dashboards (kooexperience.com)",
+            "Expanding into NLP, Large Language Model architectures, and agentic AI workflows"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Micron Technology",
+      "totalDuration": "6 years 11 months",
+      "roles": [
+        {
+          "title": "Manager, Front End Central Process Integration Engineering",
+          "startDate": "2022-08",
+          "endDate": "2025-01",
+          "location": "Singapore",
+          "description": "Led global AI-enabled transformation and cross-site program delivery, aligning 3,000+ engineers across four fabs (Singapore, Boise, Hiroshima, Taichung). Managed a team of 6 direct and up to 9 indirect engineers with a USD 9M operational portfolio.",
+          "bullets": [
+            "Designed and executed a 5-year autonomous conversion roadmap using 3M strategy (Method, Metrics, Mindset) — $832M in opportunities surfaced, $50M+ realised savings, projected 9-figure impact",
+            "Unified fragmented process platforms (C3, iConS, PIP) into a single AI-integrated ecosystem — standardised 80% of workflows across 4 countries while preserving 20% site flexibility",
+            "Co-led LPDDR5X yield ramp (Apple iPhone 16 Pro Max) — maturity pulled in by 7 months, unlocking 9-figure USD revenue",
+            "Co-led HBM3E yield program (NVIDIA H200/Blackwell) — Micron's first HBM market entry, driving $500M+ above business plan",
+            "Modernised infrastructure from Hadoop to Google Cloud Platform (GCP), improving model deployment speed, traceability, and cost efficiency",
+            "Developed ML risk-scoring dashboards using anomaly detection for yield and reliability — preventing USD 100M+ potential losses",
+            "Built and deployed GenAI SOP Assistant: prompt packs + retrieval on audited SOPs; 80-90% answer relevance, ~15 min/query deflection, ~2 weeks faster onboarding, scaled to ~3,000 users",
+            "Scaled RPA (UiPath/Power Automate) for targeting-lot workflow — 100% adoption; mentored ~30 engineers",
+            "Built reliability/observability infrastructure: pipeline health dashboards, canary/shadow runs, rollback runbooks — near-zero ML-pipeline outages",
+            "Embedded ESG-linked metrics (GHG, water, energy, waste) and SPC analytics into dashboards for compliance and sustainability governance",
+            "Drove SEMulator3D rollout: accelerated validation by 2 weeks, >$10M in time-to-market gains",
+            "Conducted red-team UAT simulations, reducing post-deployment issues by 25%",
+            "Chaired conversion SteerCo with monthly executive updates; managed USD 9M front-end travel/ops portfolio",
+            "Mentored cross-regional team across US, Japan, Taiwan, Singapore — promoting Agile delivery, resilience, and stakeholder alignment"
+          ]
+        },
+        {
+          "title": "Senior Process and Equipment Engineer - Uniformity",
+          "startDate": "2021-11",
+          "endDate": "2022-08",
+          "location": "Singapore",
+          "description": "Transitioned from equipment engineering to data-driven automation — developing ML-enabled defect prediction and control systems.",
+          "bullets": [
+            "Built ResNet-50 computer vision model for wafer/chamber misplacement detection via shadow-ring analysis — earned Micron Innovation Award",
+            "Scaled AI-based OCR defect detection system fab-wide — 4-5% yield improvement",
+            "Reduced scanner wafer rejection to <0.5% and MA excursion impact to <0.1% — earned Micron Culture Champion",
+            "Developed anomaly detection and out-of-family (OOF) monitoring with automated MES-integrated alerting",
+            "Automated real-time defect analytics pipelines to accelerate root cause resolution",
+            "Pioneered novel bevel etch detection using peak colour analysis (vs intensity) — became permanent defense strategy"
+          ]
+        },
+        {
+          "title": "Senior Process and Equipment Engineer - Wet Process",
+          "startDate": "2019-11",
+          "endDate": "2021-11",
+          "location": "Singapore",
+          "description": "Led smart manufacturing initiatives integrating digital twins, ML models, and automation pipelines.",
+          "bullets": [
+            "Built a digital twin of TEL Celesta — ML-guided DoE optimization reduced chemical usage by 60% and saved USD 7M+ (Micron Idea of the Quarter Award)",
+            "Saved 40+ hours/week of manual validation through simulation-based process qualification",
+            "Deployed real-time sensor networks to enhance process control and sustainability",
+            "Qualified >10 alternate chemistries during COVID disruptions — ensuring zero production downtime, mitigating >USD 100M potential losses",
+            "Co-authored 7 technical whitepapers on yield analytics, process automation, and cross-site harmonisation",
+            "Introduced hypothesis-driven problem solving in conversion workshops with 200+ participants"
+          ]
+        },
+        {
+          "title": "Process and Equipment Engineer - Wet Process",
+          "startDate": "2018-03",
+          "endDate": "2019-10",
+          "location": "Singapore",
+          "description": "Built core engineering and program delivery foundations during the Hiroshima Fab Expansion.",
+          "bullets": [
+            "Achieved USD 7.5M CAPEX savings through smart ramp planning and tool reuse across global fabs",
+            "Developed 'MAXout' onboarding framework — boosted team productivity by 20%, later scaled across sites",
+            "Aligned Hiroshima ramp plans with Boise and Singapore through remote calibration and parameter normalisation",
+            "SAP exposure: material master/product codes, exception handling, and cross-team coordination"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Tagvance x Maritime & Port Authority of Singapore",
+      "roles": [
+        {
+          "title": "Capstone Consultant (Geospatial Analytics)",
+          "startDate": "2021-06",
+          "endDate": "2021-11",
+          "location": "Singapore",
+          "description": "NUS MSc capstone in partnership with Tagvance and MPA — digital transformation focused on Industrial IoT and applied ML for maritime safety and enforcement.",
+          "bullets": [
+            "Detected illegal vessel mooring and berth overloading using geospatial analytics with GPS and tidal-corrected clustering (K-means, DBSCAN)",
+            "Built scalable ML pipeline on AWS (S3, Lambda) for real-time anomaly detection — reduced false positives by 22%",
+            "Developed role-gated enforcement dashboards on AWS with secure access controls",
+            "Delivered end-to-end prototype: data ingestion, ML analytics, and visualisation for maritime operations — influencing ~$2M potential annual revenue across four ports",
+            "Facilitated stakeholder interviews to tailor technical design to regulatory use cases"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Singapore Institute of Manufacturing Technology (SIMTech)",
+      "roles": [
+        {
+          "title": "Scientist Intern",
+          "startDate": "2016-05",
+          "endDate": "2017-05",
+          "location": "Singapore",
+          "description": "R&D in bio-lasing technologies under the mentorship of Dr. Derrick Yong — investigating biological materials as laser gain mediums.",
+          "bullets": [
+            "Engineered and tested laser prototypes integrating biological components for experimental validation",
+            "Automated data collection and visualisation processes using MATLAB, improving lab throughput",
+            "Standardised experimental protocols, enhancing reproducibility for future scale-up"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "National University of Singapore",
+      "roles": [
+        {
+          "title": "Undergraduate Researcher",
+          "startDate": "2016-01",
+          "endDate": "2016-05",
+          "location": "Singapore",
+          "description": "Hydrogen evolution research under Prof. Jason Yeo — advancing catalyst science for sustainable energy.",
+          "bullets": [
+            "First to identify sulfur atoms as active sites in amorphous MoSx catalysts — novel experimental finding",
+            "Executed Operando Raman Spectroscopy to examine catalytic behaviour under real-time reaction conditions",
+            "Supported catalyst synthesis and optimisation for next-generation fuel cells"
+          ]
+        }
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "institution": "National University of Singapore",
+      "degree": "Master of Science (MSc)",
+      "field": "Smart Industries and Digital Transformation",
+      "gpa": "4.85/5.00",
+      "graduateCertificates": ["IoT Systems", "Intelligent Sensing", "Data Analytics"],
+      "capstone": "Smart port IoT and sensor-based logistics with Maritime Port Authority",
+      "startDate": "2020-01",
+      "endDate": "2021-12"
+    },
+    {
+      "institution": "National University of Singapore",
+      "degree": "Bachelor of Science (Honours)",
+      "field": "Chemistry with Minor in Nanoscience",
+      "gpa": "4.46/5.00 (Distinction)",
+      "exchange": "Simon Fraser University, Canada",
+      "startDate": null,
+      "endDate": null
+    },
+    {
+      "institution": "NUS x Emeritus",
+      "degree": "Certificate",
+      "field": "Full Stack Development with AI",
+      "details": "24-week programme: React, Flask, MongoDB, SQL, Node.js, REST APIs, AI integration",
+      "startDate": "2025-03",
+      "endDate": "2025-09"
+    },
+    {
+      "institution": "Heicoders Academy",
+      "degree": "GA100 — Generative AI (WSQ Accredited)",
+      "field": "Prompt Engineering, RAG, AI Agents, Workflow Automation (n8n), MCP",
+      "startDate": "2025",
+      "endDate": "2025"
+    },
+    {
+      "institution": "Project Management Institute",
+      "degree": "Project Management Professional (PMP)",
+      "field": null,
+      "startDate": "2025",
+      "endDate": "2025"
+    },
+    {
+      "institution": "At-Sunrice GlobalChef Academy",
+      "degree": "WSQ Certificate",
+      "field": "Pastry and Bakery",
+      "startDate": "2018",
+      "endDate": "2018"
+    }
+  ],
+
+  "certifications": [
+    "GA100 — Generative AI (Heicoders Academy, WSQ Accredited, 2025)",
+    "Full Stack Development with AI (NUS x Emeritus, 2025)",
+    "Project Management Professional — PMP (2025)",
+    "ISO 9001 Internal Audit & Risk Practices (Micron-led)",
+    "Lean Six Sigma (Green Belt Equivalent)",
+    "Data Analytics & Machine Learning (LinkedIn/NUS)",
+    "Building the Foundation for an Effective Team",
+    "Data Analysis and Root Cause Analysis in Six Sigma",
+    "Leading a Cross-functional Team",
+    "Machine Learning for Data Analytics (Competence)"
+  ],
+
+  "awards": [
+    "Micron Innovation Award (2022) — ResNet-50 computer vision model for wafer defect detection",
+    "Micron Idea of the Quarter — Digital twin / wet process optimisation achieving 60% chemical reduction",
+    "Micron Culture Champion — Cross-site collaboration, scanner rejects <0.5%, MA impact <0.1%",
+    "NUS Awards for Study Abroad (NASA) — x2"
+  ],
+
+  "publications": [
+    "Modeling the Lasing Threshold of a Two-Photon Pumped Vitamin Solution",
+    "7 internal technical whitepapers on yield analytics, process automation, and cross-site harmonisation (Micron)"
+  ],
+
+  "testimonials": [
+    {
+      "author": "Dr. Zhang Linmiao",
+      "title": "Distinguished Member of Technical Staff, Micron Technology",
+      "quotes": [
+        "Excellent communication skills and an aptitude for building consensus among cross-functional and cross-cultural teams",
+        "A trusted partner and someone I can rely on in challenging situations",
+        "Analytical capabilities, stakeholder management skills, and passion for driving meaningful change"
+      ]
+    },
+    {
+      "author": "Vimal Kumar Ramanathan",
+      "title": "Senior Manager, Micron Technology",
+      "quotes": [
+        "Approaches problems with structure, curiosity, and a commitment to long-term improvement",
+        "Consistently looks beyond short-term fixes to design sustainable, data-driven solutions",
+        "Energy, analytical rigour, and a collaborative spirit — thrives in complex environments that require cross-functional coordination and innovation"
+      ]
+    }
+  ],
+
+  "portfolioApps": [
+    {
+      "name": "Trader Koo",
+      "url": "https://trader.kooexperience.com",
+      "description": "S&P 500 market dashboard with daily AI chart-pattern detection (YOLOv8), candle signals, and macro context",
+      "tech": ["FastAPI", "YOLOv8", "Plotly", "SQLite"]
+    },
+    {
+      "name": "LionWeather",
+      "url": "https://lionweather.kooexperience.com",
+      "description": "Singapore weather intelligence with NEA real-time data, ML-powered rainfall forecasting (LightGBM), and SHAP analysis",
+      "tech": ["React", "LightGBM", "Leaflet", "SHAP"]
+    },
+    {
+      "name": "Preflight",
+      "url": "https://preflight.kooexperience.com",
+      "description": "Upload any CSV/Parquet — instant data health checks, EDA charts, correlation maps, and baseline ML with CV metrics",
+      "tech": ["Dash", "scikit-learn", "Plotly"]
+    },
+    {
+      "name": "Handwriting Lab",
+      "url": "https://handwriting.kooexperience.com",
+      "description": "Rotation-aware digit recognition with canvas prediction, confusion matrix reporting, and training pipeline",
+      "tech": ["PyTorch", "MLflow", "FastAPI"]
+    },
+    {
+      "name": "Photo Compliance Studio",
+      "url": "https://studio.kooexperience.com",
+      "description": "Passport-style photo compliance checks with country rules, quality diagnostics, and guided corrections",
+      "tech": ["MediaPipe", "OpenCV", "FastAPI"]
+    },
+    {
+      "name": "Wine Intelligence",
+      "url": "https://kooexperience.com/wine.html",
+      "description": "Wine price and critic-score comparison across retailers — find the best-value bottles",
+      "tech": ["Selenium", "SQLAlchemy", "FastAPI"]
+    }
+  ],
+
+  "keyMetrics": {
+    "businessImpact": "USD 600M+",
+    "engineersAligned": "3,000+",
+    "liveApps": 6,
+    "mlModels": 4,
+    "yearsExperience": "7+",
+    "globalSites": "4 fabs (Singapore, Boise, Hiroshima, Taichung)",
+    "teamManaged": "6 direct + 9 indirect engineers",
+    "budgetManaged": "USD 9M operational portfolio",
+    "whitepapers": 7
+  }
+}

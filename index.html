@@ -3,243 +3,442 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Haoming Koo</title>
+    <title>Haoming Koo — AI Systems Engineer</title>
+    <meta name="description" content="Portfolio of Haoming Koo — building production AI systems, full-stack dashboards, and ML pipelines." />
+    <link rel="canonical" href="https://kooexperience.com/" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="Haoming Koo — AI Systems Engineer" />
+    <meta property="og:description" content="Building production AI systems, full-stack dashboards, and ML pipelines. 6 live apps and counting." />
+    <meta property="og:url" content="https://kooexperience.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Haoming Koo" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Haoming Koo — AI Systems Engineer" />
+    <meta name="twitter:description" content="Building production AI systems, full-stack dashboards, and ML pipelines." />
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://kooexperience.com/#website",
+      "name": "Haoming Koo",
+      "url": "https://kooexperience.com",
+      "author": {
+        "@type": "Person",
+        "@id": "https://kooexperience.com/#person",
+        "name": "Haoming Koo",
+        "jobTitle": "AI Systems Engineer",
+        "url": "https://kooexperience.com",
+        "sameAs": [
+          "https://github.com/haomingkoo",
+          "https://linkedin.com/in/haomingkoo"
+        ]
+      }
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
-        --bg: #080808;
-        --surface: #111111;
-        --border: #1e1e1e;
+        --bg: #060608;
+        --surface: #0e0e12;
+        --surface-hover: #141418;
+        --border: #1c1c24;
+        --border-hover: #2a2a36;
         --accent: #3b82f6;
-        --accent-dim: rgba(59, 130, 246, 0.12);
-        --text: #f0f0f0;
-        --muted: #6b7280;
+        --accent-dim: rgba(59, 130, 246, 0.10);
+        --accent-glow: rgba(59, 130, 246, 0.06);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
         --live: #22c55e;
+        --purple: #a855f7;
+        --amber: #f59e0b;
       }
 
-      html {
-        scroll-behavior: smooth;
-      }
+      html { scroll-behavior: smooth; }
 
       body {
         background: var(--bg);
         color: var(--text);
-        font-family: "Inter", system-ui, sans-serif;
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
         font-size: 15px;
         line-height: 1.6;
         min-height: 100vh;
         overflow-x: hidden;
-
-        /* dot grid */
-        background-image:
-          radial-gradient(
-            circle at 60% 10%,
-            rgba(59, 130, 246, 0.08) 0%,
-            transparent 55%
-          ),
-          radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-        background-size:
-          100% 100%,
-          28px 28px;
+        -webkit-font-smoothing: antialiased;
       }
 
-      /* ── Layout ─────────────────────────────────────────────────────────── */
+      /* ── Ambient background ─────────────────────────────────────────────── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,0.07) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 40% at 85% 20%, rgba(168,85,247,0.04) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+      }
       .container {
-        max-width: 900px;
+        position: relative;
+        z-index: 1;
+        max-width: 960px;
         margin: 0 auto;
-        padding: 0 28px;
+        padding: 0 32px;
       }
 
-      /* ── Nav ─────────────────────────────────────────────────────────────── */
+      /* ── Nav ────────────────────────────────────────────────────────────── */
+      .nav-wrap {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(6, 6, 8, 0.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28, 28, 36, 0.6);
+      }
       nav {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 32px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 28px 0 24px;
+        height: 56px;
       }
       .nav-logo {
-        font-size: 17px;
-        font-weight: 700;
+        font-size: 18px;
+        font-weight: 800;
         letter-spacing: 0.04em;
         color: var(--text);
         text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
-      .nav-links {
-        display: flex;
-        gap: 28px;
-      }
+      .nav-links { display: flex; gap: 8px; }
       .nav-links a {
         color: var(--muted);
         text-decoration: none;
-        font-size: 13.5px;
-        letter-spacing: 0.02em;
-        transition: color 0.2s;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        padding: 6px 12px;
+        border-radius: 8px;
+        transition: color 0.2s, background 0.2s;
       }
       .nav-links a:hover {
         color: var(--text);
+        background: rgba(255,255,255,0.04);
       }
 
-      /* ── Hero ────────────────────────────────────────────────────────────── */
+      /* ── Hero ───────────────────────────────────────────────────────────── */
       .hero {
-        padding: 72px 0 64px;
+        padding: 80px 0 56px;
         display: flex;
         align-items: center;
         gap: 56px;
       }
-      .hero-inner {
-        flex: 1;
-        min-width: 0;
-      }
+      .hero-inner { flex: 1; min-width: 0; }
 
       .hero-label {
-        font-size: 12.5px;
-        font-weight: 500;
-        letter-spacing: 0.18em;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--accent);
         margin-bottom: 20px;
-        opacity: 0;
-        animation: fadeUp 0.6s ease forwards;
+        padding: 5px 14px;
+        background: var(--accent-dim);
+        border: 1px solid rgba(59,130,246,0.15);
+        border-radius: 99px;
+      }
+      .hero-label::before {
+        content: "";
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulse 2.5s infinite;
       }
       .hero-title {
-        font-size: clamp(36px, 7vw, 64px);
-        font-weight: 700;
-        line-height: 1.05;
-        letter-spacing: -0.03em;
-        margin-bottom: 24px;
-        background: linear-gradient(135deg, #f0f0f0 30%, #3b82f6 100%);
+        font-size: clamp(38px, 6.5vw, 60px);
+        font-weight: 800;
+        line-height: 1.08;
+        letter-spacing: -0.035em;
+        margin-bottom: 20px;
+        color: var(--text);
+      }
+      .hero-title span {
+        background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        opacity: 0;
-        animation: fadeUp 0.6s 0.1s ease forwards;
       }
-      .hero-sub {
+      .hero-bio {
         font-size: 16px;
-        color: var(--muted);
-        font-weight: 300;
-        opacity: 0;
-        animation: fadeUp 0.6s 0.2s ease forwards;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        max-width: 480px;
+        margin-bottom: 28px;
       }
-
-      /* ── Hero visual ─────────────────────────────────────────────────────── */
-      .hero-visual {
-        width: 340px;
-        flex-shrink: 0;
-        opacity: 0;
-        animation: fadeUp 0.7s 0.25s ease forwards;
-        /* swap src on the <img> tag below to use a real photo */
-      }
-      .hero-visual svg {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-      @media (max-width: 700px) {
-        .hero {
-          flex-direction: column;
-          gap: 36px;
-          padding: 56px 0 48px;
-        }
-        .hero-visual {
-          width: 100%;
-        }
-      }
-
-      /* ── Section header ──────────────────────────────────────────────────── */
-      .section {
-        padding: 20px 0 64px;
-      }
-      .section-label {
-        font-size: 11.5px;
+      .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 22px;
+        border-radius: 10px;
+        font-size: 13.5px;
         font-weight: 600;
-        letter-spacing: 0.16em;
+        text-decoration: none;
+        transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+      }
+      .btn:hover { transform: translateY(-1px); }
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(59,130,246,0.25);
+      }
+      .btn-primary:hover {
+        box-shadow: 0 6px 24px rgba(59,130,246,0.35);
+      }
+      .btn-ghost {
+        background: rgba(255,255,255,0.04);
+        color: var(--text-secondary);
+        border: 1px solid var(--border);
+      }
+      .btn-ghost:hover {
+        background: rgba(255,255,255,0.07);
+        color: var(--text);
+        border-color: var(--border-hover);
+      }
+
+      /* ── Hero visual ────────────────────────────────────────────────────── */
+      .hero-visual {
+        width: 360px;
+        flex-shrink: 0;
+      }
+      .hero-visual svg { width: 100%; height: auto; display: block; }
+
+      /* ── Stats strip ────────────────────────────────────────────────────── */
+      .stats {
+        display: flex;
+        gap: 1px;
+        background: var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 32px;
+      }
+      .stat {
+        flex: 1;
+        background: var(--surface);
+        padding: 20px 24px;
+        text-align: center;
+      }
+      .stat:first-child { border-radius: 14px 0 0 14px; }
+      .stat:last-child { border-radius: 0 14px 14px 0; }
+      .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+      .stat-value .stat-accent { color: var(--accent); }
+      .stat-label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 500;
+        margin-top: 4px;
+      }
+
+      /* ── Tech strip ─────────────────────────────────────────────────────── */
+      .tech-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 20px 0 0;
+        margin-bottom: 20px;
+      }
+      .tech-pill {
+        font-size: 11.5px;
+        font-weight: 500;
+        padding: 5px 14px;
+        border-radius: 99px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        letter-spacing: 0.02em;
+        transition: border-color 0.2s, color 0.2s;
+      }
+      .tech-pill:hover {
+        border-color: var(--border-hover);
+        color: var(--text);
+      }
+
+      /* ── About ────────────────────────────────────────────────────────── */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-top: 8px;
+      }
+      .about-text {
+        font-size: 15px;
+        line-height: 1.75;
+        color: var(--text-secondary);
+      }
+      .about-text p { margin-bottom: 16px; }
+      .about-text p:last-child { margin-bottom: 0; }
+      .about-highlight {
+        color: var(--text);
+        font-weight: 500;
+      }
+      .about-sidebar { display: flex; flex-direction: column; gap: 28px; }
+      .about-block-title {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--muted);
-        margin-bottom: 28px;
-        opacity: 0;
-        animation: fadeUp 0.6s 0.3s ease forwards;
+        margin-bottom: 10px;
+      }
+      .about-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .about-list li {
+        font-size: 13.5px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+      .about-list li span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .about-metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .about-metric {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+      .about-metric-value {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.02em;
+      }
+      .about-metric-label {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-top: 2px;
+      }
+      .about-links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .about-link {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--accent);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 14px;
+        border-radius: 8px;
+        background: var(--accent-dim);
+        border: 1px solid rgba(59,130,246,0.12);
+        transition: background 0.2s, border-color 0.2s;
+      }
+      .about-link:hover {
+        background: rgba(59,130,246,0.15);
+        border-color: rgba(59,130,246,0.25);
+      }
+      @media (max-width: 768px) {
+        .about-grid { grid-template-columns: 1fr; gap: 32px; }
       }
 
-      /* ── Cards grid ──────────────────────────────────────────────────────── */
+      /* ── Section ────────────────────────────────────────────────────────── */
+      .section { padding: 48px 0; }
+      .section-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* ── Cards grid ─────────────────────────────────────────────────────── */
       .cards {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 16px;
       }
-
       .card {
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 14px;
-        padding: 28px 26px 24px;
+        padding: 24px 24px 20px;
         text-decoration: none;
         color: inherit;
         display: flex;
         flex-direction: column;
         gap: 10px;
-        transition:
-          transform 0.22s ease,
-          border-color 0.22s ease,
-          box-shadow 0.22s ease;
-        opacity: 0;
+        transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s, background 0.22s;
       }
-      .card:nth-child(1) {
-        animation: fadeUp 0.6s 0.35s ease forwards;
-      }
-      .card:nth-child(2) {
-        animation: fadeUp 0.6s 0.45s ease forwards;
-      }
-      .card:nth-child(3) {
-        animation: fadeUp 0.6s 0.55s ease forwards;
-      }
-      .card:nth-child(4) {
-        animation: fadeUp 0.6s 0.65s ease forwards;
-      }
-      .card:nth-child(5) {
-        animation: fadeUp 0.6s 0.75s ease forwards;
-      }
-      .card:nth-child(6) {
-        animation: fadeUp 0.6s 0.85s ease forwards;
-      }
-
       .card:hover {
         transform: translateY(-4px);
-        border-color: rgba(59, 130, 246, 0.35);
-        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+        background: var(--surface-hover);
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 12px 40px rgba(59, 130, 246, 0.08), 0 0 0 1px rgba(59,130,246,0.05);
       }
-      /* non-link cards (building/soon) */
-      .card[aria-disabled="true"] {
-        cursor: default;
-      }
+      .card[aria-disabled="true"] { cursor: default; }
       .card[aria-disabled="true"]:hover {
-        transform: none;
-        border-color: var(--border);
-        box-shadow: none;
+        transform: none; border-color: var(--border);
+        box-shadow: none; background: var(--surface);
       }
 
-      /* badge row */
       .card-top {
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
-
       .badge {
-        font-size: 10.5px;
+        font-size: 10px;
         font-weight: 600;
         letter-spacing: 0.12em;
         text-transform: uppercase;
@@ -247,151 +446,273 @@
         border-radius: 99px;
       }
       .badge-live {
-        background: rgba(34, 197, 94, 0.12);
+        background: rgba(34, 197, 94, 0.10);
         color: var(--live);
-        display: flex;
-        align-items: center;
-        gap: 6px;
+        display: flex; align-items: center; gap: 6px;
       }
       .badge-live::before {
         content: "";
-        width: 6px;
-        height: 6px;
+        width: 5px; height: 5px;
         border-radius: 50%;
         background: var(--live);
         animation: pulse 2s infinite;
       }
-      .badge-building {
-        background: rgba(251, 191, 36, 0.1);
-        color: #f59e0b;
-      }
-      .badge-soon {
-        background: rgba(107, 114, 128, 0.12);
-        color: var(--muted);
-      }
-
-      .card-icon {
-        font-size: 22px;
-        line-height: 1;
-      }
-
+      .badge-building { background: rgba(251,191,36,0.08); color: var(--amber); }
+      .badge-soon { background: rgba(100,100,122,0.1); color: var(--muted); }
+      .card-icon { font-size: 22px; line-height: 1; }
       .card-name {
-        font-size: 17px;
-        font-weight: 600;
-        color: var(--text);
+        font-size: 17px; font-weight: 600; color: var(--text);
         letter-spacing: -0.01em;
       }
       .card-desc {
-        font-size: 13.5px;
+        font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1;
+      }
+      .card-tags {
+        display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px;
+      }
+      .card-tag {
+        font-size: 10px; font-weight: 500; letter-spacing: 0.04em;
+        padding: 2px 8px; border-radius: 6px;
+        background: rgba(255,255,255,0.04);
         color: var(--muted);
-        line-height: 1.55;
-        flex: 1;
+        border: 1px solid rgba(255,255,255,0.05);
       }
       .card-link-hint {
-        font-size: 12px;
-        color: var(--accent);
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        margin-top: 4px;
+        font-size: 12px; color: var(--accent);
+        display: flex; align-items: center; gap: 4px; margin-top: 6px;
+        font-weight: 500;
+      }
+      .card-link-hint svg {
+        width: 14px; height: 14px;
+        transition: transform 0.2s;
+      }
+      .card:hover .card-link-hint svg {
+        transform: translateX(3px);
       }
 
-      /* ── Footer ──────────────────────────────────────────────────────────── */
+      /* ── Blog / Travel cards ────────────────────────────────────────────── */
+      .post-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .post-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 24px 24px 20px;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s, background 0.22s;
+      }
+      .post-card:hover {
+        transform: translateY(-4px);
+        background: var(--surface-hover);
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 12px 40px rgba(59, 130, 246, 0.08);
+      }
+      .post-meta {
+        display: flex; align-items: center; gap: 10px;
+        font-size: 12px; color: var(--muted);
+      }
+      .post-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+        text-transform: uppercase; padding: 2px 8px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .post-tag-travel { background: rgba(168,85,247,0.10); color: var(--purple); }
+      .post-title {
+        font-size: 17px; font-weight: 600; color: var(--text);
+        letter-spacing: -0.01em; line-height: 1.3;
+      }
+      .post-excerpt {
+        font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1;
+      }
+      .post-read {
+        font-size: 12px; color: var(--accent); font-weight: 500;
+        display: flex; align-items: center; gap: 4px; margin-top: 4px;
+      }
+      .post-cover {
+        width: 100%; height: 140px; object-fit: cover;
+        border-radius: 8px; margin-bottom: 4px; background: #1a1a1a;
+      }
+      .section-header {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 32px;
+      }
+      .section-header .section-label { margin-bottom: 0; }
+      .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 48px 24px;
+        color: var(--muted);
+        font-size: 14px;
+        border: 1px dashed var(--border);
+        border-radius: 14px;
+      }
+
+      /* ── Footer ─────────────────────────────────────────────────────────── */
       footer {
         border-top: 1px solid var(--border);
-        padding: 32px 0 40px;
+        padding: 40px 0 48px;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
-        opacity: 0;
-        animation: fadeUp 0.6s 0.65s ease forwards;
+        gap: 32px;
+      }
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .footer-brand-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: 0.02em;
       }
       .footer-copy {
-        font-size: 13px;
+        font-size: 12.5px;
         color: var(--muted);
       }
-      .footer-links {
+      .footer-cols {
         display: flex;
-        gap: 20px;
+        gap: 48px;
       }
-      .footer-links a {
-        font-size: 13px;
+      .footer-col-title {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
         color: var(--muted);
+        margin-bottom: 12px;
+      }
+      .footer-col a {
+        display: block;
+        font-size: 13px;
+        color: var(--text-secondary);
         text-decoration: none;
+        padding: 3px 0;
         transition: color 0.2s;
       }
-      .footer-links a:hover {
-        color: var(--text);
-      }
+      .footer-col a:hover { color: var(--text); }
 
-      /* ── Animations ──────────────────────────────────────────────────────── */
+      /* ── Scroll animations ──────────────────────────────────────────────── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 { transition-delay: 0.08s; }
+      .reveal-delay-2 { transition-delay: 0.16s; }
+      .reveal-delay-3 { transition-delay: 0.24s; }
+      .reveal-delay-4 { transition-delay: 0.32s; }
+      .reveal-delay-5 { transition-delay: 0.40s; }
+      .reveal-delay-6 { transition-delay: 0.48s; }
+
+      /* Hero loads immediately */
+      .hero-reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.65s ease forwards;
+      }
+      .hero-reveal-1 { animation-delay: 0s; }
+      .hero-reveal-2 { animation-delay: 0.1s; }
+      .hero-reveal-3 { animation-delay: 0.18s; }
+      .hero-reveal-4 { animation-delay: 0.26s; }
+      .hero-reveal-5 { animation-delay: 0.34s; }
+
+      /* ── Keyframes ──────────────────────────────────────────────────────── */
       @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(16px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
       }
       @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 0.4;
-          transform: scale(1.4);
-        }
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(1.5); }
       }
 
-      /* ── Responsive ──────────────────────────────────────────────────────── */
+      /* ── Responsive ─────────────────────────────────────────────────────── */
+      @media (max-width: 768px) {
+        .hero {
+          flex-direction: column;
+          gap: 40px;
+          padding: 60px 0 40px;
+        }
+        .hero-visual { width: 100%; }
+        .stats { flex-direction: column; border-radius: 14px; }
+        .stat { border-radius: 0 !important; }
+        .stat:first-child { border-radius: 14px 14px 0 0 !important; }
+        .stat:last-child { border-radius: 0 0 14px 14px !important; }
+      }
       @media (max-width: 520px) {
-        .container {
-          padding: 0 16px;
-        }
-        .nav-links {
-          gap: 12px;
-        }
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+        .nav-links { gap: 2px; }
+        .nav-links a { padding: 6px 8px; font-size: 12px; }
+        .hero-actions { flex-direction: column; }
+        .btn { justify-content: center; }
         footer {
           flex-direction: column;
-          gap: 16px;
-          align-items: flex-start;
+          gap: 28px;
+        }
+        .footer-cols { gap: 32px; }
+        .cards, .post-grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <!-- Nav -->
+    <!-- Nav -->
+    <div class="nav-wrap">
       <nav>
         <a class="nav-logo" href="#">HK</a>
         <div class="nav-links">
-          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener"
-            >GitHub</a
-          >
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#blog">Blog</a>
+          <a href="#travel">Travel</a>
+          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
           <a href="mailto:haomingkoo@gmail.com">Contact</a>
         </div>
       </nav>
+    </div>
 
+    <div class="container">
       <!-- Hero -->
       <section class="hero">
         <div class="hero-inner">
-          <p class="hero-label">builder &middot; data &middot; markets</p>
-          <h1 class="hero-title">Haoming Koo</h1>
-          <p class="hero-sub">
-            Designing real-world AI systems across industries.
+          <div class="hero-label hero-reveal hero-reveal-1">Available for work</div>
+          <h1 class="hero-title hero-reveal hero-reveal-2">
+            Building <span>AI systems</span><br />that ship.
+          </h1>
+          <p class="hero-bio hero-reveal hero-reveal-3">
+            I'm Haoming Koo — I design and deploy full-stack applications that
+            combine ML pipelines, real-time data, and clean interfaces.
+            Six live products and counting.
           </p>
+          <div class="hero-actions hero-reveal hero-reveal-4">
+            <a class="btn btn-primary" href="#projects">
+              View projects
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/haomingkoo" target="_blank" rel="noopener">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a class="btn btn-ghost" href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
         </div>
 
-        <!--
-        Hero visual — pure SVG abstract market chart.
-        To use a real photo instead, replace the <svg>…</svg> block with:
-          <img src="hero.jpg" alt="" style="width:100%;border-radius:16px;object-fit:cover;" />
-      -->
-        <div class="hero-visual">
+        <div class="hero-visual hero-reveal hero-reveal-5">
           <svg
             id="market-chart"
             viewBox="0 0 380 260"
@@ -400,7 +721,7 @@
           >
             <defs>
               <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#3b82f6" stop-opacity=".15" />
+                <stop offset="0%" stop-color="#3b82f6" stop-opacity=".18" />
                 <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
               </linearGradient>
               <filter id="glow">
@@ -411,411 +732,173 @@
                 </feMerge>
               </filter>
             </defs>
-
-            <!-- Panel background -->
-            <rect
-              width="380"
-              height="260"
-              rx="16"
-              fill="#0c0c0c"
-              stroke="#1e1e1e"
-              stroke-width="1"
-            />
-
-            <!-- Grid lines -->
-            <line
-              x1="56"
-              y1="214"
-              x2="356"
-              y2="214"
-              stroke="#252525"
-              stroke-width=".8"
-            />
-            <line
-              x1="56"
-              y1="175"
-              x2="356"
-              y2="175"
-              stroke="#252525"
-              stroke-width=".8"
-            />
-            <line
-              x1="56"
-              y1="136"
-              x2="356"
-              y2="136"
-              stroke="#252525"
-              stroke-width=".8"
-            />
-            <line
-              x1="56"
-              y1="97"
-              x2="356"
-              y2="97"
-              stroke="#252525"
-              stroke-width=".8"
-            />
-
-            <!-- Y axis price labels (updated by JS) -->
-            <text
-              id="mc-y0"
-              x="52"
-              y="217"
-              fill="#4b5563"
-              font-size="8"
-              font-family="Inter,sans-serif"
-              text-anchor="end"
-            >
-              —
-            </text>
-            <text
-              id="mc-y1"
-              x="52"
-              y="178"
-              fill="#4b5563"
-              font-size="8"
-              font-family="Inter,sans-serif"
-              text-anchor="end"
-            >
-              —
-            </text>
-            <text
-              id="mc-y2"
-              x="52"
-              y="139"
-              fill="#4b5563"
-              font-size="8"
-              font-family="Inter,sans-serif"
-              text-anchor="end"
-            >
-              —
-            </text>
-            <text
-              id="mc-y3"
-              x="52"
-              y="100"
-              fill="#4b5563"
-              font-size="8"
-              font-family="Inter,sans-serif"
-              text-anchor="end"
-            >
-              —
-            </text>
-
-            <!-- Header: ticker + price + return -->
-            <text
-              x="56"
-              y="32"
-              fill="#3b82f6"
-              font-size="10"
-              font-family="Inter,sans-serif"
-              font-weight="700"
-            >
-              SPY
-            </text>
-            <text
-              id="mc-spy-info"
-              x="80"
-              y="32"
-              fill="#6b7280"
-              font-size="9.5"
-              font-family="Inter,sans-serif"
-            >
-              —
-            </text>
-            <!-- "daily close · as of [date]" -->
-            <text
-              id="mc-asof"
-              x="356"
-              y="32"
-              fill="#4b5563"
-              font-size="8.5"
-              font-family="Inter,sans-serif"
-              text-anchor="end"
-            >
-              loading…
-            </text>
-
-            <!-- SPY area + line (updated by JS) -->
-            <polygon
-              id="mc-spy-area"
-              points="56,214 356,214"
-              fill="url(#areaGrad)"
-            />
-            <polyline
-              id="mc-spy-line"
-              points="56,175 356,175"
-              stroke="#3b82f6"
-              stroke-width="2"
-              fill="none"
-              stroke-linejoin="round"
-              stroke-linecap="round"
-              filter="url(#glow)"
-            />
-
-            <!-- End-node (anchored by JS) -->
-            <circle
-              id="mc-end-dot"
-              cx="356"
-              cy="175"
-              r="4"
-              fill="#3b82f6"
-              filter="url(#glow)"
-            />
-
-            <!-- Date axis (updated by JS) -->
-            <text
-              id="mc-date-0"
-              x="56"
-              y="242"
-              fill="#4b5563"
-              font-size="8"
-              font-family="Inter,sans-serif"
-            >
-              —
-            </text>
-            <text
-              id="mc-date-mid"
-              x="206"
-              y="242"
-              fill="#4b5563"
-              font-size="8"
-              font-family="Inter,sans-serif"
-              text-anchor="middle"
-            >
-              —
-            </text>
-            <text
-              id="mc-date-end"
-              x="356"
-              y="242"
-              fill="#4b5563"
-              font-size="8"
-              font-family="Inter,sans-serif"
-              text-anchor="end"
-            >
-              —
-            </text>
+            <rect width="380" height="260" rx="16" fill="#0a0a0e" stroke="#1c1c24" stroke-width="1" />
+            <line x1="56" y1="214" x2="356" y2="214" stroke="#1c1c24" stroke-width=".8" />
+            <line x1="56" y1="175" x2="356" y2="175" stroke="#1c1c24" stroke-width=".8" />
+            <line x1="56" y1="136" x2="356" y2="136" stroke="#1c1c24" stroke-width=".8" />
+            <line x1="56" y1="97" x2="356" y2="97" stroke="#1c1c24" stroke-width=".8" />
+            <text id="mc-y0" x="52" y="217" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
+            <text id="mc-y1" x="52" y="178" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
+            <text id="mc-y2" x="52" y="139" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
+            <text id="mc-y3" x="52" y="100" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
+            <text x="56" y="32" fill="#3b82f6" font-size="10" font-family="Inter,sans-serif" font-weight="700">SPY</text>
+            <text id="mc-spy-info" x="80" y="32" fill="#64647a" font-size="9.5" font-family="Inter,sans-serif">&ndash;</text>
+            <text id="mc-asof" x="356" y="32" fill="#44445a" font-size="8.5" font-family="Inter,sans-serif" text-anchor="end">loading&hellip;</text>
+            <polygon id="mc-spy-area" points="56,214 356,214" fill="url(#areaGrad)" />
+            <polyline id="mc-spy-line" points="56,175 356,175" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round" filter="url(#glow)" />
+            <circle id="mc-end-dot" cx="356" cy="175" r="4" fill="#3b82f6" filter="url(#glow)" />
+            <text id="mc-date-0" x="56" y="242" fill="#44445a" font-size="8" font-family="Inter,sans-serif">&ndash;</text>
+            <text id="mc-date-mid" x="206" y="242" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">&ndash;</text>
+            <text id="mc-date-end" x="356" y="242" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
           </svg>
+        </div>
+      </section>
 
-          <script>
-            (function () {
-              var API =
-                "https://trader.kooexperience.com/api/market-summary?days=90";
-              var CX0 = 56,
-                CX1 = 356,
-                CY0 = 56,
-                CY1 = 214;
-              var GRID_YS = [214, 175, 136, 97];
+      <!-- Stats -->
+      <div class="stats reveal">
+        <div class="stat">
+          <div class="stat-value">6</div>
+          <div class="stat-label">Live Apps</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">4</div>
+          <div class="stat-label">ML Models</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">12<span class="stat-accent">+</span></div>
+          <div class="stat-label">Technologies</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">24/7</div>
+          <div class="stat-label">Deployed</div>
+        </div>
+      </div>
 
-              function fmtMon(d) {
-                return new Date(d + "T00:00:00").toLocaleString("en-US", {
-                  month: "short",
-                });
-              }
-              function fmtChg(v) {
-                return (v >= 0 ? "+" : "") + v.toFixed(2) + "%";
-              }
+      <!-- Tech strip -->
+      <div class="tech-strip reveal">
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">PyTorch</span>
+        <span class="tech-pill">TensorFlow</span>
+        <span class="tech-pill">scikit-learn</span>
+        <span class="tech-pill">GenAI / LLM</span>
+        <span class="tech-pill">RAG</span>
+        <span class="tech-pill">YOLOv8</span>
+        <span class="tech-pill">OpenCV</span>
+        <span class="tech-pill">FastAPI</span>
+        <span class="tech-pill">React</span>
+        <span class="tech-pill">Docker</span>
+        <span class="tech-pill">GCP</span>
+        <span class="tech-pill">AWS</span>
+        <span class="tech-pill">MLflow</span>
+        <span class="tech-pill">CI/CD</span>
+      </div>
 
-              var lo, fullRange;
-              function toY(price) {
-                return (CY1 - ((price - lo) / fullRange) * (CY1 - CY0)).toFixed(
-                  1,
-                );
-              }
-              function makePoints(closes, n) {
-                return closes
-                  .map(function (p, i) {
-                    var x = (CX0 + (i / (n - 1)) * (CX1 - CX0)).toFixed(1);
-                    return x + "," + toY(p);
-                  })
-                  .join(" ");
-              }
-
-              fetch(API, { signal: AbortSignal.timeout(8000) })
-                .then(function (r) {
-                  return r.ok ? r.json() : Promise.reject("api error");
-                })
-                .then(function (data) {
-                  var spy = data.tickers && data.tickers.SPY;
-                  if (!spy) throw new Error("missing");
-
-                  var closes = spy.history.map(function (h) {
-                    return h.close;
-                  });
-                  var priceMin = Math.min.apply(null, closes);
-                  var priceMax = Math.max.apply(null, closes);
-                  var range = priceMax - priceMin || 1;
-                  var pad = range * 0.1;
-                  lo = priceMin - pad;
-                  fullRange = range + 2 * pad;
-
-                  var N = closes.length;
-                  var pts = makePoints(closes, N);
-                  var lastX = CX1.toFixed(1);
-                  var lastY = toY(closes[N - 1]);
-
-                  document
-                    .getElementById("mc-spy-line")
-                    .setAttribute("points", pts);
-                  document
-                    .getElementById("mc-spy-area")
-                    .setAttribute(
-                      "points",
-                      pts + " " + lastX + "," + CY1 + " " + CX0 + "," + CY1,
-                    );
-                  document
-                    .getElementById("mc-end-dot")
-                    .setAttribute("cx", lastX);
-                  document
-                    .getElementById("mc-end-dot")
-                    .setAttribute("cy", lastY);
-
-                  // Y axis: price at each grid line
-                  GRID_YS.forEach(function (gy, i) {
-                    var price = lo + ((CY1 - gy) / (CY1 - CY0)) * fullRange;
-                    document.getElementById("mc-y" + i).textContent =
-                      "$" + Math.round(price);
-                  });
-
-                  // Header
-                  document.getElementById("mc-spy-info").textContent =
-                    "$" +
-                    spy.price.toFixed(2) +
-                    "  " +
-                    fmtChg(spy.change_pct_1d) +
-                    " today  ·  " +
-                    fmtChg(spy.change_pct_period) +
-                    " (90d)";
-                  document.getElementById("mc-asof").textContent =
-                    "daily close · " + data.as_of;
-
-                  // Date axis
-                  var dates = spy.history.map(function (h) {
-                    return h.date;
-                  });
-                  document.getElementById("mc-date-0").textContent = fmtMon(
-                    dates[0],
-                  );
-                  document.getElementById("mc-date-mid").textContent = fmtMon(
-                    dates[Math.floor(N / 2)],
-                  );
-                  document.getElementById("mc-date-end").textContent = fmtMon(
-                    dates[N - 1],
-                  );
-                })
-                .catch(function () {
-                  document.getElementById("mc-asof").textContent =
-                    "data unavailable";
-                });
-            })();
-          </script>
+      <!-- About -->
+      <section id="about" class="section">
+        <p class="section-label reveal">About</p>
+        <div class="about-grid">
+          <div class="about-text reveal">
+            <p>
+              I'm an <span class="about-highlight">AI engineer and transformation leader</span> with 7+ years
+              delivering AI-enabled programs across semiconductor manufacturing, cloud infrastructure, and data platforms.
+            </p>
+            <p>
+              At <span class="about-highlight">Micron Technology</span>, I led cross-site digital transformation across
+              four fabs, aligning 3,000+ engineers on a unified data and analytics ecosystem &ndash; driving
+              <span class="about-highlight">USD 600M+ in business impact</span> through yield optimisation,
+              risk analytics, and platform unification. I co-led LPDDR5X (Apple iPhone 16 Pro Max) and HBM3E
+              (NVIDIA H200) product ramps.
+            </p>
+            <p>
+              Currently at <span class="about-highlight">AI Singapore (AIAP)</span>, I build and deploy production ML
+              systems across computer vision, sequence modelling, and NLP. Expanding into GenAI, RAG pipelines,
+              agentic AI, and LLM fine-tuning.
+            </p>
+            <p style="margin-top: 8px;">
+              <a class="about-link" href="./about.html">
+                Full background, experience &amp; skills &rarr;
+              </a>
+            </p>
+          </div>
+          <div class="about-sidebar reveal">
+            <div>
+              <div class="about-block-title">Key Metrics</div>
+              <div class="about-metrics">
+                <div class="about-metric">
+                  <div class="about-metric-value">$600M+</div>
+                  <div class="about-metric-label">Business Impact</div>
+                </div>
+                <div class="about-metric">
+                  <div class="about-metric-value">3,000+</div>
+                  <div class="about-metric-label">Engineers Aligned</div>
+                </div>
+                <div class="about-metric">
+                  <div class="about-metric-value">7</div>
+                  <div class="about-metric-label">Whitepapers</div>
+                </div>
+                <div class="about-metric">
+                  <div class="about-metric-value">4 Fabs</div>
+                  <div class="about-metric-label">Global Sites</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="about-block-title">Education</div>
+              <ul class="about-list">
+                <li>MSc, Smart Industries &amp; Digital Transformation <span>&ndash; NUS (4.85/5.00)</span></li>
+                <li>BSc (Hons), Chemistry &amp; Nanoscience <span>&ndash; NUS (Distinction)</span></li>
+                <li>Full Stack Development with AI <span>&ndash; NUS x Emeritus</span></li>
+                <li>PMP <span>&ndash; Project Management Institute</span></li>
+              </ul>
+            </div>
+            <div>
+              <div class="about-block-title">Awards</div>
+              <ul class="about-list">
+                <li>Micron Innovation Award <span>&ndash; ResNet-50 CV model</span></li>
+                <li>Micron Idea of the Quarter <span>&ndash; Digital twin, $7M+ savings</span></li>
+                <li>Micron Culture Champion <span>&ndash; Cross-site collaboration</span></li>
+              </ul>
+            </div>
+            <div>
+              <div class="about-block-title">Connect</div>
+              <div class="about-links">
+                <a class="about-link" href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="about-link" href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+                <a class="about-link" href="mailto:haomingkoo@gmail.com">Email</a>
+                <a class="about-link" href="./about.html">About me</a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- Projects -->
-      <section class="section">
-        <p class="section-label">Projects</p>
+      <section id="projects" class="section">
+        <p class="section-label reveal">Projects</p>
         <div class="cards">
-          <!-- Trader Koo — LIVE -->
-          <a
-            class="card"
-            href="https://trader.kooexperience.com"
-            target="_blank"
-            rel="noopener"
-          >
+          <a class="card reveal reveal-delay-1" href="https://trader.kooexperience.com" target="_blank" rel="noopener">
             <div class="card-top">
               <span class="card-icon">📈</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Trader Koo</p>
             <p class="card-desc">
-              S&amp;P 500 market dashboard with daily AI chart-pattern
-              detection, candle signals, 52-week extremes, and macro context —
-              updated every night.
+              S&amp;P 500 market dashboard with daily AI chart-pattern detection,
+              candle signals, 52-week extremes, and macro context.
             </p>
-            <span class="card-link-hint">View live &rsaquo;</span>
-          </a>
-
-          <!-- Preflight — LIVE -->
-          <a
-            class="card"
-            href="https://preflight.kooexperience.com/"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="card-top">
-              <span class="card-icon">🔬</span>
-              <span class="badge badge-live">Live</span>
+            <div class="card-tags">
+              <span class="card-tag">FastAPI</span>
+              <span class="card-tag">YOLOv8</span>
+              <span class="card-tag">Plotly</span>
+              <span class="card-tag">SQLite</span>
             </div>
-            <p class="card-name">Preflight</p>
-            <p class="card-desc">
-              Upload any CSV or Parquet — get instant data health checks, EDA
-              charts, correlation maps, and baseline ML models with CV metrics.
-            </p>
-            <span class="card-link-hint">View live &rsaquo;</span>
+            <span class="card-link-hint">
+              View live
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+            </span>
           </a>
 
-          <!-- Handwriting Lab — LIVE -->
-          <a
-            class="card"
-            href="https://handwriting.kooexperience.com/"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="card-top">
-              <span class="card-icon">✍️</span>
-              <span class="badge badge-live">Live</span>
-            </div>
-            <p class="card-name">Handwriting Lab</p>
-            <p class="card-desc">
-              Rotation-aware digit recognition playground with canvas
-              prediction, confusion matrix reporting, and training pipeline
-              documentation.
-            </p>
-            <span class="card-link-hint">View live &rsaquo;</span>
-          </a>
-
-          <!-- Photo Compliance Studio — LIVE -->
-          <a
-            class="card"
-            href="https://studio.kooexperience.com/"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="card-top">
-              <span class="card-icon">🪪</span>
-              <span class="badge badge-live">Live</span>
-            </div>
-            <p class="card-name">Photo Compliance Studio</p>
-            <p class="card-desc">
-              Passport-style photo compliance checks with country rules, quality
-              diagnostics, and guided correction outputs.
-            </p>
-            <span class="card-link-hint">View live &rsaquo;</span>
-          </a>
-
-          <!-- Wine Intelligence — LIVE -->
-          <a class="card" href="./wine.html">
-            <div class="card-top">
-              <span class="card-icon">🍷</span>
-              <span class="badge badge-live">Live</span>
-            </div>
-            <p class="card-name">Wine Intelligence</p>
-            <p class="card-desc">
-              Price and critic-score comparison across major wine retailers.
-              Find the best-value bottles without the noise.
-            </p>
-            <span class="card-link-hint">View live &rsaquo;</span>
-          </a>
-
-          <!-- LionWeather — LIVE -->
-          <a
-            class="card"
-            href="https://lionweather.kooexperience.com/"
-            target="_blank"
-            rel="noopener"
-          >
+          <a class="card reveal reveal-delay-2" href="https://lionweather.kooexperience.com/" target="_blank" rel="noopener">
             <div class="card-top">
               <span class="card-icon">🦁</span>
               <span class="badge badge-live">Live</span>
@@ -825,26 +908,276 @@
               Singapore weather intelligence — NEA real-time data, ML-powered
               rainfall forecasting with SHAP analysis, and animated radar.
             </p>
-            <span class="card-link-hint">View live &rsaquo;</span>
+            <div class="card-tags">
+              <span class="card-tag">React</span>
+              <span class="card-tag">LightGBM</span>
+              <span class="card-tag">Leaflet</span>
+              <span class="card-tag">SHAP</span>
+            </div>
+            <span class="card-link-hint">
+              View live
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+            </span>
+          </a>
+
+          <a class="card reveal reveal-delay-3" href="https://preflight.kooexperience.com/" target="_blank" rel="noopener">
+            <div class="card-top">
+              <span class="card-icon">🔬</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <p class="card-name">Preflight</p>
+            <p class="card-desc">
+              Upload any CSV or Parquet — instant data health checks, EDA charts,
+              correlation maps, and baseline ML models with CV metrics.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">Dash</span>
+              <span class="card-tag">scikit-learn</span>
+              <span class="card-tag">Plotly</span>
+            </div>
+            <span class="card-link-hint">
+              View live
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+            </span>
+          </a>
+
+          <a class="card reveal reveal-delay-4" href="https://handwriting.kooexperience.com/" target="_blank" rel="noopener">
+            <div class="card-top">
+              <span class="card-icon">✍️</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <p class="card-name">Handwriting Lab</p>
+            <p class="card-desc">
+              Rotation-aware digit recognition playground with canvas prediction,
+              confusion matrix reporting, and training pipeline.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">PyTorch</span>
+              <span class="card-tag">MLflow</span>
+              <span class="card-tag">FastAPI</span>
+            </div>
+            <span class="card-link-hint">
+              View live
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+            </span>
+          </a>
+
+          <a class="card reveal reveal-delay-5" href="https://studio.kooexperience.com/" target="_blank" rel="noopener">
+            <div class="card-top">
+              <span class="card-icon">🪪</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <p class="card-name">Photo Compliance Studio</p>
+            <p class="card-desc">
+              Passport-style photo compliance checks with country rules,
+              quality diagnostics, and guided correction outputs.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">MediaPipe</span>
+              <span class="card-tag">OpenCV</span>
+              <span class="card-tag">FastAPI</span>
+            </div>
+            <span class="card-link-hint">
+              View live
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+            </span>
+          </a>
+
+          <a class="card reveal reveal-delay-6" href="./wine.html">
+            <div class="card-top">
+              <span class="card-icon">🍷</span>
+              <span class="badge badge-live">Live</span>
+            </div>
+            <p class="card-name">Wine Intelligence</p>
+            <p class="card-desc">
+              Price and critic-score comparison across wine retailers.
+              Find the best-value bottles without the noise.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">Selenium</span>
+              <span class="card-tag">SQLAlchemy</span>
+              <span class="card-tag">FastAPI</span>
+            </div>
+            <span class="card-link-hint">
+              View live
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+            </span>
           </a>
         </div>
       </section>
 
+      <!-- Blog -->
+      <section id="blog" class="section">
+        <div class="section-header">
+          <p class="section-label reveal" style="flex:1">Blog</p>
+          <a class="section-view-all reveal" href="./blog/">View all &rsaquo;</a>
+        </div>
+        <div id="blog-posts" class="post-grid">
+          <div class="empty-state reveal">No posts yet — check back soon.</div>
+        </div>
+      </section>
+
+      <!-- Travel -->
+      <section id="travel" class="section">
+        <div class="section-header">
+          <p class="section-label reveal" style="flex:1">Travel</p>
+          <a class="section-view-all reveal" href="./travel/">View all &rsaquo;</a>
+        </div>
+        <div id="travel-posts" class="post-grid">
+          <div class="empty-state reveal">No travel stories yet — check back soon.</div>
+        </div>
+      </section>
+
       <!-- Footer -->
-      <footer>
-        <span class="footer-copy">&copy; 2026 Haoming Koo</span>
-        <div class="footer-links">
-          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener"
-            >GitHub</a
-          >
-          <a
-            href="https://linkedin.com/in/haomingkoo"
-            target="_blank"
-            rel="noopener"
-            >LinkedIn</a
-          >
+      <footer class="reveal">
+        <div class="footer-brand">
+          <span class="footer-brand-name">Haoming Koo</span>
+          <span class="footer-copy">&copy; 2026 &middot; Built with curiosity.</span>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <div class="footer-col-title">Links</div>
+            <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:haomingkoo@gmail.com">Email</a>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col-title">Explore</div>
+            <a href="#projects">Projects</a>
+            <a href="#blog">Blog</a>
+            <a href="#travel">Travel</a>
+          </div>
         </div>
       </footer>
     </div>
+
+    <!-- ── Scripts ──────────────────────────────────────────────────────── -->
+    <script>
+      /* ── SPY chart ──────────────────────────────────────────────────── */
+      (function () {
+        var API = "https://trader.kooexperience.com/api/market-summary?days=90";
+        var CX0 = 56, CX1 = 356, CY0 = 56, CY1 = 214;
+        var GRID_YS = [214, 175, 136, 97];
+
+        function fmtMon(d) {
+          return new Date(d + "T00:00:00").toLocaleString("en-US", { month: "short" });
+        }
+        function fmtChg(v) {
+          return (v >= 0 ? "+" : "") + v.toFixed(2) + "%";
+        }
+
+        var lo, fullRange;
+        function toY(price) {
+          return (CY1 - ((price - lo) / fullRange) * (CY1 - CY0)).toFixed(1);
+        }
+        function makePoints(closes, n) {
+          return closes.map(function (p, i) {
+            var x = (CX0 + (i / (n - 1)) * (CX1 - CX0)).toFixed(1);
+            return x + "," + toY(p);
+          }).join(" ");
+        }
+
+        fetch(API, { signal: AbortSignal.timeout(8000) })
+          .then(function (r) { return r.ok ? r.json() : Promise.reject("api error"); })
+          .then(function (data) {
+            var spy = data.tickers && data.tickers.SPY;
+            if (!spy) throw new Error("missing");
+
+            var closes = spy.history.map(function (h) { return h.close; });
+            var priceMin = Math.min.apply(null, closes);
+            var priceMax = Math.max.apply(null, closes);
+            var range = priceMax - priceMin || 1;
+            var pad = range * 0.1;
+            lo = priceMin - pad;
+            fullRange = range + 2 * pad;
+
+            var N = closes.length;
+            var pts = makePoints(closes, N);
+            var lastX = CX1.toFixed(1);
+            var lastY = toY(closes[N - 1]);
+
+            document.getElementById("mc-spy-line").setAttribute("points", pts);
+            document.getElementById("mc-spy-area").setAttribute("points",
+              pts + " " + lastX + "," + CY1 + " " + CX0 + "," + CY1);
+            document.getElementById("mc-end-dot").setAttribute("cx", lastX);
+            document.getElementById("mc-end-dot").setAttribute("cy", lastY);
+
+            GRID_YS.forEach(function (gy, i) {
+              var price = lo + ((CY1 - gy) / (CY1 - CY0)) * fullRange;
+              document.getElementById("mc-y" + i).textContent = "$" + Math.round(price);
+            });
+
+            document.getElementById("mc-spy-info").textContent =
+              "$" + spy.price.toFixed(2) + "  " + fmtChg(spy.change_pct_1d) +
+              " today  ·  " + fmtChg(spy.change_pct_period) + " (90d)";
+            document.getElementById("mc-asof").textContent = "daily close · " + data.as_of;
+
+            var dates = spy.history.map(function (h) { return h.date; });
+            document.getElementById("mc-date-0").textContent = fmtMon(dates[0]);
+            document.getElementById("mc-date-mid").textContent = fmtMon(dates[Math.floor(N / 2)]);
+            document.getElementById("mc-date-end").textContent = fmtMon(dates[N - 1]);
+          })
+          .catch(function () {
+            document.getElementById("mc-asof").textContent = "data unavailable";
+          });
+      })();
+
+      /* ── Scroll reveal ──────────────────────────────────────────────── */
+      (function () {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+
+        document.querySelectorAll(".reveal").forEach(function (el) {
+          observer.observe(el);
+        });
+      })();
+
+      /* ── Blog & Travel post renderer ────────────────────────────────── */
+      (function () {
+        function renderPosts(containerId, manifestUrl, type, limit) {
+          fetch(manifestUrl)
+            .then(function (r) { return r.ok ? r.json() : []; })
+            .then(function (posts) {
+              if (!posts.length) return;
+              posts.sort(function (a, b) { return b.date.localeCompare(a.date); });
+              var display = posts.slice(0, limit || 3);
+              var container = document.getElementById(containerId);
+              container.innerHTML = "";
+              display.forEach(function (p) {
+                var a = document.createElement("a");
+                a.className = "post-card reveal visible";
+                a.href = "./" + type + "/posts/" + p.slug + ".html";
+                var tagClass = type === "travel" ? "post-tag post-tag-travel" : "post-tag";
+                var firstTag = (p.tags && p.tags[0]) || type;
+                var coverHtml = p.cover
+                  ? '<img class="post-cover" src="' + p.cover + '" alt="" loading="lazy" />'
+                  : "";
+                var dt = new Date(p.date + "T00:00:00");
+                var dateStr = dt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+                a.innerHTML =
+                  coverHtml +
+                  '<div class="post-meta">' +
+                    '<span class="' + tagClass + '">' + firstTag + '</span>' +
+                    '<span>' + dateStr + '</span>' +
+                  '</div>' +
+                  '<p class="post-title">' + p.title + '</p>' +
+                  '<p class="post-excerpt">' + p.excerpt + '</p>' +
+                  '<span class="post-read">Read &rsaquo;</span>';
+                container.appendChild(a);
+              });
+            })
+            .catch(function () {});
+        }
+
+        renderPosts("blog-posts", "./blog/posts.json", "blog", 3);
+        renderPosts("travel-posts", "./travel/posts.json", "travel", 3);
+      })();
+    </script>
   </body>
 </html>

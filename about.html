@@ -1,0 +1,1111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — Haoming Koo</title>
+    <meta name="description" content="Haoming Koo — AI engineer and transformation leader with 7+ years delivering AI-enabled programs. $600M+ business impact. Currently at AI Singapore." />
+    <link rel="canonical" href="https://kooexperience.com/about.html" />
+    <meta property="og:title" content="About — Haoming Koo" />
+    <meta property="og:description" content="AI engineer and transformation leader with 7+ years. $600M+ business impact across semiconductor, cloud, and AI." />
+    <meta property="og:url" content="https://kooexperience.com/about.html" />
+    <meta property="og:type" content="profile" />
+    <meta name="twitter:card" content="summary" />
+    <!-- JSON-LD Person -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://kooexperience.com/#person",
+      "name": "Haoming Koo",
+      "jobTitle": "AI Engineer & Digital Transformation Leader",
+      "url": "https://kooexperience.com",
+      "email": "haomingkoo@gmail.com",
+      "nationality": "Singapore",
+      "sameAs": [
+        "https://github.com/haomingkoo",
+        "https://linkedin.com/in/haomingkoo"
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "National University of Singapore",
+          "department": "Smart Industries and Digital Transformation"
+        }
+      ],
+      "knowsAbout": [
+        "Artificial Intelligence", "Machine Learning", "Deep Learning",
+        "Computer Vision", "Natural Language Processing", "MLOps",
+        "GenAI", "RAG", "LLM Fine-tuning", "Digital Transformation",
+        "Cloud Computing", "Full-Stack Development"
+      ],
+      "hasCredential": [
+        { "@type": "EducationalOccupationalCredential", "name": "MSc Smart Industries & Digital Transformation, NUS" },
+        { "@type": "EducationalOccupationalCredential", "name": "Project Management Professional (PMP)" }
+      ],
+      "award": [
+        "Micron Innovation Award — ResNet-50 CV model for wafer defect detection",
+        "Micron Idea of the Quarter — Digital twin, 60% chemical reduction, $7M+ savings",
+        "Micron Culture Champion — Cross-site collaboration"
+      ]
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --surface-hover: #141418;
+        --border: #1c1c24;
+        --border-hover: #2a2a36;
+        --accent: #3b82f6;
+        --accent-dim: rgba(59, 130, 246, 0.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+        --live: #22c55e;
+        --purple: #a855f7;
+        --amber: #f59e0b;
+      }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        font-size: 15px;
+        line-height: 1.6;
+        min-height: 100vh;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,0.07) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 40% at 85% 20%, rgba(168,85,247,0.04) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      /* ── Nav ──────────────────────────────────────────────────── */
+      .nav-wrap {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(6, 6, 8, 0.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28, 28, 36, 0.6);
+      }
+      nav {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .nav-links { display: flex; gap: 8px; }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        padding: 6px 12px;
+        border-radius: 8px;
+        transition: color 0.2s, background 0.2s;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--text);
+        background: rgba(255,255,255,0.04);
+      }
+
+      /* ── Page Header ─────────────────────────────────────────── */
+      .page-header {
+        padding: 72px 0 48px;
+      }
+      .page-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--live);
+        margin-bottom: 20px;
+        padding: 5px 14px;
+        background: rgba(34, 197, 94, 0.08);
+        border: 1px solid rgba(34, 197, 94, 0.15);
+        border-radius: 99px;
+      }
+      .page-status::before {
+        content: "";
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--live);
+        animation: pulse 2.5s infinite;
+      }
+      .page-title {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.035em;
+        margin-bottom: 16px;
+      }
+      .page-title span {
+        background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .page-subtitle {
+        font-size: 17px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        max-width: 640px;
+        margin-bottom: 24px;
+      }
+      .page-meta {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .page-meta a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: color 0.2s;
+      }
+      .page-meta a:hover { color: var(--text); }
+      .page-meta-sep { color: var(--border); }
+
+      /* ── Key Metrics Bar ──────────────────────────────────────── */
+      .metrics-bar {
+        display: flex;
+        gap: 1px;
+        background: var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 56px;
+      }
+      .metric-item {
+        flex: 1;
+        background: var(--surface);
+        padding: 20px 16px;
+        text-align: center;
+      }
+      .metric-item:first-child { border-radius: 14px 0 0 14px; }
+      .metric-item:last-child { border-radius: 0 14px 14px 0; }
+      .metric-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+      .metric-value .accent { color: var(--accent); }
+      .metric-label {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 500;
+        margin-top: 4px;
+      }
+
+      /* ── Section Shared ──────────────────────────────────────── */
+      .section { padding: 48px 0; }
+      .section-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* ── Experience Timeline ─────────────────────────────────── */
+      .timeline { display: flex; flex-direction: column; gap: 0; }
+      .timeline-company {
+        position: relative;
+        padding-left: 36px;
+        padding-bottom: 40px;
+      }
+      .timeline-company:last-child { padding-bottom: 0; }
+      .timeline-company::before {
+        content: "";
+        position: absolute;
+        left: 7px;
+        top: 24px;
+        bottom: 0;
+        width: 1px;
+        background: var(--border);
+      }
+      .timeline-company:last-child::before { display: none; }
+      .timeline-dot {
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--surface);
+        border: 2px solid var(--accent);
+      }
+      .timeline-company-header {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 4px;
+        flex-wrap: wrap;
+      }
+      .timeline-company-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.01em;
+      }
+      .timeline-company-duration {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .timeline-roles { display: flex; flex-direction: column; gap: 28px; margin-top: 16px; }
+      .timeline-role {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px 24px;
+        transition: border-color 0.2s;
+      }
+      .timeline-role:hover { border-color: var(--border-hover); }
+      .timeline-role-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .timeline-role-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .timeline-role-dates {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .timeline-role-desc {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 12px;
+      }
+      .timeline-bullets {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .timeline-bullets li {
+        font-size: 13px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        padding-left: 16px;
+        position: relative;
+      }
+      .timeline-bullets li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 9px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+        opacity: 0.5;
+      }
+      .timeline-bullets li strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      /* ── Skills Grid ─────────────────────────────────────────── */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 16px;
+      }
+      .skill-category {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px 24px;
+      }
+      .skill-category-title {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 12px;
+      }
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .skill-tag {
+        font-size: 12px;
+        font-weight: 500;
+        padding: 4px 12px;
+        border-radius: 99px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        letter-spacing: 0.01em;
+      }
+
+      /* ── Education Cards ─────────────────────────────────────── */
+      .edu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .edu-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px 24px;
+      }
+      .edu-institution {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 4px;
+      }
+      .edu-degree {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-bottom: 2px;
+      }
+      .edu-detail {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* ── Awards ──────────────────────────────────────────────── */
+      .awards-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .award-item {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px 24px;
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+      }
+      .award-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .award-text {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+      .award-text strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      /* ── Testimonials ────────────────────────────────────────── */
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 16px;
+      }
+      .testimonial-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 28px 28px 24px;
+      }
+      .testimonial-quote {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        font-style: italic;
+        margin-bottom: 16px;
+      }
+      .testimonial-quote::before { content: "\201C"; color: var(--accent); font-size: 24px; font-weight: 700; line-height: 0; vertical-align: -6px; margin-right: 4px; }
+      .testimonial-author {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .testimonial-role {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      /* ── Certifications ──────────────────────────────────────── */
+      .cert-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 8px;
+      }
+      .cert-item {
+        font-size: 13px;
+        color: var(--text-secondary);
+        padding: 10px 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .cert-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--accent);
+        opacity: 0.5;
+        flex-shrink: 0;
+      }
+
+      /* ── Publications ────────────────────────────────────────── */
+      .pub-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .pub-item {
+        font-size: 14px;
+        color: var(--text-secondary);
+        padding: 14px 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        line-height: 1.5;
+      }
+
+      /* ── Footer ──────────────────────────────────────────────── */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 40px 0 48px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 32px;
+      }
+      .footer-brand { display: flex; flex-direction: column; gap: 8px; }
+      .footer-brand-name { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; }
+      .footer-copy { font-size: 12.5px; color: var(--muted); }
+      .footer-cols { display: flex; gap: 48px; }
+      .footer-col-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+      .footer-col a { display: block; font-size: 13px; color: var(--text-secondary); text-decoration: none; padding: 3px 0; transition: color 0.2s; }
+      .footer-col a:hover { color: var(--text); }
+
+      /* ── Scroll reveal ───────────────────────────────────────── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+
+      /* ── Keyframes ───────────────────────────────────────────── */
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(1.5); }
+      }
+
+      /* ── Responsive ──────────────────────────────────────────── */
+      @media (max-width: 768px) {
+        .metrics-bar { flex-direction: column; border-radius: 14px; }
+        .metric-item { border-radius: 0 !important; }
+        .metric-item:first-child { border-radius: 14px 14px 0 0 !important; }
+        .metric-item:last-child { border-radius: 0 0 14px 14px !important; }
+        .testimonials-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 520px) {
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+        .nav-links { gap: 2px; }
+        .nav-links a { padding: 6px 8px; font-size: 12px; }
+        .timeline-company { padding-left: 28px; }
+        footer { flex-direction: column; gap: 28px; }
+        .footer-cols { gap: 32px; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Nav -->
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="./">HK</a>
+        <div class="nav-links">
+          <a href="./about.html" class="active">About</a>
+          <a href="./#projects">Projects</a>
+          <a href="./#blog">Blog</a>
+          <a href="./#travel">Travel</a>
+          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:haomingkoo@gmail.com">Contact</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <!-- Header -->
+      <header class="page-header reveal">
+        <div class="page-status">Open to opportunities</div>
+        <h1 class="page-title">Haoming <span>Koo</span></h1>
+        <p class="page-subtitle">
+          AI engineer and transformation leader with 7+ years delivering AI-enabled programs
+          across semiconductor manufacturing, cloud infrastructure, and data platforms.
+          Driven more than USD 600M in business impact through yield optimisation, cycle-time
+          reduction, risk analytics, and platform unification.
+        </p>
+        <div class="page-meta">
+          <span>Singapore</span>
+          <span class="page-meta-sep">|</span>
+          <a href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:haomingkoo@gmail.com">haomingkoo@gmail.com</a>
+          <a href="./Resume.pdf" target="_blank">Resume (PDF)</a>
+        </div>
+      </header>
+
+      <!-- Key Metrics -->
+      <div class="metrics-bar reveal">
+        <div class="metric-item">
+          <div class="metric-value">$600M<span class="accent">+</span></div>
+          <div class="metric-label">Business Impact</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">3,000<span class="accent">+</span></div>
+          <div class="metric-label">Engineers Aligned</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">7<span class="accent">+</span></div>
+          <div class="metric-label">Years Experience</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">4 Fabs</div>
+          <div class="metric-label">Global Sites</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">6</div>
+          <div class="metric-label">Live Apps</div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <section class="section">
+        <p class="section-label reveal">Experience</p>
+        <div class="timeline">
+
+          <!-- AI Singapore -->
+          <div class="timeline-company reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-company-header">
+              <span class="timeline-company-name">AI Singapore</span>
+              <span class="timeline-company-duration">Jan 2026 &ndash; Present</span>
+            </div>
+            <div class="timeline-roles">
+              <div class="timeline-role">
+                <div class="timeline-role-header">
+                  <span class="timeline-role-title">Associate AI Engineer | AI Apprenticeship Programme (AIAP)</span>
+                  <span class="timeline-role-dates">Jan 2026 &ndash; Present</span>
+                </div>
+                <p class="timeline-role-desc">Full-time AI engineering apprenticeship under AI Singapore's national AI programme. Building and deploying end-to-end ML systems across structured data, computer vision, and sequential modelling domains.</p>
+                <ul class="timeline-bullets">
+                  <li>Delivered production-ready pipelines using GitLab CI/CD, Docker, and Google Cloud &ndash; including backend inference services and frontend UIs</li>
+                  <li>Built CNN architectures and transfer learning models for image classification and object detection</li>
+                  <li>Developed LSTM-based sequence modelling systems for time-series prediction</li>
+                  <li>Implemented containerised deployment, model lifecycle management, and MLOps automation</li>
+                  <li>Built 6 live portfolio applications integrating ML models with cloud-hosted dashboards</li>
+                  <li>Expanding into NLP, Large Language Model architectures, and agentic AI workflows</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Independent Training -->
+          <div class="timeline-company reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-company-header">
+              <span class="timeline-company-name">Independent AI &amp; Full-Stack Training</span>
+              <span class="timeline-company-duration">Jan 2025 &ndash; Dec 2025 &middot; 1 yr</span>
+            </div>
+            <div class="timeline-roles">
+              <div class="timeline-role">
+                <div class="timeline-role-header">
+                  <span class="timeline-role-title">AI &amp; Software Engineering (Self-Directed)</span>
+                  <span class="timeline-role-dates">Jan 2025 &ndash; Dec 2025</span>
+                </div>
+                <p class="timeline-role-desc">Structured upskilling period focused on AI engineering, full-stack development, and applied transformation &ndash; bridging 7 years of semiconductor leadership into production AI roles.</p>
+                <ul class="timeline-bullets">
+                  <li>Completed <strong>Full Stack Development with AI</strong> (NUS x Emeritus, 24 weeks) &ndash; React, Flask, MongoDB, SQL, Node.js, REST APIs, AI integration</li>
+                  <li>Completed <strong>GA100 Generative AI</strong> (Heicoders Academy, WSQ) &ndash; prompt engineering, RAG, AI agents, workflow automation (n8n), MCP</li>
+                  <li>Built 6 live portfolio applications deployed at kooexperience.com</li>
+                  <li>PMP certification preparation</li>
+                  <li>Exposure to innovation ecosystems across Europe and Asia &ndash; digital platforms, sustainability, and cross-cultural leadership</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Micron Technology -->
+          <div class="timeline-company reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-company-header">
+              <span class="timeline-company-name">Micron Technology</span>
+              <span class="timeline-company-duration">Mar 2018 &ndash; Jan 2025 &middot; 6 yrs 11 mos</span>
+            </div>
+            <div class="timeline-roles">
+
+              <div class="timeline-role">
+                <div class="timeline-role-header">
+                  <span class="timeline-role-title">Manager, Front End Central Process Integration Engineering</span>
+                  <span class="timeline-role-dates">Aug 2022 &ndash; Jan 2025</span>
+                </div>
+                <p class="timeline-role-desc">Led global AI-enabled transformation and cross-site program delivery, aligning 3,000+ engineers across four fabs (Singapore, Boise, Hiroshima, Taichung). Managed 6 direct and up to 9 indirect engineers with a USD 9M operational portfolio.</p>
+                <ul class="timeline-bullets">
+                  <li>Designed and executed a 5-year autonomous conversion roadmap using 3M strategy &ndash; <strong>$832M in opportunities</strong> surfaced, $50M+ realised savings</li>
+                  <li>Unified fragmented process platforms into a single AI-integrated ecosystem &ndash; <strong>standardised 80% of workflows across 4 countries</strong></li>
+                  <li>Co-led <strong>LPDDR5X yield ramp</strong> (Apple iPhone 16 Pro Max) &ndash; maturity pulled in by 7 months, unlocking 9-figure USD revenue</li>
+                  <li>Co-led <strong>HBM3E yield program</strong> (NVIDIA H200/Blackwell) &ndash; Micron's first HBM market entry, driving $500M+ above business plan</li>
+                  <li>Modernised infrastructure from <strong>Hadoop to Google Cloud Platform</strong> (GCP)</li>
+                  <li>Developed <strong>ML risk-scoring dashboards</strong> &ndash; preventing USD 100M+ potential losses</li>
+                  <li>Built GenAI SOP Assistant: 80&ndash;90% answer relevance, ~15 min/query deflection, scaled to ~3,000 users</li>
+                  <li>Scaled <strong>RPA</strong> (UiPath/Power Automate) for targeting-lot workflow &ndash; 100% adoption; mentored ~30 engineers</li>
+                  <li>Built reliability/observability: pipeline health dashboards, canary/shadow runs, rollback runbooks &ndash; near-zero ML-pipeline outages</li>
+                  <li>Drove SEMulator3D rollout: accelerated validation by 2 weeks, &gt;$10M in time-to-market gains</li>
+                  <li>Conducted red-team UAT simulations, reducing post-deployment issues by 25%</li>
+                </ul>
+              </div>
+
+              <div class="timeline-role">
+                <div class="timeline-role-header">
+                  <span class="timeline-role-title">Senior Process and Equipment Engineer &ndash; Uniformity</span>
+                  <span class="timeline-role-dates">Nov 2021 &ndash; Aug 2022</span>
+                </div>
+                <p class="timeline-role-desc">Transitioned from equipment engineering to data-driven automation &ndash; developing ML-enabled defect prediction and control systems.</p>
+                <ul class="timeline-bullets">
+                  <li>Built <strong>ResNet-50 computer vision model</strong> for wafer/chamber misplacement detection &ndash; earned Micron Innovation Award</li>
+                  <li>Scaled AI-based OCR defect detection system fab-wide &ndash; <strong>4&ndash;5% yield improvement</strong></li>
+                  <li>Reduced scanner wafer rejection to &lt;0.5% and MA excursion impact to &lt;0.1%</li>
+                  <li>Developed anomaly detection and OOF monitoring with automated MES-integrated alerting</li>
+                  <li>Pioneered novel bevel etch detection using peak colour analysis &ndash; became permanent defence strategy</li>
+                </ul>
+              </div>
+
+              <div class="timeline-role">
+                <div class="timeline-role-header">
+                  <span class="timeline-role-title">Senior Process and Equipment Engineer &ndash; Wet Process</span>
+                  <span class="timeline-role-dates">Nov 2019 &ndash; Nov 2021</span>
+                </div>
+                <p class="timeline-role-desc">Led smart manufacturing initiatives integrating digital twins, ML models, and automation pipelines.</p>
+                <ul class="timeline-bullets">
+                  <li>Built a <strong>digital twin of TEL Celesta</strong> &ndash; ML-guided DoE optimisation reduced chemical usage by 60% and saved USD 7M+</li>
+                  <li>Saved 40+ hours/week of manual validation through simulation-based process qualification</li>
+                  <li>Qualified &gt;10 alternate chemistries during COVID disruptions &ndash; <strong>zero production downtime</strong>, mitigating &gt;USD 100M potential losses</li>
+                  <li>Co-authored 7 technical whitepapers on yield analytics, process automation, and cross-site harmonisation</li>
+                </ul>
+              </div>
+
+              <div class="timeline-role">
+                <div class="timeline-role-header">
+                  <span class="timeline-role-title">Process and Equipment Engineer &ndash; Wet Process</span>
+                  <span class="timeline-role-dates">Mar 2018 &ndash; Oct 2019</span>
+                </div>
+                <p class="timeline-role-desc">Built core engineering and program delivery foundations during the Hiroshima Fab Expansion.</p>
+                <ul class="timeline-bullets">
+                  <li>Achieved <strong>USD 7.5M CAPEX savings</strong> through smart ramp planning and tool reuse across global fabs</li>
+                  <li>Developed &ldquo;MAXout&rdquo; onboarding framework &ndash; boosted team productivity by 20%, later scaled across sites</li>
+                  <li>Aligned Hiroshima ramp plans with Boise and Singapore through remote calibration</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Tagvance x MPA -->
+          <div class="timeline-company reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-company-header">
+              <span class="timeline-company-name">Tagvance x Maritime &amp; Port Authority</span>
+              <span class="timeline-company-duration">Jun 2021 &ndash; Nov 2021 &middot; 6 mos</span>
+            </div>
+            <div class="timeline-roles">
+              <div class="timeline-role">
+                <div class="timeline-role-header">
+                  <span class="timeline-role-title">Capstone Consultant (Geospatial Analytics)</span>
+                  <span class="timeline-role-dates">Jun 2021 &ndash; Nov 2021</span>
+                </div>
+                <p class="timeline-role-desc">NUS MSc capstone &ndash; digital transformation focused on Industrial IoT and applied ML for maritime safety and enforcement.</p>
+                <ul class="timeline-bullets">
+                  <li>Detected illegal vessel mooring using geospatial analytics with GPS and tidal-corrected clustering (K-means, DBSCAN)</li>
+                  <li>Built scalable ML pipeline on <strong>AWS (S3, Lambda)</strong> for real-time anomaly detection &ndash; reduced false positives by 22%</li>
+                  <li>Delivered end-to-end prototype influencing ~$2M potential annual revenue across four ports</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- SIMTech -->
+          <div class="timeline-company reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-company-header">
+              <span class="timeline-company-name">Singapore Institute of Manufacturing Technology</span>
+              <span class="timeline-company-duration">May 2016 &ndash; May 2017 &middot; 1 yr 1 mo</span>
+            </div>
+            <div class="timeline-roles">
+              <div class="timeline-role">
+                <div class="timeline-role-header">
+                  <span class="timeline-role-title">Scientist Intern</span>
+                  <span class="timeline-role-dates">May 2016 &ndash; May 2017</span>
+                </div>
+                <p class="timeline-role-desc">R&amp;D in bio-lasing technologies &ndash; investigating biological materials as laser gain mediums.</p>
+                <ul class="timeline-bullets">
+                  <li>Engineered and tested laser prototypes integrating biological components</li>
+                  <li>Automated data collection and visualisation using MATLAB</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- NUS Research -->
+          <div class="timeline-company reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-company-header">
+              <span class="timeline-company-name">National University of Singapore</span>
+              <span class="timeline-company-duration">Jan 2016 &ndash; May 2016 &middot; 5 mos</span>
+            </div>
+            <div class="timeline-roles">
+              <div class="timeline-role">
+                <div class="timeline-role-header">
+                  <span class="timeline-role-title">Undergraduate Researcher</span>
+                  <span class="timeline-role-dates">Jan 2016 &ndash; May 2016</span>
+                </div>
+                <p class="timeline-role-desc">Hydrogen evolution research under Prof. Jason Yeo &ndash; advancing catalyst science for sustainable energy.</p>
+                <ul class="timeline-bullets">
+                  <li><strong>First to identify sulfur atoms as active sites</strong> in amorphous MoS&#x2093; catalysts &ndash; novel experimental finding</li>
+                  <li>Executed Operando Raman Spectroscopy to examine catalytic behaviour under real-time conditions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Technical Skills -->
+      <section class="section">
+        <p class="section-label reveal">Technical Skills</p>
+        <div class="skills-grid">
+          <div class="skill-category reveal">
+            <div class="skill-category-title">Languages</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">R</span>
+              <span class="skill-tag">MATLAB</span>
+            </div>
+          </div>
+          <div class="skill-category reveal">
+            <div class="skill-category-title">ML &amp; Deep Learning</div>
+            <div class="skill-tags">
+              <span class="skill-tag">PyTorch</span>
+              <span class="skill-tag">TensorFlow</span>
+              <span class="skill-tag">scikit-learn</span>
+              <span class="skill-tag">YOLOv8</span>
+              <span class="skill-tag">LightGBM</span>
+              <span class="skill-tag">ResNet-50</span>
+              <span class="skill-tag">CNN</span>
+              <span class="skill-tag">LSTM</span>
+              <span class="skill-tag">Transfer Learning</span>
+              <span class="skill-tag">SHAP</span>
+            </div>
+          </div>
+          <div class="skill-category reveal">
+            <div class="skill-category-title">Computer Vision</div>
+            <div class="skill-tags">
+              <span class="skill-tag">OpenCV</span>
+              <span class="skill-tag">MediaPipe</span>
+              <span class="skill-tag">YOLOv8</span>
+              <span class="skill-tag">Image Classification</span>
+              <span class="skill-tag">Object Detection</span>
+            </div>
+          </div>
+          <div class="skill-category reveal">
+            <div class="skill-category-title">GenAI &amp; LLM</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Prompt Engineering</span>
+              <span class="skill-tag">RAG</span>
+              <span class="skill-tag">AI Agents</span>
+              <span class="skill-tag">n8n</span>
+              <span class="skill-tag">MCP</span>
+              <span class="skill-tag">OpenAI APIs</span>
+              <span class="skill-tag">Hugging Face</span>
+            </div>
+          </div>
+          <div class="skill-category reveal">
+            <div class="skill-category-title">MLOps &amp; DevOps</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">GitLab CI/CD</span>
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">MLflow</span>
+              <span class="skill-tag">Airflow</span>
+              <span class="skill-tag">Kedro</span>
+              <span class="skill-tag">PySpark</span>
+            </div>
+          </div>
+          <div class="skill-category reveal">
+            <div class="skill-category-title">Cloud Platforms</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Google Cloud (GCP)</span>
+              <span class="skill-tag">AWS (S3, Lambda, SageMaker)</span>
+              <span class="skill-tag">Snowflake</span>
+              <span class="skill-tag">Railway</span>
+            </div>
+          </div>
+          <div class="skill-category reveal">
+            <div class="skill-category-title">Full-Stack</div>
+            <div class="skill-tags">
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">FastAPI</span>
+              <span class="skill-tag">Flask</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">REST APIs</span>
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">SQLite</span>
+            </div>
+          </div>
+          <div class="skill-category reveal">
+            <div class="skill-category-title">Data &amp; Visualisation</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Tableau</span>
+              <span class="skill-tag">Power BI</span>
+              <span class="skill-tag">Plotly</span>
+              <span class="skill-tag">Pandas</span>
+              <span class="skill-tag">NumPy</span>
+              <span class="skill-tag">Jupyter</span>
+            </div>
+          </div>
+          <div class="skill-category reveal">
+            <div class="skill-category-title">Leadership &amp; Methods</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Agile/Scrum</span>
+              <span class="skill-tag">Lean Six Sigma</span>
+              <span class="skill-tag">PMP</span>
+              <span class="skill-tag">ISO 9001</span>
+              <span class="skill-tag">Design Thinking</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section class="section">
+        <p class="section-label reveal">Education</p>
+        <div class="edu-grid">
+          <div class="edu-card reveal">
+            <div class="edu-institution">National University of Singapore</div>
+            <div class="edu-degree">MSc, Smart Industries &amp; Digital Transformation</div>
+            <div class="edu-detail">GPA: 4.85/5.00 &middot; 2020&ndash;2021</div>
+            <div class="edu-detail">Graduate Certificates: IoT Systems, Intelligent Sensing, Data Analytics</div>
+          </div>
+          <div class="edu-card reveal">
+            <div class="edu-institution">National University of Singapore</div>
+            <div class="edu-degree">BSc (Honours), Chemistry &amp; Nanoscience</div>
+            <div class="edu-detail">GPA: 4.46/5.00 (Distinction)</div>
+            <div class="edu-detail">Exchange: Simon Fraser University, Canada</div>
+          </div>
+          <div class="edu-card reveal">
+            <div class="edu-institution">NUS x Emeritus</div>
+            <div class="edu-degree">Full Stack Development with AI</div>
+            <div class="edu-detail">24-week programme &middot; 2025</div>
+          </div>
+          <div class="edu-card reveal">
+            <div class="edu-institution">Heicoders Academy</div>
+            <div class="edu-degree">GA100 &ndash; Generative AI (WSQ)</div>
+            <div class="edu-detail">RAG, AI Agents, MCP, n8n &middot; 2025</div>
+          </div>
+          <div class="edu-card reveal">
+            <div class="edu-institution">Project Management Institute</div>
+            <div class="edu-degree">PMP &ndash; Project Management Professional</div>
+            <div class="edu-detail">2025</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Awards -->
+      <section class="section">
+        <p class="section-label reveal">Awards</p>
+        <div class="awards-list">
+          <div class="award-item reveal">
+            <span class="award-icon">&#127942;</span>
+            <div class="award-text"><strong>Micron Innovation Award</strong> (2022) &ndash; Built ResNet-50 computer vision model for inline wafer defect detection via shadow-ring analysis</div>
+          </div>
+          <div class="award-item reveal">
+            <span class="award-icon">&#128161;</span>
+            <div class="award-text"><strong>Micron Idea of the Quarter</strong> &ndash; Digital twin of TEL Celesta achieving 60% chemical reduction and $7M+ savings</div>
+          </div>
+          <div class="award-item reveal">
+            <span class="award-icon">&#127775;</span>
+            <div class="award-text"><strong>Micron Culture Champion</strong> &ndash; Cross-site collaboration, scanner wafer rejection &lt;0.5%, MA excursion impact &lt;0.1%</div>
+          </div>
+          <div class="award-item reveal">
+            <span class="award-icon">&#9992;&#65039;</span>
+            <div class="award-text"><strong>NUS Awards for Study Abroad (NASA)</strong> &ndash; Received twice</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="section">
+        <p class="section-label reveal">What Colleagues Say</p>
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal">
+            <p class="testimonial-quote">Excellent communication skills and an aptitude for building consensus among cross-functional and cross-cultural teams. A trusted partner and someone I can rely on in challenging situations.</p>
+            <div class="testimonial-author">Dr. Zhang Linmiao</div>
+            <div class="testimonial-role">Distinguished Member of Technical Staff, Micron Technology</div>
+          </div>
+          <div class="testimonial-card reveal">
+            <p class="testimonial-quote">Approaches problems with structure, curiosity, and a commitment to long-term improvement. Energy, analytical rigour, and a collaborative spirit &ndash; thrives in complex environments that require cross-functional coordination and innovation.</p>
+            <div class="testimonial-author">Vimal Kumar Ramanathan</div>
+            <div class="testimonial-role">Senior Manager, Micron Technology</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Publications -->
+      <section class="section">
+        <p class="section-label reveal">Publications</p>
+        <div class="pub-list">
+          <div class="pub-item reveal">Modeling the Lasing Threshold of a Two-Photon Pumped Vitamin Solution</div>
+          <div class="pub-item reveal">7 internal technical whitepapers on yield analytics, process automation, and cross-site harmonisation (Micron Technology)</div>
+        </div>
+      </section>
+
+      <!-- Certifications -->
+      <section class="section">
+        <p class="section-label reveal">Certifications</p>
+        <div class="cert-list">
+          <div class="cert-item reveal"><span class="cert-dot"></span>GA100 &ndash; Generative AI (Heicoders, WSQ)</div>
+          <div class="cert-item reveal"><span class="cert-dot"></span>Full Stack Development with AI (NUS x Emeritus)</div>
+          <div class="cert-item reveal"><span class="cert-dot"></span>Project Management Professional &ndash; PMP</div>
+          <div class="cert-item reveal"><span class="cert-dot"></span>ISO 9001 Internal Audit &amp; Risk Practices</div>
+          <div class="cert-item reveal"><span class="cert-dot"></span>Lean Six Sigma (Green Belt Equivalent)</div>
+          <div class="cert-item reveal"><span class="cert-dot"></span>Data Analytics &amp; Machine Learning (LinkedIn/NUS)</div>
+          <div class="cert-item reveal"><span class="cert-dot"></span>Machine Learning for Data Analytics</div>
+          <div class="cert-item reveal"><span class="cert-dot"></span>Building the Foundation for an Effective Team</div>
+          <div class="cert-item reveal"><span class="cert-dot"></span>Leading a Cross-functional Team</div>
+          <div class="cert-item reveal"><span class="cert-dot"></span>Data Analysis &amp; Root Cause Analysis in Six Sigma</div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="reveal">
+        <div class="footer-brand">
+          <span class="footer-brand-name">Haoming Koo</span>
+          <span class="footer-copy">&copy; 2026 &middot; Built with curiosity.</span>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <div class="footer-col-title">Links</div>
+            <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:haomingkoo@gmail.com">Email</a>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col-title">Explore</div>
+            <a href="./">Home</a>
+            <a href="./#projects">Projects</a>
+            <a href="./#blog">Blog</a>
+            <a href="./#travel">Travel</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+        document.querySelectorAll(".reveal").forEach(function (el) {
+          observer.observe(el);
+        });
+      })();
+    </script>
+  </body>
+</html>
