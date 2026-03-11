@@ -282,21 +282,28 @@
         <h2 id="yolo">Using computer vision to read charts</h2>
 
         <p>
-          This is where it gets fun. I wanted a computer to look at a candlestick chart and say
-          "hey, that looks like a head and shoulders." Turns out someone already trained a model
-          for exactly that:
-          <a href="https://huggingface.co/foduucom/stockmarket-pattern-detection-yolov8" target="_blank" rel="noopener">foduucom/stockmarket-pattern-detection-yolov8</a>
-          on Hugging Face, built on
-          <a href="https://docs.ultralytics.com/" target="_blank" rel="noopener">YOLOv8</a>.
-          It recognises six pattern classes:
+          <strong>What is YOLOv8?</strong>
+          <a href="https://docs.ultralytics.com/" target="_blank" rel="noopener">YOLO</a>
+          (You Only Look Once) is an object detection model originally designed to identify
+          objects in photos and video in real time. It draws bounding boxes around things it
+          recognises: cars, people, dogs. YOLOv8 is the latest version from Ultralytics.
+          The clever part here is applying it to stock charts instead of street scenes.
+        </p>
+
+        <p>
+          I used a pre-trained model from Hugging Face:
+          <a href="https://huggingface.co/foduucom/stockmarket-pattern-detection-yolov8" target="_blank" rel="noopener">foduucom/stockmarket-pattern-detection-yolov8</a>.
+          Someone trained YOLOv8 on thousands of annotated chart images, and the resulting model
+          can look at a candlestick chart and say "that region looks like a head and shoulders
+          pattern" with a confidence score. It recognises six pattern classes:
         </p>
 
         <ul>
-          <li>Head and shoulders (top and bottom)</li>
-          <li>M-Head (double top variant)</li>
-          <li>W-Bottom (double bottom)</li>
-          <li>Triangle</li>
-          <li>StockLine (consolidation)</li>
+          <li><strong>Head and shoulders</strong> (top and bottom) &ndash; a reversal pattern with three peaks, the middle one highest. One of the most well-known patterns in <a href="https://www.investopedia.com/terms/h/head-shoulders.asp" target="_blank" rel="noopener">technical analysis</a>.</li>
+          <li><strong>M-Head</strong> (double top) &ndash; price hits a resistance level twice and fails, suggesting a potential downturn.</li>
+          <li><strong>W-Bottom</strong> (double bottom) &ndash; the inverse: price finds support twice, potentially signalling a recovery.</li>
+          <li><strong>Triangle</strong> &ndash; price range compresses into converging trendlines, often preceding a breakout.</li>
+          <li><strong>StockLine</strong> (consolidation) &ndash; price moves sideways in a range, building energy for the next move.</li>
         </ul>
 
         <h3>Why two timeframes?</h3>
@@ -378,9 +385,18 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
         <h2 id="five-layers">Five layers of pattern detection</h2>
 
         <p>
-          Here's the thing about pattern detection: everyone's wrong sometimes. So instead of
-          trusting any single method, I went with the "ask five friends and see who agrees" approach.
-          Trader Koo runs five independent layers and shows them all.
+          <strong>What is ensemble learning?</strong> In ML, an
+          <a href="https://en.wikipedia.org/wiki/Ensemble_learning" target="_blank" rel="noopener">ensemble</a>
+          combines multiple independent models to produce a better result than any single model
+          alone. The idea is simple: if five different methods each get it right 60% of the time,
+          and they make <em>different</em> mistakes, then the cases where three or more agree tend
+          to be much more reliable. It's the "ask five friends and see who agrees" approach.
+        </p>
+
+        <p>
+          Trader Koo applies this concept to chart pattern detection. Instead of relying on one
+          method, it runs five independent layers and shows them all so you can see where they
+          agree and disagree.
         </p>
 
         <h3>1. Support and resistance levels</h3>
@@ -393,10 +409,14 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
         </p>
 
         <p>
-          <a href="https://www.investopedia.com/terms/a/atr.asp" target="_blank" rel="noopener">ATR (Average True Range)</a>
-          is the backbone of the entire system. All distance tolerances are expressed as ATR
-          multiples, so they adapt automatically to each stock's volatility. A low-volatility
-          utility stock gets tighter zones; a volatile tech stock gets wider ones. No manual tuning needed.
+          <strong>What is ATR?</strong>
+          <a href="https://www.investopedia.com/terms/a/atr.asp" target="_blank" rel="noopener">Average True Range</a>
+          measures a stock's volatility by averaging its daily price range over a period
+          (typically 14 days). A stock that moves $5/day has a higher ATR than one that moves
+          $0.50/day. By expressing all distances as ATR multiples instead of fixed dollar amounts,
+          the system adapts automatically to each stock's volatility. A low-volatility utility
+          stock gets tighter zones; a volatile tech stock gets wider ones. No manual tuning needed.
+          This is a technique worth stealing for any price-based analysis.
         </p>
 
         <h3>2. Rule-based chart patterns</h3>
@@ -436,11 +456,10 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
         </p>
 
         <p>
-          The YOLOv8 layer sits alongside these as an additional voice. Together, the five
-          analytical layers plus the AI model give you a multi-angle view of any chart. This
-          mirrors the concept of
-          <a href="https://en.wikipedia.org/wiki/Ensemble_learning" target="_blank" rel="noopener">ensemble learning</a>
-          in ML: multiple weak learners combined produce a stronger overall signal.
+          The YOLOv8 layer sits alongside these as a sixth, independent voice. When three or
+          four layers flag the same pattern on the same chart, that convergence means something.
+          When only one layer sees it, take it with a grain of salt. That's the power of the
+          ensemble approach: you don't need any single detector to be perfect.
         </p>
 
         <h2 id="pipeline">The nightly data pipeline</h2>

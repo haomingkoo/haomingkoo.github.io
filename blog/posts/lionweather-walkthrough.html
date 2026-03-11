@@ -192,7 +192,7 @@
           <span class="article-tag">ML</span>
           <span class="article-tag">FastAPI</span>
           <span>March 11, 2026</span>
-          <span class="reading-time">14 min read</span>
+          <span class="reading-time">18 min read</span>
         </div>
         <h1>I Tried to Predict Singapore's Rain and It Humbled Me</h1>
         <p class="subtitle">
@@ -374,57 +374,134 @@ WIND_MAX = 60.0                       # km/h
         <h2 id="eda">EDA: learning what the data actually looks like</h2>
 
         <p>
-          This is where the project got genuinely educational for me. I had 8 years of NEA
-          historical data (2016 to 2024) and I wanted to understand it properly before
-          throwing it at a model. Not just "what's the mean rainfall" but the structure,
-          the seasonality, the weird edge cases.
+          If you're new to time series analysis, this section is for you. EDA (Exploratory Data
+          Analysis) is the step where you look at your data before building any model. It sounds
+          obvious, but skipping it is the number one reason ML projects go sideways. You wouldn't
+          cook a meal without tasting the ingredients first.
         </p>
 
         <p>
-          The training script runs a full statistical workup and saves everything to a
-          <code>full_analysis.json</code> that the frontend renders as an interactive dashboard.
-          Here's what it covers:
+          I had 8 years of NEA historical data (2016 to 2024) and I wanted to understand it
+          properly before throwing it at a model. The training script runs a full statistical
+          workup and saves everything to a <code>full_analysis.json</code> that the frontend
+          renders as an interactive dashboard. Here's each technique, what it means, and what
+          it revealed.
         </p>
 
-        <h3>Annual statistics</h3>
+        <h3>Step 1: Descriptive statistics</h3>
         <p>
-          Total rainfall per year, percentage of rainy hours, breakdown by intensity category
-          (no rain, light, heavy, thundery), temperature ranges, average humidity, and wind
-          patterns. Singapore gets roughly 2,400 mm of rain per year, but the distribution
-          is wildly uneven. Some months are drenched. Others barely see a cloud.
+          Start simple. Before any fancy analysis, compute the basics: mean, min, max, standard
+          deviation, and percentile distributions. For LionWeather, this meant looking at annual
+          rainfall totals, percentage of rainy hours, breakdown by intensity category (no rain,
+          light, heavy, thundery), temperature ranges, and humidity.
+        </p>
+        <p>
+          <strong>What I found:</strong> In 2017, Singapore recorded 3,198 rainy hours (36.7% of
+          all hours) with 790 thundery events. Mean temperature across years hovered around
+          27 to 28&deg;C, with max readings touching 33 to 34&deg;C. Average humidity sat around
+          78 to 81%. These numbers set your baseline expectations before you go deeper.
+        </p>
+        <p>
+          If you want to learn more about starting with descriptive statistics,
+          <a href="https://towardsdatascience.com/how-to-do-an-eda-for-time-series-cbb92b3b1913/" target="_blank" rel="noopener">this Towards Data Science guide</a>
+          walks through a solid six-step EDA framework for time series.
         </p>
 
-        <h3>Time-series decomposition (STL)</h3>
+        <h3>Step 2: Time-series decomposition (STL)</h3>
         <p>
-          I ran <a href="https://www.statsmodels.org/stable/generated/statsmodels.tsa.seasonal.STL.html" target="_blank" rel="noopener">STL decomposition</a>
-          to separate the trend, seasonal, and residual components. The seasonal pattern is
-          crystal clear: the northeast monsoon (November to January) brings sustained rain,
-          while the southwest monsoon (May to September) brings shorter, more intense afternoon
-          showers. The residual component is large, which tells you right away that rainfall
-          here has a lot of unexplained variance. Translation: good luck predicting it perfectly.
+          <strong>What is STL?</strong> STL stands for Seasonal and Trend decomposition using
+          Loess. It splits a time series into three components: <strong>trend</strong> (the
+          long-term direction), <strong>seasonal</strong> (repeating patterns at fixed intervals),
+          and <strong>residual</strong> (everything left over that the first two can't explain).
+          Think of it like separating a song into bass, melody, and noise.
+        </p>
+        <p>
+          <strong>Why it matters:</strong> If the seasonal component is strong, your model can
+          exploit those repeating patterns. If the residual is large, your data has a lot of
+          randomness and your model will struggle. STL tells you upfront how predictable your
+          data is.
+        </p>
+        <p>
+          <strong>What I found:</strong> The seasonal component was crystal clear. The northeast
+          monsoon (November to January) brings sustained rain, while the southwest monsoon (May
+          to September) brings shorter, more intense afternoon showers. But the residual was
+          large, meaning rainfall has a lot of unexplained variance. This told me early on:
+          don't expect 90% accuracy. Tropical rain is inherently noisy.
+        </p>
+        <p>
+          I used the
+          <a href="https://www.statsmodels.org/stable/generated/statsmodels.tsa.seasonal.STL.html" target="_blank" rel="noopener">statsmodels STL implementation</a>.
+          For a more detailed walkthrough of decomposition techniques,
+          <a href="https://pawarbi.github.io/blog/forecasting/r/python/rpy2/altair/2020/04/21/timeseries-part1.html" target="_blank" rel="noopener">Sandeep Pawar's forecasting series</a>
+          covers STL alongside other decomposition methods with code examples.
         </p>
 
-        <h3>Autocorrelation (ACF/PACF)</h3>
+        <h3>Step 3: Autocorrelation (ACF and PACF)</h3>
         <p>
-          Ran ACF and PACF analysis on rainfall, temperature, humidity, and wind. Rainfall
-          has significant autocorrelation up to about 6 hours, meaning if it's raining now,
-          it's more likely to still be raining in an hour than in 12 hours. Temperature is
-          more predictable with strong 24-hour periodicity. This confirmed that lag features
-          would be important for the model.
+          <strong>What is ACF?</strong> Autocorrelation Function (ACF) measures how correlated
+          a time series is with itself at different lag intervals. If the ACF at lag 1 is high,
+          it means the current value is strongly related to the value one time step ago.
+          <strong>PACF</strong> (Partial Autocorrelation) does the same but removes the indirect
+          effects of intermediate lags, giving you the <em>direct</em> relationship at each lag.
+        </p>
+        <p>
+          <strong>Why it matters:</strong> ACF and PACF tell you which lag features are worth
+          creating. They also help determine the order of traditional time series models (AR, MA,
+          ARMA). Even if you're using gradient boosting like I did, understanding autocorrelation
+          guides your feature engineering.
+        </p>
+        <p>
+          <strong>What I found:</strong> Rainfall's ACF showed significant correlation at lag 1
+          (0.55) that dropped sharply to 0.20 at lag 2 and faded to near-zero by lag 6 to 8.
+          This means: if it's raining now, it will probably still be raining in an hour (lag 1),
+          maybe in two hours (lag 2), but by six hours the signal is gone. Temperature showed
+          strong 24-hour periodicity, which makes sense since days are warm and nights are cool,
+          even in Singapore.
+        </p>
+        <p>
+          These results directly informed my lag features: I created rainfall lags at 1h, 3h, 6h,
+          and 24h. The ACF told me that anything beyond 6h for rainfall is mostly noise.
+          For a deeper dive into reading ACF/PACF plots,
+          <a href="https://towardsdatascience.com/interpreting-acf-and-pacf-plots-for-time-series-forecasting-af0d6db4061c/" target="_blank" rel="noopener">this Towards Data Science article</a>
+          explains the interpretation with visual examples.
         </p>
 
-        <h3>FFT spectral analysis</h3>
+        <h3>Step 4: FFT spectral analysis</h3>
         <p>
-          The frequency-domain view caught the annual cycle and the monsoon transitions
-          clearly. There's a spectral peak around the 180-day mark that maps to the
-          inter-monsoon periods when Singapore's weather gets especially chaotic.
+          <strong>What is FFT?</strong> Fast Fourier Transform converts your time-domain data
+          into the frequency domain. Instead of asking "what happened at each time step?" you're
+          asking "what cycles exist in this data and how strong are they?" It's the same maths
+          that lets Shazam identify songs.
+        </p>
+        <p>
+          <strong>Why it matters:</strong> FFT reveals hidden periodicities that might not be
+          obvious from just plotting the raw data. Annual cycles, weekly patterns, or diurnal
+          (day/night) rhythms all show up as distinct peaks.
+        </p>
+        <p>
+          <strong>What I found:</strong> The annual cycle was the dominant peak, confirming the
+          monsoon seasons. A secondary peak appeared around the 180-day mark, which maps to the
+          inter-monsoon transition periods (March to April and October to November) when
+          Singapore's weather gets especially chaotic. This validated my decision to include
+          monsoon flags as features.
         </p>
 
         <p>
           All of this lives in the ML Analysis tab of the app. I wanted it visible, not
           buried in a Jupyter notebook, because the whole point was to learn how to present
-          EDA findings in a way that's actually useful.
+          EDA findings in a way that's useful to anyone curious. You can explore the charts
+          yourself at <a href="https://weather.kooexperience.com" target="_blank" rel="noopener">weather.kooexperience.com</a>.
         </p>
+
+        <div class="callout">
+          <span class="callout-icon">&#128218;</span>
+          <div>
+            <strong>Want to learn time series EDA from scratch?</strong> I recommend starting with
+            <a href="https://towardsdatascience.com/time-series-forecasting-a-practical-guide-to-exploratory-data-analysis-a101dc5f85b1/" target="_blank" rel="noopener">this practical guide on Towards Data Science</a>,
+            then working through STL and ACF/PACF on your own dataset. The best way to learn
+            is to pick a dataset you actually care about.
+          </div>
+        </div>
 
         <h2 id="features">Feature engineering</h2>
 
@@ -435,17 +512,32 @@ WIND_MAX = 60.0                       # km/h
 
         <h3>Temporal features</h3>
         <p>
-          Hour of day and day of year encoded as sin/cos pairs (so the model knows that
-          hour 23 is close to hour 0, not 23 units away). Month as an integer. And two
-          monsoon flags: NE monsoon (November to January) and SW monsoon (May to September).
+          <strong>Why sin/cos encoding?</strong> If you feed "hour = 23" and "hour = 0" to a
+          model as raw integers, it thinks they're 23 units apart. But in reality, 11 PM and
+          midnight are one hour apart. By encoding time as sin(2&pi; &times; hour/24) and
+          cos(2&pi; &times; hour/24), you preserve the circular nature of time. Same idea for
+          day of year. This is a standard trick in time series ML and it genuinely improves
+          model performance.
+        </p>
+        <p>
+          I also added monsoon flags: NE monsoon (November to January) and SW monsoon (May to
+          September). These are binary features that tell the model which seasonal regime
+          it's operating in.
         </p>
 
         <h3>Lag features</h3>
         <p>
-          Rainfall at 1, 3, 6, and 24 hours ago. These are the most obvious predictors
-          and also the easiest to mess up. Use <code>.shift()</code> properly or you get
-          data leakage. I learned this the hard way when my first model hit 95% accuracy
-          and I got suspicious. Sure enough, it was peeking into the future. Humbling.
+          <strong>What are lag features?</strong> A lag feature is simply a past value of a
+          variable used as input. <code>rainfall_lag_1h</code> is "what was the rainfall one
+          hour ago." The ACF analysis told me which lags carry signal (1h, 3h have strong
+          correlation; beyond 6h it fades). So I created lags at 1, 3, 6, and 24 hours.
+        </p>
+        <p>
+          <strong>The data leakage trap:</strong> This is the most common mistake in time series
+          ML. If you don't use <code>.shift()</code> correctly, your lag features can accidentally
+          include future data. I learned this the hard way when my first model hit 95% accuracy
+          and I got suspicious. Sure enough, it was peeking into the future. After fixing the
+          alignment, accuracy dropped to ~73%. That's the real number. Painful, but honest.
         </p>
 
         <h3>Thunderstorm indicators</h3>
@@ -525,23 +617,32 @@ WIND_MAX = 60.0                       # km/h
 
         <h3>Four prediction horizons</h3>
         <p>
-          Separate models for 1h, 3h, 6h, and 12h ahead. As expected, accuracy drops with
-          the horizon:
+          Separate models for 1h, 3h, 6h, and 12h ahead. Each was trained on 48,687 samples,
+          validated on 8,296, and tested on 8,765 (the held-out 2024 data). As expected,
+          accuracy drops with the horizon:
         </p>
 
         <ul>
-          <li>1 hour: 69.9%</li>
-          <li>3 hours: 62.2%</li>
-          <li>6 hours: 59.2%</li>
-          <li>12 hours: 57.5%</li>
+          <li><strong>1 hour</strong>: 73.2% accuracy (MAE: 14.8 mm) &ndash; the model does well for short-term prediction</li>
+          <li><strong>3 hours</strong>: 63.8% accuracy &ndash; still useful, but the uncertainty grows</li>
+          <li><strong>6 hours</strong>: 60.5% accuracy &ndash; getting noisy</li>
+          <li><strong>12 hours</strong>: 57.9% accuracy &ndash; barely better than a weighted coin flip</li>
         </ul>
 
         <p>
-          The 1-hour model is decent. The 12-hour model is basically saying "I think it might
-          rain, but honestly, flip a coin." In Singapore's climate, that's not surprising.
-          A thunderstorm can form and dissipate in 30 minutes. Predicting 12 hours out is
-          like predicting what you'll have for dinner next Tuesday. You might get lucky,
-          but don't bet on it.
+          <strong>Reading the confusion matrix:</strong> The 1-hour model correctly identified
+          4,650 out of 5,177 "no rain" samples but misclassified 920 light rain samples as
+          "no rain." It's conservative: it would rather tell you it's dry than cry wolf. For
+          heavy rain and thundery showers, recall is lower since these are rare events
+          (only ~5% and ~10% of all hours). Class imbalance is a real challenge in weather
+          prediction, since most hours in Singapore are technically dry.
+        </p>
+
+        <p>
+          The 12-hour model is basically saying "I think it might rain, but honestly, flip a
+          coin." In Singapore's climate, that's not surprising. A thunderstorm can form and
+          dissipate in 30 minutes. Predicting 12 hours out is like predicting what you'll have
+          for dinner next Tuesday. You might get lucky, but don't bet on it.
         </p>
 
         <h3>Hyperparameters</h3>
@@ -570,35 +671,55 @@ params = {
         <h2 id="shap">SHAP: why did you predict that?</h2>
 
         <p>
-          A black-box prediction isn't that useful if you can't explain it. I integrated
+          <strong>What is SHAP?</strong>
           <a href="https://shap.readthedocs.io/" target="_blank" rel="noopener">SHAP</a>
-          (SHapley Additive exPlanations) to show which features are driving each prediction.
-          The app renders this as a feature importance bar chart and a waterfall plot.
+          (SHapley Additive exPlanations) is a method from game theory that explains individual
+          predictions. Instead of just saying "the model predicts heavy rain," SHAP tells you
+          <em>why</em>: "the model predicts heavy rain because humidity is at 95%, there hasn't
+          been rain for 8 hours, and wind just accelerated." Each feature gets a score showing
+          how much it pushed the prediction up or down. It turns a black box into something
+          you can actually reason about.
         </p>
 
         <p>
-          The top features by mean absolute SHAP value:
+          <strong>Why it matters:</strong> If your model is wrong, SHAP helps you figure out
+          why. Maybe it's relying too heavily on a leaky feature, or ignoring something important.
+          Without explainability, you're just trusting a number. With SHAP, you can validate
+          whether the model's reasoning makes physical sense.
+        </p>
+
+        <p>
+          Here are the top features from LionWeather's 1-hour regression model, ranked by mean
+          absolute SHAP value (higher means the feature has more influence on predictions):
         </p>
 
         <ol>
-          <li><strong>dry_spell_hours</strong> (4.41) &ndash; the longer it hasn't rained, the more the model pays attention</li>
-          <li><strong>humidity</strong> (2.89) &ndash; high humidity means rain is more likely (shocking, I know)</li>
-          <li><strong>wind_accel_3h</strong> (2.47) &ndash; rapid wind acceleration often signals an incoming squall line</li>
+          <li><strong>rain_spatial_std</strong> (6.65) &ndash; how unevenly rain is distributed across stations. High variance means localised showers, which strongly predicts nearby rainfall.</li>
+          <li><strong>rain_max_station</strong> (3.43) &ndash; the heaviest rainfall at any single station. If one station is getting hammered, neighbours are next.</li>
+          <li><strong>rain_west</strong> (3.08) &ndash; rainfall in western Singapore. Weather systems often approach from the west, so this acts as an early warning.</li>
+          <li><strong>rain_region_max</strong> (1.96) &ndash; peak rainfall across all regions.</li>
+          <li><strong>dry_spell_hours</strong> (1.76) &ndash; how long since the last rain. A long dry spell in tropical Singapore often means conditions are building for a release.</li>
         </ol>
 
         <p>
-          What surprised me: pressure features ranked lower than I expected. In temperate
-          climates, a falling barometer is the go-to rain predictor. In the tropics, humidity
-          and wind dynamics matter more. The EDA confirmed this: Singapore's pressure variance
-          is tiny compared to, say, London's.
+          What surprised me: pressure features ranked much lower than I expected. In temperate
+          climates, a falling barometer is the go-to rain predictor. In the tropics, spatial
+          rainfall patterns and humidity dynamics matter more. Singapore's pressure variance is
+          tiny compared to, say, London's. The data showed me this; I wouldn't have guessed it.
         </p>
 
         <p>
           SHAP also revealed that the monsoon flags do real work. During the NE monsoon,
           the model leans more heavily on humidity and sustained wind direction. During the
           SW monsoon, the afternoon flag and temperature drop become more predictive. The
-          model learned the monsoons without me explicitly telling it the physics. That was
-          a satisfying moment.
+          model learned the monsoon physics without me explicitly encoding it. That was a
+          satisfying moment.
+        </p>
+
+        <p>
+          For a deeper introduction to SHAP in the context of time series,
+          <a href="https://towardsdatascience.com/shap-for-time-series-event-detection-5b4d9d0f96f4/" target="_blank" rel="noopener">this Towards Data Science article on SHAP for time series</a>
+          covers the key concepts and pitfalls.
         </p>
 
         <h2 id="radar">The radar overlay</h2>
