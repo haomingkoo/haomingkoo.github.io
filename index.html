@@ -149,20 +149,6 @@
       }
       .hero-inner { flex: 1; min-width: 0; }
 
-      .hero-intro {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 20px;
-      }
-      .hero-avatar {
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        border: 2px solid var(--border);
-        object-fit: cover;
-        flex-shrink: 0;
-      }
       .hero-label {
         display: inline-flex;
         align-items: center;
@@ -172,6 +158,7 @@
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--accent);
+        margin-bottom: 20px;
         padding: 5px 14px;
         background: var(--accent-dim);
         border: 1px solid rgba(59,130,246,0.15);
@@ -193,10 +180,7 @@
         color: var(--text);
       }
       .hero-title span {
-        background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--accent);
       }
       .hero-bio {
         font-size: 16px;
@@ -703,10 +687,7 @@
       <!-- Hero -->
       <section class="hero">
         <div class="hero-inner">
-          <div class="hero-intro hero-reveal hero-reveal-1">
-            <img class="hero-avatar" src="https://avatars.githubusercontent.com/u/206514831?v=4" alt="Haoming Koo" width="56" height="56" loading="eager" />
-            <div class="hero-label">Available for work</div>
-          </div>
+          <div class="hero-label hero-reveal hero-reveal-1">Available for work</div>
           <h1 class="hero-title hero-reveal hero-reveal-2">
             Building <span>AI systems</span><br />that ship.
           </h1>
