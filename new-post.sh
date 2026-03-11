@@ -51,7 +51,7 @@ print(json.dumps(tags))
 if [ "$TYPE" = "travel" ]; then
   TEMPLATE="travel/_template.html"
 else
-  TEMPLATE="blog/posts/lionweather-walkthrough.html"
+  TEMPLATE="blog/posts/lionweather.html"
 fi
 
 # Copy template
