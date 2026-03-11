@@ -2,13 +2,40 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <name>13 Days Across Italy — Winter Family Trip</name>
-    <description>Every hotel, restaurant, and attraction from our Dec 2024 – Jan 2025 trip. By Haoming Koo — kooexperience.com/travel/posts/italy.html</description>
+    <description><![CDATA[Every hotel, restaurant, and attraction from our Dec 2024 – Jan 2025 trip across Milan, Florence, Pisa, Rome, and Venice.
+
+LEGEND
+🏨  Hotel / Accommodation
+🎭  Attraction / Landmark
+🍽️  Restaurant / Food
+
+By Haoming Koo — kooexperience.com/travel/posts/italy.html]]></description>
 
     <!-- Styles -->
-    <Style id="hotel"><IconStyle><color>ff00aaff</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-circle.png</href></Icon></IconStyle></Style>
-    <Style id="attraction"><IconStyle><color>ff7755a8</color><scale>1.0</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-circle.png</href></Icon></IconStyle></Style>
-    <Style id="food"><IconStyle><color>ff00cc66</color><scale>0.9</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href></Icon></IconStyle></Style>
-    <Style id="routeLine"><LineStyle><color>ff7755a8</color><width>3</width></LineStyle></Style>
+    <Style id="hotel">
+      <IconStyle>
+        <scale>1.2</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/shapes/lodging.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="attraction">
+      <IconStyle>
+        <scale>1.1</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/shapes/arts.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="food">
+      <IconStyle>
+        <scale>1.0</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/shapes/dining.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="routeLine">
+      <LineStyle><color>ff7755a8</color><width>3</width></LineStyle>
+    </Style>
 
     <!-- ── MILAN ────────────────────────────────────── -->
     <Folder>
@@ -339,6 +366,34 @@
             12.3155,45.4408,0
           </coordinates>
         </LineString>
+      </Placemark>
+    </Folder>
+
+    <!-- ── LEGEND ─────────────────────────────────────── -->
+    <Folder>
+      <name>Legend</name>
+      <description><![CDATA[Icon guide for this map:
+• 🏨 Lodging icon = Hotel / Accommodation
+• 🎭 Arts icon = Attraction / Landmark
+• 🍽️ Dining icon = Restaurant / Food
+• Purple line = High-speed rail route between cities]]></description>
+      <Placemark>
+        <name>🏨 = Hotel</name>
+        <visibility>0</visibility>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>🎭 = Attraction</name>
+        <visibility>0</visibility>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>🍽️ = Restaurant</name>
+        <visibility>0</visibility>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
       </Placemark>
     </Folder>
   </Document>
