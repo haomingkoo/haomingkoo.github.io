@@ -198,7 +198,8 @@
         <p class="subtitle">
           Building LionWeather: a real-time weather dashboard with LightGBM rainfall forecasting,
           SHAP explainability, animated radar, and 8 years of tropical weather data.
-          Spoiler: Singapore's weather does not care about your model.
+          Spoiler: Singapore only has three weather modes &ndash; hot, hotter, and raining sideways &ndash;
+          and none of them care about your model.
         </p>
 
         <div class="stack-box">
@@ -247,10 +248,12 @@
         </p>
 
         <p>
-          If you've lived in Singapore, you know the drill. It's 34 degrees and sunny. You step
-          out for lunch. By the time your food arrives, it's a thunderstorm. Twenty minutes later,
-          sunny again. Predicting rain here is genuinely hard, and I wanted to see how far I could
-          push a gradient-boosted model against that chaos.
+          If you've lived in Singapore, you know the weather forecast is basically three options:
+          hot, hotter, and hottest (with a surprise thunderstorm). You step out for lunch at 34
+          degrees and sunny. By the time your chicken rice arrives, it's a thunderstorm. Twenty
+          minutes later, sunny again. The whole country pretends this is normal. Predicting rain
+          here is genuinely hard, and I wanted to see how far I could push a gradient-boosted
+          model against that chaos.
         </p>
 
         <p>
@@ -538,7 +541,8 @@ WIND_MAX = 60.0                       # km/h
           The 1-hour model is decent. The 12-hour model is basically saying "I think it might
           rain, but honestly, flip a coin." In Singapore's climate, that's not surprising.
           A thunderstorm can form and dissipate in 30 minutes. Predicting 12 hours out is
-          asking a lot.
+          like predicting what you'll have for dinner next Tuesday. You might get lucky,
+          but don't bet on it.
         </p>
 
         <h3>Hyperparameters</h3>
@@ -659,9 +663,9 @@ params = {
 
         <p>
           Is it too much? Probably. But this was the whole point of the project: to take
-          EDA from a notebook and put it in front of anyone who's curious. My mum probably
-          won't use the SHAP waterfall tab, but she does check if it's going to rain before
-          hanging laundry. The app works for both audiences.
+          EDA from a notebook and put it in front of anyone who's curious. Not everyone cares
+          about SHAP waterfall plots, but everyone wants to know if they should bring an
+          umbrella. The app works for both audiences.
         </p>
 
         <h2 id="deployment">Deployment on Railway</h2>
@@ -700,8 +704,9 @@ params = {
 
         <p><strong>Tropical weather is humbling.</strong>
           Convective thunderstorms can form in 15 minutes and vanish in 30. A model trained
-          on 8 years of data still only hits 57.5% at the 12-hour horizon. Sometimes the
-          best answer is "I don't know, check the radar."
+          on 8 years of data still only hits 57.5% at the 12-hour horizon. To be fair, if
+          Singapore's weather were predictable, we wouldn't all carry umbrellas in our bags
+          365 days a year. Sometimes the best answer is "I don't know, check the radar."
         </p>
 
         <p><strong>SHAP makes you a better engineer.</strong>
@@ -720,8 +725,8 @@ params = {
         <p>
           If you made it this far, go open the app and see what Singapore's weather is doing
           right now. And if the model says "no rain" and it's pouring outside your window,
-          well, that's tropical weather for you. Even NEA gets it wrong sometimes.
-          At least my mistakes come with SHAP explanations.
+          well, welcome to Singapore. The weather here has been ignoring forecasts since before
+          machine learning existed. At least my wrong predictions come with SHAP explanations.
         </p>
 
         <hr class="divider" />
