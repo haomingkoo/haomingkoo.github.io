@@ -1,5 +1,19 @@
 [
   {
+    "slug": "your-passport-photo-is-probably-wrong-and-ai-can-tell-you-why",
+    "title": "I Built an AI That Roasts Your Passport Photo",
+    "date": "2026-03-12",
+    "tags": [
+      "Building",
+      "Computer Vision",
+      "FastAPI",
+      "OpenCV"
+    ],
+    "excerpt": "MediaPipe face mesh, rembg segmentation, 25+ compliance checks, and country-specific rules for 6 countries. Here's how Photo ID Studio decides if your face is passport-worthy.",
+    "cover": "",
+    "readingTime": "16 min"
+  },
+  {
     "slug": "how-i-built-an-ai-powered-stock-market-dashboard",
     "title": "How I Built an AI-Powered Stock Market Dashboard",
     "date": "2026-03-12",
@@ -9,7 +23,7 @@
       "FastAPI",
       "Computer Vision"
     ],
-    "excerpt": "A deep dive into Trader Koo – from using a pre-trained YOLOv8 model to detect chart patterns, to solving the coordinate mapping problem, to running a five-layer detection ensemble every night.",
+    "excerpt": "A deep dive into Trader Koo \u2013 from using a pre-trained YOLOv8 model to detect chart patterns, to solving the coordinate mapping problem, to running a five-layer detection ensemble every night.",
     "cover": "",
     "readingTime": "12 min"
   },

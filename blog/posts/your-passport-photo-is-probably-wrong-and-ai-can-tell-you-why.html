@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I Built an AI That Roasts Your Passport Photo - Haoming Koo</title>
+    <meta name="description" content="Building Photo ID Studio: an AI-powered passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules for Singapore, US, UK, Canada, Australia, and India." />
+    <meta name="keywords" content="passport photo, photo compliance, MediaPipe, face detection, rembg, OpenCV, computer vision, FastAPI, photo ID, Singapore passport photo" />
+    <meta name="author" content="Haoming Koo" />
+    <link rel="canonical" href="https://kooexperience.com/blog/posts/your-passport-photo-is-probably-wrong-and-ai-can-tell-you-why.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #3b82f6;
+        --accent-dim: rgba(59,130,246,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(6,6,8,.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between;
+        height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px; transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .reading-time { color: var(--muted); }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle {
+        font-size: 17px; color: var(--text-secondary); line-height: 1.6;
+        margin-bottom: 32px;
+      }
+      .article h2 {
+        font-size: 22px; font-weight: 700; margin: 48px 0 16px;
+        letter-spacing: -.01em; color: var(--text);
+      }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article code {
+        background: rgba(59,130,246,.08); padding: 2px 7px; border-radius: 5px;
+        font-size: 13px; font-family: "SF Mono", "Fira Code", monospace;
+        color: var(--accent);
+      }
+      .article pre {
+        background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+        padding: 20px 24px; overflow-x: auto; margin: 24px 0;
+      }
+      .article pre code {
+        background: none; padding: 0; font-size: 13px; line-height: 1.65;
+        color: var(--text-secondary);
+      }
+      .article blockquote {
+        border-left: 3px solid var(--accent); padding: 14px 20px; margin: 24px 0;
+        background: var(--accent-dim); border-radius: 0 10px 10px 0;
+        color: var(--text-secondary);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title {
+        font-size: 11px; font-weight: 600; letter-spacing: .14em;
+        text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+      }
+      .toc a {
+        display: block; font-size: 13.5px; color: var(--text-secondary);
+        text-decoration: none; padding: 4px 0; transition: color .2s;
+      }
+      .toc a:hover { color: var(--accent); }
+      .callout {
+        display: flex; gap: 12px;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 16px 20px; margin: 24px 0;
+        font-size: 13.5px; color: var(--text-secondary); line-height: 1.55;
+      }
+      .callout-icon { font-size: 18px; flex-shrink: 0; line-height: 1.4; }
+      .stack-box {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+      }
+      .stack-box-title {
+        font-size: 13px; font-weight: 600; color: var(--text);
+        margin-bottom: 12px;
+      }
+      .stack-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+      .stack-tag {
+        font-size: 11px; font-weight: 500; padding: 4px 12px;
+        border-radius: 8px; background: rgba(255,255,255,.04);
+        color: var(--text-secondary); border: 1px solid rgba(255,255,255,.05);
+      }
+      footer {
+        border-top: 1px solid var(--border); padding: 32px 0 40px;
+        font-size: 13px; color: var(--muted); text-align: center;
+      }
+      @media (max-width: 600px) {
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../">HK</a>
+        <a href="../#blog">Blog</a>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../#blog">&larr; Back to blog</a>
+        <div class="article-meta">
+          <span class="article-tag">Building</span>
+          <span class="article-tag">Computer Vision</span>
+          <span class="article-tag">OpenCV</span>
+          <span>March 12, 2026</span>
+          <span class="reading-time">16 min read</span>
+        </div>
+        <h1>I Built an AI That Roasts Your Passport Photo</h1>
+        <p class="subtitle">
+          I built a system that checks passport photos against real government requirements
+          for 6 countries using face mesh landmarks, background segmentation, and more
+          rules than I ever wanted to learn about chin positioning.
+        </p>
+
+        <div class="stack-box">
+          <div class="stack-box-title">Tech Stack</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">MediaPipe</span>
+            <span class="stack-tag">OpenCV</span>
+            <span class="stack-tag">rembg</span>
+            <span class="stack-tag">Pillow</span>
+            <span class="stack-tag">Railway</span>
+          </div>
+        </div>
+
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#why">Why passport photos are harder than you think</a>
+          <a href="#try-it">Try it yourself</a>
+          <a href="#face-detection">Face detection: 468 points on your face</a>
+          <a href="#checks">The 25+ things that can go wrong</a>
+          <a href="#segmentation">Background removal: the hardest easy problem</a>
+          <a href="#countries">Country rules: why your Singapore photo won't work in the US</a>
+          <a href="#crop">The iterative crop algorithm</a>
+          <a href="#why-not-genai">Why I didn't use generative AI</a>
+          <a href="#deployment">Deployment on 2 GB of RAM</a>
+          <a href="#lessons">Lessons learned</a>
+          <a href="#references">References</a>
+        </div>
+
+        <h2 id="why">Why passport photos are harder than you think</h2>
+
+        <p>
+          Here's a fun experiment. Go take a selfie right now and try to use it as a passport
+          photo. It won't pass. Your head is tilted 3 degrees. The background isn't white enough.
+          Your eyes are slightly closed. The face is 2% too small for Singapore's requirements.
+          And if you used your iPhone front camera, the image is mirrored.
+        </p>
+
+        <p>
+          I found this out the hard way when I needed passport photos for multiple countries and
+          kept getting rejected. Each country has different rules: different dimensions, different
+          face-to-frame ratios, different background requirements. Singapore wants 400x514 pixels
+          with your eyes at 42% from the top. The US wants a perfect 600x600 square. The UK wants
+          900x1200. None of them agree on anything.
+        </p>
+
+        <p>
+          So I built <a href="https://studio.kooexperience.com" target="_blank" rel="noopener">Photo ID Studio</a>
+          to automate the whole thing. Upload a photo, pick your country, and the system runs
+          25+ compliance checks using computer vision, then tells you exactly what's wrong and
+          how to fix it. If you're in "assist" mode, it also crops, straightens, and whitens
+          the background for you.
+        </p>
+
+        <p>
+          Beyond solving my own problem, this was a great project to learn practical computer
+          vision: face detection, landmark extraction, image segmentation, color space
+          manipulation, and the art of making algorithms work on messy real-world photos.
+        </p>
+
+        <h2 id="try-it">Try it yourself</h2>
+
+        <p>
+          Head to <a href="https://studio.kooexperience.com" target="_blank" rel="noopener">studio.kooexperience.com</a>
+          and upload any photo. The system supports:
+        </p>
+
+        <ul>
+          <li><strong>6 countries</strong>: Singapore, United States, United Kingdom, Canada, Australia, and India</li>
+          <li><strong>2 modes</strong>: Strict (just tells you what's wrong) and Assist (fixes what it can)</li>
+          <li><strong>Beauty options</strong>: Color correction and soft-light smoothing</li>
+          <li><strong>Mirror handling</strong>: Auto-detects and corrects iPhone selfie mirroring</li>
+        </ul>
+
+        <p>
+          Your photo never leaves memory. Nothing is stored on disk or in a database.
+          Once the response is sent, the image is gone. I take this seriously because
+          nobody wants their face sitting on some random server.
+        </p>
+
+        <div class="callout">
+          <span class="callout-icon">&#128247;</span>
+          <div>
+            <strong>Pro tip:</strong> Use a well-lit photo against a plain wall. Face the
+            camera straight on. Don't smile (most countries require a neutral expression).
+            And for the love of all things good, don't use a bathroom mirror selfie.
+          </div>
+        </div>
+
+        <h2 id="face-detection">Face detection: 468 points on your face</h2>
+
+        <p>
+          <strong>What is MediaPipe FaceMesh?</strong>
+          <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker" target="_blank" rel="noopener">MediaPipe</a>
+          is Google's open-source framework for on-device ML. FaceMesh is one of its models
+          that detects 468 3D landmarks on a human face in real time. Each landmark is an
+          (x, y, z) coordinate representing a specific point: the tip of your nose, the corner
+          of your left eye, the edge of your jaw, etc.
+        </p>
+
+        <p>
+          <strong>Why 468 points?</strong> Because passport compliance isn't just "is there a
+          face?" It's "are the eyes open? Is the head tilted? Is the mouth closed? How far
+          apart are the eyes? Where exactly is the chin?" You need dense landmarks to answer
+          these questions precisely.
+        </p>
+
+        <p>
+          Here's what I extract from those 468 points:
+        </p>
+
+        <ul>
+          <li><strong>Eye aspect ratio</strong> &ndash; the ratio of eye height to width. If it drops below a threshold, the eyes are closed or squinting. Passport offices reject closed eyes.</li>
+          <li><strong>Head roll</strong> &ndash; the angle of the line connecting both eyes. If your head is tilted left or right, this angle deviates from 0. Singapore allows up to 8 degrees.</li>
+          <li><strong>Head yaw</strong> &ndash; is your face turned left or right? Measured by the horizontal offset between your nose tip and the midpoint of your eyes. Beyond a 0.22 ratio, you're too far off-center.</li>
+          <li><strong>Head pitch</strong> &ndash; chin up or down? Measured by the nose-to-mouth distance ratio. Looking up or down beyond a 0.20 ratio fails the check.</li>
+          <li><strong>Mouth closure</strong> &ndash; the distance between upper and lower lip landmarks. Open mouth = neutral expression violation.</li>
+          <li><strong>Inter-eye distance</strong> &ndash; the pixel distance between eye centers. This is the baseline for all crop calculations. If it's too small, your face is too far from the camera.</li>
+        </ul>
+
+        <p>
+          <strong>Why MediaPipe over other options?</strong> I considered
+          <a href="https://github.com/ageitgey/face_recognition" target="_blank" rel="noopener">dlib/face_recognition</a>,
+          OpenCV Haar cascades, and heavier models like RetinaFace. MediaPipe won because:
+          it runs on CPU in 40 to 80 ms (no GPU needed), it gives 468 landmarks (dlib gives 68),
+          it includes a refined iris model, and it's actively maintained by Google.
+          Haar cascades are fast but too brittle for varied poses and lighting. RetinaFace is
+          more accurate but overkill for this use case and much heavier to deploy.
+        </p>
+
+        <h2 id="checks">The 25+ things that can go wrong</h2>
+
+        <p>
+          Every check returns a structured result: pass, fail, warn, or manual review. Each
+          includes a human-readable message and an action telling you what to do. Here's the
+          full checklist grouped by category:
+        </p>
+
+        <h3>File and metadata</h3>
+        <ul>
+          <li>Is the file format supported? (JPG, PNG, HEIC, WebP)</li>
+          <li>Is the file under the size limit? (8 MB for Singapore, 10 MB for most others)</li>
+          <li>Is the resolution high enough? (Singapore needs at least 800x1200 input pixels)</li>
+          <li>Is the photo recent enough? (Checked via EXIF date if available)</li>
+        </ul>
+
+        <h3>Face geometry</h3>
+        <ul>
+          <li>Was exactly one face detected? (Zero = no face; two or more = group photo)</li>
+          <li>Is the face large enough in the frame? (Measured by inter-eye distance)</li>
+          <li>Is the face height within the required range for the output crop?</li>
+        </ul>
+
+        <h3>Head pose</h3>
+        <ul>
+          <li>Roll (tilt): within 8 degrees?</li>
+          <li>Yaw (turning): within 0.22 ratio?</li>
+          <li>Pitch (chin angle): within 0.20 ratio?</li>
+        </ul>
+
+        <h3>Expression and visibility</h3>
+        <ul>
+          <li>Are both eyes clearly open?</li>
+          <li>Is the mouth closed? (Neutral expression required)</li>
+        </ul>
+
+        <h3>Image quality</h3>
+        <ul>
+          <li><strong>Sharpness</strong> &ndash; measured using the Laplacian variance (explained below)</li>
+          <li><strong>Lighting uniformity</strong> &ndash; are there harsh shadows or uneven illumination?</li>
+          <li><strong>Text or watermarks</strong> &ndash; detected via contour analysis</li>
+        </ul>
+
+        <h3>Background and framing</h3>
+        <ul>
+          <li>Is the background white/light enough?</li>
+          <li>Is the background uniform (low standard deviation)?</li>
+          <li>Are head and shoulders properly visible in the frame?</li>
+        </ul>
+
+        <h3>iPhone-specific</h3>
+        <ul>
+          <li>Is the image mirrored? (Front camera EXIF detection)</li>
+          <li>Was mirror correction applied?</li>
+        </ul>
+
+        <h2 id="segmentation">Background removal: the hardest easy problem</h2>
+
+        <p>
+          <strong>What is image segmentation?</strong> It's the process of separating the
+          "person" pixels from the "background" pixels. Sounds simple until you try it on a
+          photo with patterned wallpaper, a cat in the background, and hair strands catching
+          the light. Segmentation models produce a mask: each pixel gets a confidence score
+          from 0 (definitely background) to 1 (definitely person).
+        </p>
+
+        <p>
+          Photo ID Studio uses a dual-backend approach:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Primary: <a href="https://github.com/danielgatis/rembg" target="_blank" rel="noopener">rembg</a></strong>
+            with the <code>u2net_human_seg</code> model (~170 MB). This is a neural network
+            specifically trained for human segmentation. It handles complex backgrounds
+            well: bookshelves, outdoor scenes, cluttered rooms. The tradeoff is RAM:
+            it uses about 800 MB when loaded.
+          </li>
+          <li>
+            <strong>Fallback: MediaPipe SelfieSegmentation</strong> (~20 MB). Lighter and faster,
+            but struggles with non-uniform backgrounds. Used when rembg is disabled or the
+            server is low on memory.
+          </li>
+        </ul>
+
+        <p>
+          <strong>Why two backends?</strong> Because one size doesn't fit all. rembg is better
+          but heavier. On a 2 GB Railway instance, you can't keep it loaded all the time.
+          So I implemented lazy loading: rembg loads on first use and auto-unloads after 15
+          minutes of idle. This keeps memory usage manageable while still giving good results
+          when someone actually uses the app. If rembg is unavailable, MediaPipe kicks in
+          seamlessly.
+        </p>
+
+        <h3>The background whitening pipeline</h3>
+
+        <p>
+          Once you have the person mask, making the background white sounds trivial: just
+          set non-person pixels to (255, 255, 255). In practice, the edges are where everything
+          goes wrong. Hair strands, ear edges, and collar boundaries create a transition zone
+          where the mask is uncertain. Naive replacement creates ugly halos.
+        </p>
+
+        <p>
+          The actual pipeline is a multi-stage process:
+        </p>
+
+        <ol>
+          <li><strong>Mask refinement</strong> &ndash; Gaussian blur + bilateral filter + morphological operations to smooth the mask edges</li>
+          <li><strong>Edge guard computation</strong> &ndash; gradient-based detection of high-frequency regions (hair detail, fabric texture) that need protection</li>
+          <li><strong>Color decontamination</strong> &ndash; unmixing the old background color from edge pixels so they don't carry a color cast</li>
+          <li><strong>Shadow lifting</strong> &ndash; boosting brightness in the HSV V channel for shadow regions near the person boundary</li>
+          <li><strong>Confidence-based blending</strong> &ndash; pixels with high background confidence get hard-overridden to white (RGB 252, 252, 252). Uncertain pixels get a weighted blend.</li>
+          <li><strong>Edge artifact suppression</strong> &ndash; clamping the outer pixel border to prevent seaming artifacts</li>
+        </ol>
+
+        <p>
+          This might sound over-engineered, but each step exists because of a real failure case
+          I encountered. The first version had green halos on photos taken against grass. The
+          second version had dark shadows along hair boundaries. The third version had visible
+          seams at the image edge. Each bug added a stage to the pipeline.
+        </p>
+
+        <h2 id="countries">Country rules: why your Singapore photo won't work in the US</h2>
+
+        <p>
+          Every country has its own passport photo specification. These aren't suggestions;
+          they're hard requirements enforced by immigration offices. Here's a comparison:
+        </p>
+
+        <pre><code>Country   Output Size    Max File   Min Input     Eye Position   Max Roll
+SG        400 x 514      8 MB      800 x 1200    42% from top   8 deg
+US        600 x 600     10 MB      900 x 900     varies         varies
+UK        900 x 1200    10 MB     1100 x 1400    varies         varies
+CA        826 x 1063    10 MB     1000 x 1300    varies         varies
+AU        826 x 1063    10 MB     1000 x 1300    varies         varies
+IN        413 x 531      8 MB      800 x 1100    varies         varies</code></pre>
+
+        <p>
+          Notice that the US wants a square photo while everyone else wants a rectangle. Singapore
+          has specific requirements for eye positioning (42% from the top of the frame).
+          The UK needs the highest resolution output. India has the smallest output dimensions.
+        </p>
+
+        <p>
+          All of this is stored in a <code>countries.yaml</code> config file. Adding a new
+          country means adding a new YAML block with its requirements. No code changes needed.
+        </p>
+
+        <pre><code># Example: Singapore profile (countries.yaml)
+SG:
+  output_width: 400
+  output_height: 514
+  max_file_size_mb: 8
+  min_input_width: 800
+  min_input_height: 1200
+  min_eye_distance_px: 90
+  min_face_height_px: 420
+  eye_height_fraction_of_height: 0.42
+  max_roll_degrees: 8
+  max_yaw_ratio: 0.22
+  max_pitch_ratio: 0.20
+  min_background_brightness: 208
+  max_background_saturation: 40
+  min_blur_score: 55
+  min_even_lighting_score: 0.62</code></pre>
+
+        <p>
+          <strong>Design lesson:</strong> Putting country rules in config instead of code was
+          one of the best early decisions. When I added India support, it took 10 minutes of
+          YAML editing and zero code changes. Configuration-driven design scales better than
+          hardcoded conditionals.
+        </p>
+
+        <h2 id="crop">The iterative crop algorithm</h2>
+
+        <p>
+          Getting the crop right is surprisingly tricky. The goal: position the person's eyes
+          at exactly the right height in the output image, keep the head centered horizontally,
+          and include enough of the shoulders. Here's how it works:
+        </p>
+
+        <ol>
+          <li><strong>Compute initial crop</strong> using inter-eye distance as the baseline. The crop width is calculated from the country's output aspect ratio.</li>
+          <li><strong>Iterative eye-line recentering</strong> (up to 4 passes): extract the face in the provisional crop, recompute the eye-line position, and shift the crop to center the eyes. Stop when the error is less than 1.25 pixels or max iterations are hit.</li>
+          <li><strong>Segmentation-aware vertical rebalancing</strong>: if the segmentation mask is available, shift the crop up or down to keep both the crown and shoulders visible. This prevents the common issue of cropping off the top of someone's head or losing their shoulders.</li>
+          <li><strong>Mild roll straightening</strong>: if the head is tilted more than 0.3 degrees, apply a rotation matrix. Pad with reflected borders to avoid white corners.</li>
+          <li><strong>Final resize</strong> to the country's exact output dimensions using cubic interpolation.</li>
+        </ol>
+
+        <p>
+          The iterative approach matters because a single-pass crop often gets the eye position
+          wrong by 5 to 10 pixels. That might sound small, but in a 514-pixel-tall Singapore
+          passport photo, even a few pixels off can push the eye position outside the acceptable
+          range. Four iterations converges reliably.
+        </p>
+
+        <h2 id="why-not-genai">Why I didn't use generative AI</h2>
+
+        <p>
+          This is a question I get asked. Why not use Stable Diffusion or DALL-E to fix the
+          background, adjust the pose, or enhance the photo? Three reasons:
+        </p>
+
+        <ol>
+          <li><strong>Identity fidelity.</strong> Passport photos must look exactly like you.
+            Generative models can subtly alter facial features, skin tone, or eye shape. Even
+            a small change could cause problems at border control. For compliance, you need
+            deterministic, non-generative operations that preserve the original pixels.</li>
+          <li><strong>Explainability.</strong> Every operation in the pipeline is traceable. I can
+            tell you exactly which pixels were changed and why. With a generative model, you get
+            a black box that produces "a nice-looking result" with no guarantees about what was
+            modified.</li>
+          <li><strong>Reproducibility.</strong> The same input always produces the same output.
+            Generative models have randomness baked in. For a compliance tool, determinism is
+            a feature, not a bug.</li>
+        </ol>
+
+        <p>
+          The non-generative approach uses classical CV operations: masking, alpha blending,
+          color correction in LAB space, bilateral filtering. These are well-understood,
+          fast, and completely transparent. Sometimes the boring solution is the right one.
+        </p>
+
+        <h2 id="deployment">Deployment on 2 GB of RAM</h2>
+
+        <p>
+          Running MediaPipe + rembg + OpenCV on a budget Railway instance (1 vCPU, 2 to 3 GB
+          RAM) required careful memory management. Here's what I learned:
+        </p>
+
+        <ul>
+          <li><strong>Lazy loading</strong>: rembg's 170 MB model loads on first request, not at
+            startup. This means cold start is fast and the model only occupies RAM when someone
+            actually uses the app.</li>
+          <li><strong>Idle unloading</strong>: after 15 minutes of no requests, rembg unloads
+            itself and <code>malloc_trim()</code> returns the heap to the OS. Next request
+            takes ~2 seconds longer (model reload), but idle memory drops significantly.</li>
+          <li><strong>Processing resolution cap</strong>: incoming images are downscaled to
+            max 1920px on the long side or 4 megapixels before any processing. This prevents
+            a 48-megapixel phone photo from eating all your RAM during inference.</li>
+          <li><strong>Concurrency limiting</strong>: a semaphore caps in-flight analysis requests
+            at 3. This prevents queue buildup during traffic spikes.</li>
+          <li><strong>Rate limiting</strong>: IP-based token bucket with 10 requests/minute burst
+            and 200/day cap. Aggressive, but necessary on shared infrastructure.</li>
+        </ul>
+
+        <p>
+          Typical latency: under 800 ms at the 50th percentile, under 1.5 seconds at the 95th.
+          That's fast enough that users don't feel like they're waiting, even with all 25+ checks
+          running on a single CPU core.
+        </p>
+
+        <h2 id="lessons">Lessons learned</h2>
+
+        <p><strong>Image quality metrics are surprisingly simple.</strong>
+          Blur detection is one line of OpenCV: <code>cv2.Laplacian(gray, cv2.CV_64F).var()</code>.
+          The Laplacian operator detects edges; if the variance is low, the image is blurry.
+          Lighting uniformity splits the image into four quadrants, measures brightness in each,
+          and computes the spread. These aren't deep learning; they're signal processing
+          fundamentals that work reliably.
+        </p>
+
+        <p><strong>Edge cases are where the real work lives.</strong>
+          The happy path (well-lit, centered, white background) was easy. The first 80% of
+          the pipeline took 20% of the time. The remaining 20% (iPhone mirroring, green halos,
+          dark hair on dark backgrounds, glasses glare, off-center framing) took the other 80%.
+          If you're building any CV pipeline, budget your time for edge cases, not the main flow.
+        </p>
+
+        <p><strong>Configuration beats code for rules that change.</strong>
+          Countries update their photo requirements. Having everything in YAML means I can
+          adjust thresholds or add new countries without touching the pipeline code. This
+          separation of rules from logic is one of the most useful patterns in software
+          engineering.
+        </p>
+
+        <p><strong>Privacy is a feature, not a checkbox.</strong>
+          Processing photos in memory with no persistence isn't just privacy-friendly; it's
+          simpler to build and deploy. No database to manage, no storage to secure, no GDPR
+          deletion requests to handle. Sometimes the most private design is also the simplest.
+        </p>
+
+        <p>
+          If you've been putting off getting a proper passport photo, go give the app a try.
+          And if it tells you your head is tilted 9 degrees, don't argue with the math.
+          Just straighten up and retake the shot.
+        </p>
+
+        <hr class="divider" />
+
+        <h2 id="references">References</h2>
+
+        <ul>
+          <li><a href="https://studio.kooexperience.com" target="_blank" rel="noopener">Photo ID Studio (live app)</a></li>
+          <li><a href="https://github.com/haomingkoo/photo-id-studio" target="_blank" rel="noopener">Source code on GitHub</a></li>
+          <li><a href="https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker" target="_blank" rel="noopener">MediaPipe Face Landmarker</a></li>
+          <li><a href="https://github.com/danielgatis/rembg" target="_blank" rel="noopener">rembg</a> for background removal</li>
+          <li><a href="https://docs.opencv.org/4.x/" target="_blank" rel="noopener">OpenCV documentation</a></li>
+          <li><a href="https://www.ica.gov.sg/documents/passport-photo-guidelines" target="_blank" rel="noopener">Singapore ICA passport photo guidelines</a></li>
+          <li><a href="https://travel.state.gov/content/travel/en/passports/how-apply/photos.html" target="_blank" rel="noopener">US Department of State photo requirements</a></li>
+          <li><a href="https://www.gov.uk/photos-for-passports" target="_blank" rel="noopener">UK passport photo rules</a></li>
+          <li><a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a></li>
+          <li><a href="https://railway.app" target="_blank" rel="noopener">Railway</a> for deployment</li>
+        </ul>
+
+      </article>
+      <footer>&copy; 2026 Haoming Koo</footer>
+    </div>
+  </body>
+</html>
