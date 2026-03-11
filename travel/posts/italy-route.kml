@@ -2,100 +2,339 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <name>13 Days Across Italy — Winter Family Trip</name>
-    <description>Milan → Florence → Pisa → Rome → Venice (Dec 2024 – Jan 2025). Route by Haoming Koo — kooexperience.com/travel/posts/italy.html</description>
+    <description>Every hotel, restaurant, and attraction from our Dec 2024 – Jan 2025 trip. By Haoming Koo — kooexperience.com/travel/posts/italy.html</description>
 
-    <Style id="cityPin">
-      <IconStyle>
-        <color>ff7755a8</color>
-        <scale>1.2</scale>
-        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-circle.png</href></Icon>
-      </IconStyle>
-    </Style>
-    <Style id="dayTripPin">
-      <IconStyle>
-        <color>ff7a6464</color>
-        <scale>0.9</scale>
-        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href></Icon>
-      </IconStyle>
-    </Style>
-    <Style id="routeLine">
-      <LineStyle>
-        <color>ff7755a8</color>
-        <width>3</width>
-      </LineStyle>
-    </Style>
+    <!-- Styles -->
+    <Style id="hotel"><IconStyle><color>ff00aaff</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-circle.png</href></Icon></IconStyle></Style>
+    <Style id="attraction"><IconStyle><color>ff7755a8</color><scale>1.0</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-circle.png</href></Icon></IconStyle></Style>
+    <Style id="food"><IconStyle><color>ff00cc66</color><scale>0.9</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href></Icon></IconStyle></Style>
+    <Style id="routeLine"><LineStyle><color>ff7755a8</color><width>3</width></LineStyle></Style>
 
+    <!-- ── MILAN ────────────────────────────────────── -->
     <Folder>
-      <name>Cities</name>
+      <name>Milan (Days 1–3, Dec 24–26)</name>
 
       <Placemark>
-        <name>Milan</name>
-        <description><![CDATA[
-          <b>Days 1–3 (Dec 24–26)</b><br/>
-          2 nights · Hilton Milan<br/><br/>
-          QC Termemilano, The Last Supper, Duomo rooftop, Sforza Castle, Brera District, Galleria Vittorio Emanuele II, Navigli Canals
-        ]]></description>
-        <styleUrl>#cityPin</styleUrl>
-        <Point><coordinates>9.1900,45.4642,0</coordinates></Point>
+        <name>Hilton Milan</name>
+        <description><![CDATA[<b>Hotel</b> · 2 nights<br/>Our base in Milan.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>9.1977,45.4632,0</coordinates></Point>
       </Placemark>
 
       <Placemark>
-        <name>Florence</name>
-        <description><![CDATA[
-          <b>Days 4–6 (Dec 27–29)</b><br/>
-          3 nights · 25hours Hotel Florence<br/><br/>
-          Galleria dell'Accademia, Duomo di Firenze, Uffizi Gallery, San Lorenzo Market, Ponte Vecchio, Piazzale Michelangelo, The Mall Firenze outlet, Castello di Verrazzano (Chianti wine)
-        ]]></description>
-        <styleUrl>#cityPin</styleUrl>
-        <Point><coordinates>11.2558,43.7696,0</coordinates></Point>
+        <name>QC Termemilano</name>
+        <description><![CDATA[<b>Day 2</b> · Thermal spa in old tram tunnels. Rooftop jacuzzi with city views. ~3 hrs. Book 1 week ahead.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>9.1750,45.4580,0</coordinates></Point>
       </Placemark>
 
       <Placemark>
-        <name>Pisa (day trip)</name>
-        <description><![CDATA[
-          <b>Day 7 (Dec 30)</b><br/>
-          Day trip from Florence → then train to Rome<br/><br/>
-          Leaning Tower, Baptistery, Cathedral, Camposanto, Piazza dei Miracoli
-        ]]></description>
-        <styleUrl>#dayTripPin</styleUrl>
-        <Point><coordinates>10.4017,43.7228,0</coordinates></Point>
+        <name>Navigli Canals</name>
+        <description><![CDATA[<b>Day 2</b> · Canal district, great for evening walks. Buskers and crowds even on Christmas Day.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>9.1800,45.4500,0</coordinates></Point>
       </Placemark>
 
       <Placemark>
-        <name>Rome</name>
-        <description><![CDATA[
-          <b>Days 8–10 (Dec 31 – Jan 2)</b><br/>
-          3 nights · Mercure Rome Colosseum Centre<br/><br/>
-          Vatican Museum + Sistine Chapel, Colosseum (Attico), Palatine Hill, Roman Forum, St. Peter's Basilica + Dome, Holy Door (Jubilee Year), Pantheon, Trevi Fountain, Spanish Steps, Piazza Navona, Trastevere
-        ]]></description>
-        <styleUrl>#cityPin</styleUrl>
-        <Point><coordinates>12.4964,41.9028,0</coordinates></Point>
+        <name>Langosteria</name>
+        <description><![CDATA[<b>Day 2 dinner</b> · Seafood restaurant near Navigli.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>9.1770,45.4510,0</coordinates></Point>
       </Placemark>
 
       <Placemark>
-        <name>Venice</name>
-        <description><![CDATA[
-          <b>Days 11–12 (Jan 3–4)</b><br/>
-          2 nights · Hotel Saturnia &amp; International<br/><br/>
-          Rialto Market, Murano (glassblowing), St. Mark's Campanile, Gondola ride, Doge's Palace, St. Mark's Basilica
-        ]]></description>
-        <styleUrl>#cityPin</styleUrl>
-        <Point><coordinates>12.3155,45.4408,0</coordinates></Point>
+        <name>The Last Supper (Santa Maria delle Grazie)</name>
+        <description><![CDATA[<b>Day 3, 7:45am</b> · 15 min viewing, 30 people per slot. Book 2–3 months ahead or check for cancellation drops.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>9.1711,45.4660,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Sforza Castle</name>
+        <description><![CDATA[<b>Day 3</b> · ~1 hr. Has unfinished Michelangelo works. Multiple museums inside.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>9.1791,45.4706,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Brera District</name>
+        <description><![CDATA[<b>Day 3</b> · ~1 hr stroll. Art galleries, boutiques, cobblestone streets.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>9.1880,45.4720,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Duomo di Milano</name>
+        <description><![CDATA[<b>Day 3, 2pm</b> · ~1.5 hrs. Rooftop terraces with views of the Alps. Book 1–2 weeks ahead. Took 600 years to build (1386–1965).]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>9.1919,45.4641,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Galleria Vittorio Emanuele II</name>
+        <description><![CDATA[<b>Day 3</b> · Italy's oldest shopping gallery. Right next to the Duomo.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>9.1903,45.4657,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Gino Sorbillo</name>
+        <description><![CDATA[<b>Day 3 dinner</b> · Famous pizza spot near the Duomo.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>9.1880,45.4645,0</coordinates></Point>
       </Placemark>
     </Folder>
 
+    <!-- ── FLORENCE ──────────────────────────────────── -->
     <Folder>
-      <name>Route</name>
+      <name>Florence (Days 4–7, Dec 27–30)</name>
+
       <Placemark>
-        <name>Travel Route</name>
-        <description>Milan → Florence → Pisa → Rome → Venice</description>
+        <name>25hours Hotel Florence</name>
+        <description><![CDATA[<b>Hotel</b> · 3 nights<br/>Rooftop bar with Duomo views.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>11.2480,43.7725,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>All'Antico Vinaio</name>
+        <description><![CDATA[<b>Day 4 lunch</b> · Famous sandwich shop. Queue is worth the ~15 min wait.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.2590,43.7680,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Galleria dell'Accademia</name>
+        <description><![CDATA[<b>Day 4 afternoon</b> · ~1.5 hrs. Michelangelo's David (5.17m tall). Book 2–4 weeks ahead.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>11.2588,43.7768,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Piazzale Michelangelo</name>
+        <description><![CDATA[<b>Day 4 sunset</b> · Panoramic viewpoint — best sunset spot in Florence. Free.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>11.2650,43.7629,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Trattoria dall'Oste</name>
+        <description><![CDATA[<b>Day 4 dinner</b> · Tuscan cuisine.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.2535,43.7745,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Duomo di Firenze</name>
+        <description><![CDATA[<b>Day 5 morning</b> · ~1 hr for the 463-step dome climb. Brunelleschi's dome (1400s). Book 2–4 weeks ahead.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>11.2560,43.7731,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>San Lorenzo Market</name>
+        <description><![CDATA[<b>Day 5</b> · ~1 hr. Leather goods, souvenirs, street food.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>11.2530,43.7750,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Galleria degli Uffizi</name>
+        <description><![CDATA[<b>Day 5 afternoon</b> · ~3 hrs. Botticelli's Birth of Venus, Caravaggio, Raphael. Book 2–4 weeks ahead.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>11.2553,43.7677,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ponte Vecchio</name>
+        <description><![CDATA[<b>Day 5 sunset</b> · Medieval bridge with jewellery shops since the 1500s.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>11.2531,43.7680,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Trattoria Za Za</name>
+        <description><![CDATA[<b>Day 5 dinner</b> · Near Mercato Centrale.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.2535,43.7757,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>The Mall Firenze</name>
+        <description><![CDATA[<b>Day 6</b> · Luxury outlet in the Tuscan hills. Gucci, Prada, Bottega Veneta at outlet prices. ~40 min drive from Florence.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>11.5486,43.7097,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Castello di Verrazzano</name>
+        <description><![CDATA[<b>Day 6</b> · Wine tasting at a historic Chianti estate surrounded by vineyards.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>11.2628,43.5433,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── PISA ─────────────────────────────────────── -->
+    <Folder>
+      <name>Pisa (Day 7, Dec 30 — day trip)</name>
+
+      <Placemark>
+        <name>Piazza dei Miracoli</name>
+        <description><![CDATA[<b>Day 7</b> · ~3 hrs. Leaning Tower, Baptistery, Cathedral, Camposanto. The tower leans at 3.97°. ~1 hr train from Florence.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>10.3966,43.7230,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── ROME ─────────────────────────────────────── -->
+    <Folder>
+      <name>Rome (Days 8–10, Dec 31 – Jan 2)</name>
+
+      <Placemark>
+        <name>Mercure Rome Colosseum Centre</name>
+        <description><![CDATA[<b>Hotel</b> · 3 nights<br/>Right next to the Colosseum — could see it from the window. NYE fireworks from the rooftop.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>12.4960,41.8900,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Vatican Museum + Sistine Chapel</name>
+        <description><![CDATA[<b>Day 8, 8:30am</b> · ~3 hrs with guide. Michelangelo's Sistine ceiling. Book 2–4 weeks ahead, first morning slot.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.4536,41.9065,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Colosseum (Attico access)</name>
+        <description><![CDATA[<b>Day 8, 1:35pm</b> · ~2 hrs including Palatine Hill + Roman Forum. Attico (top level) tickets drop in small batches — check daily. 50,000 seats, 80 entrances.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.4922,41.8902,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Palatine Hill</name>
+        <description><![CDATA[<b>Day 8</b> · Included with Colosseum ticket. Ruins of imperial palaces.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.4874,41.8892,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Roman Forum</name>
+        <description><![CDATA[<b>Day 8</b> · Included with Colosseum ticket. Centre of ancient Roman public life.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.4853,41.8925,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Trevi Fountain</name>
+        <description><![CDATA[<b>Day 9</b> · Throw a coin — you'll come back. Less crowded on New Year's Day.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.4833,41.9009,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Spanish Steps</name>
+        <description><![CDATA[<b>Day 9</b> · 135 steps, great for people-watching. Shopping streets nearby.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.4828,41.9060,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Piazza Navona</name>
+        <description><![CDATA[<b>Day 9</b> · Christmas Market was still running on Jan 1. Bernini's Fountain of the Four Rivers.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.4731,41.8992,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Trastevere</name>
+        <description><![CDATA[<b>Day 9 evening</b> · Cobblestone streets, ivy-covered buildings, arguably Rome's best food neighbourhood.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.4690,41.8870,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>St. Peter's Basilica + Dome</name>
+        <description><![CDATA[<b>Day 10</b> · ~1.5 hrs. 551-step dome climb. Walked through the Holy Door (Jubilee Year — once every 25 years). Open on Jan 1 even when Vatican Museum is closed.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.4539,41.9022,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Pantheon</name>
+        <description><![CDATA[<b>Day 10</b> · ~30 min. 2,000-year-old concrete dome with perfect oculus. World's largest unreinforced concrete dome. Was open on Jan 1.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.4769,41.8986,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── VENICE ───────────────────────────────────── -->
+    <Folder>
+      <name>Venice (Days 11–12, Jan 3–4)</name>
+
+      <Placemark>
+        <name>Hotel Saturnia &amp; International</name>
+        <description><![CDATA[<b>Hotel</b> · 2 nights<br/>Near St. Mark's Square.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>12.3360,45.4330,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Osteria Ai Assassini</name>
+        <description><![CDATA[<b>Day 10 dinner</b> · First dinner in Venice after arriving from Rome.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.3340,45.4345,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Rialto Market</name>
+        <description><![CDATA[<b>Day 11 morning</b> · ~1 hr. Fresh produce, seafood, local Venetian specialties.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.3358,45.4381,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Murano</name>
+        <description><![CDATA[<b>Day 11</b> · ~40 min vaporetto each way. Live glassblowing demonstrations.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.3528,45.4585,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>St. Mark's Campanile</name>
+        <description><![CDATA[<b>Day 11</b> · Panoramic views of Venice from the bell tower.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.3390,45.4341,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Doge's Palace</name>
+        <description><![CDATA[<b>Day 12</b> · ~2 hrs. Secret Itineraries Tour — hidden chambers, prison cells, Casanova's escape. Book 1–2 weeks ahead.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.3406,45.4335,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>St. Mark's Basilica</name>
+        <description><![CDATA[<b>Day 12</b> · ~1 hr. Glittering mosaics, Pala d'Oro (1,900+ gemstones), loggia views. Book 1–2 weeks ahead.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>12.3396,45.4345,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── ROUTE ────────────────────────────────────── -->
+    <Folder>
+      <name>Travel Route</name>
+      <Placemark>
+        <name>Milan → Florence → Pisa → Rome → Venice</name>
+        <description>High-speed rail route between cities</description>
         <styleUrl>#routeLine</styleUrl>
         <LineString>
           <tessellate>1</tessellate>
           <coordinates>
             9.1900,45.4642,0
             11.2558,43.7696,0
-            10.4017,43.7228,0
+            10.3966,43.7230,0
             12.4964,41.9028,0
             12.3155,45.4408,0
           </coordinates>
