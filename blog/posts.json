@@ -23,7 +23,7 @@
       "FastAPI",
       "EDA"
     ],
-    "excerpt": "Building LionWeather: 8 years of NEA data, LightGBM rainfall prediction, SHAP explainability, animated radar, and the hard lesson that tropical weather does not care about your model.",
+    "excerpt": "Building LionWeather: 8 years of NEA data, LightGBM rainfall prediction, SHAP explainability, animated radar, and a whole lot of lessons about tropical weather.",
     "cover": "",
     "readingTime": "14 min"
   }
