@@ -282,11 +282,13 @@
         <h2 id="yolo">Using computer vision to read charts</h2>
 
         <p>
-          The most interesting part of this project is using
-          <a href="https://docs.ultralytics.com/" target="_blank" rel="noopener">YOLOv8</a>
-          to detect chart patterns. The model is
+          This is where it gets fun. I wanted a computer to look at a candlestick chart and say
+          "hey, that looks like a head and shoulders." Turns out someone already trained a model
+          for exactly that:
           <a href="https://huggingface.co/foduucom/stockmarket-pattern-detection-yolov8" target="_blank" rel="noopener">foduucom/stockmarket-pattern-detection-yolov8</a>
-          from Hugging Face. It recognises six pattern classes:
+          on Hugging Face, built on
+          <a href="https://docs.ultralytics.com/" target="_blank" rel="noopener">YOLOv8</a>.
+          It recognises six pattern classes:
         </p>
 
         <ul>
@@ -339,10 +341,10 @@
         <h2 id="coordinate-mapping">The coordinate mapping problem</h2>
 
         <p>
-          This was the hardest engineering challenge. YOLOv8 outputs bounding boxes in pixel
+          This was the part that nearly broke me. YOLOv8 outputs bounding boxes in pixel
           coordinates: <code>(x0, y0, x1, y1)</code> relative to the image. But the interactive
-          Plotly chart on the frontend uses dates and prices. I needed to convert pixels into
-          meaningful financial data.
+          Plotly chart on the frontend uses dates and prices. Pixels don't mean anything to a
+          trader. "There's a triangle at pixel 340" is not useful information.
         </p>
 
         <p>
@@ -376,8 +378,9 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
         <h2 id="five-layers">Five layers of pattern detection</h2>
 
         <p>
-          No single pattern detector is reliable on its own. Trader Koo uses five
-          independent layers and shows them all, so you can see where they agree and disagree.
+          Here's the thing about pattern detection: everyone's wrong sometimes. So instead of
+          trusting any single method, I went with the "ask five friends and see who agrees" approach.
+          Trader Koo runs five independent layers and shows them all.
         </p>
 
         <h3>1. Support and resistance levels</h3>
@@ -443,8 +446,8 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
         <h2 id="pipeline">The nightly data pipeline</h2>
 
         <p>
-          Every weeknight at 22:00 UTC (after US market close), APScheduler kicks off the
-          update pipeline:
+          Every weeknight at 22:00 UTC (after US market close), while I'm probably asleep or
+          making stew, APScheduler kicks off the update pipeline:
         </p>
 
         <ol>
@@ -452,7 +455,7 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
             <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies" target="_blank" rel="noopener">S&amp;P 500 table</a>,
             plus market context tickers (SPY, QQQ, VIX).</li>
           <li><strong>Pull prices</strong> via <a href="https://github.com/ranaroussi/yfinance" target="_blank" rel="noopener">yfinance</a>
-            with rate limiting (0.5 to 1.2 second random delay between requests to stay polite).</li>
+            with rate limiting (0.5 to 1.2 second random delay between requests, because getting IP-banned by Yahoo Finance is not on my bucket list).
           <li><strong>Scrape fundamentals</strong> from Finviz for P/E, PEG, EPS growth, analyst targets.
             Cached with a 20-hour minimum interval to avoid redundant fetches.</li>
           <li><strong>Run incremental YOLO</strong> only on tickers that have new candles since their last detection run.</li>
@@ -498,11 +501,12 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
 
         <p><strong>Multiple weak signals beat one strong signal.</strong>
           No single detector is reliable. But when three or four independent methods agree
-          on the same pattern, confidence goes up significantly.</p>
+          on the same pattern, you start paying attention. It's like when all your friends
+          independently tell you the same restaurant is good.</p>
 
         <p><strong>Single-service simplicity is underrated.</strong>
-          One process, one database file, one deploy target. When something breaks,
-          there's exactly one place to look. For personal projects, resist the urge to over-architect.</p>
+          One process, one database file, one deploy target. When something breaks at 2am,
+          there's exactly one place to look. No Kubernetes. No microservices. Just vibes and SQLite.</p>
 
         <p><strong>Coordinate mapping is a transferable technique.</strong>
           The matplotlib axis metadata approach for converting pixels back to data works for
