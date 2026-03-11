@@ -229,7 +229,7 @@
         // Results count
         var countEl = document.getElementById("results-count");
         countEl.textContent = filtered.length + " post" + (filtered.length !== 1 ? "s" : "") +
-          (activeTag ? " tagged "" + activeTag + """ : "");
+          (activeTag ? " tagged \u201c" + activeTag + "\u201d" : "");
 
         // Render list
         var listEl = document.getElementById("post-list");
