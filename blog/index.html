@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — Haoming Koo</title>
+    <meta name="description" content="Articles on building AI systems, full-stack development, ML pipelines, and software engineering by Haoming Koo." />
+    <link rel="canonical" href="https://kooexperience.com/blog/" />
+    <!-- OG -->
+    <meta property="og:title" content="Blog — Haoming Koo" />
+    <meta property="og:description" content="Articles on building AI systems, full-stack development, and ML pipelines." />
+    <meta property="og:url" content="https://kooexperience.com/blog/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Haoming Koo's Blog",
+      "url": "https://kooexperience.com/blog/",
+      "author": {
+        "@type": "Person",
+        "name": "Haoming Koo",
+        "url": "https://kooexperience.com",
+        "sameAs": [
+          "https://github.com/haomingkoo",
+          "https://linkedin.com/in/haomingkoo"
+        ]
+      }
+    }
+    </script>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #060608; --surface: #0e0e12; --surface-hover: #141418;
+        --border: #1c1c24; --border-hover: #2a2a36;
+        --accent: #3b82f6; --accent-dim: rgba(59,130,246,.10);
+        --text: #eeeef0; --text-secondary: #b0b0b8; --muted: #64647a;
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.6; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: ""; position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(6,6,8,.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 960px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between; height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em; text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      }
+      .nav-links { display: flex; gap: 8px; }
+      .nav-links a {
+        color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500;
+        padding: 6px 12px; border-radius: 8px; transition: color .2s, background .2s;
+      }
+      .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(255,255,255,.04); }
+
+      .container { max-width: 960px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+      /* Page header */
+      .page-header { padding: 56px 0 40px; }
+      .page-title { font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: -.025em; margin-bottom: 8px; }
+      .page-desc { font-size: 15px; color: var(--text-secondary); max-width: 520px; }
+
+      /* Tag filters */
+      .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+      .filter-btn {
+        font-size: 12px; font-weight: 500; padding: 6px 16px; border-radius: 99px;
+        background: var(--surface); border: 1px solid var(--border);
+        color: var(--muted); cursor: pointer; transition: all .2s; font-family: inherit;
+      }
+      .filter-btn:hover { border-color: var(--border-hover); color: var(--text-secondary); }
+      .filter-btn.active { background: var(--accent-dim); border-color: rgba(59,130,246,.3); color: var(--accent); }
+
+      /* Post list */
+      .post-list { display: flex; flex-direction: column; gap: 1px; margin-bottom: 64px; }
+      .post-item {
+        display: flex; align-items: flex-start; gap: 20px; padding: 24px 20px;
+        background: var(--surface); text-decoration: none; color: inherit;
+        transition: background .2s, transform .15s;
+        border-left: 3px solid transparent;
+      }
+      .post-item:first-child { border-radius: 14px 14px 0 0; }
+      .post-item:last-child { border-radius: 0 0 14px 14px; }
+      .post-item:only-child { border-radius: 14px; }
+      .post-item:hover { background: var(--surface-hover); border-left-color: var(--accent); }
+      .post-date {
+        font-size: 12px; color: var(--muted); white-space: nowrap; min-width: 80px;
+        padding-top: 3px; font-variant-numeric: tabular-nums;
+      }
+      .post-body { flex: 1; min-width: 0; }
+      .post-title { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+      .post-excerpt { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 8px; }
+      .post-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+      .post-tag {
+        font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 6px;
+        background: rgba(255,255,255,.04); color: var(--muted); border: 1px solid rgba(255,255,255,.05);
+      }
+      .post-reading { font-size: 12px; color: var(--muted); white-space: nowrap; padding-top: 3px; }
+
+      .empty-state {
+        text-align: center; padding: 64px 24px; color: var(--muted); font-size: 14px;
+        border: 1px dashed var(--border); border-radius: 14px;
+      }
+      .results-count { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+
+      footer {
+        border-top: 1px solid var(--border); padding: 32px 0 40px;
+        font-size: 13px; color: var(--muted); text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+        .post-item { flex-direction: column; gap: 4px; }
+        .post-date { min-width: unset; }
+        .filters { gap: 6px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../">HK</a>
+        <div class="nav-links">
+          <a href="../#projects">Projects</a>
+          <a href="./" class="active">Blog</a>
+          <a href="../travel/">Travel</a>
+          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Blog</h1>
+        <p class="page-desc">
+          Notes on building AI systems, full-stack engineering, and lessons from shipping real products.
+        </p>
+      </div>
+
+      <div class="filters" id="filters"></div>
+      <div class="results-count" id="results-count"></div>
+      <div class="post-list" id="post-list">
+        <div class="empty-state">Loading posts...</div>
+      </div>
+
+      <footer>&copy; 2026 Haoming Koo</footer>
+    </div>
+
+    <script>
+    (function () {
+      var activeTag = null;
+
+      fetch("./posts.json")
+        .then(function (r) { return r.json(); })
+        .then(function (posts) {
+          // Sort by date descending
+          posts.sort(function (a, b) { return b.date.localeCompare(a.date); });
+
+          // Extract unique tags
+          var tagSet = {};
+          posts.forEach(function (p) {
+            (p.tags || []).forEach(function (t) { tagSet[t] = true; });
+          });
+          var allTags = Object.keys(tagSet).sort();
+
+          // Render filters
+          var filtersEl = document.getElementById("filters");
+          var allBtn = document.createElement("button");
+          allBtn.className = "filter-btn active";
+          allBtn.textContent = "All";
+          allBtn.onclick = function () { activeTag = null; render(posts, allTags); };
+          filtersEl.appendChild(allBtn);
+
+          allTags.forEach(function (tag) {
+            var btn = document.createElement("button");
+            btn.className = "filter-btn";
+            btn.textContent = tag;
+            btn.onclick = function () { activeTag = tag; render(posts, allTags); };
+            filtersEl.appendChild(btn);
+          });
+
+          render(posts, allTags);
+        })
+        .catch(function () {
+          document.getElementById("post-list").innerHTML =
+            '<div class="empty-state">No posts yet — check back soon.</div>';
+        });
+
+      function render(posts, allTags) {
+        // Update filter buttons
+        var btns = document.querySelectorAll(".filter-btn");
+        btns.forEach(function (b) {
+          b.classList.toggle("active",
+            (activeTag === null && b.textContent === "All") ||
+            b.textContent === activeTag
+          );
+        });
+
+        // Filter posts
+        var filtered = activeTag
+          ? posts.filter(function (p) { return (p.tags || []).indexOf(activeTag) !== -1; })
+          : posts;
+
+        // Results count
+        var countEl = document.getElementById("results-count");
+        countEl.textContent = filtered.length + " post" + (filtered.length !== 1 ? "s" : "") +
+          (activeTag ? " tagged "" + activeTag + """ : "");
+
+        // Render list
+        var listEl = document.getElementById("post-list");
+        if (!filtered.length) {
+          listEl.innerHTML = '<div class="empty-state">No posts match this filter.</div>';
+          return;
+        }
+        listEl.innerHTML = "";
+        filtered.forEach(function (p) {
+          var a = document.createElement("a");
+          a.className = "post-item";
+          a.href = "./posts/" + p.slug + ".html";
+          var tagsHtml = (p.tags || []).map(function (t) {
+            return '<span class="post-tag">' + t + '</span>';
+          }).join("");
+          a.innerHTML =
+            '<span class="post-date">' + formatDate(p.date) + '</span>' +
+            '<div class="post-body">' +
+              '<div class="post-title">' + p.title + '</div>' +
+              '<div class="post-excerpt">' + p.excerpt + '</div>' +
+              '<div class="post-tags">' + tagsHtml + '</div>' +
+            '</div>' +
+            '<span class="post-reading">' + (p.readingTime || "") + '</span>';
+          listEl.appendChild(a);
+        });
+      }
+
+      function formatDate(d) {
+        var dt = new Date(d + "T00:00:00");
+        return dt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      }
+    })();
+    </script>
+  </body>
+</html>

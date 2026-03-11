@@ -1,0 +1,29 @@
+[
+  {
+    "slug": "how-i-built-an-ai-powered-stock-market-dashboard",
+    "title": "How I Built an AI-Powered Stock Market Dashboard",
+    "date": "2026-03-12",
+    "tags": [
+      "Building",
+      "YOLOv8",
+      "FastAPI",
+      "Computer Vision"
+    ],
+    "excerpt": "A deep dive into Trader Koo – from teaching YOLOv8 to read chart patterns, to solving the coordinate mapping problem, to running a five-layer detection ensemble every night.",
+    "cover": "",
+    "readingTime": "12 min"
+  },
+  {
+    "slug": "lionweather-walkthrough",
+    "title": "How I Built a Real-Time Weather Dashboard for Singapore",
+    "date": "2026-03-11",
+    "tags": [
+      "Building",
+      "ML",
+      "FastAPI"
+    ],
+    "excerpt": "A walkthrough of LionWeather \u2014 from NEA data ingestion to ML-powered rainfall forecasting with SHAP explainability.",
+    "cover": "",
+    "readingTime": "6 min"
+  }
+]

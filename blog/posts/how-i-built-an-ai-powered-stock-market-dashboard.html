@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How I Built an AI-Powered Stock Market Dashboard - Haoming Koo</title>
+    <meta name="description" content="A deep dive into Trader Koo: using YOLOv8 computer vision to detect chart patterns on S&P 500 stocks, combined with rule-based analysis and a FastAPI backend." />
+    <meta name="keywords" content="YOLOv8, stock market, chart pattern detection, FastAPI, computer vision, AI dashboard, S&P 500, Trader Koo" />
+    <meta name="author" content="Haoming Koo" />
+    <link rel="canonical" href="https://kooexperience.com/blog/posts/how-i-built-an-ai-powered-stock-market-dashboard.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #3b82f6;
+        --accent-dim: rgba(59,130,246,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(6,6,8,.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between; height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px; transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle { font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; }
+      .article h2 { font-size: 22px; font-weight: 700; margin: 48px 0 16px; letter-spacing: -.01em; color: var(--text); }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article code {
+        background: rgba(59,130,246,.08); padding: 2px 7px; border-radius: 5px;
+        font-size: 13px; font-family: "SF Mono", "Fira Code", monospace; color: var(--accent);
+      }
+      .article pre {
+        background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+        padding: 20px 24px; overflow-x: auto; margin: 24px 0;
+      }
+      .article pre code { background: none; padding: 0; font-size: 13px; line-height: 1.65; color: var(--text-secondary); }
+      .article blockquote {
+        border-left: 3px solid var(--accent); padding: 14px 20px; margin: 24px 0;
+        background: var(--accent-dim); border-radius: 0 10px 10px 0; color: var(--text-secondary);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+      .toc a { display: block; font-size: 13.5px; color: var(--text-secondary); text-decoration: none; padding: 4px 0; transition: color .2s; }
+      .toc a:hover { color: var(--accent); }
+      .callout {
+        display: flex; gap: 12px;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 16px 20px; margin: 24px 0;
+        font-size: 13.5px; color: var(--text-secondary); line-height: 1.55;
+      }
+      .callout-icon { font-size: 18px; flex-shrink: 0; line-height: 1.4; }
+      .stack-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 24px 0; }
+      .stack-box-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+      .stack-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+      .stack-tag {
+        font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 8px;
+        background: rgba(255,255,255,.04); color: var(--text-secondary); border: 1px solid rgba(255,255,255,.05);
+      }
+      footer { border-top: 1px solid var(--border); padding: 32px 0 40px; font-size: 13px; color: var(--muted); text-align: center; }
+      @media (max-width: 600px) { .container { padding: 0 18px; } nav { padding: 0 18px; } }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../../">HK</a>
+        <a href="../../#blog">Blog</a>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../../#blog">&larr; Back to blog</a>
+        <div class="article-meta">
+          <span class="article-tag">Building</span>
+          <span class="article-tag">YOLOv8</span>
+          <span class="article-tag">Computer Vision</span>
+          <span>March 12, 2026</span>
+          <span class="reading-time">12 min read</span>
+        </div>
+        <h1>How I Built an AI-Powered Stock Market Dashboard</h1>
+        <p class="subtitle">
+          Trader Koo uses YOLOv8 computer vision to detect chart patterns across all
+          S&amp;P 500 stocks, backed by five independent analysis layers,
+          a nightly data pipeline, and a single-service FastAPI deployment.
+        </p>
+
+        <div class="stack-box">
+          <div class="stack-box-title">Tech Stack</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">YOLOv8</span>
+            <span class="stack-tag">Plotly.js</span>
+            <span class="stack-tag">SQLite</span>
+            <span class="stack-tag">mplfinance</span>
+            <span class="stack-tag">TA-Lib</span>
+            <span class="stack-tag">APScheduler</span>
+            <span class="stack-tag">Railway</span>
+          </div>
+        </div>
+
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#what">What is Trader Koo?</a>
+          <a href="#try-it">Try it yourself</a>
+          <a href="#architecture">Architecture overview</a>
+          <a href="#yolo">Teaching a computer to read charts</a>
+          <a href="#coordinate-mapping">The coordinate mapping problem</a>
+          <a href="#five-layers">Five layers of pattern detection</a>
+          <a href="#pipeline">The nightly data pipeline</a>
+          <a href="#deployment">Deployment on Railway</a>
+          <a href="#lessons">Lessons learned</a>
+          <a href="#references">References</a>
+        </div>
+
+        <h2 id="what">What is Trader Koo?</h2>
+
+        <p>
+          <a href="https://trader.kooexperience.com" target="_blank" rel="noopener">Trader Koo</a>
+          is a market intelligence dashboard that covers all ~510 stocks in the S&amp;P 500.
+          Every night after market close, it pulls fresh price data, runs pattern detection across
+          five independent layers (including a YOLOv8 computer vision model), and presents everything
+          through an interactive Plotly chart.
+        </p>
+
+        <p>
+          The idea came from a simple frustration: most free charting tools show you the data
+          but leave the analysis entirely to you. I wanted something that would surface patterns
+          automatically, across every stock, every day, without manual scanning.
+        </p>
+
+        <p>
+          For each ticker, the dashboard overlays candlestick charts with support/resistance
+          levels, trendlines, price gaps, candlestick signals, rule-based patterns (flags, wedges),
+          and AI-detected patterns (head and shoulders, triangles, double tops/bottoms).
+          It also pulls fundamentals from <a href="https://finviz.com" target="_blank" rel="noopener">Finviz</a>
+          and shows valuation metrics like P/E, PEG ratio, and analyst target price discount.
+        </p>
+
+        <div class="callout">
+          <span class="callout-icon">&#9888;&#65039;</span>
+          <div>
+            <strong>Not financial advice.</strong> This is a personal engineering project
+            for learning and exploration. The patterns detected are probabilistic signals, not
+            trade recommendations. Always do your own research.
+          </div>
+        </div>
+
+        <h2 id="try-it">Try it yourself</h2>
+
+        <p>
+          Head to <a href="https://trader.kooexperience.com" target="_blank" rel="noopener">trader.kooexperience.com</a>.
+          The interface has three main tabs:
+        </p>
+
+        <ul>
+          <li><strong>Guide</strong> explains every indicator and overlay on the chart, so you know what you're looking at.</li>
+          <li><strong>Opportunities</strong> is a screener. Filter by P/E ratio, PEG, analyst target discount, or sector to find stocks trading below consensus targets or with unusually low valuations.</li>
+          <li><strong>Chart + Levels</strong> is the main view. Pick any S&amp;P 500 ticker, choose a timeframe (3, 6, or 12 months), and see the full analysis with all overlay layers.</li>
+        </ul>
+
+        <p>
+          YOLOv8 detections show up as bounding boxes on the chart. Daily detections appear
+          as dotted outlines, weekly as dashed. Hover any overlay for details on the pattern
+          type and confidence score.
+        </p>
+
+        <h2 id="architecture">Architecture overview</h2>
+
+        <p>
+          The whole system runs as a single FastAPI process on
+          <a href="https://railway.app" target="_blank" rel="noopener">Railway</a>.
+          No message queues, no separate workers, no managed database.
+          SQLite on a persistent volume handles all storage.
+          <a href="https://apscheduler.readthedocs.io/" target="_blank" rel="noopener">APScheduler</a>
+          runs the nightly cron inside the same process.
+        </p>
+
+        <pre><code>┌──────────────────────────────────────────────────┐
+│  Railway Microservice (single process)            │
+│                                                    │
+│  FastAPI + Uvicorn                                 │
+│  ├── Serves frontend (vanilla JS + Plotly)        │
+│  ├── /api/dashboard/{ticker}  (chart payload)     │
+│  ├── /api/opportunities       (valuation screen)  │
+│  └── /api/admin/*             (data management)   │
+│                                                    │
+│  APScheduler (in-process cron)                     │
+│  └── Runs Mon-Fri @ 22:00 UTC                     │
+│      ├── Fetch prices + fundamentals               │
+│      ├── Run YOLO pattern detection                │
+│      └── Generate daily report                     │
+│                                                    │
+│  SQLite (/data/trader_koo.db)                      │
+│  ├── price_daily     (510 tickers x 365 days)     │
+│  ├── finviz_fundamentals                           │
+│  ├── yolo_patterns   (pre-computed detections)     │
+│  └── options_iv                                    │
+└──────────────────────────────────────────────────┘</code></pre>
+
+        <p>
+          This single-service approach has tradeoffs. It can't scale horizontally, and a crash
+          during YOLO inference means lost progress. But for a personal analytics tool, the
+          simplicity is worth it. No infrastructure to manage, no services to coordinate,
+          and SQLite is surprisingly fast when you're the only writer.
+        </p>
+
+        <h2 id="yolo">Teaching a computer to read charts</h2>
+
+        <p>
+          The most interesting part of this project is using
+          <a href="https://docs.ultralytics.com/" target="_blank" rel="noopener">YOLOv8</a>
+          to detect chart patterns. The model is
+          <a href="https://huggingface.co/foduucom/stockmarket-pattern-detection-yolov8" target="_blank" rel="noopener">foduucom/stockmarket-pattern-detection-yolov8</a>
+          from Hugging Face. It recognises six pattern classes:
+        </p>
+
+        <ul>
+          <li>Head and shoulders (top and bottom)</li>
+          <li>M-Head (double top variant)</li>
+          <li>W-Bottom (double bottom)</li>
+          <li>Triangle</li>
+          <li>StockLine (consolidation)</li>
+        </ul>
+
+        <h3>Why two timeframes?</h3>
+
+        <p>
+          The model was trained on charts showing roughly 100 to 130 candlesticks. Candle density
+          affects detection quality significantly. Feed it 730 daily bars crammed into one image
+          and each candle is too small for reliable recognition.
+        </p>
+
+        <p>My solution: run detection at two timeframes.</p>
+
+        <ul>
+          <li><strong>Daily (180 days, ~124 bars)</strong> catches recent patterns like flags forming or a head-and-shoulders developing over the past few months.</li>
+          <li><strong>Weekly (730 days resampled to ~104 bars)</strong> catches structural patterns spanning multiple months, like a major double top that took a year to form.</li>
+        </ul>
+
+        <p>
+          The weekly pass resamples daily OHLCV data into weekly candles (open = Monday's open,
+          high = week's high, low = week's low, close = Friday's close). This maintains the
+          100-to-130 bar density the model expects while covering over two years of price history.
+        </p>
+
+        <h3>The per-ticker pipeline</h3>
+
+        <ol>
+          <li>Load historical prices from SQLite</li>
+          <li>For each timeframe: slice to the lookback window and resample if needed</li>
+          <li>Render a 1200 x 600 candlestick chart using <a href="https://github.com/matplotlib/mplfinance" target="_blank" rel="noopener">mplfinance</a></li>
+          <li>Capture the matplotlib axis metadata (explained below)</li>
+          <li>Run YOLOv8 inference on the rendered image</li>
+          <li>Map pixel bounding boxes back to date/price coordinates</li>
+          <li>Store results in the <code>yolo_patterns</code> table</li>
+        </ol>
+
+        <p>
+          A full seed across all 510 tickers (both timeframes) takes about 25 minutes. The nightly
+          incremental update only processes tickers with new price data, bringing it down to
+          5 to 10 minutes.
+        </p>
+
+        <h2 id="coordinate-mapping">The coordinate mapping problem</h2>
+
+        <p>
+          This was the hardest engineering challenge. YOLOv8 outputs bounding boxes in pixel
+          coordinates: <code>(x0, y0, x1, y1)</code> relative to the image. But the interactive
+          Plotly chart on the frontend uses dates and prices. I needed to convert pixels into
+          meaningful financial data.
+        </p>
+
+        <p>
+          The trick is capturing the matplotlib axis layout at render time. When mplfinance draws
+          the chart, I grab the axis position in figure coordinates and the data limits:
+        </p>
+
+        <pre><code># Capture axis metadata at render time
+pos = ax.get_position()         # Bbox in figure coords (0-1)
+xlim = ax.get_xlim()            # (bar_index_min, bar_index_max)
+ylim = ax.get_ylim()            # (price_min, price_max)
+
+# Convert pixel x to bar index, then to date
+ax_x0_px = pos.x0 * image_width
+frac_x = (x_px - ax_x0_px) / (ax_x1_px - ax_x0_px)
+bar_index = xlim[0] + frac_x * (xlim[1] - xlim[0])
+date_str = dates[round(bar_index)]
+
+# Convert pixel y to price (image y is inverted)
+fig_y = image_height - y_px
+frac_y = (fig_y - ax_y0_px) / (ax_y1_px - ax_y0_px)
+price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
+
+        <p>
+          This approach generalises to any matplotlib chart. The key insight is that
+          <code>ax.get_position()</code> and <code>ax.get_xlim()/get_ylim()</code> give you
+          everything needed to build the pixel-to-data mapping. I also filter out any detections
+          that land in the volume panel, where the price conversion would produce nonsense values.
+        </p>
+
+        <h2 id="five-layers">Five layers of pattern detection</h2>
+
+        <p>
+          No single pattern detector is reliable on its own. Trader Koo uses five
+          independent layers and shows them all, so you can see where they agree and disagree.
+        </p>
+
+        <h3>1. Support and resistance levels</h3>
+
+        <p>
+          I find local pivot highs and lows (bars where the high or low is the extreme within
+          a 3-bar window on each side), then cluster nearby pivots using a greedy algorithm
+          with ATR-relative tolerance. Each cluster gets scored by touch count with a 45-day
+          half-life for recency weighting.
+        </p>
+
+        <p>
+          <a href="https://www.investopedia.com/terms/a/atr.asp" target="_blank" rel="noopener">ATR (Average True Range)</a>
+          is the backbone of the entire system. All distance tolerances are expressed as ATR
+          multiples, so they adapt automatically to each stock's volatility. A low-volatility
+          utility stock gets tighter zones; a volatile tech stock gets wider ones. No manual tuning needed.
+        </p>
+
+        <h3>2. Rule-based chart patterns</h3>
+
+        <p>Classic patterns detected through geometric rules:</p>
+
+        <ul>
+          <li><strong>Bull/bear flags:</strong> A strong move (4%+ pole) followed by a parallel channel pullback. Measured by pole size, channel slope, and pullback depth.</li>
+          <li><strong>Rising/falling wedges:</strong> Converging trendlines fitted through pivot points. Requires at least 35% convergence and R&sup2; of 0.45 or higher.</li>
+        </ul>
+
+        <h3>3. Candlestick patterns</h3>
+
+        <p>
+          Single and multi-candle patterns detected using
+          <a href="https://ta-lib.org/" target="_blank" rel="noopener">TA-Lib</a>
+          (61 built-in pattern functions), with manual fallbacks for key patterns like hammers,
+          engulfing candles, and morning/evening stars. Each gets a confidence score based on
+          signal strength.
+        </p>
+
+        <h3>4. Hybrid scoring</h3>
+
+        <p>
+          Blends rule-based confidence (55%), candlestick agreement (20%), volume context (15%),
+          and breakout status (10%) into a single score. This is the "should I pay attention?"
+          number, combining multiple signals into one weighted view.
+        </p>
+
+        <h3>5. CV proxy patterns</h3>
+
+        <p>
+          An independent detector that uses the same pattern classes but different math.
+          Instead of fitting all bars, it fits regression lines only through swing pivot points,
+          producing a second opinion. When both the rule-based layer and CV proxy agree,
+          the signal carries more weight.
+        </p>
+
+        <p>
+          The YOLOv8 layer sits alongside these as an additional voice. Together, the five
+          analytical layers plus the AI model give you a multi-angle view of any chart. This
+          mirrors the concept of
+          <a href="https://en.wikipedia.org/wiki/Ensemble_learning" target="_blank" rel="noopener">ensemble learning</a>
+          in ML: multiple weak learners combined produce a stronger overall signal.
+        </p>
+
+        <h2 id="pipeline">The nightly data pipeline</h2>
+
+        <p>
+          Every weeknight at 22:00 UTC (after US market close), APScheduler kicks off the
+          update pipeline:
+        </p>
+
+        <ol>
+          <li><strong>Fetch the S&amp;P 500 list</strong> from Wikipedia's
+            <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies" target="_blank" rel="noopener">S&amp;P 500 table</a>,
+            plus market context tickers (SPY, QQQ, VIX).</li>
+          <li><strong>Pull prices</strong> via <a href="https://github.com/ranaroussi/yfinance" target="_blank" rel="noopener">yfinance</a>
+            with rate limiting (0.5 to 1.2 second random delay between requests to stay polite).</li>
+          <li><strong>Scrape fundamentals</strong> from Finviz for P/E, PEG, EPS growth, analyst targets.
+            Cached with a 20-hour minimum interval to avoid redundant fetches.</li>
+          <li><strong>Run incremental YOLO</strong> only on tickers that have new candles since their last detection run.</li>
+          <li><strong>Generate a daily report</strong> with pipeline metrics: tickers processed, failures, timing.</li>
+        </ol>
+
+        <p>
+          Each run records start/end timestamps and per-ticker status. The <code>/api/status</code>
+          endpoint exposes this so I can check data freshness at a glance. The pipeline also has
+          graceful shutdown: if the process gets SIGTERM mid-run (during a Railway redeploy, for example),
+          it catches the signal, saves partial progress, and exits cleanly.
+        </p>
+
+        <h2 id="deployment">Deployment on Railway</h2>
+
+        <p>
+          The app runs on <a href="https://railway.app" target="_blank" rel="noopener">Railway</a>
+          using Nixpacks. A few deployment quirks worth noting:
+        </p>
+
+        <ul>
+          <li><strong>PyTorch CPU-only:</strong> Installed from a custom index URL to save ~1 GB over the default CUDA build. There's no GPU on the Railway instance anyway.</li>
+          <li><strong>OpenCV headless:</strong> The default <code>opencv-python</code> package needs <code>libGL.so.1</code>, which doesn't exist on headless servers. Force-installing <code>opencv-python-headless</code> fixes this.</li>
+          <li><strong>First-run seeding:</strong> On fresh deploy, the start script creates the schema, spawns a background seed (non-blocking), and starts Uvicorn immediately. The API is live while data populates. Health check timeout is set to 60 minutes to accommodate the initial ~30 minute seed.</li>
+          <li><strong>Model caching:</strong> YOLOv8 weights download on first inference and persist on the volume. Subsequent deploys skip the download.</li>
+        </ul>
+
+        <h2 id="lessons">Lessons learned</h2>
+
+        <p><strong>Pre-compute beats on-demand for heavy inference.</strong>
+          Running YOLOv8 per request would take 1 to 2 seconds per ticker. Pre-computing nightly
+          and querying SQLite makes the dashboard respond in milliseconds. The tradeoff
+          (patterns are one day stale) is fine for daily charts.</p>
+
+        <p><strong>ATR as a universal scale works well.</strong>
+          Expressing all distances as ATR multiples makes every parameter self-adjusting.
+          No per-stock tuning needed, and it handles both quiet and volatile markets gracefully.</p>
+
+        <p><strong>Multiple weak signals beat one strong signal.</strong>
+          No single detector is reliable. But when three or four independent methods agree
+          on the same pattern, confidence goes up significantly.</p>
+
+        <p><strong>Single-service simplicity is underrated.</strong>
+          One process, one database file, one deploy target. When something breaks,
+          there's exactly one place to look. For personal projects, resist the urge to over-architect.</p>
+
+        <p><strong>Coordinate mapping is a transferable technique.</strong>
+          The matplotlib axis metadata approach for converting pixels back to data works for
+          any rendered chart. If you're doing computer vision on generated visualisations,
+          this pattern is worth knowing about.</p>
+
+        <hr class="divider" />
+
+        <h2 id="references">References</h2>
+
+        <ul>
+          <li><a href="https://trader.kooexperience.com" target="_blank" rel="noopener">Trader Koo (live app)</a></li>
+          <li><a href="https://github.com/haomingkoo/trader-koo" target="_blank" rel="noopener">Source code on GitHub</a></li>
+          <li><a href="https://docs.ultralytics.com/" target="_blank" rel="noopener">Ultralytics YOLOv8 documentation</a></li>
+          <li><a href="https://huggingface.co/foduucom/stockmarket-pattern-detection-yolov8" target="_blank" rel="noopener">foduucom/stockmarket-pattern-detection-yolov8</a> (Hugging Face model)</li>
+          <li><a href="https://github.com/matplotlib/mplfinance" target="_blank" rel="noopener">mplfinance</a> for rendering candlestick charts</li>
+          <li><a href="https://ta-lib.org/" target="_blank" rel="noopener">TA-Lib</a> for candlestick pattern functions</li>
+          <li><a href="https://github.com/ranaroussi/yfinance" target="_blank" rel="noopener">yfinance</a> for market data</li>
+          <li><a href="https://www.investopedia.com/terms/a/atr.asp" target="_blank" rel="noopener">Investopedia: Average True Range (ATR)</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Ensemble_learning" target="_blank" rel="noopener">Wikipedia: Ensemble learning</a></li>
+          <li><a href="https://plotly.com/javascript/" target="_blank" rel="noopener">Plotly.js</a> for interactive frontend charts</li>
+          <li><a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a></li>
+          <li><a href="https://railway.app" target="_blank" rel="noopener">Railway</a> for deployment</li>
+        </ul>
+
+      </article>
+
+      <footer>
+        <a href="../../" style="color: var(--accent); text-decoration: none;">kooexperience.com</a>
+        &middot; &copy; 2026 Haoming Koo
+      </footer>
+    </div>
+  </body>
+</html>

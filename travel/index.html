@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel — Haoming Koo</title>
+    <meta name="description" content="Travel stories, itineraries, and photo journals from around the world by Haoming Koo." />
+    <link rel="canonical" href="https://kooexperience.com/travel/" />
+    <meta property="og:title" content="Travel — Haoming Koo" />
+    <meta property="og:description" content="Travel stories, itineraries, and photo journals from around the world." />
+    <meta property="og:url" content="https://kooexperience.com/travel/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Haoming Koo's Travel Journal",
+      "url": "https://kooexperience.com/travel/",
+      "author": {
+        "@type": "Person",
+        "name": "Haoming Koo",
+        "url": "https://kooexperience.com"
+      }
+    }
+    </script>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #060608; --surface: #0e0e12; --surface-hover: #141418;
+        --border: #1c1c24; --border-hover: #2a2a36;
+        --accent: #a855f7; --accent-dim: rgba(168,85,247,.10);
+        --text: #eeeef0; --text-secondary: #b0b0b8; --muted: #64647a;
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.6; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: ""; position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168,85,247,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(6,6,8,.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 960px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between; height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em; text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      }
+      .nav-links { display: flex; gap: 8px; }
+      .nav-links a {
+        color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500;
+        padding: 6px 12px; border-radius: 8px; transition: color .2s, background .2s;
+      }
+      .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(255,255,255,.04); }
+
+      .container { max-width: 960px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+      .page-header { padding: 56px 0 40px; }
+      .page-title { font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: -.025em; margin-bottom: 8px; }
+      .page-desc { font-size: 15px; color: var(--text-secondary); max-width: 520px; }
+
+      /* World map */
+      .world-map {
+        width: 100%; height: 320px; border-radius: 14px; overflow: hidden;
+        border: 1px solid var(--border); margin-bottom: 40px;
+      }
+      .world-map .leaflet-container { height: 100%; width: 100%; }
+      .leaflet-tile-pane { filter: brightness(0.65) contrast(1.1) saturate(0.7); }
+      .leaflet-container { background: var(--bg); }
+      .leaflet-popup-content-wrapper {
+        background: var(--surface); color: var(--text);
+        border: 1px solid var(--border); border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(0,0,0,.5);
+      }
+      .leaflet-popup-tip { background: var(--surface); }
+      .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
+      .leaflet-control-attribution { font-size: 9px; opacity: .4; }
+      .leaflet-control-zoom a {
+        background: var(--surface) !important; color: var(--text) !important;
+        border-color: var(--border) !important;
+      }
+
+      /* Filters */
+      .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+      .filter-btn {
+        font-size: 12px; font-weight: 500; padding: 6px 16px; border-radius: 99px;
+        background: var(--surface); border: 1px solid var(--border);
+        color: var(--muted); cursor: pointer; transition: all .2s; font-family: inherit;
+      }
+      .filter-btn:hover { border-color: var(--border-hover); color: var(--text-secondary); }
+      .filter-btn.active { background: var(--accent-dim); border-color: rgba(168,85,247,.3); color: var(--accent); }
+
+      /* Post cards */
+      .post-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px; margin-bottom: 64px;
+      }
+      .post-card {
+        background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+        overflow: hidden; text-decoration: none; color: inherit;
+        transition: transform .22s, border-color .22s, box-shadow .22s, background .22s;
+      }
+      .post-card:hover {
+        transform: translateY(-4px); background: var(--surface-hover);
+        border-color: rgba(168,85,247,.3);
+        box-shadow: 0 12px 40px rgba(168,85,247,.08);
+      }
+      .post-cover {
+        width: 100%; height: 160px; object-fit: cover;
+        background: linear-gradient(135deg, #12121a 0%, #1a1a2e 100%);
+        display: block;
+      }
+      .post-content { padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 6px; }
+      .post-meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
+      .post-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+        padding: 2px 8px; border-radius: 99px; background: var(--accent-dim); color: var(--accent);
+      }
+      .post-title { font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.3; }
+      .post-excerpt { font-size: 13px; color: var(--muted); line-height: 1.55; }
+      .post-read { font-size: 12px; color: var(--accent); font-weight: 500; margin-top: 4px; }
+
+      .empty-state {
+        grid-column: 1 / -1; text-align: center; padding: 64px 24px;
+        color: var(--muted); font-size: 14px;
+        border: 1px dashed var(--border); border-radius: 14px;
+      }
+      .results-count { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+
+      footer {
+        border-top: 1px solid var(--border); padding: 32px 0 40px;
+        font-size: 13px; color: var(--muted); text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+        .world-map { height: 220px; }
+        .post-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../">HK</a>
+        <div class="nav-links">
+          <a href="../#projects">Projects</a>
+          <a href="../blog/">Blog</a>
+          <a href="./" class="active">Travel</a>
+          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Travel</h1>
+        <p class="page-desc">
+          Stories, itineraries, and photos from places I've explored.
+        </p>
+      </div>
+
+      <div class="world-map" id="world-map-container"></div>
+
+      <div class="filters" id="filters"></div>
+      <div class="results-count" id="results-count"></div>
+      <div class="post-grid" id="post-grid">
+        <div class="empty-state">Loading...</div>
+      </div>
+
+      <footer>&copy; 2026 Haoming Koo</footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+    (function () {
+      // World map
+      var map = L.map("world-map-container", {
+        zoomControl: true, scrollWheelZoom: false,
+      }).setView([20, 100], 3);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+        maxZoom: 18,
+      }).addTo(map);
+
+      var activeTag = null;
+
+      fetch("./posts.json")
+        .then(function (r) { return r.json(); })
+        .then(function (posts) {
+          posts.sort(function (a, b) { return b.date.localeCompare(a.date); });
+
+          // Add markers to map
+          var markers = [];
+          posts.forEach(function (p) {
+            if (p.lat && p.lng) {
+              var m = L.circleMarker([p.lat, p.lng], {
+                radius: 7, fillColor: "#a855f7", fillOpacity: 0.9,
+                color: "#060608", weight: 2,
+              }).addTo(map);
+              m.bindPopup('<strong>' + p.title + '</strong><br><a href="./posts/' + p.slug + '.html" style="color:#a855f7">' + 'Read &rsaquo;</a>');
+              markers.push([p.lat, p.lng]);
+            }
+          });
+          if (markers.length > 1) {
+            map.fitBounds(markers, { padding: [40, 40], maxZoom: 6 });
+          }
+
+          // Tags
+          var tagSet = {};
+          posts.forEach(function (p) {
+            (p.tags || []).forEach(function (t) { tagSet[t] = true; });
+          });
+          var allTags = Object.keys(tagSet).sort();
+
+          var filtersEl = document.getElementById("filters");
+          if (allTags.length) {
+            var allBtn = document.createElement("button");
+            allBtn.className = "filter-btn active";
+            allBtn.textContent = "All";
+            allBtn.onclick = function () { activeTag = null; render(posts); };
+            filtersEl.appendChild(allBtn);
+            allTags.forEach(function (tag) {
+              var btn = document.createElement("button");
+              btn.className = "filter-btn";
+              btn.textContent = tag;
+              btn.onclick = function () { activeTag = tag; render(posts); };
+              filtersEl.appendChild(btn);
+            });
+          }
+
+          render(posts);
+        })
+        .catch(function () {
+          document.getElementById("post-grid").innerHTML =
+            '<div class="empty-state">No travel stories yet — check back soon.</div>';
+        });
+
+      function render(posts) {
+        var btns = document.querySelectorAll(".filter-btn");
+        btns.forEach(function (b) {
+          b.classList.toggle("active",
+            (activeTag === null && b.textContent === "All") || b.textContent === activeTag);
+        });
+
+        var filtered = activeTag
+          ? posts.filter(function (p) { return (p.tags || []).indexOf(activeTag) !== -1; })
+          : posts;
+
+        var countEl = document.getElementById("results-count");
+        countEl.textContent = filtered.length
+          ? filtered.length + " stor" + (filtered.length !== 1 ? "ies" : "y") +
+            (activeTag ? " tagged \u201c" + activeTag + "\u201d" : "")
+          : "";
+
+        var gridEl = document.getElementById("post-grid");
+        if (!filtered.length) {
+          gridEl.innerHTML = '<div class="empty-state">No travel stories yet — check back soon.</div>';
+          return;
+        }
+        gridEl.innerHTML = "";
+        filtered.forEach(function (p) {
+          var a = document.createElement("a");
+          a.className = "post-card";
+          a.href = "./posts/" + p.slug + ".html";
+          var coverHtml = p.cover
+            ? '<img class="post-cover" src="' + p.cover + '" alt="" loading="lazy" />'
+            : '<div class="post-cover"></div>';
+          var tagsHtml = (p.tags || []).slice(0, 2).map(function (t) {
+            return '<span class="post-tag">' + t + '</span>';
+          }).join("");
+          a.innerHTML =
+            coverHtml +
+            '<div class="post-content">' +
+              '<div class="post-meta">' + tagsHtml + '<span>' + formatDate(p.date) + '</span></div>' +
+              '<div class="post-title">' + p.title + '</div>' +
+              '<div class="post-excerpt">' + p.excerpt + '</div>' +
+              '<span class="post-read">Read &rsaquo;</span>' +
+            '</div>';
+          gridEl.appendChild(a);
+        });
+      }
+
+      function formatDate(d) {
+        var dt = new Date(d + "T00:00:00");
+        return dt.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+      }
+    })();
+    </script>
+  </body>
+</html>
