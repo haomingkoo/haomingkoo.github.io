@@ -84,7 +84,7 @@
         border: 1px solid var(--border); margin-bottom: 40px;
       }
       .world-map .leaflet-container { height: 100%; width: 100%; }
-      .leaflet-tile-pane { filter: brightness(0.65) contrast(1.1) saturate(0.7); }
+      /* dark tiles via CartoDB — no filter needed */
       .leaflet-container { background: var(--bg); }
       .leaflet-popup-content-wrapper {
         background: var(--surface); color: var(--text);
@@ -198,9 +198,10 @@
       var map = L.map("world-map-container", {
         zoomControl: true, scrollWheelZoom: false,
       }).setView([20, 100], 3);
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
-        maxZoom: 18,
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        maxZoom: 19,
+        subdomains: "abcd",
       }).addTo(map);
 
       var activeTag = null;
@@ -224,6 +225,8 @@
           });
           if (markers.length > 1) {
             map.fitBounds(markers, { padding: [40, 40], maxZoom: 6 });
+          } else if (markers.length === 1) {
+            map.setView(markers[0], 5);
           }
 
           // Tags
