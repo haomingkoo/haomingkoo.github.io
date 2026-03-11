@@ -302,34 +302,34 @@
         </p>
 
         <pre><code>┌─────────────────────────────────────────────────────┐
-│  Backend (FastAPI + Uvicorn)                         │
-│                                                       │
-│  17 API routers                                       │
-│  ├── /api/weather         Current conditions          │
-│  ├── /api/forecasts       4-day + hourly              │
-│  ├── /api/ml/rain-forecast  ML predictions            │
-│  ├── /api/ml/full-analysis  EDA + SHAP + benchmarks   │
-│  ├── /api/radar           Animated rain imagery       │
-│  └── /admin/*             Retrain, export, health     │
-│                                                       │
-│  APScheduler (background jobs)                        │
-│  ├── Every 10 min   → Collect NEA observations        │
-│  ├── Every 1 hour   → Collect official forecasts      │
-│  ├── Every 2 min    → Fetch radar frames              │
-│  └── Sunday 2 AM    → Retrain ML model                │
-│                                                       │
-│  PostgreSQL (Railway) / SQLite (local)                │
+│  Backend (FastAPI + Uvicorn)                        │
+│                                                     │
+│  17 API routers                                     │
+│  ├── /api/weather         Current conditions        │
+│  ├── /api/forecasts       4-day + hourly            │
+│  ├── /api/ml/rain-forecast  ML predictions          │
+│  ├── /api/ml/full-analysis  EDA + SHAP + benchmarks │
+│  ├── /api/radar           Animated rain imagery     │
+│  └── /admin/*             Retrain, export, health   │
+│                                                     │
+│  APScheduler (background jobs)                      │
+│  ├── Every 10 min   → Collect NEA observations      │
+│  ├── Every 1 hour   → Collect official forecasts    │
+│  ├── Every 2 min    → Fetch radar frames            │
+│  └── Sunday 2 AM    → Retrain ML model              │
+│                                                     │
+│  PostgreSQL (Railway) / SQLite (local)              │
 └─────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────┐
-│  Frontend (React 18 + Vite + Tailwind)               │
-│                                                       │
-│  ├── Interactive Leaflet map with pin placement       │
-│  ├── Detailed weather cards (feels-like, UV, wind)    │
-│  ├── ML forecast comparison panel                     │
-│  ├── Animated radar layer                             │
-│  ├── Full EDA + SHAP analysis dashboard               │
-│  └── Browser notifications on rain start/stop         │
+│  Frontend (React 18 + Vite + Tailwind)              │
+│                                                     │
+│  ├── Interactive Leaflet map with pin placement     │
+│  ├── Detailed weather cards (feels-like, UV, wind)  │
+│  ├── ML forecast comparison panel                   │
+│  ├── Animated radar layer                           │
+│  ├── Full EDA + SHAP analysis dashboard             │
+│  └── Browser notifications on rain start/stop       │
 └─────────────────────────────────────────────────────┘</code></pre>
 
         <p>
