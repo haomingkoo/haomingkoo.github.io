@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "slug": "italy",
+    "title": "13 Days Across Italy for Under $300 Per Person",
+    "date": "2025-01-05",
+    "tags": [
+      "Italy",
+      "Budget",
+      "Family",
+      "Winter"
+    ],
+    "excerpt": "Milan \u2192 Florence \u2192 Pisa \u2192 Rome \u2192 Venice. Christmas markets, NYE at the Colosseum, and a gondola ride \u2014 all for SGD 1,008 per person.",
+    "cover": "",
+    "readingTime": "12 min",
+    "lat": 43.0,
+    "lng": 11.5
+  }
+]

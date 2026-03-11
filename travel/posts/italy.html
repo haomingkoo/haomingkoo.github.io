@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>13 Days Across Italy for Under $300 Per Person — Travel — Haoming Koo</title>
+    <meta name="description" content="A family winter trip through Milan, Florence, Pisa, Rome, and Venice — with a full cost breakdown, interactive map, and practical tips." />
+    <link rel="canonical" href="https://kooexperience.com/travel/posts/italy.html" />
+    <meta property="og:title" content="13 Days Across Italy for Under $300 Per Person" />
+    <meta property="og:description" content="Milan → Florence → Pisa → Rome → Venice. Christmas markets, NYE at the Colosseum, and a gondola ride that cost less than my grab to the airport." />
+    <meta property="og:url" content="https://kooexperience.com/travel/posts/italy.html" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "13 Days Across Italy for Under $300 Per Person",
+      "author": { "@type": "Person", "name": "Haoming Koo" },
+      "datePublished": "2025-01-05",
+      "description": "A family winter trip through Milan, Florence, Pisa, Rome, and Venice with full cost breakdown."
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- PhotoSwipe lightbox -->
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #a855f7;
+        --accent-dim: rgba(168,85,247,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+        --green: #22c55e;
+        --green-dim: rgba(34,197,94,.10);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168,85,247,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+
+      /* ── Nav ──────────────────────────────────────────────────────────── */
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(6,6,8,.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between;
+        height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+
+      /* ── Content ──────────────────────────────────────────────────────── */
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px;
+        transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+
+      /* ── Hero cover ───────────────────────────────────────────────────── */
+      .hero-cover {
+        width: 100%; height: 340px; object-fit: cover;
+        border-radius: 16px; margin-bottom: 32px;
+        border: 1px solid var(--border);
+      }
+
+      /* ── Article ──────────────────────────────────────────────────────── */
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .reading-time { color: var(--muted); }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle {
+        font-size: 17px; color: var(--text-secondary); line-height: 1.6;
+        margin-bottom: 32px;
+      }
+      .article h2 {
+        font-size: 22px; font-weight: 700; margin: 48px 0 16px;
+        letter-spacing: -.01em; color: var(--text);
+      }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article img:not(.hero-cover):not(.gallery-img) {
+        max-width: 100%; border-radius: 12px; margin: 24px 0;
+        border: 1px solid var(--border);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+      /* ── Table of Contents ────────────────────────────────────────────── */
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title {
+        font-size: 11px; font-weight: 600; letter-spacing: .14em;
+        text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+      }
+      .toc a {
+        display: block; font-size: 13.5px; color: var(--text-secondary);
+        text-decoration: none; padding: 4px 0; transition: color .2s;
+      }
+      .toc a:hover { color: var(--accent); }
+
+      /* ── Map ──────────────────────────────────────────────────────────── */
+      .map-container {
+        width: 100%; height: 400px;
+        border-radius: 14px; overflow: hidden;
+        border: 1px solid var(--border);
+        margin: 32px 0;
+      }
+      .map-container .leaflet-container { height: 100%; width: 100%; }
+      .leaflet-tile-pane { filter: brightness(0.7) contrast(1.1) saturate(0.8); }
+      .leaflet-container { background: var(--bg); }
+      .leaflet-popup-content-wrapper {
+        background: var(--surface); color: var(--text);
+        border: 1px solid var(--border); border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(0,0,0,.5);
+      }
+      .leaflet-popup-tip { background: var(--surface); }
+      .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
+      .leaflet-control-attribution { font-size: 9px; opacity: .5; }
+      .leaflet-control-zoom a {
+        background: var(--surface) !important; color: var(--text) !important;
+        border-color: var(--border) !important;
+      }
+
+      /* city label on map */
+      .city-label {
+        background: none !important; border: none !important; box-shadow: none !important;
+        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600;
+        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
+        white-space: nowrap;
+      }
+
+      /* ── Itinerary timeline ───────────────────────────────────────────── */
+      .itinerary { margin: 32px 0; }
+      .city-section-header {
+        display: flex; align-items: center; gap: 12px;
+        margin: 40px 0 16px; padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      .city-section-header:first-child { margin-top: 0; }
+      .city-emoji { font-size: 24px; }
+      .city-name { font-size: 18px; font-weight: 700; color: var(--text); }
+      .city-nights { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+      .day-card {
+        position: relative;
+        padding: 24px 24px 24px 40px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        margin-bottom: 16px;
+        transition: border-color .2s;
+      }
+      .day-card:hover { border-color: rgba(168,85,247,.3); }
+      .day-card::before {
+        content: "";
+        position: absolute; left: 18px; top: 0; bottom: -16px;
+        width: 2px; background: var(--border);
+      }
+      .day-card:last-child::before { bottom: 50%; }
+      .day-card::after {
+        content: "";
+        position: absolute; left: 13px; top: 28px;
+        width: 12px; height: 12px; border-radius: 50%;
+        background: var(--accent); border: 2px solid var(--bg);
+        z-index: 1;
+      }
+      .day-label {
+        font-size: 11px; font-weight: 600; letter-spacing: .12em;
+        text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+      }
+      .day-title {
+        font-size: 17px; font-weight: 600; color: var(--text);
+        margin-bottom: 6px;
+      }
+      .day-desc {
+        font-size: 13.5px; color: var(--muted); line-height: 1.6;
+      }
+      .day-tags {
+        display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+      }
+      .day-tag {
+        font-size: 10px; font-weight: 500; padding: 2px 8px;
+        border-radius: 6px; background: rgba(255,255,255,.04);
+        color: var(--muted); border: 1px solid rgba(255,255,255,.05);
+      }
+
+      /* ── Cost breakdown ──────────────────────────────────────────────── */
+      .cost-table {
+        width: 100%; border-collapse: collapse; margin: 24px 0;
+        font-size: 13.5px;
+      }
+      .cost-table th {
+        text-align: left; font-size: 11px; font-weight: 600;
+        letter-spacing: .1em; text-transform: uppercase;
+        color: var(--muted); padding: 8px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .cost-table th:last-child { text-align: right; }
+      .cost-table td {
+        padding: 10px 12px; color: var(--text-secondary);
+        border-bottom: 1px solid rgba(255,255,255,.03);
+      }
+      .cost-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+      .cost-table .category-row td {
+        font-weight: 600; color: var(--accent); font-size: 12px;
+        letter-spacing: .05em; text-transform: uppercase;
+        padding-top: 20px;
+      }
+      .cost-table .total-row td {
+        font-weight: 700; color: var(--text); font-size: 15px;
+        border-top: 2px solid var(--border); border-bottom: none;
+        padding-top: 16px;
+      }
+      .cost-highlight {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 24px; margin: 24px 0;
+        text-align: center;
+      }
+      .cost-highlight .big-number {
+        font-size: 36px; font-weight: 800; color: var(--green);
+        margin-bottom: 4px;
+      }
+      .cost-highlight .big-label {
+        font-size: 13px; color: var(--muted);
+      }
+
+      /* ── Photo gallery ────────────────────────────────────────────────── */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 8px;
+        margin: 32px 0;
+      }
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        aspect-ratio: 4 / 3;
+        transition: transform .22s, border-color .22s;
+      }
+      .gallery-item:hover {
+        transform: scale(1.02);
+        border-color: rgba(168,85,247,.3);
+      }
+      .gallery-item.featured {
+        grid-column: span 2;
+        grid-row: span 2;
+        aspect-ratio: auto;
+      }
+      .gallery-img {
+        width: 100%; height: 100%; object-fit: cover;
+        display: block;
+      }
+      .gallery-caption {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        padding: 24px 12px 8px;
+        background: linear-gradient(transparent, rgba(0,0,0,.7));
+        font-size: 11px; color: rgba(255,255,255,.8);
+      }
+
+      /* ── Info box ─────────────────────────────────────────────────────── */
+      .info-box {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+      }
+      .info-box-title {
+        font-size: 13px; font-weight: 600; color: var(--text);
+        margin-bottom: 8px;
+      }
+      .info-box-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 6px 0; font-size: 13px;
+        border-bottom: 1px solid rgba(255,255,255,.03);
+      }
+      .info-box-row:last-child { border-bottom: none; }
+      .info-box-label { color: var(--muted); }
+      .info-box-value { color: var(--text-secondary); font-weight: 500; }
+
+      /* ── Callout ──────────────────────────────────────────────────────── */
+      .callout {
+        background: var(--accent-dim); border-left: 3px solid var(--accent);
+        border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 24px 0;
+        font-size: 13.5px; color: var(--text-secondary);
+      }
+      .callout strong { color: var(--text); }
+
+      /* ── Footer ───────────────────────────────────────────────────────── */
+      footer {
+        border-top: 1px solid var(--border); padding: 32px 0 40px;
+        font-size: 13px; color: var(--muted); text-align: center;
+      }
+
+      /* ── Responsive ───────────────────────────────────────────────────── */
+      @media (max-width: 600px) {
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+        .hero-cover { height: 220px; }
+        .map-container { height: 280px; }
+        .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        .gallery-item.featured { grid-column: span 1; grid-row: span 1; aspect-ratio: 4/3; }
+        .day-card { padding-left: 36px; }
+        .cost-table { font-size: 12px; }
+        .cost-highlight .big-number { font-size: 28px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../../">HK</a>
+        <a href="../../#travel">Travel</a>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../">&larr; Back to travel</a>
+
+        <!-- Hero image — replace src with your photo -->
+        <!-- <img class="hero-cover" src="" alt="Italian cityscape" loading="eager" /> -->
+
+        <div class="article-meta">
+          <span class="article-tag">Italy</span>
+          <span class="article-tag" style="background: var(--green-dim); color: var(--green);">Budget</span>
+          <span>Dec 2024 – Jan 2025</span>
+          <span class="reading-time">12 min read</span>
+        </div>
+
+        <h1>13 Days Across Italy for Under $300 Per Person</h1>
+        <p class="subtitle">
+          Milan &rarr; Florence &rarr; Pisa &rarr; Rome &rarr; Venice.
+          Two weeks, four cities, one leaning tower, zero regrets, and a per-person
+          cost that's less than a weekend staycation in Singapore.
+        </p>
+
+        <!-- Table of contents -->
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#overview">Overview</a>
+          <a href="#map">Route Map</a>
+          <a href="#milan">Milan — Fashion, Da Vinci, and a Spa</a>
+          <a href="#florence">Florence — Renaissance Overload</a>
+          <a href="#rome">Rome — When in Rome (NYE Edition)</a>
+          <a href="#venice">Venice — Canals and Goodbyes</a>
+          <a href="#costs">Full Cost Breakdown</a>
+          <a href="#photos">Photos</a>
+          <a href="#tips">Practical Tips</a>
+        </div>
+
+        <!-- ── Overview ──────────────────────────────────────────────────── -->
+        <h2 id="overview">Overview</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">Trip Details</div>
+          <div class="info-box-row">
+            <span class="info-box-label">Dates</span>
+            <span class="info-box-value">Dec 24, 2024 – Jan 5, 2025</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Duration</span>
+            <span class="info-box-value">13 days</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Route</span>
+            <span class="info-box-value">Milan &rarr; Florence &rarr; Pisa &rarr; Rome &rarr; Venice</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Travellers</span>
+            <span class="info-box-value">4 (family)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Season</span>
+            <span class="info-box-value">Winter (Christmas &amp; New Year)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Total Cost</span>
+            <span class="info-box-value">SGD 4,030 (4 pax)</span>
+          </div>
+        </div>
+
+        <p>
+          When someone tells you "Europe is expensive," show them this post. Four of us flew from
+          Singapore, spent Christmas in Milan, saw Michelangelo's David in Florence, rang in
+          New Year's Eve in Rome, and floated through Venice on a gondola — all for about
+          SGD 1,008 per person. That's flights, hotels, trains, and attractions included.
+        </p>
+        <p>
+          The secret? Winter travel. Christmas and New Year sound expensive, but hotel prices in
+          Italy actually dip during the holiday weeks because European tourists go home to their
+          families. You get fewer crowds, Christmas markets, and the surreal experience of walking
+          through the Colosseum without being elbowed by tour groups waving selfie sticks.
+        </p>
+
+        <div class="callout">
+          <strong>Pro tip:</strong> Book trains on Trenitalia or Italo early. We scored Milan → Florence
+          for about EUR 20 per person. That same route can cost EUR 60+ if you book last minute.
+        </div>
+
+        <!-- ── Map ───────────────────────────────────────────────────────── -->
+        <h2 id="map">Route Map</h2>
+        <p>Click on any marker to see what we did in each city.</p>
+        <div class="map-container">
+          <div id="trip-map"></div>
+        </div>
+
+        <!-- ── MILAN ─────────────────────────────────────────────────────── -->
+        <h2 id="milan">Milan</h2>
+        <div class="city-section-header">
+          <span class="city-name">Milan</span>
+          <span class="city-nights">2 nights &middot; Hilton Milan</span>
+        </div>
+
+        <p>
+          We landed on Christmas Eve. Milan in December is cold, sharp, and impossibly stylish.
+          People were wearing coats that probably cost more than our flights. The city was
+          draped in Christmas lights and the Duomo looked like it was designed specifically to
+          be an Instagram backdrop.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 1 — Dec 24</div>
+            <div class="day-title">Arrival + Christmas Eve</div>
+            <div class="day-desc">
+              Landed at Malpensa, checked into the Hilton, and walked to the Duomo for the
+              Christmas Eve atmosphere. The piazza was packed with families, street performers,
+              and the smell of roasted chestnuts. We grabbed panettone from a bakery — because
+              when in Italy, you eat panettone, not log cake.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Arrival</span>
+              <span class="day-tag">Christmas</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 2 — Dec 25</div>
+            <div class="day-title">Duomo, Sforza Castle, and The Last Supper</div>
+            <div class="day-desc">
+              Christmas morning at the Duomo di Milano. We went up to the rooftop terraces — the
+              view of the city with the Alps in the distance is something else. Then walked to
+              Sforza Castle, which houses several museums (including unfinished Michelangelo works).
+              The highlight: Cenacolo Vinciano — Leonardo da Vinci's <em>The Last Supper</em>.
+              You get exactly 15 minutes in the room. Book months in advance or don't bother.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Duomo</span>
+              <span class="day-tag">Da Vinci</span>
+              <span class="day-tag">Culture</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 3 — Dec 26</div>
+            <div class="day-title">QC Termemilano + Train to Florence</div>
+            <div class="day-desc">
+              Started the morning at QC Termemilano, a thermal spa built inside old Milan tram
+              tunnels. Hot pools, steam rooms, and a rooftop jacuzzi overlooking the city —
+              perfect for a cold December morning. Then we hopped on the Trenitalia to Florence.
+              The train ride is about 1h 45m and the Tuscan countryside views are free.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Spa</span>
+              <span class="day-tag">Train</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── FLORENCE ───────────────────────────────────────────────────── -->
+        <h2 id="florence">Florence</h2>
+        <div class="city-section-header">
+          <span class="city-name">Florence</span>
+          <span class="city-nights">3 nights &middot; 25hours Hotel Florence</span>
+        </div>
+
+        <p>
+          Florence is what happens when an entire city decides to be a museum. Every street corner
+          has a building that's older than Singapore by about 500 years. The food is incredible,
+          the leather shops are everywhere, and you will eat your body weight in gelato whether
+          you planned to or not.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 4 — Dec 27</div>
+            <div class="day-title">Galleria dell'Accademia + Duomo di Firenze</div>
+            <div class="day-desc">
+              Michelangelo's David is one of those things that looks impressive in photos but
+              absolutely floors you in person. The statue is 5.17m tall and the level of detail
+              is absurd — you can see the veins in his hands. After that, we climbed 463 steps
+              to the top of the Duomo di Firenze. The Brunelleschi dome is an engineering marvel
+              from the 1400s that still makes modern architects jealous.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Michelangelo</span>
+              <span class="day-tag">Architecture</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 5 — Dec 28</div>
+            <div class="day-title">Day Trip to Pisa</div>
+            <div class="day-desc">
+              Took the regional train to Pisa (about 1h each way, EUR 10 return).
+              Yes, we did the obligatory "holding up the tower" photo. Yes, it was worth it.
+              The Leaning Tower actually leans at 3.97 degrees — they've spent centuries
+              trying to stabilise it. The entire Piazza dei Miracoli (Field of Miracles) is
+              gorgeous. Half-day trip, back in Florence for a Florentine steak dinner.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Day Trip</span>
+              <span class="day-tag">Pisa</span>
+              <span class="day-tag">Food</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 6 — Dec 29</div>
+            <div class="day-title">Uffizi Gallery + Train to Rome</div>
+            <div class="day-desc">
+              The Galleria degli Uffizi has Botticelli's <em>Birth of Venus</em>, Caravaggio, Raphael,
+              and more Renaissance art than your brain can process in one visit. We spent 3 hours
+              and barely scratched the surface. After lunch, boarded the train to Rome.
+              Next stop: the Eternal City.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Art</span>
+              <span class="day-tag">Uffizi</span>
+              <span class="day-tag">Train</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ROME ──────────────────────────────────────────────────────── -->
+        <h2 id="rome">Rome</h2>
+        <div class="city-section-header">
+          <span class="city-name">Rome</span>
+          <span class="city-nights">3 nights &middot; Mercure Rome Colosseum Centre</span>
+        </div>
+
+        <p>
+          Rome is chaos, beauty, and carbs all mixed together. The hotel was right next to the
+          Colosseum — you could see it from the window. Every direction you walk leads to something
+          ancient, crumbling, and absolutely magnificent. Also, Roman pizza is thin and crispy, not
+          the thick Neapolitan style. Both are correct life choices.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 7 — Dec 30</div>
+            <div class="day-title">Vatican Museum + Sistine Chapel</div>
+            <div class="day-desc">
+              We did a guided tour of the Vatican Museum and Sistine Chapel. The museum has 54
+              galleries, so a guide is essential unless you want to wander aimlessly for 6 hours
+              (which is also valid). The Sistine Chapel ceiling is... there are no words.
+              Michelangelo painted it while lying on scaffolding for 4 years. The man was built
+              different.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Vatican</span>
+              <span class="day-tag">Michelangelo</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 8 — Dec 31</div>
+            <div class="day-title">Colosseum + New Year's Eve</div>
+            <div class="day-desc">
+              Morning at the Colosseum with Attico (top level) access. Standing where gladiators
+              fought 2,000 years ago is a deeply humbling experience. The engineering behind the
+              arena — retractable awnings, underground tunnels, trapdoors — was centuries ahead
+              of its time. NYE dinner at a local trattoria, then watched fireworks over the
+              Roman skyline. Not a bad way to end 2024.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Colosseum</span>
+              <span class="day-tag">NYE</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 9 — Jan 1</div>
+            <div class="day-title">New Year's Day + Train to Venice</div>
+            <div class="day-desc">
+              Slow morning. Walked around Trastevere and the Roman Forum. Most places were
+              closed for New Year's, which meant the streets were empty and peaceful — a rare
+              sight in Rome. Afternoon train to Venice, our final stop.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Exploring</span>
+              <span class="day-tag">Train</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── VENICE ────────────────────────────────────────────────────── -->
+        <h2 id="venice">Venice</h2>
+        <div class="city-section-header">
+          <span class="city-name">Venice</span>
+          <span class="city-nights">2 nights &middot; Hotel Saturnia &amp; International</span>
+        </div>
+
+        <p>
+          Venice is not a real place. It's a floating city where streets are water and taxis are
+          boats. You will get lost. That's the point. Every wrong turn leads to a hidden
+          piazza or a canal view that makes you forget you're carrying a 12kg backpack.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 10 — Jan 2</div>
+            <div class="day-title">Gondola, Doge's Palace, St. Mark's</div>
+            <div class="day-desc">
+              The gondola ride was EUR 20 (per person split between 4). Thirty minutes of gliding
+              through narrow canals while the gondolier narrates the history of each building.
+              Worth every cent. Then the Doge's Palace — the Secret Itineraries Tour takes
+              you behind the walls into hidden chambers, the prison, and across the Bridge of
+              Sighs. St. Mark's Basilica is gold everywhere. The Pala d'Oro altarpiece alone
+              has over 1,900 gemstones.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Gondola</span>
+              <span class="day-tag">History</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 11 — Jan 3</div>
+            <div class="day-title">Getting Lost (On Purpose)</div>
+            <div class="day-desc">
+              No plan. Just walked. Found a tiny cicchetti bar where the owner insisted we try
+              everything. Crossed the Rialto Bridge at sunset. Watched the boats go by with a
+              spritz in hand. Sometimes the best travel experiences are the ones you don't plan.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Exploring</span>
+              <span class="day-tag">Food</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 12–13 — Jan 4–5</div>
+            <div class="day-title">Departure</div>
+            <div class="day-desc">
+              Water taxi to Marco Polo Airport. Flight back to Singapore via transit.
+              Arrived home with sore feet, a full camera roll, and already planning the next trip.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Departure</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Cost Breakdown ────────────────────────────────────────────── -->
+        <h2 id="costs">Full Cost Breakdown</h2>
+
+        <p>
+          Here's the part everyone actually wants to see. All costs below are for <strong>4 people</strong>
+          (family of 4). Divide by 4 for per-person cost. Currency is SGD unless noted.
+        </p>
+
+        <div class="cost-highlight">
+          <div class="big-number">SGD 1,008</div>
+          <div class="big-label">per person &middot; 13 days &middot; 4 cities &middot; flights + hotels + attractions included</div>
+        </div>
+
+        <table class="cost-table">
+          <thead>
+            <tr><th>Item</th><th>SGD</th></tr>
+          </thead>
+          <tbody>
+            <tr class="category-row"><td colspan="2">Transport</td></tr>
+            <tr><td>Flight: Singapore &rarr; Milan</td><td>555.00</td></tr>
+            <tr><td>Flight: Venice &rarr; Singapore</td><td>786.32</td></tr>
+            <tr><td>Train: Milan &rarr; Florence</td><td>113.38</td></tr>
+            <tr><td>Train: Florence &harr; Pisa (return)</td><td>28.38</td></tr>
+            <tr><td>Train: Florence &rarr; Rome</td><td>70.81</td></tr>
+            <tr><td>Train: Rome &rarr; Venice</td><td>138.49</td></tr>
+
+            <tr class="category-row"><td colspan="2">Hotels</td></tr>
+            <tr><td>Hilton Milan (2 nights)</td><td>339.78</td></tr>
+            <tr><td>25hours Hotel Florence (3 nights)</td><td>560.43</td></tr>
+            <tr><td>Mercure Rome Colosseum Centre (3 nights)</td><td>707.47</td></tr>
+            <tr><td>Hotel Saturnia &amp; International, Venice (2 nights)</td><td>292.51</td></tr>
+
+            <tr class="category-row"><td colspan="2">Attractions</td></tr>
+            <tr><td>QC Termemilano (spa)</td><td>70.95</td></tr>
+            <tr><td>Cenacolo Vinciano — The Last Supper</td><td>38.31</td></tr>
+            <tr><td>Sforza Castle</td><td>7.10</td></tr>
+            <tr><td>Duomo di Milano (rooftop)</td><td>44.70</td></tr>
+            <tr><td>Galleria dell'Accademia</td><td>28.38</td></tr>
+            <tr><td>Duomo di Firenze</td><td>42.57</td></tr>
+            <tr><td>Galleria degli Uffizi</td><td>41.15</td></tr>
+            <tr><td>Vatican Museum + Sistine Chapel (guided)</td><td>36.89</td></tr>
+            <tr><td>Colosseum with Attico Access</td><td>34.06</td></tr>
+            <tr><td>Gondola Ride</td><td>28.38</td></tr>
+            <tr><td>Doge's Palace — Secret Itineraries</td><td>36.89</td></tr>
+            <tr><td>St. Mark's Basilica + Pala d'Oro + Museum</td><td>28.38</td></tr>
+
+            <tr class="total-row">
+              <td>Total (4 pax)</td>
+              <td>4,030.34</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <strong>Note:</strong> This doesn't include food and daily transport (metros, buses, vaporettos).
+          We budgeted about EUR 30–40 per person per day for meals — lots of pasta, pizza, and
+          aperitivo deals. Total food cost for 13 days was roughly another SGD 500–600 per person.
+        </div>
+
+        <!-- ── Photos ────────────────────────────────────────────────────── -->
+        <h2 id="photos">Photos</h2>
+        <p>Click any photo to view full-size. (Photos coming soon — upload your favourites!)</p>
+
+        <div class="gallery" id="travel-gallery">
+          <a class="gallery-item featured" href="#" data-pswp-src="https://placehold.co/1200x800/1c1c24/64647a?text=Duomo+di+Milano" data-pswp-width="1200" data-pswp-height="800">
+            <img class="gallery-img" src="https://placehold.co/600x400/1c1c24/64647a?text=Duomo+di+Milano" alt="Duomo di Milano at night" loading="lazy" />
+            <div class="gallery-caption">Duomo di Milano on Christmas Eve</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Florence" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Florence" alt="Florence skyline" loading="lazy" />
+            <div class="gallery-caption">Florence from the Duomo</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Leaning+Tower" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Pisa" alt="Leaning Tower of Pisa" loading="lazy" />
+            <div class="gallery-caption">Yes, we did the pose</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Colosseum" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Colosseum" alt="Colosseum from Attico level" loading="lazy" />
+            <div class="gallery-caption">Colosseum — top level access</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Venice+Gondola" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Gondola" alt="Gondola ride in Venice" loading="lazy" />
+            <div class="gallery-caption">Gondola through the canals</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=NYE+Rome" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=NYE" alt="New Year's Eve in Rome" loading="lazy" />
+            <div class="gallery-caption">NYE fireworks over Rome</div>
+          </a>
+        </div>
+
+        <!-- ── Tips ──────────────────────────────────────────────────────── -->
+        <h2 id="tips">Practical Tips</h2>
+
+        <h3>Getting Around</h3>
+        <ul>
+          <li><strong>Trenitalia / Italo:</strong> Book 1-2 months ahead for the cheapest fares. High-speed trains connect all major cities in under 2 hours.</li>
+          <li><strong>Open return for day trips:</strong> Regional trains (like Florence &harr; Pisa) don't need advance booking. Just buy at the station.</li>
+          <li><strong>Venice vaporetto:</strong> Get a 24h or 48h pass. Individual rides are EUR 9.50 each and add up fast.</li>
+        </ul>
+
+        <h3>Booking Attractions</h3>
+        <ul>
+          <li><strong>The Last Supper:</strong> Book 2-3 months in advance on the official site. Slots sell out immediately.</li>
+          <li><strong>Vatican:</strong> Book the earliest morning slot. By 10am the queues wrap around St. Peter's Square.</li>
+          <li><strong>Uffizi:</strong> Go on a weekday if possible. We went on a Sunday and it was still manageable in winter.</li>
+          <li><strong>Colosseum:</strong> The Attico (top level) ticket is worth the extra cost for the view.</li>
+        </ul>
+
+        <h3>Money</h3>
+        <ul>
+          <li><strong>Exchange rate:</strong> At the time of our trip, EUR 1 ≈ SGD 1.42.</li>
+          <li><strong>Card vs. cash:</strong> Card accepted almost everywhere. Keep some cash for small shops and markets.</li>
+          <li><strong>Tipping:</strong> Not expected in Italy. Service charge (coperto) is usually included in the bill.</li>
+        </ul>
+
+        <h3>Winter Travel Perks</h3>
+        <ul>
+          <li>Shorter queues at every major attraction.</li>
+          <li>Hotel prices 30-50% lower than summer peak.</li>
+          <li>Christmas markets and festive decorations everywhere.</li>
+          <li>Cooler weather (5-12°C) is actually perfect for walking 20,000+ steps a day.</li>
+        </ul>
+
+        <hr class="divider" />
+        <p>
+          Italy in winter was one of the best travel decisions we've made. If you're on the fence
+          — just book it. For SGD 1,008 per person, you get 13 days of world-class art, food,
+          and history. That's less than what some people spend on a long weekend in Bali.
+        </p>
+        <p>Questions or planning your own Italy trip? <a href="mailto:haomingkoo@gmail.com">Reach out</a>.</p>
+      </article>
+      <footer>&copy; 2025 Haoming Koo</footer>
+    </div>
+
+    <!-- ── Scripts ──────────────────────────────────────────────────────── -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module">
+      /* ── Map ────────────────────────────────────────────────────────── */
+      const map = L.map("trip-map", {
+        zoomControl: true,
+        scrollWheelZoom: false,
+      }).setView([43.5, 11.5], 6);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+        maxZoom: 18,
+      }).addTo(map);
+
+      const cities = [
+        {
+          lat: 45.4642, lng: 9.1900, name: "Milan",
+          days: "Dec 24–26", nights: 2,
+          highlights: "Duomo, The Last Supper, QC Termemilano, Sforza Castle"
+        },
+        {
+          lat: 43.7696, lng: 11.2558, name: "Florence",
+          days: "Dec 26–29", nights: 3,
+          highlights: "Galleria dell'Accademia, Duomo, Uffizi Gallery"
+        },
+        {
+          lat: 43.7228, lng: 10.4017, name: "Pisa",
+          days: "Dec 28", nights: 0,
+          highlights: "Leaning Tower, Piazza dei Miracoli (day trip)"
+        },
+        {
+          lat: 41.9028, lng: 12.4964, name: "Rome",
+          days: "Dec 29 – Jan 1", nights: 3,
+          highlights: "Vatican, Sistine Chapel, Colosseum, NYE!"
+        },
+        {
+          lat: 45.4408, lng: 12.3155, name: "Venice",
+          days: "Jan 1–3", nights: 2,
+          highlights: "Gondola, Doge's Palace, St. Mark's Basilica"
+        },
+      ];
+
+      // Route: Milan → Florence → Pisa → Florence → Rome → Venice
+      const routeCoords = [
+        [45.4642, 9.1900],   // Milan
+        [43.7696, 11.2558],  // Florence
+        [43.7228, 10.4017],  // Pisa
+        [43.7696, 11.2558],  // Back to Florence
+        [41.9028, 12.4964],  // Rome
+        [45.4408, 12.3155],  // Venice
+      ];
+
+      L.polyline(routeCoords, {
+        color: "#a855f7",
+        weight: 3,
+        opacity: 0.7,
+        dashArray: "8, 8",
+      }).addTo(map);
+
+      // Add numbered city markers
+      cities.forEach((c, i) => {
+        const marker = L.circleMarker([c.lat, c.lng], {
+          radius: c.nights > 0 ? 9 : 6,
+          fillColor: c.nights > 0 ? "#a855f7" : "#64647a",
+          fillOpacity: 0.9,
+          color: "#060608",
+          weight: 2,
+        }).addTo(map);
+
+        const nightsLabel = c.nights > 0 ? `${c.nights} nights` : "Day trip";
+        marker.bindPopup(
+          `<strong>${c.name}</strong><br>` +
+          `<span style="color:#a855f7">${c.days}</span> &middot; ${nightsLabel}<br>` +
+          `<span style="color:#b0b0b8;font-size:12px">${c.highlights}</span>`
+        );
+
+        // City labels on map
+        L.marker([c.lat, c.lng], {
+          icon: L.divIcon({
+            className: "city-label",
+            html: c.name,
+            iconSize: [60, 16],
+            iconAnchor: [-8, 8],
+          }),
+        }).addTo(map);
+      });
+
+      // Fit map to show all markers
+      const bounds = cities.map((c) => [c.lat, c.lng]);
+      map.fitBounds(bounds, { padding: [50, 50] });
+
+      /* ── PhotoSwipe lightbox ────────────────────────────────────────── */
+      import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
+
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: "#travel-gallery",
+        children: "a.gallery-item",
+        pswpModule: () => import("https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.esm.min.js"),
+        bgOpacity: 0.92,
+        padding: { top: 20, bottom: 20, left: 20, right: 20 },
+      });
+      lightbox.init();
+    </script>
+  </body>
+</html>
