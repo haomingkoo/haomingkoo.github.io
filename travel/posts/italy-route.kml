@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>13 Days Across Italy — Winter Family Trip</name>
+    <description>Milan → Florence → Pisa → Rome → Venice (Dec 2024 – Jan 2025). Route by Haoming Koo — kooexperience.com/travel/posts/italy.html</description>
+
+    <Style id="cityPin">
+      <IconStyle>
+        <color>ff7755a8</color>
+        <scale>1.2</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-circle.png</href></Icon>
+      </IconStyle>
+    </Style>
+    <Style id="dayTripPin">
+      <IconStyle>
+        <color>ff7a6464</color>
+        <scale>0.9</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href></Icon>
+      </IconStyle>
+    </Style>
+    <Style id="routeLine">
+      <LineStyle>
+        <color>ff7755a8</color>
+        <width>3</width>
+      </LineStyle>
+    </Style>
+
+    <Folder>
+      <name>Cities</name>
+
+      <Placemark>
+        <name>Milan</name>
+        <description><![CDATA[
+          <b>Days 1–3 (Dec 24–26)</b><br/>
+          2 nights · Hilton Milan<br/><br/>
+          QC Termemilano, The Last Supper, Duomo rooftop, Sforza Castle, Brera District, Galleria Vittorio Emanuele II, Navigli Canals
+        ]]></description>
+        <styleUrl>#cityPin</styleUrl>
+        <Point><coordinates>9.1900,45.4642,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Florence</name>
+        <description><![CDATA[
+          <b>Days 4–6 (Dec 27–29)</b><br/>
+          3 nights · 25hours Hotel Florence<br/><br/>
+          Galleria dell'Accademia, Duomo di Firenze, Uffizi Gallery, San Lorenzo Market, Ponte Vecchio, Piazzale Michelangelo, The Mall Firenze outlet, Castello di Verrazzano (Chianti wine)
+        ]]></description>
+        <styleUrl>#cityPin</styleUrl>
+        <Point><coordinates>11.2558,43.7696,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Pisa (day trip)</name>
+        <description><![CDATA[
+          <b>Day 7 (Dec 30)</b><br/>
+          Day trip from Florence → then train to Rome<br/><br/>
+          Leaning Tower, Baptistery, Cathedral, Camposanto, Piazza dei Miracoli
+        ]]></description>
+        <styleUrl>#dayTripPin</styleUrl>
+        <Point><coordinates>10.4017,43.7228,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Rome</name>
+        <description><![CDATA[
+          <b>Days 8–10 (Dec 31 – Jan 2)</b><br/>
+          3 nights · Mercure Rome Colosseum Centre<br/><br/>
+          Vatican Museum + Sistine Chapel, Colosseum (Attico), Palatine Hill, Roman Forum, St. Peter's Basilica + Dome, Holy Door (Jubilee Year), Pantheon, Trevi Fountain, Spanish Steps, Piazza Navona, Trastevere
+        ]]></description>
+        <styleUrl>#cityPin</styleUrl>
+        <Point><coordinates>12.4964,41.9028,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Venice</name>
+        <description><![CDATA[
+          <b>Days 11–12 (Jan 3–4)</b><br/>
+          2 nights · Hotel Saturnia &amp; International<br/><br/>
+          Rialto Market, Murano (glassblowing), St. Mark's Campanile, Gondola ride, Doge's Palace, St. Mark's Basilica
+        ]]></description>
+        <styleUrl>#cityPin</styleUrl>
+        <Point><coordinates>12.3155,45.4408,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <Folder>
+      <name>Route</name>
+      <Placemark>
+        <name>Travel Route</name>
+        <description>Milan → Florence → Pisa → Rome → Venice</description>
+        <styleUrl>#routeLine</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.1900,45.4642,0
+            11.2558,43.7696,0
+            10.4017,43.7228,0
+            12.4964,41.9028,0
+            12.3155,45.4408,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

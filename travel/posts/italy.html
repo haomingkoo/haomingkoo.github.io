@@ -502,6 +502,25 @@
         <div class="map-container">
           <div id="trip-map"></div>
         </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0 32px;">
+          <a href="https://www.google.com/maps/d/viewer?mid=YOUR_MAP_ID" target="_blank" rel="noopener"
+             onclick="window.open('https://www.google.com/maps/dir/Milan,+Italy/Florence,+Italy/Pisa,+Italy/Rome,+Italy/Venice,+Italy', '_blank'); return false;"
+             style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+                    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+                    color: var(--text); text-decoration: none; font-size: 13px; font-weight: 500;
+                    transition: border-color .2s, background .2s; cursor: pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Open route in Google Maps
+          </a>
+          <a href="./italy-route.kml" download
+             style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+                    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+                    color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500;
+                    transition: border-color .2s, background .2s; cursor: pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download KML file
+          </a>
+        </div>
 
         <!-- ── MILAN ─────────────────────────────────────────────────────── -->
         <h2 id="milan">Milan</h2>
