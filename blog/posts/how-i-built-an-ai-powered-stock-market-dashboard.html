@@ -250,25 +250,25 @@
         </p>
 
         <pre><code>┌──────────────────────────────────────────────────┐
-│  Railway Microservice (single process)            │
-│                                                    │
-│  FastAPI + Uvicorn                                 │
-│  ├── Serves frontend (vanilla JS + Plotly)        │
-│  ├── /api/dashboard/{ticker}  (chart payload)     │
-│  ├── /api/opportunities       (valuation screen)  │
-│  └── /api/admin/*             (data management)   │
-│                                                    │
-│  APScheduler (in-process cron)                     │
-│  └── Runs Mon-Fri @ 22:00 UTC                     │
-│      ├── Fetch prices + fundamentals               │
-│      ├── Run YOLO pattern detection                │
-│      └── Generate daily report                     │
-│                                                    │
-│  SQLite (/data/trader_koo.db)                      │
-│  ├── price_daily     (510 tickers x 365 days)     │
-│  ├── finviz_fundamentals                           │
-│  ├── yolo_patterns   (pre-computed detections)     │
-│  └── options_iv                                    │
+│  Railway Microservice (single process)           │
+│                                                  │
+│  FastAPI + Uvicorn                               │
+│  ├── Serves frontend (vanilla JS + Plotly)       │
+│  ├── /api/dashboard/{ticker}  (chart payload)    │
+│  ├── /api/opportunities       (valuation screen) │
+│  └── /api/admin/*             (data management)  │
+│                                                  │
+│  APScheduler (in-process cron)                   │
+│  └── Runs Mon-Fri @ 22:00 UTC                    │
+│      ├── Fetch prices + fundamentals             │
+│      ├── Run YOLO pattern detection              │
+│      └── Generate daily report                   │
+│                                                  │
+│  SQLite (/data/trader_koo.db)                    │
+│  ├── price_daily     (510 tickers x 365 days)    │
+│  ├── finviz_fundamentals                         │
+│  ├── yolo_patterns   (pre-computed detections)   │
+│  └── options_iv                                  │
 └──────────────────────────────────────────────────┘</code></pre>
 
         <p>
