@@ -149,6 +149,20 @@
       }
       .hero-inner { flex: 1; min-width: 0; }
 
+      .hero-intro {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+      .hero-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: 2px solid var(--border);
+        object-fit: cover;
+        flex-shrink: 0;
+      }
       .hero-label {
         display: inline-flex;
         align-items: center;
@@ -158,7 +172,6 @@
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--accent);
-        margin-bottom: 20px;
         padding: 5px 14px;
         background: var(--accent-dim);
         border: 1px solid rgba(59,130,246,0.15);
@@ -690,7 +703,10 @@
       <!-- Hero -->
       <section class="hero">
         <div class="hero-inner">
-          <div class="hero-label hero-reveal hero-reveal-1">Available for work</div>
+          <div class="hero-intro hero-reveal hero-reveal-1">
+            <img class="hero-avatar" src="https://avatars.githubusercontent.com/u/206514831?v=4" alt="Haoming Koo" width="56" height="56" loading="eager" />
+            <div class="hero-label">Available for work</div>
+          </div>
           <h1 class="hero-title hero-reveal hero-reveal-2">
             Building <span>AI systems</span><br />that ship.
           </h1>
@@ -721,8 +737,8 @@
           >
             <defs>
               <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#3b82f6" stop-opacity=".18" />
-                <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+                <stop id="mc-area-stop-top" offset="0%" stop-color="#3b82f6" stop-opacity=".18" />
+                <stop id="mc-area-stop-bot" offset="100%" stop-color="#3b82f6" stop-opacity="0" />
               </linearGradient>
               <filter id="glow">
                 <feGaussianBlur stdDeviation="2.5" result="blur" />
@@ -733,20 +749,32 @@
               </filter>
             </defs>
             <rect width="380" height="260" rx="16" fill="#0a0a0e" stroke="#1c1c24" stroke-width="1" />
+            <!-- Grid -->
             <line x1="56" y1="214" x2="356" y2="214" stroke="#1c1c24" stroke-width=".8" />
             <line x1="56" y1="175" x2="356" y2="175" stroke="#1c1c24" stroke-width=".8" />
             <line x1="56" y1="136" x2="356" y2="136" stroke="#1c1c24" stroke-width=".8" />
             <line x1="56" y1="97" x2="356" y2="97" stroke="#1c1c24" stroke-width=".8" />
+            <!-- Y-axis -->
             <text id="mc-y0" x="52" y="217" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
             <text id="mc-y1" x="52" y="178" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
             <text id="mc-y2" x="52" y="139" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
             <text id="mc-y3" x="52" y="100" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
-            <text x="56" y="32" fill="#3b82f6" font-size="10" font-family="Inter,sans-serif" font-weight="700">SPY</text>
-            <text id="mc-spy-info" x="80" y="32" fill="#64647a" font-size="9.5" font-family="Inter,sans-serif">&ndash;</text>
-            <text id="mc-asof" x="356" y="32" fill="#44445a" font-size="8.5" font-family="Inter,sans-serif" text-anchor="end">loading&hellip;</text>
+            <!-- Header: live dot + ticker + price + change + period -->
+            <circle id="mc-live-dot" cx="62" cy="28" r="3.5" fill="#3b82f6">
+              <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <text x="72" y="32" fill="#eeeef0" font-size="10.5" font-family="Inter,sans-serif" font-weight="700">SPY</text>
+            <text id="mc-spy-price" x="98" y="32" fill="#eeeef0" font-size="10" font-family="Inter,sans-serif" font-weight="600">&ndash;</text>
+            <text id="mc-spy-chg" x="152" y="32" fill="#64647a" font-size="9.5" font-family="Inter,sans-serif" font-weight="600">&ndash;</text>
+            <text id="mc-spy-period" x="200" y="32" fill="#64647a" font-size="9" font-family="Inter,sans-serif">&ndash;</text>
+            <text id="mc-asof" x="356" y="32" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">loading&#8230;</text>
+            <!-- Chart data -->
             <polygon id="mc-spy-area" points="56,214 356,214" fill="url(#areaGrad)" />
             <polyline id="mc-spy-line" points="56,175 356,175" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round" filter="url(#glow)" />
-            <circle id="mc-end-dot" cx="356" cy="175" r="4" fill="#3b82f6" filter="url(#glow)" />
+            <circle id="mc-end-dot" cx="356" cy="175" r="4" fill="#3b82f6" filter="url(#glow)">
+              <animate attributeName="r" values="4;5.5;4" dur="3s" repeatCount="indefinite" />
+            </circle>
+            <!-- X-axis dates -->
             <text id="mc-date-0" x="56" y="242" fill="#44445a" font-size="8" font-family="Inter,sans-serif">&ndash;</text>
             <text id="mc-date-mid" x="206" y="242" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">&ndash;</text>
             <text id="mc-date-end" x="356" y="242" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
@@ -1053,17 +1081,21 @@
 
     <!-- ── Scripts ──────────────────────────────────────────────────────── -->
     <script>
-      /* ── SPY chart ──────────────────────────────────────────────────── */
+      /* ── SPY chart (auto-refresh every 60s) ─────────────────────────── */
       (function () {
         var API = "https://trader.kooexperience.com/api/market-summary?days=90";
         var CX0 = 56, CX1 = 356, CY0 = 56, CY1 = 214;
         var GRID_YS = [214, 175, 136, 97];
+        var REFRESH_MS = 60000;
 
         function fmtMon(d) {
           return new Date(d + "T00:00:00").toLocaleString("en-US", { month: "short" });
         }
         function fmtChg(v) {
           return (v >= 0 ? "+" : "") + v.toFixed(2) + "%";
+        }
+        function fmtTime() {
+          return new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
         }
 
         var lo, fullRange;
@@ -1077,49 +1109,73 @@
           }).join(" ");
         }
 
-        fetch(API, { signal: AbortSignal.timeout(8000) })
-          .then(function (r) { return r.ok ? r.json() : Promise.reject("api error"); })
-          .then(function (data) {
-            var spy = data.tickers && data.tickers.SPY;
-            if (!spy) throw new Error("missing");
+        function refreshChart() {
+          fetch(API, { signal: AbortSignal.timeout(8000) })
+            .then(function (r) { return r.ok ? r.json() : Promise.reject("api error"); })
+            .then(function (data) {
+              var spy = data.tickers && data.tickers.SPY;
+              if (!spy) throw new Error("missing");
 
-            var closes = spy.history.map(function (h) { return h.close; });
-            var priceMin = Math.min.apply(null, closes);
-            var priceMax = Math.max.apply(null, closes);
-            var range = priceMax - priceMin || 1;
-            var pad = range * 0.1;
-            lo = priceMin - pad;
-            fullRange = range + 2 * pad;
+              var closes = spy.history.map(function (h) { return h.close; });
+              var priceMin = Math.min.apply(null, closes);
+              var priceMax = Math.max.apply(null, closes);
+              var range = priceMax - priceMin || 1;
+              var pad = range * 0.1;
+              lo = priceMin - pad;
+              fullRange = range + 2 * pad;
 
-            var N = closes.length;
-            var pts = makePoints(closes, N);
-            var lastX = CX1.toFixed(1);
-            var lastY = toY(closes[N - 1]);
+              var N = closes.length;
+              var pts = makePoints(closes, N);
+              var lastX = CX1.toFixed(1);
+              var lastY = toY(closes[N - 1]);
 
-            document.getElementById("mc-spy-line").setAttribute("points", pts);
-            document.getElementById("mc-spy-area").setAttribute("points",
-              pts + " " + lastX + "," + CY1 + " " + CX0 + "," + CY1);
-            document.getElementById("mc-end-dot").setAttribute("cx", lastX);
-            document.getElementById("mc-end-dot").setAttribute("cy", lastY);
+              var line = document.getElementById("mc-spy-line");
+              var area = document.getElementById("mc-spy-area");
+              var dot = document.getElementById("mc-end-dot");
 
-            GRID_YS.forEach(function (gy, i) {
-              var price = lo + ((CY1 - gy) / (CY1 - CY0)) * fullRange;
-              document.getElementById("mc-y" + i).textContent = "$" + Math.round(price);
+              line.setAttribute("points", pts);
+              area.setAttribute("points", pts + " " + lastX + "," + CY1 + " " + CX0 + "," + CY1);
+              dot.setAttribute("cx", lastX);
+              dot.setAttribute("cy", lastY);
+
+              /* Colour based on daily change */
+              var isUp = spy.change_pct_1d >= 0;
+              var colour = isUp ? "#22c55e" : "#ef4444";
+              line.setAttribute("stroke", colour);
+              dot.setAttribute("fill", colour);
+              document.getElementById("mc-area-stop-top").setAttribute("stop-color", colour);
+              document.getElementById("mc-area-stop-bot").setAttribute("stop-color", colour);
+
+              GRID_YS.forEach(function (gy, i) {
+                var price = lo + ((CY1 - gy) / (CY1 - CY0)) * fullRange;
+                document.getElementById("mc-y" + i).textContent = "$" + Math.round(price);
+              });
+
+              /* Price + change badge */
+              var chgEl = document.getElementById("mc-spy-chg");
+              chgEl.textContent = fmtChg(spy.change_pct_1d);
+              chgEl.setAttribute("fill", colour);
+
+              document.getElementById("mc-spy-price").textContent = "$" + spy.price.toFixed(2);
+              document.getElementById("mc-spy-period").textContent = fmtChg(spy.change_pct_period) + " (90d)";
+              document.getElementById("mc-asof").textContent = "refreshed " + fmtTime();
+
+              /* Live dot pulse */
+              document.getElementById("mc-live-dot").setAttribute("fill", colour);
+
+              var dates = spy.history.map(function (h) { return h.date; });
+              document.getElementById("mc-date-0").textContent = fmtMon(dates[0]);
+              document.getElementById("mc-date-mid").textContent = fmtMon(dates[Math.floor(N / 2)]);
+              document.getElementById("mc-date-end").textContent = fmtMon(dates[N - 1]);
+            })
+            .catch(function () {
+              document.getElementById("mc-asof").textContent = "data unavailable";
             });
+        }
 
-            document.getElementById("mc-spy-info").textContent =
-              "$" + spy.price.toFixed(2) + "  " + fmtChg(spy.change_pct_1d) +
-              " today  ·  " + fmtChg(spy.change_pct_period) + " (90d)";
-            document.getElementById("mc-asof").textContent = "daily close · " + data.as_of;
-
-            var dates = spy.history.map(function (h) { return h.date; });
-            document.getElementById("mc-date-0").textContent = fmtMon(dates[0]);
-            document.getElementById("mc-date-mid").textContent = fmtMon(dates[Math.floor(N / 2)]);
-            document.getElementById("mc-date-end").textContent = fmtMon(dates[N - 1]);
-          })
-          .catch(function () {
-            document.getElementById("mc-asof").textContent = "data unavailable";
-          });
+        /* Initial load + 60s auto-refresh */
+        refreshChart();
+        setInterval(refreshChart, REFRESH_MS);
       })();
 
       /* ── Scroll reveal ──────────────────────────────────────────────── */
