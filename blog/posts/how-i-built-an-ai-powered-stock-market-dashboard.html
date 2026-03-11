@@ -183,6 +183,12 @@
         <h2 id="what">What is Trader Koo?</h2>
 
         <p>
+          Let me be honest: this project started because I was too lazy to manually scan 500 stock charts
+          every day. So I did what any reasonable engineer would do and spent weeks building
+          a system to do it for me. Classic.
+        </p>
+
+        <p>
           <a href="https://trader.kooexperience.com" target="_blank" rel="noopener">Trader Koo</a>
           is a market intelligence dashboard that covers all ~510 stocks in the S&amp;P 500.
           Every night after market close, it pulls fresh price data, runs pattern detection across
@@ -269,7 +275,8 @@
           This single-service approach has tradeoffs. It can't scale horizontally, and a crash
           during YOLO inference means lost progress. But for a personal analytics tool, the
           simplicity is worth it. No infrastructure to manage, no services to coordinate,
-          and SQLite is surprisingly fast when you're the only writer.
+          and SQLite is surprisingly fast when you're the only writer. Sometimes the best architecture
+          is the one you can debug at midnight without crying.
         </p>
 
         <h2 id="yolo">Using computer vision to read charts</h2>
@@ -463,7 +470,8 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
 
         <p>
           The app runs on <a href="https://railway.app" target="_blank" rel="noopener">Railway</a>
-          using Nixpacks. A few deployment quirks worth noting:
+          using Nixpacks. Deployment was mostly smooth, except for the part where it wasn't.
+          A few quirks worth noting:
         </p>
 
         <ul>
@@ -474,6 +482,10 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
         </ul>
 
         <h2 id="lessons">Lessons learned</h2>
+
+        <p>
+          Every project has its humbling moments. Here are the ones that stuck with me.
+        </p>
 
         <p><strong>Pre-compute beats on-demand for heavy inference.</strong>
           Running YOLOv8 per request would take 1 to 2 seconds per ticker. Pre-computing nightly
@@ -496,6 +508,14 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
           The matplotlib axis metadata approach for converting pixels back to data works for
           any rendered chart. If you're doing computer vision on generated visualisations,
           this pattern is worth knowing about.</p>
+
+        <p>
+          If you made it this far, thanks for reading. Building Trader Koo was one of those
+          projects where I learned something new at every turn. If you have questions, ideas, or just
+          want to argue about whether head-and-shoulders patterns actually mean anything,
+          feel free to <a href="mailto:haomingkoo@gmail.com">reach out</a>.
+          Now go check if your favourite stock has a double bottom forming.
+        </p>
 
         <hr class="divider" />
 

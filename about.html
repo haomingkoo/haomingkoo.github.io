@@ -618,6 +618,41 @@
         line-height: 1.5;
       }
 
+      /* ── Beyond the Code ─────────────────────────────────────── */
+      .beyond-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
+      }
+      .beyond-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 28px 24px;
+        text-align: center;
+        transition: border-color 0.2s, transform 0.2s;
+      }
+      .beyond-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+      .beyond-icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+        display: block;
+      }
+      .beyond-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+      .beyond-desc {
+        font-size: 13px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
       /* ── Footer ──────────────────────────────────────────────── */
       footer {
         border-top: 1px solid var(--border);
@@ -690,10 +725,10 @@
         <div class="page-status">Open to opportunities</div>
         <h1 class="page-title">Haoming <span>Koo</span></h1>
         <p class="page-subtitle">
-          AI engineer and transformation leader with 7+ years delivering AI-enabled programs
-          across semiconductor manufacturing, cloud infrastructure, and data platforms.
-          Driven more than USD 600M in business impact through yield optimisation, cycle-time
-          reduction, risk analytics, and platform unification.
+          AI engineer, transformation leader, and self-proclaimed Vibe Code King with 7+ years
+          delivering AI-enabled programs across semiconductor manufacturing, cloud infrastructure,
+          and data platforms. Driven more than USD 600M in business impact through yield optimisation,
+          cycle-time reduction, risk analytics, and platform unification. Also makes a mean sourdough.
         </p>
         <div class="page-meta">
           <span>Singapore</span>
@@ -1135,6 +1170,37 @@
           <div class="cert-item reveal"><span class="cert-dot"></span>Building the Foundation for an Effective Team</div>
           <div class="cert-item reveal"><span class="cert-dot"></span>Leading a Cross-functional Team</div>
           <div class="cert-item reveal"><span class="cert-dot"></span>Data Analysis &amp; Root Cause Analysis in Six Sigma</div>
+        </div>
+      </section>
+
+      <!-- Beyond the Code -->
+      <section class="section">
+        <p class="section-label reveal">Beyond the Code</p>
+        <p class="reveal" style="color: var(--text-secondary); font-size: 14px; line-height: 1.7; margin-bottom: 24px;">
+          I'm not just terminal and tensors. When I'm not shipping models or debugging CORS errors at 2am,
+          you'll probably find me doing one of these:
+        </p>
+        <div class="beyond-grid">
+          <div class="beyond-card reveal">
+            <span class="beyond-icon">&#127911;</span>
+            <div class="beyond-title">Music</div>
+            <div class="beyond-desc">Playlist curator, shower singer, and firm believer that the best code is written with lo-fi on repeat.</div>
+          </div>
+          <div class="beyond-card reveal">
+            <span class="beyond-icon">&#9992;&#65039;</span>
+            <div class="beyond-title">Travel</div>
+            <div class="beyond-desc">Explored cities across Europe and Asia. Every trip is a chance to eat something questionable and call it "cultural immersion".</div>
+          </div>
+          <div class="beyond-card reveal">
+            <span class="beyond-icon">&#127859;</span>
+            <div class="beyond-title">Cooking</div>
+            <div class="beyond-desc">WSQ-certified pastry baker. Yes, that's a real qualification. My sourdough has more commits than some of my repos.</div>
+          </div>
+          <div class="beyond-card reveal">
+            <span class="beyond-icon">&#128081;</span>
+            <div class="beyond-title">Vibe Code King</div>
+            <div class="beyond-desc">Self-proclaimed title. I vibe code with AI assistants, ship fast, break things, then fix them before anyone notices.</div>
+          </div>
         </div>
       </section>
 
