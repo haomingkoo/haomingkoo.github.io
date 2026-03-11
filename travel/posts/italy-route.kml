@@ -353,8 +353,8 @@ By Haoming Koo — kooexperience.com/travel/posts/italy.html]]></description>
     <Folder>
       <name>Travel Route</name>
       <Placemark>
-        <name>Milan → Florence → Pisa → Rome → Venice</name>
-        <description>High-speed rail route between cities</description>
+        <name>Milan → Florence → Pisa (day trip) → Florence → Rome → Venice</name>
+        <description>High-speed rail route between cities. Pisa was a day trip from Florence.</description>
         <styleUrl>#routeLine</styleUrl>
         <LineString>
           <tessellate>1</tessellate>
@@ -362,6 +362,7 @@ By Haoming Koo — kooexperience.com/travel/posts/italy.html]]></description>
             9.1900,45.4642,0
             11.2558,43.7696,0
             10.3966,43.7230,0
+            11.2558,43.7696,0
             12.4964,41.9028,0
             12.3155,45.4408,0
           </coordinates>
