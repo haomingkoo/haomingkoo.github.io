@@ -15,15 +15,16 @@
   },
   {
     "slug": "lionweather-walkthrough",
-    "title": "How I Built a Real-Time Weather Dashboard for Singapore",
+    "title": "I Tried to Predict Singapore's Rain and It Humbled Me",
     "date": "2026-03-11",
     "tags": [
       "Building",
       "ML",
-      "FastAPI"
+      "FastAPI",
+      "EDA"
     ],
-    "excerpt": "A walkthrough of LionWeather \u2014 from NEA data ingestion to ML-powered rainfall forecasting with SHAP explainability.",
+    "excerpt": "Building LionWeather: 8 years of NEA data, LightGBM rainfall prediction, SHAP explainability, animated radar, and the hard lesson that tropical weather does not care about your model.",
     "cover": "",
-    "readingTime": "6 min"
+    "readingTime": "14 min"
   }
 ]

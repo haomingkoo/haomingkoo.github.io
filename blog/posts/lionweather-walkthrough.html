@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>How I Built a Real-Time Weather Dashboard for Singapore — Haoming Koo</title>
-    <meta name="description" content="A walkthrough of LionWeather — from NEA data ingestion to ML-powered rainfall forecasting with SHAP explainability." />
+    <title>I Tried to Predict Singapore's Rain and It Humbled Me - Haoming Koo</title>
+    <meta name="description" content="Building LionWeather: a real-time weather dashboard with LightGBM rainfall forecasting, SHAP explainability, animated radar, and a whole lot of lessons about tropical weather." />
+    <meta name="keywords" content="LionWeather, Singapore weather, LightGBM, SHAP, rainfall prediction, NEA API, React, FastAPI, ML forecasting, EDA" />
+    <meta name="author" content="Haoming Koo" />
+    <link rel="canonical" href="https://kooexperience.com/blog/posts/lionweather-walkthrough.html" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -186,96 +189,561 @@
         <a class="back-link" href="../#blog">&larr; Back to blog</a>
         <div class="article-meta">
           <span class="article-tag">Building</span>
+          <span class="article-tag">ML</span>
+          <span class="article-tag">FastAPI</span>
           <span>March 11, 2026</span>
-          <span class="reading-time">6 min read</span>
+          <span class="reading-time">14 min read</span>
         </div>
-        <h1>How I Built a Real-Time Weather Dashboard for Singapore</h1>
+        <h1>I Tried to Predict Singapore's Rain and It Humbled Me</h1>
         <p class="subtitle">
-          A walkthrough of LionWeather — from NEA data ingestion to ML-powered
-          rainfall forecasting with SHAP explainability.
+          Building LionWeather: a real-time weather dashboard with LightGBM rainfall forecasting,
+          SHAP explainability, animated radar, and 8 years of tropical weather data.
+          Spoiler: Singapore's weather does not care about your model.
         </p>
-
-        <div class="toc">
-          <div class="toc-title">Contents</div>
-          <a href="#why">Why build another weather app?</a>
-          <a href="#stack">Tech stack</a>
-          <a href="#architecture">Architecture</a>
-          <a href="#ml">ML forecasting pipeline</a>
-          <a href="#lessons">Lessons learned</a>
-        </div>
 
         <div class="stack-box">
           <div class="stack-box-title">Tech Stack</div>
           <div class="stack-tags">
+            <span class="stack-tag">Python</span>
             <span class="stack-tag">FastAPI</span>
             <span class="stack-tag">React 18</span>
             <span class="stack-tag">LightGBM</span>
             <span class="stack-tag">SHAP</span>
             <span class="stack-tag">Leaflet</span>
-            <span class="stack-tag">Tailwind</span>
+            <span class="stack-tag">Tailwind CSS</span>
             <span class="stack-tag">PostgreSQL</span>
+            <span class="stack-tag">APScheduler</span>
             <span class="stack-tag">Railway</span>
           </div>
         </div>
 
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#why">Why build a weather app?</a>
+          <a href="#try-it">Try it yourself</a>
+          <a href="#architecture">How it all fits together</a>
+          <a href="#data">Collecting the data</a>
+          <a href="#eda">EDA: learning what the data actually looks like</a>
+          <a href="#features">Feature engineering</a>
+          <a href="#model">Training the model</a>
+          <a href="#shap">SHAP: why did you predict that?</a>
+          <a href="#radar">The radar overlay</a>
+          <a href="#frontend">Frontend: making it feel like a real app</a>
+          <a href="#deployment">Deployment on Railway</a>
+          <a href="#lessons">Lessons learned</a>
+          <a href="#references">References</a>
+        </div>
+
         <!-- ── Content ───────────────────────────────────────────────── -->
-        <h2 id="why">Why build another weather app?</h2>
+        <h2 id="why">Why build a weather app?</h2>
+
         <p>
-          Write your content here. Explain the motivation behind LionWeather,
-          what makes it different from existing weather apps, and what you set
-          out to learn.
+          Honestly? Because I wanted a playground to learn a bunch of things at once. Not just
+          "call an API and show a number" but the full loop: real-time data ingestion, exploratory
+          data analysis, feature engineering, ML training, model explainability, frontend
+          visualisation, and deployment. A weather app turned out to be the perfect vehicle
+          because the data is free, always updating, and everyone has an opinion about whether
+          the forecast is right.
+        </p>
+
+        <p>
+          If you've lived in Singapore, you know the drill. It's 34 degrees and sunny. You step
+          out for lunch. By the time your food arrives, it's a thunderstorm. Twenty minutes later,
+          sunny again. Predicting rain here is genuinely hard, and I wanted to see how far I could
+          push a gradient-boosted model against that chaos.
+        </p>
+
+        <p>
+          This project was also a chance to get serious about EDA. I'd read plenty about
+          exploratory data analysis in courses, but there's a difference between running
+          <code>df.describe()</code> on a toy dataset and actually understanding 8 years of
+          messy real-world sensor data. LionWeather forced me to do the real thing.
+        </p>
+
+        <h2 id="try-it">Try it yourself</h2>
+
+        <p>
+          Head to <a href="https://weather.kooexperience.com" target="_blank" rel="noopener">weather.kooexperience.com</a>.
+          Drop a pin anywhere on the Singapore map and the dashboard shows you:
+        </p>
+
+        <ul>
+          <li><strong>Current conditions</strong> from NEA: temperature, humidity, wind, rainfall, UV index, pressure, and visibility</li>
+          <li><strong>4-day and hourly forecasts</strong> from NEA's official API</li>
+          <li><strong>ML rainfall predictions</strong> for the next 1, 3, 6, and 12 hours with confidence levels</li>
+          <li><strong>Animated radar</strong> overlay showing real-time rain movement across the island</li>
+          <li><strong>Sun/moon arc</strong> with live position tracking (sunrise, sunset, golden hour)</li>
+          <li><strong>Full ML analysis dashboard</strong> with EDA charts, SHAP plots, confusion matrices, and NEA benchmarks</li>
+        </ul>
+
+        <p>
+          Your location never leaves the browser. Everything is stored in localStorage. I'm not
+          tracking you; I just want to show you if it's going to rain.
         </p>
 
         <div class="callout">
-          <span class="callout-icon">💡</span>
-          <span>
-            LionWeather polls NEA's API every 10 minutes and stores readings in
-            PostgreSQL — building the training dataset for the ML model over time.
-          </span>
+          <span class="callout-icon">&#9888;&#65039;</span>
+          <div>
+            <strong>Not a replacement for NEA.</strong> This is a learning project. The ML model
+            is decent but definitely not perfect. If you need to decide whether to bring an
+            umbrella, check both and use your own judgment.
+          </div>
         </div>
 
-        <h2 id="stack">Tech stack</h2>
+        <h2 id="architecture">How it all fits together</h2>
+
         <p>
-          Break down your stack choices: why FastAPI over Flask, why LightGBM
-          over XGBoost, why Leaflet over Mapbox.
+          LionWeather is a two-service setup on
+          <a href="https://railway.app" target="_blank" rel="noopener">Railway</a>:
+          a FastAPI backend and a React frontend. They talk through a Vite proxy in dev,
+          and Railway handles routing in production.
         </p>
 
-        <h2 id="architecture">Architecture</h2>
+        <pre><code>┌─────────────────────────────────────────────────────┐
+│  Backend (FastAPI + Uvicorn)                         │
+│                                                       │
+│  17 API routers                                       │
+│  ├── /api/weather         Current conditions          │
+│  ├── /api/forecasts       4-day + hourly              │
+│  ├── /api/ml/rain-forecast  ML predictions            │
+│  ├── /api/ml/full-analysis  EDA + SHAP + benchmarks   │
+│  ├── /api/radar           Animated rain imagery       │
+│  └── /admin/*             Retrain, export, health     │
+│                                                       │
+│  APScheduler (background jobs)                        │
+│  ├── Every 10 min   → Collect NEA observations        │
+│  ├── Every 1 hour   → Collect official forecasts      │
+│  ├── Every 2 min    → Fetch radar frames              │
+│  └── Sunday 2 AM    → Retrain ML model                │
+│                                                       │
+│  PostgreSQL (Railway) / SQLite (local)                │
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  Frontend (React 18 + Vite + Tailwind)               │
+│                                                       │
+│  ├── Interactive Leaflet map with pin placement       │
+│  ├── Detailed weather cards (feels-like, UV, wind)    │
+│  ├── ML forecast comparison panel                     │
+│  ├── Animated radar layer                             │
+│  ├── Full EDA + SHAP analysis dashboard               │
+│  └── Browser notifications on rain start/stop         │
+└─────────────────────────────────────────────────────┘</code></pre>
+
         <p>
-          Describe the two-service setup on Railway — backend with APScheduler
-          polling NEA data, frontend with React + Vite proxying API calls.
+          Yes, 17 routers is a lot. The project grew organically as I kept adding features. If I
+          were starting over I'd probably consolidate a few, but honestly each one does one thing
+          and they're easy to find, so I'm at peace with it.
         </p>
 
-        <!-- Example code block -->
-        <pre><code># Example: scheduled data collection
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
+        <h2 id="data">Collecting the data</h2>
 
-scheduler = AsyncIOScheduler()
-scheduler.add_job(
-    collect_nea_data,
-    "interval",
-    minutes=10,
-    id="nea_collector",
-)</code></pre>
-
-        <h2 id="ml">ML forecasting pipeline</h2>
         <p>
-          Walk through the LightGBM model, feature engineering, SHAP analysis,
-          and how the 6-hour rainfall predictions are served.
+          The backend polls multiple data sources on different intervals:
         </p>
+
+        <ul>
+          <li><strong>NEA (Singapore)</strong> via <a href="https://api-open.data.gov.sg" target="_blank" rel="noopener">data.gov.sg</a>: temperature, humidity, rainfall, wind speed/direction, pressure, UV, and visibility. Polled every 10 minutes.</li>
+          <li><strong>Open-Meteo</strong> for Malaysia and Indonesia readings: gives regional context for incoming weather systems. Same 10-minute interval.</li>
+          <li><strong>weather.gov.sg</strong> for radar imagery: no official API, just direct image fetches from their CDN. Polled every 2 minutes.</li>
+          <li><strong>NEA forecasts</strong>: 2-hour nowcast, 24-hour outlook, 4-day forecast. Polled hourly.</li>
+        </ul>
+
+        <p>
+          Everything normalises to a <code>WeatherRecord</code> dataclass before hitting the
+          database. There's bounds checking too: if the temperature comes in at 60 degrees C or
+          rainfall is negative, something went wrong and the reading gets flagged. Singapore is
+          tropical but not <em>that</em> tropical.
+        </p>
+
+        <pre><code># Validation bounds (Singapore tropical range)
+TEMP_MIN, TEMP_MAX = 15.0, 42.0     # °C
+HUMIDITY_MIN, HUMIDITY_MAX = 20, 100  # %
+WIND_MAX = 60.0                       # km/h
+# Plus 3-sigma statistical outlier detection</code></pre>
+
+        <p>
+          The database uses a unique constraint on <code>(timestamp, country, location)</code>
+          with upsert logic, so duplicate polls are harmless. This matters because sometimes
+          NEA returns the same data twice, and I'd rather handle that at the DB level than
+          add brittle deduplication logic everywhere.
+        </p>
+
+        <h2 id="eda">EDA: learning what the data actually looks like</h2>
+
+        <p>
+          This is where the project got genuinely educational for me. I had 8 years of NEA
+          historical data (2016 to 2024) and I wanted to understand it properly before
+          throwing it at a model. Not just "what's the mean rainfall" but the structure,
+          the seasonality, the weird edge cases.
+        </p>
+
+        <p>
+          The training script runs a full statistical workup and saves everything to a
+          <code>full_analysis.json</code> that the frontend renders as an interactive dashboard.
+          Here's what it covers:
+        </p>
+
+        <h3>Annual statistics</h3>
+        <p>
+          Total rainfall per year, percentage of rainy hours, breakdown by intensity category
+          (no rain, light, heavy, thundery), temperature ranges, average humidity, and wind
+          patterns. Singapore gets roughly 2,400 mm of rain per year, but the distribution
+          is wildly uneven. Some months are drenched. Others barely see a cloud.
+        </p>
+
+        <h3>Time-series decomposition (STL)</h3>
+        <p>
+          I ran <a href="https://www.statsmodels.org/stable/generated/statsmodels.tsa.seasonal.STL.html" target="_blank" rel="noopener">STL decomposition</a>
+          to separate the trend, seasonal, and residual components. The seasonal pattern is
+          crystal clear: the northeast monsoon (November to January) brings sustained rain,
+          while the southwest monsoon (May to September) brings shorter, more intense afternoon
+          showers. The residual component is large, which tells you right away that rainfall
+          here has a lot of unexplained variance. Translation: good luck predicting it perfectly.
+        </p>
+
+        <h3>Autocorrelation (ACF/PACF)</h3>
+        <p>
+          Ran ACF and PACF analysis on rainfall, temperature, humidity, and wind. Rainfall
+          has significant autocorrelation up to about 6 hours, meaning if it's raining now,
+          it's more likely to still be raining in an hour than in 12 hours. Temperature is
+          more predictable with strong 24-hour periodicity. This confirmed that lag features
+          would be important for the model.
+        </p>
+
+        <h3>FFT spectral analysis</h3>
+        <p>
+          The frequency-domain view caught the annual cycle and the monsoon transitions
+          clearly. There's a spectral peak around the 180-day mark that maps to the
+          inter-monsoon periods when Singapore's weather gets especially chaotic.
+        </p>
+
+        <p>
+          All of this lives in the ML Analysis tab of the app. I wanted it visible, not
+          buried in a Jupyter notebook, because the whole point was to learn how to present
+          EDA findings in a way that's actually useful.
+        </p>
+
+        <h2 id="features">Feature engineering</h2>
+
+        <p>
+          Raw sensor readings aren't enough. The model needs context. Here's what I
+          engineered from the base data:
+        </p>
+
+        <h3>Temporal features</h3>
+        <p>
+          Hour of day and day of year encoded as sin/cos pairs (so the model knows that
+          hour 23 is close to hour 0, not 23 units away). Month as an integer. And two
+          monsoon flags: NE monsoon (November to January) and SW monsoon (May to September).
+        </p>
+
+        <h3>Lag features</h3>
+        <p>
+          Rainfall at 1, 3, 6, and 24 hours ago. These are the most obvious predictors
+          and also the easiest to mess up. Use <code>.shift()</code> properly or you get
+          data leakage. I learned this the hard way when my first model hit 95% accuracy
+          and I got suspicious. Sure enough, it was peeking into the future. Humbling.
+        </p>
+
+        <h3>Thunderstorm indicators</h3>
+        <p>
+          Singapore's rain often comes from convective thunderstorms that build up in the
+          afternoon. I engineered features to catch the warning signs:
+        </p>
+
+        <ul>
+          <li><strong>Pressure drop (3h)</strong>: a falling barometer is the classic signal</li>
+          <li><strong>Humidity change (1h)</strong>: sudden spikes before a storm</li>
+          <li><strong>Temperature drop (1h)</strong>: cold air from a downdraft</li>
+          <li><strong>Wind direction change (1h)</strong>: with 360-degree wrap-around handling, because wind doesn't know about our number line</li>
+          <li><strong>Afternoon flag</strong>: 2 PM to 6 PM, peak convective storm window</li>
+          <li><strong>Westerly wind flag</strong>: 225 to 315 degrees, associated with squall lines</li>
+        </ul>
+
+        <h3>Spatial features</h3>
+        <p>
+          Latitude, longitude, distance from CBD (Haversine), and a coastal flag. Coastal
+          stations tend to get different rain patterns due to sea breeze convergence.
+        </p>
+
+        <h3>The star feature: dry spell hours</h3>
+        <p>
+          How many consecutive hours without rain before the prediction window. This ended
+          up being the single most important feature by SHAP value (4.41). Makes intuitive
+          sense: a long dry spell in tropical Singapore often means conditions are building
+          for a big release.
+        </p>
+
+        <h2 id="model">Training the model</h2>
+
+        <p>
+          I went with <a href="https://lightgbm.readthedocs.io/" target="_blank" rel="noopener">LightGBM</a>
+          over XGBoost or random forests for a few reasons: it handles categorical features
+          natively, trains fast on large datasets, and has good support for multi-class
+          classification. Also, I'd used XGBoost before and wanted to try something different.
+          Learning was the whole point.
+        </p>
+
+        <h3>Data split</h3>
+        <p>
+          This matters more than people realise. A random split would leak temporal patterns.
+          I used a strict year-based split:
+        </p>
+
+        <ul>
+          <li><strong>Train</strong>: 2016 to 2022 (6 years)</li>
+          <li><strong>Validation</strong>: 2023</li>
+          <li><strong>Test</strong>: 2024 (completely held out until final evaluation)</li>
+        </ul>
+
+        <p>
+          No shuffling. No interleaving. If your lag features reference data from 3 hours ago,
+          and that 3-hour-ago sample is in the test set while you're training, congratulations:
+          you've just built a time machine, not a model.
+        </p>
+
+        <h3>Two types of models</h3>
+        <p>
+          I trained both regression (predict rainfall amount in mm) and classification
+          (predict rain category) models. The classification models use a 3-class scheme
+          for the app's UI:
+        </p>
+
+        <ul>
+          <li><strong>Class 0</strong>: No rain (&lt; 0.1 mm/hr)</li>
+          <li><strong>Class 1</strong>: Light rain (0.1 to 7.6 mm/hr)</li>
+          <li><strong>Class 2</strong>: Heavy + thundery (&ge; 7.6 mm/hr)</li>
+        </ul>
+
+        <p>
+          And a 4-class scheme for benchmarking against NEA's own forecast categories,
+          which separates heavy rain from thundery showers.
+        </p>
+
+        <h3>Four prediction horizons</h3>
+        <p>
+          Separate models for 1h, 3h, 6h, and 12h ahead. As expected, accuracy drops with
+          the horizon:
+        </p>
+
+        <ul>
+          <li>1 hour: 69.9%</li>
+          <li>3 hours: 62.2%</li>
+          <li>6 hours: 59.2%</li>
+          <li>12 hours: 57.5%</li>
+        </ul>
+
+        <p>
+          The 1-hour model is decent. The 12-hour model is basically saying "I think it might
+          rain, but honestly, flip a coin." In Singapore's climate, that's not surprising.
+          A thunderstorm can form and dissipate in 30 minutes. Predicting 12 hours out is
+          asking a lot.
+        </p>
+
+        <h3>Hyperparameters</h3>
+
+        <pre><code># LightGBM config (classification)
+params = {
+    "objective": "multiclass",
+    "num_class": 3,
+    "learning_rate": 0.05,
+    "num_leaves": 63,
+    "min_child_samples": 50,
+    "feature_fraction": 0.8,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 5,
+    "reg_alpha": 0.1,      # L1
+    "reg_lambda": 0.1,     # L2
+    "n_estimators": 500,
+}</code></pre>
+
+        <p>
+          Nothing exotic. Conservative regularisation to avoid overfitting on 8 years of
+          data. The model artifacts range from 90 KB (12h) to 14 MB (1h classification),
+          small enough to commit to git and load at startup.
+        </p>
+
+        <h2 id="shap">SHAP: why did you predict that?</h2>
+
+        <p>
+          A black-box prediction isn't that useful if you can't explain it. I integrated
+          <a href="https://shap.readthedocs.io/" target="_blank" rel="noopener">SHAP</a>
+          (SHapley Additive exPlanations) to show which features are driving each prediction.
+          The app renders this as a feature importance bar chart and a waterfall plot.
+        </p>
+
+        <p>
+          The top features by mean absolute SHAP value:
+        </p>
+
+        <ol>
+          <li><strong>dry_spell_hours</strong> (4.41) &ndash; the longer it hasn't rained, the more the model pays attention</li>
+          <li><strong>humidity</strong> (2.89) &ndash; high humidity means rain is more likely (shocking, I know)</li>
+          <li><strong>wind_accel_3h</strong> (2.47) &ndash; rapid wind acceleration often signals an incoming squall line</li>
+        </ol>
+
+        <p>
+          What surprised me: pressure features ranked lower than I expected. In temperate
+          climates, a falling barometer is the go-to rain predictor. In the tropics, humidity
+          and wind dynamics matter more. The EDA confirmed this: Singapore's pressure variance
+          is tiny compared to, say, London's.
+        </p>
+
+        <p>
+          SHAP also revealed that the monsoon flags do real work. During the NE monsoon,
+          the model leans more heavily on humidity and sustained wind direction. During the
+          SW monsoon, the afternoon flag and temperature drop become more predictive. The
+          model learned the monsoons without me explicitly telling it the physics. That was
+          a satisfying moment.
+        </p>
+
+        <h2 id="radar">The radar overlay</h2>
+
+        <p>
+          This was the "fun feature that turned out to be annoying to build" part. NEA
+          publishes radar imagery on <a href="https://www.weather.gov.sg" target="_blank" rel="noopener">weather.gov.sg</a>,
+          but there's no official API. The backend fetches the images directly from their CDN,
+          caches them with a 120-second TTL, and serves them to the frontend.
+        </p>
+
+        <p>
+          The Leaflet map overlays these frames as an animation, so you can watch rain systems
+          move across the island. The bounds are hardcoded to Singapore's coordinates:
+          1.155&deg;N to 1.475&deg;N, 103.565&deg;E to 104.130&deg;E. There's a 500ms throttle
+          between image fetches to be polite to their server.
+        </p>
+
+        <p>
+          It's one of those features that took a disproportionate amount of time but makes the
+          app feel alive. Watching a rain blob drift toward your location on the map is weirdly
+          satisfying, even if it means your laundry is about to get wet.
+        </p>
+
+        <h2 id="frontend">Frontend: making it feel like a real app</h2>
+
+        <p>
+          The frontend is React 18 with Vite, Tailwind, Leaflet for maps, and Recharts
+          for the EDA visualisations. A few things I'm proud of:
+        </p>
+
+        <h3>NEA area snapping</h3>
+        <p>
+          When you drop a pin, it snaps to the nearest official NEA neighborhood (Ang Mo Kio,
+          Tampines, etc.) via lat/lon distance matching. This means the weather readings
+          actually correspond to a real station, not some random point in a park.
+        </p>
+
+        <h3>Sun and moon arc</h3>
+        <p>
+          Calculated client-side using <a href="https://github.com/mourner/suncalc" target="_blank" rel="noopener">SunCalc</a>.
+          No API needed. The card shows a live arc with the sun's current position, golden hour,
+          and after sunset flips to show the moon and tomorrow's sunrise. A small detail, but
+          it makes the dashboard feel polished.
+        </p>
+
+        <h3>Rain notifications</h3>
+        <p>
+          The app sends browser notifications when rain starts or stops at your saved locations.
+          Crucially, it only fires on state transitions with a 1-hour cooldown. Nobody wants
+          50 notifications during a patchy drizzle.
+        </p>
+
+        <h3>The ML analysis dashboard</h3>
+        <p>
+          This is the EDA nerd section. It renders the entire <code>full_analysis.json</code>
+          as interactive charts: annual rainfall breakdown, STL decomposition, ACF/PACF with
+          confidence intervals, FFT spectrograms, SHAP waterfall plots, confusion matrices by
+          horizon, precision/recall/F2 scores, and sortable NEA benchmark tables.
+        </p>
+
+        <p>
+          Is it too much? Probably. But this was the whole point of the project: to take
+          EDA from a notebook and put it in front of anyone who's curious. My mum probably
+          won't use the SHAP waterfall tab, but she does check if it's going to rain before
+          hanging laundry. The app works for both audiences.
+        </p>
+
+        <h2 id="deployment">Deployment on Railway</h2>
+
+        <p>
+          Two services on Railway: backend on a Python buildpack, frontend served
+          through Vite's preview mode. A few things I learned:
+        </p>
+
+        <ul>
+          <li><strong>Database auto-detection:</strong> SQLAlchemy checks if <code>DATABASE_URL</code> starts with "postgresql". Locally it falls back to SQLite. This means I develop on a single file and deploy to Postgres without changing any code.</li>
+          <li><strong>Connection pooling matters:</strong> PostgreSQL with a pool size of 10 and max overflow of 20. SQLite gets <code>StaticPool</code> with <code>check_same_thread=False</code>. Getting this wrong in production means random connection errors at 3 AM.</li>
+          <li><strong>Model artifacts in git:</strong> The joblib files are small enough (largest is 14 MB) to commit directly. Railway builds from the repo, so the models are available at startup. No S3, no model registry. Keep it simple.</li>
+          <li><strong>Scheduled retraining:</strong> Every Sunday at 2 AM, the backend kicks off a retrain job using the data collected that week. It runs in a subprocess so the main API stays responsive. The admin dashboard shows training progress and logs.</li>
+        </ul>
 
         <h2 id="lessons">Lessons learned</h2>
+
         <p>
-          Share what you'd do differently, gotchas with the NEA API,
-          and Railway deployment tips.
+          This project taught me more than any course I've taken. Here are the big ones:
+        </p>
+
+        <p><strong>EDA is not optional, it's the job.</strong>
+          Before I did proper EDA, my first model was garbage. After spending a week on
+          decomposition, autocorrelation, and feature analysis, the second model was
+          meaningfully better. Not because I used a fancier algorithm, but because I
+          understood the data.
+        </p>
+
+        <p><strong>Data leakage is sneaky and will flatter your metrics.</strong>
+          My first model hit 95% accuracy. I was thrilled for about ten minutes, then
+          realised my lag features were leaking future data. After fixing the split and
+          using proper <code>.shift()</code> alignment, accuracy dropped to 70%. That's the
+          real number. It hurt, but it's honest.
+        </p>
+
+        <p><strong>Tropical weather is humbling.</strong>
+          Convective thunderstorms can form in 15 minutes and vanish in 30. A model trained
+          on 8 years of data still only hits 57.5% at the 12-hour horizon. Sometimes the
+          best answer is "I don't know, check the radar."
+        </p>
+
+        <p><strong>SHAP makes you a better engineer.</strong>
+          When you can see that your model relies on <code>dry_spell_hours</code> more than
+          <code>pressure</code>, you start questioning your assumptions. The features that
+          "should" matter don't always match the features that do. Let the data tell you.
+        </p>
+
+        <p><strong>Ship the messy version.</strong>
+          LionWeather started as a single-page app with three API calls. Now it has 17 routers,
+          4 prediction horizons, animated radar, and a full EDA dashboard. None of that
+          would exist if I'd waited until it was "ready." I shipped early, showed friends,
+          got feedback, and iterated. That's the only way to build something real.
+        </p>
+
+        <p>
+          If you made it this far, go open the app and see what Singapore's weather is doing
+          right now. And if the model says "no rain" and it's pouring outside your window,
+          well, that's tropical weather for you. Even NEA gets it wrong sometimes.
+          At least my mistakes come with SHAP explanations.
         </p>
 
         <hr class="divider" />
-        <p>
-          Thanks for reading. The full source is on
-          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>.
-          Questions? <a href="mailto:haomingkoo@gmail.com">Reach out</a>.
-        </p>
+
+        <h2 id="references">References</h2>
+
+        <ul>
+          <li><a href="https://weather.kooexperience.com" target="_blank" rel="noopener">LionWeather (live app)</a></li>
+          <li><a href="https://github.com/haomingkoo/lionweather" target="_blank" rel="noopener">Source code on GitHub</a></li>
+          <li><a href="https://api-open.data.gov.sg" target="_blank" rel="noopener">NEA data.gov.sg API</a></li>
+          <li><a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> for regional weather data</li>
+          <li><a href="https://lightgbm.readthedocs.io/" target="_blank" rel="noopener">LightGBM documentation</a></li>
+          <li><a href="https://shap.readthedocs.io/" target="_blank" rel="noopener">SHAP documentation</a></li>
+          <li><a href="https://www.statsmodels.org/stable/generated/statsmodels.tsa.seasonal.STL.html" target="_blank" rel="noopener">statsmodels STL decomposition</a></li>
+          <li><a href="https://leafletjs.com/" target="_blank" rel="noopener">Leaflet</a> for interactive maps</li>
+          <li><a href="https://github.com/mourner/suncalc" target="_blank" rel="noopener">SunCalc</a> for sun/moon position calculations</li>
+          <li><a href="https://recharts.org/" target="_blank" rel="noopener">Recharts</a> for React charting</li>
+          <li><a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a></li>
+          <li><a href="https://railway.app" target="_blank" rel="noopener">Railway</a> for deployment</li>
+          <li><a href="http://www.weather.gov.sg/" target="_blank" rel="noopener">weather.gov.sg</a> for radar imagery</li>
+        </ul>
+
       </article>
       <footer>&copy; 2026 Haoming Koo</footer>
     </div>
