@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>I Tried to Predict Singapore's Rain and It Humbled Me - Haoming Koo</title>
-    <meta name="description" content="Building LionWeather: a real-time weather dashboard with LightGBM rainfall forecasting, SHAP explainability, animated radar, and a whole lot of lessons about tropical weather." />
-    <meta name="keywords" content="LionWeather, Singapore weather, LightGBM, SHAP, rainfall prediction, NEA API, React, FastAPI, ML forecasting, EDA" />
+    <meta name="description" content="Building LionWeather: a real-time weather dashboard with LightGBM rainfall forecasting, SHAP explainability, animated radar, and a whole lot of lessons about tropical weather. Interactive charts powered by real data." />
+    <meta name="keywords" content="LionWeather, Singapore weather, LightGBM, SHAP, rainfall prediction, NEA API, React, FastAPI, ML forecasting, EDA, time series analysis" />
     <meta name="author" content="Haoming Koo" />
     <link rel="canonical" href="https://kooexperience.com/blog/posts/lionweather.html" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       :root {
@@ -22,6 +23,11 @@
         --text: #eeeef0;
         --text-secondary: #b0b0b8;
         --muted: #64647a;
+        --blue: #3b82f6;
+        --amber: #f59e0b;
+        --emerald: #10b981;
+        --red: #ef4444;
+        --purple: #a855f7;
       }
       html { scroll-behavior: smooth; }
       body {
@@ -170,9 +176,103 @@
         font-size: 13px; color: var(--muted); text-align: center;
       }
 
+      /* ── Variable Toggle Pills ────────────────────────────────────────── */
+      .toggle-group {
+        display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0;
+      }
+      .toggle-pill {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 12px; font-weight: 500; padding: 6px 16px;
+        border-radius: 99px; border: 1px solid var(--border);
+        background: var(--surface); color: var(--text-secondary);
+        cursor: pointer; transition: all .2s;
+        user-select: none;
+      }
+      .toggle-pill:hover {
+        border-color: var(--accent); color: var(--text);
+      }
+      .toggle-pill.active {
+        background: var(--accent); border-color: var(--accent);
+        color: #fff; font-weight: 600;
+      }
+
+      /* ── Chart Container ──────────────────────────────────────────────── */
+      .chart-wrap {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px; margin: 24px 0;
+        overflow: hidden;
+      }
+      .chart-wrap .js-plotly-plot { width: 100% !important; }
+      .chart-title {
+        font-size: 14px; font-weight: 600; color: var(--text);
+        margin-bottom: 4px;
+      }
+      .chart-subtitle {
+        font-size: 12px; color: var(--muted); margin-bottom: 12px;
+      }
+
+      /* ── Chart Loading Skeleton ───────────────────────────────────────── */
+      .chart-loading {
+        display: flex; align-items: center; justify-content: center;
+        min-height: 300px; border-radius: 8px;
+        background: linear-gradient(110deg, var(--surface) 30%, rgba(59,130,246,.04) 50%, var(--surface) 70%);
+        background-size: 200% 100%;
+        animation: shimmer 1.8s ease-in-out infinite;
+        color: var(--muted); font-size: 13px; font-weight: 500;
+      }
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      /* ── ADF Stationarity Cards ───────────────────────────────────────── */
+      .stationarity-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px; margin: 16px 0;
+      }
+      .stat-card {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 16px; text-align: center;
+      }
+      .stat-card-label {
+        font-size: 11px; font-weight: 600; text-transform: uppercase;
+        letter-spacing: .08em; color: var(--muted); margin-bottom: 8px;
+      }
+      .stat-card-value {
+        font-size: 20px; font-weight: 700; margin-bottom: 4px;
+      }
+      .stat-card-detail {
+        font-size: 11px; color: var(--muted); line-height: 1.4;
+      }
+      .stat-pass { color: var(--emerald); }
+      .stat-fail { color: var(--red); }
+      .stat-bar-track {
+        height: 6px; background: rgba(255,255,255,.06); border-radius: 3px;
+        margin-top: 10px; position: relative; overflow: visible;
+      }
+      .stat-bar-fill {
+        height: 100%; border-radius: 3px; transition: width .6s ease;
+      }
+      .stat-bar-marker {
+        position: absolute; top: -4px; width: 3px; height: 14px;
+        border-radius: 2px; transform: translateX(-50%);
+      }
+
+      /* ── Error Fallback ───────────────────────────────────────────────── */
+      .chart-error {
+        display: flex; flex-direction: column; align-items: center;
+        justify-content: center; min-height: 200px; gap: 12px;
+        color: var(--muted); font-size: 13px; text-align: center;
+      }
+      .chart-error a {
+        color: var(--accent); text-decoration: underline;
+      }
+
       @media (max-width: 600px) {
         .container { padding: 0 18px; }
         nav { padding: 0 18px; }
+        .chart-wrap { padding: 12px; }
+        .stationarity-grid { grid-template-columns: repeat(2, 1fr); }
       }
     </style>
   </head>
@@ -192,13 +292,14 @@
           <span class="article-tag">ML</span>
           <span class="article-tag">FastAPI</span>
           <span>March 11, 2026</span>
-          <span class="reading-time">18 min read</span>
+          <span class="reading-time">25 min read</span>
         </div>
         <h1>I Tried to Predict Singapore's Rain and It Humbled Me</h1>
         <p class="subtitle">
           In a country with three weather modes &ndash; hot, hotter, and raining sideways &ndash;
           I built a real-time weather dashboard with LightGBM rainfall forecasting,
           SHAP explainability, animated radar, and 8 years of tropical weather data.
+          Now with interactive charts so you can explore the data yourself.
         </p>
 
         <div class="stack-box">
@@ -223,10 +324,13 @@
           <a href="#try-it">Try it yourself</a>
           <a href="#architecture">How it all fits together</a>
           <a href="#data">Collecting the data</a>
+          <a href="#meet-the-data">Meet the data</a>
           <a href="#eda">EDA: learning what the data actually looks like</a>
+          <a href="#stationarity">Stationarity: can we even model this?</a>
           <a href="#features">Feature engineering</a>
           <a href="#model">Training the model</a>
           <a href="#shap">SHAP: why did you predict that?</a>
+          <a href="#results">Results: confusion matrices and benchmarks</a>
           <a href="#radar">The radar overlay</a>
           <a href="#frontend">Frontend: making it feel like a real app</a>
           <a href="#deployment">Deployment on Railway</a>
@@ -234,7 +338,7 @@
           <a href="#references">References</a>
         </div>
 
-        <!-- ── Content ───────────────────────────────────────────────── -->
+        <!-- ── Why ────────────────────────────────────────────────────── -->
         <h2 id="why">Why build a weather app?</h2>
 
         <p>
@@ -256,12 +360,12 @@
         </p>
 
         <p>
-          This project was also a chance to get serious about EDA. I'd read plenty about
-          exploratory data analysis in courses, but there's a difference between running
-          <code>df.describe()</code> on a toy dataset and actually understanding 8 years of
-          messy real-world sensor data. LionWeather forced me to do the real thing.
+          This project was also a chance to get serious about EDA &mdash; not just
+          <code>df.describe()</code> on a toy dataset, but actually understanding 8 years
+          of messy real-world sensor data.
         </p>
 
+        <!-- ── Try It ─────────────────────────────────────────────────── -->
         <h2 id="try-it">Try it yourself</h2>
 
         <p>
@@ -292,6 +396,7 @@
           </div>
         </div>
 
+        <!-- ── Architecture ───────────────────────────────────────────── -->
         <h2 id="architecture">How it all fits together</h2>
 
         <p>
@@ -301,36 +406,36 @@
           and Railway handles routing in production.
         </p>
 
-        <pre><code>┌─────────────────────────────────────────────────────┐
-│  Backend (FastAPI + Uvicorn)                        │
-│                                                     │
-│  17 API routers                                     │
-│  ├── /api/weather         Current conditions        │
-│  ├── /api/forecasts       4-day + hourly            │
-│  ├── /api/ml/rain-forecast  ML predictions          │
-│  ├── /api/ml/full-analysis  EDA + SHAP + benchmarks │
-│  ├── /api/radar           Animated rain imagery     │
-│  └── /admin/*             Retrain, export, health   │
-│                                                     │
-│  APScheduler (background jobs)                      │
-│  ├── Every 10 min   → Collect NEA observations      │
-│  ├── Every 1 hour   → Collect official forecasts    │
-│  ├── Every 2 min    → Fetch radar frames            │
-│  └── Sunday 2 AM    → Retrain ML model              │
-│                                                     │
-│  PostgreSQL (Railway) / SQLite (local)              │
-└─────────────────────────────────────────────────────┘
+        <pre><code>&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+&#9474;  Backend (FastAPI + Uvicorn)                        &#9474;
+&#9474;                                                     &#9474;
+&#9474;  17 API routers                                     &#9474;
+&#9474;  &#9500;&#9472;&#9472; /api/weather         Current conditions        &#9474;
+&#9474;  &#9500;&#9472;&#9472; /api/forecasts       4-day + hourly            &#9474;
+&#9474;  &#9500;&#9472;&#9472; /api/ml/rain-forecast  ML predictions          &#9474;
+&#9474;  &#9500;&#9472;&#9472; /api/ml/full-analysis  EDA + SHAP + benchmarks &#9474;
+&#9474;  &#9500;&#9472;&#9472; /api/radar           Animated rain imagery     &#9474;
+&#9474;  &#9492;&#9472;&#9472; /admin/*             Retrain, export, health   &#9474;
+&#9474;                                                     &#9474;
+&#9474;  APScheduler (background jobs)                      &#9474;
+&#9474;  &#9500;&#9472;&#9472; Every 10 min   &#8594; Collect NEA observations      &#9474;
+&#9474;  &#9500;&#9472;&#9472; Every 1 hour   &#8594; Collect official forecasts    &#9474;
+&#9474;  &#9500;&#9472;&#9472; Every 2 min    &#8594; Fetch radar frames            &#9474;
+&#9474;  &#9492;&#9472;&#9472; Sunday 2 AM    &#8594; Retrain ML model              &#9474;
+&#9474;                                                     &#9474;
+&#9474;  PostgreSQL (Railway) / SQLite (local)              &#9474;
+&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
 
-┌─────────────────────────────────────────────────────┐
-│  Frontend (React 18 + Vite + Tailwind)              │
-│                                                     │
-│  ├── Interactive Leaflet map with pin placement     │
-│  ├── Detailed weather cards (feels-like, UV, wind)  │
-│  ├── ML forecast comparison panel                   │
-│  ├── Animated radar layer                           │
-│  ├── Full EDA + SHAP analysis dashboard             │
-│  └── Browser notifications on rain start/stop       │
-└─────────────────────────────────────────────────────┘</code></pre>
+&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+&#9474;  Frontend (React 18 + Vite + Tailwind)              &#9474;
+&#9474;                                                     &#9474;
+&#9474;  &#9500;&#9472;&#9472; Interactive Leaflet map with pin placement     &#9474;
+&#9474;  &#9500;&#9472;&#9472; Detailed weather cards (feels-like, UV, wind)  &#9474;
+&#9474;  &#9500;&#9472;&#9472; ML forecast comparison panel                   &#9474;
+&#9474;  &#9500;&#9472;&#9472; Animated radar layer                           &#9474;
+&#9474;  &#9500;&#9472;&#9472; Full EDA + SHAP analysis dashboard             &#9474;
+&#9474;  &#9492;&#9472;&#9472; Browser notifications on rain start/stop       &#9474;
+&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</code></pre>
 
         <p>
           Yes, 17 routers is a lot. The project grew organically as I kept adding features. If I
@@ -338,6 +443,7 @@
           and they're easy to find, so I'm at peace with it.
         </p>
 
+        <!-- ── Data Collection ────────────────────────────────────────── -->
         <h2 id="data">Collecting the data</h2>
 
         <p>
@@ -359,7 +465,7 @@
         </p>
 
         <pre><code># Validation bounds (Singapore tropical range)
-TEMP_MIN, TEMP_MAX = 15.0, 42.0     # °C
+TEMP_MIN, TEMP_MAX = 15.0, 42.0     # &deg;C
 HUMIDITY_MIN, HUMIDITY_MAX = 20, 100  # %
 WIND_MAX = 60.0                       # km/h
 # Plus 3-sigma statistical outlier detection</code></pre>
@@ -371,13 +477,66 @@ WIND_MAX = 60.0                       # km/h
           add brittle deduplication logic everywhere.
         </p>
 
+        <!-- ── Meet the Data ──────────────────────────────────────────── -->
+        <h2 id="meet-the-data">Meet the data</h2>
+
+        <p>
+          Before we get into the heavy statistical analysis, let's look at what the data
+          actually <em>feels</em> like. The charts below are rendered from LionWeather's
+          live analysis API &mdash; the same data that powers the ML dashboard.
+        </p>
+
+        <p>
+          Start with the hourly pattern. Singapore's rainfall has a very distinctive daily rhythm
+          that anyone living here knows instinctively: mornings are usually dry, and the
+          afternoon hours bring the thunderstorms. The data confirms it.
+        </p>
+
+        <h3>Hourly patterns</h3>
+
+        <div class="toggle-group" id="toggle-hourly">
+          <button class="toggle-pill active" data-var="rainfall">Rainfall</button>
+          <button class="toggle-pill" data-var="temperature">Temperature</button>
+          <button class="toggle-pill" data-var="humidity">Humidity</button>
+          <button class="toggle-pill" data-var="wind_speed">Wind Speed</button>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-title">Average by Hour of Day</div>
+          <div class="chart-subtitle">8 years of hourly observations (2016&ndash;2024)</div>
+          <div id="chart-hourly" class="chart-loading">Loading chart data...</div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-icon">&#128270;</span>
+          <div>
+            <strong>What to look for:</strong> Rainfall peaks sharply between 3&ndash;6 PM &mdash;
+            that's Singapore's afternoon convective thunderstorm window. Temperature mirrors this:
+            it climbs through the morning, dips when the rain hits, then slowly cools into the night.
+            Humidity inverts temperature almost perfectly.
+          </div>
+        </div>
+
+        <h3>Annual rainfall trends</h3>
+
+        <p>
+          How much does it actually rain each year? And is it getting worse? The annual totals
+          tell a story of variability &mdash; some years are significantly wetter than others,
+          driven by El Ni&ntilde;o / La Ni&ntilde;a cycles and shifting monsoon patterns.
+        </p>
+
+        <div class="chart-wrap">
+          <div class="chart-title">Annual Rainfall Totals</div>
+          <div class="chart-subtitle">Total recorded rainfall per year in mm</div>
+          <div id="chart-annual" class="chart-loading">Loading chart data...</div>
+        </div>
+
+        <!-- ── EDA ────────────────────────────────────────────────────── -->
         <h2 id="eda">EDA: learning what the data actually looks like</h2>
 
         <p>
           If you're new to time series analysis, this section is for you. EDA (Exploratory Data
           Analysis) is the step where you look at your data before building any model. It sounds
-          obvious, but skipping it is the number one reason ML projects go sideways. You wouldn't
-          cook a meal without tasting the ingredients first.
+          obvious, but skipping it is one of the most common reasons ML projects go sideways.
         </p>
 
         <p>
@@ -413,7 +572,7 @@ WIND_MAX = 60.0                       # km/h
           Loess. It splits a time series into three components: <strong>trend</strong> (the
           long-term direction), <strong>seasonal</strong> (repeating patterns at fixed intervals),
           and <strong>residual</strong> (everything left over that the first two can't explain).
-          Think of it like separating a song into bass, melody, and noise.
+          Think of it like separating a song into bass (trend), melody (seasonal), and noise (residual).
         </p>
         <p>
           <strong>Why it matters:</strong> If the seasonal component is strong, your model can
@@ -421,6 +580,29 @@ WIND_MAX = 60.0                       # km/h
           randomness and your model will struggle. STL tells you upfront how predictable your
           data is.
         </p>
+
+        <div class="toggle-group" id="toggle-stl">
+          <button class="toggle-pill active" data-var="rainfall">Rainfall</button>
+          <button class="toggle-pill" data-var="temperature">Temperature</button>
+          <button class="toggle-pill" data-var="humidity">Humidity</button>
+          <button class="toggle-pill" data-var="wind_speed">Wind Speed</button>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-title">STL Decomposition</div>
+          <div class="chart-subtitle">Monthly data decomposed into trend, seasonal, and residual components</div>
+          <div id="chart-stl" class="chart-loading">Loading chart data...</div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-icon">&#128270;</span>
+          <div>
+            <strong>What to look for:</strong> Look at the seasonal component &mdash; the peaks
+            align with the northeast monsoon (Nov&ndash;Jan). The trend line reveals whether
+            Singapore is getting wetter or drier over time. The residual shows pure randomness:
+            the larger it is relative to the other components, the harder prediction will be.
+          </div>
+        </div>
+
         <p>
           <strong>What I found:</strong> The seasonal component was crystal clear. The northeast
           monsoon (November to January) brings sustained rain, while the southwest monsoon (May
@@ -443,6 +625,8 @@ WIND_MAX = 60.0                       # km/h
           it means the current value is strongly related to the value one time step ago.
           <strong>PACF</strong> (Partial Autocorrelation) does the same but removes the indirect
           effects of intermediate lags, giving you the <em>direct</em> relationship at each lag.
+          Think of it like asking a chain of people how accurately a message reaches person N &mdash;
+          ACF measures the total distortion, PACF measures how much each individual person adds.
         </p>
         <p>
           <strong>Why it matters:</strong> ACF and PACF tell you which lag features are worth
@@ -450,6 +634,30 @@ WIND_MAX = 60.0                       # km/h
           ARMA). Even if you're using gradient boosting like I did, understanding autocorrelation
           guides your feature engineering.
         </p>
+
+        <div class="toggle-group" id="toggle-acf">
+          <button class="toggle-pill active" data-var="rainfall">Rainfall</button>
+          <button class="toggle-pill" data-var="temperature">Temperature</button>
+          <button class="toggle-pill" data-var="humidity">Humidity</button>
+          <button class="toggle-pill" data-var="wind_speed">Wind Speed</button>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-title">ACF / PACF</div>
+          <div class="chart-subtitle">Autocorrelation and Partial Autocorrelation with 95% confidence bands</div>
+          <div id="chart-acf" class="chart-loading">Loading chart data...</div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-icon">&#128270;</span>
+          <div>
+            <strong>What to look for:</strong> Notice how rainfall correlation drops to near-zero
+            by lag 6&ndash;8. That's the "memory" of Singapore rain &mdash; after about 6 hours,
+            the current rain tells you almost nothing about the future. Temperature shows strong
+            periodicity at lag 24 (one full day cycle). Bars exceeding the dashed confidence lines
+            are statistically significant.
+          </div>
+        </div>
+
         <p>
           <strong>What I found:</strong> Rainfall's ACF showed significant correlation at lag 1
           (0.55) that dropped sharply to 0.20 at lag 2 and faded to near-zero by lag 6 to 8.
@@ -470,20 +678,44 @@ WIND_MAX = 60.0                       # km/h
         <p>
           <strong>What is FFT?</strong> Fast Fourier Transform converts your time-domain data
           into the frequency domain. Instead of asking "what happened at each time step?" you're
-          asking "what cycles exist in this data and how strong are they?" It's the same maths
-          that lets Shazam identify songs.
+          asking "what cycles exist in this data and how strong are they?" It's like using a
+          prism on sunlight &mdash; it separates the signal into its constituent frequencies.
+          FFT is foundational to audio processing, signal analysis, and many areas of engineering.
         </p>
         <p>
           <strong>Why it matters:</strong> FFT reveals hidden periodicities that might not be
           obvious from just plotting the raw data. Annual cycles, weekly patterns, or diurnal
           (day/night) rhythms all show up as distinct peaks.
         </p>
+
+        <div class="toggle-group" id="toggle-fft">
+          <button class="toggle-pill active" data-var="rainfall">Rainfall</button>
+          <button class="toggle-pill" data-var="temperature">Temperature</button>
+          <button class="toggle-pill" data-var="humidity">Humidity</button>
+          <button class="toggle-pill" data-var="wind_speed">Wind Speed</button>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-title">FFT Power Spectrum</div>
+          <div class="chart-subtitle">Dominant cycles in the data, log scale</div>
+          <div id="chart-fft" class="chart-loading">Loading chart data...</div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-icon">&#128270;</span>
+          <div>
+            <strong>What to look for:</strong> The tallest peak at ~24 hours confirms the diurnal
+            cycle. The secondary peak at ~180 days captures monsoon transitions. Annual peaks
+            (~8,760 hours) reflect the yearly monsoon cycle. Each peak is a "frequency" the model
+            can learn from.
+          </div>
+        </div>
+
         <p>
-          <strong>What I found:</strong> The annual cycle was the dominant peak, confirming the
-          monsoon seasons. A secondary peak appeared around the 180-day mark, which maps to the
-          inter-monsoon transition periods (March to April and October to November) when
-          Singapore's weather gets especially chaotic. This validated my decision to include
-          monsoon flags as features.
+          <strong>What I found:</strong> The diurnal (~24h) cycle was the dominant peak for
+          rainfall, driven by afternoon convective storms. Longer-period peaks corresponding
+          to monsoon transitions also appeared in the spectrum. Toggle to temperature to see
+          an even sharper 24-hour spike. These periodicities validated my decision to include
+          time-of-day encoding and monsoon flags as features.
         </p>
 
         <p>
@@ -503,6 +735,39 @@ WIND_MAX = 60.0                       # km/h
           </div>
         </div>
 
+        <!-- ── Stationarity ───────────────────────────────────────────── -->
+        <h2 id="stationarity">Stationarity: can we even model this?</h2>
+
+        <p>
+          Before throwing data at a model, there's a fundamental question: is the data
+          <em>stationary</em>? A stationary time series has a constant mean and variance over
+          time. If it's not stationary, many statistical techniques fall apart, and even
+          ML models can be fooled by drifting distributions.
+        </p>
+
+        <p>
+          The <strong>Augmented Dickey-Fuller (ADF)</strong> test checks this. It tests the
+          null hypothesis that the series has a unit root (non-stationary). A very negative
+          test statistic and a small p-value (&lt; 0.05) means we can reject the null and
+          conclude the data is stationary. Good news: it means the patterns we see are stable
+          enough to learn from.
+        </p>
+
+        <div id="chart-adf">
+          <div class="chart-loading" style="min-height:180px">Loading stationarity data...</div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-icon">&#128270;</span>
+          <div>
+            <strong>What to look for:</strong> All four variables should pass the ADF test
+            (p-value &lt; 0.05). The more negative the test statistic compared to critical values,
+            the stronger the evidence for stationarity. This is good &mdash; it means the
+            patterns we extracted from 8 years of data should remain valid for future predictions.
+          </div>
+        </div>
+
+        <!-- ── Features ───────────────────────────────────────────────── -->
         <h2 id="features">Feature engineering</h2>
 
         <p>
@@ -564,11 +829,12 @@ WIND_MAX = 60.0                       # km/h
         <h3>The star feature: dry spell hours</h3>
         <p>
           How many consecutive hours without rain before the prediction window. This ended
-          up being the single most important feature by SHAP value (4.41). Makes intuitive
-          sense: a long dry spell in tropical Singapore often means conditions are building
-          for a big release.
+          up being the most important feature by LightGBM's built-in gain metric, and
+          ranks in the top 5 by SHAP. Makes intuitive sense: a long dry spell in tropical
+          Singapore often means conditions are building toward a release.
         </p>
 
+        <!-- ── Model ──────────────────────────────────────────────────── -->
         <h2 id="model">Training the model</h2>
 
         <p>
@@ -623,26 +889,53 @@ WIND_MAX = 60.0                       # km/h
         </p>
 
         <ul>
-          <li><strong>1 hour</strong>: 73.2% accuracy (MAE: 14.8 mm) &ndash; the model does well for short-term prediction</li>
-          <li><strong>3 hours</strong>: 63.8% accuracy &ndash; still useful, but the uncertainty grows</li>
-          <li><strong>6 hours</strong>: 60.5% accuracy &ndash; getting noisy</li>
-          <li><strong>12 hours</strong>: 57.9% accuracy &ndash; barely better than a weighted coin flip</li>
+          <li><strong>1 hour</strong>: 75.2% accuracy (3-class) &ndash; the model does well short-term</li>
+          <li><strong>3 hours</strong>: 66.0% accuracy &ndash; still useful, but uncertainty grows</li>
+          <li><strong>6 hours</strong>: 61.0% accuracy &ndash; getting noisy</li>
+          <li><strong>12 hours</strong>: 58.7% accuracy &ndash; barely better than a weighted coin flip</li>
         </ul>
+
+        <h3>Loss curves</h3>
+        <p>
+          Every model's training story is told by its loss curves. These show how the model
+          improved over training rounds, and more importantly, whether it started overfitting
+          (when validation loss starts climbing while training loss keeps falling).
+        </p>
+
+        <div class="toggle-group" id="toggle-loss">
+          <button class="toggle-pill active" data-horizon="1">1h</button>
+          <button class="toggle-pill" data-horizon="3">3h</button>
+          <button class="toggle-pill" data-horizon="6">6h</button>
+          <button class="toggle-pill" data-horizon="12">12h</button>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-title">Training Loss Curves</div>
+          <div class="chart-subtitle">Classification (multi_logloss) &mdash; train vs. validation</div>
+          <div id="chart-loss" class="chart-loading">Loading chart data...</div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-icon">&#128270;</span>
+          <div>
+            <strong>What to look for:</strong> The gap between train and validation curves
+            indicates overfitting. A small, stable gap is healthy. If the val curve diverges
+            upward while train keeps dropping, the model is memorising noise. Early stopping
+            (500 rounds with patience) prevents this.
+          </div>
+        </div>
 
         <p>
           <strong>Reading the confusion matrix:</strong> The 1-hour model correctly identified
-          4,650 out of 5,177 "no rain" samples but misclassified 920 light rain samples as
-          "no rain." It's conservative: it would rather tell you it's dry than cry wolf. For
-          heavy rain and thundery showers, recall is lower since these are rare events
-          (only ~5% and ~10% of all hours). Class imbalance is a real challenge in weather
-          prediction, since most hours in Singapore are technically dry.
+          4,616 of its "no rain" predictions but misclassified 905 light rain samples as
+          "no rain." It's conservative: it would rather tell you it's dry than cry wolf.
+          Recall for heavy rain is lower since these events are rarer. Class imbalance is a
+          real challenge &mdash; most hours in Singapore are technically dry.
         </p>
 
         <p>
-          The 12-hour model is basically saying "I think it might rain, but honestly, flip a
-          coin." In Singapore's climate, that's not surprising. A thunderstorm can form and
-          dissipate in 30 minutes. Predicting 12 hours out is like predicting what you'll have
-          for dinner next Tuesday. You might get lucky, but don't bet on it.
+          The 12-hour model is barely better than a coin flip. In Singapore's climate,
+          that's not surprising &mdash; a thunderstorm can form and dissipate in 30 minutes.
+          Some things aren't meant to be predicted 12 hours ahead.
         </p>
 
         <h3>Hyperparameters</h3>
@@ -668,6 +961,7 @@ params = {
           small enough to commit to git and load at startup.
         </p>
 
+        <!-- ── SHAP ───────────────────────────────────────────────────── -->
         <h2 id="shap">SHAP: why did you predict that?</h2>
 
         <p>
@@ -687,6 +981,22 @@ params = {
           Without explainability, you're just trusting a number. With SHAP, you can validate
           whether the model's reasoning makes physical sense.
         </p>
+
+        <div class="chart-wrap">
+          <div class="chart-title">SHAP Feature Importance (1-Hour Regression)</div>
+          <div class="chart-subtitle">Top 15 features by mean |SHAP value| &mdash; higher means more influence</div>
+          <div id="chart-shap" class="chart-loading">Loading chart data...</div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-icon">&#128270;</span>
+          <div>
+            <strong>What to look for:</strong> The top features should make physical sense.
+            Spatial rainfall variation (rain_spatial_std) dominates because localised showers
+            strongly predict nearby rain. Pressure features rank surprisingly low &mdash; in
+            the tropics, spatial patterns trump barometric signals.
+          </div>
+        </div>
 
         <p>
           Here are the top features from LionWeather's 1-hour regression model, ranked by mean
@@ -709,11 +1019,11 @@ params = {
         </p>
 
         <p>
-          SHAP also revealed that the monsoon flags do real work. During the NE monsoon,
-          the model leans more heavily on humidity and sustained wind direction. During the
-          SW monsoon, the afternoon flag and temperature drop become more predictive. The
-          model learned the monsoon physics without me explicitly encoding it. That was a
-          satisfying moment.
+          The monsoon flags also appear in the importance rankings, suggesting the model
+          distinguishes between monsoon regimes. Combined with the strong showing of
+          spatial features (rain_west, rain_spatial_std), this indicates the model picked up
+          on the directional nature of Singapore's weather systems without me explicitly
+          encoding it.
         </p>
 
         <p>
@@ -722,6 +1032,68 @@ params = {
           covers the key concepts and pitfalls.
         </p>
 
+        <!-- ── Results ────────────────────────────────────────────────── -->
+        <h2 id="results">Results: confusion matrices and benchmarks</h2>
+
+        <p>
+          Numbers are nice, but a confusion matrix tells the full story. It shows not just
+          overall accuracy, but <em>what kinds</em> of mistakes the model makes. Think of it
+          like a fire alarm &mdash; high recall catches every fire but may give false alarms
+          (annoying but safe), while high precision means every alarm is real but you might
+          miss some fires (dangerous).
+        </p>
+
+        <h3>3-Class confusion matrix</h3>
+
+        <div class="toggle-group" id="toggle-cm">
+          <button class="toggle-pill active" data-horizon="1">1h</button>
+          <button class="toggle-pill" data-horizon="3">3h</button>
+          <button class="toggle-pill" data-horizon="6">6h</button>
+          <button class="toggle-pill" data-horizon="12">12h</button>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-title">Confusion Matrix (3-Class)</div>
+          <div class="chart-subtitle">No Rain / Light Rain / Heavy + Thundery</div>
+          <div id="chart-cm" class="chart-loading">Loading chart data...</div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-icon">&#128270;</span>
+          <div>
+            <strong>What to look for:</strong> Strong values along the diagonal mean correct
+            predictions. Off-diagonal values are errors. Notice how the model gets more
+            "confused" at longer horizons &mdash; the diagonal weakens and off-diagonal spreads.
+            The model is conservative: it rarely predicts heavy rain when there's none, but
+            sometimes misses light rain.
+          </div>
+        </div>
+
+        <h3>NEA benchmark: ML vs. the national forecast</h3>
+
+        <p>
+          The real test: how does a gradient-boosted model compare to Singapore's official
+          weather agency? NEA uses numerical weather prediction (NWP) with satellite data,
+          doppler radar, and human meteorologists. My model uses 8 years of historical sensor
+          data and some clever features. I also tested a 60/40 ensemble blend of ML and NEA.
+        </p>
+
+        <div class="chart-wrap">
+          <div class="chart-title">NEA vs. ML vs. Ensemble Accuracy</div>
+          <div class="chart-subtitle">3-class accuracy comparison on held-out test period</div>
+          <div id="chart-nea" class="chart-loading">Loading chart data...</div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-icon">&#128270;</span>
+          <div>
+            <strong>What to look for:</strong> If the ensemble bar is taller than either
+            individual model, that means the two approaches complement each other &mdash; they
+            make different kinds of mistakes. An ensemble that beats both components is a strong
+            signal that the models capture different aspects of the problem.
+          </div>
+        </div>
+
+        <!-- ── Radar ──────────────────────────────────────────────────── -->
         <h2 id="radar">The radar overlay</h2>
 
         <p>
@@ -744,6 +1116,7 @@ params = {
           satisfying, even if it means your laundry is about to get wet.
         </p>
 
+        <!-- ── Frontend ───────────────────────────────────────────────── -->
         <h2 id="frontend">Frontend: making it feel like a real app</h2>
 
         <p>
@@ -788,6 +1161,7 @@ params = {
           umbrella. The app works for both audiences.
         </p>
 
+        <!-- ── Deployment ─────────────────────────────────────────────── -->
         <h2 id="deployment">Deployment on Railway</h2>
 
         <p>
@@ -802,6 +1176,7 @@ params = {
           <li><strong>Scheduled retraining:</strong> Every Sunday at 2 AM, the backend kicks off a retrain job using the data collected that week. It runs in a subprocess so the main API stays responsive. The admin dashboard shows training progress and logs.</li>
         </ul>
 
+        <!-- ── Lessons ────────────────────────────────────────────────── -->
         <h2 id="lessons">Lessons learned</h2>
 
         <p>
@@ -818,13 +1193,13 @@ params = {
         <p><strong>Data leakage is sneaky and will flatter your metrics.</strong>
           My first model hit 95% accuracy. I was thrilled for about ten minutes, then
           realised my lag features were leaking future data. After fixing the split and
-          using proper <code>.shift()</code> alignment, accuracy dropped to 70%. That's the
+          using proper <code>.shift()</code> alignment, accuracy dropped to ~75%. That's the
           real number. It hurt, but it's honest.
         </p>
 
         <p><strong>Tropical weather is humbling.</strong>
           Convective thunderstorms can form in 15 minutes and vanish in 30. A model trained
-          on 8 years of data still only hits 57.5% at the 12-hour horizon. To be fair, if
+          on 8 years of data still only hits ~59% at the 12-hour horizon. To be fair, if
           Singapore's weather were predictable, we wouldn't all carry umbrellas in our bags
           365 days a year. Sometimes the best answer is "I don't know, check the radar."
         </p>
@@ -851,6 +1226,7 @@ params = {
 
         <hr class="divider" />
 
+        <!-- ── References ─────────────────────────────────────────────── -->
         <h2 id="references">References</h2>
 
         <ul>
@@ -872,5 +1248,587 @@ params = {
       </article>
       <footer>&copy; 2026 Haoming Koo</footer>
     </div>
+
+    <!-- ================================================================ -->
+    <!-- JAVASCRIPT: Data fetching, chart rendering, interactivity        -->
+    <!-- ================================================================ -->
+    <script>
+    (function () {
+      'use strict';
+
+      /* ── Constants ───────────────────────────────────────────────────── */
+      const API_URL = 'https://weather.kooexperience.com/api/ml/full-analysis';
+      const COLORS = {
+        blue: '#3b82f6', amber: '#f59e0b', emerald: '#10b981',
+        red: '#ef4444', purple: '#a855f7'
+      };
+      const VAR_COLORS = {
+        rainfall: COLORS.blue, temperature: COLORS.amber,
+        humidity: COLORS.emerald, wind_speed: COLORS.purple
+      };
+      const VAR_LABELS = {
+        rainfall: 'Rainfall (mm)', temperature: 'Temperature (\u00b0C)',
+        humidity: 'Humidity (%)', wind_speed: 'Wind Speed (km/h)'
+      };
+      const VAR_UNITS = {
+        rainfall: 'mm', temperature: '\u00b0C',
+        humidity: '%', wind_speed: 'km/h'
+      };
+
+      const PLOTLY_LAYOUT_BASE = {
+        paper_bgcolor: '#0e0e12',
+        plot_bgcolor: '#0e0e12',
+        font: { color: '#b0b0b8', family: 'Inter, system-ui, sans-serif', size: 12 },
+        margin: { l: 50, r: 20, t: 10, b: 40 },
+        xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24' },
+        yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24' }
+      };
+
+      const PLOTLY_CONFIG = {
+        responsive: true,
+        displayModeBar: false
+      };
+
+      let DATA = null;
+      let chartsRendered = {};
+
+      /* ── Utility ─────────────────────────────────────────────────────── */
+      function deepMerge(target, ...sources) {
+        for (const source of sources) {
+          for (const key in source) {
+            if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+              target[key] = deepMerge(target[key] || {}, source[key]);
+            } else {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      function layout(overrides) {
+        return deepMerge({}, PLOTLY_LAYOUT_BASE, overrides || {});
+      }
+
+      function showError(containerId) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        el.className = 'chart-error';
+        el.innerHTML = '<div>Could not load chart data.<br>Visit <a href="https://weather.kooexperience.com" target="_blank">the live app</a> to see these charts in action.</div>';
+      }
+
+      function showAllErrors() {
+        ['chart-hourly', 'chart-annual', 'chart-stl', 'chart-acf', 'chart-fft',
+         'chart-adf', 'chart-shap', 'chart-loss', 'chart-cm', 'chart-nea'].forEach(showError);
+      }
+
+      /* ── Toggle Pill Wiring ──────────────────────────────────────────── */
+      function wireToggle(groupId, callback) {
+        const group = document.getElementById(groupId);
+        if (!group) return;
+        group.addEventListener('click', function (e) {
+          const pill = e.target.closest('.toggle-pill');
+          if (!pill) return;
+          group.querySelectorAll('.toggle-pill').forEach(function (p) { p.classList.remove('active'); });
+          pill.classList.add('active');
+          callback(pill.dataset.var || pill.dataset.horizon);
+        });
+      }
+
+      /* ── Chart 1: Hourly Pattern ─────────────────────────────────────── */
+      function renderHourly(variable) {
+        if (!DATA || !DATA.eda || !DATA.eda[variable]) return;
+        var eda = DATA.eda[variable];
+        var hourly = eda.hourly_pattern;
+        var hours = [];
+        var vals = [];
+        for (var i = 0; i < 24; i++) {
+          hours.push(i + ':00');
+          vals.push(hourly[String(i)] || 0);
+        }
+        var trace = {
+          x: hours, y: vals, type: 'bar',
+          marker: { color: VAR_COLORS[variable], opacity: 0.85, line: { width: 0 } },
+          hovertemplate: '%{x}<br>%{y:.2f} ' + VAR_UNITS[variable] + '<extra></extra>'
+        };
+        Plotly.react('chart-hourly', [trace], layout({
+          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Hour of Day', tickangle: -45 },
+          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: VAR_LABELS[variable] },
+          margin: { l: 56, r: 20, t: 10, b: 56 }
+        }), PLOTLY_CONFIG);
+      }
+
+      /* ── Chart 2: Annual Rainfall ────────────────────────────────────── */
+      function renderAnnual() {
+        if (!DATA || !DATA.climate_trends || !DATA.climate_trends.annual) return;
+        var annual = DATA.climate_trends.annual;
+        var years = Object.keys(annual).sort();
+        var totals = years.map(function (y) { return annual[y].rainfall ? annual[y].rainfall.total_mm || 0 : 0; });
+        var trace = {
+          x: years, y: totals, type: 'bar',
+          marker: {
+            color: totals.map(function (v) {
+              var avg = totals.reduce(function (a, b) { return a + b; }, 0) / totals.length;
+              return v > avg ? COLORS.blue : 'rgba(59,130,246,0.4)';
+            }),
+            line: { width: 0 }
+          },
+          hovertemplate: 'Year %{x}<br>%{y:,.0f} mm<extra></extra>'
+        };
+        Plotly.react('chart-annual', [trace], layout({
+          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Year' },
+          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Total Rainfall (mm)' },
+          margin: { l: 64, r: 20, t: 10, b: 48 }
+        }), PLOTLY_CONFIG);
+      }
+
+      /* ── Chart 3: STL Decomposition ──────────────────────────────────── */
+      function renderSTL(variable) {
+        if (!DATA || !DATA.climate_trends || !DATA.climate_trends.stl_decomposition) return;
+        var stl = DATA.climate_trends.stl_decomposition;
+        var dates = stl.dates;
+        if (!dates || !stl.observed || !stl.observed[variable]) return;
+
+        var components = ['observed', 'trend', 'seasonal', 'residual'];
+        var compColors = [COLORS.blue, COLORS.amber, COLORS.emerald, COLORS.red];
+        var traces = [];
+        var annotations = [];
+
+        components.forEach(function (comp, i) {
+          traces.push({
+            x: dates, y: stl[comp][variable],
+            type: 'scatter', mode: 'lines',
+            line: { color: compColors[i], width: 1.5 },
+            name: comp.charAt(0).toUpperCase() + comp.slice(1),
+            xaxis: 'x', yaxis: 'y' + (i === 0 ? '' : (i + 1)),
+            hovertemplate: '%{x}<br>' + comp + ': %{y:.2f}<extra></extra>'
+          });
+        });
+
+        var yAxes = {};
+        components.forEach(function (comp, i) {
+          var key = i === 0 ? 'yaxis' : 'yaxis' + (i + 1);
+          var domain;
+          if (i === 0) domain = [0.78, 1.0];
+          else if (i === 1) domain = [0.52, 0.74];
+          else if (i === 2) domain = [0.26, 0.48];
+          else domain = [0.0, 0.22];
+          yAxes[key] = {
+            domain: domain,
+            gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            title: { text: comp.charAt(0).toUpperCase() + comp.slice(1), font: { size: 11 } }
+          };
+        });
+
+        Plotly.react('chart-stl', traces, layout(Object.assign({
+          height: 500,
+          showlegend: false,
+          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24' },
+          margin: { l: 64, r: 20, t: 10, b: 40 }
+        }, yAxes)), PLOTLY_CONFIG);
+      }
+
+      /* ── Chart 4: ACF / PACF ─────────────────────────────────────────── */
+      function renderACF(variable) {
+        if (!DATA || !DATA.acf_pacf || !DATA.acf_pacf[variable]) return;
+        var d = DATA.acf_pacf[variable];
+        var lags = d.lags;
+        var ci = d.ci_bound || 0;
+
+        // ACF bars
+        var acfColors = d.acf.map(function (v, i) {
+          if (i === 0) return COLORS.blue;
+          return Math.abs(v) > ci ? COLORS.blue : 'rgba(59,130,246,0.3)';
+        });
+        var acfTrace = {
+          x: lags, y: d.acf, type: 'bar',
+          marker: { color: acfColors, line: { width: 0 } },
+          xaxis: 'x', yaxis: 'y',
+          hovertemplate: 'Lag %{x}<br>ACF: %{y:.3f}<extra></extra>',
+          name: 'ACF'
+        };
+
+        // PACF bars
+        var pacfColors = d.pacf.map(function (v, i) {
+          if (i === 0) return COLORS.amber;
+          return Math.abs(v) > ci ? COLORS.amber : 'rgba(245,158,11,0.3)';
+        });
+        var pacfTrace = {
+          x: lags, y: d.pacf, type: 'bar',
+          marker: { color: pacfColors, line: { width: 0 } },
+          xaxis: 'x2', yaxis: 'y2',
+          hovertemplate: 'Lag %{x}<br>PACF: %{y:.3f}<extra></extra>',
+          name: 'PACF'
+        };
+
+        // Confidence bounds
+        var ciLines = [];
+        [['y', 'x'], ['y2', 'x2']].forEach(function (axes) {
+          var col = axes[0] === 'y' ? 'rgba(59,130,246,0.3)' : 'rgba(245,158,11,0.3)';
+          [ci, -ci].forEach(function (val) {
+            ciLines.push({
+              type: 'line', xref: axes[1], yref: axes[0],
+              x0: lags[0], x1: lags[lags.length - 1], y0: val, y1: val,
+              line: { dash: 'dash', color: col, width: 1 }
+            });
+          });
+        });
+
+        Plotly.react('chart-acf', [acfTrace, pacfTrace], layout({
+          height: 320,
+          showlegend: false,
+          shapes: ciLines,
+          xaxis: {
+            domain: [0, 0.47], gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            title: 'Lag (hours)'
+          },
+          yaxis: {
+            gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            title: 'ACF'
+          },
+          xaxis2: {
+            domain: [0.53, 1], gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            title: 'Lag (hours)', anchor: 'y2'
+          },
+          yaxis2: {
+            gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            title: 'PACF', anchor: 'x2'
+          },
+          margin: { l: 50, r: 20, t: 10, b: 48 },
+          annotations: [
+            { text: 'ACF', xref: 'paper', yref: 'paper', x: 0.23, y: 1.06, showarrow: false, font: { size: 13, color: COLORS.blue, weight: 600 } },
+            { text: 'PACF', xref: 'paper', yref: 'paper', x: 0.76, y: 1.06, showarrow: false, font: { size: 13, color: COLORS.amber, weight: 600 } }
+          ]
+        }), PLOTLY_CONFIG);
+      }
+
+      /* ── Chart 5: FFT Spectrum ───────────────────────────────────────── */
+      function renderFFT(variable) {
+        if (!DATA || !DATA.spectral || !DATA.spectral[variable]) return;
+        var spec = DATA.spectral[variable];
+        var chartData = spec.chart_data;
+        if (!chartData || chartData.length === 0) return;
+
+        var x = chartData.map(function (d) { return d.period_h; });
+        var y = chartData.map(function (d) { return d.power; });
+
+        var trace = {
+          x: x, y: y, type: 'scatter', mode: 'lines',
+          line: { color: VAR_COLORS[variable], width: 1.5 },
+          fill: 'tozeroy', fillcolor: VAR_COLORS[variable].replace(')', ',0.08)').replace('rgb', 'rgba'),
+          hovertemplate: 'Period: %{x:.1f}h<br>Power: %{y:.2e}<extra></extra>'
+        };
+
+        // Annotate dominant periods
+        var annotations = [];
+        if (spec.top_dominant_periods) {
+          spec.top_dominant_periods.slice(0, 3).forEach(function (peak, i) {
+            annotations.push({
+              x: Math.log10(peak.period_h), y: Math.log10(peak.power),
+              text: peak.period_h >= 24 ? (peak.period_h / 24).toFixed(0) + 'd' : peak.period_h.toFixed(0) + 'h',
+              showarrow: true, arrowhead: 2, arrowsize: 0.8,
+              arrowcolor: '#64647a', ax: 0, ay: -28 - i * 6,
+              font: { color: COLORS.amber, size: 11, weight: 600 },
+              bgcolor: '#0e0e12', borderpad: 3
+            });
+          });
+        }
+
+        Plotly.react('chart-fft', [trace], layout({
+          xaxis: {
+            type: 'log', gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            title: 'Period (hours)'
+          },
+          yaxis: {
+            type: 'log', gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            title: 'Power'
+          },
+          annotations: annotations,
+          margin: { l: 64, r: 20, t: 16, b: 48 }
+        }), PLOTLY_CONFIG);
+      }
+
+      /* ── Chart 6: ADF Stationarity Cards ─────────────────────────────── */
+      function renderADF() {
+        if (!DATA || !DATA.stationarity) return;
+        var container = document.getElementById('chart-adf');
+        if (!container) return;
+
+        var variables = ['rainfall', 'temperature', 'humidity', 'wind_speed'];
+        var labels = { rainfall: 'Rainfall', temperature: 'Temperature', humidity: 'Humidity', wind_speed: 'Wind Speed' };
+        var html = '<div class="stationarity-grid">';
+
+        variables.forEach(function (v) {
+          var d = DATA.stationarity[v];
+          if (!d) return;
+          var pass = d.is_stationary;
+          var statusClass = pass ? 'stat-pass' : 'stat-fail';
+          var statusText = pass ? 'Stationary' : 'Non-stationary';
+          var crit5 = d.critical_values ? d.critical_values['5%'] : null;
+
+          // Gauge: map ADF statistic relative to critical value
+          var pct = 0;
+          if (crit5 !== null && d.adf_statistic < 0) {
+            pct = Math.min(100, Math.abs(d.adf_statistic) / Math.abs(crit5) * 50);
+          }
+          var barColor = pass ? COLORS.emerald : COLORS.red;
+
+          html += '<div class="stat-card">';
+          html += '<div class="stat-card-label">' + labels[v] + '</div>';
+          html += '<div class="stat-card-value ' + statusClass + '">' + statusText + '</div>';
+          html += '<div class="stat-card-detail">ADF: ' + d.adf_statistic.toFixed(2) + '</div>';
+          html += '<div class="stat-card-detail">p-value: ' + d.p_value.toExponential(2) + '</div>';
+          if (crit5 !== null) {
+            html += '<div class="stat-card-detail">Critical (5%): ' + crit5.toFixed(2) + '</div>';
+          }
+          html += '<div class="stat-bar-track">';
+          html += '<div class="stat-bar-fill" style="width:' + pct + '%;background:' + barColor + '"></div>';
+          if (crit5 !== null) {
+            html += '<div class="stat-bar-marker" style="left:50%;background:' + COLORS.amber + '" title="5% critical value"></div>';
+          }
+          html += '</div>';
+          html += '</div>';
+        });
+        html += '</div>';
+        container.innerHTML = html;
+      }
+
+      /* ── Chart 7: SHAP Feature Importance ────────────────────────────── */
+      function renderSHAP() {
+        if (!DATA || !DATA.shap || !DATA.shap.regression_1h || !DATA.shap.regression_1h.global_importance) return;
+        var items = DATA.shap.regression_1h.global_importance.slice(0, 15).reverse();
+        var features = items.map(function (d) { return d.feature; });
+        var values = items.map(function (d) { return d.mean_abs_shap; });
+        var maxVal = Math.max.apply(null, values);
+
+        var colors = values.map(function (v) {
+          var ratio = v / maxVal;
+          var r = Math.round(59 * ratio);
+          var g = Math.round(130 * ratio);
+          var b = Math.round(246 * ratio);
+          return 'rgba(' + (30 + r) + ',' + (60 + g) + ',' + (180 + b) + ',0.85)';
+        });
+
+        var trace = {
+          x: values, y: features, type: 'bar', orientation: 'h',
+          marker: { color: colors, line: { width: 0 } },
+          hovertemplate: '%{y}<br>Mean |SHAP|: %{x:.3f}<extra></extra>'
+        };
+
+        Plotly.react('chart-shap', [trace], layout({
+          height: 420,
+          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Mean |SHAP Value|' },
+          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', automargin: true },
+          margin: { l: 160, r: 20, t: 10, b: 48 }
+        }), PLOTLY_CONFIG);
+      }
+
+      /* ── Chart 8: Loss Curves ────────────────────────────────────────── */
+      function renderLoss(horizon) {
+        if (!DATA || !DATA.loss_curves) return;
+        // Index mapping: [0]=1h class, [1]=1h reg, [2]=3h class, [3]=3h reg, ...
+        var horizonMap = { '1': 0, '3': 2, '6': 4, '12': 6 };
+        var idx = horizonMap[String(horizon)];
+        if (idx === undefined || !DATA.loss_curves[idx]) return;
+
+        var d = DATA.loss_curves[idx];
+        var epochs = d.train.map(function (_, i) { return i + 1; });
+
+        var traces = [
+          {
+            x: epochs, y: d.train, type: 'scatter', mode: 'lines',
+            line: { color: COLORS.blue, width: 2 },
+            name: 'Train', hovertemplate: 'Round %{x}<br>Train: %{y:.4f}<extra></extra>'
+          },
+          {
+            x: epochs, y: d.val, type: 'scatter', mode: 'lines',
+            line: { color: COLORS.amber, width: 2, dash: 'dot' },
+            name: 'Validation', hovertemplate: 'Round %{x}<br>Val: %{y:.4f}<extra></extra>'
+          }
+        ];
+
+        Plotly.react('chart-loss', traces, layout({
+          height: 320,
+          showlegend: true,
+          legend: { x: 0.7, y: 0.95, bgcolor: 'rgba(0,0,0,0)', font: { size: 11 } },
+          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Boosting Round' },
+          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: d.metric || 'Loss' },
+          margin: { l: 64, r: 20, t: 10, b: 48 }
+        }), PLOTLY_CONFIG);
+      }
+
+      /* ── Chart 9: Confusion Matrix ───────────────────────────────────── */
+      function renderCM(horizon) {
+        if (!DATA || !DATA.three_class_results) return;
+        var result = DATA.three_class_results.find(function (r) { return r.horizon_h === parseInt(horizon); });
+        if (!result || !result.confusion_matrix) return;
+
+        var cm = result.confusion_matrix;
+        var cats = result.categories || ['No Rain', 'Light Rain', 'Heavy+Thundery'];
+
+        // Build text annotations
+        var textMatrix = cm.map(function (row) {
+          return row.map(function (v) { return String(v); });
+        });
+
+        // Normalize for color intensity (row-wise)
+        var zNorm = cm.map(function (row) {
+          var rowSum = row.reduce(function (a, b) { return a + b; }, 0);
+          return row.map(function (v) { return rowSum > 0 ? v / rowSum : 0; });
+        });
+
+        var trace = {
+          z: zNorm, x: cats, y: cats,
+          type: 'heatmap',
+          colorscale: [
+            [0, '#0e0e12'],
+            [0.25, 'rgba(59,130,246,0.15)'],
+            [0.5, 'rgba(59,130,246,0.35)'],
+            [0.75, 'rgba(59,130,246,0.6)'],
+            [1, '#3b82f6']
+          ],
+          showscale: false,
+          hovertemplate: 'Actual: %{y}<br>Predicted: %{x}<br>Count: %{text}<extra></extra>',
+          text: textMatrix
+        };
+
+        // Text annotations on cells
+        var annotations = [];
+        for (var i = 0; i < cm.length; i++) {
+          for (var j = 0; j < cm[i].length; j++) {
+            annotations.push({
+              x: cats[j], y: cats[i],
+              text: String(cm[i][j]),
+              showarrow: false,
+              font: { color: zNorm[i][j] > 0.5 ? '#fff' : '#b0b0b8', size: 14, weight: 600 }
+            });
+          }
+        }
+
+        var acc = result.accuracy;
+        var accText = acc !== undefined ? 'Accuracy: ' + (acc * 100).toFixed(1) + '%' : '';
+
+        Plotly.react('chart-cm', [trace], layout({
+          height: 340,
+          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Predicted', side: 'bottom' },
+          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Actual', autorange: 'reversed' },
+          annotations: annotations.concat([{
+            text: accText, xref: 'paper', yref: 'paper',
+            x: 1, y: 1.1, showarrow: false,
+            font: { color: COLORS.emerald, size: 13, weight: 600 }
+          }]),
+          margin: { l: 120, r: 20, t: 30, b: 60 }
+        }), PLOTLY_CONFIG);
+      }
+
+      /* ── Chart 10: NEA Benchmark ─────────────────────────────────────── */
+      function renderNEA() {
+        if (!DATA || !DATA.nea_benchmark || !DATA.nea_benchmark.overall || !DATA.nea_benchmark.overall.class3) return;
+        var bench = DATA.nea_benchmark.overall.class3;
+
+        var models = [];
+        var labels = [];
+        var colors = [];
+
+        if (bench.nea) {
+          models.push(bench.nea.accuracy * 100);
+          labels.push('NEA');
+          colors.push(COLORS.amber);
+        }
+        if (bench.ml_island_wide) {
+          models.push(bench.ml_island_wide.accuracy * 100);
+          labels.push('ML (LightGBM)');
+          colors.push(COLORS.blue);
+        }
+        if (bench.ensemble_60ml_40nea) {
+          models.push(bench.ensemble_60ml_40nea.accuracy * 100);
+          labels.push('Ensemble (60/40)');
+          colors.push(COLORS.emerald);
+        }
+
+        var trace = {
+          x: labels, y: models, type: 'bar',
+          marker: { color: colors, line: { width: 0 }, opacity: 0.9 },
+          text: models.map(function (v) { return v.toFixed(1) + '%'; }),
+          textposition: 'outside',
+          textfont: { color: '#b0b0b8', size: 12 },
+          hovertemplate: '%{x}<br>Accuracy: %{y:.1f}%<extra></extra>'
+        };
+
+        Plotly.react('chart-nea', [trace], layout({
+          height: 320,
+          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24' },
+          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Accuracy (%)', range: [0, 100] },
+          margin: { l: 56, r: 20, t: 30, b: 40 }
+        }), PLOTLY_CONFIG);
+      }
+
+      /* ── IntersectionObserver for Scroll-triggered Rendering ──────── */
+      function setupObserver() {
+        var chartMap = {
+          'chart-hourly': function () { renderHourly('rainfall'); },
+          'chart-annual': renderAnnual,
+          'chart-stl': function () { renderSTL('rainfall'); },
+          'chart-acf': function () { renderACF('rainfall'); },
+          'chart-fft': function () { renderFFT('rainfall'); },
+          'chart-adf': renderADF,
+          'chart-shap': renderSHAP,
+          'chart-loss': function () { renderLoss(1); },
+          'chart-cm': function () { renderCM(1); },
+          'chart-nea': renderNEA
+        };
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && !chartsRendered[entry.target.id]) {
+              chartsRendered[entry.target.id] = true;
+              var fn = chartMap[entry.target.id];
+              if (fn) fn();
+            }
+          });
+        }, { rootMargin: '200px 0px', threshold: 0.01 });
+
+        Object.keys(chartMap).forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) observer.observe(el);
+        });
+      }
+
+      /* ── Wire Toggle Controls ────────────────────────────────────────── */
+      function setupToggles() {
+        wireToggle('toggle-hourly', function (v) { renderHourly(v); });
+        wireToggle('toggle-stl', function (v) { renderSTL(v); });
+        wireToggle('toggle-acf', function (v) { renderACF(v); });
+        wireToggle('toggle-fft', function (v) { renderFFT(v); });
+        wireToggle('toggle-loss', function (h) { renderLoss(parseInt(h)); });
+        wireToggle('toggle-cm', function (h) { renderCM(parseInt(h)); });
+      }
+
+      /* ── Fetch Data & Initialize ─────────────────────────────────────── */
+      function init() {
+        setupToggles();
+
+        fetch(API_URL)
+          .then(function (res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          })
+          .then(function (json) {
+            DATA = json;
+            setupObserver();
+          })
+          .catch(function (err) {
+            console.warn('LionWeather API fetch failed:', err);
+            showAllErrors();
+          });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
   </body>
 </html>
