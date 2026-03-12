@@ -321,32 +321,5 @@ By Haoming Koo — kooexperience.com/travel/posts/japan.html]]></description>
       </Placemark>
     </Folder>
 
-    <!-- ── LEGEND ─────────────────────────────────────── -->
-    <Folder>
-      <name>Legend</name>
-      <description><![CDATA[Icon guide for this map:
-• Blue pin = Hotel / Accommodation
-• Purple pin = Attraction / Landmark
-• Green pin = Restaurant / Food
-• Purple line = Travel route between locations]]></description>
-      <Placemark>
-        <name>🔵 = Hotel</name>
-        <visibility>0</visibility>
-        <styleUrl>#hotel</styleUrl>
-        <Point><coordinates>0,0,0</coordinates></Point>
-      </Placemark>
-      <Placemark>
-        <name>🟣 = Attraction</name>
-        <visibility>0</visibility>
-        <styleUrl>#attraction</styleUrl>
-        <Point><coordinates>0,0,0</coordinates></Point>
-      </Placemark>
-      <Placemark>
-        <name>🟢 = Restaurant</name>
-        <visibility>0</visibility>
-        <styleUrl>#food</styleUrl>
-        <Point><coordinates>0,0,0</coordinates></Point>
-      </Placemark>
-    </Folder>
   </Document>
 </kml>
