@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5 Days in Seoul &mdash; Palaces, Street Food &amp; Cafe Culture &mdash; Travel &mdash; Haoming Koo</title>
+    <meta name="description" content="A summer trip through Seoul &mdash; Gyeongbokgung Palace, Bukchon hanoks, DMZ, Nami Island, and a deep dive into Korea's cafe culture." />
+    <link rel="canonical" href="https://kooexperience.com/travel/posts/korea.html" />
+    <meta property="og:title" content="5 Days in Seoul &mdash; Palaces, Street Food &amp; Cafe Culture" />
+    <meta property="og:description" content="Gyeongbokgung, Bukchon, the DMZ, Nami Island, and Seoul's extraordinary cafe scene &mdash; a summer trip from Singapore." />
+    <meta property="og:url" content="https://kooexperience.com/travel/posts/korea.html" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "5 Days in Seoul — Palaces, Street Food & Cafe Culture",
+      "author": { "@type": "Person", "name": "Haoming Koo" },
+      "datePublished": "2023-08-13",
+      "description": "A summer trip through Seoul — Gyeongbokgung, Bukchon hanoks, the DMZ, Nami Island, and Seoul's cafe culture."
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #a855f7;
+        --accent-dim: rgba(168,85,247,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+        --green: #22c55e;
+        --green-dim: rgba(34,197,94,.10);
+        --pink: #f472b6;
+        --pink-dim: rgba(244,114,182,.10);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168,85,247,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(6,6,8,.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between;
+        height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px;
+        transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+
+      .hero-cover {
+        width: 100%; height: 340px; object-fit: cover;
+        border-radius: 16px; margin-bottom: 32px;
+        border: 1px solid var(--border);
+      }
+
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .reading-time { color: var(--muted); }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle {
+        font-size: 17px; color: var(--text-secondary); line-height: 1.6;
+        margin-bottom: 32px;
+      }
+      .article h2 {
+        font-size: 22px; font-weight: 700; margin: 48px 0 16px;
+        letter-spacing: -.01em; color: var(--text);
+      }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article img:not(.hero-cover):not(.gallery-img) {
+        max-width: 100%; border-radius: 12px; margin: 24px 0;
+        border: 1px solid var(--border);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title {
+        font-size: 11px; font-weight: 600; letter-spacing: .14em;
+        text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+      }
+      .toc a {
+        display: block; font-size: 13.5px; color: var(--text-secondary);
+        text-decoration: none; padding: 4px 0; transition: color .2s;
+      }
+      .toc a:hover { color: var(--accent); }
+
+      .map-container {
+        width: 100%; height: 400px;
+        border-radius: 14px; overflow: hidden;
+        border: 1px solid var(--border);
+        margin: 32px 0;
+      }
+      .map-container .leaflet-container { height: 100%; width: 100%; }
+      .leaflet-container { background: var(--bg); }
+      .leaflet-popup-content-wrapper {
+        background: var(--surface); color: var(--text);
+        border: 1px solid var(--border); border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(0,0,0,.5);
+      }
+      .leaflet-popup-tip { background: var(--surface); }
+      .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
+      .leaflet-control-attribution { font-size: 9px; opacity: .5; }
+      .leaflet-control-zoom a {
+        background: var(--surface) !important; color: var(--text) !important;
+        border-color: var(--border) !important;
+      }
+      .city-label {
+        background: none !important; border: none !important; box-shadow: none !important;
+        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600;
+        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
+        white-space: nowrap;
+      }
+
+      .itinerary { margin: 32px 0; }
+      .city-section-header {
+        display: flex; align-items: center; gap: 12px;
+        margin: 40px 0 16px; padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      .city-section-header:first-child { margin-top: 0; }
+      .city-name { font-size: 18px; font-weight: 700; color: var(--text); }
+      .city-nights { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+      .day-card {
+        position: relative;
+        padding: 24px 24px 24px 40px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        margin-bottom: 16px;
+        transition: border-color .2s;
+      }
+      .day-card:hover { border-color: rgba(168,85,247,.3); }
+      .day-card::before {
+        content: "";
+        position: absolute; left: 18px; top: 0; bottom: -16px;
+        width: 2px; background: var(--border);
+      }
+      .day-card:last-child::before { bottom: 50%; }
+      .day-card::after {
+        content: "";
+        position: absolute; left: 13px; top: 28px;
+        width: 12px; height: 12px; border-radius: 50%;
+        background: var(--accent); border: 2px solid var(--bg);
+        z-index: 1;
+      }
+      .day-label {
+        font-size: 11px; font-weight: 600; letter-spacing: .12em;
+        text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+      }
+      .day-title {
+        font-size: 17px; font-weight: 600; color: var(--text);
+        margin-bottom: 6px;
+      }
+      .day-desc {
+        font-size: 13.5px; color: var(--muted); line-height: 1.6;
+      }
+      .day-tags {
+        display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+      }
+      .day-tag {
+        font-size: 10px; font-weight: 500; padding: 2px 8px;
+        border-radius: 6px; background: rgba(255,255,255,.04);
+        color: var(--muted); border: 1px solid rgba(255,255,255,.05);
+      }
+
+      .cost-table {
+        width: 100%; border-collapse: collapse; margin: 24px 0;
+        font-size: 13.5px;
+      }
+      .cost-table th {
+        text-align: left; font-size: 11px; font-weight: 600;
+        letter-spacing: .1em; text-transform: uppercase;
+        color: var(--muted); padding: 8px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .cost-table th:last-child { text-align: right; }
+      .cost-table td {
+        padding: 10px 12px; color: var(--text-secondary);
+        border-bottom: 1px solid rgba(255,255,255,.03);
+      }
+      .cost-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+      .cost-table .category-row td {
+        font-weight: 600; color: var(--accent); font-size: 12px;
+        letter-spacing: .05em; text-transform: uppercase;
+        padding-top: 20px;
+      }
+      .cost-table .total-row td {
+        font-weight: 700; color: var(--text); font-size: 15px;
+        border-top: 2px solid var(--border); border-bottom: none;
+        padding-top: 16px;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 8px;
+        margin: 32px 0;
+      }
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        aspect-ratio: 4 / 3;
+        transition: transform .22s, border-color .22s;
+      }
+      .gallery-item:hover {
+        transform: scale(1.02);
+        border-color: rgba(168,85,247,.3);
+      }
+      .gallery-item.featured {
+        grid-column: span 2;
+        grid-row: span 2;
+        aspect-ratio: auto;
+      }
+      .gallery-img {
+        width: 100%; height: 100%; object-fit: cover;
+        display: block;
+      }
+      .gallery-caption {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        padding: 24px 12px 8px;
+        background: linear-gradient(transparent, rgba(0,0,0,.7));
+        font-size: 11px; color: rgba(255,255,255,.8);
+      }
+
+      .info-box {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+      }
+      .info-box-title {
+        font-size: 13px; font-weight: 600; color: var(--text);
+        margin-bottom: 8px;
+      }
+      .info-box-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 6px 0; font-size: 13px;
+        border-bottom: 1px solid rgba(255,255,255,.03);
+      }
+      .info-box-row:last-child { border-bottom: none; }
+      .info-box-label { color: var(--muted); }
+      .info-box-value { color: var(--text-secondary); font-weight: 500; }
+
+      .callout {
+        background: var(--accent-dim); border-left: 3px solid var(--accent);
+        border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 24px 0;
+        font-size: 13.5px; color: var(--text-secondary);
+      }
+      .callout strong { color: var(--text); }
+
+      footer {
+        border-top: 1px solid var(--border); padding: 32px 0 40px;
+        font-size: 13px; color: var(--muted); text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+        .hero-cover { height: 220px; }
+        .map-container { height: 280px; }
+        .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        .gallery-item.featured { grid-column: span 1; grid-row: span 1; aspect-ratio: 4/3; }
+        .day-card { padding-left: 36px; }
+        .cost-table { font-size: 12px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../../">HK</a>
+        <a href="../">Travel</a>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../">&larr; Back to travel</a>
+
+        <!-- Hero image — replace src with your photo -->
+        <!-- <img class="hero-cover" src="" alt="Gyeongbokgung Palace, Seoul" loading="eager" /> -->
+
+        <div class="article-meta">
+          <span class="article-tag">Korea</span>
+          <span class="article-tag" style="background: var(--green-dim); color: var(--green);">Food</span>
+          <span class="article-tag" style="background: var(--green-dim); color: var(--green);">Cafes</span>
+          <span>Aug 2023</span>
+          <span class="reading-time">12 min read</span>
+        </div>
+
+        <h1>5 Days in Seoul &mdash; Palaces, Street Food &amp; Cafe Culture</h1>
+        <p class="subtitle">
+          Myeongdong &rarr; Anguk &rarr; Bukchon &rarr; Nami Island &rarr; DMZ &rarr; Hongdae.
+          Ancient palaces and hanok villages by day, Korean BBQ and rooftop cafes by night.
+          Here's everything we did and what I'd do differently.
+        </p>
+
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#overview">Overview</a>
+          <a href="#for-you">Is This Trip For You?</a>
+          <a href="#map">Route Map</a>
+          <a href="#seoul">Seoul &mdash; Palaces, Hanoks &amp; BBQ</a>
+          <a href="#nami">Nami Island Day Trip</a>
+          <a href="#dmz">DMZ Day Trip</a>
+          <a href="#hindsight">What I'd Do Differently</a>
+          <a href="#tickets">Booking Guide</a>
+          <a href="#planning-timeline">Planning Timeline</a>
+          <a href="#other-places">Other Places to Consider</a>
+          <a href="#photos">Photos</a>
+          <a href="#food">What to Eat</a>
+          <a href="#tips">Quick Tips</a>
+        </div>
+
+        <!-- ── Overview ──────────────────────────────────────────────────── -->
+        <h2 id="overview">Overview</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">Trip Details</div>
+          <div class="info-box-row">
+            <span class="info-box-label">Dates</span>
+            <span class="info-box-value">Aug 9 &ndash; 13, 2023</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Duration</span>
+            <span class="info-box-value">5 days</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Route</span>
+            <span class="info-box-value">Singapore &rarr; Seoul &rarr; Nami Island (day trip) &rarr; DMZ (day trip) &rarr; Singapore</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Flight</span>
+            <span class="info-box-value">T-way Air TW172 (SIN&rarr;ICN) / TW171 (ICN&rarr;SIN)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Hotel</span>
+            <span class="info-box-value">Nine Tree Hotel Myeongdong &middot; 4 nights</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Season</span>
+            <span class="info-box-value">Summer (hot and humid, 30&deg;C+)</span>
+          </div>
+        </div>
+
+        <p>
+          Seoul packs a remarkable amount into a small city. You can walk from a 600-year-old
+          palace to a specialty cafe in fifteen minutes, then take a short subway ride to
+          a rooftop hanok village serving castella cakes in a bamboo forest. It's a city that
+          layers history and modernity without apology &mdash; and the food, from cheap kalguksu
+          noodle shops to premium Korean BBQ, is reason enough to come.
+        </p>
+        <p>
+          We used Myeongdong as our base for the entire trip, which turned out to be the right
+          call. It's central, walkable to most of the old city, and a fifteen-minute subway ride
+          from almost everything else. Two day trips broke up the Seoul days nicely &mdash;
+          Nami Island for the scenic tree-lined paths, and the DMZ for one of the most sobering
+          and fascinating experiences you can have near Seoul.
+        </p>
+
+        <!-- ── Is This Trip For You? ─────────────────────────────────────── -->
+        <h2 id="for-you">Is This Trip For You?</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">If you nod to most of these, keep reading</div>
+          <div class="info-box-row">
+            <span class="info-box-label">You want to explore palaces, hanok villages, and Buddhist temples</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You're serious about food &mdash; Korean BBQ, cold noodles, fried chicken</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You're into specialty cafe culture (Seoul's scene is world-class)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You want a short-haul trip from Singapore with no jet lag</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You're curious about the Korean War and the DMZ</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You can handle 30&deg;C+ humidity in summer</span>
+          </div>
+        </div>
+
+        <!-- ── Map ───────────────────────────────────────────────────────── -->
+        <h2 id="map">Route Map</h2>
+        <p>Click on any marker to see what we did in each area.</p>
+        <div class="map-container">
+          <div id="trip-map"></div>
+        </div>
+
+        <!-- ── SEOUL ──────────────────────────────────────────────────────── -->
+        <h2 id="seoul">Seoul</h2>
+        <div class="city-section-header">
+          <span class="city-name">Seoul</span>
+          <span class="city-nights">4 nights &middot; Nine Tree Hotel Myeongdong</span>
+        </div>
+
+        <p>
+          Nine Tree Hotel Myeongdong is a solid base. Myeongdong itself is walkable to
+          Changdeokgung, Insadong, Jogyesa Temple, and the Cheonggyecheon stream, and the
+          subway puts you anywhere else in minutes. The area buzzes with street food stalls
+          at night, which is either great or annoying depending on your mood &mdash; we liked it.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 1 &mdash; Aug 9 (Wed)</div>
+            <div class="day-title">Arrival, Palaces &amp; Hanok Cafes</div>
+            <div class="day-desc">
+              Took the 1:55am flight TW172 from Singapore, arrived Incheon at 9:35am. Checked into
+              Nine Tree Hotel and headed straight to lunch at <strong>Myeongdong Kyoja</strong>
+              &mdash; a no-frills Seoul institution. Kalguksu (chopped noodle soup), bibimguksu
+              (spicy cold noodles), and mandu dumplings. Cheap and genuinely incredible; the broth
+              alone justifies the trip.<br><br>
+              Afternoon: <strong>Changdeokgung Palace</strong> and the Secret Garden tour at 2:30pm
+              (~70 min guided). Book the English tour online &mdash; tickets are limited.
+              After the palace, walked to <strong>Cafe Onion Anguk</strong>, a restored hanok
+              (traditional Korean house dating to the 14th century) now serving excellent coffee
+              and their signature pandoro bread. One of the most atmospheric cafes I've been to.<br><br>
+              Spent the rest of the evening in <strong>Ikseondong Hanok Village</strong>, a cluster
+              of trendy cafes and shops inside traditional buildings: Cheong Su Dang for castella
+              cakes in a bamboo-forest hanok, Nakwon Station for retro train station vibes,
+              Donut Jungsu for rooftop views and matcha donuts, Ikseon Goro for their purpleberry
+              ice cream, and Cheese Industry for cheese cakes. Could easily spend three hours here.<br><br>
+              Ended the night with a walk through <strong>Unhyeongung Palace</strong>, down
+              <strong>Insadong Cultural Street</strong> (the Ssamzigil complex has rooftop cafes
+              and DIY craft stalls), past <strong>Jogyesa Temple</strong> (open 24 hours &mdash;
+              the main temple of Korean Buddhism), and along the <strong>Cheonggyecheon stream</strong>
+              (a revived urban waterway with walkways and lit bridges, also 24h).
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Arrival</span>
+              <span class="day-tag">Palace</span>
+              <span class="day-tag">Hanok Cafes</span>
+              <span class="day-tag">Street Walk</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 2 &mdash; Aug 10 (Thu)</div>
+            <div class="day-title">Gyeongbokgung, Bukchon &amp; Korean BBQ</div>
+            <div class="day-desc">
+              Breakfast at <strong>Isaac Toast &amp; Coffee</strong> &mdash; the bulgogi toast
+              and bacon are both excellent, and the price is absurdly low. Seoul's equivalent
+              of a hawker breakfast.<br><br>
+              Then queued at <strong>London Bagel Museum Anguk</strong>. Expect two hours.
+              Whether that's worth it is a personal call (more on this in the hindsight section),
+              but the Maple Pecan, Potato Cheese, and Mushroom Truffle Soup bagels are very good.
+              <strong>Cafe Layered Bukchon</strong> nearby is easier &mdash; the Spring Onion
+              Cream Cheese Scone and Einspanner coffee are worth stopping for.<br><br>
+              <strong>Gyeongbokgung Palace</strong> at 9am. Don't miss the changing of the royal
+              guards at 10am and 2pm &mdash; a centuries-old Joseon Dynasty tradition, performed
+              in full ceremonial costume. Striking.<br><br>
+              Lunch at <strong>Tosokchon Samgyetang</strong> for ginseng chicken soup.
+              A Seoul institution &mdash; the chicken comes stuffed with rice and ginseng,
+              simmered for hours in a rich broth. Perfect even in summer heat.<br><br>
+              At 1pm, joined the <strong>Cheongwadae (Blue House) tour</strong> &mdash; the former
+              presidential residence, recently opened to the public. Book online in advance. It's
+              a fascinating look at a building Koreans couldn't enter for decades.<br><br>
+              Afternoon in <strong>Bukchon Hanok Village</strong>: Baek In-je's House (a
+              Japanese colonial era hanok museum) and Cha-teul, a traditional teahouse set in
+              an old courtyard. Quieter and more residential than Ikseondong &mdash; a different feel.<br><br>
+              Dinner at <strong>Wangbijip Myeongdong</strong> for Korean BBQ &mdash; the assorted
+              beef platter is the move, premium beef and pork belly grilled tableside. One of
+              the best BBQ meals of the trip. Followed by the <strong>Nanta Show</strong> at 8pm,
+              a 90-minute non-verbal comedy cooking show that's more fun than it sounds.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Palace</span>
+              <span class="day-tag">Cafes</span>
+              <span class="day-tag">Korean BBQ</span>
+              <span class="day-tag">Nanta Show</span>
+            </div>
+          </div>
+
+          <div class="day-card" id="nami">
+            <div class="day-label">Day 3 &mdash; Aug 11 (Fri)</div>
+            <div class="day-title">Nami Island Day Trip</div>
+            <div class="day-desc">
+              Full day outside Seoul. <strong>Nami Island</strong> is the headliner &mdash; the
+              scenic tree-lined paths made famous by the Korean drama "Winter Sonata." In summer
+              the trees are full and the island is lush green; in autumn the colours are
+              spectacular. It's genuinely beautiful and not as touristy as expected once you get
+              off the main path.<br><br>
+              Combined the Nami trip with <strong>Petite France</strong>, a French-themed cultural
+              village nearby (quirky but charming), and the <strong>Garden of Morning Calm</strong>
+              &mdash; a beautifully landscaped garden that rewards a slow wander. All three are
+              bookable as a combined day trip through Klook, or self-arranged by train and bus.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Day Trip</span>
+              <span class="day-tag">Nami Island</span>
+              <span class="day-tag">Gardens</span>
+            </div>
+          </div>
+
+          <div class="day-card" id="dmz">
+            <div class="day-label">Day 4 &mdash; Aug 12 (Sat)</div>
+            <div class="day-title">DMZ Tour &amp; Gwangjang Market Night</div>
+            <div class="day-desc">
+              Early start: <strong>DMZ Tour</strong> from 7:30am to 2pm. The tour covers
+              Imjingak Park, the Bridge of Freedom, the Third Tunnel (dug by North Korea in
+              the 1970s), and Dora Observatory where you can see into North Korea on a clear day.
+              Bring your passport &mdash; it's required. One note: the food stop is very early in
+              the day, so bring your own lunch. Had soybean ice cream at one of the stops.
+              It's a sobering, eye-opening experience; the Third Tunnel especially is hard to forget.<br><br>
+              Back in Seoul by early afternoon, spent time in <strong>Myeongdong</strong> then
+              did a proper Korean fried chicken tasting &mdash; BHC and Kyochon both have branches
+              nearby. Half and half (half original, half spicy), honey chicken, garlic soy.
+              Fried chicken in Korea is genuinely a different thing to anywhere else.<br><br>
+              Checked out <strong>Dongdaemun Market</strong> in the evening (eight floors of
+              textiles &mdash; interesting to wander even if you're not buying fabric).
+              Dinner at <strong>Woo Lae Oak</strong>, a top restaurant for Pyeongyang-style cold
+              noodles &mdash; icy buckwheat noodles with a clean, slightly tangy broth.
+              One of those dishes you won't find done better anywhere.<br><br>
+              Ended at <strong>Gwangjang Market</strong>, Korea's oldest market (est. 1905) for a
+              late evening browse. Bibimbap at stall 11 and doughnut twists from the street stalls.
+              Go in the afternoon or evening &mdash; mornings are for the vendors setting up.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">DMZ</span>
+              <span class="day-tag">Fried Chicken</span>
+              <span class="day-tag">Cold Noodles</span>
+              <span class="day-tag">Night Market</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 5 &mdash; Aug 13 (Sun)</div>
+            <div class="day-title">Hongdae &amp; Home</div>
+            <div class="day-desc">
+              Final morning breakfast at <strong>Eggdrop</strong> &mdash; the Avo Holic (avocado
+              and egg toast), Bacon Double Cheese, and scrambled egg toasts are all excellent.
+              Another Seoul breakfast chain that punches well above its price.<br><br>
+              Spent the rest of the morning exploring <strong>Hongdae</strong>, Seoul's
+              university district &mdash; street art, independent shops, buskers, and a younger
+              energy than the palace districts. Worth a couple of hours before heading to the
+              airport. Left for Incheon at 2:30pm, flight TW171 back to Singapore at 7pm.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Breakfast</span>
+              <span class="day-tag">Hongdae</span>
+              <span class="day-tag">Departure</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── What I'd Do Differently ────────────────────────────────────── -->
+        <h2 id="hindsight">What I'd Do Differently</h2>
+
+        <h3>London Bagel Museum &mdash; decide if it's worth your morning</h3>
+        <p>
+          The two-hour queue is real. The bagels are good &mdash; genuinely good &mdash; but
+          whether they're worth sacrificing a Seoul morning is a personal call. If you're
+          travelling with people who'd rather be doing other things, it's probably not worth it.
+          Go early (before 9am) to minimise the wait, or come on a weekday.
+        </p>
+
+        <h3>Book Changdeokgung Secret Garden in advance</h3>
+        <p>
+          English-guided tours are limited to specific time slots and sell out. Book online
+          before your trip, not on the day. The Secret Garden is the highlight of the palace
+          complex &mdash; the main grounds are fine, but the garden is what makes the visit.
+        </p>
+
+        <h3>Gwangjang Market &mdash; go in the afternoon or evening</h3>
+        <p>
+          Mornings are when stall holders are prepping and setting up. The full energy of the
+          market doesn't kick in until late afternoon. Plan accordingly &mdash; it's a much
+          better experience after 4pm.
+        </p>
+
+        <h3>DMZ tour &mdash; bring your own lunch</h3>
+        <p>
+          The scheduled food stop happens very early in the tour, and the options are limited.
+          Pack something from a convenience store the night before. Also book 1&ndash;2 weeks ahead
+          &mdash; popular time slots fill up fast and passport details need to be submitted in advance.
+        </p>
+
+        <!-- ── Booking Guide ────────────────────────────────────────────── -->
+        <h2 id="tickets">Booking Guide</h2>
+
+        <p>
+          Seoul is largely walkable and improvisation-friendly, but a handful of things need
+          advance booking:
+        </p>
+
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th style="text-align: left;">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Changdeokgung Secret Garden</strong></td>
+              <td style="text-align: left;">Book online. English tours are limited to specific time slots. Don't leave this to the day.</td>
+            </tr>
+            <tr>
+              <td><strong>Cheongwadae Blue House</strong></td>
+              <td style="text-align: left;">Book online in advance. Recently opened to the public &mdash; passport required.</td>
+            </tr>
+            <tr>
+              <td><strong>DMZ Tour</strong></td>
+              <td style="text-align: left;">Book through a tour operator 1&ndash;2 weeks ahead. Passport details required. Book early &mdash; popular tours sell out.</td>
+            </tr>
+            <tr>
+              <td><strong>Nami Island Day Trip</strong></td>
+              <td style="text-align: left;">Book via Klook or self-arrange (train + ferry). No strict advance requirement but Klook packages are convenient.</td>
+            </tr>
+            <tr>
+              <td><strong>Nanta Show</strong></td>
+              <td style="text-align: left;">Book online 1 week ahead. Multiple showtimes; the 8pm slot works well after dinner.</td>
+            </tr>
+            <tr>
+              <td><strong>Noryangjin Fish Market</strong></td>
+              <td style="text-align: left;">No booking needed, just show up. If you go, head to Daewon Fishery L2-35/36 for king crab.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <strong>Note on the Blue House:</strong> Cheongwadae only opened to the public
+          in 2022 after decades of restricted access. Tours are free but require online
+          registration. It's a fascinating slice of Korean modern history &mdash; worth fitting in.
+        </div>
+
+        <!-- ── Planning Timeline ──────────────────────────────────────────── -->
+        <h2 id="planning-timeline">Planning Timeline</h2>
+
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>When</th>
+              <th style="text-align: left;">What to Do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>3&ndash;4 months before</strong></td>
+              <td style="text-align: left;">Book flights. T-way Air flies direct Singapore&ndash;Incheon; also look at Korean Air, Asiana, Scoot, and Jeju Air for options.</td>
+            </tr>
+            <tr>
+              <td><strong>2 months before</strong></td>
+              <td style="text-align: left;">Book hotel. Myeongdong fills up, especially on weekends and public holidays. Lock this in early.</td>
+            </tr>
+            <tr>
+              <td><strong>1 month before</strong></td>
+              <td style="text-align: left;">Book the DMZ tour (passport details needed), Nanta Show, and Changdeokgung Secret Garden English tour.</td>
+            </tr>
+            <tr>
+              <td><strong>1 week before</strong></td>
+              <td style="text-align: left;">Download Naver Maps offline (Google Maps is limited in Korea). Research T-money card top-up. Check DMZ tour requirements.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ── Other Places to Consider ──────────────────────────────────── -->
+        <h2 id="other-places">Other Places to Consider</h2>
+
+        <p>If you have extra days or are planning a return trip:</p>
+
+        <div class="info-box">
+          <div class="info-box-title">Busan</div>
+          <div class="info-box-row"><span class="info-box-label">Best for</span><span class="info-box-value">Beaches, Jagalchi fish market, Gamcheon Culture Village</span></div>
+          <div class="info-box-row"><span class="info-box-label">Best season</span><span class="info-box-value">Summer (beaches) or autumn</span></div>
+          <div class="info-box-row"><span class="info-box-label">Getting there</span><span class="info-box-value">2.5h by KTX from Seoul</span></div>
+        </div>
+        <p>Korea's second city and a completely different vibe. Rocky coastline, a massive fish market where you pick live seafood and have it cooked upstairs, and the colourful Gamcheon Culture Village painted into a hillside. Worth 2&ndash;3 nights if extending the trip.</p>
+
+        <div class="info-box">
+          <div class="info-box-title">Jeju Island</div>
+          <div class="info-box-row"><span class="info-box-label">Best for</span><span class="info-box-value">Volcanic landscape, black pork, hallabong oranges</span></div>
+          <div class="info-box-row"><span class="info-box-label">Best season</span><span class="info-box-value">Spring (cherry blossoms) or autumn</span></div>
+          <div class="info-box-row"><span class="info-box-label">Getting there</span><span class="info-box-value">1h flight from Seoul</span></div>
+        </div>
+        <p>Korea's volcanic island off the south coast. The black pork BBQ is a local obsession, hallabong citrus is excellent, and the crater lake at Hallasan is worth the hike. A rental car is the best way to explore.</p>
+
+        <div class="info-box">
+          <div class="info-box-title">Jeonju</div>
+          <div class="info-box-row"><span class="info-box-label">Best for</span><span class="info-box-value">Birthplace of bibimbap, hanok village, traditional food</span></div>
+          <div class="info-box-row"><span class="info-box-label">Best season</span><span class="info-box-value">Year-round</span></div>
+          <div class="info-box-row"><span class="info-box-label">Getting there</span><span class="info-box-value">1.5h by KTX from Seoul</span></div>
+        </div>
+        <p>The food capital of Korea. Bibimbap originated here, and Jeonju's version &mdash; in a hot stone bowl with the best local ingredients &mdash; is in another league. The hanok village is one of the most intact in Korea, and far less touristy than Bukchon.</p>
+
+        <div class="info-box">
+          <div class="info-box-title">Gangnam &amp; Itaewon</div>
+          <div class="info-box-row"><span class="info-box-label">Best for</span><span class="info-box-value">Shopping, international dining, nightlife</span></div>
+          <div class="info-box-row"><span class="info-box-label">Best season</span><span class="info-box-value">Year-round</span></div>
+          <div class="info-box-row"><span class="info-box-label">Getting there</span><span class="info-box-value">20&ndash;30 min subway from Myeongdong</span></div>
+        </div>
+        <p>If you have an extra half-day in Seoul, Gangnam is worth exploring beyond the song reference &mdash; high-end shopping, great restaurants, and a different energy to the old city. Itaewon has the best international food scene in Seoul.</p>
+
+        <!-- ── Photos ────────────────────────────────────────────────────── -->
+        <h2 id="photos">Photos</h2>
+        <p>Click any photo to view full-size. (Photos coming soon!)</p>
+
+        <div class="gallery" id="travel-gallery">
+          <a class="gallery-item featured" href="#" data-pswp-src="https://placehold.co/1200x800/1c1c24/64647a?text=Gyeongbokgung" data-pswp-width="1200" data-pswp-height="800">
+            <img class="gallery-img" src="https://placehold.co/600x400/1c1c24/64647a?text=Gyeongbokgung" alt="Gyeongbokgung Palace" loading="lazy" />
+            <div class="gallery-caption">Gyeongbokgung Palace with the royal guard ceremony</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Secret+Garden" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Secret+Garden" alt="Changdeokgung Secret Garden" loading="lazy" />
+            <div class="gallery-caption">Changdeokgung Secret Garden</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Bukchon" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Bukchon" alt="Bukchon Hanok Village" loading="lazy" />
+            <div class="gallery-caption">Bukchon Hanok Village rooftops</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Nami+Island" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Nami+Island" alt="Nami Island tree-lined path" loading="lazy" />
+            <div class="gallery-caption">The iconic tree-lined path on Nami Island</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=DMZ" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=DMZ" alt="Bridge of Freedom at the DMZ" loading="lazy" />
+            <div class="gallery-caption">Bridge of Freedom at Imjingak, DMZ</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Korean+BBQ" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Korean+BBQ" alt="Korean BBQ at Wangbijip" loading="lazy" />
+            <div class="gallery-caption">Assorted beef platter at Wangbijip Myeongdong</div>
+          </a>
+        </div>
+
+        <!-- ── What to Eat ──────────────────────────────────────────────── -->
+        <h2 id="food">What to Eat</h2>
+
+        <p>
+          Seoul's food scene is one of the best in Asia &mdash; and the range is extraordinary.
+          Here's what to prioritise, split across meals and cafes:
+        </p>
+
+        <div class="info-box">
+          <div class="info-box-title">Seoul Must-Eats</div>
+          <div class="info-box-row"><span class="info-box-label">Kalguksu</span><span class="info-box-value">Myeongdong Kyoja &mdash; chopped noodle soup, the benchmark</span></div>
+          <div class="info-box-row"><span class="info-box-label">Samgyetang</span><span class="info-box-value">Tosokchon &mdash; ginseng chicken soup, a Seoul institution</span></div>
+          <div class="info-box-row"><span class="info-box-label">Korean BBQ</span><span class="info-box-value">Wangbijip &mdash; premium beef and pork belly, assorted platter</span></div>
+          <div class="info-box-row"><span class="info-box-label">Pyeongyang Cold Noodles</span><span class="info-box-value">Woo Lae Oak &mdash; icy buckwheat noodles, clean and precise</span></div>
+          <div class="info-box-row"><span class="info-box-label">Fried Chicken</span><span class="info-box-value">BHC or Kyochon &mdash; half and half is the move</span></div>
+          <div class="info-box-row"><span class="info-box-label">Bibimbap</span><span class="info-box-value">Gwangjang Market stall 11 &mdash; go in the evening</span></div>
+          <div class="info-box-row"><span class="info-box-label">Street Toast</span><span class="info-box-value">Isaac Toast or Eggdrop &mdash; cheap, filling, surprisingly good</span></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-box-title">Cafe Culture Must-Tries</div>
+          <div class="info-box-row"><span class="info-box-label">Cafe Onion Anguk</span><span class="info-box-value">Pandoro bread in a restored 14th-century hanok</span></div>
+          <div class="info-box-row"><span class="info-box-label">London Bagel Museum</span><span class="info-box-value">Maple Pecan, Potato Cheese &mdash; expect a 2hr queue</span></div>
+          <div class="info-box-row"><span class="info-box-label">Cafe Layered Bukchon</span><span class="info-box-value">Spring Onion Cream Cheese Scone + Einspanner coffee</span></div>
+          <div class="info-box-row"><span class="info-box-label">Cheong Su Dang</span><span class="info-box-value">Castella cakes in a bamboo-forest hanok, Ikseondong</span></div>
+          <div class="info-box-row"><span class="info-box-label">Donut Jungsu</span><span class="info-box-value">Best rooftop in Ikseondong, try the matcha donuts</span></div>
+          <div class="info-box-row"><span class="info-box-label">Ikseon Goro</span><span class="info-box-value">Purpleberry ice cream &mdash; more interesting than it sounds</span></div>
+          <div class="info-box-row"><span class="info-box-label">Cheese Industry</span><span class="info-box-value">Brie cheese cake and specialty drinks</span></div>
+        </div>
+
+        <div class="callout">
+          <strong>General rule:</strong> Don't skip convenience store snacks &mdash; Korean
+          CU and GS25 are legitimately good for triangle kimbap, hot drinks, and ramyeon cups.
+          Also: Korean fried chicken is a different food group from what you've had elsewhere.
+          Budget at least one dedicated session for it.
+        </div>
+
+        <!-- ── Tips ──────────────────────────────────────────────────────── -->
+        <h2 id="tips">Quick Tips</h2>
+        <ul>
+          <li><strong>T-money card:</strong> Get one at the airport or any convenience store. Works on subway, bus, and some taxis. Top up at convenience stores and subway kiosks.</li>
+          <li><strong>Naver Maps:</strong> Download it before you go. Google Maps is limited in Korea &mdash; Naver has accurate transit directions and walking routes. Worth the setup time.</li>
+          <li><strong>Currency:</strong> KRW 1,000 &asymp; SGD 1.02 at the time of our trip. Roughly 1:1 with the Singapore dollar, which makes mental math easy.</li>
+          <li><strong>Tax refund:</strong> Keep your receipts for purchases above the threshold &mdash; you can claim a VAT refund at Incheon Airport before departure.</li>
+          <li><strong>Summer heat:</strong> Seoul in August is 30&deg;C+ with high humidity. Pack light, breathable clothes. Most attractions are outdoors, so factor in the heat when planning your day.</li>
+          <li><strong>Convenience stores:</strong> CU and GS25 are everywhere and genuinely good. Snacks, drinks, ramyeon, triangle kimbap &mdash; reliable at any hour.</li>
+          <li><strong>Myeongdong as base:</strong> Walkable to Changdeokgung, Insadong, Namdaemun Market, and the Cheonggyecheon stream. Subway access to everything else. Good choice for a short trip.</li>
+          <li><strong>DMZ passport:</strong> Bring your original passport (not a copy). Some tours turn you away without it. Confirm with your tour operator what ID is required.</li>
+        </ul>
+
+        <hr class="divider" />
+        <p>
+          Five days in Seoul barely scratches the surface &mdash; the cafe rabbit holes alone
+          could fill another trip. Hope this helps with planning. Feel free to
+          <a href="mailto:haomingkoo@gmail.com">reach out</a> if you have questions.
+        </p>
+      </article>
+      <footer>&copy; 2023 Haoming Koo</footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module">
+      const map = L.map("trip-map", {
+        zoomControl: true,
+        scrollWheelZoom: false,
+      }).setView([37.7, 127.0], 9);
+
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        maxZoom: 19,
+        subdomains: "abcd",
+      }).addTo(map);
+
+      const cities = [
+        {
+          lat: 37.5665, lng: 126.9780, name: "Seoul",
+          days: "Aug 9\u201313", nights: 4,
+          highlights: "Gyeongbokgung, Changdeokgung, Bukchon, Myeongdong, Korean BBQ, Gwangjang Market"
+        },
+        {
+          lat: 37.7908, lng: 127.5256, name: "Nami Island",
+          days: "Aug 11", nights: 0,
+          highlights: "Tree-lined paths, Petite France, Garden of Morning Calm (day trip)"
+        },
+        {
+          lat: 37.9000, lng: 126.6800, name: "DMZ",
+          days: "Aug 12", nights: 0,
+          highlights: "Imjingak Park, Bridge of Freedom, Third Tunnel, Dora Observatory (day trip)"
+        },
+      ];
+
+      // Day trip routes (dashed) — Seoul to Nami and back, Seoul to DMZ and back
+      const namiRoute = [
+        [37.5665, 126.9780],  // Seoul
+        [37.7908, 127.5256],  // Nami Island
+        [37.5665, 126.9780],  // Back to Seoul
+      ];
+
+      const dmzRoute = [
+        [37.5665, 126.9780],  // Seoul
+        [37.9000, 126.6800],  // DMZ
+        [37.5665, 126.9780],  // Back to Seoul
+      ];
+
+      L.polyline(namiRoute, {
+        color: "#a855f7",
+        weight: 3,
+        opacity: 0.7,
+        dashArray: "8, 8",
+      }).addTo(map);
+
+      L.polyline(dmzRoute, {
+        color: "#a855f7",
+        weight: 3,
+        opacity: 0.7,
+        dashArray: "8, 8",
+      }).addTo(map);
+
+      cities.forEach((c) => {
+        const marker = L.circleMarker([c.lat, c.lng], {
+          radius: c.nights > 0 ? 9 : 6,
+          fillColor: c.nights > 0 ? "#a855f7" : "#64647a",
+          fillOpacity: 0.9,
+          color: "#060608",
+          weight: 2,
+        }).addTo(map);
+
+        const nightsLabel = c.nights > 0 ? `${c.nights} night${c.nights > 1 ? "s" : ""}` : "Day trip";
+        marker.bindPopup(
+          `<strong>${c.name}</strong><br>` +
+          `<span style="color:#a855f7">${c.days}</span> &middot; ${nightsLabel}<br>` +
+          `<span style="color:#b0b0b8;font-size:12px">${c.highlights}</span>`
+        );
+
+        L.marker([c.lat, c.lng], {
+          icon: L.divIcon({
+            className: "city-label",
+            html: c.name,
+            iconSize: [100, 16],
+            iconAnchor: [-8, 8],
+          }),
+        }).addTo(map);
+      });
+
+      import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
+
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: "#travel-gallery",
+        children: "a.gallery-item",
+        pswpModule: () => import("https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.esm.min.js"),
+        bgOpacity: 0.92,
+        padding: { top: 20, bottom: 20, left: 20, right: 20 },
+      });
+      lightbox.init();
+    </script>
+  </body>
+</html>

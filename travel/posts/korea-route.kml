@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>5 Days in Seoul — Palaces, Street Food &amp; Cafe Culture</name>
+    <description><![CDATA[Every hotel, restaurant, and attraction from our Aug 2023 trip across Seoul, with day trips to Nami Island and the DMZ.
+
+LEGEND
+🔵  Blue pin — Hotel / Accommodation
+🟣  Purple pin — Attraction / Landmark
+🟢  Green pin — Restaurant / Food
+
+By Haoming Koo — kooexperience.com/travel/posts/korea.html]]></description>
+
+    <!-- Styles: blue = hotel, purple = attraction, green = restaurant -->
+    <Style id="hotel">
+      <IconStyle>
+        <scale>1.1</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="attraction">
+      <IconStyle>
+        <scale>1.0</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="food">
+      <IconStyle>
+        <scale>1.0</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="routeLine">
+      <LineStyle><color>ff7755a8</color><width>3</width></LineStyle>
+    </Style>
+
+    <!-- ── SEOUL ─────────────────────────────────────── -->
+    <Folder>
+      <name>Seoul (Days 1–5, Aug 9–13)</name>
+
+      <Placemark>
+        <name>Nine Tree Hotel Myeongdong</name>
+        <description><![CDATA[<b>Hotel</b> · 4 nights<br/>Base for all Seoul exploration, centrally located in Myeongdong.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>126.9862,37.5633,0</coordinates></Point>
+      </Placemark>
+
+      <!-- Attractions -->
+
+      <Placemark>
+        <name>Changdeokgung Palace + Secret Garden</name>
+        <description><![CDATA[<b>Day 1</b> · UNESCO World Heritage Site. 70-minute guided Secret Garden tour — one of Seoul's must-sees.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9910,37.5792,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ikseondong Hanok Village</name>
+        <description><![CDATA[<b>Day 1</b> · Trendy cafes and artisan shops tucked inside traditional hanok buildings.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9880,37.5737,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Unhyeongung Palace</name>
+        <description><![CDATA[<b>Day 1</b> · Former royal residence, quieter and less crowded than the major palaces.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9900,37.5730,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Insadong Cultural Street</name>
+        <description><![CDATA[<b>Day 1 evening</b> · Street food, craft shops, and galleries. Lively pedestrian street.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9850,37.5734,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ssamzigil</name>
+        <description><![CDATA[<b>Day 1</b> · Craft complex with independent shops and rooftop views over Insadong.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9855,37.5738,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Jogyesa Temple</name>
+        <description><![CDATA[<b>Day 1 night</b> · Main Buddhist temple of Seoul. Beautiful lanterns and courtyard.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9835,37.5730,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Cheonggyecheon Stream</name>
+        <description><![CDATA[<b>Day 1 night</b> · Revived urban stream walkway cutting through downtown Seoul. Lovely at night.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9785,37.5695,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Gyeongbokgung Palace</name>
+        <description><![CDATA[<b>Day 2</b> · Largest of Seoul's Five Grand Palaces. Changing of the guards ceremony at 10am and 2pm.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9770,37.5796,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Cheongwadae Blue House</name>
+        <description><![CDATA[<b>Day 2</b> · Former presidential residence, recently opened to the public. Scenic mountain backdrop.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9745,37.5868,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Bukchon Hanok Village</name>
+        <description><![CDATA[<b>Day 2</b> · Traditional hanok neighborhood with narrow alleys and hillside city views.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9830,37.5826,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Nanta Show Theatre</name>
+        <description><![CDATA[<b>Day 2 night</b> · High-energy non-verbal comedy cooking show. No Korean needed — pure physical comedy.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9855,37.5640,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>DMZ / Third Tunnel</name>
+        <description><![CDATA[<b>Day 4</b> · Border tour to the Demilitarized Zone. Includes the Third Tunnel of Aggression and Dora Observatory overlooking North Korea.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.6780,37.9580,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Dongdaemun Market</name>
+        <description><![CDATA[<b>Day 4</b> · Massive 8-floor textile and fashion market. Great for fabric, clothing, and accessories.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>127.0090,37.5710,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Gwangjang Market</name>
+        <description><![CDATA[<b>Day 4 evening</b> · Korea's oldest market (est. 1905). Famous for bindaetteok and bibimbap — go to stall 11 for bibimbap.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>127.0000,37.5700,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Hongdae</name>
+        <description><![CDATA[<b>Day 5</b> · Trendy university district with street performances, indie shops, cafes, and nightlife.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>126.9237,37.5563,0</coordinates></Point>
+      </Placemark>
+
+      <!-- Food & Restaurants -->
+
+      <Placemark>
+        <name>Myeongdong Kyoja</name>
+        <description><![CDATA[<b>Day 1 lunch</b> · Legendary kalguksu knife-cut noodle soup and mandu dumplings. Expect a queue.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9855,37.5636,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Cafe Onion Anguk</name>
+        <description><![CDATA[<b>Day 1</b> · Converted hanok turned minimalist cafe. Famous for its pandoro bread.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9870,37.5795,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Cheong Su Dang</name>
+        <description><![CDATA[<b>Day 1</b> · Castella cakes inside a hanok with a bamboo forest courtyard.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9880,37.5740,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Nakwon Station Cafe</name>
+        <description><![CDATA[<b>Day 1</b> · Retro train station themed cafe. Charming and photogenic.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9885,37.5735,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Donut Jungsu Ikseon</name>
+        <description><![CDATA[<b>Day 1</b> · Rooftop views over Ikseon-dong. Known for matcha donuts.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9878,37.5738,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ikseon Goro</name>
+        <description><![CDATA[<b>Day 1</b> · Purpleberry ice cream in the heart of Ikseon-dong hanok village.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9882,37.5742,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Cheese Industry</name>
+        <description><![CDATA[<b>Day 1</b> · Cheese cakes and cheese drinks. A dairy lover's stop in Ikseon-dong.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9875,37.5745,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Isaac Toast &amp; Coffee (Myeongdong)</name>
+        <description><![CDATA[<b>Day 2 breakfast</b> · Classic Korean street toast chain. Get the bulgogi toast.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9860,37.5640,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>London Bagel Museum Anguk</name>
+        <description><![CDATA[<b>Day 2 morning</b> · Hugely popular bagel shop — expect a 2-hour queue. The Maple Pecan bagel is worth it.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9870,37.5800,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Cafe Layered Bukchon</name>
+        <description><![CDATA[<b>Day 2</b> · Elegant multi-level cafe in Bukchon. Try the Spring Onion Cream Cheese Scone.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9840,37.5810,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Tosokchon Samgyetang</name>
+        <description><![CDATA[<b>Day 2 lunch</b> · Iconic ginseng chicken soup restaurant near Gyeongbokgung. Restorative and rich.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9710,37.5780,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Wangbijip Myeongdong</name>
+        <description><![CDATA[<b>Day 2 dinner</b> · Korean BBQ with premium beef and pork belly. Right in Myeongdong.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9870,37.5635,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>BHC Fried Chicken</name>
+        <description><![CDATA[<b>Day 4</b> · Korean fried chicken chain. Get the half-and-half order — two flavours in one.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9865,37.5630,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Woo Lae Oak</name>
+        <description><![CDATA[<b>Day 4 dinner</b> · Historic Pyeongyang-style cold noodles (naengmyeon) and bulgogi. A Seoul institution.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9920,37.5650,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Eggdrop</name>
+        <description><![CDATA[<b>Day 5 breakfast</b> · Trendy avocado toast chain. Get the Avo Holic.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>126.9240,37.5560,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── NAMI ISLAND DAY TRIP ────────────────────── -->
+    <Folder>
+      <name>Nami Island Day Trip (Day 3, Aug 11)</name>
+
+      <Placemark>
+        <name>Nami Island (Namiseom)</name>
+        <description><![CDATA[<b>Day 3</b> · Tree-lined paths and sweeping river views. Famous as the filming location for Winter Sonata. Return to Seoul in the evening.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>127.5256,37.7908,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Petite France</name>
+        <description><![CDATA[<b>Day 3</b> · French-themed cultural village with colourful buildings, puppet shows, and Le Petit Prince exhibits.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>127.4920,37.7560,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Garden of Morning Calm</name>
+        <description><![CDATA[<b>Day 3</b> · Korea's oldest private landscaped garden. Beautifully maintained themed sections.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>127.5650,37.7380,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── ROUTE ──────────────────────────────────────── -->
+    <Folder>
+      <name>Travel Route</name>
+      <Placemark>
+        <name>Seoul → Nami Island (day trip) → DMZ (day trip) → Seoul</name>
+        <description>Mix of subway, KTX train, and organised tour bus</description>
+        <styleUrl>#routeLine</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            126.9862,37.5633,0
+            127.5256,37.7908,0
+            127.4920,37.7560,0
+            127.5650,37.7380,0
+            126.9862,37.5633,0
+            126.6780,37.9580,0
+            126.9862,37.5633,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+
+    <!-- ── LEGEND ─────────────────────────────────────── -->
+    <Folder>
+      <name>Legend</name>
+      <description><![CDATA[Icon guide for this map:
+• Blue pin = Hotel / Accommodation
+• Purple pin = Attraction / Landmark
+• Green pin = Restaurant / Food
+• Purple line = Travel route between locations]]></description>
+      <Placemark>
+        <name>🔵 = Hotel</name>
+        <visibility>0</visibility>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>🟣 = Attraction</name>
+        <visibility>0</visibility>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>🟢 = Restaurant</name>
+        <visibility>0</visibility>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

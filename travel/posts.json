@@ -31,5 +31,21 @@
     "readingTime": "14 min",
     "lat": 43.0,
     "lng": 11.5
+  },
+  {
+    "slug": "korea",
+    "title": "5 Days in Seoul — Palaces, Street Food & Cafe Culture",
+    "date": "2023-08-13",
+    "tags": [
+      "Korea",
+      "Seoul",
+      "Food",
+      "Summer"
+    ],
+    "excerpt": "Gyeongbokgung \u2192 Bukchon \u2192 Nami Island \u2192 DMZ \u2192 Hongdae. Hanbok-clad palace walks, BBQ feasts, extraordinary cafe culture, and a sobering trip to the DMZ.",
+    "cover": "",
+    "readingTime": "10 min",
+    "lat": 37.5665,
+    "lng": 126.978
   }
 ]
