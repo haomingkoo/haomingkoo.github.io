@@ -5,31 +5,31 @@
     <description><![CDATA[Every hotel, restaurant, and attraction from our Dec 2024 – Jan 2025 trip across Milan, Florence, Pisa, Rome, and Venice.
 
 LEGEND
-🏨  Hotel / Accommodation
-🎭  Attraction / Landmark
-🍽️  Restaurant / Food
+🔵  Blue pin — Hotel / Accommodation
+🟣  Purple pin — Attraction / Landmark
+🟢  Green pin — Restaurant / Food
 
 By Haoming Koo — kooexperience.com/travel/posts/italy.html]]></description>
 
-    <!-- Styles -->
+    <!-- Styles: blue = hotel, purple = attraction, green = restaurant -->
     <Style id="hotel">
       <IconStyle>
-        <scale>1.2</scale>
-        <Icon><href>http://maps.google.com/mapfiles/kml/shapes/lodging.png</href></Icon>
+        <scale>1.1</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-blank.png</href></Icon>
       </IconStyle>
       <LabelStyle><scale>0.9</scale></LabelStyle>
     </Style>
     <Style id="attraction">
       <IconStyle>
-        <scale>1.1</scale>
-        <Icon><href>http://maps.google.com/mapfiles/kml/shapes/arts.png</href></Icon>
+        <scale>1.0</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-blank.png</href></Icon>
       </IconStyle>
       <LabelStyle><scale>0.9</scale></LabelStyle>
     </Style>
     <Style id="food">
       <IconStyle>
         <scale>1.0</scale>
-        <Icon><href>http://maps.google.com/mapfiles/kml/shapes/dining.png</href></Icon>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>
       </IconStyle>
       <LabelStyle><scale>0.9</scale></LabelStyle>
     </Style>
@@ -374,9 +374,9 @@ By Haoming Koo — kooexperience.com/travel/posts/italy.html]]></description>
     <Folder>
       <name>Legend</name>
       <description><![CDATA[Icon guide for this map:
-• 🏨 Lodging icon = Hotel / Accommodation
-• 🎭 Arts icon = Attraction / Landmark
-• 🍽️ Dining icon = Restaurant / Food
+• Blue pin = Hotel / Accommodation
+• Purple pin = Attraction / Landmark
+• Green pin = Restaurant / Food
 • Purple line = High-speed rail route between cities]]></description>
       <Placemark>
         <name>🏨 = Hotel</name>
