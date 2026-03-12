@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>9 Days in the Netherlands — Tulips, Windmills &amp; Dutch Masters</name>
+    <description><![CDATA[Every hotel, restaurant, and attraction from our Apr 2025 trip across the Netherlands.
+
+LEGEND
+🔵  Blue pin — Hotel / Accommodation
+🟣  Purple pin — Attraction / Landmark
+🟢  Green pin — Restaurant / Food
+
+By Haoming Koo — kooexperience.com/travel/posts/netherlands.html]]></description>
+
+    <!-- Styles: blue = hotel, purple = attraction, green = restaurant -->
+    <Style id="hotel">
+      <IconStyle>
+        <scale>1.1</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="attraction">
+      <IconStyle>
+        <scale>1.0</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="food">
+      <IconStyle>
+        <scale>1.0</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="routeLine">
+      <LineStyle><color>ff7755a8</color><width>3</width></LineStyle>
+    </Style>
+
+    <!-- ── AMSTERDAM ────────────────────────────────────── -->
+    <Folder>
+      <name>Amsterdam (Days 1, 5, 6, 9 — Apr 10, 14–15, 18)</name>
+
+      <Placemark>
+        <name>Mövenpick Hotel Amsterdam City Centre</name>
+        <description><![CDATA[<b>Hotel</b> · 8 nights<br/>Centrally located base for the entire trip.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>4.9022,52.3738,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>The Pancake Bakery</name>
+        <description><![CDATA[<b>Day 1 lunch</b> · Classic Dutch pancakes.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.8831,52.3757,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Van Stapele Koekmakerij</name>
+        <description><![CDATA[<b>Day 1</b> · Famous chocolate cookie bakery.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.8900,52.3700,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Manneken Pis Damrak (Fries)</name>
+        <description><![CDATA[<b>Day 1</b> · Traditional Dutch fries.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.8952,52.3748,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Sampurna</name>
+        <description><![CDATA[<b>Day 1 dinner</b> · Indonesian rijsttafel — shared feast of many small dishes.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.8866,52.3654,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Dam Square</name>
+        <description><![CDATA[<b>Day 1</b> · Historic central square with the Royal Palace.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.8932,52.3731,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Begijnhof</name>
+        <description><![CDATA[<b>Day 1</b> · Serene hidden courtyard dating back to the 14th century.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.8894,52.3693,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Bloemenmarkt</name>
+        <description><![CDATA[<b>Day 1</b> · Floating flower market on the Singel canal.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.8910,52.3667,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>De 9 Straatjes (Nine Streets)</name>
+        <description><![CDATA[<b>Day 1</b> · Charming boutiques and cafes in nine cross-streets.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.8842,52.3711,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>de Bijenkorf</name>
+        <description><![CDATA[<b>Day 1</b> · Upscale department store on Dam Square.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.8932,52.3735,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Pllek</name>
+        <description><![CDATA[<b>Day 2 late lunch</b> · Creative waterfront spot in NDSM Wharf.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.8920,52.3900,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>This is Holland</name>
+        <description><![CDATA[<b>Day 2</b> · Interactive flying experience — aerial tour of the Netherlands.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.9012,52.3907,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>The Pantry</name>
+        <description><![CDATA[<b>Day 5 lunch option</b> · Traditional Dutch food in a cozy setting.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.8838,52.3640,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Winkel 43</name>
+        <description><![CDATA[<b>Day 5</b> · Amsterdam's famous apple pie at the Noordermarkt.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.8787,52.3812,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>De Kas</name>
+        <description><![CDATA[<b>Day 5 dinner</b> · Farm-to-table greenhouse restaurant. Seasonal tasting menu.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.9228,52.3558,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Van Gogh Museum</name>
+        <description><![CDATA[<b>Day 5</b> · World-renowned collection of Van Gogh's paintings and letters.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.8811,52.3584,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Anne Frank House</name>
+        <description><![CDATA[<b>Day 5</b> · Historic WWII house where Anne Frank hid. Book tickets well in advance.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.8840,52.3752,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Canal Tour (Those Dam Boat Guys)</name>
+        <description><![CDATA[<b>Day 5</b> · Scenic canal cruise through Amsterdam's iconic waterways.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.8840,52.3780,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Heineken Experience</name>
+        <description><![CDATA[<b>Day 6</b> · Interactive brewery tour in the original Heineken building.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.8918,52.3579,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Sea Palace</name>
+        <description><![CDATA[<b>Day 6 dinner</b> · Floating Chinese restaurant near Centraal Station.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.9037,52.3767,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Loetje</name>
+        <description><![CDATA[<b>Day 4 dinner</b> · Famous for its steak and relaxed Dutch atmosphere.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.8920,52.3608,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Albert Cuyp Market</name>
+        <description><![CDATA[<b>Day 9</b> · Amsterdam's most famous street market. Food, clothing, souvenirs.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.8939,52.3557,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── FLOWER PARADE — SASSENHEIM ───────────────────── -->
+    <Folder>
+      <name>Flower Parade — Sassenheim (Day 2, Apr 11)</name>
+
+      <Placemark>
+        <name>Grandstand Sassenheim (Bloemencorso)</name>
+        <description><![CDATA[<b>Day 2</b> · Flower parade viewing point. Floats covered in tulips and hyacinths.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.5237,52.2264,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── HAARLEM ──────────────────────────────────────── -->
+    <Folder>
+      <name>Haarlem (Day 3, Apr 12)</name>
+
+      <Placemark>
+        <name>by Lima</name>
+        <description><![CDATA[<b>Day 3 lunch</b> · Restaurant in the heart of Haarlem.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.6373,52.3816,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Jopenkerk</name>
+        <description><![CDATA[<b>Day 3</b> · Beer and tea in a beautifully converted church.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.6324,52.3813,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>De Lachende Javaan</name>
+        <description><![CDATA[<b>Day 3 dinner</b> · Indonesian cuisine in Haarlem.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.6382,52.3808,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Amsterdamse Poort</name>
+        <description><![CDATA[<b>Day 3</b> · Medieval city gate — the oldest in the Netherlands.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.6499,52.3802,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Molen De Adriaan</name>
+        <description><![CDATA[<b>Day 3</b> · Iconic windmill on the Spaarne river with English-guided tour.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.6319,52.3836,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Grote Markt (Haarlem)</name>
+        <description><![CDATA[<b>Day 3</b> · Central market square with the Grote Kerk (St. Bavo's Church).]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.6369,52.3814,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Teylers Museum</name>
+        <description><![CDATA[<b>Day 3</b> · Oldest museum in the Netherlands — art, science, and natural history.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.6398,52.3800,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── KEUKENHOF & TULIP FIELDS ─────────────────────── -->
+    <Folder>
+      <name>Keukenhof &amp; Tulip Fields (Day 4, Apr 13)</name>
+
+      <Placemark>
+        <name>Keukenhof Gardens</name>
+        <description><![CDATA[<b>Day 4</b> · World's largest flower garden — 7 million bulbs in bloom.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.5462,52.2697,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Keukenhof Castle</name>
+        <description><![CDATA[<b>Day 4</b> · On-site castle within the Keukenhof grounds.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.5430,52.2700,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Keukenhof Windmill</name>
+        <description><![CDATA[<b>Day 4</b> · Garden windmill area with panoramic views of the tulip fields.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.5490,52.2720,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Hofboerderij</name>
+        <description><![CDATA[<b>Day 4 lunch</b> · Farm-style restaurant near Keukenhof.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.5440,52.2690,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── COUNTRYSIDE TOUR ─────────────────────────────── -->
+    <Folder>
+      <name>Countryside Tour (Day 6, Apr 15)</name>
+
+      <Placemark>
+        <name>Zaanse Schans</name>
+        <description><![CDATA[<b>Day 6</b> · Historic windmill village with wooden houses, cheese farms, and clog workshops.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.7697,52.4735,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Volendam</name>
+        <description><![CDATA[<b>Day 6</b> · Traditional fishing village on the Markermeer.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>5.0710,52.4953,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Marken</name>
+        <description><![CDATA[<b>Day 6</b> · Island fishing village connected by a narrow causeway.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>5.1020,52.4572,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── THE HAGUE & DELFT ────────────────────────────── -->
+    <Folder>
+      <name>The Hague &amp; Delft (Day 7, Apr 16)</name>
+
+      <Placemark>
+        <name>Madurodam</name>
+        <description><![CDATA[<b>Day 7</b> · Miniature Netherlands park — the entire country in 1:25 scale.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.2961,52.0993,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Royal Delft (Store + Museum + Workshop)</name>
+        <description><![CDATA[<b>Day 7</b> · Iconic Delft blue pottery — museum, store, and tile painting workshop.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.3470,52.0042,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>The Hague City Center (Binnenhof)</name>
+        <description><![CDATA[<b>Day 7</b> · Historic parliament buildings on the Hofvijver lake.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.3137,52.0795,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>De Pier Scheveningen</name>
+        <description><![CDATA[<b>Day 7</b> · Sunset viewing point on the North Sea pier.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.2830,52.1132,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Waroeng Padang Lapek</name>
+        <description><![CDATA[<b>Day 7 dinner</b> · Authentic Indonesian Padang food in The Hague.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.3090,52.0740,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── ROTTERDAM, KINDERDIJK & LEIDEN ────────────────── -->
+    <Folder>
+      <name>Rotterdam, Kinderdijk &amp; Leiden (Day 8, Apr 17)</name>
+
+      <Placemark>
+        <name>Kinderdijk (UNESCO)</name>
+        <description><![CDATA[<b>Day 8</b> · UNESCO World Heritage windmill complex — 19 windmills from the 1740s.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.6333,51.8833,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Het Kijk Kubus (Cube Houses)</name>
+        <description><![CDATA[<b>Day 8</b> · Iconic cube architecture by Piet Blom.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.4903,51.9201,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Markthal Rotterdam</name>
+        <description><![CDATA[<b>Day 8</b> · Striking arch-shaped market hall with food stalls and a giant mural ceiling.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.4876,51.9202,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Museum Park / Het Park</name>
+        <description><![CDATA[<b>Day 8</b> · Green space in central Rotterdam near the museums.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.4726,51.9145,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Art Depot (Depot Boijmans)</name>
+        <description><![CDATA[<b>Day 8</b> · Mirrored contemporary art depot — world's first publicly accessible art storage.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>4.4720,51.9115,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>De Ballentent</name>
+        <description><![CDATA[<b>Day 8 lunch</b> · Rotterdam waterfront restaurant with harbor views.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.4833,51.9060,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Waag Leiden</name>
+        <description><![CDATA[<b>Day 8 dinner</b> · Historic restaurant in a former weigh house in Leiden.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>4.4897,52.1589,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── ROUTE ────────────────────────────────────────── -->
+    <Folder>
+      <name>Travel Route</name>
+      <Placemark>
+        <name>Amsterdam → Sassenheim → Haarlem → Keukenhof → Countryside → The Hague → Delft → Scheveningen → Kinderdijk → Rotterdam → Leiden → Amsterdam</name>
+        <description>Day trips by train, bus, and car from Amsterdam</description>
+        <styleUrl>#routeLine</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.9041,52.3676,0
+            4.5237,52.2264,0
+            4.9041,52.3676,0
+            4.6462,52.3874,0
+            4.9041,52.3676,0
+            4.5462,52.2697,0
+            4.9041,52.3676,0
+            5.0710,52.4953,0
+            4.7697,52.4735,0
+            4.9041,52.3676,0
+            4.3007,52.0705,0
+            4.3571,52.0116,0
+            4.3007,52.0705,0
+            4.2830,52.1132,0
+            4.9041,52.3676,0
+            4.6333,51.8833,0
+            4.4777,51.9244,0
+            4.4970,52.1601,0
+            4.9041,52.3676,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+
+    <!-- ── LEGEND ─────────────────────────────────────── -->
+    <Folder>
+      <name>Legend</name>
+      <description><![CDATA[Icon guide for this map:
+• Blue pin = Hotel / Accommodation
+• Purple pin = Attraction / Landmark
+• Green pin = Restaurant / Food
+• Purple line = Travel route between locations]]></description>
+      <Placemark>
+        <name>🔵 = Hotel</name>
+        <visibility>0</visibility>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>🟣 = Attraction</name>
+        <visibility>0</visibility>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>🟢 = Restaurant</name>
+        <visibility>0</visibility>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

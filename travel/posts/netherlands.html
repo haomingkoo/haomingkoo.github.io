@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9 Days in the Netherlands &mdash; Tulips, Windmills &amp; Dutch Masters &mdash; Travel &mdash; Haoming Koo</title>
+    <meta name="description" content="A spring trip through the Netherlands &mdash; Keukenhof tulips, Kinderdijk windmills, the Flower Parade, Van Gogh Museum, and the best Indonesian food outside Indonesia." />
+    <link rel="canonical" href="https://kooexperience.com/travel/posts/netherlands.html" />
+    <meta property="og:title" content="9 Days in the Netherlands &mdash; Tulips, Windmills &amp; Dutch Masters" />
+    <meta property="og:description" content="Keukenhof, Kinderdijk, the Flower Parade, Van Gogh Museum, and rijsttafel &mdash; a spring trip from Singapore." />
+    <meta property="og:url" content="https://kooexperience.com/travel/posts/netherlands.html" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "9 Days in the Netherlands — Tulips, Windmills & Dutch Masters",
+      "author": { "@type": "Person", "name": "Haoming Koo" },
+      "datePublished": "2025-04-19",
+      "description": "A spring trip through the Netherlands — Keukenhof tulips, Kinderdijk windmills, the Flower Parade, Van Gogh Museum, and Dutch Masters."
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #a855f7;
+        --accent-dim: rgba(168,85,247,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+        --green: #22c55e;
+        --green-dim: rgba(34,197,94,.10);
+        --pink: #f472b6;
+        --pink-dim: rgba(244,114,182,.10);
+        --orange: #f97316;
+        --orange-dim: rgba(249,115,22,.10);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168,85,247,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(6,6,8,.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between;
+        height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px;
+        transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+
+      .hero-cover {
+        width: 100%; height: 340px; object-fit: cover;
+        border-radius: 16px; margin-bottom: 32px;
+        border: 1px solid var(--border);
+      }
+
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .reading-time { color: var(--muted); }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle {
+        font-size: 17px; color: var(--text-secondary); line-height: 1.6;
+        margin-bottom: 32px;
+      }
+      .article h2 {
+        font-size: 22px; font-weight: 700; margin: 48px 0 16px;
+        letter-spacing: -.01em; color: var(--text);
+      }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article img:not(.hero-cover):not(.gallery-img) {
+        max-width: 100%; border-radius: 12px; margin: 24px 0;
+        border: 1px solid var(--border);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title {
+        font-size: 11px; font-weight: 600; letter-spacing: .14em;
+        text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+      }
+      .toc a {
+        display: block; font-size: 13.5px; color: var(--text-secondary);
+        text-decoration: none; padding: 4px 0; transition: color .2s;
+      }
+      .toc a:hover { color: var(--accent); }
+
+      .map-container {
+        width: 100%; height: 400px;
+        border-radius: 14px; overflow: hidden;
+        border: 1px solid var(--border);
+        margin: 32px 0;
+      }
+      .map-container .leaflet-container { height: 100%; width: 100%; }
+      .leaflet-container { background: var(--bg); }
+      .leaflet-popup-content-wrapper {
+        background: var(--surface); color: var(--text);
+        border: 1px solid var(--border); border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(0,0,0,.5);
+      }
+      .leaflet-popup-tip { background: var(--surface); }
+      .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
+      .leaflet-control-attribution { font-size: 9px; opacity: .5; }
+      .leaflet-control-zoom a {
+        background: var(--surface) !important; color: var(--text) !important;
+        border-color: var(--border) !important;
+      }
+      .city-label {
+        background: none !important; border: none !important; box-shadow: none !important;
+        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600;
+        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
+        white-space: nowrap;
+      }
+
+      .itinerary { margin: 32px 0; }
+      .city-section-header {
+        display: flex; align-items: center; gap: 12px;
+        margin: 40px 0 16px; padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      .city-section-header:first-child { margin-top: 0; }
+      .city-name { font-size: 18px; font-weight: 700; color: var(--text); }
+      .city-nights { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+      .day-card {
+        position: relative;
+        padding: 24px 24px 24px 40px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        margin-bottom: 16px;
+        transition: border-color .2s;
+      }
+      .day-card:hover { border-color: rgba(168,85,247,.3); }
+      .day-card::before {
+        content: "";
+        position: absolute; left: 18px; top: 0; bottom: -16px;
+        width: 2px; background: var(--border);
+      }
+      .day-card:last-child::before { bottom: 50%; }
+      .day-card::after {
+        content: "";
+        position: absolute; left: 13px; top: 28px;
+        width: 12px; height: 12px; border-radius: 50%;
+        background: var(--accent); border: 2px solid var(--bg);
+        z-index: 1;
+      }
+      .day-label {
+        font-size: 11px; font-weight: 600; letter-spacing: .12em;
+        text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+      }
+      .day-title {
+        font-size: 17px; font-weight: 600; color: var(--text);
+        margin-bottom: 6px;
+      }
+      .day-desc {
+        font-size: 13.5px; color: var(--muted); line-height: 1.6;
+      }
+      .day-tags {
+        display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+      }
+      .day-tag {
+        font-size: 10px; font-weight: 500; padding: 2px 8px;
+        border-radius: 6px; background: rgba(255,255,255,.04);
+        color: var(--muted); border: 1px solid rgba(255,255,255,.05);
+      }
+
+      .cost-table {
+        width: 100%; border-collapse: collapse; margin: 24px 0;
+        font-size: 13.5px;
+      }
+      .cost-table th {
+        text-align: left; font-size: 11px; font-weight: 600;
+        letter-spacing: .1em; text-transform: uppercase;
+        color: var(--muted); padding: 8px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .cost-table th:last-child { text-align: right; }
+      .cost-table td {
+        padding: 10px 12px; color: var(--text-secondary);
+        border-bottom: 1px solid rgba(255,255,255,.03);
+      }
+      .cost-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+      .cost-table .category-row td {
+        font-weight: 600; color: var(--accent); font-size: 12px;
+        letter-spacing: .05em; text-transform: uppercase;
+        padding-top: 20px;
+      }
+      .cost-table .total-row td {
+        font-weight: 700; color: var(--text); font-size: 15px;
+        border-top: 2px solid var(--border); border-bottom: none;
+        padding-top: 16px;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 8px;
+        margin: 32px 0;
+      }
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        aspect-ratio: 4 / 3;
+        transition: transform .22s, border-color .22s;
+      }
+      .gallery-item:hover {
+        transform: scale(1.02);
+        border-color: rgba(168,85,247,.3);
+      }
+      .gallery-item.featured {
+        grid-column: span 2;
+        grid-row: span 2;
+        aspect-ratio: auto;
+      }
+      .gallery-img {
+        width: 100%; height: 100%; object-fit: cover;
+        display: block;
+      }
+      .gallery-caption {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        padding: 24px 12px 8px;
+        background: linear-gradient(transparent, rgba(0,0,0,.7));
+        font-size: 11px; color: rgba(255,255,255,.8);
+      }
+
+      .info-box {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+      }
+      .info-box-title {
+        font-size: 13px; font-weight: 600; color: var(--text);
+        margin-bottom: 8px;
+      }
+      .info-box-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 6px 0; font-size: 13px;
+        border-bottom: 1px solid rgba(255,255,255,.03);
+      }
+      .info-box-row:last-child { border-bottom: none; }
+      .info-box-label { color: var(--muted); }
+      .info-box-value { color: var(--text-secondary); font-weight: 500; }
+
+      .callout {
+        background: var(--accent-dim); border-left: 3px solid var(--accent);
+        border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 24px 0;
+        font-size: 13.5px; color: var(--text-secondary);
+      }
+      .callout strong { color: var(--text); }
+
+      footer {
+        border-top: 1px solid var(--border); padding: 32px 0 40px;
+        font-size: 13px; color: var(--muted); text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+        .hero-cover { height: 220px; }
+        .map-container { height: 280px; }
+        .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        .gallery-item.featured { grid-column: span 1; grid-row: span 1; aspect-ratio: 4/3; }
+        .day-card { padding-left: 36px; }
+        .cost-table { font-size: 12px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../../">HK</a>
+        <a href="../">Travel</a>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../">&larr; Back to travel</a>
+
+        <!-- Hero image — replace src with your photo -->
+        <!-- <img class="hero-cover" src="" alt="Keukenhof tulip fields, Netherlands" loading="eager" /> -->
+
+        <div class="article-meta">
+          <span class="article-tag">Netherlands</span>
+          <span class="article-tag" style="background: var(--green-dim); color: var(--green);">Flowers</span>
+          <span class="article-tag" style="background: var(--orange-dim); color: var(--orange);">Spring</span>
+          <span>Apr 2025</span>
+          <span class="reading-time">14 min read</span>
+        </div>
+
+        <h1>9 Days in the Netherlands &mdash; Tulips, Windmills &amp; Dutch Masters</h1>
+        <p class="subtitle">
+          Amsterdam &rarr; Sassenheim &rarr; Haarlem &rarr; Keukenhof &rarr; Volendam &rarr; Zaanse Schans &rarr; The Hague &rarr; Delft &rarr; Rotterdam &rarr; Kinderdijk &rarr; Leiden &rarr; Amsterdam.
+          Millions of tulips in bloom, iconic windmills, Van Gogh and Vermeer, and the best Indonesian food outside Indonesia.
+          Here's everything we did and what I'd do differently.
+        </p>
+
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#overview">Overview</a>
+          <a href="#for-you">Is This Trip For You?</a>
+          <a href="#map">Route Map</a>
+          <a href="#amsterdam">Amsterdam (Days 1, 5, 6 &mdash; Town Center, Museums, Countryside Tour)</a>
+          <a href="#flower-parade">Flower Parade &mdash; Sassenheim (Day 2)</a>
+          <a href="#haarlem">Haarlem Day Trip (Day 3)</a>
+          <a href="#keukenhof">Keukenhof &amp; Tulip Fields (Day 4)</a>
+          <a href="#the-hague-delft">The Hague &amp; Delft (Day 7)</a>
+          <a href="#rotterdam-kinderdijk">Rotterdam &amp; Kinderdijk (Day 8)</a>
+          <a href="#hindsight">What I'd Do Differently</a>
+          <a href="#tickets">Booking Guide</a>
+          <a href="#planning-timeline">Planning Timeline</a>
+          <a href="#when-to-go">When to Go</a>
+          <a href="#photos">Photos</a>
+          <a href="#food">What to Eat</a>
+          <a href="#tips">Quick Tips</a>
+        </div>
+
+        <!-- ── Overview ──────────────────────────────────────────────────── -->
+        <h2 id="overview">Overview</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">Trip Details</div>
+          <div class="info-box-row">
+            <span class="info-box-label">Dates</span>
+            <span class="info-box-value">Apr 10 &ndash; 19, 2025</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Duration</span>
+            <span class="info-box-value">9 days (fly out Apr 10 night, arrive Apr 11, depart Apr 19)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Route</span>
+            <span class="info-box-value">Amsterdam &rarr; Sassenheim &rarr; Haarlem &rarr; Keukenhof &rarr; Volendam &rarr; Zaanse Schans &rarr; The Hague &rarr; Delft &rarr; Rotterdam &rarr; Kinderdijk &rarr; Leiden &rarr; Amsterdam</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Flight</span>
+            <span class="info-box-value">Turkish Airlines TK 55/1951 (out) &middot; TK 1954/54 (return)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Hotel</span>
+            <span class="info-box-value">M&ouml;venpick Hotel Amsterdam City Centre &middot; 8 nights</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Season</span>
+            <span class="info-box-value">Spring &mdash; tulip season (10&ndash;15&deg;C)</span>
+          </div>
+        </div>
+
+        <p>
+          The Netherlands in mid-April is one of the most visually striking places on earth. Millions
+          of tulips in full bloom, historic windmills turning against flat Dutch skies, and centuries-old
+          canal towns that look exactly like the paintings hanging in the Rijksmuseum. It's a compact
+          country &mdash; you can reach almost anything within two hours of Amsterdam &mdash; which makes
+          it ideal for a single-base trip with day excursions.
+        </p>
+        <p>
+          We used the M&ouml;venpick Hotel Amsterdam City Centre as our base for all eight nights.
+          Central Amsterdam covered the arrival day, museum day, and countryside tour day. The remaining
+          days were dedicated to day trips: Sassenheim for the Flower Parade, Haarlem for its charming
+          streets and windmill, Keukenhof for the tulip gardens and cycling through flower fields,
+          a countryside tour to Volendam and Zaanse Schans, a rental car day to The Hague and Delft,
+          and another driving day to Rotterdam, Kinderdijk, and Leiden. The pacing felt right &mdash;
+          busy but not exhausting, with enough variety to keep each day fresh.
+        </p>
+
+        <!-- ── Is This Trip For You? ─────────────────────────────────────── -->
+        <h2 id="for-you">Is This Trip For You?</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">If you nod to most of these, keep reading</div>
+          <div class="info-box-row">
+            <span class="info-box-label">You want to see millions of tulips in bloom at the world's most famous flower garden</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You're interested in Dutch masters &mdash; Van Gogh, Vermeer, Rembrandt</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You love cycling through flat countryside and flower fields</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You want to visit iconic windmills and traditional Dutch villages</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You appreciate good Indonesian food (the Netherlands' colonial connection makes it exceptional here)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You're planning around mid-April for tulip season and the Flower Parade</span>
+          </div>
+        </div>
+
+        <!-- ── Map ───────────────────────────────────────────────────────── -->
+        <h2 id="map">Route Map</h2>
+        <p>Click on any marker to see what we did in each area.</p>
+        <div class="map-container">
+          <div id="trip-map"></div>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0 12px;">
+          <a href="#" target="_blank" rel="noopener"
+             style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+                    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+                    color: var(--text); text-decoration: none; font-size: 13px; font-weight: 500;
+                    transition: border-color .2s, background .2s; cursor: pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            View all pins on Google Maps
+          </a>
+          <a href="./netherlands-route.kml" download
+             style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+                    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+                    color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500;
+                    transition: border-color .2s, background .2s; cursor: pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download KML file
+          </a>
+        </div>
+        <p style="font-size: 12px; color: var(--muted); margin-bottom: 32px; line-height: 1.6;">
+          Import the KML file into
+          <a href="https://www.google.com/maps/d/" target="_blank" rel="noopener" style="color: var(--accent);">Google My Maps</a>
+          to get all pins on your phone.
+        </p>
+
+        <!-- ── AMSTERDAM ─────────────────────────────────────────────────── -->
+        <h2 id="amsterdam">Amsterdam</h2>
+        <div class="city-section-header">
+          <span class="city-name">Amsterdam</span>
+          <span class="city-nights">8 nights &middot; M&ouml;venpick Hotel Amsterdam City Centre</span>
+        </div>
+
+        <p>
+          Amsterdam was both our base and the anchor for three very different days: the arrival day
+          exploring the town center, a full museum and canal day, and a countryside tour returning
+          to the city for the Heineken Experience. The M&ouml;venpick is well located near Centraal
+          Station &mdash; walkable to most of the canal ring, with easy access to the ferry terminal
+          and tram lines. The city rewards walking, but cycling is the real way to experience
+          Amsterdam &mdash; flat, well-signed, and thrilling once you get used to the pace.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 1 &mdash; Apr 11 (Fri)</div>
+            <div class="day-title">Arrival &amp; Amsterdam Town Center</div>
+            <div class="day-desc">
+              Arrived Schiphol at 9:40am on Turkish Airlines TK 55/1951, transferred to
+              <strong>M&ouml;venpick Hotel Amsterdam City Centre</strong> and dropped bags.
+              Lunch at <strong>The Pancake Bakery</strong> &mdash; classic Dutch pancakes, both
+              savory and sweet, in a cozy canal-side setting. A proper introduction to Amsterdam.<br><br>
+              Walked to <strong>Dam Square</strong>, the historic heart of the city &mdash; the Royal
+              Palace, the National Monument, and the Nieuwe Kerk all front this busy square. Then to
+              <strong>Van Stapele Koekmakerij</strong> for their famous dark chocolate cookies with
+              white chocolate centers (they sell out, so go early or queue).<br><br>
+              <strong>Begijnhof</strong> next &mdash; a hidden courtyard from the 14th century, one of
+              the oldest inner courts in Amsterdam. Serene and easy to miss if you don't know to look
+              for the entrance. From there, <strong>Bloemenmarkt</strong>, the world's only floating
+              flower market. Touristy but beautiful &mdash; buy bulbs here if you want to take
+              tulips home.<br><br>
+              Afternoon wandering through <strong>De 9 Straatjes</strong> (Nine Streets) &mdash; nine
+              charming streets connecting the main canal rings, filled with independent boutiques,
+              vintage shops, and specialty cafes. Then a quick browse through <strong>de Bijenkorf
+              Amsterdam</strong>, the upscale department store on Dam Square.<br><br>
+              <strong>Manneken Pis Damrak</strong> for traditional Dutch fries &mdash; thick-cut,
+              served in a cone with mayo or peanut satay sauce. Dinner at <strong>Sampurna</strong>
+              for Indonesian rijsttafel &mdash; a "rice table" with a dozen small dishes. The
+              Netherlands' colonial connection to Indonesia means the Indonesian food here is
+              genuinely excellent, and rijsttafel is the quintessential way to experience it.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Arrival</span>
+              <span class="day-tag">Dam Square</span>
+              <span class="day-tag">Canals</span>
+              <span class="day-tag">Rijsttafel</span>
+            </div>
+          </div>
+
+          <div class="day-card" id="flower-parade">
+            <div class="day-label">Day 2 &mdash; Apr 12 (Sat)</div>
+            <div class="day-title">Flower Parade Day</div>
+            <div class="day-desc">
+              Started with the <strong>Ferry F3</strong> behind Centraal Station across the IJ river
+              to Amsterdam Noord. Picked up <strong>This is Holland</strong> exchange tickets &mdash; an
+              interactive flying experience simulating a flight over Dutch landmarks. Quick stop at
+              an <strong>AH Supermarket</strong> for snacks (Albert Heijn is everywhere and great
+              for cheap sandwiches, drinks, and stroopwafels).<br><br>
+              Transferred to <strong>Grandstand Sassenheim</strong> for the annual <strong>Flower
+              Parade (Bloemencorso)</strong>. This is a once-a-year event, usually mid-April Saturday,
+              where enormous floats covered entirely in flowers parade through the Bollenstreek
+              (bulb region) towns. The floats are astonishing &mdash; intricate designs made from
+              millions of blooms, each one a work of art. Arrived early to secure grandstand
+              seats; the parade passes Sassenheim around 11:50am. After the parade, the floats are
+              parked on display for closer inspection.<br><br>
+              Returned to Amsterdam. Late lunch at <strong>Pllek</strong>, a creative waterfront
+              spot in Amsterdam Noord with views across the IJ. Then back to enjoy
+              <strong>This is Holland</strong> &mdash; the flying simulation is surprisingly well done
+              and gives you a bird's-eye view of the Dutch landscape, windmills, and tulip fields.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Flower Parade</span>
+              <span class="day-tag">Sassenheim</span>
+              <span class="day-tag">Amsterdam Noord</span>
+              <span class="day-tag">This is Holland</span>
+            </div>
+          </div>
+
+          <div class="day-card" id="haarlem">
+            <div class="day-label">Day 3 &mdash; Apr 13 (Sun)</div>
+            <div class="day-title">Haarlem Day Trip</div>
+            <div class="day-desc">
+              Quick 15-minute train ride to <strong>Haarlem</strong>, one of the prettiest towns in
+              the Netherlands. Started at <strong>Amsterdamse Poort</strong>, the medieval city gate
+              &mdash; the last surviving gate of the original twelve, dating to around 1355.<br><br>
+              <strong>Molen De Adriaan</strong> English tour &mdash; an iconic windmill on the banks
+              of the Spaarne river. The guided tour explains how windmills actually work and gives you
+              access to the top for panoramic views over Haarlem's rooftops. Worth the 30 minutes.<br><br>
+              Lunch at <strong>by Lima</strong>, then a stroll through <strong>Grote Markt</strong>
+              &mdash; the main market square surrounded by medieval buildings, the Grote Kerk (St Bavo
+              Church), and lively with a fair and post-parade float displays on this particular weekend.<br><br>
+              <strong>Teylers Museum</strong> &mdash; the oldest museum in the Netherlands (founded 1778).
+              An eclectic collection spanning fossils, scientific instruments, coins, and paintings,
+              housed in beautifully preserved period rooms. The oval room alone is worth the visit.<br><br>
+              Walked the charming streets, then tea at <strong>Jopenkerk</strong> &mdash; a converted
+              church now housing a brewery and cafe. The interior is spectacular: stained glass windows
+              and vaulted ceilings with copper brewing equipment. Dinner at <strong>De Lachende
+              Javaan</strong> for more Indonesian food. Train back to Amsterdam.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Day Trip</span>
+              <span class="day-tag">Windmill</span>
+              <span class="day-tag">Teylers Museum</span>
+              <span class="day-tag">Church Brewery</span>
+            </div>
+          </div>
+
+          <div class="day-card" id="keukenhof">
+            <div class="day-label">Day 4 &mdash; Apr 14 (Mon)</div>
+            <div class="day-title">Keukenhof Tulip Fields</div>
+            <div class="day-desc">
+              The day we came for. Uber to <strong>Amsterdam RAI</strong>, then the Keukenhof combo
+              bus to the gardens. Arrived right at <strong>8:00am opening</strong> &mdash; critical
+              for beating the crowds. Started with the windmill area in the back of the park,
+              then worked through <strong>Wilhelmina</strong> and <strong>Juliana</strong> garden
+              sections, followed by <strong>Willem-Alexander</strong> and <strong>Oranje Nassau</strong>
+              pavilions and the remaining exhibition halls.<br><br>
+              Keukenhof is staggering. Seven million bulbs across 32 hectares &mdash; tulips, hyacinths,
+              daffodils, and dozens of other varieties in every colour imaginable. The indoor pavilions
+              are just as impressive, with themed exhibitions and special cultivars. Mid-April is peak
+              bloom &mdash; every bed was at its fullest.<br><br>
+              At 12:30 we <strong>rented bikes</strong> from the park to explore the surrounding flower
+              fields. This is the hidden gem of the Keukenhof experience &mdash; cycling through vast
+              commercial tulip fields stretching to the horizon, row after row of colour. Lunch at
+              <strong>Hofboerderij</strong>, a farm-style restaurant near the park. Then
+              <strong>Keukenhof Castle</strong> and more flower farms by bike before returning.<br><br>
+              Back to Amsterdam. Dinner at <strong>Loetje</strong> &mdash; known for their biefstuk
+              (steak), a local institution.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Keukenhof</span>
+              <span class="day-tag">Tulips</span>
+              <span class="day-tag">Cycling</span>
+              <span class="day-tag">Flower Fields</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 5 &mdash; Apr 15 (Tue)</div>
+            <div class="day-title">Amsterdam Museums &amp; Canals</div>
+            <div class="day-desc">
+              Full museum day. <strong>Van Gogh Museum</strong> in the morning &mdash; spent over
+              four hours here. The collection is extraordinary: from the early dark Dutch period
+              through the explosion of colour in Arles and Saint-R&eacute;my. Seeing the progression
+              of his work chronologically, room by room, is far more powerful than encountering
+              individual paintings in other museums. Book a timed entry slot online.<br><br>
+              Lunch at <strong>The Pantry</strong> for traditional Dutch food, or <strong>The Seafood
+              Bar</strong> nearby if you're in the mood for fresh oysters and fish.<br><br>
+              <strong>Anne Frank House</strong> at 3pm (pre-booked). This is a must but also deeply
+              sobering. The house itself is small and austere &mdash; walking through the concealed
+              annex where the Frank family hid for two years is an experience that stays with you.
+              Tickets release online about six weeks ahead and sell out within minutes. Set a reminder
+              and be ready to book the moment they go live.<br><br>
+              Late afternoon <strong>canal tour with Those Dam Boat Guys</strong> &mdash; a
+              small-boat, guide-led tour (~75 minutes) through the UNESCO-listed canal ring. More
+              intimate than the big tourist boats, with local stories and good commentary. Desserts
+              at <strong>Winkel 43</strong> for their famous apple pie &mdash; widely considered the
+              best in Amsterdam, served warm with whipped cream.<br><br>
+              Dinner at <strong>De Kas</strong> &mdash; farm-to-table dining in a converted greenhouse
+              on the outskirts of the city. The restaurant grows its own herbs and vegetables in the
+              surrounding gardens. A special meal.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Van Gogh</span>
+              <span class="day-tag">Anne Frank House</span>
+              <span class="day-tag">Canal Tour</span>
+              <span class="day-tag">Apple Pie</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 6 &mdash; Apr 16 (Wed)</div>
+            <div class="day-title">Countryside &amp; Windmills Tour</div>
+            <div class="day-desc">
+              Full-day guided tour to <strong>Volendam</strong>, <strong>Marken</strong>, and
+              <strong>Zaanse Schans</strong>. Booked through tours-tickets.com. The tour covers the
+              traditional Dutch countryside &mdash; fishing villages, wooden shoe demonstrations,
+              cheese-making, and the iconic windmills of Zaanse Schans.<br><br>
+              <strong>Volendam</strong> is a picturesque fishing village on the Markermeer lake &mdash;
+              colourful wooden houses along the harbour, fish stalls selling smoked eel and kibbeling.
+              <strong>Marken</strong> is a former island village with characteristic green wooden houses.
+              <strong>Zaanse Schans</strong> is the star &mdash; an open-air museum with working
+              windmills, a pewter factory, a clog workshop, and a cheese farm. Touristy, yes, but worth
+              it for first-timers. The windmills against the flat Dutch sky are exactly as photogenic as
+              you'd expect.<br><br>
+              Returned to Amsterdam around 3pm. Quick <strong>laundry run at Wash Place</strong> (useful
+              to know about for a longer trip), then the <strong>Heineken Experience</strong> &mdash; an
+              interactive brewery tour through the original Heineken brewery. More entertaining than
+              expected, with a tasting at the end. Book online to skip the queue.<br><br>
+              Dinner at <strong>Sea Palace</strong> &mdash; a floating Chinese restaurant in the harbour
+              near Centraal Station. The setting is unique even if the food is more about location.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Volendam</span>
+              <span class="day-tag">Zaanse Schans</span>
+              <span class="day-tag">Windmills</span>
+              <span class="day-tag">Heineken</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── THE HAGUE & DELFT ──────────────────────────────────────────── -->
+        <h2 id="the-hague-delft">The Hague &amp; Delft</h2>
+        <div class="city-section-header">
+          <span class="city-name">The Hague &amp; Delft</span>
+          <span class="city-nights">Day trip &middot; Rental car</span>
+        </div>
+
+        <p>
+          Day 7 was our first rental car day. Enterprise pick-up near Centraal Station, then south
+          to The Hague and Delft. The Netherlands is small and the motorways are excellent &mdash;
+          The Hague is about 50 minutes from Amsterdam, and Delft is just 15 minutes further. Having
+          a car made the day flexible and allowed us to catch sunset at the coast.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 7 &mdash; Apr 17 (Thu)</div>
+            <div class="day-title">Madurodam, Royal Delft &amp; Sunset at De Pier</div>
+            <div class="day-desc">
+              Picked up the rental car at <strong>Enterprise</strong> and drove to The Hague.
+              First stop: <strong>Madurodam</strong>, a miniature park with 1:25 scale models of famous
+              Dutch landmarks, buildings, and infrastructure. Sounds kitsch but it's genuinely well done
+              &mdash; interactive exhibits, working models, and a great way to see the entire country
+              in miniature before seeing it for real.<br><br>
+              Drove to <strong>Delft</strong> &mdash; a beautiful canal town and the birthplace of
+              Vermeer. <strong>Royal Delft Store</strong> for the iconic blue-and-white Delftware
+              pottery. Had <strong>high tea lunch at Royal Delft</strong> &mdash; served on Delftware,
+              naturally. Then the hands-on highlight: a <strong>traditional tile painting workshop</strong>
+              where you paint your own Delft tile under guidance. Book in advance &mdash; it's a genuine
+              craft experience, not a tourist assembly line. Toured the <strong>Royal Delft Museum</strong>
+              to see the full production process and historic collections.<br><br>
+              Back to <strong>The Hague</strong> to explore the city center &mdash; the Binnenhof
+              (the Dutch parliament complex), Mauritshuis exterior (home of Vermeer's "Girl with a
+              Pearl Earring"), and the surrounding streets. Dinner at <strong>Waroeng Padang
+              Lapek</strong> for more Indonesian food &mdash; the Indonesian restaurants in The Hague
+              are arguably even better than Amsterdam's.<br><br>
+              Ended the day at <strong>De Pier</strong> in Scheveningen, The Hague's seaside district.
+              Sunset at approximately 20:44 &mdash; watching the sun drop into the North Sea from
+              the pier is a perfect way to close the day.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Rental Car</span>
+              <span class="day-tag">Madurodam</span>
+              <span class="day-tag">Delft Pottery</span>
+              <span class="day-tag">Sunset</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ROTTERDAM & KINDERDIJK ─────────────────────────────────────── -->
+        <h2 id="rotterdam-kinderdijk">Rotterdam, Kinderdijk &amp; Leiden</h2>
+        <div class="city-section-header">
+          <span class="city-name">Rotterdam, Kinderdijk &amp; Leiden</span>
+          <span class="city-nights">Day trip &middot; Rental car</span>
+        </div>
+
+        <p>
+          The second rental car day covered the most ground: south to Kinderdijk for the UNESCO
+          windmills, then Rotterdam for modern architecture and the Markthal, and a dinner stop
+          in historic Leiden on the way back. A long day but every stop was worth it.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 8 &mdash; Apr 18 (Fri)</div>
+            <div class="day-title">UNESCO Kinderdijk, Rotterdam &amp; Leiden</div>
+            <div class="day-desc">
+              Departed Amsterdam by car, driving south to <strong>Kinderdijk</strong> &mdash; a
+              UNESCO World Heritage site with 19 historic windmills built around 1740 to drain the
+              polders. Started with the <strong>Secondary Pumping Station film</strong> for context,
+              then visited <strong>Blokweer Museum Mill</strong> (see how a windmill keeper's family
+              actually lived), <strong>Nederwaard Museum Mill</strong> (the working mechanics of
+              water management), and <strong>Wisboom Pumping Station</strong>. The scale of the
+              Dutch water management system is extraordinary &mdash; the entire country exists because
+              of these engineering feats. Shuttle back to the car park.<br><br>
+              Drove to <strong>Rotterdam</strong> &mdash; a completely different city from Amsterdam.
+              Bombed flat in WWII and rebuilt with bold modern architecture, Rotterdam feels more like
+              a contemporary design showcase. Lunch at <strong>De Ballentent</strong> by the harbour.
+              Walked through <strong>Museum Park</strong> and <strong>Het Park</strong>, past the
+              <strong>Art Depot Museum</strong> exterior (the mirrored-bowl Depot Boijmans, striking
+              from outside). <strong>Het Kijk Kubus Museum House</strong> &mdash; the famous Cube
+              Houses by Piet Blom, one of which is open as a museum showing how people actually live
+              inside these tilted cubes. Finally, <strong>Markthal</strong> &mdash; a horseshoe-shaped
+              building with apartments arching over a covered market hall, its ceiling covered in a
+              massive colourful mural. Great architecture and great food stalls.<br><br>
+              Left Rotterdam and drove to <strong>Leiden</strong> for dinner at <strong>Waag</strong>,
+              a historic weigh house turned restaurant in the centre of this university town.
+              Returned to Amsterdam.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Kinderdijk</span>
+              <span class="day-tag">UNESCO</span>
+              <span class="day-tag">Cube Houses</span>
+              <span class="day-tag">Markthal</span>
+              <span class="day-tag">Leiden</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── FINAL DAY ──────────────────────────────────────────────────── -->
+        <h2 id="final-day">Final Day &mdash; Amsterdam</h2>
+        <div class="city-section-header">
+          <span class="city-name">Amsterdam</span>
+          <span class="city-nights">Departure day</span>
+        </div>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 9 &mdash; Apr 19 (Sat)</div>
+            <div class="day-title">Albert Cuyp Market &amp; Departure</div>
+            <div class="day-desc">
+              Final morning at <strong>Albert Cuyp Market</strong> &mdash; Amsterdam's most famous
+              and largest street market, running daily in the De Pijp neighbourhood. Over 250 stalls
+              selling everything from fresh stroopwafels and herring to cheese, flowers, and clothing.
+              A great last stop for snacks, souvenirs, and soaking in the local atmosphere.<br><br>
+              <!-- (Paleis Amsterdam / Royal Palace — opens later half of April, may not be open yet) --><br>
+              Headed to Schiphol for the 18:25 flight, Turkish Airlines TK 1954/54 back to Singapore.
+              Arrive 3 hours early for Schiphol departure &mdash; the airport can be slow during tulip
+              season, and you'll want time for the tax refund e-kiosks.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Market</span>
+              <span class="day-tag">Departure</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── What I'd Do Differently ────────────────────────────────────── -->
+        <h2 id="hindsight">What I'd Do Differently</h2>
+
+        <h3>Book Anne Frank House tickets the moment they go on sale</h3>
+        <p>
+          Tickets release online approximately six weeks before your visit date. They sell out
+          within minutes &mdash; often in under two minutes. Set an alarm, have the page loaded,
+          and be ready to click the instant they go live. This is not an exaggeration. If you miss
+          the window, your only option is the last-minute release on the day (very limited).
+        </p>
+
+        <h3>Spend more time at Keukenhof &mdash; arrive right at opening</h3>
+        <p>
+          Keukenhof opens at 8am and the first hour is magical &mdash; almost no crowds, perfect
+          light for photos, and the gardens feel like they're yours alone. Plan for a full day:
+          the gardens in the morning, bike the surrounding flower fields in the afternoon. We did
+          this and it still felt like we could have stayed longer.
+        </p>
+
+        <h3>Consider staying one night in Rotterdam or The Hague</h3>
+        <p>
+          The driving days (Days 7 and 8) were long. An overnight in Rotterdam or The Hague would
+          have broken up the driving and given more time to explore each city properly. Rotterdam
+          in particular deserves more than an afternoon &mdash; the modern architecture and food
+          scene justify a full day.
+        </p>
+
+        <h3>The countryside tour is touristy but worth it for first-timers</h3>
+        <p>
+          Volendam, Marken, and Zaanse Schans are undeniably tourist-oriented, but they deliver
+          exactly what you'd hope for: wooden shoes, cheese wheels, working windmills, and
+          picture-perfect Dutch villages. If it's your first time in the Netherlands, do it.
+          On a return trip, you'd skip it for deeper dives elsewhere.
+        </p>
+
+        <h3>Rent a bike in Amsterdam for at least one day</h3>
+        <p>
+          Amsterdam is built for cycling. The bike infrastructure is extraordinary &mdash; dedicated
+          lanes everywhere, traffic lights for cyclists, and a city that's perfectly flat. Walking
+          is fine, but cycling lets you cover three times the ground and experience the city the way
+          locals do. Just watch the bike lanes when you're on foot &mdash; locals will ring at you.
+        </p>
+
+        <!-- ── Booking Guide ────────────────────────────────────────────── -->
+        <h2 id="tickets">Booking Guide</h2>
+
+        <p>
+          The Netherlands in tulip season requires more advance planning than you'd expect.
+          Several attractions have timed entries or limited availability:
+        </p>
+
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th style="text-align: left;">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Keukenhof</strong></td>
+              <td style="text-align: left;">Book online in advance. Combo ticket includes bus from Amsterdam RAI. Arrive at 8am opening for the best experience.</td>
+            </tr>
+            <tr>
+              <td><strong>Anne Frank House</strong></td>
+              <td style="text-align: left;">Tickets release online ~6 weeks ahead. Set a reminder &mdash; they sell out in minutes. This is the hardest ticket in Amsterdam.</td>
+            </tr>
+            <tr>
+              <td><strong>Van Gogh Museum</strong></td>
+              <td style="text-align: left;">Book a timed entry slot online. Morning slots give you the most breathing room.</td>
+            </tr>
+            <tr>
+              <td><strong>This is Holland</strong></td>
+              <td style="text-align: left;">Book online for a small discount. Exchange tickets at the venue.</td>
+            </tr>
+            <tr>
+              <td><strong>Heineken Experience</strong></td>
+              <td style="text-align: left;">Book online to skip the queue. The interactive tour takes about 90 minutes.</td>
+            </tr>
+            <tr>
+              <td><strong>Canal Tour (Those Dam Boat Guys)</strong></td>
+              <td style="text-align: left;">Book online, ~75 min. Small boats, better than the large tourist boats.</td>
+            </tr>
+            <tr>
+              <td><strong>Countryside Tour</strong></td>
+              <td style="text-align: left;">Book through tours-tickets.com. Full-day guided to Volendam, Marken &amp; Zaanse Schans.</td>
+            </tr>
+            <tr>
+              <td><strong>Royal Delft Workshop</strong></td>
+              <td style="text-align: left;">Book the tile painting workshop in advance. Includes museum entry.</td>
+            </tr>
+            <tr>
+              <td><strong>Flower Parade</strong></td>
+              <td style="text-align: left;">Grandstand tickets at Sassenheim via bloemencorso-bollenstreek.nl. Once a year, mid-April Saturday.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <strong>Anne Frank House tip:</strong> Tickets go on sale at 10:00 CET, exactly 6 weeks
+          before the visit date. Have the booking page open, logged in, with payment details saved.
+          Multiple time slots sell out in under 2 minutes. The 3pm&ndash;4pm slots tend to last
+          slightly longer than morning ones.
+        </div>
+
+        <!-- ── Planning Timeline ──────────────────────────────────────────── -->
+        <h2 id="planning-timeline">Planning Timeline</h2>
+
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>When</th>
+              <th style="text-align: left;">What to Do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>3 months before</strong></td>
+              <td style="text-align: left;">Book flights, hotel, and Keukenhof combo tickets. Mid-April hotels in Amsterdam fill up fast during tulip season.</td>
+            </tr>
+            <tr>
+              <td><strong>6 weeks before</strong></td>
+              <td style="text-align: left;">Anne Frank House tickets (critical &mdash; set an alarm). This is the single most important booking of the trip.</td>
+            </tr>
+            <tr>
+              <td><strong>1 month before</strong></td>
+              <td style="text-align: left;">Van Gogh Museum, Heineken Experience, This is Holland, Royal Delft tile painting workshop.</td>
+            </tr>
+            <tr>
+              <td><strong>2 weeks before</strong></td>
+              <td style="text-align: left;">Canal tour (Those Dam Boat Guys), countryside tour (tours-tickets.com), restaurant reservation for De Kas.</td>
+            </tr>
+            <tr>
+              <td><strong>1 week before</strong></td>
+              <td style="text-align: left;">Enterprise car rental confirmation, download offline maps, check Flower Parade grandstand tickets.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ── When to Go ─────────────────────────────────────────────────── -->
+        <h2 id="when-to-go">When to Go</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">Tulip Season &amp; Weather</div>
+          <div class="info-box-row">
+            <span class="info-box-label">Peak tulip bloom</span>
+            <span class="info-box-value">Mid-April (Keukenhof opens late Mar &ndash; mid-May)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Flower Parade (Bloemencorso)</span>
+            <span class="info-box-value">Once a year, usually mid-April Saturday</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Temperature</span>
+            <span class="info-box-value">10&ndash;15&deg;C &mdash; layers essential</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Weather</span>
+            <span class="info-box-value">Mix of sun and rain &mdash; always carry a rain jacket</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Crowds</span>
+            <span class="info-box-value">High season for tulip tourism &mdash; book everything early</span>
+          </div>
+        </div>
+
+        <p>
+          Mid-April is the sweet spot. Keukenhof opens late March and runs to mid-May, but the
+          fullest blooms &mdash; when every bed is at peak colour &mdash; happen around the second
+          and third weeks of April. The Flower Parade is timed to this period. Weather is
+          unpredictable: expect anything from bright sunshine to sudden rain showers in the
+          same afternoon. Pack layers and always have a compact rain jacket or umbrella.
+        </p>
+
+        <!-- ── Photos ────────────────────────────────────────────────────── -->
+        <h2 id="photos">Photos</h2>
+        <p>Click any photo to view full-size. (Photos coming soon!)</p>
+
+        <div class="gallery" id="travel-gallery">
+          <a class="gallery-item featured" href="#" data-pswp-src="https://placehold.co/1200x800/1c1c24/64647a?text=Keukenhof+Tulips" data-pswp-width="1200" data-pswp-height="800">
+            <img class="gallery-img" src="https://placehold.co/600x400/1c1c24/64647a?text=Keukenhof+Tulips" alt="Keukenhof tulip gardens" loading="lazy" />
+            <div class="gallery-caption">Millions of tulips in bloom at Keukenhof</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Flower+Parade" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Flower+Parade" alt="Bloemencorso Flower Parade float" loading="lazy" />
+            <div class="gallery-caption">Flower Parade float at Sassenheim</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Kinderdijk" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Kinderdijk" alt="Kinderdijk windmills" loading="lazy" />
+            <div class="gallery-caption">UNESCO Kinderdijk windmills</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Zaanse+Schans" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Zaanse+Schans" alt="Zaanse Schans windmills" loading="lazy" />
+            <div class="gallery-caption">Historic windmills at Zaanse Schans</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Amsterdam+Canals" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Amsterdam+Canals" alt="Amsterdam canal houses" loading="lazy" />
+            <div class="gallery-caption">Amsterdam's UNESCO-listed canal ring</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Cube+Houses" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Cube+Houses" alt="Rotterdam Cube Houses" loading="lazy" />
+            <div class="gallery-caption">Piet Blom's Cube Houses in Rotterdam</div>
+          </a>
+        </div>
+
+        <!-- ── What to Eat ──────────────────────────────────────────────── -->
+        <h2 id="food">What to Eat</h2>
+
+        <p>
+          Dutch cuisine gets an unfair reputation. The street food is excellent, the cheese is
+          world-class, and the Indonesian food &mdash; a legacy of the Netherlands' colonial history
+          &mdash; is genuinely the best you'll find outside Indonesia. Here's what to prioritise:
+        </p>
+
+        <div class="info-box">
+          <div class="info-box-title">Dutch Must-Eats</div>
+          <div class="info-box-row"><span class="info-box-label">Stroopwafel</span><span class="info-box-value">Warm, fresh from street stalls &mdash; not the packaged ones</span></div>
+          <div class="info-box-row"><span class="info-box-label">Dutch Pancakes</span><span class="info-box-value">The Pancake Bakery &mdash; savory and sweet, a full meal</span></div>
+          <div class="info-box-row"><span class="info-box-label">Bitterballen</span><span class="info-box-value">Deep-fried meat ragout balls with mustard &mdash; the bar snack staple</span></div>
+          <div class="info-box-row"><span class="info-box-label">Frikandel</span><span class="info-box-value">Dutch minced meat sausage from snack bars</span></div>
+          <div class="info-box-row"><span class="info-box-label">Haring (Herring)</span><span class="info-box-value">Raw herring with onions &mdash; Dutch street food classic</span></div>
+          <div class="info-box-row"><span class="info-box-label">Kibbeling</span><span class="info-box-value">Battered fried fish (usually cod) with garlic sauce</span></div>
+          <div class="info-box-row"><span class="info-box-label">Apple Pie</span><span class="info-box-value">Winkel 43 is the gold standard &mdash; warm with whipped cream</span></div>
+          <div class="info-box-row"><span class="info-box-label">Dutch Fries</span><span class="info-box-value">Thick cut with mayo or peanut satay sauce</span></div>
+          <div class="info-box-row"><span class="info-box-label">Poffertjes</span><span class="info-box-value">Mini fluffy pancakes with powdered sugar and butter</span></div>
+          <div class="info-box-row"><span class="info-box-label">Cheese</span><span class="info-box-value">Gouda, Edam, aged varieties &mdash; buy at markets</span></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-box-title">Indonesian Connection (Colonial Heritage &mdash; Excellent in NL)</div>
+          <div class="info-box-row"><span class="info-box-label">Rijsttafel</span><span class="info-box-value">12&ndash;20 small dishes &mdash; the quintessential colonial Dutch meal</span></div>
+          <div class="info-box-row"><span class="info-box-label">Nasi Goreng</span><span class="info-box-value">Indonesian fried rice, practically Dutch comfort food</span></div>
+          <div class="info-box-row"><span class="info-box-label">Rendang</span><span class="info-box-value">Slow-cooked beef in coconut and spices</span></div>
+          <div class="info-box-row"><span class="info-box-label">Satay</span><span class="info-box-value">Grilled skewers with peanut sauce</span></div>
+        </div>
+
+        <div class="callout">
+          <strong>Don't skip Indonesian food:</strong> The Netherlands has arguably the best Indonesian
+          food outside Indonesia, thanks to centuries of colonial history. Rijsttafel (rice table) is
+          the must-try &mdash; a parade of 12&ndash;20 small dishes served with rice. Sampurna in
+          Amsterdam, De Lachende Javaan in Haarlem, and Waroeng Padang Lapek in The Hague all
+          delivered excellent meals.
+        </div>
+
+        <!-- ── Tips ──────────────────────────────────────────────────────── -->
+        <h2 id="tips">Quick Tips</h2>
+        <ul>
+          <li><strong>OV-chipkaart:</strong> Get an anonymous card at Schiphol for all public transport (trains, trams, buses, metro). Top up at machines throughout the country.</li>
+          <li><strong>Weather:</strong> April is unpredictable &mdash; pack layers and always carry a rain jacket or compact umbrella. You'll likely see sun and rain in the same afternoon.</li>
+          <li><strong>Cycling:</strong> Amsterdam is bike-first. Walk carefully in bike lanes (locals will ring at you). Consider renting a bike for at least one day &mdash; it transforms the experience.</li>
+          <li><strong>Tipping:</strong> Not obligatory but 5&ndash;10% is appreciated at sit-down restaurants. Round up at cafes.</li>
+          <li><strong>Tax refund:</strong> Keep receipts for purchases above the minimum. Process the refund at Schiphol's e-kiosks before departure &mdash; quick and painless.</li>
+          <li><strong>Museums:</strong> Most require pre-booked timed entry. Don't assume you can walk up &mdash; especially Van Gogh Museum and Anne Frank House.</li>
+          <li><strong>Albert Heijn (AH):</strong> The main supermarket chain. Great for cheap snacks, sandwiches, and drinks on the go. Branches everywhere.</li>
+          <li><strong>Indonesian food:</strong> The Netherlands has arguably the best Indonesian food outside Indonesia, thanks to colonial history. Don't miss rijsttafel at least once.</li>
+          <li><strong>Schiphol departure:</strong> The airport can be slow &mdash; arrive 3 hours early, especially during tulip season when it's packed with tourists.</li>
+          <li><strong>Enterprise rental:</strong> Pick up at the branch near Centraal Station, return by end of day. The Netherlands is small enough for comfortable day trips by car.</li>
+        </ul>
+
+        <hr class="divider" />
+        <p>
+          Nine days in the Netherlands during tulip season felt like the perfect amount of time.
+          The country is compact, beautiful, and endlessly varied &mdash; from Keukenhof's seven
+          million blooms to Kinderdijk's UNESCO windmills, from Van Gogh's masterpieces to a
+          quiet rijsttafel dinner. Hope this helps with planning. Feel free to
+          <a href="mailto:haomingkoo@gmail.com">reach out</a> if you have questions.
+        </p>
+      </article>
+      <footer>&copy; 2025 Haoming Koo</footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module">
+      const map = L.map("trip-map", {
+        zoomControl: true,
+        scrollWheelZoom: false,
+      }).setView([52.2, 5.0], 8);
+
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        maxZoom: 19,
+        subdomains: "abcd",
+      }).addTo(map);
+
+      const cities = [
+        {
+          lat: 52.3676, lng: 4.9041, name: "Amsterdam",
+          days: "Apr 11\u201319", nights: 8,
+          highlights: "Dam Square, Van Gogh Museum, Anne Frank House, Canal Tour, Heineken"
+        },
+        {
+          lat: 52.2264, lng: 4.5237, name: "Sassenheim",
+          days: "Apr 12", nights: 0,
+          highlights: "Flower Parade (Bloemencorso)"
+        },
+        {
+          lat: 52.3874, lng: 4.6462, name: "Haarlem",
+          days: "Apr 13", nights: 0,
+          highlights: "Molen De Adriaan, Teylers Museum, Jopenkerk"
+        },
+        {
+          lat: 52.2697, lng: 4.5462, name: "Keukenhof",
+          days: "Apr 14", nights: 0,
+          highlights: "Tulip gardens, bike flower fields, castle"
+        },
+        {
+          lat: 52.4953, lng: 5.0710, name: "Volendam",
+          days: "Apr 16", nights: 0,
+          highlights: "Traditional fishing village"
+        },
+        {
+          lat: 52.4735, lng: 4.7697, name: "Zaanse Schans",
+          days: "Apr 16", nights: 0,
+          highlights: "Historic windmills"
+        },
+        {
+          lat: 52.0705, lng: 4.3007, name: "The Hague",
+          days: "Apr 17", nights: 0,
+          highlights: "Madurodam, Binnenhof, De Pier sunset"
+        },
+        {
+          lat: 52.0116, lng: 4.3571, name: "Delft",
+          days: "Apr 17", nights: 0,
+          highlights: "Royal Delft pottery, tile painting"
+        },
+        {
+          lat: 51.9244, lng: 4.4777, name: "Rotterdam",
+          days: "Apr 18", nights: 0,
+          highlights: "Kinderdijk windmills, Cube Houses, Markthal"
+        },
+        {
+          lat: 52.1601, lng: 4.4970, name: "Leiden",
+          days: "Apr 18", nights: 0,
+          highlights: "Waag restaurant, university town"
+        },
+      ];
+
+      // Trip route polyline
+      const tripRoute = [
+        [52.3676, 4.9041],  // Amsterdam
+        [52.2264, 4.5237],  // Sassenheim
+        [52.3676, 4.9041],  // Amsterdam
+        [52.3874, 4.6462],  // Haarlem
+        [52.3676, 4.9041],  // Amsterdam
+        [52.2697, 4.5462],  // Keukenhof
+        [52.3676, 4.9041],  // Amsterdam
+        [52.4953, 5.0710],  // Volendam
+        [52.4735, 4.7697],  // Zaanse Schans
+        [52.3676, 4.9041],  // Amsterdam
+        [52.0705, 4.3007],  // The Hague
+        [52.0116, 4.3571],  // Delft
+        [52.0705, 4.3007],  // The Hague
+        [52.3676, 4.9041],  // Amsterdam
+        [51.9244, 4.4777],  // Rotterdam
+        [51.8833, 4.6333],  // Kinderdijk
+        [51.9244, 4.4777],  // Rotterdam
+        [52.1601, 4.4970],  // Leiden
+        [52.3676, 4.9041],  // Amsterdam
+      ];
+
+      L.polyline(tripRoute, {
+        color: "#a855f7",
+        weight: 2,
+        opacity: 0.5,
+        dashArray: "8, 8",
+      }).addTo(map);
+
+      cities.forEach((c) => {
+        const marker = L.circleMarker([c.lat, c.lng], {
+          radius: c.nights > 0 ? 10 : 6,
+          fillColor: c.nights > 0 ? "#a855f7" : "#64647a",
+          fillOpacity: 0.9,
+          color: "#060608",
+          weight: 2,
+        }).addTo(map);
+
+        const nightsLabel = c.nights > 0 ? `${c.nights} night${c.nights > 1 ? "s" : ""}` : "Day trip";
+        marker.bindPopup(
+          `<strong>${c.name}</strong><br>` +
+          `<span style="color:#a855f7">${c.days}</span> &middot; ${nightsLabel}<br>` +
+          `<span style="color:#b0b0b8;font-size:12px">${c.highlights}</span>`
+        );
+
+        L.marker([c.lat, c.lng], {
+          icon: L.divIcon({
+            className: "city-label",
+            html: c.name,
+            iconSize: [100, 16],
+            iconAnchor: [-8, 8],
+          }),
+        }).addTo(map);
+      });
+
+      import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
+
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: "#travel-gallery",
+        children: "a.gallery-item",
+        pswpModule: () => import("https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.esm.min.js"),
+        bgOpacity: 0.92,
+        padding: { top: 20, bottom: 20, left: 20, right: 20 },
+      });
+      lightbox.init();
+    </script>
+  </body>
+</html>

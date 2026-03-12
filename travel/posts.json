@@ -47,5 +47,20 @@
     "readingTime": "10 min",
     "lat": 37.5665,
     "lng": 126.978
+  },
+  {
+    "slug": "netherlands",
+    "title": "9 Days in the Netherlands \u2014 Tulips, Windmills & Dutch Masters",
+    "date": "2025-04-19",
+    "tags": [
+      "Netherlands",
+      "Flowers",
+      "Spring"
+    ],
+    "excerpt": "Amsterdam \u2192 Sassenheim \u2192 Haarlem \u2192 Keukenhof \u2192 The Hague \u2192 Delft \u2192 Rotterdam \u2192 Kinderdijk. Flower parades, tulip fields by bike, Delft tile painting, and the best Indonesian food outside Asia.",
+    "cover": "",
+    "readingTime": "14 min",
+    "lat": 52.2,
+    "lng": 5.0
   }
 ]
