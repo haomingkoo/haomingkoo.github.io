@@ -62,5 +62,21 @@
     "readingTime": "14 min",
     "lat": 52.2,
     "lng": 5.0
+  },
+  {
+    "slug": "japan-sakura",
+    "title": "11 Days Across Japan \u2014 Sakura Season from Tokyo to Hiroshima",
+    "date": "2023-04-10",
+    "tags": [
+      "Japan",
+      "Sakura",
+      "Spring",
+      "Road Trip"
+    ],
+    "excerpt": "Tokyo \u2192 Mt Fuji \u2192 Hakone \u2192 Osaka \u2192 Yoshino \u2192 Kobe \u2192 Himeji \u2192 Kurashiki \u2192 Hiroshima \u2192 Shimanami Kaido \u2192 Miyajima. Cherry blossoms, DisneySea, Kobe beef, and the Peace Memorial.",
+    "cover": "",
+    "readingTime": "16 min",
+    "lat": 35.0,
+    "lng": 135.5
   }
 ]

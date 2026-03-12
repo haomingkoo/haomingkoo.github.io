@@ -1,0 +1,1301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>11 Days Across Japan &mdash; Sakura Season from Tokyo to Hiroshima &mdash; Travel &mdash; Haoming Koo</title>
+    <meta name="description" content="An 11-day sakura trip across Japan &mdash; Tokyo cherry blossoms, Mt Fuji, Hakone, Osaka, Yoshino, Kobe beef, Himeji Castle, Hiroshima, Shimanami Kaido, and Miyajima." />
+    <link rel="canonical" href="https://kooexperience.com/travel/posts/japan-sakura.html" />
+    <meta property="og:title" content="11 Days Across Japan — Sakura Season from Tokyo to Hiroshima" />
+    <meta property="og:description" content="Cherry blossoms from Tokyo to Hiroshima — DisneySea, Chureito Pagoda, Yoshino's 30,000 trees, Kobe beef, Himeji Castle, Shimanami Kaido, and Miyajima." />
+    <meta property="og:url" content="https://kooexperience.com/travel/posts/japan-sakura.html" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "11 Days Across Japan — Sakura Season from Tokyo to Hiroshima",
+      "author": { "@type": "Person", "name": "Haoming Koo" },
+      "datePublished": "2023-04-10",
+      "description": "An 11-day sakura trip across Japan — Tokyo cherry blossoms, Mt Fuji, Hakone, Osaka, Yoshino, Kobe beef, Himeji Castle, Hiroshima, Shimanami Kaido, and Miyajima."
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #a855f7;
+        --accent-dim: rgba(168,85,247,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+        --green: #22c55e;
+        --green-dim: rgba(34,197,94,.10);
+        --pink: #f472b6;
+        --pink-dim: rgba(244,114,182,.10);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168,85,247,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(6,6,8,.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between;
+        height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px;
+        transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+
+      .hero-cover {
+        width: 100%; height: 340px; object-fit: cover;
+        border-radius: 16px; margin-bottom: 32px;
+        border: 1px solid var(--border);
+      }
+
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .reading-time { color: var(--muted); }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle {
+        font-size: 17px; color: var(--text-secondary); line-height: 1.6;
+        margin-bottom: 32px;
+      }
+      .article h2 {
+        font-size: 22px; font-weight: 700; margin: 48px 0 16px;
+        letter-spacing: -.01em; color: var(--text);
+      }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article img:not(.hero-cover):not(.gallery-img) {
+        max-width: 100%; border-radius: 12px; margin: 24px 0;
+        border: 1px solid var(--border);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title {
+        font-size: 11px; font-weight: 600; letter-spacing: .14em;
+        text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+      }
+      .toc a {
+        display: block; font-size: 13.5px; color: var(--text-secondary);
+        text-decoration: none; padding: 4px 0; transition: color .2s;
+      }
+      .toc a:hover { color: var(--accent); }
+
+      .map-container {
+        width: 100%; height: 400px;
+        border-radius: 14px; overflow: hidden;
+        border: 1px solid var(--border);
+        margin: 32px 0;
+      }
+      .map-container .leaflet-container { height: 100%; width: 100%; }
+      .leaflet-container { background: var(--bg); }
+      .leaflet-popup-content-wrapper {
+        background: var(--surface); color: var(--text);
+        border: 1px solid var(--border); border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(0,0,0,.5);
+      }
+      .leaflet-popup-tip { background: var(--surface); }
+      .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
+      .leaflet-control-attribution { font-size: 9px; opacity: .5; }
+      .leaflet-control-zoom a {
+        background: var(--surface) !important; color: var(--text) !important;
+        border-color: var(--border) !important;
+      }
+      .city-label {
+        background: none !important; border: none !important; box-shadow: none !important;
+        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600;
+        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
+        white-space: nowrap;
+      }
+
+      .itinerary { margin: 32px 0; }
+      .city-section-header {
+        display: flex; align-items: center; gap: 12px;
+        margin: 40px 0 16px; padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      .city-section-header:first-child { margin-top: 0; }
+      .city-name { font-size: 18px; font-weight: 700; color: var(--text); }
+      .city-nights { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+      .day-card {
+        position: relative;
+        padding: 24px 24px 24px 40px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        margin-bottom: 16px;
+        transition: border-color .2s;
+      }
+      .day-card:hover { border-color: rgba(168,85,247,.3); }
+      .day-card::before {
+        content: "";
+        position: absolute; left: 18px; top: 0; bottom: -16px;
+        width: 2px; background: var(--border);
+      }
+      .day-card:last-child::before { bottom: 50%; }
+      .day-card::after {
+        content: "";
+        position: absolute; left: 13px; top: 28px;
+        width: 12px; height: 12px; border-radius: 50%;
+        background: var(--accent); border: 2px solid var(--bg);
+        z-index: 1;
+      }
+      .day-label {
+        font-size: 11px; font-weight: 600; letter-spacing: .12em;
+        text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+      }
+      .day-title {
+        font-size: 17px; font-weight: 600; color: var(--text);
+        margin-bottom: 6px;
+      }
+      .day-desc {
+        font-size: 13.5px; color: var(--muted); line-height: 1.6;
+      }
+      .day-tags {
+        display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+      }
+      .day-tag {
+        font-size: 10px; font-weight: 500; padding: 2px 8px;
+        border-radius: 6px; background: rgba(255,255,255,.04);
+        color: var(--muted); border: 1px solid rgba(255,255,255,.05);
+      }
+
+      .cost-table {
+        width: 100%; border-collapse: collapse; margin: 24px 0;
+        font-size: 13.5px;
+      }
+      .cost-table th {
+        text-align: left; font-size: 11px; font-weight: 600;
+        letter-spacing: .1em; text-transform: uppercase;
+        color: var(--muted); padding: 8px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .cost-table th:last-child { text-align: right; }
+      .cost-table td {
+        padding: 10px 12px; color: var(--text-secondary);
+        border-bottom: 1px solid rgba(255,255,255,.03);
+      }
+      .cost-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+      .cost-table .category-row td {
+        font-weight: 600; color: var(--accent); font-size: 12px;
+        letter-spacing: .05em; text-transform: uppercase;
+        padding-top: 20px;
+      }
+      .cost-table .total-row td {
+        font-weight: 700; color: var(--text); font-size: 15px;
+        border-top: 2px solid var(--border); border-bottom: none;
+        padding-top: 16px;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 8px;
+        margin: 32px 0;
+      }
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        aspect-ratio: 4 / 3;
+        transition: transform .22s, border-color .22s;
+      }
+      .gallery-item:hover {
+        transform: scale(1.02);
+        border-color: rgba(168,85,247,.3);
+      }
+      .gallery-item.featured {
+        grid-column: span 2;
+        grid-row: span 2;
+        aspect-ratio: auto;
+      }
+      .gallery-img {
+        width: 100%; height: 100%; object-fit: cover;
+        display: block;
+      }
+      .gallery-caption {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        padding: 24px 12px 8px;
+        background: linear-gradient(transparent, rgba(0,0,0,.7));
+        font-size: 11px; color: rgba(255,255,255,.8);
+      }
+
+      .info-box {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+      }
+      .info-box-title {
+        font-size: 13px; font-weight: 600; color: var(--text);
+        margin-bottom: 8px;
+      }
+      .info-box-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 6px 0; font-size: 13px;
+        border-bottom: 1px solid rgba(255,255,255,.03);
+      }
+      .info-box-row:last-child { border-bottom: none; }
+      .info-box-label { color: var(--muted); }
+      .info-box-value { color: var(--text-secondary); font-weight: 500; }
+
+      .callout {
+        background: var(--accent-dim); border-left: 3px solid var(--accent);
+        border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 24px 0;
+        font-size: 13.5px; color: var(--text-secondary);
+      }
+      .callout strong { color: var(--text); }
+
+      footer {
+        border-top: 1px solid var(--border); padding: 32px 0 40px;
+        font-size: 13px; color: var(--muted); text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+        .hero-cover { height: 220px; }
+        .map-container { height: 280px; }
+        .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        .gallery-item.featured { grid-column: span 1; grid-row: span 1; aspect-ratio: 4/3; }
+        .day-card { padding-left: 36px; }
+        .cost-table { font-size: 12px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../../">HK</a>
+        <a href="../">Travel</a>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../">&larr; Back to travel</a>
+
+        <!-- Hero image — replace src with your photo -->
+        <!-- <img class="hero-cover" src="" alt="Cherry blossoms in Tokyo" loading="eager" /> -->
+
+        <div class="article-meta">
+          <span class="article-tag">Japan</span>
+          <span class="article-tag" style="background: var(--pink-dim); color: var(--pink);">Sakura</span>
+          <span class="article-tag" style="background: var(--green-dim); color: var(--green);">Spring</span>
+          <span>Mar&ndash;Apr 2023</span>
+          <span class="reading-time">16 min read</span>
+        </div>
+
+        <h1>11 Days Across Japan &mdash; Sakura Season from Tokyo to Hiroshima</h1>
+        <p class="subtitle">
+          Tokyo &rarr; Mt Fuji &rarr; Hakone &rarr; Osaka &rarr; Yoshino &rarr; Kobe &rarr; Himeji &rarr; Kurashiki &rarr; Hiroshima &rarr; Shimanami Kaido &rarr; Miyajima &rarr; Fukuoka.
+          Cherry blossoms, castles, Kobe beef, and the Peace Memorial &mdash; spring across Japan by shinkansen and rental car.
+          Here's everything we did and what I'd do differently.
+        </p>
+
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#overview">Overview</a>
+          <a href="#for-you">Is This Trip For You?</a>
+          <a href="#map">Route Map</a>
+          <a href="#tokyo">Tokyo &mdash; Sakura, TeamLab &amp; DisneySea (Days 1&ndash;3)</a>
+          <a href="#fuji">Mt Fuji &amp; Hakone (Days 4&ndash;5)</a>
+          <a href="#osaka">Osaka &amp; Yoshino (Days 6&ndash;7)</a>
+          <a href="#kobe">Kobe (Day 7 evening)</a>
+          <a href="#himeji">Himeji &amp; Kurashiki (Day 8)</a>
+          <a href="#hiroshima">Hiroshima &amp; Shimanami Kaido (Days 9&ndash;10)</a>
+          <a href="#miyajima">Miyajima Island (Day 10)</a>
+          <a href="#hindsight">What I'd Do Differently</a>
+          <a href="#tickets">Booking Guide</a>
+          <a href="#planning-timeline">Planning Timeline</a>
+          <a href="#when-to-go">When to Go</a>
+          <a href="#photos">Photos</a>
+          <a href="#food">What to Eat</a>
+          <a href="#tips">Quick Tips</a>
+        </div>
+
+        <!-- ── Overview ──────────────────────────────────────────────────── -->
+        <h2 id="overview">Overview</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">Trip Details</div>
+          <div class="info-box-row">
+            <span class="info-box-label">Dates</span>
+            <span class="info-box-value">Mar 31 &ndash; Apr 10, 2023</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Duration</span>
+            <span class="info-box-value">11 days</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Route</span>
+            <span class="info-box-value">Tokyo &rarr; Mt Fuji &rarr; Hakone &rarr; Osaka &rarr; Yoshino &rarr; Kobe &rarr; Himeji &rarr; Kurashiki &rarr; Hiroshima &rarr; Shimanami Kaido &rarr; Miyajima &rarr; Fukuoka</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Flight</span>
+            <span class="info-box-value">Inbound to Narita &middot; Outbound from Fukuoka (TG649)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Hotels</span>
+            <span class="info-box-value">Tourist Hotel &amp; Cafe Akihabara (3N) &middot; Fuji Gran Villa (1N) &middot; Gotemba/Hakone (1N) &middot; Henn na Hotel Osaka Namba (2N) &middot; APA Hotel Hiroshima (2N)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Season</span>
+            <span class="info-box-value">Spring &mdash; cherry blossom season (15&ndash;22&deg;C)</span>
+          </div>
+        </div>
+
+        <p>
+          Sakura season in Japan is one of those things that actually lives up to the hype. For about two
+          weeks every spring, the entire country turns pink &mdash; parks fill with hanami picnics, castle
+          grounds glow under illuminated blossoms, and even the train platforms feel different. This trip
+          was built around chasing the bloom from Tokyo down to Hiroshima, mixing cherry blossoms with
+          castles, shrines, Kobe beef, and a full day at DisneySea.
+        </p>
+        <p>
+          The route worked well as a one-way journey: fly into Narita, work west by shinkansen and
+          rental car, and fly out of Fukuoka. No backtracking. The Japan Rail Pass covered most of the
+          shinkansen legs, and rental cars filled in the gaps around Mt Fuji and the Shimanami Kaido.
+        </p>
+
+        <!-- ── Is This Trip For You? ─────────────────────────────────────── -->
+        <h2 id="for-you">Is This Trip For You?</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">If you nod to most of these, keep reading</div>
+          <div class="info-box-row">
+            <span class="info-box-label">You want to experience Japan's cherry blossom season at its peak</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You enjoy mixing culture, food, history, and nature</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You're up for a multi-city trip using shinkansen and rental cars</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You want to visit Tokyo DisneySea (one of the world's best theme parks)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You're interested in WWII history (Hiroshima Peace Memorial)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You can handle 20,000+ steps per day for 11 days straight</span>
+          </div>
+        </div>
+
+        <!-- ── Map ───────────────────────────────────────────────────────── -->
+        <h2 id="map">Route Map</h2>
+        <p>Click on any marker to see what we did in each area.</p>
+        <div class="map-container">
+          <div id="trip-map"></div>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0 12px;">
+          <a href="#" target="_blank" rel="noopener"
+             style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+                    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+                    color: var(--text); text-decoration: none; font-size: 13px; font-weight: 500;
+                    transition: border-color .2s, background .2s; cursor: pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            View all pins on Google Maps
+          </a>
+          <a href="./japan-sakura-route.kml" download
+             style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+                    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+                    color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500;
+                    transition: border-color .2s, background .2s; cursor: pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download KML file
+          </a>
+        </div>
+        <p style="font-size: 12px; color: var(--muted); margin-bottom: 32px; line-height: 1.6;">
+          All hotels, restaurants, and attractions from this trip, organized by area.
+          Import the KML into <a href="https://www.google.com/maps/d/" target="_blank" rel="noopener" style="color: var(--accent);">Google My Maps</a>
+          to view all pins. Syncs to your Google Maps app under Saved &rarr; Maps.
+        </p>
+
+        <!-- ── TOKYO ────────────────────────────────────────────────────── -->
+        <h2 id="tokyo">Tokyo &mdash; Sakura, TeamLab &amp; DisneySea</h2>
+        <div class="city-section-header">
+          <span class="city-name">Tokyo</span>
+          <span class="city-nights">3 nights &middot; Tourist Hotel &amp; Cafe Akihabara</span>
+        </div>
+
+        <p>
+          Tokyo during sakura season is electric. Every park, river, and shrine is lined with cherry
+          trees in full bloom, and the locals take it seriously &mdash; hanami picnics under the blossoms
+          are a national ritual. We based ourselves in Akihabara, which is central enough for everything
+          and has excellent train connections. Three nights felt right for covering the key sakura spots,
+          TeamLab, and a full DisneySea day.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 1 &mdash; Mar 31 (Fri)</div>
+            <div class="day-title">Arrival &amp; Tokyo Sakura</div>
+            <div class="day-desc">
+              Arrived Narita Airport at 9:00am. Took the <strong>Narita Skyliner to Nippori
+              Station</strong>, then switched to the Yamanote Line to Akihabara. Lunch at
+              <strong>Kanda Matsuya</strong> &mdash; a Tokyo institution for soba noodles, been around
+              since 1884. Simple, excellent, and the perfect jet-lag cure.<br><br>
+              Checked into Tourist Hotel &amp; Cafe Akihabara, then straight out for the sakura circuit.
+              <strong>Chidorigafuchi Park</strong> first &mdash; one of Tokyo's finest sakura spots, with
+              cherry trees draped over the Imperial Palace moat. You can rent rowboats and paddle
+              beneath the blossoms. Then <strong>Shinjuku Gyoen National Garden</strong> &mdash; a
+              massive park with hundreds of cherry trees across different varieties, meaning something
+              is always in bloom. Closed Mondays; arrive early to avoid crowds.<br><br>
+              Walked to <strong>Meguro River</strong> at dusk &mdash; the most iconic sakura spot in
+              Tokyo. Over 800 cherry trees line both banks, and lanterns illuminate the blossoms at
+              night. Packed but worth it. Evening stroll through <strong>Ginza</strong>.<br><br>
+              Dinner at <strong>Gyukatsu Motomura Akihabara</strong> &mdash; deep-fried beef cutlet
+              cooked at your table on a hot stone. The beef is left rare and you sear it to your
+              preference. Outstanding.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Arrival</span>
+              <span class="day-tag">Sakura</span>
+              <span class="day-tag">Soba</span>
+              <span class="day-tag">Gyukatsu</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 2 &mdash; Apr 1 (Sat)</div>
+            <div class="day-title">TeamLab, Toyosu &amp; Asakusa</div>
+            <div class="day-desc">
+              Morning at <strong>TeamLab Planets</strong> &mdash; immersive digital art installations
+              where you wade through water rooms and walk barefoot through light projections. Book well
+              in advance during sakura season; slots sell out. Wear shorts or roll up your pants for
+              the water rooms.<br><br>
+              Lunch at <strong>Tenfusa Tempura</strong> near Toyosu &mdash; crispy, light tempura at
+              reasonable prices. Then to <strong>Toyosu Market</strong>, the new fish market that
+              replaced Tsukiji's inner market. The tuna auctions happen at dawn, but the retail shops
+              and restaurants are excellent at any time.<br><br>
+              Took the <strong>ferry to Asakusa via the Sumida River</strong> &mdash; sakura trees line
+              <strong>Sumida Park</strong> along both banks, and seeing them from the water is a
+              different perspective. Arrived at <strong>Kaminarimon Gate</strong>, browsed the
+              <strong>Nakamise Dori</strong> shopping street, and visited <strong>Sensoji Temple</strong>.<br><br>
+              Walked to <strong>Ueno Park</strong> &mdash; one of Tokyo's top sakura parks, packed with
+              hanami picnics and food stalls. Dinner at <strong>Inshotei</strong>, a traditional
+              Japanese restaurant inside Ueno Park with beautiful garden views.<br><br>
+              Evening shopping around <strong>Akihabara</strong> &mdash; electronics, anime, and
+              arcade culture.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">TeamLab</span>
+              <span class="day-tag">Toyosu</span>
+              <span class="day-tag">Asakusa</span>
+              <span class="day-tag">Sakura</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 3 &mdash; Apr 2 (Sun)</div>
+            <div class="day-title">Tokyo DisneySea</div>
+            <div class="day-desc">
+              Full day at <strong>Tokyo DisneySea</strong> &mdash; widely regarded as one of the best
+              Disney parks in the world, and it lives up to it. The theming is extraordinary; the
+              entire park is built around water, from a Mediterranean harbour to a volcanic island.<br><br>
+              Key rides: <strong>Journey to the Center of the Earth</strong> (the park's signature
+              ride), <strong>20,000 Leagues Under the Sea</strong>, <strong>Indiana Jones</strong>,
+              <strong>Sindbad's Storybook Voyage</strong>, <strong>Nemo &amp; Friends SeaRider</strong>,
+              <strong>Soaring</strong> (buy DPA &mdash; the standby queue is 2+ hours), and
+              <strong>Toy Story Mania</strong> (also DPA-worthy). Skip Tower of Terror and Raging
+              Spirits if you're not into scary rides.<br><br>
+              Shows: <strong>Big Band Beat</strong> at the Broadway Music Theatre (use Entry Request
+              in the app), <strong>Believe!</strong> evening harbor show, and <strong>fireworks</strong>.<br><br>
+              Lunch at <strong>Magellan's</strong> &mdash; the fancy sit-down restaurant inside
+              DisneySea. Make a reservation through the app as soon as the park opens; it fills up
+              fast. The food is surprisingly good for a theme park.<br><br>
+              Ended the night with drinks at <strong>Teddy Roosevelt Lounge</strong> in the
+              American Waterfront area &mdash; cocktails in a beautifully themed bar.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">DisneySea</span>
+              <span class="day-tag">Theme Park</span>
+              <span class="day-tag">Soaring DPA</span>
+              <span class="day-tag">Magellan's</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── MT FUJI & HAKONE ─────────────────────────────────────────── -->
+        <h2 id="fuji">Mt Fuji &amp; Hakone</h2>
+        <div class="city-section-header">
+          <span class="city-name">Mt Fuji &amp; Hakone</span>
+          <span class="city-nights">2 nights &middot; Fuji Gran Villa + Gotemba/Hakone area</span>
+        </div>
+
+        <p>
+          The Mt Fuji and Hakone area is a completely different pace from Tokyo. Volcanic valleys, hot
+          springs, lakeside shrines, and the iconic pagoda-with-Fuji view. We rented a car for this
+          stretch, which was essential for reaching the caves, breweries, and viewpoints that aren't
+          well-served by public transport.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 4 &mdash; Apr 3 (Mon)</div>
+            <div class="day-title">Showa Park &amp; Mt Fuji</div>
+            <div class="day-desc">
+              Picked up a rental car at <strong>Toyota Rent-a-Car</strong>. First stop:
+              <strong>Showa Memorial Park</strong> &mdash; a massive park with gardens, tulip fields,
+              and open lawns. Check if the tulips are in bloom before committing; when they are, it's
+              spectacular. Had lunch at the park.<br><br>
+              Drove to the Mt Fuji area. Explored <strong>Narusawa Ice Cave</strong> and
+              <strong>Fugaku Wind Cave</strong> &mdash; lava tube caves formed by ancient eruptions.
+              The ice formations inside are surreal, and the caves stay cold year-round (bring a
+              jacket even in spring).<br><br>
+              Stopped at <strong>Ide Shuzo Sake Brewery</strong> for a sake tasting &mdash; small local
+              brewery with Mt Fuji spring water sake. Worth an hour.<br><br>
+              Checked into <strong>Fuji Gran Villa</strong>, then drove to <strong>Arakurayama Sengen
+              Shrine</strong> and climbed to <strong>Chureito Pagoda</strong> &mdash; the iconic five-storied
+              pagoda with Mt Fuji in the background, framed by cherry blossoms. Late afternoon light
+              is best. This is the shot you see on every Japan travel poster, and it genuinely
+              delivers in person.<br><br>
+              Dinner at <strong>Koushu Houtou Kosaku</strong> &mdash; flat noodle hotpot (houtou), a
+              local Yamanashi specialty. Thick, chewy noodles in a rich miso broth with pumpkin and
+              vegetables. Perfect after a long day.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Rental Car</span>
+              <span class="day-tag">Lava Caves</span>
+              <span class="day-tag">Chureito Pagoda</span>
+              <span class="day-tag">Sake</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 5 &mdash; Apr 4 (Tue)</div>
+            <div class="day-title">Hakone &amp; Gotemba</div>
+            <div class="day-desc">
+              Started at <strong>Oishi Park</strong> &mdash; a lakeside park with Mt Fuji views across
+              the water. Quiet morning spot. Then to <strong>Hakone Shrine</strong> &mdash; the
+              vermillion torii gate standing in Lake Ashi is stunning in morning light. Arrive early
+              to beat the crowds.<br><br>
+              <strong>Owakudani</strong> &mdash; a volcanic valley with active sulfur vents and
+              steaming craters. Buy the famous <strong>black eggs</strong> (kuro-tamago), boiled in
+              the sulfuric hot springs. Legend says each one adds seven years to your life. The smell
+              is intense but the views of Fuji from up here (on a clear day) are worth it.<br><br>
+              Lunch options in the area: Gyoza Center, Tamura Ginkatsu-tei, or Itoh Dining by Nobu.
+              Afternoon at the <strong>Hakone Open-Air Museum</strong> &mdash; an outdoor sculpture
+              museum set against the Hakone mountains, with a Picasso pavilion inside.<br><br>
+              <strong>Hakone Kowakien Yunessun Hot Spring</strong> &mdash; a hot spring theme park with
+              wine baths, coffee baths, and outdoor pools. Bring swimwear for the mixed areas.
+              A fun, relaxed way to end the Hakone leg.<br><br>
+              Alternative: <strong>Gotemba Premium Outlets</strong> for shopping with Mt Fuji as the
+              backdrop, or a scenic boat ride on Lake Ashi (trade off with outlet/hot spring time).
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Hakone Shrine</span>
+              <span class="day-tag">Owakudani</span>
+              <span class="day-tag">Hot Springs</span>
+              <span class="day-tag">Open-Air Museum</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── OSAKA & YOSHINO ──────────────────────────────────────────── -->
+        <h2 id="osaka">Osaka &amp; Yoshino</h2>
+        <div class="city-section-header">
+          <span class="city-name">Osaka</span>
+          <span class="city-nights">2 nights &middot; Henn na Hotel Osaka Namba</span>
+        </div>
+
+        <p>
+          Henn na Hotel is the "robot hotel" &mdash; dinosaur robots at the front desk, robotic
+          luggage storage, the works. It's a novelty, but the location in Namba is excellent for
+          Dotombori and the Osaka street food scene. Two nights here covered Osaka itself plus a
+          full day trip to Yoshino.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 6 &mdash; Apr 5 (Wed)</div>
+            <div class="day-title">Mt Fuji Ropeway &rarr; Osaka</div>
+            <div class="day-desc">
+              Morning ride on the <strong>Mt Fuji Panoramic Ropeway</strong> &mdash; a cable car with
+              stunning views of Fuji and Lake Kawaguchi below. Clear mornings are best; clouds tend to
+              roll in by afternoon.<br><br>
+              Drove to Mishima, stopping at <strong>Kubota Strawberry Picking Garden</strong> for
+              seasonal strawberry picking. Japanese strawberries are absurdly sweet. Had lunch near
+              Mishima Station.<br><br>
+              Took <strong>Shinkansen Hikari 513</strong> from Mishima to Osaka (1:46pm departure).
+              This is where the Japan Rail Pass starts earning its keep. Checked into
+              <strong>Henn na Hotel Osaka Namba</strong>.<br><br>
+              Dinner at <strong>Kani Doraku Dotombori Main Branch</strong> &mdash; the famous crab
+              restaurant with the giant mechanical crab sign on Dotombori. Book online for the main
+              branch to skip the queue. Full crab course &mdash; sashimi, grilled, tempura, and
+              hot pot.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Ropeway</span>
+              <span class="day-tag">Strawberries</span>
+              <span class="day-tag">Shinkansen</span>
+              <span class="day-tag">Dotombori</span>
+            </div>
+          </div>
+
+          <div class="day-card" id="yoshino">
+            <div class="day-label">Day 7 &mdash; Apr 6 (Thu)</div>
+            <div class="day-title">Yoshino Sakura &amp; Kobe Beef</div>
+            <div class="day-desc">
+              Early train from <strong>Osaka Abenobashi</strong> to <strong>Yoshino</strong>
+              (Train No. 809, 8:10am). Yoshino is Japan's most famous cherry blossom destination
+              &mdash; 30,000 trees carpeting four levels of a mountainside. When they're in bloom,
+              the entire mountain turns pink and white. Nothing else like it.<br><br>
+              Walked up through the town to <strong>Kinpusenji Temple</strong> &mdash; the grand
+              Buddhist temple at the heart of Yoshino, with an imposing wooden hall.
+              <strong>Yoshimizu Shrine observatory</strong> for panoramic sakura views down the
+              mountain. Lunch at <strong>Tofu Chaya Hayashi</strong> &mdash; mountain-fresh tofu
+              dishes, a Yoshino specialty. Also grab persimmon leaf sushi (kakinoha-zushi) from
+              <strong>Hyoutarou</strong> as a takeaway &mdash; a local delicacy.<br><br>
+              Continued uphill to <strong>Chikurin-in Gumpoen</strong>, a temple with a beautiful
+              traditional garden, then <strong>Hanayagura Observatory</strong> &mdash; one of the
+              best viewpoints for seeing the cherry blossom-covered mountainside stretching into
+              the distance. Pushed on to <strong>Yoshino Mikumari Shrine</strong> at the upper reaches
+              before heading back down to Yoshino Station.<br><br>
+              Evening train to <strong>Kobe</strong>. Dinner at <strong>Kobe Beef Steak Restaurant
+              Royal Mouriya</strong> &mdash; premium A5 Kobe beef, teppanyaki-style. Make a
+              reservation; this place is deservedly popular. <strong>Note: no overly casual wear
+              (shorts, t-shirts, sandals)</strong> &mdash; they have a dress code. The beef is
+              marbled to an absurd degree and melts on contact.<br><br>
+              After dinner, walked <strong>Kobe Harbourland</strong> for waterfront night views
+              of the port tower and Mosaic shopping mall. Returned to Henn na Hotel Osaka Namba.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Yoshino</span>
+              <span class="day-tag">30,000 Sakura</span>
+              <span class="day-tag">Kobe Beef</span>
+              <span class="day-tag">Harbourland</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── KOBE (anchor for TOC) ────────────────────────────────────── -->
+        <h2 id="kobe">Kobe</h2>
+        <p>
+          Kobe was an evening trip from Osaka &mdash; the main draw being Royal Mouriya for Kobe
+          beef. If you have more time, Kobe has a vibrant Chinatown (Nankinmachi), the Nunobiki Herb
+          Garden ropeway with harbor views, and the sake breweries of Nada district. For this trip,
+          the evening was enough to get the best of it: world-class beef and a stunning waterfront.
+        </p>
+
+        <!-- ── HIMEJI & KURASHIKI ───────────────────────────────────────── -->
+        <h2 id="himeji">Himeji &amp; Kurashiki</h2>
+        <div class="city-section-header">
+          <span class="city-name">Himeji &amp; Kurashiki</span>
+          <span class="city-nights">Day trips en route to Hiroshima</span>
+        </div>
+
+        <p>
+          Day 8 was a transit day done right &mdash; two stops between Osaka and Hiroshima, each
+          worth the detour. Himeji Castle is Japan's finest, and Kurashiki's canal district is
+          one of the best-preserved Edo-era towns.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 8 &mdash; Apr 7 (Fri)</div>
+            <div class="day-title">Himeji Castle, Kurashiki &amp; Hiroshima</div>
+            <div class="day-desc">
+              <strong>Shinkansen Hikari 535</strong> from Shin-Osaka to Himeji (8:44am).
+              Deposit luggage in coin lockers at the station &mdash; you won't be back.
+              <strong>Himeji Castle</strong> &mdash; UNESCO World Heritage Site and Japan's most
+              spectacular castle. Recently restored to brilliant white, it's also known as
+              "White Heron Castle." The keep is six stories tall with steep wooden stairs and
+              original defensive features. Cherry trees surround the grounds, and during sakura
+              season the contrast of pink blossoms against the white castle is extraordinary.<br><br>
+              Lunch at <strong>Kassui-ken</strong> near Himeji Castle &mdash; a traditional Japanese
+              restaurant with garden views.<br><br>
+              <strong>Shinkansen Hikari 507</strong> from Himeji to Okayama (1:36pm). Short walk to
+              <strong>Kurashiki Bikan Historical Quarter</strong> &mdash; a beautifully preserved
+              Edo-era canal district with white-walled warehouses (kura), willow trees, and stone
+              bridges. The canal reflections at dusk are particularly photogenic. Artisan shops
+              and galleries line the streets.<br><br>
+              Dinner at <strong>Kappa</strong> in Kurashiki &mdash; local restaurant in the
+              historical quarter.<br><br>
+              <strong>Shinkansen Sakura 571</strong> from Okayama to Hiroshima (8:11pm). Checked
+              into <strong>APA Hotel Hiroshima Ekimae Ohashi</strong>.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Himeji Castle</span>
+              <span class="day-tag">UNESCO</span>
+              <span class="day-tag">Kurashiki Canal</span>
+              <span class="day-tag">Shinkansen</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── HIROSHIMA & SHIMANAMI ─────────────────────────────────────── -->
+        <h2 id="hiroshima">Hiroshima &amp; Shimanami Kaido</h2>
+        <div class="city-section-header">
+          <span class="city-name">Hiroshima</span>
+          <span class="city-nights">2 nights &middot; APA Hotel Hiroshima Ekimae Ohashi</span>
+        </div>
+
+        <p>
+          Hiroshima is a city of contrasts &mdash; a vibrant, modern city rebuilt from nothing after
+          1945, with the Peace Memorial as its emotional centre. We paired it with a day driving
+          the Shimanami Kaido bridges and ended with Miyajima Island. Two nights was just enough,
+          though an extra day would have allowed a more relaxed Shimanami Kaido pace.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 9 &mdash; Apr 8 (Sat)</div>
+            <div class="day-title">Shimanami Kaido</div>
+            <div class="day-desc">
+              <strong>Shinkansen Kodama 838</strong> from Hiroshima to Shin-Onomichi (8:17am).
+              Picked up a rental car at <strong>Toyota Rent-a-Car Onomichi</strong>.<br><br>
+              First stop: <strong>Hirakiyama Park</strong> &mdash; a hillside park with panoramic
+              views over the town of Onomichi and the Seto Inland Sea. Then lunch at
+              <strong>Seafood Restaurant Yoshikawa</strong> for fresh catches.<br><br>
+              Drove across the <strong>Shimanami Kaido</strong> &mdash; a 60km expressway connecting
+              Honshu to Shikoku via six islands, with soaring bridges over the Seto Inland Sea.
+              The bridges are spectacular, and each island has its own character.<br><br>
+              <strong>Oyamazumi Shrine</strong> on Omishima island &mdash; one of Japan's oldest and
+              most important shrines, with a museum housing the largest collection of samurai armor
+              and weapons in the country. <strong>Kirosan Park</strong> for island viewpoints.
+              <strong>Hill of Hope</strong> on Ikuchijima &mdash; a hillside artwork and viewpoint.<br><br>
+              Dinner at an izakaya on the islands, then watched the sunset at <strong>Setoda Sunset
+              Beach</strong> &mdash; golden light over the inland sea.<br><br>
+              Returned the car and took <strong>Kodama 863</strong> from Shin-Onomichi back to
+              Hiroshima (8:10pm).
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Shimanami Kaido</span>
+              <span class="day-tag">Island Driving</span>
+              <span class="day-tag">Shrines</span>
+              <span class="day-tag">Sunset</span>
+            </div>
+          </div>
+
+          <div class="day-card" id="miyajima">
+            <div class="day-label">Day 10 &mdash; Apr 9 (Sun)</div>
+            <div class="day-title">Miyajima &amp; Hiroshima Peace Memorial</div>
+            <div class="day-desc">
+              Ferry to <strong>Miyajima Island</strong> from the mainland.
+              <strong>Itsukushima Shrine</strong> &mdash; the floating torii gate, one of Japan's
+              most photographed sights. UNESCO World Heritage Site. At high tide the gate appears
+              to float on the water; at low tide you can walk out to it.<br><br>
+              Brunch at <strong>Yakigaki No Hayashi</strong> &mdash; grilled oysters, Miyajima's
+              specialty. The oysters from the Seto Inland Sea are plump and sweet. Also try
+              momiji manju (maple leaf-shaped cakes).<br><br>
+              Friendly deer roaming everywhere &mdash; more relaxed than Nara's deer but equally
+              photogenic. Took the <strong>Mt Misen ropeway</strong> up, then a short hike to the
+              summit for panoramic views of the Seto Inland Sea and the islands dotting the water.
+              One of the best viewpoints in western Japan.<br><br>
+              Caught the 3:40pm ferry back. Spent the afternoon at the <strong>Hiroshima Peace
+              Memorial Museum</strong> &mdash; deeply moving and meticulously presented. Plan at
+              least 1.5 hours; it's not something to rush. The personal artefacts and survivor
+              testimonies stay with you.<br><br>
+              Walked to the <strong>Atomic Bomb Dome</strong> &mdash; the preserved ruin of the
+              Hiroshima Prefectural Industrial Promotion Hall, directly below the bomb's hypocenter.
+              Especially powerful at sunset with the Peace Park surrounding it.<br><br>
+              Last-minute shopping at <strong>Hondori arcade</strong> (most shops close by 7:30pm,
+              but Don Quijote stays open late if you need more time). Dinner at
+              <strong>Ichiran Hiroshima Hondori</strong> (24 hours) &mdash; solo ramen booths where you
+              customize every element of your bowl via a form. The tonkotsu broth is rich and clean.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Miyajima</span>
+              <span class="day-tag">Floating Torii</span>
+              <span class="day-tag">Peace Memorial</span>
+              <span class="day-tag">Oysters</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── DEPARTURE ────────────────────────────────────────────────── -->
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 11 &mdash; Apr 10 (Mon)</div>
+            <div class="day-title">Departure via Fukuoka</div>
+            <div class="day-desc">
+              <strong>Shinkansen Sakura 541</strong> from Hiroshima to Hakata (7:58am), arrived
+              9:06am. Subway from Hakata Station to Fukuoka Airport. Flight <strong>TG649</strong>
+              departing 11:35am. A straightforward departure &mdash; Fukuoka Airport is one of the
+              most convenient in Japan, just two subway stops from Hakata.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Shinkansen</span>
+              <span class="day-tag">Departure</span>
+              <span class="day-tag">Fukuoka</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── What I'd Do Differently ────────────────────────────────────── -->
+        <h2 id="hindsight">What I'd Do Differently</h2>
+
+        <h3>Book TeamLab Planets well in advance</h3>
+        <p>
+          Slots fill up fast during sakura season &mdash; we almost missed out. Book at least two
+          weeks ahead, ideally a month. The experience is worth it, but only if you can actually
+          get a slot at a reasonable time.
+        </p>
+
+        <h3>Yoshino deserves an early start</h3>
+        <p>
+          We barely made it to the upper shrines before having to head back to catch the train to
+          Kobe. Take the earliest train possible (before 8am if you can) and give yourself the
+          full day. The upper levels of the mountain &mdash; Kami-senbon &mdash; are the most
+          spectacular and least crowded.
+        </p>
+
+        <h3>Consider an extra night in Hiroshima</h3>
+        <p>
+          Doing the Shimanami Kaido as a day trip works but feels rushed. An extra night in
+          Hiroshima (or a night on the islands) would let you cycle parts of the Shimanami Kaido
+          rather than drive, and spend more time on each island.
+        </p>
+
+        <h3>DisneySea DPA is worth every yen</h3>
+        <p>
+          Pay for DPA (Disney Premier Access) for Soaring and Toy Story Mania. The standby queue
+          for Soaring regularly exceeds two hours during spring season. DPA costs a few thousand
+          yen but saves you half a day of queuing.
+        </p>
+
+        <h3>Check sakura bloom forecasts before locking in dates</h3>
+        <p>
+          The cherry blossom bloom shifts by one to two weeks each year depending on temperatures.
+          Check <a href="https://www.japan-guide.com/sakura/">japan-guide.com/sakura</a> forecasts
+          starting in January. We got lucky with timing, but it's a gamble if you book too far
+          in advance.
+        </p>
+
+        <!-- ── Booking Guide ────────────────────────────────────────────── -->
+        <h2 id="tickets">Booking Guide</h2>
+
+        <p>
+          Japan is well-organized and many things can be done spontaneously, but a handful of
+          bookings make a real difference during sakura season:
+        </p>
+
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th style="text-align: left;">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>TeamLab Planets</strong></td>
+              <td style="text-align: left;">Book online, timed entry. Sells out during sakura season &mdash; book 2&ndash;4 weeks ahead.</td>
+            </tr>
+            <tr>
+              <td><strong>Tokyo DisneySea</strong></td>
+              <td style="text-align: left;">Buy tickets online. Use DPA (paid) for Soaring and Toy Story Mania. Entry Request for Big Band Beat.</td>
+            </tr>
+            <tr>
+              <td><strong>Magellan's (DisneySea)</strong></td>
+              <td style="text-align: left;">Reserve via the DisneySea app as soon as park opens. The best restaurant in the park.</td>
+            </tr>
+            <tr>
+              <td><strong>Royal Mouriya Kobe</strong></td>
+              <td style="text-align: left;">Reserve ahead &mdash; premium A5 Kobe beef, very popular. Book 1&ndash;2 weeks before.</td>
+            </tr>
+            <tr>
+              <td><strong>Kani Doraku Dotombori</strong></td>
+              <td style="text-align: left;">Book online for the main branch to avoid the queue. The iconic crab restaurant.</td>
+            </tr>
+            <tr>
+              <td><strong>Himeji Castle</strong></td>
+              <td style="text-align: left;">No pre-booking needed but arrive early (opens 9am). Cherry blossom season draws big crowds.</td>
+            </tr>
+            <tr>
+              <td><strong>Hakone Kowakien Yunessun</strong></td>
+              <td style="text-align: left;">Book online. Bring swimwear for the mixed outdoor pools.</td>
+            </tr>
+            <tr>
+              <td><strong>Gotemba Premium Outlets</strong></td>
+              <td style="text-align: left;">No booking needed. Check opening hours &mdash; varies by season.</td>
+            </tr>
+            <tr>
+              <td><strong>Hiroshima Peace Memorial Museum</strong></td>
+              <td style="text-align: left;">Buy tickets at the door. Plan 1.5+ hours &mdash; it's not something to rush.</td>
+            </tr>
+            <tr>
+              <td><strong>Japan Rail Pass</strong></td>
+              <td style="text-align: left;">Consider 7-day or 14-day pass depending on your shinkansen routes. We used a 7-day pass from Day 6.</td>
+            </tr>
+            <tr>
+              <td><strong>Toyota Rent-a-Car</strong></td>
+              <td style="text-align: left;">Book online. Branches at most train stations. International driving permit required.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <strong>Note on the Japan Rail Pass:</strong> Calculate whether 7-day or 14-day saves you
+          money based on your shinkansen rides. For this trip, we activated the 7-day pass starting
+          from Day 6 (Mishima to Fukuoka), which covered the most expensive legs.
+        </div>
+
+        <!-- ── Planning Timeline ──────────────────────────────────────────── -->
+        <h2 id="planning-timeline">Planning Timeline</h2>
+
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>When</th>
+              <th style="text-align: left;">What to Do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>3 months before</strong></td>
+              <td style="text-align: left;">Book flights, hotels, Japan Rail Pass, and TeamLab Planets. Lock in DisneySea tickets.</td>
+            </tr>
+            <tr>
+              <td><strong>2 months before</strong></td>
+              <td style="text-align: left;">Check sakura forecast on <a href="https://www.jnto.go.jp" target="_blank" rel="noopener">jnto.go.jp</a>. Adjust dates if possible based on bloom predictions.</td>
+            </tr>
+            <tr>
+              <td><strong>1 month before</strong></td>
+              <td style="text-align: left;">Reserve Royal Mouriya (Kobe beef), Kani Doraku (Dotombori), and rental cars (Mt Fuji + Onomichi).</td>
+            </tr>
+            <tr>
+              <td><strong>2 weeks before</strong></td>
+              <td style="text-align: left;">Download Google Maps offline areas for each region. Check which parks and mountains are in bloom.</td>
+            </tr>
+            <tr>
+              <td><strong>1 week before</strong></td>
+              <td style="text-align: left;">Confirm all reservations. Pack layers &mdash; spring weather varies 10&ndash;22&deg;C. Rain jacket essential.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ── When to Go ──────────────────────────────────────────────── -->
+        <h2 id="when-to-go">When to Go</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">Cherry Blossom Timing by Region</div>
+          <div class="info-box-row">
+            <span class="info-box-label">Tokyo &amp; Kanto</span>
+            <span class="info-box-value">Late March to early April (peak bloom)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Yoshino &amp; Kansai</span>
+            <span class="info-box-value">Early to mid April (slightly later)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Hiroshima &amp; Western Japan</span>
+            <span class="info-box-value">Late March to early April (can be slightly earlier)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Weather</span>
+            <span class="info-box-value">10&ndash;22&deg;C, mix of sun and rain. Layers essential</span>
+          </div>
+        </div>
+
+        <p>
+          Check <a href="https://www.japan-guide.com/sakura/" target="_blank" rel="noopener">japan-guide.com/sakura</a>
+          for updated forecasts starting in January. The bloom dates shift by one to two weeks
+          each year depending on winter temperatures. A south-to-north wave means you can sometimes
+          chase the bloom across regions &mdash; which is exactly what this itinerary does, following
+          it from Tokyo westward.
+        </p>
+
+        <!-- ── Photos ────────────────────────────────────────────────────── -->
+        <h2 id="photos">Photos</h2>
+        <p>Click any photo to view full-size. (Photos coming soon!)</p>
+
+        <div class="gallery" id="travel-gallery">
+          <a class="gallery-item featured" href="#" data-pswp-src="https://placehold.co/1200x800/1c1c24/64647a?text=Chidorigafuchi+Sakura" data-pswp-width="1200" data-pswp-height="800">
+            <img class="gallery-img" src="https://placehold.co/600x400/1c1c24/64647a?text=Chidorigafuchi+Sakura" alt="Chidorigafuchi cherry blossoms along the moat" loading="lazy" />
+            <div class="gallery-caption">Chidorigafuchi &mdash; cherry blossoms along the Imperial Palace moat</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Chureito+Pagoda" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Chureito+Pagoda" alt="Chureito Pagoda with Mt Fuji" loading="lazy" />
+            <div class="gallery-caption">Chureito Pagoda with Mt Fuji and sakura</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=DisneySea" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=DisneySea" alt="Tokyo DisneySea Mediterranean Harbor" loading="lazy" />
+            <div class="gallery-caption">Tokyo DisneySea &mdash; Mediterranean Harbor</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Yoshino" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Yoshino" alt="Yoshino mountain covered in cherry blossoms" loading="lazy" />
+            <div class="gallery-caption">30,000 cherry trees covering Mount Yoshino</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Himeji+Castle" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Himeji+Castle" alt="Himeji Castle with cherry blossoms" loading="lazy" />
+            <div class="gallery-caption">Himeji Castle &mdash; the White Heron in sakura season</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Miyajima+Torii" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Miyajima+Torii" alt="Itsukushima floating torii gate" loading="lazy" />
+            <div class="gallery-caption">The floating torii gate at Itsukushima Shrine, Miyajima</div>
+          </a>
+        </div>
+
+        <!-- ── What to Eat ──────────────────────────────────────────────── -->
+        <h2 id="food">What to Eat</h2>
+
+        <p>
+          Japan's regional food culture is extraordinary &mdash; each city and prefecture has
+          specialties you won't find done the same way anywhere else. Here's what stood out
+          across the trip:
+        </p>
+
+        <div class="info-box">
+          <div class="info-box-title">Must-Eats Across the Trip</div>
+          <div class="info-box-row"><span class="info-box-label">Gyukatsu</span><span class="info-box-value">Motomura Akihabara &mdash; deep-fried beef cutlet, sear it yourself</span></div>
+          <div class="info-box-row"><span class="info-box-label">Houtou</span><span class="info-box-value">Koushu Houtou Kosaku &mdash; flat noodle hotpot, Yamanashi specialty</span></div>
+          <div class="info-box-row"><span class="info-box-label">Kobe Beef</span><span class="info-box-value">Royal Mouriya &mdash; A5 teppanyaki, make a reservation</span></div>
+          <div class="info-box-row"><span class="info-box-label">Kani (Crab)</span><span class="info-box-value">Kani Doraku Dotombori &mdash; full crab course, the iconic restaurant</span></div>
+          <div class="info-box-row"><span class="info-box-label">Grilled Oysters</span><span class="info-box-value">Yakigaki No Hayashi &mdash; Miyajima Island, plump Seto Inland Sea oysters</span></div>
+          <div class="info-box-row"><span class="info-box-label">Ichiran Ramen</span><span class="info-box-value">Solo booth ramen &mdash; customize every element via order form</span></div>
+          <div class="info-box-row"><span class="info-box-label">Tempura</span><span class="info-box-value">Tenfusa near Toyosu &mdash; crispy and light, great value</span></div>
+          <div class="info-box-row"><span class="info-box-label">Soba Noodles</span><span class="info-box-value">Kanda Matsuya &mdash; Tokyo institution since 1884</span></div>
+          <div class="info-box-row"><span class="info-box-label">Black Eggs</span><span class="info-box-value">Owakudani &mdash; volcanic boiled eggs (+7 years to your life, allegedly)</span></div>
+          <div class="info-box-row"><span class="info-box-label">Strawberry Picking</span><span class="info-box-value">Kubota Garden near Mishima &mdash; absurdly sweet Japanese strawberries</span></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-box-title">Regional Specialties</div>
+          <div class="info-box-row"><span class="info-box-label">Okonomiyaki (Hiroshima-style)</span><span class="info-box-value">Layered with noodles &mdash; different from Osaka style</span></div>
+          <div class="info-box-row"><span class="info-box-label">Yoshino Tofu</span><span class="info-box-value">Tofu Chaya Hayashi &mdash; mountain-fresh tofu dishes</span></div>
+          <div class="info-box-row"><span class="info-box-label">Sake</span><span class="info-box-value">Ide Shuzo brewery near Mt Fuji &mdash; spring water sake</span></div>
+        </div>
+
+        <div class="callout">
+          <strong>Don't overlook convenience stores:</strong> 7-Eleven, Lawson, and FamilyMart in
+          Japan are genuinely excellent. Onigiri, egg sandwiches, desserts, and hot drinks are all
+          worth trying. Japanese convenience store food is in a different league from anywhere else.
+        </div>
+
+        <!-- ── Tips ──────────────────────────────────────────────────────── -->
+        <h2 id="tips">Quick Tips</h2>
+        <ul>
+          <li><strong>Japan Rail Pass:</strong> Calculate whether 7-day or 14-day saves you money based on your shinkansen rides. For this trip, we used a 7-day pass starting from Day 6 (Mishima to Fukuoka).</li>
+          <li><strong>IC Card (Suica/Pasmo):</strong> Get one at any station for local trains, buses, and convenience stores. Essential for daily travel.</li>
+          <li><strong>Sakura forecast:</strong> Check <a href="https://www.japan-guide.com/sakura/" target="_blank" rel="noopener">japan-guide.com/sakura</a> &mdash; bloom dates vary by 1&ndash;2 weeks each year. Start checking in January.</li>
+          <li><strong>DisneySea DPA:</strong> Pay for Soaring and Toy Story Mania priority access. Worth it during peak season &mdash; standby queues exceed 2 hours.</li>
+          <li><strong>Rental cars:</strong> Toyota Rent-a-Car has branches at most train stations. Book online, pick up with an international driving permit. Japan drives on the left.</li>
+          <li><strong>Convenience stores:</strong> 7-Eleven, Lawson, FamilyMart &mdash; genuinely excellent food. Onigiri, sandwiches, and desserts are all worth trying.</li>
+          <li><strong>Coin lockers:</strong> Available at all major stations. Use them to store luggage while sightseeing between hotel check-ins. Sizes and prices vary.</li>
+          <li><strong>Cash:</strong> Japan is still cash-heavy. Withdraw yen at 7-Eleven ATMs &mdash; they accept foreign cards reliably.</li>
+          <li><strong>Tax refund:</strong> Available at major stores for purchases over &yen;5,000. Process at the store with your passport, not at the airport.</li>
+        </ul>
+
+        <hr class="divider" />
+        <p>
+          Eleven days across Japan during sakura season &mdash; from Tokyo's riverside blossoms to
+          Yoshino's 30,000-tree mountainside to Miyajima's floating torii. Hope this helps with
+          planning your own sakura trip. Feel free to
+          <a href="mailto:haomingkoo@gmail.com">reach out</a> if you have questions.
+        </p>
+      </article>
+      <footer>&copy; 2023 Haoming Koo</footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module">
+      const map = L.map("trip-map", {
+        zoomControl: true,
+        scrollWheelZoom: false,
+      }).setView([35.0, 135.5], 6);
+
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        maxZoom: 19,
+        subdomains: "abcd",
+      }).addTo(map);
+
+      const cities = [
+        {
+          lat: 35.6762, lng: 139.6503, name: "Tokyo",
+          days: "Mar 31\u2013Apr 2", nights: 3,
+          highlights: "Sakura parks, TeamLab, DisneySea, Akihabara"
+        },
+        {
+          lat: 35.3606, lng: 138.7274, name: "Mt Fuji",
+          days: "Apr 3", nights: 1,
+          highlights: "Chureito Pagoda, ice caves, sake brewery"
+        },
+        {
+          lat: 35.2326, lng: 139.1070, name: "Hakone",
+          days: "Apr 4", nights: 1,
+          highlights: "Shrine, Owakudani, hot springs, Open-Air Museum"
+        },
+        {
+          lat: 34.6937, lng: 135.5023, name: "Osaka",
+          days: "Apr 5\u20136", nights: 2,
+          highlights: "Dotombori, Kani Doraku, robot hotel"
+        },
+        {
+          lat: 34.3775, lng: 135.8571, name: "Yoshino",
+          days: "Apr 6", nights: 0,
+          highlights: "30,000 cherry trees, Kinpusenji Temple"
+        },
+        {
+          lat: 34.6901, lng: 135.1956, name: "Kobe",
+          days: "Apr 6", nights: 0,
+          highlights: "Kobe beef at Royal Mouriya, Harbourland"
+        },
+        {
+          lat: 34.8394, lng: 134.6939, name: "Himeji",
+          days: "Apr 7", nights: 0,
+          highlights: "Himeji Castle (UNESCO)"
+        },
+        {
+          lat: 34.5850, lng: 133.7720, name: "Kurashiki",
+          days: "Apr 7", nights: 0,
+          highlights: "Bikan Historical Quarter, canal district"
+        },
+        {
+          lat: 34.3853, lng: 132.4553, name: "Hiroshima",
+          days: "Apr 7\u20139", nights: 2,
+          highlights: "Peace Memorial, Atomic Bomb Dome"
+        },
+        {
+          lat: 34.4089, lng: 133.2051, name: "Onomichi",
+          days: "Apr 8", nights: 0,
+          highlights: "Shimanami Kaido bridges, island temples"
+        },
+        {
+          lat: 34.2960, lng: 132.3198, name: "Miyajima",
+          days: "Apr 9", nights: 0,
+          highlights: "Floating torii, oysters, Mt Misen"
+        },
+        {
+          lat: 33.5904, lng: 130.4017, name: "Fukuoka",
+          days: "Apr 10", nights: 0,
+          highlights: "Hakata Station transit"
+        },
+      ];
+
+      // Route polyline — full trip path
+      const routeCoords = [
+        [35.6762, 139.6503],  // Tokyo
+        [35.3606, 138.7274],  // Mt Fuji
+        [35.2326, 139.1070],  // Hakone
+        [35.1200, 138.9100],  // Mishima area
+        [34.6937, 135.5023],  // Osaka
+        [34.3775, 135.8571],  // Yoshino
+        [34.6937, 135.5023],  // Osaka (return)
+        [34.6901, 135.1956],  // Kobe
+        [34.6937, 135.5023],  // Osaka (return)
+        [34.8394, 134.6939],  // Himeji
+        [34.5850, 133.7720],  // Kurashiki
+        [34.3853, 132.4553],  // Hiroshima
+        [34.4089, 133.2051],  // Onomichi
+        [34.3853, 132.4553],  // Hiroshima (return)
+        [34.2960, 132.3198],  // Miyajima
+        [34.3853, 132.4553],  // Hiroshima (return)
+        [33.5904, 130.4017],  // Fukuoka
+      ];
+
+      L.polyline(routeCoords, {
+        color: "#a855f7",
+        weight: 2,
+        opacity: 0.7,
+        dashArray: "8, 8",
+      }).addTo(map);
+
+      cities.forEach((c) => {
+        const marker = L.circleMarker([c.lat, c.lng], {
+          radius: c.nights > 0 ? 9 : 6,
+          fillColor: c.nights > 0 ? "#a855f7" : "#64647a",
+          fillOpacity: 0.9,
+          color: "#060608",
+          weight: 2,
+        }).addTo(map);
+
+        const nightsLabel = c.nights > 0 ? `${c.nights} night${c.nights > 1 ? "s" : ""}` : "Day trip";
+        marker.bindPopup(
+          `<strong>${c.name}</strong><br>` +
+          `<span style="color:#a855f7">${c.days}</span> &middot; ${nightsLabel}<br>` +
+          `<span style="color:#b0b0b8;font-size:12px">${c.highlights}</span>`
+        );
+
+        L.marker([c.lat, c.lng], {
+          icon: L.divIcon({
+            className: "city-label",
+            html: c.name,
+            iconSize: [100, 16],
+            iconAnchor: [-8, 8],
+          }),
+        }).addTo(map);
+      });
+
+      import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
+
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: "#travel-gallery",
+        children: "a.gallery-item",
+        pswpModule: () => import("https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.esm.min.js"),
+        bgOpacity: 0.92,
+        padding: { top: 20, bottom: 20, left: 20, right: 20 },
+      });
+      lightbox.init();
+    </script>
+  </body>
+</html>

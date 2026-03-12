@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>11 Days Across Japan — Sakura Season from Tokyo to Hiroshima</name>
+    <description><![CDATA[LEGEND
+🔵  Blue pin — Hotel / Accommodation
+🟣  Purple pin — Attraction / Landmark
+🟢  Green pin — Restaurant / Food
+
+By Haoming Koo — kooexperience.com/travel/posts/japan-sakura.html]]></description>
+
+    <!-- Styles: blue = hotel, purple = attraction, green = restaurant -->
+    <Style id="hotel">
+      <IconStyle>
+        <scale>1.1</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="attraction">
+      <IconStyle>
+        <scale>1.0</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="food">
+      <IconStyle>
+        <scale>1.0</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="routeLine">
+      <LineStyle><color>ff7755a8</color><width>3</width></LineStyle>
+    </Style>
+
+    <!-- ── TOKYO ─────────────────────────────────────── -->
+    <Folder>
+      <name>Tokyo (Days 1–3, Mar 31 – Apr 2)</name>
+
+      <Placemark>
+        <name>Tourist Hotel &amp; Cafe Akihabara</name>
+        <description><![CDATA[<b>Hotel</b> · 3 nights<br/>Base for exploring Tokyo during peak sakura season.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>139.7745,35.6983,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Kanda Matsuya</name>
+        <description><![CDATA[<b>Day 1 lunch</b> · Famous soba noodles in Kanda.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>139.7671,35.6930,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Gyukatsu Motomura Akihabara</name>
+        <description><![CDATA[<b>Day 1 dinner</b> · Deep-fried beef cutlet — cook to your preference on a hot stone.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>139.7731,35.6988,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Tenfusa Tempura</name>
+        <description><![CDATA[<b>Day 2 lunch</b> · Tempura near Toyosu.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>139.7870,35.6460,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Inshotei</name>
+        <description><![CDATA[<b>Day 2 dinner</b> · Traditional Japanese dining in Ueno Park.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>139.7740,35.7130,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Magellan's (DisneySea)</name>
+        <description><![CDATA[<b>Day 3 lunch</b> · Upscale Disney dining inside Mediterranean Harbor.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>139.8855,35.6267,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Roosevelt Bar (DisneySea)</name>
+        <description><![CDATA[<b>Day 3 evening</b> · Cocktails in the American Waterfront.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>139.8840,35.6280,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Chidorigafuchi Park</name>
+        <description><![CDATA[<b>Day 1</b> · Sakura along the Imperial Palace moat — one of Tokyo's most scenic spots.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.7480,35.6900,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Shinjuku Gyoen</name>
+        <description><![CDATA[<b>Day 1</b> · Massive national garden with hundreds of cherry trees.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.7100,35.6852,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Meguro River</name>
+        <description><![CDATA[<b>Day 1</b> · Iconic cherry blossom tunnel lining both sides of the river.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.7100,35.6419,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ginza</name>
+        <description><![CDATA[<b>Day 1 evening</b> · Upscale shopping district.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.7671,35.6717,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>TeamLab Planets</name>
+        <description><![CDATA[<b>Day 2</b> · Immersive digital art museum in Toyosu.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.7870,35.6500,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Toyosu Market</name>
+        <description><![CDATA[<b>Day 2</b> · Tokyo's modern fish market, successor to Tsukiji.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.7810,35.6464,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Sumida Park / Ferry to Asakusa</name>
+        <description><![CDATA[<b>Day 2</b> · Sakura along the Sumida River with Skytree views.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.8020,35.7108,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Sensoji Temple</name>
+        <description><![CDATA[<b>Day 2</b> · Kaminarimon gate and Nakamise Dori shopping street.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.7966,35.7148,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ueno Park</name>
+        <description><![CDATA[<b>Day 2</b> · Top sakura spot in Tokyo — over 1,000 cherry trees.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.7745,35.7126,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Tokyo DisneySea</name>
+        <description><![CDATA[<b>Day 3</b> · Full day at the world-class theme park.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.8855,35.6267,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── MT FUJI AREA ──────────────────────────────── -->
+    <Folder>
+      <name>Mt Fuji Area (Day 4, Apr 3)</name>
+
+      <Placemark>
+        <name>Fuji Gran Villa</name>
+        <description><![CDATA[<b>Hotel</b> · 1 night<br/>Accommodation near the Five Lakes area.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>138.7920,35.4520,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Koushu Houtou Kosaku</name>
+        <description><![CDATA[<b>Day 4 dinner</b> · Flat noodle hotpot — Yamanashi regional specialty.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>138.8050,35.4880,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Showa Memorial Park</name>
+        <description><![CDATA[<b>Day 4</b> · Tulip fields and spacious gardens in Tachikawa.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.4090,35.7080,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Narusawa Ice Cave</name>
+        <description><![CDATA[<b>Day 4</b> · Natural lava tube cave with ice formations.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>138.6590,35.4570,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Fugaku Wind Cave</name>
+        <description><![CDATA[<b>Day 4</b> · Lava tube cave near Aokigahara forest.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>138.6550,35.4600,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ide Shuzo Sake Brewery</name>
+        <description><![CDATA[<b>Day 4</b> · Local sake tasting at a traditional brewery.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>138.7550,35.4490,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Arakurayama Sengen Shrine / Chureito Pagoda</name>
+        <description><![CDATA[<b>Day 4</b> · Iconic five-story pagoda with Mt Fuji backdrop — the classic Japan shot.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>138.8070,35.5010,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── HAKONE & GOTEMBA ──────────────────────────── -->
+    <Folder>
+      <name>Hakone &amp; Gotemba (Day 5, Apr 4)</name>
+
+      <Placemark>
+        <name>Gyoza Center Hakone</name>
+        <description><![CDATA[<b>Day 5 lunch option</b> · Gyoza near Hakone.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>139.0530,35.2320,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Sawayaka Gotemba</name>
+        <description><![CDATA[<b>Day 5</b> · Famous hambagu (hamburger steak) — a Shizuoka institution.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>138.9340,35.3020,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Oishi Park</name>
+        <description><![CDATA[<b>Day 5</b> · Lakeside park with Mt Fuji views across Lake Kawaguchi.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>138.8220,35.5100,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Hakone Shrine</name>
+        <description><![CDATA[<b>Day 5</b> · Famous torii gate standing in Lake Ashi.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.0220,35.2050,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Owakudani</name>
+        <description><![CDATA[<b>Day 5</b> · Volcanic valley with sulfur vents — try the black eggs.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.0230,35.2440,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Hakone Open-Air Museum</name>
+        <description><![CDATA[<b>Day 5</b> · Outdoor sculpture museum set against mountain scenery.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.0650,35.2440,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Hakone Kowakien Yunessun</name>
+        <description><![CDATA[<b>Day 5</b> · Hot spring theme park with novelty baths.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.0510,35.2400,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Gotemba Premium Outlets</name>
+        <description><![CDATA[<b>Day 5</b> · Outlet mall with Mt Fuji views.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>138.9340,35.3020,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── OSAKA ─────────────────────────────────────── -->
+    <Folder>
+      <name>Osaka (Days 6–7, Apr 5–6)</name>
+
+      <Placemark>
+        <name>Henn na Hotel Osaka Namba</name>
+        <description><![CDATA[<b>Hotel</b> · 2 nights<br/>Robot hotel in the heart of Namba.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>135.5050,34.6630,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Kani Doraku Dotombori</name>
+        <description><![CDATA[<b>Day 6 dinner</b> · Famous crab restaurant on Dotombori — look for the giant crab sign.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>135.5030,34.6690,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Tofu Chaya Hayashi</name>
+        <description><![CDATA[<b>Day 7 lunch</b> · Traditional Yoshino tofu near the mountain.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>135.8570,34.3700,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Yoshino Mountain</name>
+        <description><![CDATA[<b>Day 7</b> · Over 30,000 cherry trees across four levels — Japan's most famous sakura destination.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>135.8571,34.3775,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Kinpusenji Temple</name>
+        <description><![CDATA[<b>Day 7</b> · Grand temple and World Heritage site on Yoshino Mountain.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>135.8565,34.3690,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Yoshimizu Shrine</name>
+        <description><![CDATA[<b>Day 7</b> · Panoramic cherry blossom views from the shrine grounds.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>135.8560,34.3710,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Chikurin-in Gumpoen</name>
+        <description><![CDATA[<b>Day 7</b> · Temple with a beautiful traditional garden.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>135.8570,34.3680,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Hanayagura Observatory</name>
+        <description><![CDATA[<b>Day 7</b> · Best cherry blossom viewpoint on Yoshino — captures the full mountainside.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>135.8520,34.3650,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Yoshino Mikumari Shrine</name>
+        <description><![CDATA[<b>Day 7</b> · Upper mountain shrine with tranquil atmosphere.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>135.8580,34.3600,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── KOBE ──────────────────────────────────────── -->
+    <Folder>
+      <name>Kobe (Day 7 evening, Apr 6)</name>
+
+      <Placemark>
+        <name>Kobe Beef Steak Royal Mouriya</name>
+        <description><![CDATA[<b>Day 7 dinner</b> · Premium Kobe beef teppanyaki — the real deal.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>135.1920,34.6910,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Kobe Harbourland</name>
+        <description><![CDATA[<b>Day 7</b> · Waterfront area with stunning night views of the port.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>135.1830,34.6810,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── HIMEJI & KURASHIKI ────────────────────────── -->
+    <Folder>
+      <name>Himeji &amp; Kurashiki (Day 8, Apr 7)</name>
+
+      <Placemark>
+        <name>Kassui-ken</name>
+        <description><![CDATA[<b>Day 8 lunch</b> · Restaurant near Himeji Castle.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>134.6950,34.8380,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Kappa Kurashiki</name>
+        <description><![CDATA[<b>Day 8 dinner</b> · Dining in the Kurashiki historic quarter.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>133.7720,34.5840,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Himeji Castle</name>
+        <description><![CDATA[<b>Day 8</b> · UNESCO World Heritage — Japan's most spectacular and best-preserved castle.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>134.6939,34.8394,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Kurashiki Bikan Historical Quarter</name>
+        <description><![CDATA[<b>Day 8</b> · Edo-era canal district with willow-lined waterways and white-walled warehouses.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>133.7720,34.5850,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── HIROSHIMA & SHIMANAMI KAIDO ────────────────── -->
+    <Folder>
+      <name>Hiroshima &amp; Shimanami Kaido (Days 9–10, Apr 8–9)</name>
+
+      <Placemark>
+        <name>APA Hotel Hiroshima Ekimae Ohashi</name>
+        <description><![CDATA[<b>Hotel</b> · 2 nights<br/>Near Hiroshima Station.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>132.4720,34.3900,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Seafood Restaurant Yoshikawa</name>
+        <description><![CDATA[<b>Day 9 lunch</b> · Onomichi seafood.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>133.1950,34.4050,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Izakaya on Shimanami</name>
+        <description><![CDATA[<b>Day 9 dinner</b> · Island dining on the Shimanami Kaido.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>133.0900,34.3200,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Yakigaki No Hayashi</name>
+        <description><![CDATA[<b>Day 10 brunch</b> · Grilled oysters on Miyajima Island.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>132.3190,34.2960,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ichiran Hiroshima Hondori</name>
+        <description><![CDATA[<b>Day 10 dinner</b> · Solo-booth tonkotsu ramen.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>132.4570,34.3930,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Hirakiyama Park (Onomichi)</name>
+        <description><![CDATA[<b>Day 9</b> · Hillside park with views over Onomichi and the Seto Inland Sea.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>133.2050,34.4100,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Oyamazumi Shrine</name>
+        <description><![CDATA[<b>Day 9</b> · One of Japan's oldest shrines, on Omishima Island.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>133.0040,34.2500,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Kirosan Park</name>
+        <description><![CDATA[<b>Day 9</b> · Island viewpoint with panoramic Seto Inland Sea views.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>133.0800,34.2800,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Hill of Hope (Ikuchijima)</name>
+        <description><![CDATA[<b>Day 9</b> · Art installation on Ikuchijima Island.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>133.0900,34.3100,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Setoda Sunset Beach</name>
+        <description><![CDATA[<b>Day 9</b> · Sunset spot on the Shimanami Kaido.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>133.0870,34.3050,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Itsukushima Shrine (Miyajima)</name>
+        <description><![CDATA[<b>Day 10</b> · UNESCO World Heritage — the iconic floating torii gate.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>132.3198,34.2960,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Mt Misen Ropeway</name>
+        <description><![CDATA[<b>Day 10</b> · Ropeway and hike to the summit with panoramic island views.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>132.3100,34.2780,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Hiroshima Peace Memorial Museum</name>
+        <description><![CDATA[<b>Day 10</b> · Deeply moving museum documenting the atomic bombing.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>132.4535,34.3915,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Atomic Bomb Dome</name>
+        <description><![CDATA[<b>Day 10</b> · Preserved ruin and UNESCO World Heritage site.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>132.4535,34.3955,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Hondori Shopping Arcade</name>
+        <description><![CDATA[<b>Day 10</b> · Covered shopping street for last-minute picks.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>132.4570,34.3930,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── ROUTE ─────────────────────────────────────── -->
+    <Folder>
+      <name>Travel Route</name>
+      <Placemark>
+        <name>Tokyo → Showa Memorial Park → Mt Fuji → Hakone → Gotemba → Mishima → Osaka → Yoshino → Osaka → Kobe → Osaka → Himeji → Kurashiki → Hiroshima → Onomichi → Hiroshima → Miyajima → Hiroshima → Fukuoka</name>
+        <description>Mix of Shinkansen, rental car, and local trains</description>
+        <styleUrl>#routeLine</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            139.6503,35.6762,0
+            139.4090,35.7080,0
+            138.7274,35.3606,0
+            139.1070,35.2326,0
+            138.9340,35.3020,0
+            138.9111,35.1185,0
+            135.5023,34.6937,0
+            135.8571,34.3775,0
+            135.5023,34.6937,0
+            135.1956,34.6901,0
+            135.5023,34.6937,0
+            134.6939,34.8394,0
+            133.7720,34.5850,0
+            132.4553,34.3853,0
+            133.2051,34.4089,0
+            132.4553,34.3853,0
+            132.3198,34.2960,0
+            132.4553,34.3853,0
+            130.4017,33.5904,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+
+  </Document>
+</kml>
