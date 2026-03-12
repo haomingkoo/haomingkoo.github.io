@@ -1,0 +1,1093 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10 Days in Japan — Snow Festivals, Early Sakura &amp; Mount Fuji — Travel — Haoming Koo</title>
+    <meta name="description" content="A winter trip through Hokkaido and Izu — Sapporo Snow Festival, Asahiyama Zoo penguins, Otaru lanterns, early Kawazu sakura, and Mount Fuji views." />
+    <link rel="canonical" href="https://kooexperience.com/travel/posts/japan.html" />
+    <meta property="og:title" content="10 Days in Japan — Snow Festivals, Early Sakura & Mount Fuji" />
+    <meta property="og:description" content="Sapporo Snow Festival, Asahiyama Zoo penguins, skiing, early sakura in Kawazu, and Mount Fuji — a winter trip through Hokkaido and Izu." />
+    <meta property="og:url" content="https://kooexperience.com/travel/posts/japan.html" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "10 Days in Japan — Snow Festivals, Early Sakura & Mount Fuji",
+      "author": { "@type": "Person", "name": "Haoming Koo" },
+      "datePublished": "2025-02-18",
+      "description": "A winter trip through Hokkaido and Izu — snow festivals, penguins, skiing, early sakura, and Mount Fuji."
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #a855f7;
+        --accent-dim: rgba(168,85,247,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+        --green: #22c55e;
+        --green-dim: rgba(34,197,94,.10);
+        --pink: #f472b6;
+        --pink-dim: rgba(244,114,182,.10);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168,85,247,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(6,6,8,.72);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between;
+        height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px;
+        transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+
+      .hero-cover {
+        width: 100%; height: 340px; object-fit: cover;
+        border-radius: 16px; margin-bottom: 32px;
+        border: 1px solid var(--border);
+      }
+
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .reading-time { color: var(--muted); }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle {
+        font-size: 17px; color: var(--text-secondary); line-height: 1.6;
+        margin-bottom: 32px;
+      }
+      .article h2 {
+        font-size: 22px; font-weight: 700; margin: 48px 0 16px;
+        letter-spacing: -.01em; color: var(--text);
+      }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article img:not(.hero-cover):not(.gallery-img) {
+        max-width: 100%; border-radius: 12px; margin: 24px 0;
+        border: 1px solid var(--border);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title {
+        font-size: 11px; font-weight: 600; letter-spacing: .14em;
+        text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+      }
+      .toc a {
+        display: block; font-size: 13.5px; color: var(--text-secondary);
+        text-decoration: none; padding: 4px 0; transition: color .2s;
+      }
+      .toc a:hover { color: var(--accent); }
+
+      .map-container {
+        width: 100%; height: 400px;
+        border-radius: 14px; overflow: hidden;
+        border: 1px solid var(--border);
+        margin: 32px 0;
+      }
+      .map-container .leaflet-container { height: 100%; width: 100%; }
+      .leaflet-container { background: var(--bg); }
+      .leaflet-popup-content-wrapper {
+        background: var(--surface); color: var(--text);
+        border: 1px solid var(--border); border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(0,0,0,.5);
+      }
+      .leaflet-popup-tip { background: var(--surface); }
+      .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
+      .leaflet-control-attribution { font-size: 9px; opacity: .5; }
+      .leaflet-control-zoom a {
+        background: var(--surface) !important; color: var(--text) !important;
+        border-color: var(--border) !important;
+      }
+      .city-label {
+        background: none !important; border: none !important; box-shadow: none !important;
+        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600;
+        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
+        white-space: nowrap;
+      }
+
+      .itinerary { margin: 32px 0; }
+      .city-section-header {
+        display: flex; align-items: center; gap: 12px;
+        margin: 40px 0 16px; padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      .city-section-header:first-child { margin-top: 0; }
+      .city-name { font-size: 18px; font-weight: 700; color: var(--text); }
+      .city-nights { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+      .day-card {
+        position: relative;
+        padding: 24px 24px 24px 40px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        margin-bottom: 16px;
+        transition: border-color .2s;
+      }
+      .day-card:hover { border-color: rgba(168,85,247,.3); }
+      .day-card::before {
+        content: "";
+        position: absolute; left: 18px; top: 0; bottom: -16px;
+        width: 2px; background: var(--border);
+      }
+      .day-card:last-child::before { bottom: 50%; }
+      .day-card::after {
+        content: "";
+        position: absolute; left: 13px; top: 28px;
+        width: 12px; height: 12px; border-radius: 50%;
+        background: var(--accent); border: 2px solid var(--bg);
+        z-index: 1;
+      }
+      .day-label {
+        font-size: 11px; font-weight: 600; letter-spacing: .12em;
+        text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+      }
+      .day-title {
+        font-size: 17px; font-weight: 600; color: var(--text);
+        margin-bottom: 6px;
+      }
+      .day-desc {
+        font-size: 13.5px; color: var(--muted); line-height: 1.6;
+      }
+      .day-tags {
+        display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+      }
+      .day-tag {
+        font-size: 10px; font-weight: 500; padding: 2px 8px;
+        border-radius: 6px; background: rgba(255,255,255,.04);
+        color: var(--muted); border: 1px solid rgba(255,255,255,.05);
+      }
+
+      .cost-table {
+        width: 100%; border-collapse: collapse; margin: 24px 0;
+        font-size: 13.5px;
+      }
+      .cost-table th {
+        text-align: left; font-size: 11px; font-weight: 600;
+        letter-spacing: .1em; text-transform: uppercase;
+        color: var(--muted); padding: 8px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .cost-table th:last-child { text-align: right; }
+      .cost-table td {
+        padding: 10px 12px; color: var(--text-secondary);
+        border-bottom: 1px solid rgba(255,255,255,.03);
+      }
+      .cost-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+      .cost-table .category-row td {
+        font-weight: 600; color: var(--accent); font-size: 12px;
+        letter-spacing: .05em; text-transform: uppercase;
+        padding-top: 20px;
+      }
+      .cost-table .total-row td {
+        font-weight: 700; color: var(--text); font-size: 15px;
+        border-top: 2px solid var(--border); border-bottom: none;
+        padding-top: 16px;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 8px;
+        margin: 32px 0;
+      }
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        aspect-ratio: 4 / 3;
+        transition: transform .22s, border-color .22s;
+      }
+      .gallery-item:hover {
+        transform: scale(1.02);
+        border-color: rgba(168,85,247,.3);
+      }
+      .gallery-item.featured {
+        grid-column: span 2;
+        grid-row: span 2;
+        aspect-ratio: auto;
+      }
+      .gallery-img {
+        width: 100%; height: 100%; object-fit: cover;
+        display: block;
+      }
+      .gallery-caption {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        padding: 24px 12px 8px;
+        background: linear-gradient(transparent, rgba(0,0,0,.7));
+        font-size: 11px; color: rgba(255,255,255,.8);
+      }
+
+      .info-box {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+      }
+      .info-box-title {
+        font-size: 13px; font-weight: 600; color: var(--text);
+        margin-bottom: 8px;
+      }
+      .info-box-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 6px 0; font-size: 13px;
+        border-bottom: 1px solid rgba(255,255,255,.03);
+      }
+      .info-box-row:last-child { border-bottom: none; }
+      .info-box-label { color: var(--muted); }
+      .info-box-value { color: var(--text-secondary); font-weight: 500; }
+
+      .callout {
+        background: var(--accent-dim); border-left: 3px solid var(--accent);
+        border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 24px 0;
+        font-size: 13.5px; color: var(--text-secondary);
+      }
+      .callout strong { color: var(--text); }
+
+      footer {
+        border-top: 1px solid var(--border); padding: 32px 0 40px;
+        font-size: 13px; color: var(--muted); text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+        .hero-cover { height: 220px; }
+        .map-container { height: 280px; }
+        .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        .gallery-item.featured { grid-column: span 1; grid-row: span 1; aspect-ratio: 4/3; }
+        .day-card { padding-left: 36px; }
+        .cost-table { font-size: 12px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../../">HK</a>
+        <a href="../../#travel">Travel</a>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../">&larr; Back to travel</a>
+
+        <!-- Hero image — replace src with your photo -->
+        <!-- <img class="hero-cover" src="" alt="Sapporo Snow Festival" loading="eager" /> -->
+
+        <div class="article-meta">
+          <span class="article-tag">Japan</span>
+          <span class="article-tag" style="background: var(--pink-dim); color: var(--pink);">Sakura</span>
+          <span>Feb 2025</span>
+          <span class="reading-time">14 min read</span>
+        </div>
+
+        <h1>10 Days in Japan &mdash; Snow Festivals, Early Sakura &amp; Mount Fuji</h1>
+        <p class="subtitle">
+          Sapporo &rarr; Asahikawa &rarr; Otaru &rarr; Odawara &rarr; Izu Peninsula &rarr; Tokyo.
+          Hokkaido's snow festivals and penguin parades in the north, then early-blooming
+          sakura and coastal drives in the south. Here's everything we did and what I'd do differently.
+        </p>
+
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#overview">Overview</a>
+          <a href="#for-you">Is This Trip For You?</a>
+          <a href="#map">Route Map</a>
+          <a href="#sapporo">Sapporo &mdash; Snow, Beer &amp; Ramen</a>
+          <a href="#odawara">Odawara &mdash; Onsen by the Sea</a>
+          <a href="#izu">Izu Peninsula &mdash; Sakura, Capybaras &amp; Coastal Drives</a>
+          <a href="#tokyo">Tokyo &mdash; A Quick Goodbye</a>
+          <a href="#hindsight">What I'd Do Differently</a>
+          <a href="#tickets">Booking Guide</a>
+          <a href="#planning-timeline">Planning Timeline</a>
+          <a href="#seasons">When to Go &mdash; Seasons &amp; Weather</a>
+          <a href="#other-places">Other Places to Consider</a>
+          <a href="#photos">Photos</a>
+          <a href="#tips">Quick Tips</a>
+        </div>
+
+        <!-- ── Overview ──────────────────────────────────────────────────── -->
+        <h2 id="overview">Overview</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">Trip Details</div>
+          <div class="info-box-row">
+            <span class="info-box-label">Dates</span>
+            <span class="info-box-value">Feb 9 &ndash; 18, 2025</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Duration</span>
+            <span class="info-box-value">10 days</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Route</span>
+            <span class="info-box-value">Sapporo &rarr; Odawara &rarr; Izu &rarr; Tokyo</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Travellers</span>
+            <span class="info-box-value">4 (family)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Season</span>
+            <span class="info-box-value">Winter (Snow Festival &amp; early sakura)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Includes</span>
+            <span class="info-box-value">Flights, hotels, JR Pass, rental car, attractions</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">Not Included</span>
+            <span class="info-box-value">Food, local transport (subway/bus/taxi), shopping</span>
+          </div>
+        </div>
+
+        <p>
+          The idea was simple: catch the tail end of Hokkaido's snow festivals in the north,
+          then fly south to see early-blooming sakura and Mount Fuji before spring officially
+          starts. February is the sweet spot &mdash; the Sapporo Snow Festival runs its final
+          week, the Kawazu cherry trees (the earliest-blooming variety in Japan) are in full pink,
+          and the winter air around Izu means clearer views of Fuji.
+        </p>
+        <p>
+          We split the trip into two halves: 6 nights in Sapporo as a base for Hokkaido
+          (snow festivals, a zoo penguin parade, skiing, canal lanterns), then flew to Haneda
+          and picked up a rental car for a road trip through Odawara, the Izu Peninsula, and back
+          to Tokyo. Two very different vibes &mdash; snowy city exploration in the north,
+          coastal driving and hot springs in the south.
+        </p>
+
+        <!-- ── Is This Trip For You? ─────────────────────────────────────── -->
+        <h2 id="for-you">Is This Trip For You?</h2>
+
+        <div class="info-box">
+          <div class="info-box-title">If you nod to most of these, keep reading</div>
+          <div class="info-box-row">
+            <span class="info-box-label">You want to see snow festivals and winter illuminations</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You're comfortable driving in Japan (for the Izu half)</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You enjoy mixing city exploration with nature</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You love ramen, seafood, and Japanese food culture</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You want to see sakura before the main season crowds</span>
+          </div>
+          <div class="info-box-row">
+            <span class="info-box-label">You can handle -5&deg;C to 10&deg;C weather</span>
+          </div>
+        </div>
+
+        <!-- ── Map ───────────────────────────────────────────────────────── -->
+        <h2 id="map">Route Map</h2>
+        <p>Click on any marker to see what we did in each area.</p>
+        <div class="map-container">
+          <div id="trip-map"></div>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0 12px;">
+          <a href="./japan-route.kml" download
+             style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+                    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+                    color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500;
+                    transition: border-color .2s, background .2s; cursor: pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download KML file
+          </a>
+        </div>
+        <p style="font-size: 12px; color: var(--muted); margin-bottom: 32px; line-height: 1.6;">
+          All hotels, restaurants, and attractions from this trip, organized by area.
+          Import the KML into <a href="https://www.google.com/maps/d/" target="_blank" rel="noopener" style="color: var(--accent);">Google My Maps</a>
+          to view all pins. Syncs to your Google Maps app under Saved &rarr; Maps.
+        </p>
+
+        <!-- ── SAPPORO ──────────────────────────────────────────────────── -->
+        <h2 id="sapporo">Sapporo</h2>
+        <div class="city-section-header">
+          <span class="city-name">Sapporo</span>
+          <span class="city-nights">6 nights &middot; ANA Crowne Plaza Sapporo</span>
+        </div>
+
+        <p>
+          Sapporo in February is a different planet if you're coming from Singapore. -5&deg;C,
+          snow piled up on every surface, and the entire city turns into a winter playground
+          for the Snow Festival. The food scene alone is worth the trip &mdash; soup curry,
+          Genghis Khan BBQ, miso ramen, fresh crab. We used Sapporo as a base for day trips
+          to Asahikawa, Otaru, and Teine ski resort, all easily reachable by JR trains.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 1 &mdash; Feb 9</div>
+            <div class="day-title">Arrival, Beer Museum &amp; Genghis Khan</div>
+            <div class="day-desc">
+              Flew JL38 Singapore to Haneda (arrived 9:50am), then JL513 Haneda to New Chitose
+              (arrived 1:10pm). Collected our JR Pass at the airport and took the train to
+              Sapporo (~40 min). Checked into ANA Crowne Plaza and grabbed a late lunch at
+              Soup Curry GARAKU in Sitatte Sapporo. Quick stop near Odori to buy proper winter
+              boots (essential &mdash; Singapore shoes won't cut it on Hokkaido ice). Evening at
+              the Sapporo Beer Museum (~1.5 hrs, last admission 5:30pm) followed by Genghis Khan
+              BBQ at the Beer Garden &mdash; lamb grilled on a dome-shaped iron plate. One of those
+              "only in Sapporo" meals.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Arrival</span>
+              <span class="day-tag">Beer</span>
+              <span class="day-tag">BBQ</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 2 &mdash; Feb 10</div>
+            <div class="day-title">Sapporo Snow Festival</div>
+            <div class="day-desc">
+              The main event. Started at Odori Park for the massive snow sculptures (~1.5 hrs)
+              &mdash; we're talking building-sized ice and snow works. Then headed to the
+              Tsudome site (~30 min away) for snow slides and activities (~2 hrs &mdash; great
+              for families). Back to central Sapporo for the TV Tower observation deck for
+              city views. Dinner at Umi Hachikyo Bettei Ofukuro &mdash; omakase snow crab set
+              (call ahead to reserve, it's worth every yen). After dinner, walked through
+              Susukino's ice sculptures illuminated at night. Ended at Nikka Bar for whisky.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Snow Festival</span>
+              <span class="day-tag">Crab</span>
+              <span class="day-tag">Illumination</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 3 &mdash; Feb 11</div>
+            <div class="day-title">Asahikawa &mdash; Zoo Penguins &amp; Fireworks</div>
+            <div class="day-desc">
+              Day trip to Asahikawa. Train Lilac 5 from Sapporo (8:00am, arrived ~9:25am).
+              Taxi to Asahiyama Zoo (~20 min). The penguin parade at 11am is the highlight
+              &mdash; king penguins waddle through a snow-lined path right past you. Stayed
+              for lunch at the zoo, then headed to the Asahikawa Winter Festival for more
+              ice sculptures and snow activities. Fireworks at 7pm lit up the frozen river.
+              Dinner at Ramen Sant&#333;ka &mdash; their shio (salt) ramen is legendary.
+              Late train Okhotsk 4 back to Sapporo (9:16pm).
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Day Trip</span>
+              <span class="day-tag">Penguins</span>
+              <span class="day-tag">Fireworks</span>
+              <span class="day-tag">Ramen</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 4 &mdash; Feb 12</div>
+            <div class="day-title">Otaru &mdash; Canals &amp; Snow Light Path</div>
+            <div class="day-desc">
+              Train to Otaru (~35 min from Sapporo). Walked along the Otaru Canal in the
+              daytime, then explored Sakaimachi-dori &mdash; the Music Box Museum, glass shops,
+              and LeTAO (famous cheesecake, worth the queue). Lunch at Naruto for their
+              signature fried chicken (half-chicken, crispy and juicy). Early dinner at
+              Yabuhan for handmade soba. As darkness fell, the Otaru Snow Light Path lit up
+              &mdash; hundreds of candles and lanterns floating on the canal and lining the
+              streets. Genuinely magical. Train back by 7:27pm.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Day Trip</span>
+              <span class="day-tag">Canals</span>
+              <span class="day-tag">Lanterns</span>
+              <span class="day-tag">Food</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 5 &mdash; Feb 13</div>
+            <div class="day-title">Skiing at Teine</div>
+            <div class="day-desc">
+              Full day skiing at Sapporo Teine ski resort. Met the transfer at 8am near
+              Oriental Hotel. Gear rental available on-mountain. Great powder &mdash;
+              Hokkaido snow is famously light and dry. Returned to Sapporo around 4pm.
+              Dinner at Ramen Shingen (minami 6 jo branch) &mdash; their miso ramen is rich,
+              hearty, and exactly what you need after a day on the slopes.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Skiing</span>
+              <span class="day-tag">Ramen</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 6 &mdash; Feb 14</div>
+            <div class="day-title">Shiroi Koibito Park &amp; Mt. Moiwa Sunset</div>
+            <div class="day-desc">
+              Morning at Shiroi Koibito Park (~2 hrs) &mdash; the chocolate factory behind
+              Hokkaido's famous white chocolate biscuit. Interactive exhibits, cookie-making
+              workshop, and a charming European-style garden covered in snow. Lunch at Kitano
+              Gurume for king crab (Hokkaido crab is next level). Afternoon shopping around
+              Sapporo Station. Took the Mt. Moiwa Ropeway up for sunset at 5:05pm &mdash;
+              panoramic night views of Sapporo. One of the "Three Great Night Views" of Japan.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Chocolate</span>
+              <span class="day-tag">Crab</span>
+              <span class="day-tag">Night View</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ODAWARA ──────────────────────────────────────────────────── -->
+        <h2 id="odawara">Odawara</h2>
+        <div class="city-section-header">
+          <span class="city-name">Odawara</span>
+          <span class="city-nights">1 night &middot; Hilton Odawara Resort &amp; Spa</span>
+        </div>
+
+        <p>
+          Transition day from Hokkaido to Kanto. Flew from New Chitose to Haneda, picked up
+          a rental car at Toyota Rent a Car (Haneda), and drove ~1.5 hours to Odawara. The
+          Hilton Odawara is a resort-style property with an onsen, pool, and mini-golf &mdash;
+          a good place to decompress after six busy days in Hokkaido.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 7 &mdash; Feb 15</div>
+            <div class="day-title">Fly South &amp; Resort Evening</div>
+            <div class="day-desc">
+              Flight CTS to Haneda (12:50pm, arrived 2:35pm). Picked up rental car and drove
+              to Hilton Odawara (~1.5 hrs). Spent the evening at the resort &mdash; pool, onsen,
+              just unwinding. After a week of -5&deg;C in Hokkaido, the warm onsen hit different.
+              Dinner at the hotel.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Flight</span>
+              <span class="day-tag">Onsen</span>
+              <span class="day-tag">Rest</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── IZU PENINSULA ────────────────────────────────────────────── -->
+        <h2 id="izu">Izu Peninsula</h2>
+        <div class="city-section-header">
+          <span class="city-name">Izu Peninsula</span>
+          <span class="city-nights">1 night &middot; Tiny Base Kawazu</span>
+        </div>
+
+        <p>
+          The Izu Peninsula is where the trip shifted gears entirely. Rocky coastlines, hot springs,
+          capybaras in onsen, wasabi farms, and the famous Kawazu cherry blossoms &mdash; the earliest
+          sakura in mainland Japan, blooming a full month before Tokyo. We stayed at a countryside
+          lodge in Kawazu with a BBQ setup and did a self-drive loop around the peninsula.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 8 &mdash; Feb 16</div>
+            <div class="day-title">Capybaras, Coastal Cliffs &amp; Kawazu</div>
+            <div class="day-desc">
+              Drove from Odawara to the Izu Peninsula. First stop: Ito Marine Town (~30 min
+              stop, harbour views). Then to Izu Shaboten Zoo for the capybara onsen &mdash;
+              capybaras soaking in hot springs. One of those uniquely Japanese experiences.
+              Afternoon walk along Jogasaki Coast (~1 hr, dramatic cliffs and suspension
+              bridges over the ocean). Drove to Kawazu, checked in at Tiny Base lodge.
+              Evening BBQ at the accommodation &mdash; grilling with mountain air. Late run to
+              MaxValu for breakfast supplies.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Capybaras</span>
+              <span class="day-tag">Coastal Walk</span>
+              <span class="day-tag">BBQ</span>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-label">Day 9 &mdash; Feb 17</div>
+            <div class="day-title">Waterfalls, Wasabi &amp; Strawberries &rarr; Tokyo</div>
+            <div class="day-desc">
+              Explored Kawazu in the morning. Drove to Wasabi Garden Kadoya near the Kawazu
+              Seven Falls (~20 min) for an early lunch &mdash; fresh wasabi bowl and boar stew.
+              The wasabi grown here is nothing like the paste you get in restaurants; it's
+              floral, sweet, and barely burns. Short walk to the waterfalls (~1 hr partial
+              trail, seven cascades through a forested gorge). Then drove ~1 hr to Kubota
+              Strawberry Picking Garden for all-you-can-eat strawberry picking (~1 hr, peak
+              season in Feb). Drove ~2.5 hrs to Tokyo. Checked into Ibis Styles Ginza.
+              Dropped the rental car at Toyota Nishi-Shinbashi (closes 8pm). Dinner in Ginza.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Waterfalls</span>
+              <span class="day-tag">Wasabi</span>
+              <span class="day-tag">Strawberries</span>
+              <span class="day-tag">Road Trip</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TOKYO ────────────────────────────────────────────────────── -->
+        <h2 id="tokyo">Tokyo</h2>
+        <div class="city-section-header">
+          <span class="city-name">Tokyo</span>
+          <span class="city-nights">1 night &middot; Ibis Styles Ginza</span>
+        </div>
+
+        <p>
+          One night in Ginza to wrap up the trip. Not enough time to explore Tokyo properly
+          &mdash; but that's fine. Tokyo deserves its own trip.
+        </p>
+
+        <div class="itinerary">
+          <div class="day-card">
+            <div class="day-label">Day 10 &mdash; Feb 18</div>
+            <div class="day-title">Final Shopping &amp; Home</div>
+            <div class="day-desc">
+              Free morning for last-minute shopping in Ginza. Train to Narita (~1.5 hrs).
+              Flight back to Singapore at 6:10pm. Ten days, two completely different Japans
+              &mdash; frozen Hokkaido and coastal Izu &mdash; and already thinking about the next one.
+            </div>
+            <div class="day-tags">
+              <span class="day-tag">Shopping</span>
+              <span class="day-tag">Home</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── What I'd Do Differently ────────────────────────────────────── -->
+        <h2 id="hindsight">What I'd Do Differently</h2>
+
+        <h3>Add a night in Kawazu for the sakura</h3>
+        <p>
+          The Kawazu cherry blossoms are stunning, but we were rushing to get to Tokyo by
+          evening. An extra night would let you walk the riverbank lined with sakura at
+          sunset &mdash; it's a 4km stretch of early-blooming trees. The night illumination
+          of the sakura along the river is supposed to be beautiful.
+        </p>
+
+        <h3>Spend more time in Otaru</h3>
+        <p>
+          We tried to squeeze Otaru into a tight schedule. The Snow Light Path at night is
+          worth the trip alone, but the daytime canal walk, glass shops, and food deserve
+          a slower pace. Consider staying overnight if the Snow Light Path festival overlaps
+          with your dates.
+        </p>
+
+        <h3>Book the crab dinner earlier</h3>
+        <p>
+          Umi Hachikyo's omakase snow crab set requires a phone call reservation. We almost
+          missed out. If crab is a priority (and in Hokkaido, it should be), book it as soon
+          as your dates are confirmed.
+        </p>
+
+        <h3>Rental car logistics</h3>
+        <p>
+          Picking up the car at Haneda worked, but dropping it off in central Tokyo (Nishi-Shinbashi)
+          before 8pm was tight after driving from Izu. If doing this again, I'd either
+          drop the car at a station closer to the last stop or budget more time.
+        </p>
+
+        <!-- ── Booking Guide ────────────────────────────────────────────── -->
+        <h2 id="tickets">Booking Guide</h2>
+
+        <p>
+          Japan is easier to "wing it" than Italy, but a few things need advance planning:
+        </p>
+
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th style="text-align: left;">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>JR Pass</strong></td>
+              <td style="text-align: left;">Buy before arriving. We used the Hokkaido JR Pass (5-day flex) for Sapporo&ndash;Asahikawa&ndash;Otaru trains. Collect at airport JR counter.</td>
+            </tr>
+            <tr>
+              <td><strong>Sapporo Snow Festival</strong></td>
+              <td style="text-align: left;">Free entry to Odori and Susukino sites. Tsudome site is also free but check bus schedule. No booking needed. Runs ~early Feb.</td>
+            </tr>
+            <tr>
+              <td><strong>Asahiyama Zoo</strong></td>
+              <td style="text-align: left;">No advance booking required. Penguin parade is at 11am daily in winter (weather permitting). Arrive early for a good spot.</td>
+            </tr>
+            <tr>
+              <td><strong>Teine Ski Resort</strong></td>
+              <td style="text-align: left;">Book transfer and gear rental 1&ndash;2 weeks ahead through your hotel or a tour operator. Lift tickets available on the day.</td>
+            </tr>
+            <tr>
+              <td><strong>Shiroi Koibito Park</strong></td>
+              <td style="text-align: left;">Walk-in is fine. Cookie workshop can be reserved online if you want a specific time.</td>
+            </tr>
+            <tr>
+              <td><strong>Rental Car</strong></td>
+              <td style="text-align: left;">Book 2&ndash;4 weeks ahead via Toyota Rent a Car or similar. We picked up at Haneda, dropped at Nishi-Shinbashi. Need international driving permit (IDP).</td>
+            </tr>
+            <tr>
+              <td><strong>Kawazu Accommodation</strong></td>
+              <td style="text-align: left;">Book early &mdash; the sakura festival in Feb fills up small lodges fast. We stayed at Tiny Base Kawazu (countryside lodge with BBQ).</td>
+            </tr>
+            <tr>
+              <td><strong>Umi Hachikyo (Snow Crab)</strong></td>
+              <td style="text-align: left;">Phone reservation required for omakase crab set. Call 1&ndash;2 weeks ahead. Worth it.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <strong>International Driving Permit:</strong> Required for driving in Japan if you
+          don't hold a Japanese licence. Get one from your home country's automobile association
+          before the trip. Japan drives on the left. Highway tolls add up &mdash; consider
+          a Tohoku Expressway Pass or similar discount if driving extensively.
+        </div>
+
+        <!-- ── Planning Timeline ──────────────────────────────────────────── -->
+        <h2 id="planning-timeline">Planning Timeline</h2>
+
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>When</th>
+              <th style="text-align: left;">What to Do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>4&ndash;5 months before</strong></td>
+              <td style="text-align: left;">Book flights. Singapore to Japan has good options (JAL, ANA, Scoot). For domestic flights (Sapporo &harr; Tokyo), JAL/ANA are often cheaper booked together with international legs.</td>
+            </tr>
+            <tr>
+              <td><strong>3 months before</strong></td>
+              <td style="text-align: left;">Book hotels. Sapporo hotels fill up fast during Snow Festival week &mdash; book early or pay a premium. Kawazu lodges are small and limited.</td>
+            </tr>
+            <tr>
+              <td><strong>1&ndash;2 months before</strong></td>
+              <td style="text-align: left;">Buy JR Pass (online, collect at airport). Book rental car. Reserve ski transfers. Check Snow Festival dates (changes yearly).</td>
+            </tr>
+            <tr>
+              <td><strong>2&ndash;4 weeks before</strong></td>
+              <td style="text-align: left;">Call Umi Hachikyo for crab reservation. Check Kawazu sakura forecast. Download offline maps. Get IDP if driving.</td>
+            </tr>
+            <tr>
+              <td><strong>1 week before</strong></td>
+              <td style="text-align: left;">Confirm all bookings. Check weather forecasts (Hokkaido conditions can change fast). Pack layers, thermals, waterproof boots.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ── Seasons & Weather ─────────────────────────────────────────── -->
+        <h2 id="seasons">When to Go &mdash; Seasons &amp; Weather</h2>
+
+        <p>Japan is a year-round destination, but the experience changes dramatically:</p>
+
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Season</th>
+              <th style="text-align: left;">What to Expect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Winter</strong><br><span style="color: var(--muted); font-size: 12px;">Dec &ndash; Feb</span></td>
+              <td style="text-align: left;">What we did. Hokkaido: -5 to -15&deg;C, heavy snow, snow festivals, world-class powder skiing. Kanto/Izu: 5&ndash;10&deg;C, clear skies, best Mt Fuji views, Kawazu sakura in late Feb. Perfect for this dual-climate itinerary.</td>
+            </tr>
+            <tr>
+              <td><strong>Spring</strong><br><span style="color: var(--muted); font-size: 12px;">Mar &ndash; May</span></td>
+              <td style="text-align: left;">Cherry blossom season. Sakura in Tokyo peaks late March to early April. Kyoto, Osaka, and the countryside follow. Beautiful but crowded &mdash; book everything months ahead.</td>
+            </tr>
+            <tr>
+              <td><strong>Summer</strong><br><span style="color: var(--muted); font-size: 12px;">Jun &ndash; Aug</span></td>
+              <td style="text-align: left;">25&ndash;35&deg;C, humid. Fireworks festivals, mountain hiking, Hokkaido lavender fields (Furano). June is rainy season in most of Honshu. Hokkaido stays pleasant.</td>
+            </tr>
+            <tr>
+              <td><strong>Autumn</strong><br><span style="color: var(--muted); font-size: 12px;">Sep &ndash; Nov</span></td>
+              <td style="text-align: left;">Spectacular autumn foliage (koyo). Kyoto and Nikko are stunning. Comfortable temperatures, fewer crowds than spring. Arguably the best all-round season.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          We chose February for the unique combo: Hokkaido snow festivals are at their peak,
+          and Kawazu sakura are the earliest in mainland Japan. You get winter and a preview
+          of spring in the same trip.
+        </p>
+
+        <!-- ── Other Places to Consider ──────────────────────────────────── -->
+        <h2 id="other-places">Other Places to Consider</h2>
+
+        <p>If you have extra days or are planning a return trip:</p>
+
+        <div class="info-box">
+          <div class="info-box-title">Niseko</div>
+          <div class="info-box-row"><span class="info-box-label">Best for</span><span class="info-box-value">World-class powder skiing, onsen apr&egrave;s-ski</span></div>
+          <div class="info-box-row"><span class="info-box-label">Best season</span><span class="info-box-value">December &ndash; March</span></div>
+          <div class="info-box-row"><span class="info-box-label">Getting there</span><span class="info-box-value">2.5h drive or bus from Sapporo</span></div>
+        </div>
+        <p>Hokkaido's premier ski destination. Consistent dry powder snow that's famous worldwide. More resort infrastructure than Teine, but pricier. Easy add-on from Sapporo.</p>
+
+        <div class="info-box">
+          <div class="info-box-title">Hakodate</div>
+          <div class="info-box-row"><span class="info-box-label">Best for</span><span class="info-box-value">Morning market, Mt Hakodate night view, seafood</span></div>
+          <div class="info-box-row"><span class="info-box-label">Best season</span><span class="info-box-value">Year-round</span></div>
+          <div class="info-box-row"><span class="info-box-label">Getting there</span><span class="info-box-value">3.5h by JR from Sapporo</span></div>
+        </div>
+        <p>Southern Hokkaido port city. The morning market is one of Japan's best &mdash; fresh uni, ikura, and crab at 6am. Mt Hakodate night view rivals Moiwa. Worth 1&ndash;2 nights.</p>
+
+        <div class="info-box">
+          <div class="info-box-title">Hakone</div>
+          <div class="info-box-row"><span class="info-box-label">Best for</span><span class="info-box-value">Mt Fuji views, hot springs, open-air museum</span></div>
+          <div class="info-box-row"><span class="info-box-label">Best season</span><span class="info-box-value">Autumn or winter (clearest Fuji views)</span></div>
+          <div class="info-box-row"><span class="info-box-label">Getting there</span><span class="info-box-value">1.5h from Tokyo by Romancecar</span></div>
+        </div>
+        <p>Classic Fuji-viewing spot with onsen, pirate ships on Lake Ashi, and the Hakone Open-Air Museum. We went through Odawara (the gateway to Hakone) but didn't have time to stop. Next time.</p>
+
+        <div class="info-box">
+          <div class="info-box-title">Kyoto &amp; Osaka</div>
+          <div class="info-box-row"><span class="info-box-label">Best for</span><span class="info-box-value">Temples, gardens, street food, Japanese culture</span></div>
+          <div class="info-box-row"><span class="info-box-label">Best season</span><span class="info-box-value">Spring (sakura) or autumn (koyo)</span></div>
+          <div class="info-box-row"><span class="info-box-label">Getting there</span><span class="info-box-value">2.5h from Tokyo by Shinkansen</span></div>
+        </div>
+        <p>The cultural heart of Japan. Thousands of temples, geisha districts, and arguably the best food city in the world (Osaka). Easily its own week-long trip.</p>
+
+        <!-- ── Photos ────────────────────────────────────────────────────── -->
+        <h2 id="photos">Photos</h2>
+        <p>Click any photo to view full-size. (Photos coming soon!)</p>
+
+        <div class="gallery" id="travel-gallery">
+          <a class="gallery-item featured" href="#" data-pswp-src="https://placehold.co/1200x800/1c1c24/64647a?text=Snow+Festival" data-pswp-width="1200" data-pswp-height="800">
+            <img class="gallery-img" src="https://placehold.co/600x400/1c1c24/64647a?text=Snow+Festival" alt="Sapporo Snow Festival" loading="lazy" />
+            <div class="gallery-caption">Sapporo Snow Festival at Odori Park</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Penguins" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Penguins" alt="Penguin parade at Asahiyama Zoo" loading="lazy" />
+            <div class="gallery-caption">Penguin parade at Asahiyama Zoo</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Otaru" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Otaru" alt="Otaru Snow Light Path" loading="lazy" />
+            <div class="gallery-caption">Otaru Snow Light Path</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Capybara" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Capybara" alt="Capybara in onsen" loading="lazy" />
+            <div class="gallery-caption">Capybara onsen at Izu Shaboten Zoo</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Kawazu+Sakura" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Sakura" alt="Kawazu early sakura" loading="lazy" />
+            <div class="gallery-caption">Kawazu cherry blossoms in February</div>
+          </a>
+          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Mt+Moiwa" data-pswp-width="800" data-pswp-height="600">
+            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Mt+Moiwa" alt="Sapporo night view from Mt Moiwa" loading="lazy" />
+            <div class="gallery-caption">Sapporo from Mt. Moiwa at sunset</div>
+          </a>
+        </div>
+
+        <!-- ── Tips ──────────────────────────────────────────────────────── -->
+        <h2 id="tips">Quick Tips</h2>
+        <ul>
+          <li><strong>JR Pass:</strong> Do the math first. The Hokkaido JR Pass is worth it if you're doing 2+ day trips from Sapporo. Buy online before your trip and collect at the airport.</li>
+          <li><strong>Winter boots:</strong> If you don't own proper snow boots, buy them in Sapporo on arrival. Shops near Odori and Sapporo Station stock good options. Don't attempt Hokkaido ice in regular shoes.</li>
+          <li><strong>IC Card:</strong> Get a Suica or ICOCA at the airport. Works on trains, buses, and convenience stores across Japan.</li>
+          <li><strong>Cash:</strong> Japan is still cash-heavy outside Tokyo. 7-Eleven ATMs accept foreign cards. Carry &yen;10,000&ndash;20,000 for smaller shops and rural areas.</li>
+          <li><strong>Driving:</strong> Japan drives on the left. GPS in rental cars supports English. Highway tolls are expensive &mdash; budget &yen;3,000&ndash;5,000 per day. IDP required.</li>
+          <li><strong>Pocket WiFi:</strong> Rent at the airport or order in advance. Essential for navigation, especially when driving. Hotel WiFi alone won't cut it on the road.</li>
+          <li><strong>Convenience stores:</strong> Japanese konbini (7-Eleven, Lawson, FamilyMart) are incredible. Hot meals, onigiri, sandwiches &mdash; genuinely good food at any hour.</li>
+          <li><strong>JPY 1 &asymp; SGD 0.0088</strong> at the time of our trip (roughly SGD 1 = &yen;114).</li>
+        </ul>
+
+        <hr class="divider" />
+        <p>
+          Two Japans in one trip &mdash; frozen north and coastal south. Hope this helps with
+          your planning. Feel free to <a href="mailto:haomingkoo@gmail.com">reach out</a> if
+          you have questions.
+        </p>
+      </article>
+      <footer>&copy; 2025 Haoming Koo</footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module">
+      const map = L.map("trip-map", {
+        zoomControl: true,
+        scrollWheelZoom: false,
+      }).setView([39, 140], 6);
+
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        maxZoom: 19,
+        subdomains: "abcd",
+      }).addTo(map);
+
+      const cities = [
+        {
+          lat: 43.0621, lng: 141.3544, name: "Sapporo",
+          days: "Feb 9\u201314", nights: 6,
+          highlights: "Snow Festival, Beer Museum, Genghis Khan, Mt Moiwa"
+        },
+        {
+          lat: 43.7706, lng: 142.3650, name: "Asahikawa",
+          days: "Feb 11", nights: 0,
+          highlights: "Asahiyama Zoo, Penguin Parade, Winter Festival (day trip)"
+        },
+        {
+          lat: 43.1907, lng: 140.9945, name: "Otaru",
+          days: "Feb 12", nights: 0,
+          highlights: "Canal, Snow Light Path, Music Box Museum (day trip)"
+        },
+        {
+          lat: 35.2564, lng: 139.1558, name: "Odawara",
+          days: "Feb 15", nights: 1,
+          highlights: "Hilton Odawara Resort, onsen, pool"
+        },
+        {
+          lat: 34.8000, lng: 139.0000, name: "Izu / Kawazu",
+          days: "Feb 16\u201317", nights: 1,
+          highlights: "Capybara onsen, Jogasaki Coast, Kawazu Sakura, Wasabi Garden"
+        },
+        {
+          lat: 35.6762, lng: 139.7649, name: "Tokyo",
+          days: "Feb 17\u201318", nights: 1,
+          highlights: "Ginza shopping, departure"
+        },
+      ];
+
+      // Route: Sapporo → Asahikawa (day trip) → Sapporo → Otaru (day trip) → Sapporo → fly to Odawara → Izu/Kawazu → Tokyo
+      const routeCoords = [
+        [43.0621, 141.3544],  // Sapporo
+        [43.7706, 142.3650],  // Asahikawa (day trip)
+        [43.0621, 141.3544],  // Back to Sapporo
+        [43.1907, 140.9945],  // Otaru (day trip)
+        [43.0621, 141.3544],  // Back to Sapporo
+      ];
+
+      // Hokkaido day trips (dashed)
+      L.polyline(routeCoords, {
+        color: "#a855f7",
+        weight: 3,
+        opacity: 0.7,
+        dashArray: "8, 8",
+      }).addTo(map);
+
+      // Flight + drive route (Sapporo → Odawara → Izu → Tokyo)
+      const driveRoute = [
+        [43.0621, 141.3544],  // Sapporo (fly)
+        [35.2564, 139.1558],  // Odawara
+        [34.8000, 139.0000],  // Izu / Kawazu
+        [35.6762, 139.7649],  // Tokyo
+      ];
+
+      L.polyline(driveRoute, {
+        color: "#a855f7",
+        weight: 3,
+        opacity: 0.5,
+        dashArray: "4, 12",
+      }).addTo(map);
+
+      cities.forEach((c, i) => {
+        const marker = L.circleMarker([c.lat, c.lng], {
+          radius: c.nights > 0 ? 9 : 6,
+          fillColor: c.nights > 0 ? "#a855f7" : "#64647a",
+          fillOpacity: 0.9,
+          color: "#060608",
+          weight: 2,
+        }).addTo(map);
+
+        const nightsLabel = c.nights > 0 ? `${c.nights} night${c.nights > 1 ? "s" : ""}` : "Day trip";
+        marker.bindPopup(
+          `<strong>${c.name}</strong><br>` +
+          `<span style="color:#a855f7">${c.days}</span> &middot; ${nightsLabel}<br>` +
+          `<span style="color:#b0b0b8;font-size:12px">${c.highlights}</span>`
+        );
+
+        L.marker([c.lat, c.lng], {
+          icon: L.divIcon({
+            className: "city-label",
+            html: c.name,
+            iconSize: [80, 16],
+            iconAnchor: [-8, 8],
+          }),
+        }).addTo(map);
+      });
+
+      const bounds = cities.map((c) => [c.lat, c.lng]);
+      map.fitBounds(bounds, { padding: [50, 50] });
+
+      import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
+
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: "#travel-gallery",
+        children: "a.gallery-item",
+        pswpModule: () => import("https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.esm.min.js"),
+        bgOpacity: 0.92,
+        padding: { top: 20, bottom: 20, left: 20, right: 20 },
+      });
+      lightbox.init();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>10 Days in Japan — Snow Festivals, Early Sakura &amp; Mount Fuji</name>
+    <description><![CDATA[Every hotel, restaurant, and attraction from our Feb 2025 trip across Hokkaido and Izu.
+
+LEGEND
+🔵  Blue pin — Hotel / Accommodation
+🟣  Purple pin — Attraction / Landmark
+🟢  Green pin — Restaurant / Food
+
+By Haoming Koo — kooexperience.com/travel/posts/japan.html]]></description>
+
+    <!-- Styles: blue = hotel, purple = attraction, green = restaurant -->
+    <Style id="hotel">
+      <IconStyle>
+        <scale>1.1</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="attraction">
+      <IconStyle>
+        <scale>1.0</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="food">
+      <IconStyle>
+        <scale>1.0</scale>
+        <Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>
+      </IconStyle>
+      <LabelStyle><scale>0.9</scale></LabelStyle>
+    </Style>
+    <Style id="routeLine">
+      <LineStyle><color>ff7755a8</color><width>3</width></LineStyle>
+    </Style>
+
+    <!-- ── SAPPORO ────────────────────────────────────── -->
+    <Folder>
+      <name>Sapporo (Days 1–6, Feb 9–14)</name>
+
+      <Placemark>
+        <name>ANA Crowne Plaza Sapporo</name>
+        <description><![CDATA[<b>Hotel</b> · 6 nights<br/>Our base for all of Hokkaido. Near Sapporo Station.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>141.3507,43.0636,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Soup Curry GARAKU (Sitatte Sapporo)</name>
+        <description><![CDATA[<b>Day 1 lunch</b> · Famous Sapporo soup curry. Rich broth with chunky vegetables.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>141.3539,43.0581,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Sapporo Beer Museum</name>
+        <description><![CDATA[<b>Day 1, 5pm</b> · ~1.5 hrs. Last admission 5:30pm. History of Sapporo beer + tasting.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>141.3684,43.0655,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Sapporo Beer Garden (Genghis Khan BBQ)</name>
+        <description><![CDATA[<b>Day 1 dinner</b> · Lamb BBQ on dome-shaped iron plate. Only-in-Sapporo experience.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>141.3687,43.0650,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Odori Park — Snow Festival</name>
+        <description><![CDATA[<b>Day 2</b> · ~1.5 hrs. Massive snow and ice sculptures. Free entry. Runs ~early Feb.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>141.3509,43.0597,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Tsudome — Snow Festival</name>
+        <description><![CDATA[<b>Day 2, 12:30pm</b> · ~2 hrs. Snow slides and activities. Free entry. ~30 min from Odori.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>141.3770,43.0875,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Sapporo TV Tower</name>
+        <description><![CDATA[<b>Day 2, 4pm</b> · Observation deck with city views over Odori Park.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>141.3568,43.0610,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Umi Hachikyo Bettei Ofukuro</name>
+        <description><![CDATA[<b>Day 2 dinner</b> · Omakase snow crab set. Phone reservation required — call ahead.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>141.3530,43.0560,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Susukino Ice Sculptures</name>
+        <description><![CDATA[<b>Day 2 night</b> · Illuminated ice sculptures in Sapporo's entertainment district.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>141.3528,43.0540,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Nikka Bar</name>
+        <description><![CDATA[<b>Day 2 late night</b> · Nikka whisky bar. Good nightcap after the festival.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>141.3535,43.0545,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Shiroi Koibito Park</name>
+        <description><![CDATA[<b>Day 6, 10am</b> · ~2 hrs. Chocolate factory, cookie workshop, snow-covered European garden.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>141.2756,43.0815,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Kitano Gurume (King Crab)</name>
+        <description><![CDATA[<b>Day 6 lunch</b> · King crab restaurant. Hokkaido crab is next level.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>141.3530,43.0560,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Mt. Moiwa Ropeway</name>
+        <description><![CDATA[<b>Day 6, 4pm</b> · Sunset ~5:05pm. Panoramic night view of Sapporo. One of Japan's "Three Great Night Views."]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>141.3223,43.0275,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ramen Shingen (minami 6 jo)</name>
+        <description><![CDATA[<b>Day 5 dinner</b> · Miso ramen. Rich and hearty — perfect after skiing.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>141.3510,43.0545,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── ASAHIKAWA ──────────────────────────────────── -->
+    <Folder>
+      <name>Asahikawa (Day 3, Feb 11 — day trip)</name>
+
+      <Placemark>
+        <name>Asahiyama Zoo</name>
+        <description><![CDATA[<b>Day 3, 10am</b> · ~4 hrs. Penguin parade at 11am daily in winter. Arrive early for a good spot.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>142.3849,43.7690,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Asahikawa Winter Festival</name>
+        <description><![CDATA[<b>Day 3, 3pm</b> · Ice sculptures, snow activities. Fireworks at 7pm over the frozen river.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>142.3653,43.7706,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ramen Santōka (Asahikawa Main Shop)</name>
+        <description><![CDATA[<b>Day 3 dinner</b> · Legendary shio (salt) ramen. The original Asahikawa location.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>142.3670,43.7680,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── OTARU ──────────────────────────────────────── -->
+    <Folder>
+      <name>Otaru (Day 4, Feb 12 — day trip)</name>
+
+      <Placemark>
+        <name>Otaru Canal</name>
+        <description><![CDATA[<b>Day 4, 10am</b> · Historic canal, beautiful in both daytime and at night with lanterns.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>140.9945,43.1960,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Sakaimachi-dori</name>
+        <description><![CDATA[<b>Day 4</b> · Music Box Museum, glass shops, LeTAO cheesecake.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>140.9930,43.1950,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Naruto Main Shop (Fried Chicken)</name>
+        <description><![CDATA[<b>Day 4 lunch</b> · Famous half-chicken, crispy and juicy.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>140.9935,43.1945,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Yabuhan Soba</name>
+        <description><![CDATA[<b>Day 4 early dinner</b> · Handmade soba noodles.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>140.9940,43.1935,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Otaru Snow Light Path</name>
+        <description><![CDATA[<b>Day 4 night, 6pm</b> · Hundreds of candles and lanterns floating on the canal. Magical.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>140.9945,43.1960,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── ODAWARA ────────────────────────────────────── -->
+    <Folder>
+      <name>Odawara (Day 7, Feb 15)</name>
+
+      <Placemark>
+        <name>Hilton Odawara Resort &amp; Spa</name>
+        <description><![CDATA[<b>Hotel</b> · 1 night<br/>Resort with onsen, pool, and mini-golf. Great decompression after Hokkaido.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>139.1558,35.2564,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── IZU PENINSULA ──────────────────────────────── -->
+    <Folder>
+      <name>Izu Peninsula (Days 8–9, Feb 16–17)</name>
+
+      <Placemark>
+        <name>Tiny Base Kawazu</name>
+        <description><![CDATA[<b>Hotel</b> · 1 night<br/>Countryside lodge with BBQ setup. Near Kawazu sakura.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>138.9810,34.7568,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Ito Marine Town</name>
+        <description><![CDATA[<b>Day 8, 11am</b> · ~30 min stop. Harbour views, souvenir shops.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.1140,34.9590,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Izu Shaboten Zoo</name>
+        <description><![CDATA[<b>Day 8, 12pm</b> · ~2 hrs. Capybara onsen — capybaras soaking in hot springs.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.0970,34.9020,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Jogasaki Coast</name>
+        <description><![CDATA[<b>Day 8, 2:15pm</b> · ~1 hr walk. Dramatic cliffs, suspension bridges over the ocean.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.1330,34.8920,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Wasabi Garden Kadoya</name>
+        <description><![CDATA[<b>Day 9, 10am</b> · Fresh wasabi bowl and boar stew. Near Kawazu Seven Falls.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>138.9520,34.7760,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Kawazu Seven Falls (Nanadaru)</name>
+        <description><![CDATA[<b>Day 9</b> · ~1 hr partial trail. Seven cascades through a forested gorge.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>138.9500,34.7800,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Kubota Strawberry Picking Garden</name>
+        <description><![CDATA[<b>Day 9, 2pm</b> · ~1 hr. All-you-can-eat strawberry picking. Peak season in Feb.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.0700,35.0500,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>MaxValu Kawazu</name>
+        <description><![CDATA[<b>Day 8 night</b> · Supermarket run for breakfast supplies. Also has laundry.]]></description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>138.9850,34.7530,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── TOKYO ──────────────────────────────────────── -->
+    <Folder>
+      <name>Tokyo (Days 9–10, Feb 17–18)</name>
+
+      <Placemark>
+        <name>Ibis Styles Ginza</name>
+        <description><![CDATA[<b>Hotel</b> · 1 night<br/>In Ginza. Good for final shopping before departure.]]></description>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>139.7649,35.6700,0</coordinates></Point>
+      </Placemark>
+
+      <Placemark>
+        <name>Toyota Rent a Car (Nishi-Shinbashi)</name>
+        <description><![CDATA[<b>Day 9, 5:30pm</b> · Car drop-off. Closes at 8pm — don't be late.]]></description>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>139.7520,35.6650,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+
+    <!-- ── ROUTE ────────────────────────────────────────── -->
+    <Folder>
+      <name>Travel Route</name>
+      <Placemark>
+        <name>Sapporo → Asahikawa (day trip) → Otaru (day trip) → Odawara → Izu → Tokyo</name>
+        <description>Mix of JR trains, domestic flights, and rental car</description>
+        <styleUrl>#routeLine</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            141.3544,43.0621,0
+            142.3650,43.7706,0
+            141.3544,43.0621,0
+            140.9945,43.1907,0
+            141.3544,43.0621,0
+            139.1558,35.2564,0
+            139.0000,34.8000,0
+            139.7649,35.6762,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+
+    <!-- ── LEGEND ─────────────────────────────────────── -->
+    <Folder>
+      <name>Legend</name>
+      <description><![CDATA[Icon guide for this map:
+• Blue pin = Hotel / Accommodation
+• Purple pin = Attraction / Landmark
+• Green pin = Restaurant / Food
+• Purple line = Travel route between locations]]></description>
+      <Placemark>
+        <name>🔵 = Hotel</name>
+        <visibility>0</visibility>
+        <styleUrl>#hotel</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>🟣 = Attraction</name>
+        <visibility>0</visibility>
+        <styleUrl>#attraction</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>🟢 = Restaurant</name>
+        <visibility>0</visibility>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>0,0,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
