@@ -1317,8 +1317,10 @@ params = {
       function prepChart(containerId) {
         var el = document.getElementById(containerId);
         if (!el) return;
-        el.classList.remove('chart-loading');
-        el.textContent = '';
+        if (el.classList.contains('chart-loading')) {
+          el.classList.remove('chart-loading');
+          el.textContent = '';
+        }
       }
 
       function showError(containerId) {
