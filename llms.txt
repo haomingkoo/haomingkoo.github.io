@@ -1,0 +1,51 @@
+# Haoming Koo — AI Systems Engineer
+
+> Portfolio site for Haoming Koo, an AI engineer at AI Singapore building production ML systems. 7+ years experience, $600M+ business impact at Micron Technology. MSc NUS (GPA 4.85/5.00).
+
+## About
+
+Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He currently works at AI Singapore (AIAP programme), building production ML systems. Previously, he spent 7+ years at Micron Technology driving AI-enabled programs across semiconductor manufacturing, delivering $600M+ in business impact. He co-led LPDDR5X (Apple iPhone 16 Pro Max) and HBM3E (NVIDIA H200) product ramps.
+
+- Site: https://kooexperience.com
+- GitHub: https://github.com/haomingkoo
+- LinkedIn: https://linkedin.com/in/haomingkoo
+- Email: haomingkoo@gmail.com
+
+## Education
+
+- MSc Smart Industries & Digital Transformation, National University of Singapore (GPA 4.85/5.00)
+- BSc (Honours) Chemistry & Nanoscience, NUS (Distinction)
+- Full Stack Development with AI, NUS x Emeritus
+- Project Management Professional (PMP)
+- GA100 Generative AI (Heicoders Academy, WSQ)
+
+## Skills
+
+Python, PyTorch, TensorFlow, scikit-learn, LightGBM, YOLOv8, OpenCV, MediaPipe, FastAPI, React, Docker, GCP, AWS, MLflow, SHAP, Plotly, Computer Vision, NLP, GenAI, RAG, LLM Fine-tuning, Agentic AI, MLOps
+
+## Live Applications
+
+- [Trader Koo](https://trader.kooexperience.com): S&P 500 market dashboard with AI chart-pattern detection using YOLOv8, candle signals, 52-week extremes, and macro context. Stack: FastAPI, YOLOv8, Plotly, SQLite.
+- [LionWeather](https://weather.kooexperience.com): Singapore weather intelligence with NEA real-time data, ML-powered rainfall forecasting using LightGBM with SHAP analysis, and animated radar. Stack: FastAPI, React, LightGBM, Leaflet.
+- [Preflight](https://preflight.kooexperience.com): Upload any CSV or Parquet file for instant data health checks, EDA charts, correlation maps, and baseline ML models with cross-validation metrics. Stack: Dash, scikit-learn, Plotly.
+- [Handwriting Lab](https://handwriting.kooexperience.com): Rotation-aware digit recognition playground with canvas prediction, confusion matrix reporting, and PyTorch training pipeline tracked by MLflow. Stack: FastAPI, PyTorch, MLflow.
+- [Photo ID Studio](https://studio.kooexperience.com): Passport and visa photo compliance checker using MediaPipe face mesh (468 landmarks), rembg segmentation, 25+ compliance checks for 6 countries. Stack: FastAPI, MediaPipe, OpenCV.
+- [Wine Intelligence](https://kooexperience.com/wine.html): Grand Cru wine valuation and market analysis tool with web-scraped pricing data. Stack: FastAPI, SQLAlchemy, Selenium.
+
+## Blog Posts
+
+- [Visualizing Weak-Driven Learning: An Interactive WMSS Demo](https://kooexperience.com/blog/posts/wmss-demo.html): Interactive walkthrough of the WMSS paper — from SFT saturation to logit mixing and gradient amplification.
+- [How 468 Facial Landmarks Decide If You're Passport-Ready](https://kooexperience.com/blog/posts/photo-id-studio.html): MediaPipe face mesh, rembg segmentation, 25+ compliance checks, and country-specific rules.
+- [How I Built an AI-Powered Stock Market Dashboard](https://kooexperience.com/blog/posts/trader-koo.html): From YOLOv8 chart pattern detection to a five-layer detection ensemble.
+- [I Tried to Predict Singapore's Rain and It Humbled Me](https://kooexperience.com/blog/posts/lionweather.html): 8 years of NEA data, LightGBM rainfall prediction, SHAP explainability.
+
+## Awards
+
+- Micron Innovation Award — ResNet-50 CV model for wafer defect detection
+- Micron Idea of the Quarter — Digital twin, 60% chemical reduction, $7M+ savings
+- Micron Culture Champion — Cross-site collaboration
+
+## Optional
+
+- Full details: https://kooexperience.com/llms-full.txt
+- Sitemap: https://kooexperience.com/sitemap.xml

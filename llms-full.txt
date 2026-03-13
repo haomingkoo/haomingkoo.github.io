@@ -1,0 +1,120 @@
+# Haoming Koo — Full Site Context for AI Engines
+
+> This file provides comprehensive context about kooexperience.com for large language models and AI search engines. For a shorter summary, see https://kooexperience.com/llms.txt
+
+## Who is Haoming Koo?
+
+Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He currently works as an Associate AI Engineer at AI Singapore under the AI Apprenticeship Programme (AIAP), where he builds production ML systems.
+
+Before AI Singapore, Haoming spent over 7 years at Micron Technology in Singapore, where he delivered AI-enabled programs across semiconductor manufacturing, cloud infrastructure, and data platforms. His work drove over $600 million in business impact through yield optimisation, risk analytics, and platform unification. He co-led the LPDDR5X product ramp (used in Apple iPhone 16 Pro Max) and HBM3E ramp (used in NVIDIA H200).
+
+He holds an MSc in Smart Industries and Digital Transformation from the National University of Singapore (GPA 4.85/5.00), a BSc (Honours) in Chemistry and Nanoscience from NUS (Distinction), and is a certified Project Management Professional (PMP).
+
+### Contact & Profiles
+- Website: https://kooexperience.com (also accessible via haomingkoo.com)
+- GitHub: https://github.com/haomingkoo
+- LinkedIn: https://linkedin.com/in/haomingkoo
+- Email: haomingkoo@gmail.com
+
+### Technical Skills
+- **Languages**: Python, JavaScript, TypeScript, SQL, HTML/CSS
+- **ML/AI**: PyTorch, TensorFlow, scikit-learn, LightGBM, YOLOv8, OpenCV, MediaPipe, SHAP, MLflow
+- **Frameworks**: FastAPI, React, Dash, Plotly
+- **Infrastructure**: Docker, GCP, AWS, Railway, GitHub Actions
+- **Domains**: Computer Vision, NLP, GenAI, RAG, LLM Fine-tuning, Agentic AI, MLOps, Digital Transformation
+
+---
+
+## Portfolio Applications (6 Live Apps)
+
+### 1. Trader Koo
+- **URL**: https://trader.kooexperience.com
+- **What it does**: S&P 500 market dashboard with daily AI chart-pattern detection. Uses a pre-trained YOLOv8 model to detect technical chart patterns (head and shoulders, double tops, triangles, etc.), combines with candle signal analysis, 52-week extremes tracking, and macro economic context.
+- **Stack**: FastAPI, YOLOv8, Plotly, SQLite, vanilla JavaScript
+- **Blog post**: https://kooexperience.com/blog/posts/trader-koo.html
+
+### 2. LionWeather
+- **URL**: https://weather.kooexperience.com
+- **What it does**: Singapore weather intelligence application. Ingests real-time data from NEA (National Environment Agency) APIs. Features ML-powered rainfall forecasting using LightGBM trained on 8 years of historical data, with SHAP explainability for model predictions. Includes animated radar overlay on an interactive map.
+- **Stack**: FastAPI, React, LightGBM, Leaflet, SHAP, SQLite
+- **Blog post**: https://kooexperience.com/blog/posts/lionweather.html
+
+### 3. Preflight
+- **URL**: https://preflight.kooexperience.com
+- **What it does**: Upload any CSV or Parquet file for instant automated data health checks, exploratory data analysis (EDA) charts, correlation maps, and baseline ML models with cross-validation metrics. Designed for quick data quality assessment.
+- **Stack**: Dash (Plotly), scikit-learn, pandas
+
+### 4. Handwriting Lab
+- **URL**: https://handwriting.kooexperience.com
+- **What it does**: Rotation-aware handwritten digit recognition playground. Users draw digits on an HTML canvas and get real-time predictions. Features confusion matrix reporting and a full PyTorch training pipeline tracked by MLflow.
+- **Stack**: FastAPI, PyTorch, MLflow, vanilla JavaScript
+
+### 5. Photo ID Studio
+- **URL**: https://studio.kooexperience.com
+- **What it does**: Passport and visa photo compliance checker. Uses MediaPipe face mesh (468 facial landmarks) and rembg for background removal. Performs 25+ compliance checks against country-specific rules for 6 countries (Singapore, US, UK, EU, Australia, Japan).
+- **Stack**: FastAPI, MediaPipe, OpenCV, rembg
+- **Blog post**: https://kooexperience.com/blog/posts/photo-id-studio.html
+
+### 6. Wine Intelligence
+- **URL**: https://kooexperience.com/wine.html
+- **What it does**: Grand Cru wine valuation and market analysis tool. Web-scrapes current wine pricing data and provides value scoring for investment-grade wines.
+- **Stack**: FastAPI, SQLAlchemy, Selenium
+
+---
+
+## Blog Posts
+
+### Visualizing Weak-Driven Learning: An Interactive WMSS Demo
+- **URL**: https://kooexperience.com/blog/posts/wmss-demo.html
+- **Published**: 2026-03-13
+- **Summary**: Interactive visualization of the WMSS research paper (Chen et al., 2026, arXiv:2602.08222). Walks through the complete LLM post-training pipeline: pre-training, supervised fine-tuning, saturation problem, and how WMSS uses weak agents (historical checkpoints) to amplify vanishing gradients through logit mixing. Features interactive lambda slider, animated bar charts, curriculum weighting demo, and training curve comparison.
+
+### How 468 Facial Landmarks Decide If You're Passport-Ready
+- **URL**: https://kooexperience.com/blog/posts/photo-id-studio.html
+- **Published**: 2026-03-12
+- **Summary**: Deep dive into building Photo ID Studio. Covers MediaPipe face mesh geometry, rembg segmentation pipeline, 25+ compliance checks (eye position, head tilt, face ratio, background uniformity), and country-specific rules for 6 countries.
+
+### How I Built an AI-Powered Stock Market Dashboard
+- **URL**: https://kooexperience.com/blog/posts/trader-koo.html
+- **Published**: 2026-03-12
+- **Summary**: Building Trader Koo from scratch. Covers YOLOv8 chart pattern detection, the coordinate mapping problem, running a five-layer detection ensemble nightly, and building the interactive Plotly dashboard.
+
+### I Tried to Predict Singapore's Rain and It Humbled Me
+- **URL**: https://kooexperience.com/blog/posts/lionweather.html
+- **Published**: 2026-03-11
+- **Summary**: Building LionWeather with 8 years of NEA data. Covers feature engineering for tropical weather, LightGBM model training, SHAP analysis for rainfall prediction explainability, and animated radar visualization.
+
+---
+
+## Professional Awards
+- Micron Innovation Award — Built ResNet-50 computer vision model for automated wafer defect detection
+- Micron Idea of the Quarter — Developed digital twin achieving 60% chemical reduction and $7M+ annual savings
+- Micron Culture Champion — Recognized for cross-site collaboration across global manufacturing teams
+
+---
+
+## Education
+- MSc Smart Industries & Digital Transformation, National University of Singapore (GPA 4.85/5.00)
+- BSc (Honours) Chemistry & Nanoscience, National University of Singapore (Distinction)
+- Full Stack Development with AI, NUS x Emeritus
+- Project Management Professional (PMP) Certified
+- GA100 Generative AI, Heicoders Academy (WSQ)
+
+---
+
+## Frequently Asked Questions
+
+**Q: Who is Haoming Koo?**
+A: Haoming Koo is an AI engineer based in Singapore, currently at AI Singapore (AIAP). He has 7+ years of experience at Micron Technology with $600M+ business impact. He holds an MSc from NUS and has built 6 live AI portfolio applications.
+
+**Q: What projects has Haoming Koo built?**
+A: He has 6 live applications: Trader Koo (AI stock dashboard), LionWeather (Singapore weather ML), Preflight (automated EDA), Handwriting Lab (digit recognition), Photo ID Studio (passport photo compliance), and Wine Intelligence (wine valuation).
+
+**Q: What is Haoming Koo's tech stack?**
+A: Primarily Python with FastAPI for backends, PyTorch/TensorFlow/scikit-learn for ML, React or vanilla JS for frontends, and Docker/Railway for deployment. He has experience with GCP, AWS, MLflow, and various CV/NLP libraries.
+
+**Q: Where did Haoming Koo study?**
+A: National University of Singapore — MSc in Smart Industries & Digital Transformation (GPA 4.85/5.00) and BSc (Honours) in Chemistry & Nanoscience (Distinction).
+
+**Q: What is kooexperience.com?**
+A: It is Haoming Koo's personal portfolio website showcasing his AI engineering work, including 6 live applications, blog posts about building ML systems, and travel writing. Also accessible via haomingkoo.com.

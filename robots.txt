@@ -42,3 +42,7 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://kooexperience.com/sitemap.xml
+
+# LLMs.txt — structured site context for AI engines
+# See https://llmstxt.org for specification
+LLMsTxt: https://kooexperience.com/llms.txt
