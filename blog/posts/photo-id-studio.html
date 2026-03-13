@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,12 +8,15 @@
     <meta name="keywords" content="passport photo, photo compliance, MediaPipe, face detection, rembg, OpenCV, computer vision, FastAPI, photo ID, Singapore passport photo" />
     <meta name="author" content="Haoming Koo" />
     <link rel="canonical" href="https://kooexperience.com/blog/posts/photo-id-studio.html" />
+    <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
+    <meta property="og:site_name" content="Haoming Koo" />
+    <meta property="og:locale" content="en_SG" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-      :root {
+      [data-theme="dark"] {
         --bg: #060608;
         --surface: #0e0e12;
         --border: #1c1c24;
@@ -22,6 +25,18 @@
         --text: #eeeef0;
         --text-secondary: #b0b0b8;
         --muted: #64647a;
+        --nav-bg: rgba(6,6,8,0.72);
+      }
+      [data-theme="light"] {
+        --bg: #f8f9fb;
+        --surface: #ffffff;
+        --border: #dde1e6;
+        --accent: #2563eb;
+        --accent-dim: rgba(37,99,235,0.08);
+        --text: #111318;
+        --text-secondary: #3d4250;
+        --muted: #6b7280;
+        --nav-bg: rgba(248,249,251,0.85);
       }
       html { scroll-behavior: smooth; }
       body {
@@ -29,6 +44,7 @@
         font-family: "Inter", system-ui, sans-serif;
         font-size: 15px; line-height: 1.7; min-height: 100vh;
         -webkit-font-smoothing: antialiased;
+        transition: background .35s, color .35s;
       }
       body::before {
         content: "";
@@ -36,10 +52,12 @@
         background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,.06) 0%, transparent 60%);
         pointer-events: none; z-index: 0;
       }
+      [data-theme="light"] body::before { opacity: 0.3; }
       .nav-wrap {
         position: sticky; top: 0; z-index: 100;
-        background: rgba(6,6,8,.72);
+        background: var(--nav-bg);
         backdrop-filter: blur(16px) saturate(1.6);
+        transition: background .35s, border-color .35s;
         -webkit-backdrop-filter: blur(16px) saturate(1.6);
         border-bottom: 1px solid rgba(28,28,36,.6);
       }
@@ -153,17 +171,45 @@
         border-top: 1px solid var(--border); padding: 32px 0 40px;
         font-size: 13px; color: var(--muted); text-align: center;
       }
+      .nav-right { display: flex; align-items: center; gap: 12px; }
+      .theme-btn {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 8px; padding: 6px 10px; cursor: pointer;
+        color: var(--text); display: flex; align-items: center; gap: 6px;
+        font-size: 12px; font-family: inherit; transition: all .2s;
+      }
+      .theme-btn:hover { border-color: #2a2a36; }
+      .theme-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
       @media (max-width: 600px) {
         .container { padding: 0 18px; }
         nav { padding: 0 18px; }
       }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "How 468 Facial Landmarks Decide If You're Passport-Ready - Haoming Koo",
+      "description": "Building Photo ID Studio: an AI-powered passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules for Singapore, US, UK, Canada, Australia, and India.",
+      "url": "https://kooexperience.com/blog/posts/photo-id-studio.html",
+      "datePublished": "2026-03-12",
+      "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
+      "publisher": {"@type": "Person", "name": "Haoming Koo"},
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/photo-id-studio.html"}
+    }
+    </script>
   </head>
   <body>
     <div class="nav-wrap">
       <nav>
         <a class="nav-logo" href="../">HK</a>
-        <a href="../#blog">Blog</a>
+        <div class="nav-right">
+          <a href="../#blog">Blog</a>
+          <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <span class="theme-label">Dark</span>
+          </button>
+        </div>
       </nav>
     </div>
 
@@ -313,6 +359,554 @@
           more accurate but overkill for this use case and much heavier to deploy.
         </p>
 
+        <div class="demo-wrap" style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 24px 0;">
+  <style>
+    .demo-wrap .fm-header { margin-bottom: 14px; }
+    .demo-wrap .fm-title { font-size: 14px; font-weight: 700; color: var(--text); margin: 0 0 2px 0; font-family: Inter, system-ui, sans-serif; }
+    .demo-wrap .fm-subtitle { font-size: 12px; color: var(--muted); margin: 0; font-family: Inter, system-ui, sans-serif; }
+    .demo-wrap .fm-toggles { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+    .demo-wrap .fm-btn {
+      background: var(--surface); border: 1px solid var(--border); color: var(--text-secondary);
+      border-radius: 8px; padding: 6px 14px; font-size: 12px; cursor: pointer;
+      font-family: Inter, system-ui, sans-serif; transition: background 0.15s, color 0.15s, border-color 0.15s;
+      line-height: 1.4;
+    }
+    .demo-wrap .fm-btn:hover { border-color: var(--accent-dim); }
+    .demo-wrap .fm-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .demo-wrap .fm-canvas-wrap { width: 100%; aspect-ratio: 4 / 5; max-height: 450px; position: relative; }
+    .demo-wrap .fm-canvas { width: 100%; height: 100%; display: block; }
+    .demo-wrap .fm-info {
+      font-size: 12px; color: var(--muted); margin-top: 10px; min-height: 1.4em;
+      font-family: Inter, system-ui, sans-serif;
+    }
+  </style>
+
+  <div class="fm-header">
+    <p class="fm-title">Face Landmark Mesh</p>
+    <p class="fm-subtitle">468 points detected by MediaPipe FaceMesh</p>
+  </div>
+
+  <div class="fm-toggles">
+    <button class="fm-btn active" data-mode="full">Full Mesh (468)</button>
+    <button class="fm-btn" data-mode="key">Key Points</button>
+    <button class="fm-btn" data-mode="compliance">Compliance</button>
+  </div>
+
+  <div class="fm-canvas-wrap">
+    <canvas class="fm-canvas"></canvas>
+  </div>
+
+  <div class="fm-info">&nbsp;</div>
+
+  <script>
+  {
+    const wrap = document.currentScript.closest('.demo-wrap');
+    const canvas = wrap.querySelector('.fm-canvas');
+    const ctx = canvas.getContext('2d');
+    const infoEl = wrap.querySelector('.fm-info');
+    const buttons = wrap.querySelectorAll('.fm-btn');
+
+    let currentMode = 'full';
+    let hoveredIdx = -1;
+    let landmarks = [];
+    let meshConns = [];
+    let contourConns = {};
+    let dpr = window.devicePixelRatio || 1;
+
+    function ellipsePoints(cx, cy, rx, ry, n, startAngle, endAngle) {
+      startAngle = startAngle ?? 0;
+      endAngle = endAngle ?? Math.PI * 2;
+      const pts = [];
+      for (let i = 0; i < n; i++) {
+        const t = startAngle + (endAngle - startAngle) * (i / n);
+        pts.push({ x: cx + rx * Math.cos(t), y: cy + ry * Math.sin(t) });
+      }
+      return pts;
+    }
+
+    function arcPoints(x0, y0, x1, y1, peakY, n) {
+      const pts = [];
+      for (let i = 0; i < n; i++) {
+        const t = i / (n - 1);
+        const x = x0 + (x1 - x0) * t;
+        const baseY = y0 + (y1 - y0) * t;
+        const arch = -4 * (peakY - (y0 + y1) / 2) * t * (1 - t);
+        pts.push({ x, y: baseY - arch });
+      }
+      return pts;
+    }
+
+    function insideEllipse(px, py, cx, cy, rx, ry) {
+      return ((px - cx) ** 2) / (rx ** 2) + ((py - cy) ** 2) / (ry ** 2) <= 1;
+    }
+
+    function dist(a, b) {
+      return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
+    }
+
+    let _seed = 42;
+    function srand() { _seed = (_seed * 16807 + 0) % 2147483647; return (_seed & 0x7fffffff) / 0x7fffffff; }
+
+    function generateLandmarks() {
+      landmarks = [];
+      const groups = {};
+
+      function addGroup(name, pts, labelFn) {
+        groups[name] = [];
+        pts.forEach((p, i) => {
+          const idx = landmarks.length;
+          groups[name].push(idx);
+          landmarks.push({ x: p.x, y: p.y, group: name, label: labelFn ? labelFn(i) : name + ' #' + i, idx });
+        });
+      }
+
+      addGroup('silhouette', ellipsePoints(0.5, 0.48, 0.32, 0.43, 36), (i) => 'silhouette #' + i);
+      addGroup('leftEye', ellipsePoints(0.37, 0.42, 0.055, 0.02, 16), (i) => 'leftEye #' + i);
+      addGroup('rightEye', ellipsePoints(0.63, 0.42, 0.055, 0.02, 16), (i) => 'rightEye #' + i);
+      addGroup('leftBrow', arcPoints(0.28, 0.34, 0.44, 0.34, 0.31, 10), (i) => 'leftBrow #' + i);
+      addGroup('rightBrow', arcPoints(0.56, 0.34, 0.72, 0.34, 0.31, 10), (i) => 'rightBrow #' + i);
+
+      const noseBridge = [];
+      for (let i = 0; i < 6; i++) {
+        noseBridge.push({ x: 0.5, y: 0.36 + (0.54 - 0.36) * (i / 5) });
+      }
+      addGroup('nose', noseBridge, (i) => 'noseBridge #' + i);
+
+      const noseBaseRaw = [];
+      for (let i = 0; i < 10; i++) {
+        const t = i / 9;
+        const x = 0.44 + (0.56 - 0.44) * t;
+        const y = 0.55 + 0.01 * Math.sin(Math.PI * t);
+        noseBaseRaw.push({ x, y });
+      }
+      noseBaseRaw.push({ x: 0.5, y: 0.56 });
+      noseBaseRaw.forEach((p, i) => {
+        const idx = landmarks.length;
+        groups['nose'].push(idx);
+        landmarks.push({ x: p.x, y: p.y, group: 'nose', label: 'noseBase #' + i, idx });
+      });
+
+      addGroup('outerLips', ellipsePoints(0.5, 0.64, 0.065, 0.028, 20), (i) => 'outerLips #' + i);
+      addGroup('innerLips', ellipsePoints(0.5, 0.64, 0.045, 0.015, 12), (i) => 'innerLips #' + i);
+
+      const leftIrisPts = [{ x: 0.37, y: 0.42 }];
+      for (let i = 0; i < 4; i++) {
+        const a = (Math.PI * 2 * i) / 4;
+        leftIrisPts.push({ x: 0.37 + 0.015 * Math.cos(a), y: 0.42 + 0.015 * Math.sin(a) });
+      }
+      addGroup('leftIris', leftIrisPts, (i) => i === 0 ? 'center' : 'iris #' + i);
+
+      const rightIrisPts = [{ x: 0.63, y: 0.42 }];
+      for (let i = 0; i < 4; i++) {
+        const a = (Math.PI * 2 * i) / 4;
+        rightIrisPts.push({ x: 0.63 + 0.015 * Math.cos(a), y: 0.42 + 0.015 * Math.sin(a) });
+      }
+      addGroup('rightIris', rightIrisPts, (i) => i === 0 ? 'center' : 'iris #' + i);
+
+      const featureCenters = [
+        { x: 0.37, y: 0.42 }, { x: 0.63, y: 0.42 },
+        { x: 0.5, y: 0.50 }, { x: 0.5, y: 0.64 },
+      ];
+      const needed = 468 - landmarks.length;
+      const fillPts = [];
+      const fcx = 0.5, fcy = 0.48, frx = 0.30, fry = 0.41;
+      let attempts = 0;
+      while (fillPts.length < needed && attempts < needed * 50) {
+        attempts++;
+        let px = 0.18 + srand() * 0.64;
+        let py = 0.05 + srand() * 0.86;
+        if (!insideEllipse(px, py, fcx, fcy, frx, fry)) continue;
+        if (srand() < 0.35) {
+          const fc = featureCenters[Math.floor(srand() * featureCenters.length)];
+          px = fc.x + (srand() - 0.5) * 0.14;
+          py = fc.y + (srand() - 0.5) * 0.10;
+          if (!insideEllipse(px, py, fcx, fcy, frx, fry)) continue;
+        }
+        let tooClose = false;
+        for (const fp of fillPts) {
+          if (dist({ x: px, y: py }, fp) < 0.018) { tooClose = true; break; }
+        }
+        if (tooClose) continue;
+        fillPts.push({ x: px, y: py });
+      }
+      if (fillPts.length < needed) {
+        for (let gx = 0.20; gx <= 0.80 && fillPts.length < needed; gx += 0.025) {
+          for (let gy = 0.10; gy <= 0.85 && fillPts.length < needed; gy += 0.025) {
+            const jx = gx + (srand() - 0.5) * 0.012;
+            const jy = gy + (srand() - 0.5) * 0.012;
+            if (!insideEllipse(jx, jy, fcx, fcy, frx, fry)) continue;
+            let tooClose = false;
+            for (const fp of fillPts) {
+              if (dist({ x: jx, y: jy }, fp) < 0.015) { tooClose = true; break; }
+            }
+            if (tooClose) continue;
+            fillPts.push({ x: jx, y: jy });
+          }
+        }
+      }
+      addGroup('fill', fillPts.slice(0, needed), (i) => 'fill #' + i);
+
+      contourConns = {};
+      for (const [name, idxs] of Object.entries(groups)) {
+        if (name === 'fill') continue;
+        const conns = [];
+        for (let i = 0; i < idxs.length - 1; i++) {
+          conns.push([idxs[i], idxs[i + 1]]);
+        }
+        if (['silhouette', 'leftEye', 'rightEye', 'outerLips', 'innerLips'].includes(name)) {
+          conns.push([idxs[idxs.length - 1], idxs[0]]);
+        }
+        contourConns[name] = conns;
+      }
+
+      const connSet = new Set();
+      meshConns = [];
+      for (let i = 0; i < landmarks.length; i++) {
+        const dists = [];
+        for (let j = 0; j < landmarks.length; j++) {
+          if (i === j) continue;
+          dists.push({ j, d: dist(landmarks[i], landmarks[j]) });
+        }
+        dists.sort((a, b) => a.d - b.d);
+        for (let k = 0; k < 3; k++) {
+          const a = Math.min(i, dists[k].j);
+          const b = Math.max(i, dists[k].j);
+          const key = a + ',' + b;
+          if (!connSet.has(key)) {
+            connSet.add(key);
+            meshConns.push([a, b]);
+          }
+        }
+      }
+    }
+
+    function getCSSVar(name) {
+      return getComputedStyle(wrap).getPropertyValue(name).trim();
+    }
+
+    function hexToRgb(hex) {
+      if (hex.startsWith('#')) {
+        hex = hex.slice(1);
+        if (hex.length === 3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+        return { r: parseInt(hex.slice(0,2),16), g: parseInt(hex.slice(2,4),16), b: parseInt(hex.slice(4,6),16) };
+      }
+      return null;
+    }
+
+    function colorWithAlpha(cssVar, alpha) {
+      const val = getCSSVar(cssVar);
+      const rgb = hexToRgb(val);
+      if (rgb) return 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + alpha + ')';
+      const m = val.match(/(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+      if (m) return 'rgba(' + m[1] + ',' + m[2] + ',' + m[3] + ',' + alpha + ')';
+      return val;
+    }
+
+    function resize() {
+      const wrapRect = canvas.parentElement.getBoundingClientRect();
+      const w = wrapRect.width;
+      const h = Math.min(w * (5/4), 450);
+      dpr = window.devicePixelRatio || 1;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+
+    function draw() {
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
+      ctx.clearRect(0, 0, w, h);
+
+      const accent = getCSSVar('--accent') || '#6366f1';
+      const textSec = getCSSVar('--text-secondary') || '#888';
+
+      function sx(nx) { return nx * w; }
+      function sy(ny) { return ny * h; }
+
+      if (currentMode === 'full') {
+        ctx.strokeStyle = colorWithAlpha('--accent', 0.15);
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        for (const [a, b] of meshConns) {
+          ctx.moveTo(sx(landmarks[a].x), sy(landmarks[a].y));
+          ctx.lineTo(sx(landmarks[b].x), sy(landmarks[b].y));
+        }
+        ctx.stroke();
+
+        ctx.strokeStyle = colorWithAlpha('--accent', 0.3);
+        ctx.lineWidth = 1;
+        for (const name of Object.keys(contourConns)) {
+          ctx.beginPath();
+          for (const [a, b] of contourConns[name]) {
+            ctx.moveTo(sx(landmarks[a].x), sy(landmarks[a].y));
+            ctx.lineTo(sx(landmarks[b].x), sy(landmarks[b].y));
+          }
+          ctx.stroke();
+        }
+
+        for (let i = 0; i < landmarks.length; i++) {
+          const lm = landmarks[i];
+          const isFill = lm.group === 'fill';
+          const r = (i === hoveredIdx) ? 5 : (isFill ? 1.5 : 2);
+          const alpha = (i === hoveredIdx) ? 1 : (isFill ? 0.5 : 0.8);
+          ctx.fillStyle = colorWithAlpha('--accent', alpha);
+          ctx.beginPath();
+          ctx.arc(sx(lm.x), sy(lm.y), r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+      } else if (currentMode === 'key') {
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 1.5;
+        for (const name of Object.keys(contourConns)) {
+          ctx.beginPath();
+          for (const [a, b] of contourConns[name]) {
+            ctx.moveTo(sx(landmarks[a].x), sy(landmarks[a].y));
+            ctx.lineTo(sx(landmarks[b].x), sy(landmarks[b].y));
+          }
+          ctx.stroke();
+        }
+
+        for (let i = 0; i < landmarks.length; i++) {
+          const lm = landmarks[i];
+          if (lm.group === 'fill') continue;
+          const r = (i === hoveredIdx) ? 6 : 3;
+          ctx.fillStyle = (i === hoveredIdx) ? accent : colorWithAlpha('--accent', 0.85);
+          ctx.beginPath();
+          ctx.arc(sx(lm.x), sy(lm.y), r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        const groupLabels = {
+          'silhouette': { cx: 0.5, cy: 0.12, count: 36 },
+          'leftEye': { cx: 0.30, cy: 0.42, count: 16 },
+          'rightEye': { cx: 0.70, cy: 0.42, count: 16 },
+          'leftBrow': { cx: 0.32, cy: 0.28, count: 10 },
+          'rightBrow': { cx: 0.68, cy: 0.28, count: 10 },
+          'nose': { cx: 0.56, cy: 0.49, count: 17 },
+          'outerLips': { cx: 0.5, cy: 0.71, count: 20 },
+          'innerLips': { cx: 0.5, cy: 0.60, count: 12 },
+          'leftIris': { cx: 0.37, cy: 0.38, count: 5 },
+          'rightIris': { cx: 0.63, cy: 0.38, count: 5 },
+        };
+        ctx.font = '11px Inter, system-ui, sans-serif';
+        ctx.fillStyle = textSec;
+        ctx.textAlign = 'center';
+        for (const [name, info] of Object.entries(groupLabels)) {
+          const label = name.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase()) + ' (' + info.count + ')';
+          ctx.fillText(label, sx(info.cx), sy(info.cy));
+        }
+
+      } else if (currentMode === 'compliance') {
+        const getGroupIndices = (group) => landmarks.reduce((a, lm, i) => { if (lm.group === group) a.push(i); return a; }, []);
+
+        const leIdxs = getGroupIndices('leftEye');
+        const reIdxs = getGroupIndices('rightEye');
+        const noseIdxs = getGroupIndices('nose');
+        const olIdxs = getGroupIndices('outerLips');
+        const liIdxs = getGroupIndices('leftIris');
+        const riIdxs = getGroupIndices('rightIris');
+
+        const leOuter = leIdxs[0];
+        const leInner = leIdxs[Math.floor(leIdxs.length / 2)];
+        const leTop = leIdxs.reduce((best, i) => landmarks[i].y < landmarks[best].y ? i : best, leIdxs[0]);
+        const leBottom = leIdxs.reduce((best, i) => landmarks[i].y > landmarks[best].y ? i : best, leIdxs[0]);
+
+        const reOuter = reIdxs[0];
+        const reInner = reIdxs[Math.floor(reIdxs.length / 2)];
+        const reTop = reIdxs.reduce((best, i) => landmarks[i].y < landmarks[best].y ? i : best, reIdxs[0]);
+        const reBottom = reIdxs.reduce((best, i) => landmarks[i].y > landmarks[best].y ? i : best, reIdxs[0]);
+
+        const noseTip = noseIdxs[noseIdxs.length - 1];
+        const olTopCenter = olIdxs.reduce((best, i) => landmarks[i].y < landmarks[best].y ? i : best, olIdxs[0]);
+        const olBotCenter = olIdxs.reduce((best, i) => landmarks[i].y > landmarks[best].y ? i : best, olIdxs[0]);
+        const liCenter = liIdxs[0];
+        const riCenter = riIdxs[0];
+
+        const compPoints = [
+          { idx: leOuter, label: 'L-Eye Outer' },
+          { idx: leInner, label: 'L-Eye Inner' },
+          { idx: reOuter, label: 'R-Eye Outer' },
+          { idx: reInner, label: 'R-Eye Inner' },
+          { idx: leTop, label: 'L-Eye Top' },
+          { idx: leBottom, label: 'L-Eye Bottom' },
+          { idx: reTop, label: 'R-Eye Top' },
+          { idx: reBottom, label: 'R-Eye Bottom' },
+          { idx: noseTip, label: 'Nose Tip' },
+          { idx: olTopCenter, label: 'Upper Lip' },
+          { idx: olBotCenter, label: 'Lower Lip' },
+          { idx: liCenter, label: 'L-Iris' },
+          { idx: riCenter, label: 'R-Iris' },
+        ];
+
+        ctx.strokeStyle = colorWithAlpha('--accent', 0.1);
+        ctx.lineWidth = 1;
+        if (contourConns['silhouette']) {
+          ctx.beginPath();
+          for (const [a, b] of contourConns['silhouette']) {
+            ctx.moveTo(sx(landmarks[a].x), sy(landmarks[a].y));
+            ctx.lineTo(sx(landmarks[b].x), sy(landmarks[b].y));
+          }
+          ctx.stroke();
+        }
+
+        function drawMeasureLine(idx1, idx2, label, color, dashed) {
+          const p1 = landmarks[idx1], p2 = landmarks[idx2];
+          ctx.save();
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1.5;
+          if (dashed) ctx.setLineDash([6, 4]);
+          ctx.beginPath();
+          ctx.moveTo(sx(p1.x), sy(p1.y));
+          ctx.lineTo(sx(p2.x), sy(p2.y));
+          ctx.stroke();
+          ctx.restore();
+          const mx = (sx(p1.x) + sx(p2.x)) / 2;
+          const my = (sy(p1.y) + sy(p2.y)) / 2 - 8;
+          ctx.font = '10px Inter, system-ui, sans-serif';
+          ctx.fillStyle = color;
+          ctx.textAlign = 'center';
+          ctx.fillText(label, mx, my);
+        }
+
+        drawMeasureLine(liCenter, riCenter, 'Inter-eye Distance', '#f59e0b', true);
+        drawMeasureLine(leTop, leBottom, 'EAR', accent, false);
+        drawMeasureLine(reTop, reBottom, 'EAR', accent, false);
+        drawMeasureLine(olTopCenter, olBotCenter, 'Mouth Closure', accent, false);
+
+        const noseLm = landmarks[noseTip];
+        ctx.save();
+        ctx.strokeStyle = '#10b981';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(sx(noseLm.x), sy(noseLm.y) - 12);
+        ctx.lineTo(sx(noseLm.x), sy(noseLm.y) + 12);
+        ctx.stroke();
+        ctx.restore();
+        ctx.font = '10px Inter, system-ui, sans-serif';
+        ctx.fillStyle = '#10b981';
+        ctx.textAlign = 'center';
+        ctx.fillText('Yaw Reference', sx(noseLm.x), sy(noseLm.y) + 24);
+
+        for (const cp of compPoints) {
+          const lm = landmarks[cp.idx];
+          const isHovered = cp.idx === hoveredIdx;
+          const r = isHovered ? 7 : 5;
+          ctx.fillStyle = '#f59e0b';
+          ctx.beginPath();
+          ctx.arc(sx(lm.x), sy(lm.y), r, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.arc(sx(lm.x), sy(lm.y), r + 3, 0, Math.PI * 2);
+          ctx.stroke();
+
+          ctx.font = '9px Inter, system-ui, sans-serif';
+          const tw = ctx.measureText(cp.label).width;
+          const tx = sx(lm.x) - tw / 2 - 4;
+          const ty = sy(lm.y) - r - 12;
+          ctx.fillStyle = getCSSVar('--surface') || '#1a1a2e';
+          ctx.strokeStyle = getCSSVar('--border') || '#333';
+          ctx.lineWidth = 1;
+          const pad = 4;
+          ctx.beginPath();
+          ctx.roundRect(tx, ty - 10, tw + pad * 2, 14, 3);
+          ctx.fill();
+          ctx.stroke();
+          ctx.fillStyle = getCSSVar('--text-secondary') || '#aaa';
+          ctx.textAlign = 'center';
+          ctx.fillText(cp.label, sx(lm.x), ty);
+        }
+      }
+    }
+
+    canvas.addEventListener('mousemove', function(e) {
+      const rect = canvas.getBoundingClientRect();
+      const mx = (e.clientX - rect.left) / rect.width;
+      const my = (e.clientY - rect.top) / rect.height;
+      let best = -1, bestDist = Infinity;
+      const threshold = 15 / rect.width;
+      for (let i = 0; i < landmarks.length; i++) {
+        if (currentMode === 'key' && landmarks[i].group === 'fill') continue;
+        if (currentMode === 'compliance') continue;
+        const d = dist({ x: mx, y: my }, landmarks[i]);
+        if (d < threshold && d < bestDist) { best = i; bestDist = d; }
+      }
+      if (currentMode === 'compliance') {
+        const getGroupIndices = (group) => landmarks.reduce((a, lm, i) => { if (lm.group === group) a.push(i); return a; }, []);
+        const leIdxs = getGroupIndices('leftEye');
+        const reIdxs = getGroupIndices('rightEye');
+        const noseIdxs = getGroupIndices('nose');
+        const olIdxs = getGroupIndices('outerLips');
+        const liIdxs = getGroupIndices('leftIris');
+        const riIdxs = getGroupIndices('rightIris');
+        const leTop = leIdxs.reduce((b, i) => landmarks[i].y < landmarks[b].y ? i : b, leIdxs[0]);
+        const leBottom = leIdxs.reduce((b, i) => landmarks[i].y > landmarks[b].y ? i : b, leIdxs[0]);
+        const reTop = reIdxs.reduce((b, i) => landmarks[i].y < landmarks[b].y ? i : b, reIdxs[0]);
+        const reBottom = reIdxs.reduce((b, i) => landmarks[i].y > landmarks[b].y ? i : b, reIdxs[0]);
+        const compIdxs = [
+          leIdxs[0], leIdxs[Math.floor(leIdxs.length/2)],
+          reIdxs[0], reIdxs[Math.floor(reIdxs.length/2)],
+          leTop, leBottom, reTop, reBottom,
+          noseIdxs[noseIdxs.length-1],
+          olIdxs.reduce((b,i)=>landmarks[i].y<landmarks[b].y?i:b,olIdxs[0]),
+          olIdxs.reduce((b,i)=>landmarks[i].y>landmarks[b].y?i:b,olIdxs[0]),
+          liIdxs[0], riIdxs[0]
+        ];
+        for (const ci of compIdxs) {
+          const d = dist({ x: mx, y: my }, landmarks[ci]);
+          if (d < threshold && d < bestDist) { best = ci; bestDist = d; }
+        }
+      }
+      if (best !== hoveredIdx) {
+        hoveredIdx = best;
+        if (best >= 0) {
+          const lm = landmarks[best];
+          const groupName = lm.group.replace(/([A-Z])/g, ' $1').toLowerCase();
+          infoEl.textContent = 'Landmark #' + best + ' \u2014 ' + groupName + ' (' + lm.label + ')';
+        } else {
+          infoEl.innerHTML = '&nbsp;';
+        }
+        draw();
+      }
+    });
+
+    canvas.addEventListener('mouseleave', function() {
+      if (hoveredIdx !== -1) {
+        hoveredIdx = -1;
+        infoEl.innerHTML = '&nbsp;';
+        draw();
+      }
+    });
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMode = btn.dataset.mode;
+        hoveredIdx = -1;
+        infoEl.innerHTML = '&nbsp;';
+        draw();
+      });
+    });
+
+    generateLandmarks();
+    resize();
+
+    if (typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(() => resize()).observe(canvas.parentElement);
+    } else {
+      window.addEventListener('resize', resize);
+    }
+  }
+  </script>
+</div>
+
         <h2 id="checks">The 25+ things that can go wrong</h2>
 
         <p>
@@ -342,6 +936,196 @@
           <li>Yaw (turning): within 0.22 ratio?</li>
           <li>Pitch (chin angle): within 0.20 ratio?</li>
         </ul>
+
+        <div class="demo-wrap" style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 24px 0; font-family: Inter, system-ui, sans-serif;">
+  <div style="margin-bottom: 16px;">
+    <div style="font-size: 14px; font-weight: 700; color: var(--text);">Head Pose Visualizer</div>
+    <div style="font-size: 12px; color: var(--muted);">See how roll, yaw, and pitch affect compliance</div>
+  </div>
+
+  <div class="hp-layout" style="display: flex; gap: 24px; align-items: flex-start;">
+    <div class="hp-face-col" style="flex-shrink: 0;">
+      <div class="hp-face-container" style="width: 240px; height: 300px; perspective: 800px; display: flex; align-items: center; justify-content: center;">
+        <div class="hp-face-inner" style="width: 100%; height: 100%; transition: transform 0.15s ease-out; transform-style: preserve-3d; display: flex; align-items: center; justify-content: center; filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.18));">
+          <svg viewBox="0 0 200 260" width="200" height="260" style="overflow: visible;">
+            <defs>
+              <linearGradient id="hp-face-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#e0b48a"/>
+                <stop offset="100%" stop-color="#c4945e"/>
+              </linearGradient>
+              <linearGradient id="hp-hair-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3d2414"/>
+                <stop offset="100%" stop-color="#2d1810"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="38" cy="135" rx="14" ry="22" fill="#d4a574" stroke="#b8916a" stroke-width="1.5"/>
+            <ellipse cx="162" cy="135" rx="14" ry="22" fill="#d4a574" stroke="#b8916a" stroke-width="1.5"/>
+            <ellipse cx="38" cy="135" rx="8" ry="14" fill="#c4945e" opacity="0.5"/>
+            <ellipse cx="162" cy="135" rx="8" ry="14" fill="#c4945e" opacity="0.5"/>
+            <rect x="80" y="210" width="40" height="40" rx="4" fill="#d4a574"/>
+            <ellipse cx="100" cy="135" rx="62" ry="82" fill="url(#hp-face-grad)" stroke="#b8916a" stroke-width="2"/>
+            <path d="M38 110 Q38 45 100 38 Q162 45 162 110 Q162 70 140 58 Q120 48 100 50 Q80 48 60 58 Q38 70 38 110 Z" fill="url(#hp-hair-grad)"/>
+            <path d="M65 108 Q75 102 88 106" stroke="#2d1810" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M112 106 Q125 102 135 108" stroke="#2d1810" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="78" cy="125" rx="14" ry="10" fill="white" stroke="#b8916a" stroke-width="1"/>
+            <circle cx="80" cy="125" r="5.5" fill="#2d1810"/>
+            <circle cx="82" cy="123" r="2" fill="white" opacity="0.7"/>
+            <ellipse cx="122" cy="125" rx="14" ry="10" fill="white" stroke="#b8916a" stroke-width="1"/>
+            <circle cx="120" cy="125" r="5.5" fill="#2d1810"/>
+            <circle cx="122" cy="123" r="2" fill="white" opacity="0.7"/>
+            <path d="M100 135 L95 158 Q100 162 105 158 Z" fill="#c4945e" opacity="0.6"/>
+            <path d="M95 158 Q100 162 105 158" stroke="#b8916a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M82 180 Q92 190 100 190 Q108 190 118 180" stroke="#a0674a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M82 180 Q92 190 100 190 Q108 190 118 180 Q108 185 100 185 Q92 185 82 180 Z" fill="#c07a5a" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="hp-controls-col" style="flex: 1; min-width: 0;">
+      <div class="hp-sliders" style="display: flex; flex-direction: column; gap: 16px;"></div>
+      <div style="margin-top: 12px;">
+        <button class="hp-reset-btn" style="font-size: 12px; color: var(--accent); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; cursor: pointer; font-family: inherit;">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hp-badges" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;"></div>
+
+  <style>
+    .hp-layout { flex-direction: row; }
+    @media (max-width: 600px) {
+      .hp-layout { flex-direction: column !important; align-items: center !important; }
+      .hp-face-container { width: 180px !important; height: 225px !important; }
+      .hp-face-container svg { width: 150px; height: 195px; }
+    }
+    .hp-range-wrap { position: relative; }
+    .hp-range-wrap input[type="range"] {
+      -webkit-appearance: none; appearance: none; width: 100%; height: 4px;
+      background: var(--border); border-radius: 2px; outline: none; margin: 8px 0 4px 0;
+    }
+    .hp-range-wrap input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none; width: 16px; height: 16px;
+      border-radius: 50%; background: var(--accent); cursor: pointer; border: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .hp-range-wrap input[type="range"]::-moz-range-thumb {
+      width: 16px; height: 16px; border-radius: 50%; background: var(--accent);
+      cursor: pointer; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .hp-range-wrap input[type="range"]::-moz-range-track {
+      height: 4px; background: var(--border); border-radius: 2px; border: none;
+    }
+    .hp-reset-btn:hover { background: var(--border) !important; }
+  </style>
+
+  <script>
+  {
+    const wrap = document.currentScript.closest('.demo-wrap');
+
+    const sliders = [
+      { key: 'roll',  label: 'Roll (Tilt)',  min: -15, max: 15,  axis: 'Z' },
+      { key: 'yaw',   label: 'Yaw (Turn)',   min: -30, max: 30,  axis: 'Y' },
+      { key: 'pitch', label: 'Pitch (Nod)',  min: -20, max: 20,  axis: 'X' },
+    ];
+
+    const countries = [
+      { code: 'SG', flag: '\u{1F1F8}\u{1F1EC}', roll: 8,  yaw: 12, pitch: 11 },
+      { code: 'US', flag: '\u{1F1FA}\u{1F1F8}', roll: 10, yaw: 15, pitch: 13 },
+      { code: 'UK', flag: '\u{1F1EC}\u{1F1E7}', roll: 5,  yaw: 8,  pitch: 8  },
+      { code: 'CA', flag: '\u{1F1E8}\u{1F1E6}', roll: 8,  yaw: 12, pitch: 11 },
+      { code: 'AU', flag: '\u{1F1E6}\u{1F1FA}', roll: 8,  yaw: 12, pitch: 11 },
+      { code: 'IN', flag: '\u{1F1EE}\u{1F1F3}', roll: 10, yaw: 15, pitch: 12 },
+    ];
+
+    const state = { roll: 0, yaw: 0, pitch: 0 };
+    const inputs = {};
+
+    const slidersContainer = wrap.querySelector('.hp-sliders');
+    const badgesContainer = wrap.querySelector('.hp-badges');
+    const faceInner = wrap.querySelector('.hp-face-inner');
+    const resetBtn = wrap.querySelector('.hp-reset-btn');
+
+    sliders.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'hp-range-wrap';
+      div.innerHTML =
+        '<div style="display: flex; justify-content: space-between; align-items: baseline;">' +
+          '<span style="font-size: 12px; font-weight: 600; color: var(--text);">' + s.label + '</span>' +
+          '<span class="hp-val" style="font-size: 12px; color: var(--text-secondary); font-variant-numeric: tabular-nums;">0.0\u00B0</span>' +
+        '</div>' +
+        '<input type="range" min="' + s.min + '" max="' + s.max + '" step="0.1" value="0">';
+      slidersContainer.appendChild(div);
+
+      const input = div.querySelector('input');
+      const valSpan = div.querySelector('.hp-val');
+      inputs[s.key] = { input, valSpan };
+
+      input.addEventListener('input', () => {
+        const v = parseFloat(input.value);
+        state[s.key] = v;
+        valSpan.textContent = v.toFixed(1) + '\u00B0';
+        update();
+      });
+    });
+
+    countries.forEach(c => {
+      const badge = document.createElement('div');
+      badge.className = 'hp-badge';
+      badge.dataset.code = c.code;
+      badge.style.cssText = 'border-radius: 8px; padding: 8px 12px; font-size: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 64px; transition: background 0.2s, border-color 0.2s;';
+      badge.innerHTML =
+        '<span style="font-size: 14px;">' + c.flag + ' <strong>' + c.code + '</strong></span>' +
+        '<span class="hp-status" style="font-weight: 600; font-size: 11px;"></span>';
+      badgesContainer.appendChild(badge);
+    });
+
+    function update() {
+      const r = state.roll, y = state.yaw, p = state.pitch;
+      faceInner.style.transform = 'rotateX(' + (-p) + 'deg) rotateY(' + y + 'deg) rotateZ(' + r + 'deg)';
+
+      const sx = Math.sin(y * Math.PI / 180) * 8;
+      const sy = Math.sin(p * Math.PI / 180) * 8 + 4;
+      faceInner.style.filter = 'drop-shadow(' + sx + 'px ' + sy + 'px 8px rgba(0,0,0,0.18))';
+
+      const absRoll = Math.abs(r), absYaw = Math.abs(y), absPitch = Math.abs(p);
+
+      const badges = wrap.querySelectorAll('.hp-badge');
+      countries.forEach((c, i) => {
+        const badge = badges[i];
+        const statusEl = badge.querySelector('.hp-status');
+        const fails = [];
+        if (absRoll > c.roll) fails.push('roll');
+        if (absYaw > c.yaw) fails.push('yaw');
+        if (absPitch > c.pitch) fails.push('pitch');
+
+        if (fails.length === 0) {
+          badge.style.background = 'rgba(16, 185, 129, 0.1)';
+          badge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+          statusEl.textContent = 'Pass';
+          statusEl.style.color = '#10b981';
+        } else {
+          badge.style.background = 'rgba(239, 68, 68, 0.1)';
+          badge.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+          statusEl.textContent = 'Fail: ' + fails.join(', ');
+          statusEl.style.color = '#ef4444';
+        }
+      });
+    }
+
+    resetBtn.addEventListener('click', () => {
+      state.roll = 0; state.yaw = 0; state.pitch = 0;
+      sliders.forEach(s => {
+        inputs[s.key].input.value = 0;
+        inputs[s.key].valSpan.textContent = '0.0\u00B0';
+      });
+      update();
+    });
+
+    update();
+  }
+  </script>
+</div>
 
         <h3>Expression and visibility</h3>
         <ul>
@@ -435,6 +1219,356 @@
           second version had dark shadows along hair boundaries. The third version had visible
           seams at the image edge. Each bug added a stage to the pipeline.
         </p>
+
+        <div class="demo-wrap" style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 24px 0;">
+  <div style="margin-bottom: 16px;">
+    <div style="font-size: 14px; font-weight: 700; color: var(--text); font-family: Inter, system-ui, sans-serif;">Background Whitening Pipeline</div>
+    <div style="font-size: 12px; color: var(--muted); font-family: Inter, system-ui, sans-serif; margin-top: 2px;">6 stages from raw mask to clean white background</div>
+  </div>
+
+  <div id="bwp-buttons" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; align-items: center;">
+    <button data-bwp-stage="0" class="bwp-btn bwp-active" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--accent); color: #fff; cursor: pointer; transition: all 0.15s;">Original</button>
+    <button data-bwp-stage="1" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">1</button>
+    <button data-bwp-stage="2" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">2</button>
+    <button data-bwp-stage="3" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">3</button>
+    <button data-bwp-stage="4" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">4</button>
+    <button data-bwp-stage="5" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">5</button>
+    <button data-bwp-stage="6" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">6</button>
+    <button id="bwp-play" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1px solid var(--accent-dim, var(--accent)); background: var(--accent-dim, var(--accent)); color: #fff; cursor: pointer; margin-left: 6px; transition: all 0.15s;">&#9654; Play All</button>
+  </div>
+
+  <canvas id="bwp-canvas" style="width: 100%; height: 350px; border-radius: 8px; display: block; background: #f0f0f0;"></canvas>
+
+  <div style="margin-top: 12px;">
+    <div id="bwp-label" style="font-size: 13px; font-weight: 700; color: var(--text); font-family: Inter, system-ui, sans-serif;">Original Photo</div>
+    <div id="bwp-desc" style="font-size: 12px; color: var(--text-secondary); font-family: Inter, system-ui, sans-serif; margin-top: 3px; line-height: 1.5;">The raw input image with a colored background that needs to be replaced with white.</div>
+  </div>
+
+<script>
+{
+  const canvas = document.getElementById('bwp-canvas');
+  const ctx = canvas.getContext('2d');
+  const labelEl = document.getElementById('bwp-label');
+  const descEl = document.getElementById('bwp-desc');
+  const btnWrap = document.getElementById('bwp-buttons');
+  const playBtn = document.getElementById('bwp-play');
+  const allBtns = btnWrap.querySelectorAll('.bwp-btn');
+
+  let currentStage = 0;
+  let playing = false;
+  let playTimer = null;
+  let W, H, dpr;
+
+  const stages = [
+    { label: 'Original Photo', desc: 'The raw input image with a colored background that needs to be replaced with white.' },
+    { label: 'Raw Segmentation Mask', desc: 'The AI model outputs a confidence mask. Green = person, red = background, yellow = uncertain edges.' },
+    { label: 'Mask Refinement', desc: 'Gaussian blur + bilateral filter + morphological ops smooth the mask edges and reduce noise.' },
+    { label: 'Edge Guard Computation', desc: 'Gradient-based detection identifies high-frequency regions like hair strands and fabric texture that need protection.' },
+    { label: 'Color Decontamination', desc: 'The old background color is unmixed from edge pixels, removing the blue/green color cast.' },
+    { label: 'Shadow Lifting', desc: 'Brightness boost in the HSV V channel for shadow regions near the person boundary.' },
+    { label: 'Final Result', desc: 'Clean white background (RGB 252,252,252) with smooth edges and no visible artifacts.' }
+  ];
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    dpr = window.devicePixelRatio || 1;
+    W = rect.width;
+    H = rect.height;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw(currentStage);
+  }
+
+  function personPath(cx, baseY, scale) {
+    const s = scale;
+    const path = new Path2D();
+    path.moveTo(cx - 90 * s, baseY);
+    path.bezierCurveTo(cx - 95 * s, baseY - 30 * s, cx - 75 * s, baseY - 70 * s, cx - 40 * s, baseY - 85 * s);
+    path.bezierCurveTo(cx - 28 * s, baseY - 92 * s, cx - 22 * s, baseY - 100 * s, cx - 18 * s, baseY - 110 * s);
+    path.lineTo(cx - 16 * s, baseY - 120 * s);
+    path.bezierCurveTo(cx - 42 * s, baseY - 130 * s, cx - 52 * s, baseY - 165 * s, cx - 48 * s, baseY - 195 * s);
+    path.bezierCurveTo(cx - 44 * s, baseY - 230 * s, cx - 25 * s, baseY - 250 * s, cx, baseY - 252 * s);
+    path.bezierCurveTo(cx + 25 * s, baseY - 250 * s, cx + 44 * s, baseY - 230 * s, cx + 48 * s, baseY - 195 * s);
+    path.bezierCurveTo(cx + 52 * s, baseY - 165 * s, cx + 42 * s, baseY - 130 * s, cx + 16 * s, baseY - 120 * s);
+    path.lineTo(cx + 18 * s, baseY - 110 * s);
+    path.bezierCurveTo(cx + 22 * s, baseY - 100 * s, cx + 28 * s, baseY - 92 * s, cx + 40 * s, baseY - 85 * s);
+    path.bezierCurveTo(cx + 75 * s, baseY - 70 * s, cx + 95 * s, baseY - 30 * s, cx + 90 * s, baseY);
+    path.closePath();
+    return path;
+  }
+
+  function hairPath(cx, baseY, scale) {
+    const s = scale;
+    const path = new Path2D();
+    path.moveTo(cx - 18 * s, baseY - 130 * s);
+    path.bezierCurveTo(cx - 46 * s, baseY - 135 * s, cx - 56 * s, baseY - 170 * s, cx - 50 * s, baseY - 200 * s);
+    path.bezierCurveTo(cx - 46 * s, baseY - 238 * s, cx - 28 * s, baseY - 258 * s, cx, baseY - 260 * s);
+    path.bezierCurveTo(cx + 28 * s, baseY - 258 * s, cx + 46 * s, baseY - 238 * s, cx + 50 * s, baseY - 200 * s);
+    path.bezierCurveTo(cx + 56 * s, baseY - 170 * s, cx + 46 * s, baseY - 135 * s, cx + 18 * s, baseY - 130 * s);
+    path.bezierCurveTo(cx + 10 * s, baseY - 175 * s, cx - 10 * s, baseY - 175 * s, cx - 18 * s, baseY - 130 * s);
+    path.closePath();
+    return path;
+  }
+
+  function facePath(cx, baseY, scale) {
+    const s = scale;
+    const path = new Path2D();
+    path.ellipse(cx, baseY - 172 * s, 30 * s, 38 * s, 0, 0, Math.PI * 2);
+    path.closePath();
+    return path;
+  }
+
+  function neckPath(cx, baseY, scale) {
+    const s = scale;
+    const path = new Path2D();
+    path.moveTo(cx - 14 * s, baseY - 135 * s);
+    path.lineTo(cx - 16 * s, baseY - 110 * s);
+    path.lineTo(cx + 16 * s, baseY - 110 * s);
+    path.lineTo(cx + 14 * s, baseY - 135 * s);
+    path.closePath();
+    return path;
+  }
+
+  function drawColoredBackground() {
+    const grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, '#87CEEB');
+    grad.addColorStop(0.3, '#7ec8e8');
+    grad.addColorStop(0.6, '#92d5ef');
+    grad.addColorStop(1, '#6abdd8');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+    ctx.globalAlpha = 0.08;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath(); ctx.ellipse(W * 0.2, H * 0.25, 60, 25, 0.3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(W * 0.75, H * 0.15, 70, 20, -0.2, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(W * 0.6, H * 0.35, 45, 18, 0.1, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  function getPersonMetrics() {
+    const cx = W / 2;
+    const scale = Math.min(W / 240, H / 320) * 0.85;
+    const baseY = H * 0.92;
+    return { cx, baseY, scale };
+  }
+
+  function drawPerson(cx, baseY, scale) {
+    const body = personPath(cx, baseY, scale);
+    const hair = hairPath(cx, baseY, scale);
+    const face = facePath(cx, baseY, scale);
+    const neck = neckPath(cx, baseY, scale);
+    const s = scale;
+
+    ctx.fillStyle = '#4a5568'; ctx.fill(body);
+    ctx.fillStyle = '#d4a574'; ctx.fill(neck);
+    ctx.fillStyle = '#d4a574'; ctx.fill(face);
+    ctx.fillStyle = '#3a3a3a'; ctx.fill(hair);
+
+    const fy = baseY - 172 * s;
+    ctx.fillStyle = '#2d2d2d';
+    ctx.beginPath(); ctx.ellipse(cx - 11 * s, fy - 4 * s, 3.5 * s, 2.5 * s, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + 11 * s, fy - 4 * s, 3.5 * s, 2.5 * s, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.globalAlpha = 0.5;
+    ctx.beginPath(); ctx.ellipse(cx - 11 * s, fy - 4.5 * s, 1.5 * s, 1 * s, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + 11 * s, fy - 4.5 * s, 1.5 * s, 1 * s, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = '#3a3a3a'; ctx.lineWidth = 1.5 * s;
+    ctx.beginPath(); ctx.moveTo(cx - 16 * s, fy - 10 * s); ctx.quadraticCurveTo(cx - 11 * s, fy - 13 * s, cx - 6 * s, fy - 10 * s); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx + 6 * s, fy - 10 * s); ctx.quadraticCurveTo(cx + 11 * s, fy - 13 * s, cx + 16 * s, fy - 10 * s); ctx.stroke();
+    ctx.strokeStyle = '#b8956a'; ctx.lineWidth = 1.2 * s;
+    ctx.beginPath(); ctx.moveTo(cx, fy - 2 * s); ctx.quadraticCurveTo(cx + 4 * s, fy + 8 * s, cx, fy + 10 * s); ctx.stroke();
+    ctx.strokeStyle = '#c4836a'; ctx.lineWidth = 1.5 * s;
+    ctx.beginPath(); ctx.moveTo(cx - 8 * s, fy + 18 * s); ctx.quadraticCurveTo(cx, fy + 22 * s, cx + 8 * s, fy + 18 * s); ctx.stroke();
+  }
+
+  function drawStage0() {
+    drawColoredBackground();
+    const { cx, baseY, scale } = getPersonMetrics();
+    drawPerson(cx, baseY, scale);
+  }
+
+  function drawStage1() {
+    drawColoredBackground();
+    const { cx, baseY, scale } = getPersonMetrics();
+    drawPerson(cx, baseY, scale);
+    const silhouette = personPath(cx, baseY, scale);
+    ctx.save();
+    ctx.fillStyle = 'rgba(239, 68, 68, 0.30)'; ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'destination-out'; ctx.fill(silhouette);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = 'rgba(16, 185, 129, 0.40)'; ctx.fill(silhouette);
+    ctx.restore();
+    ctx.save();
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.50)'; ctx.lineWidth = 16; ctx.lineJoin = 'round';
+    ctx.stroke(silhouette);
+    ctx.restore();
+  }
+
+  function drawStage2() {
+    drawColoredBackground();
+    const { cx, baseY, scale } = getPersonMetrics();
+    drawPerson(cx, baseY, scale);
+    const silhouette = personPath(cx, baseY, scale);
+    ctx.save();
+    ctx.fillStyle = 'rgba(239, 68, 68, 0.35)'; ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'destination-out'; ctx.fill(silhouette);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = 'rgba(16, 185, 129, 0.45)'; ctx.fill(silhouette);
+    ctx.restore();
+    ctx.save();
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.40)'; ctx.lineWidth = 8; ctx.lineJoin = 'round';
+    ctx.stroke(silhouette);
+    ctx.restore();
+  }
+
+  function drawStage3() {
+    const { cx, baseY, scale } = getPersonMetrics();
+    const grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, '#b8ddf0'); grad.addColorStop(0.5, '#c8e4f3'); grad.addColorStop(1, '#a8d4ea');
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+    drawPerson(cx, baseY, scale);
+    const silhouette = personPath(cx, baseY, scale);
+    ctx.save();
+    ctx.strokeStyle = 'rgba(251, 146, 60, 0.7)'; ctx.lineWidth = 6; ctx.lineJoin = 'round';
+    ctx.shadowColor = '#f97316'; ctx.shadowBlur = 16; ctx.stroke(silhouette);
+    ctx.shadowBlur = 28; ctx.strokeStyle = 'rgba(251, 146, 60, 0.35)'; ctx.lineWidth = 12; ctx.stroke(silhouette);
+    ctx.restore();
+    ctx.save();
+    ctx.font = (9 * Math.min(scale, 1.2)) + 'px Inter, system-ui, sans-serif';
+    ctx.fillStyle = 'rgba(251, 146, 60, 0.9)';
+    const hx = cx + 40 * scale, hy = baseY - 220 * scale;
+    ctx.fillText('hair detail', hx + 14, hy);
+    ctx.strokeStyle = 'rgba(251, 146, 60, 0.7)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(hx, hy - 3); ctx.lineTo(hx + 12, hy - 3); ctx.stroke();
+    const sx2 = cx + 55 * scale, sy2 = baseY - 70 * scale;
+    ctx.fillText('fabric edge', sx2 + 14, sy2);
+    ctx.beginPath(); ctx.moveTo(sx2, sy2 - 3); ctx.lineTo(sx2 + 12, sy2 - 3); ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawStage4() {
+    const { cx, baseY, scale } = getPersonMetrics();
+    const grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, '#c8c8c8'); grad.addColorStop(0.5, '#d2d2d2'); grad.addColorStop(1, '#bebebe');
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+    drawPerson(cx, baseY, scale);
+    ctx.save();
+    const edgePoints = [
+      [cx - 50 * scale, baseY - 180 * scale], [cx + 50 * scale, baseY - 190 * scale],
+      [cx - 45 * scale, baseY - 100 * scale], [cx + 48 * scale, baseY - 95 * scale],
+      [cx - 30 * scale, baseY - 230 * scale], [cx + 32 * scale, baseY - 225 * scale],
+    ];
+    edgePoints.forEach(([ex, ey]) => {
+      ctx.globalAlpha = 0.35; ctx.fillStyle = '#87CEEB';
+      ctx.beginPath(); ctx.arc(ex, ey, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = 0.8; ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(ex - 4, ey - 4); ctx.lineTo(ex + 4, ey + 4); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(ex + 4, ey - 4); ctx.lineTo(ex - 4, ey + 4); ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+    ctx.font = (9 * Math.min(scale, 1.2)) + 'px Inter, system-ui, sans-serif';
+    ctx.fillStyle = 'rgba(107, 114, 128, 0.85)';
+    ctx.fillText('color cast removed', cx + 55 * scale, baseY - 150 * scale);
+    ctx.restore();
+  }
+
+  function drawStage5() {
+    const { cx, baseY, scale } = getPersonMetrics();
+    ctx.fillStyle = '#e0e0e0'; ctx.fillRect(0, 0, W, H);
+    drawPerson(cx, baseY, scale);
+    const silhouette = personPath(cx, baseY, scale);
+    ctx.save();
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)'; ctx.lineWidth = 18; ctx.lineJoin = 'round';
+    ctx.shadowColor = 'rgba(255, 255, 255, 0.8)'; ctx.shadowBlur = 20;
+    ctx.stroke(silhouette);
+    ctx.restore();
+    ctx.save();
+    const arrowPts = [
+      [cx - 60 * scale, baseY - 140 * scale, 12], [cx + 62 * scale, baseY - 145 * scale, 12],
+      [cx - 55 * scale, baseY - 80 * scale, 10], [cx + 58 * scale, baseY - 75 * scale, 10],
+    ];
+    ctx.strokeStyle = 'rgba(250, 204, 21, 0.7)'; ctx.lineWidth = 1.5;
+    arrowPts.forEach(([ax, ay, len]) => {
+      ctx.beginPath(); ctx.moveTo(ax, ay + len); ctx.lineTo(ax, ay - len); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(ax - 4, ay - len + 5); ctx.lineTo(ax, ay - len); ctx.lineTo(ax + 4, ay - len + 5); ctx.stroke();
+    });
+    ctx.font = (9 * Math.min(scale, 1.2)) + 'px Inter, system-ui, sans-serif';
+    ctx.fillStyle = 'rgba(202, 138, 4, 0.85)';
+    ctx.fillText('V channel +', cx + 62 * scale, baseY - 155 * scale);
+    ctx.restore();
+  }
+
+  function drawStage6() {
+    const { cx, baseY, scale } = getPersonMetrics();
+    ctx.fillStyle = '#fcfcfc'; ctx.fillRect(0, 0, W, H);
+    drawPerson(cx, baseY, scale);
+    const silhouette = personPath(cx, baseY, scale);
+    ctx.save();
+    ctx.strokeStyle = 'rgba(252, 252, 252, 0.4)'; ctx.lineWidth = 2; ctx.lineJoin = 'round';
+    ctx.stroke(silhouette);
+    ctx.restore();
+  }
+
+  const drawFns = [drawStage0, drawStage1, drawStage2, drawStage3, drawStage4, drawStage5, drawStage6];
+
+  function draw(stage) {
+    ctx.clearRect(0, 0, W, H);
+    ctx.save();
+    const r = 8;
+    ctx.beginPath();
+    ctx.moveTo(r, 0); ctx.lineTo(W - r, 0); ctx.quadraticCurveTo(W, 0, W, r);
+    ctx.lineTo(W, H - r); ctx.quadraticCurveTo(W, H, W - r, H);
+    ctx.lineTo(r, H); ctx.quadraticCurveTo(0, H, 0, H - r);
+    ctx.lineTo(0, r); ctx.quadraticCurveTo(0, 0, r, 0);
+    ctx.closePath(); ctx.clip();
+    drawFns[stage]();
+    ctx.restore();
+  }
+
+  function setStage(s) {
+    currentStage = s;
+    labelEl.textContent = stages[s].label;
+    descEl.textContent = stages[s].desc;
+    allBtns.forEach((b, i) => {
+      if (i === s) {
+        b.style.background = 'var(--accent)'; b.style.color = '#fff'; b.style.borderColor = 'var(--accent)';
+      } else {
+        b.style.background = 'var(--surface)'; b.style.color = 'var(--text-secondary)'; b.style.borderColor = 'var(--border)';
+      }
+    });
+    draw(s);
+  }
+
+  allBtns.forEach((btn, i) => {
+    btn.addEventListener('click', () => { if (!playing) setStage(i); });
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (playing) return;
+    playing = true;
+    allBtns.forEach(b => { b.style.opacity = '0.5'; b.style.pointerEvents = 'none'; });
+    playBtn.style.opacity = '0.5'; playBtn.style.pointerEvents = 'none';
+    let s = 0;
+    setStage(s);
+    playTimer = setInterval(() => {
+      s++;
+      if (s > 6) {
+        clearInterval(playTimer); playing = false;
+        allBtns.forEach(b => { b.style.opacity = '1'; b.style.pointerEvents = 'auto'; });
+        playBtn.style.opacity = '1'; playBtn.style.pointerEvents = 'auto';
+        return;
+      }
+      setStage(s);
+    }, 1000);
+  });
+
+  const ro = new ResizeObserver(() => { clearTimeout(ro._t); ro._t = setTimeout(resize, 60); });
+  ro.observe(canvas);
+  resize();
+}
+</script>
+</div>
 
         <h2 id="countries">Country rules: why your Singapore photo won't work in the US</h2>
 
@@ -622,5 +1756,13 @@ SG:
       </article>
       <footer>&copy; 2026 Haoming Koo</footer>
     </div>
+    <script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.querySelector('.theme-label').textContent = next === 'dark' ? 'Dark' : 'Light';
+}
+    </script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,13 +8,16 @@
     <meta name="keywords" content="LionWeather, Singapore weather, LightGBM, SHAP, rainfall prediction, NEA API, React, FastAPI, ML forecasting, EDA, time series analysis" />
     <meta name="author" content="Haoming Koo" />
     <link rel="canonical" href="https://kooexperience.com/blog/posts/lionweather.html" />
+    <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
+    <meta property="og:site_name" content="Haoming Koo" />
+    <meta property="og:locale" content="en_SG" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-      :root {
+      [data-theme="dark"] {
         --bg: #060608;
         --surface: #0e0e12;
         --border: #1c1c24;
@@ -28,6 +31,23 @@
         --emerald: #10b981;
         --red: #ef4444;
         --purple: #a855f7;
+        --nav-bg: rgba(6,6,8,0.72);
+      }
+      [data-theme="light"] {
+        --bg: #f8f9fb;
+        --surface: #ffffff;
+        --border: #dde1e6;
+        --accent: #2563eb;
+        --accent-dim: rgba(37,99,235,0.08);
+        --text: #111318;
+        --text-secondary: #3d4250;
+        --muted: #6b7280;
+        --blue: #2563eb;
+        --amber: #d97706;
+        --emerald: #059669;
+        --red: #dc2626;
+        --purple: #9333ea;
+        --nav-bg: rgba(248,249,251,0.85);
       }
       html { scroll-behavior: smooth; }
       body {
@@ -35,6 +55,7 @@
         font-family: "Inter", system-ui, sans-serif;
         font-size: 15px; line-height: 1.7; min-height: 100vh;
         -webkit-font-smoothing: antialiased;
+        transition: background .35s, color .35s;
       }
       body::before {
         content: "";
@@ -42,14 +63,16 @@
         background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,.06) 0%, transparent 60%);
         pointer-events: none; z-index: 0;
       }
+      [data-theme="light"] body::before { opacity: 0.3; }
 
       /* ── Nav ──────────────────────────────────────────────────────────── */
       .nav-wrap {
         position: sticky; top: 0; z-index: 100;
-        background: rgba(6,6,8,.72);
+        background: var(--nav-bg);
         backdrop-filter: blur(16px) saturate(1.6);
         -webkit-backdrop-filter: blur(16px) saturate(1.6);
         border-bottom: 1px solid rgba(28,28,36,.6);
+        transition: background .35s, border-color .35s;
       }
       nav {
         max-width: 780px; margin: 0 auto; padding: 0 32px;
@@ -269,6 +292,16 @@
         color: var(--accent); text-decoration: underline;
       }
 
+      .nav-right { display: flex; align-items: center; gap: 12px; }
+      .theme-btn {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 8px; padding: 6px 10px; cursor: pointer;
+        color: var(--text); display: flex; align-items: center; gap: 6px;
+        font-size: 12px; font-family: inherit; transition: all .2s;
+      }
+      .theme-btn:hover { border-color: #2a2a36; }
+      .theme-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+
       @media (max-width: 600px) {
         .container { padding: 0 18px; }
         nav { padding: 0 18px; }
@@ -276,12 +309,31 @@
         .stationarity-grid { grid-template-columns: repeat(2, 1fr); }
       }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "I Tried to Predict Singapore's Rain and It Humbled Me - Haoming Koo",
+      "description": "Building LionWeather: a real-time weather dashboard with LightGBM rainfall forecasting, SHAP explainability, animated radar, and a whole lot of lessons about tropical weather. Interactive charts powered by real data.",
+      "url": "https://kooexperience.com/blog/posts/lionweather.html",
+      "datePublished": "2026-03-11",
+      "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
+      "publisher": {"@type": "Person", "name": "Haoming Koo"},
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/lionweather.html"}
+    }
+    </script>
   </head>
   <body>
     <div class="nav-wrap">
       <nav>
         <a class="nav-logo" href="../">HK</a>
-        <a href="../#blog">Blog</a>
+        <div class="nav-right">
+          <a href="../#blog">Blog</a>
+          <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <span class="theme-label">Dark</span>
+          </button>
+        </div>
       </nav>
     </div>
 
@@ -1282,17 +1334,29 @@ params = {
         humidity: '%', wind_speed: 'km/h'
       };
 
-      const PLOTLY_LAYOUT_BASE = {
-        paper_bgcolor: '#0e0e12',
-        plot_bgcolor: '#0e0e12',
-        font: { color: '#b0b0b8', family: 'Inter, system-ui, sans-serif', size: 12 },
-        margin: { l: 50, r: 20, t: 10, b: 40 },
-        dragmode: false,
-        autosize: false,
-        height: 380,
-        xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', fixedrange: true },
-        yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', fixedrange: true }
-      };
+      function chartThemeColors() {
+        const dark = document.documentElement.getAttribute('data-theme') !== 'light';
+        return {
+          bg: dark ? '#0e0e12' : '#ffffff',
+          grid: dark ? '#1c1c24' : '#e5e7eb',
+          text: dark ? '#b0b0b8' : '#4b5563',
+        };
+      }
+
+      function getPlotlyBase() {
+        const c = chartThemeColors();
+        return {
+          paper_bgcolor: c.bg,
+          plot_bgcolor: c.bg,
+          font: { color: c.text, family: 'Inter, system-ui, sans-serif', size: 12 },
+          margin: { l: 50, r: 20, t: 10, b: 40 },
+          dragmode: false,
+          autosize: true,
+          height: 380,
+          xaxis: { gridcolor: c.grid, zerolinecolor: c.grid, fixedrange: true },
+          yaxis: { gridcolor: c.grid, zerolinecolor: c.grid, fixedrange: true }
+        };
+      }
 
       const PLOTLY_CONFIG = {
         responsive: true,
@@ -1319,7 +1383,7 @@ params = {
       }
 
       function layout(overrides) {
-        return deepMerge({}, PLOTLY_LAYOUT_BASE, overrides || {});
+        return deepMerge({}, getPlotlyBase(), overrides || {});
       }
 
       function prepChart(containerId) {
@@ -1374,8 +1438,8 @@ params = {
         };
         prepChart('chart-hourly');
         Plotly.newPlot('chart-hourly', [trace], layout({
-          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Hour of Day', tickangle: -45 },
-          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: VAR_LABELS[variable] },
+          xaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, title: 'Hour of Day', tickangle: -45 },
+          yaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, title: VAR_LABELS[variable] },
           margin: { l: 56, r: 20, t: 10, b: 56 }
         }), PLOTLY_CONFIG);
       }
@@ -1399,8 +1463,8 @@ params = {
         };
         prepChart('chart-annual');
         Plotly.newPlot('chart-annual', [trace], layout({
-          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Year' },
-          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Total Rainfall (mm)' },
+          xaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, title: 'Year' },
+          yaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, title: 'Total Rainfall (mm)' },
           margin: { l: 64, r: 20, t: 10, b: 48 }
         }), PLOTLY_CONFIG);
       }
@@ -1443,7 +1507,7 @@ params = {
           else domain = [0.0, 0.22];
           yAxes[key] = {
             domain: domain,
-            gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid,
             title: { text: comp.charAt(0).toUpperCase() + comp.slice(1), font: { size: 11 } }
           };
         });
@@ -1452,7 +1516,7 @@ params = {
         Plotly.newPlot('chart-stl', traces, layout(Object.assign({
           height: 500,
           showlegend: false,
-          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24' },
+          xaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid },
           margin: { l: 64, r: 20, t: 10, b: 40 }
         }, yAxes)), PLOTLY_CONFIG);
       }
@@ -1509,19 +1573,19 @@ params = {
           showlegend: false,
           shapes: ciLines,
           xaxis: {
-            domain: [0, 0.47], gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            domain: [0, 0.47], gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid,
             title: 'Lag (hours)'
           },
           yaxis: {
-            gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid,
             title: 'ACF'
           },
           xaxis2: {
-            domain: [0.53, 1], gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            domain: [0.53, 1], gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid,
             title: 'Lag (hours)', anchor: 'y2'
           },
           yaxis2: {
-            gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid,
             title: 'PACF', anchor: 'x2'
           },
           margin: { l: 50, r: 20, t: 10, b: 48 },
@@ -1559,7 +1623,7 @@ params = {
               showarrow: true, arrowhead: 2, arrowsize: 0.8,
               arrowcolor: '#64647a', ax: 0, ay: -28 - i * 6,
               font: { color: COLORS.amber, size: 11, weight: 600 },
-              bgcolor: '#0e0e12', borderpad: 3
+              bgcolor: chartThemeColors().bg, borderpad: 3
             });
           });
         }
@@ -1567,11 +1631,11 @@ params = {
         prepChart('chart-fft');
         Plotly.newPlot('chart-fft', [trace], layout({
           xaxis: {
-            type: 'log', gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            type: 'log', gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid,
             title: 'Period (hours)'
           },
           yaxis: {
-            type: 'log', gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
+            type: 'log', gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid,
             title: 'Power'
           },
           annotations: annotations,
@@ -1649,8 +1713,8 @@ params = {
         prepChart('chart-shap');
         Plotly.newPlot('chart-shap', [trace], layout({
           height: 420,
-          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Mean |SHAP Value|' },
-          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', automargin: true },
+          xaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, title: 'Mean |SHAP Value|' },
+          yaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, automargin: true },
           margin: { l: 160, r: 20, t: 10, b: 48 }
         }), PLOTLY_CONFIG);
       }
@@ -1684,8 +1748,8 @@ params = {
           height: 320,
           showlegend: true,
           legend: { x: 0.7, y: 0.95, bgcolor: 'rgba(0,0,0,0)', font: { size: 11 } },
-          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Boosting Round' },
-          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: d.metric || 'Loss' },
+          xaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, title: 'Boosting Round' },
+          yaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, title: d.metric || 'Loss' },
           margin: { l: 64, r: 20, t: 10, b: 48 }
         }), PLOTLY_CONFIG);
       }
@@ -1717,7 +1781,7 @@ params = {
           z: zNorm, x: cats, y: cats,
           type: 'heatmap',
           colorscale: [
-            [0, '#0e0e12'],
+            [0, chartThemeColors().bg],
             [0.25, 'rgba(59,130,246,0.15)'],
             [0.5, 'rgba(59,130,246,0.35)'],
             [0.75, 'rgba(59,130,246,0.6)'],
@@ -1736,7 +1800,7 @@ params = {
               x: cats[j], y: cats[i],
               text: String(cm[i][j]),
               showarrow: false,
-              font: { color: zNorm[i][j] > 0.5 ? '#fff' : '#b0b0b8', size: 14, weight: 600 }
+              font: { color: zNorm[i][j] > 0.5 ? '#fff' : chartThemeColors().text, size: 14, weight: 600 }
             });
           }
         }
@@ -1747,8 +1811,8 @@ params = {
         prepChart('chart-cm');
         Plotly.newPlot('chart-cm', [trace], layout({
           height: 340,
-          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Predicted', side: 'bottom' },
-          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Actual', autorange: 'reversed' },
+          xaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, title: 'Predicted', side: 'bottom' },
+          yaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, title: 'Actual', autorange: 'reversed' },
           annotations: annotations.concat([{
             text: accText, xref: 'paper', yref: 'paper',
             x: 1, y: 1.1, showarrow: false,
@@ -1788,15 +1852,15 @@ params = {
           marker: { color: colors, line: { width: 0 }, opacity: 0.9 },
           text: models.map(function (v) { return v.toFixed(1) + '%'; }),
           textposition: 'outside',
-          textfont: { color: '#b0b0b8', size: 12 },
+          textfont: { color: chartThemeColors().text, size: 12 },
           hovertemplate: '%{x}<br>Accuracy: %{y:.1f}%<extra></extra>'
         };
 
         prepChart('chart-nea');
         Plotly.newPlot('chart-nea', [trace], layout({
           height: 320,
-          xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24' },
-          yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Accuracy (%)', range: [0, 100] },
+          xaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid },
+          yaxis: { gridcolor: chartThemeColors().grid, zerolinecolor: chartThemeColors().grid, title: 'Accuracy (%)', range: [0, 100] },
           margin: { l: 56, r: 20, t: 30, b: 40 }
         }), PLOTLY_CONFIG);
       }
@@ -1889,5 +1953,33 @@ params = {
       }
     })();
     </script>
+  <script>
+function relayoutAllCharts() {
+  var c = chartThemeColors();
+  document.querySelectorAll('.js-plotly-plot').forEach(function(el) {
+    var update = {
+      paper_bgcolor: c.bg,
+      plot_bgcolor: c.bg,
+      'font.color': c.text,
+    };
+    var layout = el.layout || {};
+    for (var key in layout) {
+      if (key.startsWith('xaxis') || key.startsWith('yaxis')) {
+        update[key + '.gridcolor'] = c.grid;
+        update[key + '.zerolinecolor'] = c.grid;
+      }
+    }
+    try { Plotly.relayout(el, update); } catch(e) {}
+  });
+}
+
+function toggleTheme() {
+  var html = document.documentElement;
+  var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.querySelector('.theme-label').textContent = next === 'dark' ? 'Dark' : 'Light';
+  relayoutAllCharts();
+}
+</script>
   </body>
 </html>
