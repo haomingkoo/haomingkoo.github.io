@@ -1,5 +1,18 @@
 [
   {
+    "slug": "wmss-demo",
+    "title": "Visualizing Weak-Driven Learning: An Interactive WMSS Demo",
+    "date": "2026-03-13",
+    "tags": [
+      "Research",
+      "ML",
+      "Visualization"
+    ],
+    "excerpt": "Interactive walkthrough of the WMSS paper — from SFT saturation to logit mixing and gradient amplification. Play with lambda sliders, watch training curves, and understand how weak agents make strong agents stronger.",
+    "cover": "",
+    "readingTime": "10 min"
+  },
+  {
     "slug": "photo-id-studio",
     "title": "How 468 Facial Landmarks Decide If You're Passport-Ready",
     "date": "2026-03-12",

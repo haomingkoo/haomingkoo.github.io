@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WMSS Interactive Demo — Weak-Driven Learning</title>
+  <meta name="description" content="Interactive visualization of WMSS: how weak agents make strong agents stronger through logit mixing and curriculum-enhanced training.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+  <style>
+/* ── Theme Variables ──────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg: #060608;
+  --surface: #0e0e12;
+  --surface-hover: #141418;
+  --border: #1c1c24;
+  --border-hover: #2a2a36;
+  --accent: #3b82f6;
+  --accent-dim: rgba(59,130,246,0.10);
+  --accent-glow: rgba(59,130,246,0.25);
+  --text: #eeeef0;
+  --text-secondary: #b0b0b8;
+  --muted: #64647a;
+  --live: #22c55e;
+  --purple: #a855f7;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --nav-bg: rgba(6,6,8,0.85);
+  --code-bg: rgba(255,255,255,0.04);
+}
+[data-theme="light"] {
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --surface-hover: #f1f3f5;
+  --border: #dde1e6;
+  --border-hover: #c1c7cf;
+  --accent: #2563eb;
+  --accent-dim: rgba(37,99,235,0.08);
+  --accent-glow: rgba(37,99,235,0.18);
+  --text: #111827;
+  --text-secondary: #4b5563;
+  --muted: #9ca3af;
+  --live: #16a34a;
+  --purple: #7c3aed;
+  --amber: #d97706;
+  --red: #dc2626;
+  --nav-bg: rgba(248,249,251,0.88);
+  --code-bg: rgba(0,0,0,0.04);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"Inter",system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.7;
+  min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:background .35s,color .35s;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(59,130,246,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 20%,rgba(168,85,247,0.04) 0%,transparent 50%);
+  transition:opacity .35s;
+}
+[data-theme="light"] body::before{opacity:0.3}
+a{color:var(--accent);text-decoration:none}
+code,.mono{font-family:"JetBrains Mono",monospace;font-size:0.88em}
+.container{max-width:900px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* ── Nav ──────────────────────────────────────────────────────────── */
+.nav{
+  position:fixed;top:0;width:100%;z-index:100;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:var(--nav-bg);border-bottom:1px solid var(--border);
+  transition:background .35s,border-color .35s;
+}
+.nav-inner{
+  max-width:900px;margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;height:56px;gap:16px;
+}
+.nav-logo{
+  font-weight:800;font-size:18px;color:var(--text);
+  letter-spacing:-0.5px;text-decoration:none;
+}
+.nav-title{flex:1;font-size:14px;color:var(--muted);font-weight:500}
+.theme-btn{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:6px 10px;cursor:pointer;
+  color:var(--text);display:flex;align-items:center;gap:6px;
+  font-size:12px;font-family:inherit;transition:all .2s;
+}
+.theme-btn:hover{border-color:var(--border-hover);background:var(--surface-hover)}
+.theme-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+.hero{
+  min-height:92vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:80px 24px 60px;position:relative;
+}
+.hero-badge{
+  display:inline-block;padding:4px 14px;border-radius:20px;
+  background:var(--accent-dim);color:var(--accent);
+  font-size:12px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;
+  margin-bottom:20px;border:1px solid rgba(59,130,246,0.15);
+}
+.hero h1{
+  font-size:clamp(36px,6vw,64px);font-weight:800;letter-spacing:-1.5px;
+  line-height:1.1;margin-bottom:16px;
+  background:linear-gradient(135deg,var(--text) 30%,var(--accent) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{font-size:clamp(16px,2.5vw,22px);color:var(--text-secondary);font-weight:500;margin-bottom:10px}
+.hero-meta{font-size:13px;color:var(--muted);margin-bottom:40px}
+.hero-meta a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.hero-meta a:hover{color:var(--accent)}
+.scroll-hint{
+  font-size:12px;color:var(--muted);
+  animation:bobDown 2s ease-in-out infinite;
+}
+.scroll-hint span{display:block;margin-top:4px;font-size:18px}
+@keyframes bobDown{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── Sections ─────────────────────────────────────────────────────── */
+.section{padding:80px 0;border-top:1px solid var(--border);position:relative}
+.section-num{
+  font-size:12px;font-weight:700;color:var(--accent);
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;
+}
+.section-title{
+  font-size:clamp(24px,4vw,36px);font-weight:700;letter-spacing:-0.5px;
+  margin-bottom:16px;line-height:1.2;
+}
+.section-desc{color:var(--text-secondary);font-size:15px;max-width:640px;margin-bottom:32px}
+
+/* ── Viz Panel ────────────────────────────────────────────────────── */
+.viz{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:28px 24px;margin:24px 0;
+  transition:background .35s,border-color .35s;
+  position:relative;overflow:hidden;
+}
+.viz::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent-glow),transparent);
+}
+.viz-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:20px}
+.viz-row{display:flex;gap:20px;flex-wrap:wrap}
+.viz-col{flex:1;min-width:200px}
+
+/* ── Bar Charts ───────────────────────────────────────────────────── */
+.chart{margin-bottom:24px}
+.chart-label{font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.chart-label .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:130px;padding:0 4px}
+.bar-col{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0}
+.bar-val{
+  font-size:10px;font-family:"JetBrains Mono",monospace;
+  color:var(--text-secondary);margin-bottom:4px;
+  height:16px;white-space:nowrap;transition:color .2s;
+}
+.bar-track{width:100%;height:100px;display:flex;align-items:flex-end;position:relative}
+.bar-fill{
+  width:100%;border-radius:4px 4px 0 0;
+  transition:height .45s cubic-bezier(.4,0,.2,1),background .3s;
+  min-height:2px;position:relative;
+}
+.bar-fill.highlight::after{
+  content:"★";position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+  font-size:10px;color:var(--amber);
+}
+.bar-lbl{
+  font-size:11px;color:var(--muted);margin-top:6px;
+  font-family:"JetBrains Mono",monospace;
+}
+/* Comparison bars: two side-by-side within one column */
+.bar-pair{display:flex;gap:2px;width:100%;height:100px;align-items:flex-end}
+.bar-pair .bar-fill{flex:1;border-radius:3px 3px 0 0}
+
+/* ── Controls ─────────────────────────────────────────────────────── */
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:16px 0}
+.btn{
+  padding:8px 18px;border-radius:10px;border:1px solid var(--border);
+  background:var(--surface);color:var(--text);font-size:13px;
+  font-family:inherit;font-weight:500;cursor:pointer;
+  transition:all .2s;display:inline-flex;align-items:center;gap:6px;
+}
+.btn:hover{border-color:var(--border-hover);background:var(--surface-hover)}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{filter:brightness(1.15)}
+.btn-sm{padding:5px 12px;font-size:12px;border-radius:8px}
+.btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+.btn:disabled{opacity:0.4;cursor:not-allowed}
+
+/* Slider */
+.slider-wrap{display:flex;align-items:center;gap:12px;margin:12px 0}
+.slider-label{font-size:13px;font-weight:500;color:var(--text-secondary);min-width:30px}
+.slider-val{font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:600;color:var(--accent);min-width:40px}
+input[type="range"]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:6px;border-radius:3px;outline:none;
+  background:var(--border);cursor:pointer;flex:1;
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:20px;
+  border-radius:50%;background:var(--accent);cursor:pointer;
+  box-shadow:0 0 0 4px var(--accent-dim);transition:box-shadow .2s;
+}
+input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accent-glow)}
+
+/* ── Info Boxes ───────────────────────────────────────────────────── */
+.insight{
+  padding:16px 20px;border-radius:12px;margin:20px 0;
+  border-left:3px solid var(--accent);
+  background:var(--accent-dim);font-size:14px;
+}
+.insight.warn{border-left-color:var(--amber);background:rgba(245,158,11,0.06)}
+.insight.success{border-left-color:var(--live);background:rgba(34,197,94,0.06)}
+.stat-row{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}
+.stat-card{
+  flex:1;min-width:120px;padding:14px 16px;border-radius:12px;
+  background:var(--surface);border:1px solid var(--border);text-align:center;
+}
+.stat-val{font-size:24px;font-weight:700;font-family:"JetBrains Mono",monospace}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ── Pipeline Diagram ─────────────────────────────────────────────── */
+.pipeline{display:flex;align-items:center;gap:0;margin:24px 0;flex-wrap:wrap;justify-content:center}
+.pipe-node{
+  padding:14px 20px;border-radius:12px;border:2px solid var(--border);
+  background:var(--surface);text-align:center;min-width:120px;
+  transition:all .4s;position:relative;
+}
+.pipe-node.active{border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow)}
+.pipe-node.done{border-color:var(--live);opacity:0.7}
+.pipe-node-title{font-size:13px;font-weight:600;color:var(--text)}
+.pipe-node-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.pipe-arrow{
+  width:40px;height:2px;background:var(--border);position:relative;
+  flex-shrink:0;transition:background .4s;
+}
+.pipe-arrow::after{
+  content:"";position:absolute;right:-1px;top:-4px;
+  border:5px solid transparent;border-left:6px solid var(--border);
+  transition:border-color .4s;
+}
+.pipe-arrow.active{background:var(--accent)}
+.pipe-arrow.active::after{border-left-color:var(--accent)}
+
+/* ── Line Chart (SVG) ─────────────────────────────────────────────── */
+.line-chart-wrap{position:relative;width:100%;padding-top:50%;margin:24px 0}
+.line-chart-wrap svg{position:absolute;top:0;left:0;width:100%;height:100%}
+
+/* ── Curriculum Cards ─────────────────────────────────────────────── */
+.sample-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
+.sample-card{
+  padding:12px;border-radius:10px;border:2px solid var(--border);
+  background:var(--surface);text-align:center;
+  transition:all .4s;
+}
+.sample-card .s-text{font-size:11px;color:var(--muted);margin-bottom:6px;font-style:italic}
+.sample-card .s-weight{
+  font-size:20px;font-weight:700;font-family:"JetBrains Mono",monospace;
+  transition:color .3s;
+}
+.sample-card .s-type{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
+.sample-card.consolidation{border-color:var(--accent)}
+.sample-card.regression{border-color:var(--amber)}
+.sample-card.easy{border-color:var(--border);opacity:0.6}
+
+/* ── Scroll Reveal ────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+
+/* ── Saturation Indicator ─────────────────────────────────────────── */
+.saturated-tag{
+  display:inline-block;padding:3px 10px;border-radius:6px;
+  background:rgba(239,68,68,0.1);color:var(--red);
+  font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+  animation:pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ── Footer ───────────────────────────────────────────────────────── */
+.footer{
+  padding:40px 0;border-top:1px solid var(--border);
+  text-align:center;color:var(--muted);font-size:13px;
+}
+.footer a{color:var(--text-secondary)}
+
+/* ── Math ─────────────────────────────────────────────────────────── */
+.math-block{
+  padding:16px 20px;border-radius:10px;background:var(--code-bg);
+  margin:16px 0;overflow-x:auto;text-align:center;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media(max-width:640px){
+  .viz-row{flex-direction:column}
+  .chart-bars{height:100px;gap:4px}
+  .bar-track,.bar-pair{height:80px}
+  .pipeline{flex-direction:column;gap:12px}
+  .pipe-arrow{width:2px;height:24px}
+  .pipe-arrow::after{right:auto;top:auto;bottom:-1px;left:-4px;border:5px solid transparent;border-top:6px solid var(--border)}
+  .pipe-arrow.active::after{border-top-color:var(--accent);border-left-color:transparent}
+  .stat-row{flex-direction:column}
+  .hero{min-height:80vh;padding-top:70px}
+  .section{padding:50px 0}
+}
+
+/* ── Extras ───────────────────────────────────────────────────────── */
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.tag{
+  font-size:11px;padding:3px 10px;border-radius:6px;
+  background:var(--accent-dim);color:var(--accent);font-weight:500;
+}
+.tag.purple{background:rgba(168,85,247,0.08);color:var(--purple)}
+.tag.amber{background:rgba(245,158,11,0.08);color:var(--amber)}
+.hidden{display:none!important}
+.text-accent{color:var(--accent)}
+.text-purple{color:var(--purple)}
+.text-amber{color:var(--amber)}
+.text-live{color:var(--live)}
+.text-red{color:var(--red)}
+.text-muted{color:var(--muted)}
+.fw600{font-weight:600}
+.mt16{margin-top:16px}.mb8{margin-bottom:8px}
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     NAV
+     ════════════════════════════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">HK</a>
+    <span class="nav-title">WMSS &mdash; Weak-Driven Learning Demo</span>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" class="icon-theme">
+        <circle cx="12" cy="12" r="5" stroke-width="2"/>
+        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <span class="theme-label">Dark</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-badge">Interactive Demo</div>
+  <h1>Weak-Driven<br>Learning</h1>
+  <p class="hero-sub">How Weak Agents Make Strong Agents Stronger</p>
+  <p class="hero-meta">Based on <a href="https://arxiv.org/abs/2602.08222" target="_blank">Chen et al. (2026)</a> &middot; arXiv:2602.08222</p>
+  <div class="tag-row" style="justify-content:center">
+    <span class="tag">Post-Training</span>
+    <span class="tag purple">Logit Mixing</span>
+    <span class="tag amber">Gradient Amplification</span>
+  </div>
+  <div class="scroll-hint" style="margin-top:40px">
+    Scroll to explore the full pipeline
+    <span>&darr;</span>
+  </div>
+</header>
+
+<main>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SECTION 1 — The Journey Overview
+     ════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="s-overview">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Overview</div>
+      <h2 class="section-title">The Journey of a Language Model</h2>
+      <p class="section-desc">From raw text to saturation, and how WMSS breaks through.</p>
+    </div>
+    <div class="pipeline reveal reveal-d1" id="overview-pipeline">
+      <div class="pipe-node" data-step="0">
+        <div class="pipe-node-title">Pre-training</div>
+        <div class="pipe-node-sub">Learn language</div>
+      </div>
+      <div class="pipe-arrow"></div>
+      <div class="pipe-node" data-step="1">
+        <div class="pipe-node-title">SFT</div>
+        <div class="pipe-node-sub">Learn the task</div>
+      </div>
+      <div class="pipe-arrow"></div>
+      <div class="pipe-node" data-step="2">
+        <div class="pipe-node-title" style="color:var(--red)">Saturation</div>
+        <div class="pipe-node-sub">Gradients vanish</div>
+      </div>
+      <div class="pipe-arrow"></div>
+      <div class="pipe-node" data-step="3">
+        <div class="pipe-node-title" style="color:var(--live)">WMSS</div>
+        <div class="pipe-node-sub">Weak drives strong</div>
+      </div>
+    </div>
+
+    <div class="insight reveal reveal-d2">
+      <strong>The core idea:</strong> Instead of learning from a stronger teacher (knowledge distillation),
+      WMSS uses a <em>weaker</em> historical checkpoint to inject structured uncertainty that reactivates
+      vanishing gradients and drives the strong model to keep improving.
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SECTION 2 — Pre-training & Next-Token Prediction
+     ════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="s-pretrain">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Phase 0</div>
+      <h2 class="section-title">Pre-training: Learning Language</h2>
+      <p class="section-desc">The base model learns to predict the next token from a huge text corpus. Its predictions start nearly uniform across the vocabulary.</p>
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Next-Token Prediction</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+        Context: <code>"The cat sat on the"</code> &rarr; predict next token from vocabulary:
+        <code>["cat", "dog", "car", "hat", "the"]</code>
+      </p>
+      <div class="chart">
+        <div class="chart-label"><span class="dot" style="background:var(--muted)"></span> Base Model Probabilities (nearly uniform)</div>
+        <div class="chart-bars" id="pretrain-bars"></div>
+      </div>
+      <div class="insight" style="margin-top:12px">
+        The base model assigns roughly equal probability to all tokens. It has learned language patterns but hasn't been fine-tuned for any specific task.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SECTION 3 — SFT & Saturation (Interactive)
+     ════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="s-sft">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Phase 1</div>
+      <h2 class="section-title">Supervised Fine-Tuning &amp; Saturation</h2>
+      <p class="section-desc">
+        SFT sharpens the model's predictions toward the correct answer. But once the model becomes
+        highly confident, <strong>gradients vanish</strong> and training stalls.
+      </p>
+    </div>
+
+    <div class="math-block reveal">
+      $$\mathcal{L}_{\text{SFT}} = -\log P_\theta(y \mid x) \qquad \frac{\partial \mathcal{L}}{\partial z_k} = P_\theta(k \mid x) \;\; \text{for } k \neq y$$
+    </div>
+    <p class="reveal text-muted" style="text-align:center;font-size:13px;margin-bottom:24px">
+      The gradient on non-target tokens equals their probability &mdash; as $P(k|x) \to 0$, the gradient vanishes.
+    </p>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Interactive SFT Training</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">
+        Target token: <strong class="text-accent">"cat"</strong> &mdash; click Step to train
+      </p>
+
+      <div class="viz-row">
+        <div class="viz-col">
+          <div class="chart">
+            <div class="chart-label"><span class="dot" style="background:var(--accent)"></span> Probabilities $P(k|x)$</div>
+            <div class="chart-bars" id="sft-prob-bars"></div>
+          </div>
+        </div>
+        <div class="viz-col">
+          <div class="chart">
+            <div class="chart-label"><span class="dot" style="background:var(--live)"></span> Gradient Magnitude $|\nabla_{z_k}|$</div>
+            <div class="chart-bars" id="sft-grad-bars"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-primary" id="sft-step-btn" onclick="sftStep()">Step</button>
+        <button class="btn" onclick="sftReset()">Reset</button>
+        <span class="mono" style="font-size:13px;color:var(--muted)" id="sft-step-label">Epoch 0 / 6</span>
+        <span id="sft-saturated" class="saturated-tag hidden">SATURATED</span>
+      </div>
+
+      <div class="stat-row" id="sft-stats">
+        <div class="stat-card">
+          <div class="stat-val text-accent" id="sft-target-p">—</div>
+          <div class="stat-lbl">P(cat)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val text-live" id="sft-total-grad">—</div>
+          <div class="stat-lbl">Total ∇ (non-target)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val text-amber" id="sft-entropy">—</div>
+          <div class="stat-lbl">Entropy H</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SECTION 4 — Meet the Agents
+     ════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="s-agents">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Phase 2</div>
+      <h2 class="section-title">Weak Agent vs Strong Agent</h2>
+      <p class="section-desc">
+        WMSS saves an earlier checkpoint as the <span class="text-purple fw600">Weak Agent</span> and
+        continues training the current model as the <span class="text-accent fw600">Strong Agent</span>.
+        The weak agent retains a softer decision boundary with probability mass on &ldquo;hard negatives.&rdquo;
+      </p>
+    </div>
+
+    <div class="math-block reveal">
+      $$M_{\text{weak}} \leftarrow M_0 \quad(\text{base checkpoint}), \qquad M_{\text{strong}} \leftarrow M_1 \quad(\text{after SFT})$$
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Side-by-Side Comparison</div>
+      <div class="controls" style="margin-bottom:16px">
+        <button class="btn btn-sm active" id="agents-logits-btn" onclick="agentsView('logits')">Logits</button>
+        <button class="btn btn-sm" id="agents-probs-btn" onclick="agentsView('probs')">Probabilities</button>
+      </div>
+      <div class="viz-row">
+        <div class="viz-col">
+          <div class="chart">
+            <div class="chart-label"><span class="dot" style="background:var(--purple)"></span> Weak Agent <span class="mono text-muted" style="font-size:11px">(checkpoint $M_0$)</span></div>
+            <div class="chart-bars" id="weak-bars"></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-card"><div class="stat-val text-purple" id="weak-entropy">—</div><div class="stat-lbl">Entropy H</div></div>
+          </div>
+        </div>
+        <div class="viz-col">
+          <div class="chart">
+            <div class="chart-label"><span class="dot" style="background:var(--accent)"></span> Strong Agent <span class="mono text-muted" style="font-size:11px">(after SFT $M_1$)</span></div>
+            <div class="chart-bars" id="strong-bars"></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-card"><div class="stat-val text-accent" id="strong-entropy">—</div><div class="stat-lbl">Entropy H</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="insight" style="margin-top:12px">
+        Notice: the weak agent assigns significant probability to <strong>"dog"</strong> and <strong>"hat"</strong> &mdash;
+        these are <em>hard negatives</em>, plausible but incorrect tokens that the strong agent has suppressed.
+        WMSS will use these signals.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SECTION 5 — Curriculum-Enhanced Data Activation
+     ════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="s-curriculum">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Phase 2A</div>
+      <h2 class="section-title">Curriculum-Enhanced Data Activation</h2>
+      <p class="section-desc">
+        Not all training samples are equally useful. WMSS uses entropy dynamics between weak
+        and strong agents to weight samples by three signals: base difficulty, consolidation, and
+        regression repair.
+      </p>
+    </div>
+
+    <div class="math-block reveal">
+      $$p_i \;\propto\; \alpha \cdot H(M_{\text{weak}};\,x_i) \;+\; \beta \cdot [-\Delta H_i]_+ \;+\; \gamma \cdot [\Delta H_i]_+ \qquad \Delta H_i = H(M_{\text{strong}}) - H(M_{\text{weak}})$$
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Sample Weighting</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px">
+        <div class="slider-wrap" style="flex:1;min-width:160px">
+          <span class="slider-label">$\alpha$</span>
+          <input type="range" min="0" max="2" step="0.1" value="1" id="curr-alpha" oninput="updateCurriculum()">
+          <span class="slider-val" id="curr-alpha-val">1.0</span>
+        </div>
+        <div class="slider-wrap" style="flex:1;min-width:160px">
+          <span class="slider-label">$\beta$</span>
+          <input type="range" min="0" max="2" step="0.1" value="1" id="curr-beta" oninput="updateCurriculum()">
+          <span class="slider-val" id="curr-beta-val">1.0</span>
+        </div>
+        <div class="slider-wrap" style="flex:1;min-width:160px">
+          <span class="slider-label">$\gamma$</span>
+          <input type="range" min="0" max="2" step="0.1" value="1" id="curr-gamma" oninput="updateCurriculum()">
+          <span class="slider-val" id="curr-gamma-val">1.0</span>
+        </div>
+      </div>
+
+      <div class="sample-grid" id="sample-grid"></div>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:12px">
+        <span><span class="dot" style="background:var(--accent);display:inline-block;width:8px;height:8px;border-radius:50%"></span> Consolidation ($\Delta H < 0$)</span>
+        <span><span class="dot" style="background:var(--amber);display:inline-block;width:8px;height:8px;border-radius:50%"></span> Regression Repair ($\Delta H > 0$)</span>
+        <span><span class="dot" style="background:var(--muted);display:inline-block;width:8px;height:8px;border-radius:50%"></span> Low weight</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SECTION 6 — Logit Mixing (THE CORE)
+     ════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="s-mixing">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Phase 2B &mdash; The Core</div>
+      <h2 class="section-title">Joint Training via Logit Mixing</h2>
+      <p class="section-desc">
+        The heart of WMSS: mix the weak agent's logits with the strong agent's logits to create
+        a joint distribution. This reintroduces probability mass on hard negatives, amplifying
+        gradients that had vanished.
+      </p>
+    </div>
+
+    <div class="math-block reveal">
+      $$z_{\text{mix}} = \lambda \cdot z_{\text{strong}} + (1 - \lambda) \cdot z_{\text{weak}} \qquad \mathcal{L}_{\text{mix}} = -\log P_{\text{mix}}(y \mid x)$$
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Interactive Logit Mixing</div>
+
+      <!-- Lambda Slider -->
+      <div class="slider-wrap" style="margin-bottom:4px">
+        <span class="slider-label" style="font-weight:600">$\lambda$</span>
+        <input type="range" min="0" max="1" step="0.01" value="0.70" id="lambda-slider" oninput="updateMixing()">
+        <span class="slider-val" id="lambda-val">0.70</span>
+      </div>
+      <div class="controls" style="margin-top:0;margin-bottom:20px">
+        <button class="btn btn-sm" onclick="setLambda(1)">$\lambda$=1 (pure strong)</button>
+        <button class="btn btn-sm active" onclick="setLambda(0.7)">$\lambda$=0.7</button>
+        <button class="btn btn-sm" onclick="setLambda(0.5)">$\lambda$=0.5</button>
+        <button class="btn btn-sm" onclick="setLambda(0.3)">$\lambda$=0.3</button>
+        <button class="btn btn-sm" onclick="setLambda(0)">$\lambda$=0 (pure weak)</button>
+      </div>
+
+      <!-- Three logit bar groups -->
+      <div class="viz-row">
+        <div class="viz-col">
+          <div class="chart">
+            <div class="chart-label"><span class="dot" style="background:var(--accent)"></span> Strong Logits</div>
+            <div class="chart-bars" id="mix-strong-bars"></div>
+          </div>
+        </div>
+        <div class="viz-col">
+          <div class="chart">
+            <div class="chart-label"><span class="dot" style="background:var(--purple)"></span> Weak Logits</div>
+            <div class="chart-bars" id="mix-weak-bars"></div>
+          </div>
+        </div>
+        <div class="viz-col">
+          <div class="chart">
+            <div class="chart-label"><span class="dot" style="background:var(--amber)"></span> Mixed Logits ($z_{\text{mix}}$)</div>
+            <div class="chart-bars" id="mix-mixed-bars"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Probability Comparison -->
+      <div style="margin-top:20px">
+        <div class="chart-label"><span class="dot" style="background:var(--accent)"></span> $P_{\text{strong}}$ &nbsp;vs&nbsp; <span class="dot" style="background:var(--amber)"></span> $P_{\text{mix}}$ — Probability Comparison</div>
+        <div class="chart-bars" id="mix-prob-compare" style="height:110px"></div>
+      </div>
+
+      <!-- Gradient Comparison -->
+      <div style="margin-top:20px">
+        <div class="chart-label"><span class="dot" style="background:var(--accent)"></span> $\nabla_{\text{strong}}$ &nbsp;vs&nbsp; <span class="dot" style="background:var(--amber)"></span> $\nabla_{\text{mix}}$ — Gradient Magnitudes (non-target tokens)</div>
+        <div class="chart-bars" id="mix-grad-compare" style="height:110px"></div>
+      </div>
+
+      <!-- Amplification Stats -->
+      <div class="stat-row" style="margin-top:16px">
+        <div class="stat-card">
+          <div class="stat-val text-accent" id="mix-grad-strong">—</div>
+          <div class="stat-lbl">Total ∇ (strong only)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val text-amber" id="mix-grad-mixed">—</div>
+          <div class="stat-lbl">Total ∇ (mixed)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val text-live" id="mix-amplification">—</div>
+          <div class="stat-lbl">Amplification</div>
+        </div>
+      </div>
+
+      <div class="insight success" style="margin-top:16px">
+        <strong>Key insight:</strong> As $\lambda$ decreases, the weak agent's softer distribution
+        injects more probability mass onto hard negatives. This directly amplifies gradient magnitudes
+        via $\frac{\partial\mathcal{L}}{\partial z_k} = P_{\text{mix}}(k|x)$, reactivating learning
+        in saturated regions.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SECTION 7 — Full Algorithm Pipeline
+     ════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="s-pipeline">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Algorithm 1</div>
+      <h2 class="section-title">The Complete Pipeline</h2>
+      <p class="section-desc">WMSS follows three phases. Watch the algorithm execute step by step.</p>
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">WMSS Pipeline Animation</div>
+
+      <div class="pipeline" id="algo-pipeline">
+        <div class="pipe-node" id="algo-n0">
+          <div class="pipe-node-title">Base Model $M_0$</div>
+          <div class="pipe-node-sub">Random init</div>
+        </div>
+        <div class="pipe-arrow" id="algo-a0"></div>
+        <div class="pipe-node" id="algo-n1">
+          <div class="pipe-node-title">SFT &rarr; $M_1$</div>
+          <div class="pipe-node-sub">Phase 1: Init</div>
+        </div>
+        <div class="pipe-arrow" id="algo-a1"></div>
+        <div class="pipe-node" id="algo-n2">
+          <div class="pipe-node-title">Curriculum</div>
+          <div class="pipe-node-sub">Phase 2A: $\Delta H$</div>
+        </div>
+        <div class="pipe-arrow" id="algo-a2"></div>
+        <div class="pipe-node" id="algo-n3">
+          <div class="pipe-node-title">Logit Mix</div>
+          <div class="pipe-node-sub">Phase 2B: $z_{\text{mix}}$</div>
+        </div>
+        <div class="pipe-arrow" id="algo-a3"></div>
+        <div class="pipe-node" id="algo-n4">
+          <div class="pipe-node-title" style="color:var(--live)">$M_{\text{strong}}^+$</div>
+          <div class="pipe-node-sub">Stronger!</div>
+        </div>
+      </div>
+
+      <div class="controls" style="justify-content:center;margin-top:20px">
+        <button class="btn btn-primary" id="algo-play-btn" onclick="playPipeline()">Play Pipeline</button>
+        <button class="btn" onclick="resetPipeline()">Reset</button>
+      </div>
+
+      <div id="algo-description" class="insight" style="margin-top:16px;min-height:60px;transition:opacity .3s">
+        Click <strong>Play Pipeline</strong> to watch WMSS execute step by step.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SECTION 8 — Results: Breaking the Ceiling
+     ════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="s-results">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Results</div>
+      <h2 class="section-title">Breaking the Saturation Ceiling</h2>
+      <p class="section-desc">
+        While standard SFT plateaus, WMSS continues to improve &mdash; at
+        <strong>zero additional inference cost</strong>.
+      </p>
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Training Curves: SFT vs WMSS</div>
+      <div class="line-chart-wrap" id="results-chart-wrap">
+        <svg viewBox="0 0 600 300" id="results-svg" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div style="display:flex;gap:20px;justify-content:center;font-size:13px;margin-top:8px">
+        <span><span class="dot" style="background:var(--accent);display:inline-block;width:8px;height:8px;border-radius:50%"></span> Standard SFT</span>
+        <span><span class="dot" style="background:var(--amber);display:inline-block;width:8px;height:8px;border-radius:50%"></span> WMSS (Weak-Driven)</span>
+      </div>
+      <div class="controls" style="justify-content:center;margin-top:12px">
+        <button class="btn btn-primary" id="results-play-btn" onclick="animateResults()">Animate</button>
+        <button class="btn" onclick="resetResults()">Reset</button>
+      </div>
+    </div>
+
+    <div class="insight success reveal reveal-d2">
+      <strong>Key result:</strong> WMSS achieves effective performance improvements on mathematical reasoning
+      (GSM8K, MATH) and code generation (HumanEval, MBPP) benchmarks, purely from improved optimization
+      dynamics during training &mdash; no additional inference cost.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <p>Interactive demo by <a href="/">Haoming Koo</a> &middot;
+    Paper: <a href="https://arxiv.org/abs/2602.08222" target="_blank">WMSS (Chen et al., 2026)</a> &middot;
+    Code: <a href="https://github.com/chenzehao82/Weak-Driven-Learning" target="_blank">GitHub</a></p>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ════════════════════════════════════════════════════════════════════ -->
+<script>
+// ── Constants ────────────────────────────────────────────────────────
+const VOCAB = ["cat", "dog", "car", "hat", "the"];
+const TARGET = 0; // "cat"
+const COLORS = {
+  strong: 'var(--accent)',
+  weak: 'var(--purple)',
+  mixed: 'var(--amber)',
+  grad: 'var(--live)',
+  muted: 'var(--muted)',
+};
+
+// Training progression logits
+const SFT_STEPS = [
+  [0.5,  0.3,  0.4,  0.2,  0.6],   // step 0: base (nearly uniform)
+  [1.5,  0.8,  0.3,  0.9,  0.1],   // step 1
+  [2.5,  0.5,  0.0,  0.7, -0.3],   // step 2
+  [3.5,  0.3, -0.3,  0.5, -0.8],   // step 3
+  [4.2,  0.2, -0.5,  0.3, -1.0],   // step 4 (strong agent)
+  [4.5,  0.15,-0.55, 0.25, -1.1],  // step 5 (barely changed)
+  [4.6,  0.12,-0.58, 0.22, -1.15], // step 6 (saturated)
+];
+
+const WEAK_LOGITS  = SFT_STEPS[2]; // checkpoint from step 2
+const STRONG_LOGITS = SFT_STEPS[4]; // after full SFT
+
+// Curriculum samples
+const SAMPLES = [
+  { text: '"2+3=5"',      hWeak: 0.3, hStrong: 0.1, type: 'easy' },
+  { text: '"∫sin(x)dx"',  hWeak: 1.8, hStrong: 1.6, type: 'hard' },
+  { text: '"lim x→0"',    hWeak: 1.2, hStrong: 0.4, type: 'consolidation' },
+  { text: '"def fib(n)"', hWeak: 0.8, hStrong: 1.3, type: 'regression' },
+  { text: '"P(A|B)="',    hWeak: 1.0, hStrong: 0.7, type: 'consolidation' },
+  { text: '"∇·F = 0"',    hWeak: 1.5, hStrong: 1.9, type: 'regression' },
+];
+
+// ── Math Utilities ───────────────────────────────────────────────────
+function softmax(logits) {
+  const max = Math.max(...logits);
+  const exps = logits.map(z => Math.exp(z - max));
+  const sum = exps.reduce((a, b) => a + b, 0);
+  return exps.map(e => e / sum);
+}
+
+function mixLogits(strong, weak, lambda) {
+  return strong.map((s, i) => lambda * s + (1 - lambda) * weak[i]);
+}
+
+function entropy(probs) {
+  return -probs.reduce((h, p) => h + (p > 1e-10 ? p * Math.log2(p) : 0), 0);
+}
+
+function gradients(probs, targetIdx) {
+  return probs.map((p, i) => i === targetIdx ? p - 1 : p);
+}
+
+// ── Bar Chart Engine ─────────────────────────────────────────────────
+function renderBars(containerId, data, opts = {}) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const maxVal = opts.maxVal || Math.max(...data.map(d => Math.abs(d.value)), 0.01);
+  const barH = opts.barHeight || 100;
+
+  el.innerHTML = '';
+  data.forEach((d, i) => {
+    const col = document.createElement('div');
+    col.className = 'bar-col';
+
+    const val = document.createElement('div');
+    val.className = 'bar-val';
+    val.textContent = d.value.toFixed(opts.decimals ?? 3);
+    val.id = containerId + '-val-' + i;
+
+    if (opts.paired) {
+      // Two bars side by side
+      const pair = document.createElement('div');
+      pair.className = 'bar-pair';
+      pair.style.height = barH + 'px';
+
+      const fill1 = document.createElement('div');
+      fill1.className = 'bar-fill';
+      fill1.id = containerId + '-fill1-' + i;
+      const h1 = (Math.abs(d.value) / maxVal) * barH;
+      fill1.style.height = Math.max(2, h1) + 'px';
+      fill1.style.background = d.color || COLORS.strong;
+
+      const fill2 = document.createElement('div');
+      fill2.className = 'bar-fill';
+      fill2.id = containerId + '-fill2-' + i;
+      const h2 = (Math.abs(d.value2 || 0) / maxVal) * barH;
+      fill2.style.height = Math.max(2, h2) + 'px';
+      fill2.style.background = d.color2 || COLORS.mixed;
+
+      pair.append(fill1, fill2);
+      col.append(val, pair);
+    } else {
+      const track = document.createElement('div');
+      track.className = 'bar-track';
+      track.style.height = barH + 'px';
+
+      const fill = document.createElement('div');
+      fill.className = 'bar-fill';
+      fill.id = containerId + '-fill-' + i;
+      const h = (Math.abs(d.value) / maxVal) * barH;
+      fill.style.height = Math.max(2, h) + 'px';
+      fill.style.background = d.color || COLORS.strong;
+      if (d.highlight) fill.classList.add('highlight');
+
+      track.appendChild(fill);
+      col.append(val, track);
+    }
+
+    const lbl = document.createElement('div');
+    lbl.className = 'bar-lbl';
+    lbl.textContent = d.label;
+    col.appendChild(lbl);
+
+    el.appendChild(col);
+  });
+}
+
+function updateBars(containerId, data, opts = {}) {
+  const maxVal = opts.maxVal || Math.max(...data.map(d => Math.max(Math.abs(d.value), Math.abs(d.value2 || 0))), 0.01);
+  const barH = opts.barHeight || 100;
+
+  data.forEach((d, i) => {
+    const valEl = document.getElementById(containerId + '-val-' + i);
+    if (valEl) valEl.textContent = d.value.toFixed(opts.decimals ?? 3);
+
+    if (opts.paired) {
+      const f1 = document.getElementById(containerId + '-fill1-' + i);
+      const f2 = document.getElementById(containerId + '-fill2-' + i);
+      if (f1) {
+        f1.style.height = Math.max(2, (Math.abs(d.value) / maxVal) * barH) + 'px';
+        if (d.color) f1.style.background = d.color;
+      }
+      if (f2) {
+        f2.style.height = Math.max(2, (Math.abs(d.value2 || 0) / maxVal) * barH) + 'px';
+        if (d.color2) f2.style.background = d.color2;
+      }
+    } else {
+      const fill = document.getElementById(containerId + '-fill-' + i);
+      if (fill) {
+        fill.style.height = Math.max(2, (Math.abs(d.value) / maxVal) * barH) + 'px';
+        if (d.color) fill.style.background = d.color;
+      }
+    }
+  });
+}
+
+// ── Section: Pre-training ────────────────────────────────────────────
+function initPretrain() {
+  const probs = softmax(SFT_STEPS[0]);
+  renderBars('pretrain-bars', VOCAB.map((v, i) => ({
+    label: v, value: probs[i],
+    color: i === TARGET ? 'var(--accent)' : 'var(--muted)',
+    highlight: i === TARGET,
+  })), { maxVal: 0.35, decimals: 3 });
+}
+
+// ── Section: SFT Saturation ──────────────────────────────────────────
+let sftEpoch = 0;
+
+function sftRender() {
+  const logits = SFT_STEPS[sftEpoch];
+  const probs = softmax(logits);
+  const grads = gradients(probs, TARGET);
+
+  // Probability bars
+  const probData = VOCAB.map((v, i) => ({
+    label: v, value: probs[i],
+    color: i === TARGET ? 'var(--accent)' : 'var(--text-secondary)',
+    highlight: i === TARGET,
+  }));
+
+  // Gradient bars (absolute, non-target only)
+  const gradData = VOCAB.map((v, i) => ({
+    label: v,
+    value: i === TARGET ? 0 : Math.abs(grads[i]),
+    color: 'var(--live)',
+  }));
+
+  if (sftEpoch === 0) {
+    renderBars('sft-prob-bars', probData, { maxVal: 1.0, decimals: 3 });
+    renderBars('sft-grad-bars', gradData, { maxVal: 0.3, decimals: 4 });
+  } else {
+    updateBars('sft-prob-bars', probData, { maxVal: 1.0, decimals: 3 });
+    updateBars('sft-grad-bars', gradData, { maxVal: 0.3, decimals: 4 });
+  }
+
+  // Stats
+  document.getElementById('sft-target-p').textContent = probs[TARGET].toFixed(4);
+  const totalGrad = grads.reduce((s, g, i) => i === TARGET ? s : s + Math.abs(g), 0);
+  document.getElementById('sft-total-grad').textContent = totalGrad.toFixed(4);
+  document.getElementById('sft-entropy').textContent = entropy(probs).toFixed(3);
+  document.getElementById('sft-step-label').textContent = `Epoch ${sftEpoch} / ${SFT_STEPS.length - 1}`;
+
+  // Saturation indicator
+  const satEl = document.getElementById('sft-saturated');
+  if (sftEpoch >= 5) satEl.classList.remove('hidden');
+  else satEl.classList.add('hidden');
+
+  // Disable step button at end
+  document.getElementById('sft-step-btn').disabled = sftEpoch >= SFT_STEPS.length - 1;
+}
+
+function sftStep() {
+  if (sftEpoch < SFT_STEPS.length - 1) {
+    sftEpoch++;
+    sftRender();
+  }
+}
+
+function sftReset() {
+  sftEpoch = 0;
+  sftRender();
+}
+
+// ── Section: Agents ──────────────────────────────────────────────────
+let agentsMode = 'logits';
+
+function agentsView(mode) {
+  agentsMode = mode;
+  document.getElementById('agents-logits-btn').classList.toggle('active', mode === 'logits');
+  document.getElementById('agents-probs-btn').classList.toggle('active', mode === 'probs');
+  renderAgents();
+}
+
+function renderAgents() {
+  const weakProbs = softmax(WEAK_LOGITS);
+  const strongProbs = softmax(STRONG_LOGITS);
+  const isLogits = agentsMode === 'logits';
+
+  const weakData = VOCAB.map((v, i) => ({
+    label: v,
+    value: isLogits ? WEAK_LOGITS[i] : weakProbs[i],
+    color: i === TARGET ? 'var(--purple)' : 'rgba(168,85,247,0.4)',
+    highlight: i === TARGET,
+  }));
+  const strongData = VOCAB.map((v, i) => ({
+    label: v,
+    value: isLogits ? STRONG_LOGITS[i] : strongProbs[i],
+    color: i === TARGET ? 'var(--accent)' : 'rgba(59,130,246,0.4)',
+    highlight: i === TARGET,
+  }));
+
+  const maxVal = isLogits ? 5.0 : 1.0;
+  renderBars('weak-bars', weakData, { maxVal, decimals: isLogits ? 2 : 3 });
+  renderBars('strong-bars', strongData, { maxVal, decimals: isLogits ? 2 : 3 });
+
+  document.getElementById('weak-entropy').textContent = entropy(weakProbs).toFixed(3);
+  document.getElementById('strong-entropy').textContent = entropy(strongProbs).toFixed(3);
+}
+
+// ── Section: Curriculum ──────────────────────────────────────────────
+function updateCurriculum() {
+  const alpha = parseFloat(document.getElementById('curr-alpha').value);
+  const beta  = parseFloat(document.getElementById('curr-beta').value);
+  const gamma = parseFloat(document.getElementById('curr-gamma').value);
+  document.getElementById('curr-alpha-val').textContent = alpha.toFixed(1);
+  document.getElementById('curr-beta-val').textContent = beta.toFixed(1);
+  document.getElementById('curr-gamma-val').textContent = gamma.toFixed(1);
+
+  const grid = document.getElementById('sample-grid');
+  grid.innerHTML = '';
+
+  // Compute weights
+  const weights = SAMPLES.map(s => {
+    const dH = s.hStrong - s.hWeak;
+    const baseDiff = alpha * s.hWeak;
+    const consol = beta * Math.max(0, -dH);
+    const repair = gamma * Math.max(0, dH);
+    return baseDiff + consol + repair;
+  });
+  const maxW = Math.max(...weights, 0.1);
+
+  SAMPLES.forEach((s, i) => {
+    const card = document.createElement('div');
+    const dH = s.hStrong - s.hWeak;
+    let cls = '';
+    if (dH < -0.3) cls = 'consolidation';
+    else if (dH > 0.3) cls = 'regression';
+    else if (weights[i] / maxW < 0.35) cls = 'easy';
+    card.className = 'sample-card ' + cls;
+
+    const opacity = 0.3 + 0.7 * (weights[i] / maxW);
+    card.style.opacity = opacity;
+    card.style.transform = `scale(${0.9 + 0.1 * (weights[i] / maxW)})`;
+
+    card.innerHTML = `
+      <div class="s-text">${s.text}</div>
+      <div class="s-weight" style="color:${cls === 'regression' ? 'var(--amber)' : cls === 'consolidation' ? 'var(--accent)' : 'var(--muted)'}">${weights[i].toFixed(2)}</div>
+      <div class="s-type">${s.type}</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">
+        H<sub>w</sub>=${s.hWeak} &middot; H<sub>s</sub>=${s.hStrong} &middot; &Delta;H=${dH.toFixed(1)}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ── Section: Logit Mixing (THE CORE) ─────────────────────────────────
+function setLambda(val) {
+  document.getElementById('lambda-slider').value = val;
+  updateMixing();
+  // Highlight active preset
+  document.querySelectorAll('#s-mixing .controls .btn-sm').forEach(btn => {
+    const btnVal = parseFloat(btn.textContent.match(/[\d.]+/)?.[0] ?? -1);
+    btn.classList.toggle('active', Math.abs(btnVal - val) < 0.01);
+  });
+}
+
+function updateMixing() {
+  const lambda = parseFloat(document.getElementById('lambda-slider').value);
+  document.getElementById('lambda-val').textContent = lambda.toFixed(2);
+
+  const mixed = mixLogits(STRONG_LOGITS, WEAK_LOGITS, lambda);
+  const strongProbs = softmax(STRONG_LOGITS);
+  const mixedProbs = softmax(mixed);
+  const strongGrads = gradients(strongProbs, TARGET);
+  const mixedGrads = gradients(mixedProbs, TARGET);
+
+  // Strong logits
+  updateBars('mix-strong-bars', VOCAB.map((v, i) => ({
+    label: v, value: STRONG_LOGITS[i],
+    color: i === TARGET ? 'var(--accent)' : 'rgba(59,130,246,0.4)',
+  })), { maxVal: 5.0, decimals: 2 });
+
+  // Weak logits
+  updateBars('mix-weak-bars', VOCAB.map((v, i) => ({
+    label: v, value: WEAK_LOGITS[i],
+    color: i === TARGET ? 'var(--purple)' : 'rgba(168,85,247,0.4)',
+  })), { maxVal: 5.0, decimals: 2 });
+
+  // Mixed logits
+  updateBars('mix-mixed-bars', VOCAB.map((v, i) => ({
+    label: v, value: mixed[i],
+    color: i === TARGET ? 'var(--amber)' : 'rgba(245,158,11,0.4)',
+  })), { maxVal: 5.0, decimals: 2 });
+
+  // Probability comparison (paired bars)
+  const probCompare = VOCAB.map((v, i) => ({
+    label: v,
+    value: strongProbs[i],
+    value2: mixedProbs[i],
+    color: 'var(--accent)',
+    color2: 'var(--amber)',
+  }));
+  updateBars('mix-prob-compare', probCompare, { maxVal: 1.0, decimals: 3, paired: true, barHeight: 80 });
+
+  // Gradient comparison (non-target only, paired)
+  const gradCompare = VOCAB.map((v, i) => ({
+    label: v,
+    value: i === TARGET ? 0 : Math.abs(strongGrads[i]),
+    value2: i === TARGET ? 0 : Math.abs(mixedGrads[i]),
+    color: 'var(--accent)',
+    color2: 'var(--amber)',
+  }));
+  const maxGrad = Math.max(...gradCompare.map(d => Math.max(d.value, d.value2)), 0.01);
+  updateBars('mix-grad-compare', gradCompare, { maxVal: maxGrad, decimals: 4, paired: true, barHeight: 80 });
+
+  // Stats
+  const totalGradStrong = strongGrads.reduce((s, g, i) => i === TARGET ? s : s + Math.abs(g), 0);
+  const totalGradMixed  = mixedGrads.reduce((s, g, i) => i === TARGET ? s : s + Math.abs(g), 0);
+  const amp = totalGradStrong > 0.0001 ? totalGradMixed / totalGradStrong : 1;
+
+  document.getElementById('mix-grad-strong').textContent = totalGradStrong.toFixed(4);
+  document.getElementById('mix-grad-mixed').textContent = totalGradMixed.toFixed(4);
+  document.getElementById('mix-amplification').textContent = amp.toFixed(2) + 'x';
+}
+
+function initMixing() {
+  // Initial render of all bar groups
+  renderBars('mix-strong-bars', VOCAB.map((v, i) => ({
+    label: v, value: STRONG_LOGITS[i],
+    color: i === TARGET ? 'var(--accent)' : 'rgba(59,130,246,0.4)',
+  })), { maxVal: 5.0, decimals: 2 });
+
+  renderBars('mix-weak-bars', VOCAB.map((v, i) => ({
+    label: v, value: WEAK_LOGITS[i],
+    color: i === TARGET ? 'var(--purple)' : 'rgba(168,85,247,0.4)',
+  })), { maxVal: 5.0, decimals: 2 });
+
+  const lambda = 0.7;
+  const mixed = mixLogits(STRONG_LOGITS, WEAK_LOGITS, lambda);
+  renderBars('mix-mixed-bars', VOCAB.map((v, i) => ({
+    label: v, value: mixed[i],
+    color: i === TARGET ? 'var(--amber)' : 'rgba(245,158,11,0.4)',
+  })), { maxVal: 5.0, decimals: 2 });
+
+  // Probability comparison (paired)
+  const strongProbs = softmax(STRONG_LOGITS);
+  const mixedProbs = softmax(mixed);
+  renderBars('mix-prob-compare', VOCAB.map((v, i) => ({
+    label: v, value: strongProbs[i], value2: mixedProbs[i],
+    color: 'var(--accent)', color2: 'var(--amber)',
+  })), { maxVal: 1.0, decimals: 3, paired: true, barHeight: 80 });
+
+  // Gradient comparison (paired)
+  const sg = gradients(strongProbs, TARGET);
+  const mg = gradients(mixedProbs, TARGET);
+  const gradData = VOCAB.map((v, i) => ({
+    label: v,
+    value: i === TARGET ? 0 : Math.abs(sg[i]),
+    value2: i === TARGET ? 0 : Math.abs(mg[i]),
+    color: 'var(--accent)', color2: 'var(--amber)',
+  }));
+  const maxG = Math.max(...gradData.map(d => Math.max(d.value, d.value2)), 0.01);
+  renderBars('mix-grad-compare', gradData, { maxVal: maxG, decimals: 4, paired: true, barHeight: 80 });
+
+  updateMixing();
+}
+
+// ── Section: Pipeline Animation ──────────────────────────────────────
+let pipelineStep = -1;
+let pipelineInterval = null;
+
+const ALGO_STEPS = [
+  { node: 'algo-n0', desc: '<strong>Start:</strong> Initialize base model $M_0$ with random weights. This model has learned language from pre-training but hasn\'t been fine-tuned.' },
+  { node: 'algo-n1', arrow: 'algo-a0', desc: '<strong>Phase 1 — SFT:</strong> Train $M_0$ on labeled data to get $M_1$. Set $M_{\\text{weak}} \\leftarrow M_0$ and $M_{\\text{strong}} \\leftarrow M_1$.' },
+  { node: 'algo-n2', arrow: 'algo-a1', desc: '<strong>Phase 2A — Curriculum:</strong> Compute $\\Delta H = H(M_{\\text{strong}}) - H(M_{\\text{weak}})$ for each sample. Weight by base difficulty + consolidation + regression repair.' },
+  { node: 'algo-n3', arrow: 'algo-a2', desc: '<strong>Phase 2B — Joint Training:</strong> Mix logits $z_{\\text{mix}} = \\lambda z_{\\text{strong}} + (1-\\lambda) z_{\\text{weak}}$. Train on $\\mathcal{L}_{\\text{mix}} = -\\log P_{\\text{mix}}(y|x)$.' },
+  { node: 'algo-n4', arrow: 'algo-a3', desc: '<strong>Result:</strong> The strong agent $M_{\\text{strong}}^+$ has broken past saturation! Iterate: set $M_{\\text{weak}} \\leftarrow M_{\\text{strong}}$, $M_{\\text{strong}} \\leftarrow M_{\\text{strong}}^+$.' },
+];
+
+function playPipeline() {
+  resetPipeline();
+  document.getElementById('algo-play-btn').disabled = true;
+  let step = 0;
+  pipelineInterval = setInterval(() => {
+    if (step >= ALGO_STEPS.length) {
+      clearInterval(pipelineInterval);
+      document.getElementById('algo-play-btn').disabled = false;
+      return;
+    }
+    const s = ALGO_STEPS[step];
+    // Activate node
+    document.getElementById(s.node).classList.add('active');
+    // Activate arrow
+    if (s.arrow) document.getElementById(s.arrow).classList.add('active');
+    // Mark previous as done
+    if (step > 0) document.getElementById(ALGO_STEPS[step - 1].node).classList.remove('active');
+    if (step > 0) document.getElementById(ALGO_STEPS[step - 1].node).classList.add('done');
+    // Description
+    document.getElementById('algo-description').innerHTML = s.desc;
+    // Re-render math in description
+    if (typeof renderMathInElement === 'function') {
+      renderMathInElement(document.getElementById('algo-description'), {
+        delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]
+      });
+    }
+    step++;
+  }, 1800);
+}
+
+function resetPipeline() {
+  clearInterval(pipelineInterval);
+  document.querySelectorAll('#algo-pipeline .pipe-node').forEach(n => {
+    n.classList.remove('active', 'done');
+  });
+  document.querySelectorAll('#algo-pipeline .pipe-arrow').forEach(a => {
+    a.classList.remove('active');
+  });
+  document.getElementById('algo-description').innerHTML = 'Click <strong>Play Pipeline</strong> to watch WMSS execute step by step.';
+  document.getElementById('algo-play-btn').disabled = false;
+}
+
+// ── Section: Results Chart ───────────────────────────────────────────
+function drawResultsChart() {
+  const svg = document.getElementById('results-svg');
+  const W = 600, H = 300;
+  const pad = { t: 30, r: 30, b: 40, l: 55 };
+  const cw = W - pad.l - pad.r;
+  const ch = H - pad.t - pad.b;
+
+  // Generate curve data
+  const steps = 100;
+  const sftData = [];
+  const wmssData = [];
+  for (let i = 0; i <= steps; i++) {
+    const x = i / steps;
+    // SFT: rises then plateaus (logistic)
+    const sft = 0.52 + 0.40 * (1 / (1 + Math.exp(-12 * (x - 0.3))));
+    // WMSS: same early, then continues rising
+    const wmss = x < 0.45
+      ? sft
+      : sft + 0.08 * Math.pow((x - 0.45) / 0.55, 0.6);
+    sftData.push({ x: pad.l + x * cw, y: pad.t + ch - sft * ch / 1.0 });
+    wmssData.push({ x: pad.l + x * cw, y: pad.t + ch - wmss * ch / 1.0 });
+  }
+
+  const toPath = (data) => data.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
+
+  // Get theme-appropriate colors
+  const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--border').trim();
+  const textColor = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim();
+
+  svg.innerHTML = `
+    <!-- Grid lines -->
+    ${[0.2, 0.4, 0.6, 0.8].map(v => `
+      <line x1="${pad.l}" y1="${pad.t + ch - v * ch}" x2="${W - pad.r}" y2="${pad.t + ch - v * ch}"
+        stroke="${gridColor}" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <text x="${pad.l - 8}" y="${pad.t + ch - v * ch + 4}" fill="${textColor}" font-size="10"
+        font-family="JetBrains Mono,monospace" text-anchor="end">${(v * 100).toFixed(0)}%</text>
+    `).join('')}
+
+    <!-- Axes -->
+    <line x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${H - pad.b}" stroke="${gridColor}" stroke-width="1"/>
+    <line x1="${pad.l}" y1="${H - pad.b}" x2="${W - pad.r}" y2="${H - pad.b}" stroke="${gridColor}" stroke-width="1"/>
+
+    <!-- Axis labels -->
+    <text x="${W / 2}" y="${H - 8}" fill="${textColor}" font-size="11" font-family="Inter,sans-serif" text-anchor="middle">Training Steps</text>
+    <text x="14" y="${H / 2}" fill="${textColor}" font-size="11" font-family="Inter,sans-serif" text-anchor="middle" transform="rotate(-90,14,${H / 2})">Performance</text>
+
+    <!-- Saturation marker -->
+    <line x1="${pad.l + 0.5 * cw}" y1="${pad.t}" x2="${pad.l + 0.5 * cw}" y2="${H - pad.b}"
+      stroke="var(--red)" stroke-width="1" stroke-dasharray="6,4" opacity="0.5"/>
+    <text x="${pad.l + 0.5 * cw}" y="${pad.t - 8}" fill="var(--red)" font-size="10"
+      font-family="Inter,sans-serif" text-anchor="middle" opacity="0.7">Saturation Point</text>
+
+    <!-- SFT curve -->
+    <path d="${toPath(sftData)}" fill="none" stroke="var(--accent)" stroke-width="2.5"
+      stroke-linecap="round" id="sft-curve"
+      stroke-dasharray="${cw * 1.5}" stroke-dashoffset="${cw * 1.5}"/>
+
+    <!-- WMSS curve -->
+    <path d="${toPath(wmssData)}" fill="none" stroke="var(--amber)" stroke-width="2.5"
+      stroke-linecap="round" id="wmss-curve"
+      stroke-dasharray="${cw * 1.5}" stroke-dashoffset="${cw * 1.5}"/>
+  `;
+}
+
+function animateResults() {
+  document.getElementById('results-play-btn').disabled = true;
+  const sftCurve = document.getElementById('sft-curve');
+  const wmssCurve = document.getElementById('wmss-curve');
+  if (!sftCurve || !wmssCurve) return;
+
+  const len = parseFloat(sftCurve.getAttribute('stroke-dasharray'));
+
+  // Reset
+  sftCurve.style.transition = 'none';
+  wmssCurve.style.transition = 'none';
+  sftCurve.setAttribute('stroke-dashoffset', len);
+  wmssCurve.setAttribute('stroke-dashoffset', len);
+
+  requestAnimationFrame(() => {
+    // Animate SFT first
+    sftCurve.style.transition = 'stroke-dashoffset 2s ease-out';
+    sftCurve.setAttribute('stroke-dashoffset', '0');
+
+    // Animate WMSS slightly delayed
+    setTimeout(() => {
+      wmssCurve.style.transition = 'stroke-dashoffset 2.5s ease-out';
+      wmssCurve.setAttribute('stroke-dashoffset', '0');
+      setTimeout(() => {
+        document.getElementById('results-play-btn').disabled = false;
+      }, 2500);
+    }, 800);
+  });
+}
+
+function resetResults() {
+  const sftCurve = document.getElementById('sft-curve');
+  const wmssCurve = document.getElementById('wmss-curve');
+  if (!sftCurve || !wmssCurve) return;
+  const len = parseFloat(sftCurve.getAttribute('stroke-dasharray'));
+  sftCurve.style.transition = 'stroke-dashoffset 0.5s';
+  wmssCurve.style.transition = 'stroke-dashoffset 0.5s';
+  sftCurve.setAttribute('stroke-dashoffset', len);
+  wmssCurve.setAttribute('stroke-dashoffset', len);
+  document.getElementById('results-play-btn').disabled = false;
+}
+
+// ── Theme Toggle ─────────────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.querySelector('.theme-label').textContent = next === 'dark' ? 'Dark' : 'Light';
+  // Redraw SVG chart (colors depend on CSS vars)
+  drawResultsChart();
+}
+
+// ── Scroll Reveal ────────────────────────────────────────────────────
+function setupScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+// Overview pipeline auto-animate
+function animateOverviewPipeline() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const nodes = entry.target.querySelectorAll('.pipe-node');
+        const arrows = entry.target.querySelectorAll('.pipe-arrow');
+        nodes.forEach((n, i) => {
+          setTimeout(() => {
+            n.classList.add('active');
+            if (arrows[i]) arrows[i].classList.add('active');
+            if (i > 0) {
+              nodes[i - 1].classList.remove('active');
+              nodes[i - 1].classList.add('done');
+            }
+          }, i * 600);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const pipeline = document.getElementById('overview-pipeline');
+  if (pipeline) observer.observe(pipeline);
+}
+
+// ── Init ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  setupScrollReveal();
+  animateOverviewPipeline();
+  initPretrain();
+  sftRender();
+  renderAgents();
+  updateCurriculum();
+  initMixing();
+  drawResultsChart();
+});
+</script>
+</body>
+</html>
