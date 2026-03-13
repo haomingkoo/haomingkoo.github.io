@@ -202,7 +202,8 @@
         border-radius: 12px; padding: 20px; margin: 24px 0;
         overflow: hidden;
       }
-      .chart-wrap .js-plotly-plot { width: 100% !important; }
+      .chart-wrap .js-plotly-plot { width: 100% !important; min-height: 300px; }
+      .chart-wrap .plot-container { min-height: 300px; }
       .chart-title {
         font-size: 14px; font-weight: 600; color: var(--text);
         margin-bottom: 4px;
@@ -1287,6 +1288,8 @@ params = {
         font: { color: '#b0b0b8', family: 'Inter, system-ui, sans-serif', size: 12 },
         margin: { l: 50, r: 20, t: 10, b: 40 },
         dragmode: false,
+        autosize: false,
+        height: 380,
         xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', fixedrange: true },
         yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', fixedrange: true }
       };
@@ -1370,7 +1373,7 @@ params = {
           hovertemplate: '%{x}<br>%{y:.2f} ' + VAR_UNITS[variable] + '<extra></extra>'
         };
         prepChart('chart-hourly');
-        Plotly.react('chart-hourly', [trace], layout({
+        Plotly.newPlot('chart-hourly', [trace], layout({
           xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Hour of Day', tickangle: -45 },
           yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: VAR_LABELS[variable] },
           margin: { l: 56, r: 20, t: 10, b: 56 }
@@ -1395,7 +1398,7 @@ params = {
           hovertemplate: 'Year %{x}<br>%{y:,.0f} mm<extra></extra>'
         };
         prepChart('chart-annual');
-        Plotly.react('chart-annual', [trace], layout({
+        Plotly.newPlot('chart-annual', [trace], layout({
           xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Year' },
           yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Total Rainfall (mm)' },
           margin: { l: 64, r: 20, t: 10, b: 48 }
@@ -1446,7 +1449,7 @@ params = {
         });
 
         prepChart('chart-stl');
-        Plotly.react('chart-stl', traces, layout(Object.assign({
+        Plotly.newPlot('chart-stl', traces, layout(Object.assign({
           height: 500,
           showlegend: false,
           xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24' },
@@ -1501,7 +1504,7 @@ params = {
         });
 
         prepChart('chart-acf');
-        Plotly.react('chart-acf', [acfTrace, pacfTrace], layout({
+        Plotly.newPlot('chart-acf', [acfTrace, pacfTrace], layout({
           height: 320,
           showlegend: false,
           shapes: ciLines,
@@ -1562,7 +1565,7 @@ params = {
         }
 
         prepChart('chart-fft');
-        Plotly.react('chart-fft', [trace], layout({
+        Plotly.newPlot('chart-fft', [trace], layout({
           xaxis: {
             type: 'log', gridcolor: '#1c1c24', zerolinecolor: '#1c1c24',
             title: 'Period (hours)'
@@ -1644,7 +1647,7 @@ params = {
         };
 
         prepChart('chart-shap');
-        Plotly.react('chart-shap', [trace], layout({
+        Plotly.newPlot('chart-shap', [trace], layout({
           height: 420,
           xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Mean |SHAP Value|' },
           yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', automargin: true },
@@ -1677,7 +1680,7 @@ params = {
         ];
 
         prepChart('chart-loss');
-        Plotly.react('chart-loss', traces, layout({
+        Plotly.newPlot('chart-loss', traces, layout({
           height: 320,
           showlegend: true,
           legend: { x: 0.7, y: 0.95, bgcolor: 'rgba(0,0,0,0)', font: { size: 11 } },
@@ -1742,7 +1745,7 @@ params = {
         var accText = acc !== undefined ? 'Accuracy: ' + (acc * 100).toFixed(1) + '%' : '';
 
         prepChart('chart-cm');
-        Plotly.react('chart-cm', [trace], layout({
+        Plotly.newPlot('chart-cm', [trace], layout({
           height: 340,
           xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Predicted', side: 'bottom' },
           yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Actual', autorange: 'reversed' },
@@ -1790,7 +1793,7 @@ params = {
         };
 
         prepChart('chart-nea');
-        Plotly.react('chart-nea', [trace], layout({
+        Plotly.newPlot('chart-nea', [trace], layout({
           height: 320,
           xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24' },
           yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', title: 'Accuracy (%)', range: [0, 100] },
