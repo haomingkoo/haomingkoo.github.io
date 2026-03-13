@@ -1284,13 +1284,15 @@ params = {
         plot_bgcolor: '#0e0e12',
         font: { color: '#b0b0b8', family: 'Inter, system-ui, sans-serif', size: 12 },
         margin: { l: 50, r: 20, t: 10, b: 40 },
-        xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24' },
-        yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24' }
+        dragmode: false,
+        xaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', fixedrange: true },
+        yaxis: { gridcolor: '#1c1c24', zerolinecolor: '#1c1c24', fixedrange: true }
       };
 
       const PLOTLY_CONFIG = {
         responsive: true,
-        displayModeBar: false
+        displayModeBar: false,
+        scrollZoom: false
       };
 
       let DATA = null;
