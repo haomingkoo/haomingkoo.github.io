@@ -1417,7 +1417,7 @@
                 var tagClass = type === "travel" ? "post-tag post-tag-travel" : "post-tag";
                 var firstTag = (p.tags && p.tags[0]) || type;
                 var coverHtml = p.cover
-                  ? '<img class="post-cover" src="' + p.cover + '" alt="" loading="lazy" />'
+                  ? '<img class="post-cover" src="' + p.cover + '" alt="' + (p.title || 'Post cover') + '" loading="lazy" />'
                   : "";
                 var dt = new Date(p.date + "T00:00:00");
                 var dateStr = dt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });

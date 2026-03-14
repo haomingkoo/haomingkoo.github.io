@@ -290,7 +290,7 @@
           a.className = "post-card";
           a.href = "./posts/" + p.slug + ".html";
           var coverHtml = p.cover
-            ? '<img class="post-cover" src="' + p.cover + '" alt="" loading="lazy" />'
+            ? '<img class="post-cover" src="' + p.cover + '" alt="' + (p.title || 'Travel post cover') + '" loading="lazy" />'
             : '<div class="post-cover"></div>';
           var tagsHtml = (p.tags || []).slice(0, 2).map(function (t) {
             return '<span class="post-tag">' + t + '</span>';

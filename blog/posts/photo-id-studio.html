@@ -198,6 +198,9 @@
       "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/photo-id-studio.html"}
     }
     </script>
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://kooexperience.com/blog/"},{"@type":"ListItem","position":3,"name":"Photo ID Studio"}]}
+</script>
   </head>
   <body>
     <div class="nav-wrap">
@@ -1234,7 +1237,7 @@
     <button data-bwp-stage="4" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">4</button>
     <button data-bwp-stage="5" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">5</button>
     <button data-bwp-stage="6" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">6</button>
-    <button id="bwp-play" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1px solid var(--accent-dim, var(--accent)); background: var(--accent-dim, var(--accent)); color: #fff; cursor: pointer; margin-left: 6px; transition: all 0.15s;">&#9654; Play All</button>
+    <button id="bwp-play" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; margin-left: 6px; transition: all 0.15s;">&#9654; Play All</button>
   </div>
 
   <canvas id="bwp-canvas" style="width: 100%; height: 350px; border-radius: 8px; display: block; background: #f0f0f0;"></canvas>
@@ -1301,12 +1304,13 @@
   function hairPath(cx, baseY, scale) {
     const s = scale;
     const path = new Path2D();
-    path.moveTo(cx - 18 * s, baseY - 130 * s);
-    path.bezierCurveTo(cx - 46 * s, baseY - 135 * s, cx - 56 * s, baseY - 170 * s, cx - 50 * s, baseY - 200 * s);
-    path.bezierCurveTo(cx - 46 * s, baseY - 238 * s, cx - 28 * s, baseY - 258 * s, cx, baseY - 260 * s);
-    path.bezierCurveTo(cx + 28 * s, baseY - 258 * s, cx + 46 * s, baseY - 238 * s, cx + 50 * s, baseY - 200 * s);
-    path.bezierCurveTo(cx + 56 * s, baseY - 170 * s, cx + 46 * s, baseY - 135 * s, cx + 18 * s, baseY - 130 * s);
-    path.bezierCurveTo(cx + 10 * s, baseY - 225 * s, cx - 10 * s, baseY - 225 * s, cx - 18 * s, baseY - 130 * s);
+    // Outer edge: from left temple up over crown to right temple
+    path.moveTo(cx - 44 * s, baseY - 180 * s);
+    path.bezierCurveTo(cx - 50 * s, baseY - 210 * s, cx - 46 * s, baseY - 242 * s, cx - 25 * s, baseY - 255 * s);
+    path.bezierCurveTo(cx - 10 * s, baseY - 262 * s, cx + 10 * s, baseY - 262 * s, cx + 25 * s, baseY - 255 * s);
+    path.bezierCurveTo(cx + 46 * s, baseY - 242 * s, cx + 50 * s, baseY - 210 * s, cx + 44 * s, baseY - 180 * s);
+    // Hairline: arc across forehead (high up, above face)
+    path.bezierCurveTo(cx + 35 * s, baseY - 215 * s, cx - 35 * s, baseY - 215 * s, cx - 44 * s, baseY - 180 * s);
     path.closePath();
     return path;
   }
