@@ -424,7 +424,7 @@
         <h2 id="try-it">Try it yourself</h2>
 
         <p>
-          Head to <a href="https://weather.kooexperience.com" target="_blank" rel="noopener">weather.kooexperience.com</a>.
+          Head to <a href="https://lionlionweather.kooexperience.com" target="_blank" rel="noopener">lionweather.kooexperience.com</a>.
           Drop a pin anywhere on the Singapore map and the dashboard shows you:
         </p>
 
@@ -777,7 +777,7 @@ WIND_MAX = 60.0                       # km/h
           All of this lives in the ML Analysis tab of the app. I wanted it visible, not
           buried in a Jupyter notebook, because the whole point was to learn how to present
           EDA findings in a way that's useful to anyone curious. You can explore the charts
-          yourself at <a href="https://weather.kooexperience.com" target="_blank" rel="noopener">weather.kooexperience.com</a>.
+          yourself at <a href="https://lionlionweather.kooexperience.com" target="_blank" rel="noopener">lionweather.kooexperience.com</a>.
         </p>
 
         <div class="callout">
@@ -1285,7 +1285,7 @@ params = {
         <h2 id="references">References</h2>
 
         <ul>
-          <li><a href="https://weather.kooexperience.com" target="_blank" rel="noopener">LionWeather (live app)</a></li>
+          <li><a href="https://lionlionweather.kooexperience.com" target="_blank" rel="noopener">LionWeather (live app)</a></li>
           <li><a href="https://github.com/haomingkoo/lionweather" target="_blank" rel="noopener">Source code on GitHub</a></li>
           <li><a href="https://api-open.data.gov.sg" target="_blank" rel="noopener">NEA data.gov.sg API</a></li>
           <li><a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> for regional weather data</li>
@@ -1316,7 +1316,7 @@ params = {
       'use strict';
 
       /* ── Constants ───────────────────────────────────────────────────── */
-      const API_URL = 'https://lionweather.kooexperience.com/api/ml/full-analysis';
+      const API_URL = 'https://lionlionweather.kooexperience.com/api/ml/full-analysis';
       const COLORS = {
         blue: '#3b82f6', amber: '#f59e0b', emerald: '#10b981',
         red: '#ef4444', purple: '#a855f7'
@@ -1399,7 +1399,7 @@ params = {
         const el = document.getElementById(containerId);
         if (!el) return;
         el.className = 'chart-error';
-        el.innerHTML = '<div>Could not load chart data.<br>Visit <a href="https://weather.kooexperience.com" target="_blank">the live app</a> to see these charts in action.</div>';
+        el.innerHTML = '<div>Could not load chart data.<br>Visit <a href="https://lionlionweather.kooexperience.com" target="_blank">the live app</a> to see these charts in action.</div>';
       }
 
       function showAllErrors() {
