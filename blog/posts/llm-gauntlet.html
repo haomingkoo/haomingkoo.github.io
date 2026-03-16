@@ -347,9 +347,10 @@
           <li><strong>leaderboard.py</strong> - DIY replacement for the official dashboard (which went down mid-exercise)</li>
         </ul>
         <p>
-          Key discovery: the #1 performer (Sze Vy) had <code>gpu_util=0.46</code> with only
-          661 KV cache blocks, yet was serving 6,800+ tok/s. A model at that gpu_util should not have enough
-          KV cache capacity for that throughput. Something else was going on entirely.
+          Key discoveries: Sze Vy had <code>gpu_util=0.46</code> with only
+          661 KV cache blocks, yet was returning responses instantly. Turned out she was only returning the first token,
+          which explains the low GPU utilization. Meanwhile, Zheng Mou (Scott) noticed the prompts were repeating
+          and built a response cache to return cached answers without hitting the GPU at all.
         </p>
 
         <div class="callout">
@@ -550,16 +551,16 @@ cache_app.py (port 8000)
         <!-- ============================================================ -->
         <h2 id="acknowledgments">Acknowledgments</h2>
         <p>
-          Credit to <strong>Sze Vy (Scott)</strong> for demonstrating full-stack thinking.
-          While the rest of us were deep in vLLM parameter spreadsheets, she approached the problem as a
-          systems engineer: understood the full request path, identified that a cache proxy
-          was the highest-leverage intervention, and built it. Her <code>gpu_util=0.46</code> config with only
-          661 KV blocks looked absurd on paper, but it did not matter because the cache made GPU compute
-          irrelevant for repeated prompts.
+          Credit to <strong>Zheng Mou (Scott)</strong> for demonstrating real software engineering thinking.
+          While the rest of us were deep in vLLM parameter spreadsheets, he noticed the prompts were repeating
+          and built a response cache to serve cached answers without touching the GPU.
+          That is a systems engineering mindset: understand the full request path, identify that most requests
+          do not need inference at all, and short-circuit them.
         </p>
         <p>
           That is the lesson I will carry forward: <strong>don't just optimize the model, optimize the system.</strong>
           The best ML optimization in the world loses to someone who asks "do we even need to run inference on this request?"
+          Amazing thinking process.
         </p>
         <p>
           Thanks to the organizers for designing an exercise that taught more about production LLM systems
