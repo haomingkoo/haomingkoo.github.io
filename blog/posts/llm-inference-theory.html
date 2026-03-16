@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LLM Inference: The Theory You Need Before Deploying - Haoming Koo</title>
+    <meta name="description" content="How LLM inference works under the hood. Covers prefill/decode phases, VRAM math, KV cache sizing, quantization methods (GPTQ, AWQ, FP8), batching strategies, and the metrics that define serving performance." />
+    <meta name="keywords" content="LLM inference, prefill, decode, KV cache, VRAM, quantization, GPTQ, AWQ, FP8, continuous batching, TTFT, throughput, LLMOps" />
+    <meta name="author" content="Haoming Koo" />
+    <link rel="canonical" href="https://kooexperience.com/blog/posts/llm-inference-theory.html" />
+    <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
+    <meta property="og:site_name" content="Haoming Koo" />
+    <meta property="og:locale" content="en_SG" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      [data-theme="dark"] {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #3b82f6;
+        --accent-dim: rgba(59,130,246,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+        --nav-bg: rgba(6,6,8,0.72);
+      }
+      [data-theme="light"] {
+        --bg: #f8f9fb;
+        --surface: #ffffff;
+        --border: #dde1e6;
+        --accent: #2563eb;
+        --accent-dim: rgba(37,99,235,0.08);
+        --text: #111318;
+        --text-secondary: #3d4250;
+        --muted: #6b7280;
+        --nav-bg: rgba(248,249,251,0.85);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        transition: background .35s, color .35s;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+      [data-theme="light"] body::before { opacity: 0.3; }
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: var(--nav-bg);
+        backdrop-filter: blur(16px) saturate(1.6);
+        transition: background .35s, border-color .35s;
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between; height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px; transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle { font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; }
+      .article h2 { font-size: 22px; font-weight: 700; margin: 48px 0 16px; letter-spacing: -.01em; color: var(--text); }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article code {
+        background: rgba(59,130,246,.08); padding: 2px 7px; border-radius: 5px;
+        font-size: 13px; font-family: "SF Mono", "Fira Code", monospace; color: var(--accent);
+      }
+      .article pre {
+        background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+        padding: 20px 24px; overflow-x: auto; margin: 24px 0;
+      }
+      .article pre code { background: none; padding: 0; font-size: 13px; line-height: 1.65; color: var(--text-secondary); }
+      .article blockquote {
+        border-left: 3px solid var(--accent); padding: 14px 20px; margin: 24px 0;
+        background: var(--accent-dim); border-radius: 0 10px 10px 0; color: var(--text-secondary);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+      .toc a { display: block; font-size: 13.5px; color: var(--text-secondary); text-decoration: none; padding: 4px 0; transition: color .2s; }
+      .toc a:hover { color: var(--accent); }
+      .callout {
+        display: flex; gap: 12px;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 16px 20px; margin: 24px 0;
+        font-size: 13.5px; color: var(--text-secondary); line-height: 1.55;
+      }
+      .callout-icon { font-size: 18px; flex-shrink: 0; line-height: 1.4; }
+      .stack-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 24px 0; }
+      .stack-box-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+      .stack-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+      .stack-tag {
+        font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 8px;
+        background: rgba(255,255,255,.04); color: var(--text-secondary); border: 1px solid rgba(255,255,255,.05);
+      }
+      table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 13.5px; }
+      th { text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border); color: var(--text); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+      td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+      tr:hover td { background: rgba(255,255,255,.02); }
+      footer { border-top: 1px solid var(--border); padding: 32px 0 40px; font-size: 13px; color: var(--muted); text-align: center; }
+      .nav-right { display: flex; align-items: center; gap: 12px; }
+      .theme-btn {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 8px; padding: 6px 10px; cursor: pointer;
+        color: var(--text); display: flex; align-items: center; gap: 6px;
+        font-size: 12px; font-family: inherit; transition: all .2s;
+      }
+      .theme-btn:hover { border-color: #2a2a36; }
+      .theme-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+      .next-post {
+        display: flex; align-items: center; justify-content: space-between;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin: 48px 0 0;
+        text-decoration: none; transition: border-color .2s;
+      }
+      .next-post:hover { border-color: var(--accent); }
+      .next-post-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+      .next-post-title { font-size: 15px; font-weight: 600; color: var(--text); }
+      .next-post-arrow { font-size: 20px; color: var(--accent); }
+      @media (max-width: 600px) { .container { padding: 0 18px; } nav { padding: 0 18px; } }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "LLM Inference: The Theory You Need Before Deploying",
+      "description": "How LLM inference works under the hood. Covers prefill/decode phases, VRAM math, KV cache sizing, quantization methods, batching strategies, and serving metrics.",
+      "url": "https://kooexperience.com/blog/posts/llm-inference-theory.html",
+      "datePublished": "2026-03-16",
+      "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
+      "publisher": {"@type": "Person", "name": "Haoming Koo"},
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/llm-inference-theory.html"}
+    }
+    </script>
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://kooexperience.com/blog/"},{"@type":"ListItem","position":3,"name":"LLM Inference Theory"}]}
+</script>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../../">HK</a>
+        <div class="nav-right">
+          <a href="../../#blog">Blog</a>
+          <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <span class="theme-label">Dark</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../../#blog">&larr; Back to blog</a>
+        <div class="article-meta">
+          <span class="article-tag">LLMOps</span>
+          <span class="article-tag">Inference</span>
+          <span class="article-tag">Part 1 of 2</span>
+          <span>March 16, 2026</span>
+          <span class="reading-time">15 min read</span>
+        </div>
+        <h1>LLM Inference: The Theory You Need Before Deploying</h1>
+        <p class="subtitle">
+          Prefill vs decode. Why memory bandwidth matters more than FLOPS.
+          How to calculate VRAM budgets. Which quantization method to pick.
+          The three batching strategies and when each one applies.
+          This is the theory I wish I had internalized before spending two days tuning the wrong knobs.
+        </p>
+
+        <div class="callout">
+          <span class="callout-icon">&#x1F4D6;</span>
+          <div>
+            This is Part 1 of 2. This post covers the theory.
+            <a href="llm-gauntlet.html">Part 2</a> covers what happened when I applied (and failed to apply) this theory
+            during a live LLM serving exercise on an A100 GPU.
+          </div>
+        </div>
+
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#inference">How LLM inference actually works</a>
+          <a href="#metrics">The metrics that matter</a>
+          <a href="#memory">Memory is the bottleneck, not compute</a>
+          <a href="#quantization">Quantization: the first lever to pull</a>
+          <a href="#other-techniques">Pruning and distillation</a>
+          <a href="#batching">Batching strategies</a>
+          <a href="#operations">Operational readiness</a>
+          <a href="#infrastructure">Infrastructure patterns</a>
+          <a href="#hosting">Self-hosting vs API</a>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Inference -->
+        <!-- ============================================================ -->
+        <h2 id="inference">How LLM Inference Actually Works</h2>
+        <p>
+          LLM inference has two distinct phases, each with different computational characteristics. Understanding this
+          split is the foundation of every optimization decision.
+        </p>
+
+        <h3>Phase 1: Prefill</h3>
+        <p>
+          When a request arrives, the model processes all input tokens in parallel to compute their key-value (KV) pairs.
+          This is the <strong>prefill</strong> phase. It is compute-intensive because attention is O(n&sup2;) in input length:
+          every input token attends to every other input token. The GPU's tensor cores are fully utilized here.
+        </p>
+        <p>
+          The output of prefill is a KV cache: a set of key and value tensors for each layer and attention head,
+          representing the "memory" of the input sequence. These tensors are stored in VRAM and reused for every
+          subsequent output token.
+        </p>
+
+        <h3>Phase 2: Decode</h3>
+        <p>
+          After prefill, the model generates output tokens one at a time. Each decode step produces exactly one token.
+          The new token attends to all previous tokens via the KV cache, then gets appended to it.
+          This phase is <strong>memory-bandwidth bound</strong>: the GPU reads the entire model's weights from VRAM
+          for each token but only does a small amount of computation per read.
+        </p>
+        <p>
+          This is the fundamental asymmetry. Prefill is compute-bound and parallelizable.
+          Decode is sequential and memory-bound. The GPU spends most of its decode time waiting for
+          data to arrive from VRAM, not doing math.
+        </p>
+
+        <h3>What this means in practice</h3>
+        <p>
+          For a 7B FP16 model, the GPU reads ~14 GB of weights from VRAM on every decode step.
+          An A100 with 2 TB/s HBM2e bandwidth can do this in ~7ms. That puts a hard ceiling of ~140
+          tokens/second for a single sequence, regardless of how many CUDA cores you have.
+          The only way to improve decode throughput is to process multiple sequences at once (batching),
+          amortizing the weight-read cost across many tokens.
+        </p>
+
+        <div class="callout">
+          <span class="callout-icon">&#x1F4A1;</span>
+          <div>
+            <strong>Key insight:</strong> Training uses ~6N FLOPs per token (forward + backward pass).
+            Inference uses ~2N FLOPs per token (forward only). But training processes tokens in large parallel batches,
+            while inference generates them one at a time. This is why inference is bandwidth-bound and training is compute-bound.
+          </div>
+        </div>
+
+        <h3>Training vs inference: a comparison</h3>
+        <table>
+          <tr><th>Dimension</th><th>Training</th><th>Inference</th></tr>
+          <tr><td>Computation</td><td>Forward + backward pass</td><td>Forward pass only</td></tr>
+          <tr><td>Memory</td><td>Weights + gradients + optimizer states (~84 GB for 7B)</td><td>Weights + KV cache (~15-22 GB for 7B)</td></tr>
+          <tr><td>Bottleneck</td><td>Compute-bound (FLOPS)</td><td>Memory bandwidth-bound</td></tr>
+          <tr><td>Execution</td><td>Large fixed batches</td><td>Small, latency-sensitive requests</td></tr>
+          <tr><td>Parallelism</td><td>Full sequence processed at once</td><td>Sequential token generation</td></tr>
+          <tr><td>Fault tolerance</td><td>Checkpointing allows recovery</td><td>Failures impact live users</td></tr>
+        </table>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Metrics -->
+        <!-- ============================================================ -->
+        <h2 id="metrics">The Metrics That Matter</h2>
+        <p>
+          Six metrics define LLM serving performance. Each measures a different aspect of the system, and
+          optimizing for one often hurts another.
+        </p>
+
+        <h3>Time to First Token (TTFT)</h3>
+        <p>
+          The time from request arrival to the first output token. This is the user-perceived "thinking" time.
+          For streaming chat applications, TTFT is the most important UX metric: everything after the first token
+          feels like continuous output. Typical targets: &lt;300ms for real-time chat, &lt;1s for document QA,
+          &lt;100ms for code completion.
+        </p>
+        <p>
+          TTFT is dominated by prefill time plus queue wait. If 50 requests arrive at once and the server can only
+          prefill one at a time, the 50th request waits for 49 prefills before its own starts.
+        </p>
+
+        <h3>Inter-Token Latency (ITL) and Time Per Output Token (TPOT)</h3>
+        <p>
+          ITL is the time between consecutive output tokens for a single request. TPOT is the average time per output
+          token across the full generation. For a streaming chat, ITL determines reading speed. If ITL exceeds ~80ms,
+          the output feels choppy.
+        </p>
+
+        <h3>End-to-End Latency</h3>
+        <p>
+          Total time from request arrival to final token. This is <code>TTFT + (output_tokens x TPOT)</code>.
+          For non-streaming (batch) requests, this is the only latency metric that matters.
+        </p>
+        <pre><code>Example: TTFT = 300ms, TPOT = 20ms, 200 output tokens
+Total latency = 300 + (200 x 20) = 4,300ms</code></pre>
+
+        <h3>Throughput (tokens/second and requests/second)</h3>
+        <p>
+          Total tokens generated across all concurrent requests per second. This is the metric for
+          system capacity and cost efficiency. Higher throughput = more users per GPU = lower cost per request.
+        </p>
+
+        <h3>Goodput</h3>
+        <p>
+          The subset of throughput that produces useful output. If a request times out after generating 200 of 256 tokens,
+          those 200 tokens count toward throughput but zero toward goodput. Goodput penalizes wasted computation and is
+          a better measure of real system value.
+        </p>
+
+        <h3>The TTFT vs Throughput Trade-off</h3>
+        <p>
+          This is the central tension in LLM serving. Larger batch sizes increase throughput (more tokens per weight-read)
+          but increase TTFT (new requests wait longer to enter the batch). The sweet spot depends on your workload:
+        </p>
+        <table>
+          <tr><th>Batch size</th><th>TTFT</th><th>Throughput</th><th>Use case</th></tr>
+          <tr><td>Small (1-4)</td><td>~100ms</td><td>~500 tok/s</td><td>Interactive chat, code completion</td></tr>
+          <tr><td>Medium (8-32)</td><td>~250ms</td><td>~2,000 tok/s</td><td>Production chat (typical sweet spot)</td></tr>
+          <tr><td>Large (64-512)</td><td>~800ms+</td><td>~4,000 tok/s</td><td>Batch processing, async workloads</td></tr>
+        </table>
+        <p>
+          Continuous batching (used by vLLM and TGI) dynamically adjusts this: new requests join in-progress batches
+          without waiting for the entire batch to finish, getting better throughput without sacrificing TTFT as badly.
+        </p>
+
+        <h3>Latency degrades under load</h3>
+        <p>
+          LLM latency is not a constant. It degrades nonlinearly with concurrent users:
+        </p>
+        <pre><code>1 concurrent user:   TTFT = 200ms
+10 concurrent users: TTFT = 400ms
+50 concurrent users: TTFT = 2,000ms</code></pre>
+        <p>
+          Always test at peak expected concurrency, not average. The p99 latency under load is what determines
+          whether your SLO holds.
+        </p>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Memory -->
+        <!-- ============================================================ -->
+        <h2 id="memory">Memory Is the Bottleneck, Not Compute</h2>
+        <p>
+          The single most important concept in LLM serving: <strong>your throughput ceiling is set by how many
+          KV caches fit in the VRAM left over after loading model weights.</strong>
+          Not by GPU FLOPS, not by CUDA core count. VRAM.
+        </p>
+
+        <h3>Model weight memory</h3>
+        <p>
+          The memory for model weights scales linearly with parameter count and inversely with quantization level:
+        </p>
+        <table>
+          <tr><th>Precision</th><th>Bytes/param</th><th>7B model</th><th>35B model</th><th>70B model</th></tr>
+          <tr><td>FP32</td><td>4</td><td>28 GB</td><td>140 GB</td><td>280 GB</td></tr>
+          <tr><td>FP16 / BF16</td><td>2</td><td>14 GB</td><td>70 GB</td><td>140 GB</td></tr>
+          <tr><td>INT8</td><td>1</td><td>7 GB</td><td>35 GB</td><td>70 GB</td></tr>
+          <tr><td>INT4 (GPTQ/AWQ)</td><td>0.5</td><td>3.5 GB</td><td>17.5 GB</td><td>35 GB</td></tr>
+          <tr><td>FP8</td><td>1</td><td>7 GB</td><td>35 GB</td><td>70 GB</td></tr>
+        </table>
+
+        <h3>KV cache memory</h3>
+        <p>
+          Each sequence in flight needs a KV cache. The size depends on model architecture and sequence length:
+        </p>
+        <pre><code>KV cache per sequence = 2 x num_layers x num_heads x head_dim x seq_len x bytes_per_element
+
+Example (Llama-2 7B: 32 layers, 32 heads, 128 head_dim, 2048 seq_len, FP16):
+= 2 x 32 x 32 x 128 x 2048 x 2 bytes
+= 1.07 GB per sequence</code></pre>
+        <p>
+          On an A100 80GB with a 7B FP16 model (~14 GB weights + ~3 GB overhead), you have roughly 63 GB
+          for KV cache. At 1.07 GB per sequence, that is about 59 concurrent sequences.
+          With INT4 quantization, the model drops to ~3.5 GB, freeing 10.5 GB more.
+          That is 10 more concurrent sequences, which directly translates to higher throughput.
+        </p>
+
+        <h3>The VRAM budget</h3>
+        <pre><code>Total VRAM = Model weights + KV cache + Activations + Framework overhead
+
+Practical rule of thumb:
+  VRAM needed = (params x bytes_per_param x 1.2)
+  The 1.2 multiplier covers activations, CUDA context, and framework buffers.</code></pre>
+
+        <div class="callout">
+          <span class="callout-icon">&#x1F4A1;</span>
+          <div>
+            <strong>This is why quantization matters so much for serving.</strong>
+            Quantization does not just make inference faster per token. It frees VRAM for more KV cache,
+            which allows more concurrent sequences, which increases throughput. The memory savings compound.
+          </div>
+        </div>
+
+        <h3>HBM vs DDR: why GPUs win</h3>
+        <p>
+          Since LLM decode is memory-bandwidth bound, the type of memory matters enormously.
+        </p>
+        <table>
+          <tr><th>Feature</th><th>CPU (DDR5)</th><th>GPU (HBM2e / HBM3)</th></tr>
+          <tr><td>Bandwidth</td><td>~50-100 GB/s</td><td>~2 TB/s (A100) / ~3.35 TB/s (H100)</td></tr>
+          <tr><td>Capacity</td><td>32 GB - 2+ TB</td><td>16 - 80 GB</td></tr>
+          <tr><td>Latency</td><td>~70-100 ns</td><td>~100-200 ns</td></tr>
+          <tr><td>Design goal</td><td>Optimized for serial latency</td><td>Optimized for parallel throughput</td></tr>
+        </table>
+        <p>
+          Reading 14 GB of weights (7B FP16) takes ~7ms on A100 HBM vs ~140ms on server DDR5.
+          That is a 20x gap. This is why running LLMs on CPU is so much slower, even with more total RAM.
+        </p>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Quantization -->
+        <!-- ============================================================ -->
+        <h2 id="quantization">Quantization: The First Lever to Pull</h2>
+        <p>
+          Quantization represents model weights (and sometimes activations) using fewer bits.
+          It is the highest-ROI optimization for LLM serving: minimal accuracy loss, massive memory and
+          throughput gains, and it can be applied post-training in minutes.
+        </p>
+
+        <h3>The quantization landscape</h3>
+        <table>
+          <tr><th>Method</th><th>Bits</th><th>Type</th><th>Key idea</th></tr>
+          <tr><td>GPTQ</td><td>4</td><td>PTQ, weight-only</td><td>Layer-wise optimal quantization using second-order (Hessian) information</td></tr>
+          <tr><td>AWQ</td><td>4</td><td>PTQ, weight-only</td><td>Activation-aware: identifies the 1% of weights that matter most and protects them</td></tr>
+          <tr><td>FP8</td><td>8</td><td>Full (weights + activations)</td><td>Hardware-native on H100; near-zero accuracy loss vs FP16</td></tr>
+          <tr><td>bitsandbytes LLM.int8()</td><td>8</td><td>Mixed precision</td><td>Outlier channels stay FP16; rest quantized to INT8</td></tr>
+          <tr><td>GGUF (llama.cpp)</td><td>4-8</td><td>Weight-only</td><td>CPU-friendly format for edge and desktop deployment</td></tr>
+        </table>
+
+        <h3>Impact on performance</h3>
+        <table>
+          <tr><th>Precision</th><th>Memory vs FP16</th><th>Typical accuracy drop</th><th>Throughput gain</th></tr>
+          <tr><td>FP8 (H100)</td><td>0.5x</td><td>~0%</td><td>~2x</td></tr>
+          <tr><td>INT8</td><td>0.5x</td><td>&lt;0.5%</td><td>1.5-2x</td></tr>
+          <tr><td>INT4 (GPTQ/AWQ)</td><td>0.25x</td><td>1-3% on hard tasks</td><td>2-3x</td></tr>
+        </table>
+
+        <h3>PTQ vs QAT</h3>
+        <p>
+          <strong>Post-Training Quantization (PTQ)</strong> quantizes a pre-trained model without retraining.
+          GPTQ and AWQ both work this way. Download a pre-quantized checkpoint and serve it immediately.
+          This is what you use in production 95% of the time.
+        </p>
+        <p>
+          <strong>Quantization-Aware Training (QAT)</strong> simulates quantization during training, allowing
+          the model to learn to compensate for precision loss. Better INT4 accuracy but requires
+          full training compute. Use QAT only when PTQ quality is insufficient for your specific task.
+        </p>
+
+        <h3>Optimization order of operations</h3>
+        <p>
+          Apply optimizations in ROI order. Don't jump to complex techniques before exhausting simple ones:
+        </p>
+        <ol>
+          <li><strong>Quantization (INT8/INT4)</strong> - 2-4x memory reduction, minimal quality impact</li>
+          <li><strong>Continuous batching</strong> - 3-5x throughput, no quality change</li>
+          <li><strong>KV cache optimization</strong> - reduce TTFT for shared prefixes</li>
+          <li><strong>Smaller model + fine-tuning</strong> - if quantized large model does not meet SLO</li>
+          <li><strong>Distillation</strong> - if you need smaller than any available checkpoint</li>
+          <li><strong>Structured pruning</strong> - last resort, highest quality risk</li>
+        </ol>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Other techniques -->
+        <!-- ============================================================ -->
+        <h2 id="other-techniques">Pruning and Distillation</h2>
+
+        <h3>Pruning</h3>
+        <p>
+          Pruning removes weights that contribute minimally to output quality. Two categories:
+        </p>
+        <ul>
+          <li><strong>Unstructured pruning:</strong> Zeros out individual weights with smallest magnitude.
+            Can achieve 50-90% sparsity, but requires sparse tensor hardware support to see actual speedups.
+            Without hardware support, a 50% sparse model is NOT 2x faster. SparseGPT achieves 50-60% sparsity
+            on large models with minimal quality loss.</li>
+          <li><strong>Structured pruning:</strong> Removes entire attention heads, FFN neurons, or transformer layers.
+            Results in a genuinely smaller dense model with immediate speedups on standard hardware.
+            More impactful on accuracy since entire functional units are removed.</li>
+        </ul>
+
+        <h3>Distillation</h3>
+        <p>
+          Distillation trains a smaller "student" model to mimic a larger "teacher" model. The student learns
+          from the teacher's soft probability distributions, not just hard labels:
+        </p>
+        <pre><code>Loss = alpha x CrossEntropy(student, ground_truth)
+     + (1-alpha) x KL_Divergence(student_logits, teacher_logits / T)
+
+Where T = temperature (higher = softer distributions = richer information)</code></pre>
+        <p>
+          The teacher's soft probabilities carry richer information than hard labels. If the teacher assigns 5%
+          probability to a wrong answer, that tells the student something about the similarity structure of the output space.
+        </p>
+        <p>
+          Landmark examples: DistilBERT (40% smaller, 60% faster, 97% of BERT performance),
+          TinyLlama (1.1B from Llama-2), Microsoft Phi series (frontier knowledge in 3B parameters).
+        </p>
+
+        <h3>Combining techniques</h3>
+        <pre><code>70B FP16 teacher
+    | Distillation
+    v
+7B FP16 student (domain-specific)
+    | Quantization (AWQ INT4)
+    v
+7B INT4 student (3.5 GB VRAM - fits on consumer GPU)
+    | Structured pruning (10% attention heads)
+    v
+6.3B INT4 (3.15 GB VRAM)</code></pre>
+
+        <h3>Comparison</h3>
+        <table>
+          <tr><th>Dimension</th><th>Pruning</th><th>Quantization</th><th>Distillation</th></tr>
+          <tr><td>What changes</td><td>Removes weights/units</td><td>Reduces bit precision</td><td>Trains new smaller model</td></tr>
+          <tr><td>Memory reduction</td><td>Moderate</td><td>2-8x</td><td>2-10x</td></tr>
+          <tr><td>Accuracy impact</td><td>Moderate-High</td><td>Low (INT8~0%, INT4~1-3%)</td><td>Low (DistilBERT 97%)</td></tr>
+          <tr><td>Training required</td><td>Fine-tuning recommended</td><td>No (PTQ)</td><td>Yes (days-weeks)</td></tr>
+          <tr><td>Time to implement</td><td>Hours-days</td><td>Minutes-hours</td><td>Days-weeks</td></tr>
+          <tr><td>Best use case</td><td>Over-parameterized models</td><td>Production budget constraints</td><td>Purpose-built deployable models</td></tr>
+        </table>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Batching -->
+        <!-- ============================================================ -->
+        <h2 id="batching">Batching Strategies</h2>
+        <p>
+          Since decode is bandwidth-bound, the only way to increase throughput is to process multiple sequences
+          per weight-read. Batching is how you do this. Three strategies, each with different trade-offs.
+        </p>
+
+        <h3>Static batching</h3>
+        <p>
+          Collect N requests, process them as a batch, return all results when the <em>longest</em> sequence finishes.
+          Simple but wasteful: short sequences sit idle while waiting for long ones. GPU utilization is low.
+          TTFT is high because new requests must wait for the current batch to complete.
+        </p>
+
+        <h3>Continuous batching</h3>
+        <p>
+          What vLLM, TGI, and modern serving frameworks use. New requests join the batch immediately
+          without waiting for existing requests to finish. When a sequence completes, its slot opens for a new request.
+          The batch size dynamically adjusts to demand.
+        </p>
+        <p>
+          Better GPU utilization, lower TTFT, higher throughput.
+          The trade-off is implementation complexity: the framework must manage variable-length sequences in the same
+          batch, which requires careful memory management. This is vLLM's PagedAttention innovation: it manages KV cache
+          memory like an operating system manages virtual memory, allocating and freeing cache blocks dynamically.
+        </p>
+
+        <h3>Chunked prefill</h3>
+        <p>
+          When a new request arrives in continuous batching, its prefill (compute-heavy) competes
+          with ongoing decode steps (memory-heavy) for GPU resources. A long prefill can stall all decodes in the batch.
+        </p>
+        <p>
+          Chunked prefill splits the prefill into smaller chunks that interleave with decode steps. This makes both
+          TTFT and ITL "tunable" by controlling chunk size. Smaller chunks = smoother decode latency but higher TTFT.
+          Larger chunks = faster prefill but spikier decode. vLLM supports this with <code>--enable-chunked-prefill</code>.
+        </p>
+
+        <div class="callout">
+          <span class="callout-icon">&#x1F4A1;</span>
+          <div>
+            Not every deployment needs chunked prefill. For short inputs and high-throughput batch workloads,
+            standard continuous batching is sufficient. Chunked prefill shines when you have long input sequences
+            (RAG with 4K+ context) mixed with latency-sensitive decode.
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Operations -->
+        <!-- ============================================================ -->
+        <h2 id="operations">Operational Readiness</h2>
+        <p>
+          Serving an LLM is not just about model performance.
+          The operational layer around the model determines whether it survives real traffic.
+        </p>
+
+        <h3>Metrics to monitor</h3>
+        <p>
+          Beyond TTFT and throughput, production LLM serving requires these additional metrics:
+        </p>
+        <ul>
+          <li><strong>GPU/VRAM utilization:</strong> Target 70-85% sustained VRAM. 100% means OOM crashes. Below 50% means wasted capacity.</li>
+          <li><strong>KV cache utilization:</strong> When this hits 100%, new requests queue. A leading indicator of throughput collapse.</li>
+          <li><strong>Request queue depth:</strong> Sustained depth > 10 means under-provisioned. A leading indicator of latency spikes.</li>
+          <li><strong>Error rate:</strong> Even 1% compounds under load because clients retry, amplifying traffic.</li>
+          <li><strong>Cost per 1K tokens:</strong> <code>(GPU_hourly_cost / 3600) / throughput_tps * 1000</code>.
+            Example: A100 at $3/hr doing 1,000 tok/s = $0.00083 per 1K tokens.</li>
+          <li><strong>Batch size distribution:</strong> If consistently maxed: saturated. If avg=1: under-utilized.</li>
+        </ul>
+
+        <h3>The observability stack</h3>
+        <pre><code>vLLM /metrics endpoint (Prometheus format, exposed by default)
+    |
+    v
+Prometheus (scrape every 5-15s)
+    |
+    v
+Grafana dashboards (TTFT, throughput, KV cache %, queue depth)
+    |
+    v
+Alertmanager (PagerDuty/Slack on SLO breach)</code></pre>
+        <p>
+          Key vLLM metrics to dashboard:
+        </p>
+        <ul>
+          <li><code>vllm:e2e_request_latency_seconds</code> - histogram with p50/p95/p99</li>
+          <li><code>vllm:time_to_first_token_seconds</code> - TTFT histogram</li>
+          <li><code>vllm:num_requests_running</code> - current batch size</li>
+          <li><code>vllm:num_requests_waiting</code> - queue depth</li>
+          <li><code>vllm:gpu_cache_usage_perc</code> - KV cache utilization</li>
+        </ul>
+
+        <h3>Load testing</h3>
+        <p>
+          Self-benchmarks with custom scripts produce misleading results. They use different concurrency patterns,
+          request distributions, and timeout behaviors than real traffic. Use the same tool your production traffic
+          will use: Locust, k6, or wrk. Match the concurrency pattern, request distribution, and timeout settings.
+        </p>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Infrastructure -->
+        <!-- ============================================================ -->
+        <h2 id="infrastructure">Infrastructure Patterns</h2>
+
+        <h3>System-level hardening</h3>
+        <p>
+          Before tuning any model parameters, fix the OS and hardware layer:
+        </p>
+        <ul>
+          <li><strong>File descriptor limits:</strong> <code>ulimit -n 65535</code>. The default 1024 causes "connection refused" under concurrent load.</li>
+          <li><strong>GPU persistence mode:</strong> <code>nvidia-smi -pm 1</code>. Without this, the GPU driver reinitializes on each process start.</li>
+          <li><strong>GPU clock locking:</strong> <code>nvidia-smi -lgc 1410,1410</code>. Without locked clocks, the GPU throttles under sustained load, causing gradual throughput degradation that looks like a software bug.</li>
+          <li><strong>Disk space:</strong> Model checkpoints are 25-40 GB each. Check <code>df -h</code> before anything else.</li>
+        </ul>
+
+        <h3>Scaling patterns</h3>
+        <ul>
+          <li><strong>Horizontal scaling:</strong> Multiple stateless vLLM instances behind a load balancer. Session state lives in Redis, not on the serving node.</li>
+          <li><strong>Queue-based autoscaling (KEDA):</strong> Traditional CPU/memory autoscaling does not work for LLMs. Scale on request queue depth instead.</li>
+          <li><strong>Load balancing:</strong> Use least-connections routing, not round-robin. LLM request durations vary wildly.</li>
+          <li><strong>Blue-green deployments:</strong> Deploy new model version to inactive environment, switch traffic atomically, roll back if metrics degrade.</li>
+          <li><strong>Circuit breakers:</strong> When an instance starts timing out, stop routing to it immediately instead of letting failures cascade.</li>
+        </ul>
+
+        <h3>Reliability patterns</h3>
+        <ul>
+          <li><strong>Auto-restart watchdog:</strong> A crash during production traffic is a permanent failure without one. Must include warmup, not just restart.</li>
+          <li><strong>Readiness probes:</strong> Don't route traffic until the model is loaded and warmed up. CUDA graph compilation can take minutes.</li>
+          <li><strong>Rate limiting:</strong> Token bucket or sliding window at the API gateway. Protect from burst abuse and runaway clients.</li>
+          <li><strong>Graceful degradation:</strong> Return 429 (Too Many Requests) with <code>Retry-After</code> header when overloaded. Better than 500s or timeouts.</li>
+        </ul>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Self-hosting vs API -->
+        <!-- ============================================================ -->
+        <h2 id="hosting">Self-Hosting vs API</h2>
+        <p>
+          Not every LLM workload needs self-hosting. The decision depends on three factors.
+        </p>
+
+        <h3>Volume</h3>
+        <pre><code>&lt; 1M tokens/day       -  API (infrastructure overhead not justified)
+1M - 50M tokens/day   -  Evaluate case by case
+&gt; 50M tokens/day      -  Self-hosting likely more cost-effective
+
+Example: 100M tokens/day
+  Via API ($0.001/1K):        $100/day = $3,000/month
+  Self-hosted A100 (~$2/hr):  ~$1,500/month with 7B model</code></pre>
+
+        <h3>Data sensitivity</h3>
+        <table>
+          <tr><th></th><th>Low volume (&lt;1M tok/day)</th><th>High volume (&gt;50M tok/day)</th></tr>
+          <tr><td><strong>Sensitive data</strong></td><td>Self-host or private cloud</td><td>Self-host (mandatory)</td></tr>
+          <tr><td><strong>Non-sensitive</strong></td><td>API (cheapest)</td><td>Self-host (economics)</td></tr>
+        </table>
+
+        <h3>Team capability</h3>
+        <ul>
+          <li>No MLOps engineers? Use API. Avoid hidden operational debt.</li>
+          <li>Small team, fast iteration? API. Focus on product, not infrastructure.</li>
+          <li>Dedicated platform team? Evaluate self-hosting for high-volume workloads.</li>
+          <li>Need specific open-source or fine-tuned model? Self-host (can't run custom weights on most APIs).</li>
+        </ul>
+        <p>
+          Most mature products use a hybrid: API for development, experimentation, and frontier model tasks.
+          Self-hosted for high-volume production paths and fine-tuned models.
+        </p>
+
+        <hr class="divider" />
+
+        <a class="next-post" href="llm-gauntlet.html">
+          <div>
+            <div class="next-post-label">Part 2</div>
+            <div class="next-post-title">What I Learned from a Live LLM Serving Gauntlet</div>
+          </div>
+          <span class="next-post-arrow">&rarr;</span>
+        </a>
+
+      </article>
+    </div>
+
+    <footer>
+      <div class="container">&copy; 2026 Haoming Koo</div>
+    </footer>
+
+    <script>
+      function toggleTheme() {
+        const html = document.documentElement;
+        const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        html.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+        document.querySelector(".theme-label").textContent = next === "dark" ? "Dark" : "Light";
+      }
+      (function() {
+        const saved = localStorage.getItem("theme") || "dark";
+        document.documentElement.setAttribute("data-theme", saved);
+        const label = document.querySelector(".theme-label");
+        if (label) label.textContent = saved === "dark" ? "Dark" : "Light";
+      })();
+    </script>
+  </body>
+</html>

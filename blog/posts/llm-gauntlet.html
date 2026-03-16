@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What I Learned from a Live LLM Serving Gauntlet - Haoming Koo</title>
+    <meta name="description" content="19 engineers, 19 A100 GPUs, two hours of Locust fire. I tuned 40+ vLLM configurations and scraped peer metrics. Then someone with a 30-line cache proxy beat all of us." />
+    <meta name="keywords" content="vLLM, LLM serving, A100, inference optimization, KV cache, GPTQ, AWQ, response caching, competitive intelligence, LLMOps, Locust, load testing" />
+    <meta name="author" content="Haoming Koo" />
+    <link rel="canonical" href="https://kooexperience.com/blog/posts/llm-gauntlet.html" />
+    <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
+    <meta property="og:site_name" content="Haoming Koo" />
+    <meta property="og:locale" content="en_SG" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      [data-theme="dark"] {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #3b82f6;
+        --accent-dim: rgba(59,130,246,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+        --nav-bg: rgba(6,6,8,0.72);
+      }
+      [data-theme="light"] {
+        --bg: #f8f9fb;
+        --surface: #ffffff;
+        --border: #dde1e6;
+        --accent: #2563eb;
+        --accent-dim: rgba(37,99,235,0.08);
+        --text: #111318;
+        --text-secondary: #3d4250;
+        --muted: #6b7280;
+        --nav-bg: rgba(248,249,251,0.85);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        transition: background .35s, color .35s;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+      [data-theme="light"] body::before { opacity: 0.3; }
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: var(--nav-bg);
+        backdrop-filter: blur(16px) saturate(1.6);
+        transition: background .35s, border-color .35s;
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between; height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px; transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle { font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; }
+      .article h2 { font-size: 22px; font-weight: 700; margin: 48px 0 16px; letter-spacing: -.01em; color: var(--text); }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article code {
+        background: rgba(59,130,246,.08); padding: 2px 7px; border-radius: 5px;
+        font-size: 13px; font-family: "SF Mono", "Fira Code", monospace; color: var(--accent);
+      }
+      .article pre {
+        background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+        padding: 20px 24px; overflow-x: auto; margin: 24px 0;
+      }
+      .article pre code { background: none; padding: 0; font-size: 13px; line-height: 1.65; color: var(--text-secondary); }
+      .article blockquote {
+        border-left: 3px solid var(--accent); padding: 14px 20px; margin: 24px 0;
+        background: var(--accent-dim); border-radius: 0 10px 10px 0; color: var(--text-secondary);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+      .toc a { display: block; font-size: 13.5px; color: var(--text-secondary); text-decoration: none; padding: 4px 0; transition: color .2s; }
+      .toc a:hover { color: var(--accent); }
+      .callout {
+        display: flex; gap: 12px;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 16px 20px; margin: 24px 0;
+        font-size: 13.5px; color: var(--text-secondary); line-height: 1.55;
+      }
+      .callout-icon { font-size: 18px; flex-shrink: 0; line-height: 1.4; }
+      .stack-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 24px 0; }
+      .stack-box-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+      .stack-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+      .stack-tag {
+        font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 8px;
+        background: rgba(255,255,255,.04); color: var(--text-secondary); border: 1px solid rgba(255,255,255,.05);
+      }
+      table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 13.5px; }
+      th { text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border); color: var(--text); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+      td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+      tr:hover td { background: rgba(255,255,255,.02); }
+      footer { border-top: 1px solid var(--border); padding: 32px 0 40px; font-size: 13px; color: var(--muted); text-align: center; }
+      .nav-right { display: flex; align-items: center; gap: 12px; }
+      .theme-btn {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 8px; padding: 6px 10px; cursor: pointer;
+        color: var(--text); display: flex; align-items: center; gap: 6px;
+        font-size: 12px; font-family: inherit; transition: all .2s;
+      }
+      .theme-btn:hover { border-color: #2a2a36; }
+      .theme-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+      .prev-post {
+        display: flex; align-items: center; justify-content: space-between;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin: 0 0 40px;
+        text-decoration: none; transition: border-color .2s;
+      }
+      .prev-post:hover { border-color: var(--accent); }
+      .prev-post-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+      .prev-post-title { font-size: 15px; font-weight: 600; color: var(--text); }
+      .prev-post-arrow { font-size: 20px; color: var(--accent); }
+      @media (max-width: 600px) { .container { padding: 0 18px; } nav { padding: 0 18px; } }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "What I Learned from a Live LLM Serving Gauntlet",
+      "description": "19 engineers, 19 A100 GPUs, two hours of Locust fire. Tuning 40+ vLLM configurations, scraping peer metrics, and discovering that a cache proxy beats all model-level optimization.",
+      "url": "https://kooexperience.com/blog/posts/llm-gauntlet.html",
+      "datePublished": "2026-03-16",
+      "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
+      "publisher": {"@type": "Person", "name": "Haoming Koo"},
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/llm-gauntlet.html"}
+    }
+    </script>
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://kooexperience.com/blog/"},{"@type":"ListItem","position":3,"name":"LLM Gauntlet"}]}
+</script>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../../">HK</a>
+        <div class="nav-right">
+          <a href="../../#blog">Blog</a>
+          <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <span class="theme-label">Dark</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../../#blog">&larr; Back to blog</a>
+
+        <a class="prev-post" href="llm-inference-theory.html">
+          <span class="prev-post-arrow">&larr;</span>
+          <div>
+            <div class="prev-post-label">Part 1</div>
+            <div class="prev-post-title">LLM Inference: The Theory You Need Before Deploying</div>
+          </div>
+        </a>
+
+        <div class="article-meta">
+          <span class="article-tag">LLMOps</span>
+          <span class="article-tag">vLLM</span>
+          <span class="article-tag">Part 2 of 2</span>
+          <span>March 16, 2026</span>
+          <span class="reading-time">15 min read</span>
+        </div>
+        <h1>What I Learned from a Live LLM Serving Gauntlet</h1>
+        <p class="subtitle">
+          19 engineers, 19 A100 GPUs, one model, two hours of Locust fire.
+          I spent a weekend tuning 40+ vLLM configurations and scraping peer metrics.
+          Then someone with a 30-line cache proxy beat all of us.
+        </p>
+
+        <div class="stack-box">
+          <div class="stack-box-title">Tech Stack</div>
+          <div class="stack-tags">
+            <span class="stack-tag">vLLM 0.17.1</span>
+            <span class="stack-tag">A100 80GB</span>
+            <span class="stack-tag">Qwen3.5-35B-A3B</span>
+            <span class="stack-tag">GPTQ-Int4</span>
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">Redis</span>
+            <span class="stack-tag">nginx</span>
+            <span class="stack-tag">Prometheus</span>
+            <span class="stack-tag">Locust</span>
+          </div>
+        </div>
+
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#setup">The setup</a>
+          <a href="#journey">The optimization journey</a>
+          <a href="#scouting">Scouting other servers</a>
+          <a href="#caching">The caching revelation</a>
+          <a href="#intercept">Intercepting the workload</a>
+          <a href="#mistakes">Mistakes</a>
+          <a href="#lessons">15 lessons</a>
+          <a href="#acknowledgments">Acknowledgments</a>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Setup -->
+        <!-- ============================================================ -->
+        <h2 id="setup">The Setup</h2>
+        <p>
+          19 of us were each given an A100 80GB GPU VM and tasked with serving
+          <code>Qwen3.5-35B-A3B</code> as fast as possible using vLLM.
+          The organizers would blast all servers simultaneously with Locust for 2 hours, measuring throughput (RPS),
+          TTFT, median and p95 latency, and error rate. A live leaderboard showed rankings in real time.
+        </p>
+        <p>
+          The model is a Mixture of Experts (MoE) architecture: 35B total parameters but only 3B active per token.
+          Compute per token is cheap, but the full 35B of weights still needs to live in VRAM.
+          The throughput ceiling is determined by how much GPU memory is left for
+          <a href="llm-inference-theory.html#memory">KV cache</a> after loading the model,
+          not by how fast the GPU can multiply matrices.
+        </p>
+        <p>
+          If the theory in <a href="llm-inference-theory.html">Part 1</a> is "what you should know,"
+          this post is "what happens when you don't."
+        </p>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Journey -->
+        <!-- ============================================================ -->
+        <h2 id="journey">The Optimization Journey: 650 to 3,114 tok/s</h2>
+
+        <h3>Phase 1: FP8 (the wrong starting point)</h3>
+        <p>
+          I started with the FP8 quantized model (~35 GB). It seemed like the "best quality" option.
+          After testing 20+ configurations across <code>gpu_memory_utilization</code>, <code>max_num_seqs</code>,
+          and <code>max_num_batched_tokens</code>, the best I got was <strong>1,070 tok/s</strong>.
+          Hours of tuning yielded only marginal gains.
+        </p>
+        <p>
+          The problem: at 35 GB, the model left only ~39 GB for KV cache on an 80 GB GPU. Under high concurrency,
+          the server ran out of KV cache blocks and started queuing requests, killing throughput.
+        </p>
+
+        <h3>Phase 2: AWQ (better, not best)</h3>
+        <p>
+          Switching to the AWQ model (~25 GB) freed 10 GB of VRAM. Throughput jumped to <strong>1,211 tok/s</strong>
+          without changing any configuration. That single model switch gave more improvement than all my parameter tuning combined.
+          This was the first sign that I was optimizing at the wrong layer.
+        </p>
+
+        <h3>Phase 3: GPTQ-Int4 (the winner)</h3>
+        <p>
+          GPTQ-Int4 (~24.5 GB) left maximum VRAM for KV cache. With aggressive settings
+          (<code>gpu_util=0.98</code>, <code>max_num_seqs=512</code>, <code>kv_cache_dtype=fp8_e4m3</code>),
+          I hit <strong>3,114 tok/s</strong>. A 191% improvement over the FP8 starting point.
+        </p>
+
+        <table>
+          <tr><th>Model</th><th>VRAM</th><th>Best throughput</th><th>vs FP8 baseline</th></tr>
+          <tr><td>FP8</td><td>~35 GB</td><td>1,070 tok/s</td><td>Baseline</td></tr>
+          <tr><td>AWQ</td><td>~25 GB</td><td>1,211 tok/s</td><td>+13%</td></tr>
+          <tr><td>GPTQ-Int4</td><td>~24.5 GB</td><td>3,114 tok/s</td><td>+191%</td></tr>
+        </table>
+
+        <p>
+          Model selection is a 2-3x lever.
+          <a href="llm-inference-theory.html#quantization">Parameter tuning</a> is a 10-15% lever.
+          Always test all available quantizations before spending time on config sweeps.
+        </p>
+
+        <h3>Warmup: 407x TTFT difference</h3>
+        <p>
+          vLLM compiles CUDA graphs on the first request at each batch size. Without warmup, the first request
+          took 89 seconds. After warmup: 219ms. That is a 407x difference. I built a targeted warmup script that
+          ramps concurrency through 1, 2, 4, 8, 16, 32, and 64 concurrent requests to pre-compile all graph
+          variants before the blast started.
+        </p>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Scouting -->
+        <!-- ============================================================ -->
+        <h2 id="scouting">Scouting Other Servers</h2>
+        <p>
+          vLLM exposes a Prometheus metrics endpoint at <code>/metrics</code> by default. It is unauthenticated.
+          This endpoint reveals the server's full configuration:
+        </p>
+        <ul>
+          <li><code>gpu_memory_utilization</code>, <code>cache_dtype</code>, <code>num_gpu_blocks</code></li>
+          <li><code>swap_space</code>, <code>block_size</code>, <code>max_model_len</code></li>
+          <li><code>prefix_caching</code> enabled or not</li>
+          <li>The model name and version</li>
+        </ul>
+        <p>
+          I built a suite of scripts to scrape these metrics from all 17 peer VMs:
+        </p>
+        <ul>
+          <li><strong>scout_competitors.py</strong> - health check + model identification for all VMs</li>
+          <li><strong>deep_scout.py</strong> - benchmark each server with 16 requests at 8 concurrency</li>
+          <li><strong>leaderboard.py</strong> - DIY replacement for the official dashboard (which went down mid-exercise)</li>
+        </ul>
+        <p>
+          Key discovery: the #1 performer (Sze Vy) had <code>gpu_util=0.46</code> with only
+          661 KV cache blocks, yet was serving 6,800+ tok/s. A model at that gpu_util should not have enough
+          KV cache capacity for that throughput. Something else was going on entirely.
+        </p>
+
+        <div class="callout">
+          <span class="callout-icon">&#x1F4A1;</span>
+          <div>
+            <strong>In production, secure your /metrics endpoint.</strong>
+            In a friendly exercise, scraping peer configs is fair game and a great learning tool.
+            In production, it exposes your entire serving configuration to anyone with network access.
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Caching -->
+        <!-- ============================================================ -->
+        <h2 id="caching">The Caching Revelation</h2>
+        <p>
+          When I intercepted the incoming Locust requests (via tcpdump on the VM), I discovered the organizers were sending
+          <strong>only 2 unique prompts</strong>:
+        </p>
+        <pre><code>"Write a 50-word story about a robot exploring a garden."
+"What is the capital of Singapore?"</code></pre>
+        <p>
+          Both with <code>max_tokens: 256</code> and a mix of streaming and non-streaming.
+        </p>
+        <p>
+          The #1 performer was not running a faster model. She had a <strong>response cache proxy</strong>
+          sitting in front of vLLM. First request goes to the model. Every identical request after that returns
+          from an in-memory dictionary in under 5ms. The GPU is idle after the first two requests.
+        </p>
+
+        <h3>The architecture</h3>
+        <pre><code>Locust (organizers)
+    |
+    v
+cache_app.py (port 8000)
+    |
+    +--> Cache HIT?  --> return cached response (&lt;5ms)
+    |
+    +--> Cache MISS? --> forward to vLLM (port 8001) --> cache response --> return</code></pre>
+
+        <p>
+          The cache app is about 50 lines of Python using aiohttp. It hashes the request body,
+          checks an in-memory dict, and either returns the cached response or forwards to vLLM.
+          Streaming and non-streaming requests use separate cache keys because they return different formats.
+        </p>
+        <p>
+          With only 2 unique prompts, after 2 cache misses every subsequent request returned instantly.
+          The server's throughput became limited by Python's async I/O speed, not GPU compute.
+          Adding uvloop (a C-based event loop replacement) further improved cache-hit throughput.
+        </p>
+
+        <div class="callout">
+          <span class="callout-icon">&#x1F4A1;</span>
+          <div>
+            <strong>The real lesson:</strong> I spent an entire weekend tuning vLLM parameters to squeeze out
+            an extra 10-15% throughput. A 30-line Python cache proxy gave a 50x improvement.
+            Full-stack thinking beats ML-layer tunnel vision every time.
+          </div>
+        </div>
+
+        <h3>When caching applies in production</h3>
+        <p>
+          Our exercise had an artificially small prompt set, which made caching absurdly effective.
+          But caching is useful in real production too. RAG systems use the same system prompt across all requests.
+          vLLM's prefix caching (<code>--enable-prefix-caching</code>) caches KV tensors for shared prompt prefixes,
+          reducing TTFT by 30-60% for these workloads. Application-level response caching works for FAQ-style queries
+          where the same questions recur frequently.
+        </p>
+        <p>
+          The general principle: understand your workload's uniqueness distribution before deciding
+          where to invest optimization effort. If 80% of your traffic is 20% of your prompts, caching is the
+          highest-leverage intervention.
+        </p>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Intercept -->
+        <!-- ============================================================ -->
+        <h2 id="intercept">Intercepting the Workload</h2>
+        <p>
+          I built request logging into the cache proxy. Every request was logged to
+          <code>/tmp/locust_requests.jsonl</code> with:
+        </p>
+        <ul>
+          <li>Whether it is a new unique prompt or a repeat</li>
+          <li>Streaming vs non-streaming mode</li>
+          <li><code>max_tokens</code>, <code>temperature</code>, model name</li>
+          <li>Prompt preview and running count of unique prompts seen</li>
+        </ul>
+        <p>
+          This revealed that <code>max_model_len=8192</code> (my default) was massive overkill. The actual workload
+          needed only ~271 tokens (15 input + 256 output). Dropping to <code>max_model_len=512</code> freed
+          enormous KV cache capacity because vLLM pre-allocates cache blocks for the maximum possible sequence length.
+        </p>
+
+        <div class="callout">
+          <span class="callout-icon">&#x1F4A1;</span>
+          <div>
+            <strong>Rule:</strong> Always instrument your server to log incoming requests.
+            Understanding the workload is half the optimization.
+            The first question for any serving optimization: "What exactly does the client send, and what does it measure?"
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Mistakes -->
+        <!-- ============================================================ -->
+        <h2 id="mistakes">Mistakes</h2>
+
+        <h3>1. Tunnel vision on ML parameters</h3>
+        <p>
+          I spent the entire weekend tuning <code>gpu_memory_utilization</code>, <code>max_num_seqs</code>,
+          <code>kv_cache_dtype</code>, and <code>max_num_batched_tokens</code>. I tested 40+ configurations.
+          The difference between the best and worst config was about 15%.
+          Meanwhile, a response cache gave 50x improvement. I was so focused on the model layer that I completely
+          missed the application layer sitting right above it.
+        </p>
+        <p>
+          Always draw the full request path: client, proxy, cache, model, response. Optimize each layer.
+          The biggest wins are usually not at the model level.
+        </p>
+
+        <h3>2. Did not understand the workload</h3>
+        <p>
+          I optimized for "generic LLM serving" without asking: what will the evaluator actually send?
+          If I had intercepted the Locust traffic on day one, I would have built the cache proxy immediately,
+          set <code>max_model_len=512</code> instead of 8192, used targeted warmup with the exact prompts,
+          and saved two days of blind parameter tuning.
+        </p>
+
+        <h3>3. Switched models mid-blast</h3>
+        <p>
+          I switched from AWQ to GPTQ-Int4 during the live blast, causing 5+ minutes of downtime.
+          The dashboard uses a 15-minute rolling window. Those 5 minutes of errors showed as a
+          21% error rate for the next 15 minutes, tanking my ranking even after the new model was running well.
+        </p>
+        <p>
+          All model and config decisions must be finalized before production traffic starts.
+          Before any mid-production change, calculate: "How long will the rolling metrics window show degraded numbers?
+          Is the potential gain worth it?"
+        </p>
+
+        <h3>4. Trusted self-benchmarks</h3>
+        <p>
+          My custom benchmark showed AWQ and GPTQ-Int4 as nearly identical. Under real Locust load with
+          different concurrency patterns and request distributions, GPTQ-Int4 was clearly better.
+          Always benchmark from a neutral machine using the evaluator's actual tool and settings.
+        </p>
+
+        <h3>5. Ignored system-level constraints</h3>
+        <p>
+          <code>ulimit -n 1024</code> (default) caused connection refused errors under Locust load.
+          Disk space at 100% from downloading 3 model checkpoints caused "Engine core initialization failed"
+          errors that took hours to debug because the error message never mentions disk.
+          Check <code>ulimit -n</code> and <code>df -h</code> before anything else.
+        </p>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Lessons -->
+        <!-- ============================================================ -->
+        <h2 id="lessons">15 Lessons for LLM Serving</h2>
+
+        <ol>
+          <li><strong>Model selection matters 10x more than parameter tuning.</strong> Don't tune parameters on a suboptimal model. Test all quantizations first. For MoE models, smaller footprint = more KV cache = more concurrency = higher throughput.</li>
+
+          <li><strong>KV cache size is the throughput bottleneck.</strong> LLM decode is memory-bandwidth bound. What limits concurrency is how many KV caches fit in the VRAM left after loading weights. Every GB saved on model weights translates directly to more concurrent sequences.</li>
+
+          <li><strong>Understand your workload before optimizing.</strong> The first question for any optimization: "What exactly does the client send?" Intercept real traffic. Log requests. Match <code>max_model_len</code> to actual usage.</li>
+
+          <li><strong>Caching is the real multiplier.</strong> For repetitive workloads, a response cache beats any amount of model-level tuning. Even in production with diverse queries, prefix caching provides 30-60% TTFT reduction for shared system prompts.</li>
+
+          <li><strong>Warmup is non-negotiable.</strong> Cold TTFT: 89 seconds. Warm TTFT: 219ms. That is 407x. vLLM compiles CUDA graphs lazily. Warmup before accepting traffic.</li>
+
+          <li><strong>Quantization is the highest-ROI optimization.</strong> INT4 (GPTQ/AWQ) reduces memory 4x vs FP16 with 1-3% accuracy loss. This frees VRAM for KV cache and enables higher concurrency. Apply it first.</li>
+
+          <li><strong>Secure your /metrics endpoint.</strong> vLLM's Prometheus endpoint is unauthenticated and reveals full server configuration. In production, put it behind auth. In a learning exercise, use it to learn from peers.</li>
+
+          <li><strong>Disk space kills silently.</strong> Multiple model downloads fill disk fast. vLLM's error when disk is full does not mention disk. Always check <code>df -h</code> first.</li>
+
+          <li><strong>Lock GPU clocks for sustained load.</strong> Without <code>nvidia-smi -lgc 1410,1410</code>, the GPU throttles under sustained load, causing gradual throughput degradation that looks like a software bug.</li>
+
+          <li><strong>Auto-restart watchdogs are essential.</strong> A crash during a multi-hour production window is a permanent failure without one. The watchdog must include warmup, not just restart.</li>
+
+          <li><strong>Self-benchmarks lie.</strong> Benchmark from a neutral machine using the evaluator's tool, concurrency pattern, and request distribution. Internal benchmarks produce systematically optimistic results.</li>
+
+          <li><strong>Never change configs mid-production.</strong> Rolling metrics windows amplify the cost of downtime. Five minutes of errors shows as 15 minutes of degraded metrics. Finalize all decisions before traffic starts.</li>
+
+          <li><strong>Fix system limits before model tuning.</strong> <code>ulimit -n 65535</code>, GPU persistence mode, disk space. These cause the most confusing failures and the error messages never point to the root cause.</li>
+
+          <li><strong>Continuous batching is table stakes.</strong> Static batching wastes GPU cycles waiting for the longest sequence. vLLM's continuous batching with PagedAttention should be your default.</li>
+
+          <li><strong>Think full-stack, not model-stack.</strong> Draw the request path: client, proxy, cache, model, response. The biggest wins are often at the application layer (caching, routing, workload interception), not the ML layer. Optimize each layer independently.</li>
+        </ol>
+
+        <hr class="divider" />
+
+        <!-- ============================================================ -->
+        <!-- SECTION: Acknowledgments -->
+        <!-- ============================================================ -->
+        <h2 id="acknowledgments">Acknowledgments</h2>
+        <p>
+          Credit to <strong>Sze Vy (Scott)</strong> for demonstrating full-stack thinking.
+          While the rest of us were deep in vLLM parameter spreadsheets, she approached the problem as a
+          systems engineer: understood the full request path, identified that a cache proxy
+          was the highest-leverage intervention, and built it. Her <code>gpu_util=0.46</code> config with only
+          661 KV blocks looked absurd on paper, but it did not matter because the cache made GPU compute
+          irrelevant for repeated prompts.
+        </p>
+        <p>
+          That is the lesson I will carry forward: <strong>don't just optimize the model, optimize the system.</strong>
+          The best ML optimization in the world loses to someone who asks "do we even need to run inference on this request?"
+        </p>
+        <p>
+          Thanks to the organizers for designing an exercise that taught more about production LLM systems
+          in one weekend than any textbook could.
+        </p>
+
+      </article>
+    </div>
+
+    <footer>
+      <div class="container">&copy; 2026 Haoming Koo</div>
+    </footer>
+
+    <script>
+      function toggleTheme() {
+        const html = document.documentElement;
+        const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        html.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+        document.querySelector(".theme-label").textContent = next === "dark" ? "Dark" : "Light";
+      }
+      (function() {
+        const saved = localStorage.getItem("theme") || "dark";
+        document.documentElement.setAttribute("data-theme", saved);
+        const label = document.querySelector(".theme-label");
+        if (label) label.textContent = saved === "dark" ? "Dark" : "Light";
+      })();
+    </script>
+  </body>
+</html>

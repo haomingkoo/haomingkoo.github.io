@@ -1,5 +1,31 @@
 [
   {
+    "slug": "llm-gauntlet",
+    "title": "What I Learned from a Live LLM Serving Gauntlet",
+    "date": "2026-03-16",
+    "tags": [
+      "LLMOps",
+      "vLLM",
+      "Part 2"
+    ],
+    "excerpt": "19 engineers, 19 A100 GPUs, two hours of Locust fire. I tuned 40+ vLLM configs and scraped peer metrics. Then someone with a 30-line cache proxy beat all of us.",
+    "cover": "",
+    "readingTime": "15 min"
+  },
+  {
+    "slug": "llm-inference-theory",
+    "title": "LLM Inference: The Theory You Need Before Deploying",
+    "date": "2026-03-16",
+    "tags": [
+      "LLMOps",
+      "Inference",
+      "Part 1"
+    ],
+    "excerpt": "Prefill vs decode. Why memory bandwidth matters more than FLOPS. VRAM budget math. Quantization methods (GPTQ, AWQ, FP8). Batching strategies. The theory behind every LLM serving decision.",
+    "cover": "",
+    "readingTime": "15 min"
+  },
+  {
     "slug": "wmss-demo",
     "title": "Visualizing Weak-Driven Learning: An Interactive WMSS Demo",
     "date": "2026-03-13",
