@@ -280,6 +280,25 @@
     .legend-plat::before { background: var(--wine); }
     .legend-gc::before { background: var(--gold); }
 
+    /* ── Score Explainer ── */
+    .score-explainer { margin-bottom: 16px; }
+    .score-explainer-toggle {
+      background: none; border: none; color: #3b82f6; font-size: 12px;
+      cursor: pointer; font-family: inherit; padding: 0; text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .score-explainer-toggle:hover { color: var(--text); }
+    .score-explainer-body {
+      display: none; margin-top: 10px; padding: 14px 16px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      font-size: 12px; color: var(--text-secondary); line-height: 1.6;
+    }
+    .score-explainer-body.open { display: block; }
+    .score-explainer-body p { margin-bottom: 8px; }
+    .score-factors { display: flex; flex-direction: column; gap: 6px; }
+    .score-factor { display: flex; align-items: center; gap: 10px; font-size: 11px; }
+    .score-factor-bar { height: 6px; border-radius: 3px; min-width: 20px; flex-shrink: 0; }
+
     /* ── Loading ── */
     .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; }
 
@@ -329,6 +348,28 @@
       <div class="metric"><div class="metric-value" id="totalDeals">-</div><div class="metric-label">Total Deals</div></div>
       <div class="metric"><div class="metric-value" id="totalSnapshots">-</div><div class="metric-label">Snapshots</div></div>
       <div class="metric"><div class="metric-value" id="retentionDays">-</div><div class="metric-label">Retention (days)</div></div>
+    </div>
+
+    <div class="score-explainer" id="scoreExplainer">
+      <button class="score-explainer-toggle" id="scoreToggle">How is Deal Score calculated?</button>
+      <div class="score-explainer-body" id="scoreBody">
+        <p>Each wine gets a <strong>Deal Score (0–100)</strong> combining three factors:</p>
+        <div class="score-factors">
+          <div class="score-factor">
+            <span class="score-factor-bar" style="width:60%;background:var(--good)"></span>
+            <span><strong>Price savings</strong> — up to 60 pts. How much cheaper Platinum is vs Grand Cru.</span>
+          </div>
+          <div class="score-factor">
+            <span class="score-factor-bar" style="width:30%;background:var(--gold)"></span>
+            <span><strong>Vivino rating</strong> — up to 30 pts. Higher rating = better quality signal.</span>
+          </div>
+          <div class="score-factor">
+            <span class="score-factor-bar" style="width:10%;background:#3b82f6"></span>
+            <span><strong>Review count</strong> — up to 10 pts. More reviews = higher confidence.</span>
+          </div>
+        </div>
+        <p style="margin-top:8px;color:var(--muted)">A score of 90+ = exceptional deal. 60+ = good value. Below 40 = limited savings or data.</p>
+      </div>
     </div>
 
     <section class="panel">
@@ -766,6 +807,7 @@
     $("filtersForm").addEventListener("submit", (e) => { e.preventDefault(); refresh(); });
     $("sortForm").addEventListener("submit", (e) => { e.preventDefault(); renderCards(sortRows(currentRows)); });
     $("sortToggle").addEventListener("click", () => $("sortSection").classList.toggle("open"));
+    $("scoreToggle").addEventListener("click", () => $("scoreBody").classList.toggle("open"));
 
     refresh();
   </script>
