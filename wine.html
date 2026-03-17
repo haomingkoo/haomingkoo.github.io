@@ -280,6 +280,13 @@
     .legend-plat::before { background: var(--wine); }
     .legend-gc::before { background: var(--gold); }
 
+    /* ── Trend & Chart helpers ── */
+    .trend-badges { font-size: 10px; color: var(--text-secondary); cursor: help; }
+    .chart-help {
+      margin-top: 10px; padding: 10px 12px; font-size: 11px; color: var(--muted);
+      background: var(--bg); border: 1px solid var(--border); border-radius: 8px; line-height: 1.5;
+    }
+
     /* ── Score Explainer ── */
     .score-explainer { margin-bottom: 16px; }
     .score-explainer-toggle {
@@ -481,6 +488,10 @@
         <span class="legend-plat">Platinum</span>
         <span class="legend-gc">Grand Cru</span>
       </div>
+      <div class="chart-help">
+        Prices are scraped daily. Flat lines mean the price hasn't changed during that period.
+        The chart will show price movements as they happen over time.
+      </div>
     </div>
   </div>
 
@@ -536,9 +547,10 @@
     }
 
     function trendHtml(change, label) {
-      if (change == null) return `<span class="price-trend price-trend--flat">${label}: --</span>`;
+      if (change == null) return `<span class="price-trend price-trend--flat">${label}: no data yet</span>`;
+      if (change === 0) return `<span class="price-trend price-trend--flat">${label}: stable</span>`;
       const sign = change > 0 ? "+" : "";
-      const cls = change > 0 ? "up" : change < 0 ? "down" : "flat";
+      const cls = change > 0 ? "up" : "down";
       return `<span class="price-trend price-trend--${cls}">${label}: ${sign}${fmtMoney(change)}</span>`;
     }
 
@@ -665,7 +677,7 @@
                   <div class="delta-value delta-value--${d.cls}">${d.text}</div>
                   <div class="delta-label">${row.cheaper_side || "N/A"}</div>
                 </div>
-                <div style="font-size:10px;color:var(--text-secondary)">${platTrend7} ${platTrend30}</div>
+                <div class="trend-badges" title="Platinum price change vs 7 and 30 days ago">${platTrend7} ${platTrend30}</div>
               </div>
               <div class="card-links">${links}</div>
             </div>
