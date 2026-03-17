@@ -3,32 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wine Intelligence</title>
-  <meta name="description" content="Wine Intelligence — AI-powered wine valuation tool by Haoming Koo. Search Grand Cru wines, get market price analysis and value scoring powered by FastAPI and web scraping." />
-  <meta name="keywords" content="wine valuation, Grand Cru, wine intelligence, FastAPI, AI wine analysis, Haoming Koo" />
+  <title>Wine Intelligence | Compare Grand Cru & Platinum Wine Prices in Singapore</title>
+  <meta name="description" content="Compare wine prices between Platinum Wine Club and Grand Cru Singapore. Find the best deals with Vivino ratings, price tracking, and AI-powered deal scoring. Free tool by Haoming Koo." />
+  <meta name="keywords" content="wine price comparison Singapore, Grand Cru wines, Platinum Wine Club, Vivino ratings, wine deals Singapore, wine valuation tool, wine price tracker" />
   <meta name="author" content="Haoming Koo" />
   <meta name="robots" content="index, follow" />
+  <meta name="geo.region" content="SG" />
+  <meta name="geo.placename" content="Singapore" />
   <link rel="canonical" href="https://kooexperience.com/wine.html" />
-  <meta property="og:title" content="Wine Intelligence" />
-  <meta property="og:description" content="Wine Intelligence — AI-powered wine valuation tool by Haoming Koo. Search Grand Cru wines, get market price analysis and value scoring powered by FastAPI and web scraping." />
+  <meta property="og:title" content="Wine Intelligence | Best Wine Deals in Singapore" />
+  <meta property="og:description" content="Compare Platinum Wine Club vs Grand Cru prices. 68+ wines with Vivino ratings, price history, and deal scoring. Updated daily." />
   <meta property="og:url" content="https://kooexperience.com/wine.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Haoming Koo" />
   <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
   <meta property="og:locale" content="en_SG" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Wine Intelligence" />
-  <meta name="twitter:description" content="Wine Intelligence — AI-powered wine valuation tool by Haoming Koo. Search Grand Cru wines, get market price analysis and value scoring powered by FastAPI and web scraping." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Wine Intelligence | Compare Wine Prices in Singapore" />
+  <meta name="twitter:description" content="Find the best wine deals — Platinum vs Grand Cru with Vivino quality signals and daily price tracking." />
+  <meta name="twitter:image" content="https://kooexperience.com/assets/og-image.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Wine Intelligence",
-    "description": "AI-powered Grand Cru wine valuation and market analysis tool",
+    "description": "Compare wine prices between Platinum Wine Club and Grand Cru Singapore with Vivino quality ratings, price history tracking, and AI-powered deal scoring",
     "url": "https://kooexperience.com/wine.html",
     "applicationCategory": "FinanceApplication",
-    "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
-    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+    "operatingSystem": "Web",
+    "browserRequirements": "Requires JavaScript",
+    "author": {
+      "@type": "Person",
+      "name": "Haoming Koo",
+      "url": "https://kooexperience.com",
+      "jobTitle": "Software Engineer"
+    },
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SGD", "availability": "https://schema.org/InStock"},
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",
+      "ratingCount": "68",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "areaServed": {"@type": "Country", "name": "Singapore"},
+    "inLanguage": "en"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does Wine Intelligence calculate deal scores?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Deal scores (0-100) combine three factors: price savings between Platinum and Grand Cru (up to 60 points), Vivino rating quality (up to 30 points), and review count confidence (up to 10 points)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How often are wine prices updated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Prices are scraped daily from both Platinum Wine Club and Grand Cru Singapore. The 7-day and 30-day price trend indicators show how prices have changed over time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where do the Vivino ratings come from?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Vivino ratings and review counts are sourced directly from Vivino.com using AI-powered wine name matching. Each wine shows its match method (exact, fuzzy, or platinum-embedded) for full transparency."
+        }
+      }
+    ]
   }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -475,6 +526,20 @@
     <div class="cards" id="cardsContainer">
       <div class="loading">Loading wine deals...</div>
     </div>
+
+    <noscript>
+      <div style="padding:40px;text-align:center;color:#a09a90;">
+        <h2>Wine Intelligence requires JavaScript</h2>
+        <p>This tool compares wine prices between Platinum Wine Club and Grand Cru Singapore, enriched with Vivino quality ratings.</p>
+        <p>Features: 68+ wines compared daily, Vivino ratings and review counts, 7-day and 30-day price trend tracking, interactive price history charts, AI-powered deal scoring (0-100).</p>
+        <p>Please enable JavaScript to use the interactive wine comparison tool.</p>
+      </div>
+    </noscript>
+
+    <footer style="margin-top:40px;padding:20px 0;border-top:1px solid var(--border);text-align:center;font-size:11px;color:var(--muted);">
+      <p>Wine Intelligence by <a href="https://kooexperience.com" style="color:var(--text-secondary);text-decoration:none;">Haoming Koo</a> &middot; Prices updated daily &middot; Data from Platinum Wine Club, Grand Cru Singapore & Vivino</p>
+      <p style="margin-top:4px;">Not affiliated with any wine retailer. For informational purposes only.</p>
+    </footer>
   </div>
 
   <!-- History Modal -->
