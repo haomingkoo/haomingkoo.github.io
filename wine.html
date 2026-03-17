@@ -16,12 +16,12 @@
   <meta property="og:url" content="https://kooexperience.com/wine.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Haoming Koo" />
-  <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
+  <meta property="og:image" content="https://kooexperience.com/assets/wine-og.png" />
   <meta property="og:locale" content="en_SG" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Wine Intelligence | Compare Wine Prices in Singapore" />
   <meta name="twitter:description" content="Find the best wine deals — Platinum vs Grand Cru with Vivino quality signals and daily price tracking." />
-  <meta name="twitter:image" content="https://kooexperience.com/assets/og-image.png" />
+  <meta name="twitter:image" content="https://kooexperience.com/assets/wine-og.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -305,6 +305,15 @@
       font-family: inherit;
     }
     .card-links a:hover, .card-links button:hover { border-color: var(--wine); color: var(--text); }
+    .card-links .share-btn { border-color: rgba(59,130,246,.3); color: #3b82f6; }
+    .card-links .share-btn:hover { border-color: #3b82f6; background: rgba(59,130,246,.08); }
+    .share-toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: var(--good); color: #000; padding: 8px 18px; border-radius: 8px;
+      font-size: 12px; font-weight: 600; z-index: 2000; opacity: 0; transition: opacity .3s;
+      pointer-events: none;
+    }
+    .share-toast.show { opacity: 1; }
 
     /* ── History Modal ── */
     .modal-overlay {
@@ -542,6 +551,8 @@
     </footer>
   </div>
 
+  <div class="share-toast" id="shareToast">Link copied!</div>
+
   <!-- History Modal -->
   <div class="modal-overlay" id="historyModal">
     <div class="modal">
@@ -712,11 +723,13 @@
         const platTrend7 = trendHtml(row.price_platinum_change_7d, "7d");
         const platTrend30 = trendHtml(row.price_platinum_change_30d, "30d");
 
+        const safeName = (row.wine_name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
         const links = [
           row.platinum_url ? `<a href="${row.platinum_url}" target="_blank" rel="noopener">Platinum</a>` : "",
           row.grand_cru_url ? `<a href="${row.grand_cru_url}" target="_blank" rel="noopener">Grand Cru</a>` : "",
           row.vivino_url ? `<a href="${row.vivino_url}" target="_blank" rel="noopener">Vivino</a>` : "",
-          `<button onclick="showHistory(${row.id}, '${(row.wine_name || "").replace(/'/g, "\\'")}')">History</button>`,
+          `<button onclick="showHistory(${row.id}, '${safeName}')">History</button>`,
+          `<button class="share-btn" onclick="shareDeal('${safeName}', ${row.vivino_rating || 'null'}, '${fmtMoney(row.price_platinum)}', '${d.text}')">Share</button>`,
         ].filter(Boolean).join("");
 
         return `
@@ -848,6 +861,28 @@
 
       drawLine("price_platinum", "#9b2335");
       drawLine("price_grand_cru", "#c8a960");
+    }
+
+    async function shareDeal(name, rating, price, delta) {
+      const ratingText = rating ? `Vivino ${rating}/5` : "No rating";
+      const text = `${name}\n${price} on Platinum (${delta}) | ${ratingText}\n\nFind more deals:`;
+      const url = "https://kooexperience.com/wine.html";
+
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: "Wine Deal", text, url });
+          return;
+        } catch (e) { /* user cancelled or share failed, fall through to copy */ }
+      }
+
+      try {
+        await navigator.clipboard.writeText(`${text} ${url}`);
+        const toast = $("shareToast");
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2000);
+      } catch (e) {
+        window.open(`mailto:?subject=Wine Deal: ${encodeURIComponent(name)}&body=${encodeURIComponent(text + " " + url)}`, "_blank");
+      }
     }
 
     $("modalClose").onclick = () => $("historyModal").classList.remove("open");
