@@ -55,7 +55,7 @@ Previously led global AI-enabled transformation at **Micron Technology** for 6+ 
 | [**Preflight**](https://preflight.kooexperience.com) | Upload CSV/Parquet for instant EDA, data health checks, and baseline ML | Dash, scikit-learn, Plotly |
 | [**Handwriting Lab**](https://handwriting.kooexperience.com) | Rotation-aware digit recognition with canvas prediction and training pipeline | PyTorch, MLflow, FastAPI |
 | [**Photo Compliance Studio**](https://studio.kooexperience.com) | Passport-photo compliance checks with country rules and guided corrections | MediaPipe, OpenCV, FastAPI |
-| [**Wine Intelligence**](https://kooexperience.com/wine.html) | Wine price and critic-score comparison across retailers | Selenium, SQLAlchemy, FastAPI |
+| [**MinMax Wine**](https://wine.kooexperience.com) | Three-way wine price comparison with AI deal scoring | Gemini, Vivino API, FastAPI |
 
 ## GitHub Stats
 

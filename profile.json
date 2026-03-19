@@ -315,10 +315,10 @@
       "tech": ["MediaPipe", "OpenCV", "FastAPI"]
     },
     {
-      "name": "Wine Intelligence",
-      "url": "https://kooexperience.com/wine.html",
-      "description": "Wine price and critic-score comparison across retailers — find the best-value bottles",
-      "tech": ["Selenium", "SQLAlchemy", "FastAPI"]
+      "name": "MinMax Wine",
+      "url": "https://wine.kooexperience.com",
+      "description": "Three-way wine price comparison (Platinum vs Grand Cru vs Vivino) with AI deal scoring for Singapore",
+      "tech": ["Gemini", "Vivino API", "SQLAlchemy", "FastAPI"]
     }
   ],
 

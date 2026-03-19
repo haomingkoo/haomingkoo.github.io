@@ -55,10 +55,10 @@ He holds an MSc in Smart Industries and Digital Transformation from the National
 - **Stack**: FastAPI, MediaPipe, OpenCV, rembg
 - **Blog post**: https://kooexperience.com/blog/posts/photo-id-studio.html
 
-### 6. Wine Intelligence
-- **URL**: https://kooexperience.com/wine.html
-- **What it does**: Grand Cru wine valuation and market analysis tool. Web-scrapes current wine pricing data and provides value scoring for investment-grade wines.
-- **Stack**: FastAPI, SQLAlchemy, Selenium
+### 6. MinMax Wine
+- **URL**: https://wine.kooexperience.com
+- **What it does**: Three-way wine price comparison tool for Singapore. Compares Platinum Wine Club vs Grand Cru vs Vivino market price. Features AI-powered deal scoring (0-100), Vivino tasting notes, community reviews, continent-colored origin map, and daily price tracking. Uses Gemini for wine name parsing and Vivino's internal API for flavor profiles.
+- **Stack**: FastAPI, SQLAlchemy, Gemini Flash, Vivino API, Leaflet
 
 ---
 
@@ -108,7 +108,7 @@ He holds an MSc in Smart Industries and Digital Transformation from the National
 A: Haoming Koo is an AI engineer based in Singapore, currently at AI Singapore (AIAP). He has 7+ years of experience at Micron Technology with $600M+ business impact. He holds an MSc from NUS and has built 6 live AI portfolio applications.
 
 **Q: What projects has Haoming Koo built?**
-A: He has 6 live applications: Trader Koo (AI stock dashboard), LionWeather (Singapore weather ML), Preflight (automated EDA), Handwriting Lab (digit recognition), Photo ID Studio (passport photo compliance), and Wine Intelligence (wine valuation).
+A: He has 6 live applications: Trader Koo (AI stock dashboard), LionWeather (Singapore weather ML), Preflight (automated EDA), Handwriting Lab (digit recognition), Photo ID Studio (passport photo compliance), and MinMax Wine (three-way wine price comparison).
 
 **Q: What is Haoming Koo's tech stack?**
 A: Primarily Python with FastAPI for backends, PyTorch/TensorFlow/scikit-learn for ML, React or vanilla JS for frontends, and Docker/Railway for deployment. He has experience with GCP, AWS, MLflow, and various CV/NLP libraries.
