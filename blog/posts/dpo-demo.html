@@ -773,50 +773,114 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <p class="section-desc">Before we can understand alignment, we need the learning framework behind it: try things, get feedback, improve.</p>
     </div>
 
-    <div class="chat-scene reveal reveal-d1">
-      <div class="chat-row">
-        <div class="chat-avatar">P</div>
-        <div class="chat-bubble">
-          <div class="chat-name">Player</div>
-          I'll move my knight here.
+    <!-- Multi-round chess example -->
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Learning Through Trial and Error</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
+        Imagine learning chess without anyone teaching you the rules. You just play, and after each move you're told: good (+1) or bad (-1).
+      </p>
+
+      <div class="chat-scene" style="max-width:560px">
+        <div class="chat-row">
+          <div class="chat-avatar">P</div>
+          <div class="chat-bubble">
+            <div class="chat-name">Player (Game 1)</div>
+            I'll move my queen right away - attack!
+          </div>
+        </div>
+        <div class="chat-row right">
+          <div class="chat-avatar">G</div>
+          <div class="chat-bubble">
+            <div class="chat-name">Game</div>
+            Your queen got captured. <strong style="color:var(--red)">-1</strong>
+          </div>
+        </div>
+        <div class="chat-row">
+          <div class="chat-avatar">P</div>
+          <div class="chat-bubble">
+            <div class="chat-name">Player (Game 2)</div>
+            OK, I'll develop my knights and bishops first this time.
+          </div>
+        </div>
+        <div class="chat-row right">
+          <div class="chat-avatar">G</div>
+          <div class="chat-bubble">
+            <div class="chat-name">Game</div>
+            Strong position! You won. <strong style="color:var(--live)">+1</strong>
+          </div>
+        </div>
+        <div class="chat-row">
+          <div class="chat-avatar">P</div>
+          <div class="chat-bubble">
+            <div class="chat-name">Player (Game 50)</div>
+            I now know: develop pieces early, control the center, protect my king.
+            <div class="thought">My strategy improved from experience alone - no one taught me the rules.</div>
+          </div>
         </div>
       </div>
-      <div class="chat-row right">
-        <div class="chat-avatar">G</div>
-        <div class="chat-bubble">
-          <div class="chat-name">Game</div>
-          Good move! +1
-          <div class="thought">The player learns which moves earn points.</div>
+
+      <div class="insight" style="margin-top:16px">
+        <strong>That's reinforcement learning.</strong> The player never read a chess book. They just played, got feedback (+1 or -1), and gradually built a strategy. After enough games, they consistently make good moves - not because they memorized rules, but because they learned from outcomes.
+      </div>
+    </div>
+
+    <!-- The RL Loop -->
+    <div class="viz reveal">
+      <div class="viz-title">The RL Loop</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
+        Every RL system follows this cycle, whether it's playing chess, driving a car, or aligning a chatbot:
+      </p>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:24px;border-radius:14px;background:var(--code-bg)">
+        <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center">
+          <div style="padding:14px 24px;border-radius:12px;border:2px solid var(--accent);background:var(--accent-dim);text-align:center;min-width:130px">
+            <div style="font-size:15px;font-weight:700">Agent</div>
+            <div style="font-size:11px;color:var(--text-secondary)">The learner</div>
+          </div>
+          <div style="font-size:14px;color:var(--text-secondary)">-- takes an <strong style="color:var(--text)">Action</strong> --&gt;</div>
+          <div style="padding:14px 24px;border-radius:12px;border:2px solid var(--purple);background:rgba(168,85,247,0.06);text-align:center;min-width:130px">
+            <div style="font-size:15px;font-weight:700">Environment</div>
+            <div style="font-size:11px;color:var(--text-secondary)">The world</div>
+          </div>
+        </div>
+        <div style="font-size:14px;color:var(--text-secondary);padding:8px 0">&lt;-- returns <strong style="color:var(--live)">Reward</strong> + new <strong style="color:var(--text)">State</strong> --</div>
+      </div>
+      <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:12px">This cycle repeats thousands or millions of times. Each time, the agent gets a little better.</p>
+    </div>
+
+    <!-- Four concepts -->
+    <div class="viz reveal" style="margin-top:16px">
+      <div class="viz-title">The Four Key Concepts</div>
+      <div class="train-steps">
+        <div class="train-step">
+          <div class="train-step-num">S</div>
+          <h3 style="color:var(--accent)">State</h3>
+          <p>What the agent sees right now.</p>
+          <p style="font-size:12px;color:var(--muted);margin-top:6px">Chess: the board position<br>Chatbot: the user's prompt</p>
+        </div>
+        <div class="train-step">
+          <div class="train-step-num">A</div>
+          <h3 style="color:var(--purple)">Action</h3>
+          <p>What the agent decides to do.</p>
+          <p style="font-size:12px;color:var(--muted);margin-top:6px">Chess: move a piece<br>Chatbot: generate a response</p>
+        </div>
+        <div class="train-step">
+          <div class="train-step-num">R</div>
+          <h3 style="color:var(--live)">Reward</h3>
+          <p>How good was that action?</p>
+          <p style="font-size:12px;color:var(--muted);margin-top:6px">Chess: +1 (win) or -1 (lose)<br>Chatbot: human says "good" or "bad"</p>
+        </div>
+        <div class="train-step">
+          <div class="train-step-num">P</div>
+          <h3 style="color:var(--amber)">Policy</h3>
+          <p>The strategy: "when I see X, I do Y."</p>
+          <p style="font-size:12px;color:var(--muted);margin-top:6px">Chess: opening moves, tactics<br>Chatbot: the model's weights</p>
         </div>
       </div>
     </div>
 
-    <div class="train-steps reveal reveal-d1">
-      <div class="train-step">
-        <div class="train-step-num">S</div>
-        <h3 style="color:var(--accent)">State</h3>
-        <p>Board position. What the agent sees right now.</p>
-      </div>
-      <div class="train-step">
-        <div class="train-step-num">A</div>
-        <h3 style="color:var(--purple)">Action</h3>
-        <p>Move a piece. What the agent decides to do.</p>
-      </div>
-      <div class="train-step">
-        <div class="train-step-num">R</div>
-        <h3 style="color:var(--live)">Reward</h3>
-        <p>Win/Lose. How good was that action?</p>
-      </div>
-      <div class="train-step">
-        <div class="train-step-num">P</div>
-        <h3 style="color:var(--amber)">Policy</h3>
-        <p>Your strategy. "When I see X, I do Y."</p>
-      </div>
+    <div class="insight reveal" style="margin-top:16px">
+      <strong>The key challenge for chatbots:</strong> In chess, the reward is clear - you win or lose. But for a chatbot, what counts as a "good" response? We need humans to judge. That's where RLHF comes in.
     </div>
-
-    <p class="reveal reveal-d2" style="font-size:15px;color:var(--text-secondary);text-align:center;margin-top:24px">
-      RL is just: try things, get feedback, improve. That's the entire idea.
-    </p>
   </div>
 </section>
 
