@@ -713,17 +713,24 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 </div>
 
 <!-- ======================================================================
-     SECTION 1 - The Alignment Problem
+     SECTION 1 - The Preference Problem
      ====================================================================== -->
-<section class="section" id="s-alignment">
+<section class="section" id="s-preference-problem">
   <div class="container">
     <div class="reveal">
       <div class="section-num">Section 1</div>
-      <h2 class="section-title">The Alignment Problem</h2>
-      <p class="section-desc">Pre-trained models are capable but don't know what's helpful vs harmful. We need to teach them human preferences.</p>
+      <h2 class="section-title">The Preference Problem</h2>
+      <p class="section-desc">After SFT, the model can follow instructions and give safe answers. But which answer do humans actually <em>prefer</em>?</p>
     </div>
 
-    <div class="chat-scene reveal reveal-d1">
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">SFT Already Handles Basic Safety</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+        Supervised Fine-Tuning (SFT) trains the model on curated examples of good responses. After SFT, the model already knows not to say dangerous things. But it can produce multiple <em>safe</em> responses to the same prompt - which one is actually better?
+      </p>
+    </div>
+
+    <div class="chat-scene reveal reveal-d1" style="margin-top:16px">
       <div class="chat-row">
         <div class="chat-avatar">U</div>
         <div class="chat-bubble">
@@ -732,32 +739,25 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         </div>
       </div>
       <div class="chat-row right">
-        <div class="chat-avatar" style="border-color:var(--red)">M</div>
-        <div class="chat-bubble" style="border-color:rgba(239,68,68,0.3)">
-          <div class="chat-name" style="color:var(--red)">Unaligned Model</div>
-          YES! Buy Bitcoin NOW! Sell your house, max out your credit cards - crypto only goes up!
-          <div class="thought">Technically an "answer" but dangerously irresponsible.</div>
-        </div>
-      </div>
-      <div class="chat-row">
-        <div class="chat-avatar">U</div>
+        <div class="chat-avatar">A</div>
         <div class="chat-bubble">
-          <div class="chat-name">User</div>
-          That's dangerous advice!
+          <div class="chat-name">Response A (after SFT)</div>
+          Cryptocurrency is a volatile asset class. You should consider your risk tolerance and financial situation before making investment decisions.
+          <div class="thought">Safe and correct, but generic and unhelpful.</div>
         </div>
       </div>
       <div class="chat-row right">
-        <div class="chat-avatar" style="border-color:var(--live)">M</div>
+        <div class="chat-avatar">B</div>
         <div class="chat-bubble" style="border-color:rgba(34,197,94,0.3)">
-          <div class="chat-name" style="color:var(--live)">Aligned Model</div>
-          I'd recommend researching thoroughly before investing. Diversify, only invest what you can afford to lose.
-          <div class="thought">Helpful, honest, and safe.</div>
+          <div class="chat-name">Response B (after SFT)</div>
+          I'd recommend researching thoroughly before investing. Diversify your portfolio, only invest what you can afford to lose, and consider consulting a financial advisor. Dollar-cost averaging can help manage volatility if you do decide to invest.
+          <div class="thought">Also safe, but much more helpful - gives actionable advice.</div>
         </div>
       </div>
     </div>
 
     <div class="insight reveal reveal-d2">
-      <strong>The core problem:</strong> Pre-trained models learn to predict text, not to be helpful. They can produce brilliant answers and dangerous ones with equal confidence. We need a way to teach them which responses humans actually prefer - and that's where alignment comes in.
+      <strong>Both responses are safe.</strong> SFT did its job - neither one gives dangerous advice. But Response B is clearly <em>more helpful</em>. How do we teach the model to consistently produce B-style responses? That's the preference problem. RLHF and DPO are two ways to solve it.
     </div>
   </div>
 </section>
