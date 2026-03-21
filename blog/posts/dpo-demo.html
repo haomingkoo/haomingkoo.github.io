@@ -583,8 +583,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   transition:all .5s ease;
 }
 .num-step .label{color:var(--muted);font-size:12px}
-.num-step .val-blue{color:var(--accent);font-weight:600}
-.num-step .val-purple{color:var(--purple);font-weight:600}
+.num-step .val-blue{color:var(--text);font-weight:600}
+.num-step .val-purple{color:var(--text);font-weight:600}
 .num-step .val-green{color:var(--live);font-weight:600}
 .num-step .val-red{color:var(--red);font-weight:600}
 .num-step .val-amber{color:var(--amber);font-weight:600}
@@ -943,6 +943,9 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
         PPO = push up what the reward model likes, but stay anchored to who you used to be.
       </p>
+      <div class="insight" style="margin-top:16px">
+        <strong>What PPO actually does:</strong> The reward model is the exam grader. PPO is the studying process. The model generates a response, the reward model grades it, and PPO adjusts the model's weights to get a higher grade next time. This repeats thousands of times. The "reference model" is a frozen copy of the original -- it acts as a leash to prevent the model from changing too much and producing gibberish.
+      </div>
     </div>
 
     <div class="viz reveal reveal-d2">
@@ -1224,6 +1227,10 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="insight reveal reveal-d2" id="hidden-reward-insight" style="display:none">
       <strong>The revelation:</strong> Those log-probability ratios ARE reward scores. The reward was hiding inside the language model all along. That's why we don't need a separate reward model - we just need to compare how the trained model and reference model rank responses.
     </div>
+
+    <div class="insight reveal reveal-d3" style="margin-top:12px">
+      <strong>Where does the reference model come from?</strong> It is simply a frozen copy of the model BEFORE DPO training started (the SFT model). It never changes during training. By comparing the training model against this frozen copy, we can measure how much the model's preferences have shifted -- and that shift IS the implicit reward.
+    </div>
   </div>
 </section>
 
@@ -1260,35 +1267,41 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <div id="num-steps-container">
         <!-- Step 1 -->
         <div class="num-step" id="num-step-1">
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: First, ask the model how likely it would generate each response.</div>
           <div class="label">Step 1: Get model probabilities</div>
           Model says chosen has probability: <span class="val-blue" id="ns-model-chosen">0.30</span> (30%)<br>
           Model says rejected has probability: <span class="val-blue" id="ns-model-rejected">0.25</span> (25%)
         </div>
         <!-- Step 2 -->
         <div class="num-step" id="num-step-2">
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: Next, ask the ORIGINAL model (before training) the same question. This is our baseline.</div>
           <div class="label">Step 2: Get reference model probabilities</div>
           Reference says chosen has probability: <span class="val-purple" id="ns-ref-chosen">0.20</span> (20%)<br>
           Reference says rejected has probability: <span class="val-purple" id="ns-ref-rejected">0.30</span> (30%)
         </div>
         <!-- Step 3 -->
         <div class="num-step" id="num-step-3">
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: Now compare -- does the new model like this response MORE or LESS than the original? A positive ratio means "likes it more." A negative ratio means "likes it less."</div>
           <div class="label">Step 3: Compute implicit rewards (log ratios)</div>
           Chosen reward = <span class="val-purple">beta</span> x log(<span class="val-blue" id="ns-cr-num">0.30</span> / <span class="val-purple" id="ns-cr-den">0.20</span>) = 0.1 x <span class="val-green" id="ns-cr-log">0.405</span> = <span class="val-green" id="ns-cr-result">+0.041</span><br>
           Rejected reward = <span class="val-purple">beta</span> x log(<span class="val-blue" id="ns-rr-num">0.25</span> / <span class="val-purple" id="ns-rr-den">0.30</span>) = 0.1 x <span class="val-red" id="ns-rr-log">-0.182</span> = <span class="val-red" id="ns-rr-result">-0.018</span>
         </div>
         <!-- Step 4 -->
         <div class="num-step" id="num-step-4">
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: The gap between these tells us -- does the model prefer the good answer over the bad one?</div>
           <div class="label">Step 4: Compute reward gap</div>
           Gap = <span class="val-green" id="ns-gap-a">+0.041</span> - (<span class="val-red" id="ns-gap-b">-0.018</span>) = <span class="val-amber" id="ns-gap-result">0.059</span>
         </div>
         <!-- Step 5 -->
         <div class="num-step" id="num-step-5">
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: Squeeze this into a 0-100% confidence score.</div>
           <div class="label">Step 5: Apply sigmoid</div>
           Preference probability = sigmoid(<span class="val-amber" id="ns-sig-input">0.059</span>) = <span class="val-amber" id="ns-pref-prob">51.5%</span><br>
           <span style="color:var(--muted);font-size:12px" id="ns-pref-comment">(Model is only 51.5% sure chosen is better - needs more training)</span>
         </div>
         <!-- Step 6 -->
         <div class="num-step" id="num-step-6">
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: If the model is not confident enough, the loss is high. Training continues until it is confident.</div>
           <div class="label">Step 6: Compute loss</div>
           Loss = -log(<span class="val-amber" id="ns-loss-input">0.515</span>) = <span class="val-amber" id="ns-loss-result">0.664</span><br>
           <span style="color:var(--muted);font-size:12px" id="ns-loss-comment">(High loss = model hasn't learned yet)</span>
@@ -1315,6 +1328,10 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 
       <div class="insight" id="ns-insight">
         Click "Train Step" to watch all numbers update as the model learns. Green values go up, red values go down.
+      </div>
+
+      <div class="insight success" id="train-explain" style="display:none;margin-top:16px">
+        <strong>What just happened:</strong> DPO computed a gradient that said "make the chosen response MORE likely and the rejected response LESS likely." The model's weights shifted slightly. Now the log-ratio for chosen is more positive (model likes it even more) and the log-ratio for rejected is more negative (model likes it even less). The reward gap widens, confidence goes up, and loss goes down. Repeat until aligned.
       </div>
     </div>
 
@@ -1931,12 +1948,18 @@ function nsTrainStep() {
   if (nsEpoch < NS_STEPS.length - 1) {
     nsEpoch++;
     nsRender();
+    var trainExplain = document.getElementById('train-explain');
+    if (trainExplain && nsEpoch === 1) {
+      trainExplain.style.display = 'block';
+    }
   }
 }
 
 function nsReset() {
   nsEpoch = 0;
   nsRender();
+  var trainExplain = document.getElementById('train-explain');
+  if (trainExplain) trainExplain.style.display = 'none';
 }
 
 // == DPO Loss Calculator =====================================================
