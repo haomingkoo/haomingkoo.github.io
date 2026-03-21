@@ -725,9 +725,22 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="viz reveal reveal-d1">
-      <div class="viz-title">SFT Already Handles Basic Safety</div>
+      <div class="viz-title">Two Layers of Alignment</div>
       <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-        Supervised Fine-Tuning (SFT) trains the model on curated examples of good responses. After SFT, the model already knows not to say dangerous things. But it can produce multiple <em>safe</em> responses to the same prompt - which one is actually better?
+        Both SFT and RLHF are alignment techniques - they both help the model do what humans want. But they handle different layers:
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;font-size:13px">
+        <div style="background:var(--surface);padding:14px">
+          <strong style="color:var(--accent)">SFT (Layer 1)</strong><br>
+          <span style="color:var(--text-secondary)">Teaches instruction following and safety via curated examples. After SFT, the model gives decent, safe answers.</span>
+        </div>
+        <div style="background:var(--surface);padding:14px">
+          <strong style="color:var(--purple)">RLHF / DPO (Layer 2)</strong><br>
+          <span style="color:var(--text-secondary)">Teaches nuanced preferences via human comparisons. Of two safe answers, which one do humans actually prefer?</span>
+        </div>
+      </div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+        After SFT, the model can produce multiple <em>safe</em> responses to the same prompt. But which one is actually better?
       </p>
     </div>
 
