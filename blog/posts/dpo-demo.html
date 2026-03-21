@@ -1451,7 +1451,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <div class="pipe-arrow active"></div>
           <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned Model</div><div class="pipe-node-sub">Training Model</div></div>
         </div>
-        <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--live);font-weight:600">3 stages - 1 model - no RL - same theoretical guarantees</div>
+        <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--live);font-weight:600">3 stages - 2 models (policy + frozen reference) - no reward model - no RL</div>
       </div>
     </div>
 
@@ -1498,7 +1498,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <p class="reveal reveal-d3" style="font-size:15px;color:var(--text-secondary);text-align:center;margin-top:16px">
-      That's it. No reward model. No RL. Just: increase the probability of good responses, decrease the probability of bad ones.
+      That's it. No reward model, no critic model, no RL loop. Just the policy model and a frozen reference model - increase the probability of good responses, decrease the probability of bad ones.
     </p>
   </div>
 </section>
