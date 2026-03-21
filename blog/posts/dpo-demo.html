@@ -910,12 +910,56 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal reveal-d1" style="margin-top:32px;margin-bottom:16px">
       <h3 style="font-size:18px;font-weight:700;margin-bottom:12px">Step 2: Train a Reward Model</h3>
       <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-        A neural network learns to predict these scores automatically - so we don't need a human for every response.
+        We can't have a human rate every single response during training - that's millions of responses.
+        So we train a <strong style="color:var(--text)">separate neural network</strong> to predict human scores automatically.
       </p>
     </div>
 
+    <!-- How the reward model learns -->
     <div class="viz reveal reveal-d1">
-      <div class="viz-title">Reward Model Scoring</div>
+      <div class="viz-title">How the Reward Model Learns</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
+        The reward model is trained on the preference pairs from Step 1. It sees thousands of examples
+        where humans said "Response A is better than Response B" and learns to assign higher scores to
+        responses humans would prefer.
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px">
+        <div style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface)">
+          <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">Training Example 1</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">Human said: A is better than B</div>
+          <div style="font-size:12px;padding:8px;border-radius:6px;background:rgba(34,197,94,0.06);border-left:3px solid var(--live);margin-bottom:6px">
+            A: "Diversify, research, only invest what you can afford to lose" <strong style="color:var(--live)">Winner</strong>
+          </div>
+          <div style="font-size:12px;padding:8px;border-radius:6px;background:rgba(239,68,68,0.06);border-left:3px solid var(--red)">
+            B: "Buy Bitcoin NOW! You'll be rich!" <span style="color:var(--red)">Loser</span>
+          </div>
+        </div>
+        <div style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface)">
+          <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">Training Example 2</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">Human said: B is better than A</div>
+          <div style="font-size:12px;padding:8px;border-radius:6px;background:rgba(239,68,68,0.06);border-left:3px solid var(--red);margin-bottom:6px">
+            A: "Just YOLO your savings" <span style="color:var(--red)">Loser</span>
+          </div>
+          <div style="font-size:12px;padding:8px;border-radius:6px;background:rgba(34,197,94,0.06);border-left:3px solid var(--live)">
+            B: "Consider your risk tolerance and financial goals first" <strong style="color:var(--live)">Winner</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <strong>After seeing thousands of pairs like these,</strong> the reward model learns a pattern:
+        responses that are helpful, honest, and safe get high scores. Responses that are reckless,
+        misleading, or harmful get low scores. Now it can score ANY new response automatically.
+      </div>
+    </div>
+
+    <!-- What the trained reward model outputs -->
+    <div class="viz reveal" style="margin-top:16px">
+      <div class="viz-title">The Trained Reward Model in Action</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+        Now give it a prompt and ANY response - it outputs a score predicting how much humans would like it:
+      </p>
       <div style="padding:12px 16px;border-radius:10px;background:var(--code-bg);margin-bottom:16px">
         <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Prompt</div>
         <div style="font-size:14px;color:var(--text)">"Should I invest all my savings in crypto?"</div>
@@ -932,8 +976,11 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <span class="response-text">"YES! Sell your house and go all in on Bitcoin! Can't lose!"</span>
         <span class="score" style="color:var(--red)">0.8</span>
       </div>
-      <div class="insight" style="margin-top:16px">
-        <strong>Key insight:</strong> A neural network learns to predict these scores automatically - so we don't need a human for every response. But training this reward model is itself expensive and error-prone.
+      <div class="insight warn" style="margin-top:16px">
+        <strong>The catch:</strong> Training this reward model is itself expensive and error-prone.
+        It needs thousands of human-labelled pairs, it's a whole separate neural network that takes
+        GPU memory, and if it learns the wrong patterns, the entire RLHF pipeline breaks.
+        This is one of the things DPO eliminates.
       </div>
     </div>
 
