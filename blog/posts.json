@@ -1,5 +1,19 @@
 [
   {
+    "slug": "dpo-demo",
+    "title": "DPO Interactive Demo - Your Language Model is Secretly a Reward Model",
+    "date": "2026-03-21",
+    "tags": [
+      "Research",
+      "ML",
+      "Alignment",
+      "Visualization"
+    ],
+    "excerpt": "Interactive walkthrough of Direct Preference Optimization - how to align LLMs with human preferences using just a classification loss. No reward model, no RL, no PPO. Play with the DPO loss calculator and watch training step by step.",
+    "cover": "",
+    "readingTime": "12 min"
+  },
+  {
     "slug": "llm-gauntlet",
     "title": "What I Learned from a Live LLM Serving Gauntlet",
     "date": "2026-03-16",
