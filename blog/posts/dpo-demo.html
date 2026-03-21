@@ -2032,50 +2032,57 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 var TTT_GAMES = [
   {
     label: 'Game 1 - Random Moves',
-    // X plays randomly, O wins with a diagonal
+    // X plays randomly, O wins with top row
     moves: [
-      [5,'X'], [4,'O'], [1,'X'], [0,'O'], [7,'X'], [8,'O']
+      [7,'X'], [0,'O'], [5,'X'], [1,'O'], [3,'X'], [2,'O']
     ],
-    finalBoard: ['O','X',' ',' ','O','X',' ','X','O'],
+    winLine: [0,1,2], // O wins top row
     reward: '-1 (Lost!)',
     rewardColor: 'var(--red)',
-    narration: 'The agent places X randomly with no strategy. It ignores the center, doesn\'t block O\'s diagonal, and loses. The <strong style="color:var(--red)">-1 reward</strong> tells it: something went wrong, but not what.',
+    narration: 'The agent places X randomly. It ignores the center, doesn\'t block O\'s top row, and <strong style="color:var(--red)">loses</strong>. The -1 reward tells it: something went wrong, but not what.',
     strategy: '<strong>Agent\'s strategy:</strong> None. Pick any empty cell at random.<br><strong>Win rate so far:</strong> ~20%'
   },
   {
     label: 'Game 10 - Learning the Basics',
+    // X takes center, plays better but still imperfect
     moves: [
-      [4,'X'], [0,'O'], [2,'X'], [6,'O'], [1,'X'], [7,'O'], [5,'X']
+      [4,'X'], [0,'O'], [2,'X'], [6,'O'], [8,'X'], [7,'O'], [5,'X']
     ],
-    finalBoard: ['O','X','X',' ','X','X','O','O',' '],
+    winLine: [2,4,6], // X wins anti-diagonal
     reward: '+1 (Win!)',
     rewardColor: 'var(--live)',
-    narration: 'After 10 games of feedback, the agent learned its first lesson: <strong>always take the center</strong>. It also starts to prefer corners. It still makes mistakes, but wins more often.',
+    narration: 'After 10 games of feedback, the agent learned: <strong>always take the center</strong>. It also prefers corners. It still makes mistakes, but wins more often.',
     strategy: '<strong>Agent\'s strategy:</strong> Take center first. Then pick corners.<br><strong>Win rate so far:</strong> ~55%'
   },
   {
     label: 'Game 100 - Optimal Play',
+    // X plays perfectly: center, corner, then wins with a row
     moves: [
-      [4,'X'], [0,'O'], [8,'X'], [2,'O'], [6,'X'], [3,'O'], [5,'X']
+      [4,'X'], [0,'O'], [2,'X'], [6,'O'], [1,'X'], [3,'O'], [7,'X']
     ],
-    finalBoard: ['O',' ','O','O','X','X','X',' ','X'],
+    winLine: [1,4,7], // X wins middle column
     reward: '+1 (Win!)',
     rewardColor: 'var(--live)',
-    narration: 'After 100 games, the agent plays <strong>optimally</strong>. It takes the center, then sets up a "fork" - two ways to win simultaneously. The opponent can only block one, so the agent always wins or draws. <strong>It never loses.</strong>',
-    strategy: '<strong>Agent\'s strategy:</strong> Center first. Then fork (create two winning threats). Block opponent\'s winning moves.<br><strong>Win rate:</strong> ~95% (never loses, sometimes draws)'
+    narration: 'After 100 games, the agent plays <strong>optimally</strong>. Center first, then builds toward multiple winning threats. The opponent can only block one. <strong>It never loses.</strong>',
+    strategy: '<strong>Agent\'s strategy:</strong> Center, then fork (two winning threats at once). Block opponent.<br><strong>Win rate:</strong> ~95% (never loses)'
   }
 ];
 
 var tttCurrentGame = 0;
 var tttAnimInterval = null;
 
-function renderTTTBoard(finalBoard, highlightWin) {
+function renderTTTBoard(boardArr, winLine) {
   var board = document.getElementById('ttt-board');
   board.innerHTML = '';
   for (var i = 0; i < 9; i++) {
     var cell = document.createElement('div');
-    cell.style.cssText = 'width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;background:var(--surface);transition:all .3s;';
-    var val = finalBoard[i];
+    var isWin = winLine && winLine.indexOf(i) !== -1;
+    cell.style.cssText = 'width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;background:var(--surface);transition:all .4s;';
+    if (isWin) {
+      cell.style.background = boardArr[i] === 'X' ? 'rgba(59,130,246,0.15)' : 'rgba(239,68,68,0.15)';
+      cell.style.boxShadow = '0 0 12px ' + (boardArr[i] === 'X' ? 'rgba(59,130,246,0.3)' : 'rgba(239,68,68,0.3)');
+    }
+    var val = boardArr[i];
     if (val === 'X') {
       cell.style.color = 'var(--accent)';
       cell.textContent = 'X';
@@ -2092,33 +2099,34 @@ function renderTTTBoard(finalBoard, highlightWin) {
 function showTTTGame(idx) {
   tttCurrentGame = idx;
   var game = TTT_GAMES[idx];
-  // Update buttons
   for (var i = 0; i < 3; i++) {
     document.getElementById('ttt-btn-' + i).classList.toggle('active', i === idx);
   }
-  // Animate board: show empty, then fill in moves one by one
+  // Start with empty board
   var emptyBoard = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
-  renderTTTBoard(emptyBoard, false);
+  renderTTTBoard(emptyBoard, null);
   document.getElementById('ttt-reward').textContent = '';
   document.getElementById('ttt-game-label').textContent = game.label;
   document.getElementById('ttt-narration').innerHTML = game.narration;
   document.getElementById('ttt-strategy').innerHTML = game.strategy;
 
-  // Animate moves
+  // Animate moves one by one (slower: 700ms per move)
   var currentBoard = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
   var moves = game.moves;
   moves.forEach(function(move, i) {
     setTimeout(function() {
       currentBoard[move[0]] = move[1];
-      renderTTTBoard(currentBoard.slice(), false);
-      if (i === moves.length - 1) {
-        // Show reward after last move
+      // Only show win highlight on the very last move
+      var isLastMove = (i === moves.length - 1);
+      renderTTTBoard(currentBoard.slice(), isLastMove ? game.winLine : null);
+      if (isLastMove) {
+        // Show reward after a pause
         setTimeout(function() {
           var rewardEl = document.getElementById('ttt-reward');
-          rewardEl.innerHTML = 'Reward: <strong style="color:' + game.rewardColor + '">' + game.reward + '</strong>';
-        }, 300);
+          rewardEl.innerHTML = 'Reward: <strong style="color:' + game.rewardColor + ';font-size:18px">' + game.reward + '</strong>';
+        }, 500);
       }
-    }, (i + 1) * 400);
+    }, (i + 1) * 700);
   });
 }
 
