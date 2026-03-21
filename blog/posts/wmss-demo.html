@@ -176,7 +176,7 @@ code,.mono{font-family:"JetBrains Mono",monospace;font-size:0.88em}
 .chart{margin-bottom:24px}
 .chart-label{font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .chart-label .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.chart-bars{display:flex;align-items:flex-end;gap:6px;height:130px;padding:0 4px}
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:200px;padding:0 4px}
 .bar-col{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0}
 .bar-val{
   font-size:10px;font-family:"JetBrains Mono",monospace;
@@ -275,22 +275,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 .line-chart-wrap{position:relative;width:100%;padding-top:50%;margin:24px 0}
 .line-chart-wrap svg{position:absolute;top:0;left:0;width:100%;height:100%}
 
-/* ── Curriculum Cards ─────────────────────────────────────────────── */
-.sample-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
-.sample-card{
-  padding:12px;border-radius:10px;border:2px solid var(--border);
-  background:var(--surface);text-align:center;
-  transition:all .4s;
-}
-.sample-card .s-text{font-size:11px;color:var(--muted);margin-bottom:6px;font-style:italic}
-.sample-card .s-weight{
-  font-size:20px;font-weight:700;font-family:"JetBrains Mono",monospace;
-  transition:color .3s;
-}
-.sample-card .s-type{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
-.sample-card.consolidation{border-color:var(--accent)}
-.sample-card.regression{border-color:var(--amber)}
-.sample-card.easy{border-color:var(--border);opacity:0.6}
+/* ── (Curriculum Cards removed — replaced with static viz) ────────── */
 
 /* ── Scroll Reveal ────────────────────────────────────────────────── */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
@@ -509,22 +494,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   min-height:100px;transition:opacity .3s;
 }
 
-/* ── Insight Cards (Mechanistic) ─────────────────────────────────── */
-.insight-cards{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:16px;margin:24px 0;
-}
-.insight-card{
-  padding:24px 20px;border-radius:14px;border:1px solid var(--border);
-  background:var(--surface);transition:all .3s;
-}
-.insight-card:hover{border-color:var(--border-hover);transform:translateY(-2px)}
-.insight-card-num{
-  font-size:11px;font-weight:700;color:var(--accent);
-  text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;
-}
-.insight-card h3{font-size:15px;font-weight:700;margin-bottom:6px}
-.insight-card p{font-size:13px;color:var(--text-secondary);line-height:1.5}
+/* ── (Insight Cards removed — replaced with full-width viz panels) ── */
 
 /* ── Limitations Grid ────────────────────────────────────────────── */
 .limit-grid{
@@ -658,7 +628,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo">HK</a>
-    <span class="nav-title">WMSS — Weak-Driven Learning Demo</span>
+    <span class="nav-title">WMSS - Weak-Driven Learning Demo</span>
     <a href="../../#blog" class="nav-blog">Blog</a>
     <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
       <svg viewBox="0 0 24 24" class="icon-theme">
@@ -707,7 +677,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 
   <p class="exec-lead">
     This post explains a simple but powerful idea from recent research:
-    <strong>a model's own weaker past self can make it smarter</strong> —
+    <strong>a model's own weaker past self can make it smarter</strong> -
     no bigger model, no extra data, no added cost at inference.
     The technique is called <strong>WMSS</strong> (Weak-Driven Learning), and it
     improves math and code benchmarks by <strong>+6%</strong> over standard training.
@@ -731,7 +701,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="hook-q">
       <div class="hook-q-num">3</div>
       <p><strong>Can a weaker model teach a stronger one something useful?</strong>
-      Sounds backwards — but it works. This post shows you exactly how and why.</p>
+      Sounds backwards - but it works. This post shows you exactly how and why.</p>
     </div>
   </div>
 
@@ -772,7 +742,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="insight reveal reveal-d2">
-      WMSS focuses on <strong>Step 2</strong> — specifically, making Supervised Fine-Tuning more effective when it hits a performance ceiling.
+      WMSS focuses on <strong>Step 2</strong> - specifically, making Supervised Fine-Tuning more effective when it hits a performance ceiling.
     </div>
   </div>
 </section>
@@ -864,7 +834,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="llm-parallel reveal reveal-d3">
-      <strong>LLM Parallel:</strong> During SFT, the model reaches 95%+ accuracy on training data. Gradients vanish — training stalls.
+      <strong>LLM Parallel:</strong> During SFT, the model reaches 95%+ accuracy on training data. Gradients vanish - training stalls.
       The "final exam" is the unseen test set. The SFT model memorised training outputs but never learned to distinguish wrong answers.
       On new data, it fails to generalise.
     </div>
@@ -962,13 +932,13 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       $$\mathcal{L}_{\text{SFT}} = -\log P_\theta(y \mid x) \qquad \frac{\partial \mathcal{L}}{\partial z_k} = P_\theta(k \mid x) \;\; \text{for } k \neq y$$
     </div>
     <p class="reveal text-muted" style="text-align:center;font-size:13px;margin-bottom:24px">
-      The gradient on non-target tokens equals their probability — as $P(k|x) \to 0$, the gradient vanishes.
+      The gradient on non-target tokens equals their probability - as $P(k|x) \to 0$, the gradient vanishes.
     </p>
 
     <div class="viz reveal reveal-d1">
       <div class="viz-title">Interactive SFT Training</div>
       <p style="font-size:13px;color:var(--muted);margin-bottom:12px">
-        Target token: <strong class="text-accent">"2x"</strong> — click Step to train
+        Target token: <strong class="text-accent">"2x"</strong> - click Step to train
       </p>
 
       <div class="viz-row">
@@ -1035,7 +1005,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div class="chat-avatar">P</div>
         <div class="chat-bubble">
           <div class="chat-name">Study Partner</div>
-          Here's a tricky wrong answer — can you explain why it's wrong?
+          Here's a tricky wrong answer - can you explain why it's wrong?
           <div class="thought">I'm weaker than you, but my confusion highlights what you haven't truly learned.</div>
         </div>
       </div>
@@ -1068,7 +1038,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="llm-parallel reveal reveal-d3">
-      <strong>This is exactly what WMSS does!</strong> A weaker model acts as the "study partner" —
+      <strong>This is exactly what WMSS does!</strong> A weaker model acts as the "study partner" -
       it injects plausible wrong answers, forcing the strong model to keep learning.
       Gradients stay alive, and performance breaks through the ceiling.
     </div>
@@ -1105,7 +1075,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Context</div>
       <h2 class="section-title">Three Paradigms for Improving Models</h2>
-      <p class="section-desc">Where does the learning signal come from? Three paradigms — each using a different source and direction of supervision.</p>
+      <p class="section-desc">Where does the learning signal come from? Three paradigms - each using a different source and direction of supervision.</p>
     </div>
 
     <div class="paradigm-grid reveal reveal-d1">
@@ -1194,8 +1164,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         </div>
       </div>
       <div class="insight" style="margin-top:12px">
-        Notice: the weak agent assigns significant probability to <strong>"x"</strong> and <strong>"2"</strong> —
-        these are <em>hard negatives</em>, plausible but incorrect tokens that the strong agent has suppressed.
+        Notice: the weak agent assigns significant probability to <strong>"x"</strong> and <strong>"2"</strong> -
+        these are <em>hard negatives</em> - plausible but incorrect tokens that the strong agent has suppressed.
         WMSS will use these signals.
       </div>
     </div>
@@ -1235,7 +1205,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
             <div style="flex:1;background:var(--accent);opacity:0.3;border-radius:3px 3px 0 0;height:5%"></div>
             <div style="flex:1;background:var(--accent);opacity:0.3;border-radius:3px 3px 0 0;height:4%"></div>
           </div>
-          <div style="font-size:12px;color:var(--text-secondary);text-align:center">One token dominates — model is sure</div>
+          <div style="font-size:12px;color:var(--text-secondary);text-align:center">One token dominates - model is sure</div>
         </div>
         <div style="padding:20px;border-radius:12px;border:2px solid var(--red);background:rgba(239,68,68,0.04)">
           <div style="font-size:13px;font-weight:600;color:var(--red);margin-bottom:12px">High Entropy = Uncertain</div>
@@ -1248,7 +1218,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
             <div style="flex:1;background:var(--red);opacity:0.6;border-radius:3px 3px 0 0;height:53%"></div>
             <div style="flex:1;background:var(--red);opacity:0.6;border-radius:3px 3px 0 0;height:49%"></div>
           </div>
-          <div style="font-size:12px;color:var(--text-secondary);text-align:center">Probability spread evenly — model is guessing</div>
+          <div style="font-size:12px;color:var(--text-secondary);text-align:center">Probability spread evenly - model is guessing</div>
         </div>
       </div>
       <div class="math-block" style="margin-top:16px">
@@ -1256,12 +1226,12 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;margin-top:12px">
         <div style="padding:10px;border-radius:8px;background:rgba(59,130,246,0.06);border-left:3px solid var(--accent)">
-          <strong>$\Delta H &lt; 0$ — Learned</strong><br>
-          <span style="color:var(--text-secondary)">$M_{\text{strong}}$ is more confident — it learned this concept well.</span>
+          <strong>$\Delta H &lt; 0$ - Learned</strong><br>
+          <span style="color:var(--text-secondary)">$M_{\text{strong}}$ is more confident - it learned this concept well.</span>
         </div>
         <div style="padding:10px;border-radius:8px;background:rgba(245,158,11,0.06);border-left:3px solid var(--amber)">
-          <strong>$\Delta H &gt; 0$ — Regressed</strong><br>
-          <span style="color:var(--text-secondary)">$M_{\text{strong}}$ is less certain — it forgot what was known.</span>
+          <strong>$\Delta H &gt; 0$ - Regressed</strong><br>
+          <span style="color:var(--text-secondary)">$M_{\text{strong}}$ is less certain - it forgot what was known.</span>
         </div>
       </div>
     </div>
@@ -1271,85 +1241,83 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="viz reveal reveal-d1">
-      <div class="viz-title">Sample Weighting</div>
-      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px">
-        <div class="slider-wrap" style="flex:1;min-width:160px">
-          <span class="slider-label">$\alpha$</span>
-          <input type="range" min="0" max="2" step="0.1" value="1" id="curr-alpha" oninput="updateCurriculum()">
-          <span class="slider-val" id="curr-alpha-val">1.0</span>
+      <div class="viz-title">How Samples Get Weighted</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:24px">
+        Each training sample gets scored by three signals. The model then focuses training on the most informative samples.
+      </p>
+
+      <!-- Three signals explained -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:28px">
+        <div style="padding:20px;border-radius:12px;border:2px solid var(--accent);background:rgba(59,130,246,0.04)">
+          <div style="font-size:28px;font-weight:700;color:var(--accent);margin-bottom:4px">&alpha;</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:6px">Base Difficulty</div>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.5">How confused was the weak model? Higher entropy = harder problem = more weight.</p>
         </div>
-        <div class="slider-wrap" style="flex:1;min-width:160px">
-          <span class="slider-label">$\beta$</span>
-          <input type="range" min="0" max="2" step="0.1" value="1" id="curr-beta" oninput="updateCurriculum()">
-          <span class="slider-val" id="curr-beta-val">1.0</span>
+        <div style="padding:20px;border-radius:12px;border:2px solid var(--live);background:rgba(34,197,94,0.04)">
+          <div style="font-size:28px;font-weight:700;color:var(--live);margin-bottom:4px">&beta;</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:6px">Consolidation</div>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.5">Did the strong model improve? If yes (&Delta;H &lt; 0), revisit to stabilize what was learned.</p>
         </div>
-        <div class="slider-wrap" style="flex:1;min-width:160px">
-          <span class="slider-label">$\gamma$</span>
-          <input type="range" min="0" max="2" step="0.1" value="1" id="curr-gamma" oninput="updateCurriculum()">
-          <span class="slider-val" id="curr-gamma-val">1.0</span>
+        <div style="padding:20px;border-radius:12px;border:2px solid var(--amber);background:rgba(245,158,11,0.04)">
+          <div style="font-size:28px;font-weight:700;color:var(--amber);margin-bottom:4px">&gamma;</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:6px">Regression Repair</div>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.5">Did the strong model get worse? If yes (&Delta;H &gt; 0), up-weight to recover lost ground.</p>
         </div>
       </div>
 
-      <div class="sample-grid" id="sample-grid"></div>
+      <!-- Concrete walkthrough with visual weight bars -->
+      <div class="viz-title" style="margin-top:8px">Three Samples, Three Outcomes</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:16px">
 
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:12px">
-        <span><span class="dot" style="background:var(--accent);display:inline-block;width:8px;height:8px;border-radius:50%"></span> Consolidation ($\Delta H < 0$)</span>
-        <span><span class="dot" style="background:var(--amber);display:inline-block;width:8px;height:8px;border-radius:50%"></span> Regression Repair ($\Delta H > 0$)</span>
-        <span><span class="dot" style="background:var(--muted);display:inline-block;width:8px;height:8px;border-radius:50%"></span> Low weight</span>
+        <div style="padding:20px;border-radius:12px;border:1px solid var(--border);background:var(--surface)">
+          <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:0.05em;margin-bottom:10px">EASY - ALREADY MASTERED</div>
+          <div style="font-size:15px;font-weight:600;margin-bottom:12px">"What is 2+2?"</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">
+            Weak model: uncertain (H=0.8)<br>
+            Strong model: confident (H=0.2)<br>
+            &Delta;H = -0.6 (learned it)
+          </div>
+          <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px">Training weight:</div>
+          <div style="height:8px;border-radius:4px;background:var(--border);overflow:hidden">
+            <div style="height:100%;width:20%;background:var(--muted);border-radius:4px"></div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Low - skip, already mastered</div>
+        </div>
+
+        <div style="padding:20px;border-radius:12px;border:1px solid var(--amber);background:rgba(245,158,11,0.03)">
+          <div style="font-size:12px;font-weight:700;color:var(--amber);letter-spacing:0.05em;margin-bottom:10px">REGRESSION - FORGOT</div>
+          <div style="font-size:15px;font-weight:600;margin-bottom:12px">"def fibonacci(n):"</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">
+            Weak model: uncertain (H=0.8)<br>
+            Strong model: MORE uncertain (H=1.3)<br>
+            &Delta;H = +0.5 (got worse!)
+          </div>
+          <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px">Training weight:</div>
+          <div style="height:8px;border-radius:4px;background:var(--border);overflow:hidden">
+            <div style="height:100%;width:60%;background:var(--amber);border-radius:4px"></div>
+          </div>
+          <div style="font-size:11px;color:var(--amber);margin-top:4px">Medium - needs review to recover</div>
+        </div>
+
+        <div style="padding:20px;border-radius:12px;border:1px solid var(--live);background:rgba(34,197,94,0.03)">
+          <div style="font-size:12px;font-weight:700;color:var(--live);letter-spacing:0.05em;margin-bottom:10px">GOLDILOCKS - MOST INFORMATIVE</div>
+          <div style="font-size:15px;font-weight:600;margin-bottom:12px">"Solve: &int;sin(x)dx"</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">
+            Weak model: very uncertain (H=1.8)<br>
+            Strong model: still uncertain (H=1.6)<br>
+            &Delta;H = -0.2 (barely improved)
+          </div>
+          <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px">Training weight:</div>
+          <div style="height:8px;border-radius:4px;background:var(--border);overflow:hidden">
+            <div style="height:100%;width:95%;background:var(--live);border-radius:4px"></div>
+          </div>
+          <div style="font-size:11px;color:var(--live);margin-top:4px">HIGH - both models struggle, most to learn</div>
+        </div>
+
       </div>
 
-      <div class="insight" style="margin-top:16px">
-        <strong>Result:</strong> The model focuses most on samples where both weak and strong models are similarly uncertain —
-        the "Goldilocks zone" where the model can still learn.
-      </div>
-    </div>
-
-    <!-- Worked Examples -->
-    <div class="viz" style="margin-top:24px">
-      <div class="viz-title">Worked Examples</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
-        <!-- Example 1: Already Learned -->
-        <div style="padding:18px;border-radius:12px;border:1px solid var(--accent);background:rgba(59,130,246,0.04)">
-          <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px">ALREADY LEARNED</div>
-          <div style="font-size:13px;margin-bottom:8px"><code>"What is 2+2?"</code></div>
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6">
-            H<sub>weak</sub> = 0.8 (uncertain)<br>
-            H<sub>strong</sub> = 0.2 (confident)<br>
-            <strong>&#916;H = -0.6</strong><br><br>
-            &#945; activates (base difficulty: 0.8)<br>
-            <strong style="color:var(--accent)">&#946; activates</strong> (consolidation: 0.6)<br>
-            &#947; = 0 (no regression)<br><br>
-            <em>Weight: Low — already mastered</em>
-          </div>
-        </div>
-        <!-- Example 2: Needs Review (regression) -->
-        <div style="padding:18px;border-radius:12px;border:1px solid var(--amber);background:rgba(245,158,11,0.04)">
-          <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:8px">REGRESSION — NEEDS REPAIR</div>
-          <div style="font-size:13px;margin-bottom:8px"><code>"def fibonacci(n):"</code></div>
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6">
-            H<sub>weak</sub> = 0.8 (uncertain)<br>
-            H<sub>strong</sub> = 1.3 (MORE uncertain!)<br>
-            <strong>&#916;H = +0.5</strong><br><br>
-            &#945; activates (base difficulty: 0.8)<br>
-            &#946; = 0 (no consolidation)<br>
-            <strong style="color:var(--amber)">&#947; activates</strong> (regression repair: 0.5)<br><br>
-            <em>Weight: Medium — model forgot, needs review</em>
-          </div>
-        </div>
-        <!-- Example 3: Most Informative -->
-        <div style="padding:18px;border-radius:12px;border:1px solid var(--live);background:rgba(34,197,94,0.04)">
-          <div style="font-size:12px;font-weight:600;color:var(--live);margin-bottom:8px">GOLDILOCKS ZONE</div>
-          <div style="font-size:13px;margin-bottom:8px"><code>"&#8747;sin(x)dx = ?"</code></div>
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6">
-            H<sub>weak</sub> = 1.8 (very uncertain)<br>
-            H<sub>strong</sub> = 1.6 (still uncertain)<br>
-            <strong>&#916;H = -0.2</strong> (small improvement)<br><br>
-            <strong style="color:var(--live)">&#945; activates strongly</strong> (base difficulty: 1.8)<br>
-            &#946; activates weakly (consolidation: 0.2)<br>
-            &#947; = 0 (no regression)<br><br>
-            <em>Weight: HIGH — both models struggle, most to learn</em>
-          </div>
-        </div>
+      <div class="insight" style="margin-top:20px">
+        <strong>Result:</strong> The model focuses training on samples where both weak and strong models are similarly uncertain - the "Goldilocks zone" where the most learning can happen. Easy samples get skipped; forgotten samples get reviewed.
       </div>
     </div>
   </div>
@@ -1361,7 +1329,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 <section class="section" id="s-mixing">
   <div class="container">
     <div class="reveal">
-      <div class="section-num">Phase 2B — The Core</div>
+      <div class="section-num">Phase 2B - The Core</div>
       <h2 class="section-title">Joint Training via Logit Mixing</h2>
       <p class="section-desc">
         The heart of WMSS: mix the weak agent's logits with the strong agent's logits to create
@@ -1378,7 +1346,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="viz reveal">
       <div class="viz-title">Concrete Example</div>
       <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-        Predict next token after <code>"The derivative of x&sup2; is"</code> — ground truth = <strong class="text-accent">2x</strong>
+        Predict next token after <code>"The derivative of x&sup2; is"</code> - ground truth = <strong class="text-accent">2x</strong>
       </p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
         <div style="padding:14px;border-radius:10px;border:1px solid var(--accent);background:rgba(59,130,246,0.04)">
@@ -1452,13 +1420,13 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 
       <!-- Probability Comparison -->
       <div style="margin-top:20px">
-        <div class="chart-label"><span class="dot" style="background:var(--accent)"></span> $P_{\text{strong}}$ &nbsp;vs&nbsp; <span class="dot" style="background:var(--amber)"></span> $P_{\text{mix}}$ — Probability Comparison</div>
+        <div class="chart-label"><span class="dot" style="background:var(--accent)"></span> $P_{\text{strong}}$ &nbsp;vs&nbsp; <span class="dot" style="background:var(--amber)"></span> $P_{\text{mix}}$ - Probability Comparison</div>
         <div class="chart-bars" id="mix-prob-compare" style="height:110px"></div>
       </div>
 
       <!-- Gradient Comparison -->
       <div style="margin-top:20px">
-        <div class="chart-label"><span class="dot" style="background:var(--accent)"></span> $\nabla_{\text{strong}}$ &nbsp;vs&nbsp; <span class="dot" style="background:var(--amber)"></span> $\nabla_{\text{mix}}$ — Gradient Magnitudes (non-target tokens)</div>
+        <div class="chart-label"><span class="dot" style="background:var(--accent)"></span> $\nabla_{\text{strong}}$ &nbsp;vs&nbsp; <span class="dot" style="background:var(--amber)"></span> $\nabla_{\text{mix}}$ - Gradient Magnitudes (non-target tokens)</div>
         <div class="chart-bars" id="mix-grad-compare" style="height:110px"></div>
       </div>
 
@@ -1497,7 +1465,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <div class="section-num">Head to Head</div>
       <h2 class="section-title">SFT vs WMSS: Epoch by Epoch</h2>
       <p class="section-desc">
-        Token probability distribution across training epochs — 5-token vocabulary, one correct answer.
+        Token probability distribution across training epochs - 5-token vocabulary, one correct answer.
         Watch how SFT saturates while WMSS keeps distractors alive for learning.
       </p>
     </div>
@@ -1529,7 +1497,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
 
       <div class="insight" style="margin-top:16px" id="epoch-insight">
-        <strong>Epoch 1:</strong> Both start the same — gradients are alive and the model knows what to fix.
+        <strong>Epoch 1:</strong> Both start the same - gradients are alive and the model knows what to fix.
       </div>
     </div>
   </div>
@@ -1597,86 +1565,154 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <div class="section-num">Why It Works</div>
       <h2 class="section-title">Mechanistic Insights</h2>
       <p class="section-desc">
-        WMSS self-regulates through three inherent mechanisms — no hyperparameter tuning required.
+        WMSS self-regulates through three inherent mechanisms - no hyperparameter tuning required.
       </p>
     </div>
 
-    <div class="insight-cards reveal reveal-d1">
-      <div class="insight-card">
-        <div class="insight-card-num">Property 1</div>
-        <h3>Saturated-Region Amplification</h3>
-        <p>The softmax S-curve explains why gradients vanish: at extreme logits, the curve is flat.
-        WMSS mixes with weak model logits, shifting tokens back to the steep region where gradients are strong.</p>
-        <div style="margin-top:12px;padding:10px;border-radius:8px;background:var(--code-bg);font-size:12px;text-align:center">
-          <span style="color:var(--muted)">z very negative &rarr; P &asymp; 0%</span> &nbsp;&middot;&nbsp;
-          <span style="color:var(--accent)">z near 0 &rarr; steep gradient</span> &nbsp;&middot;&nbsp;
-          <span style="color:var(--muted)">z very positive &rarr; P &asymp; 100%</span>
+    <!-- Property 1: Saturated-Region Amplification with S-curve SVG -->
+    <div class="viz reveal reveal-d1" style="margin-bottom:24px">
+      <div class="viz-title">Property 1: Saturated-Region Amplification</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
+        The softmax function creates an S-curve. At the extremes (very high or very low logits), the curve is flat - gradients vanish. WMSS shifts tokens back to the steep middle region.
+      </p>
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start">
+        <!-- S-curve SVG -->
+        <div style="background:var(--code-bg);border-radius:12px;padding:20px;overflow:hidden">
+          <svg viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+            <!-- Grid -->
+            <line x1="50" y1="20" x2="50" y2="180" stroke="var(--border)" stroke-width="1"/>
+            <line x1="50" y1="180" x2="380" y2="180" stroke="var(--border)" stroke-width="1"/>
+            <!-- Y labels -->
+            <text x="45" y="25" fill="var(--muted)" font-size="10" text-anchor="end" font-family="Inter,sans-serif">100%</text>
+            <text x="45" y="105" fill="var(--muted)" font-size="10" text-anchor="end" font-family="Inter,sans-serif">50%</text>
+            <text x="45" y="183" fill="var(--muted)" font-size="10" text-anchor="end" font-family="Inter,sans-serif">0%</text>
+            <!-- X labels -->
+            <text x="90" y="195" fill="var(--muted)" font-size="10" text-anchor="middle" font-family="Inter,sans-serif">-4</text>
+            <text x="215" y="195" fill="var(--muted)" font-size="10" text-anchor="middle" font-family="Inter,sans-serif">0</text>
+            <text x="340" y="195" fill="var(--muted)" font-size="10" text-anchor="middle" font-family="Inter,sans-serif">+4</text>
+            <text x="215" y="210" fill="var(--muted)" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">Logit (z)</text>
+            <!-- Y axis label -->
+            <text x="15" y="100" fill="var(--muted)" font-size="11" text-anchor="middle" font-family="Inter,sans-serif" transform="rotate(-90,15,100)">P</text>
+            <!-- Saturated regions (shaded) -->
+            <rect x="50" y="20" width="80" height="160" fill="var(--red)" opacity="0.06" rx="4"/>
+            <rect x="300" y="20" width="80" height="160" fill="var(--red)" opacity="0.06" rx="4"/>
+            <!-- Steep region (shaded) -->
+            <rect x="160" y="20" width="110" height="160" fill="var(--live)" opacity="0.06" rx="4"/>
+            <!-- Labels for regions -->
+            <text x="90" y="45" fill="var(--red)" font-size="9" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">Saturated</text>
+            <text x="215" y="45" fill="var(--live)" font-size="9" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">Steep</text>
+            <text x="340" y="45" fill="var(--red)" font-size="9" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">Saturated</text>
+            <!-- S-curve path -->
+            <path d="M 60,175 C 90,175 120,172 150,160 C 170,152 190,130 215,100 C 240,70 260,48 280,40 C 310,28 340,25 370,23" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <!-- Dot at 50% -->
+            <circle cx="215" cy="100" r="4" fill="var(--accent)"/>
+          </svg>
+        </div>
+        <!-- Explanation -->
+        <div>
+          <div style="padding:14px;border-radius:8px;border-left:3px solid var(--red);background:rgba(239,68,68,0.04);margin-bottom:12px">
+            <div style="font-size:12px;font-weight:600;color:var(--red);margin-bottom:4px">Why saturation at both ends?</div>
+            <div style="font-size:13px;color:var(--text-secondary);line-height:1.5">
+              z very negative: P approaches 0%<br>
+              z very positive: P approaches 100%<br>
+              At extremes, curve is flat = tiny gradients
+            </div>
+          </div>
+          <div style="padding:14px;border-radius:8px;border-left:3px solid var(--live);background:rgba(34,197,94,0.04)">
+            <div style="font-size:12px;font-weight:600;color:var(--live);margin-bottom:4px">WMSS Solution</div>
+            <div style="font-size:13px;color:var(--text-secondary);line-height:1.5">
+              Mix with weak model logits - shifts tokens back to the steep region where gradients are strong.
+            </div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="insight-card">
-        <div class="insight-card-num">Property 2</div>
-        <h3>Gradient Shielding</h3>
-        <p>The weak model's influence naturally fades as the strong model improves.</p>
-        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:16px">
-          <!-- Early -->
-          <div style="text-align:center;padding:16px;border-radius:10px;background:var(--code-bg);min-width:120px">
-            <div style="font-size:11px;font-weight:600;color:var(--amber);margin-bottom:10px">Early Training</div>
-            <div style="display:flex;gap:8px;align-items:center;justify-content:center;height:60px">
-              <div style="width:40px;height:40px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--bg)">W</div>
-              <div style="width:44px;height:44px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">S</div>
-            </div>
-            <div style="font-size:11px;color:var(--text-secondary);margin-top:8px">Weak influence: <strong style="color:var(--amber)">High</strong></div>
+    <!-- Property 2: Gradient Shielding - horizontal layout -->
+    <div class="viz reveal reveal-d2" style="margin-bottom:24px">
+      <div class="viz-title">Property 2: Gradient Shielding</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
+        The weak model's influence naturally fades as the strong model improves. No manual tuning needed.
+      </p>
+      <div style="display:flex;gap:24px;align-items:center;justify-content:center;flex-wrap:wrap;margin:20px 0">
+        <!-- Early -->
+        <div style="text-align:center;padding:24px 20px;border-radius:14px;background:var(--code-bg);min-width:160px;border:1px solid var(--border)">
+          <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:16px">Early Training</div>
+          <div style="display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:16px">
+            <div style="width:48px;height:48px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--bg)">W</div>
+            <div style="width:52px;height:52px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">S</div>
           </div>
-          <!-- Mid -->
-          <div style="font-size:20px;color:var(--muted);display:flex;align-items:center">&rarr;</div>
-          <div style="text-align:center;padding:16px;border-radius:10px;background:var(--code-bg);min-width:120px">
-            <div style="font-size:11px;font-weight:600;color:var(--purple);margin-bottom:10px">Mid Training</div>
-            <div style="display:flex;gap:8px;align-items:center;justify-content:center;height:60px">
-              <div style="width:28px;height:28px;border-radius:50%;background:var(--amber);opacity:0.5;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--bg)">W</div>
-              <div style="width:50px;height:50px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">S</div>
-            </div>
-            <div style="font-size:11px;color:var(--text-secondary);margin-top:8px">Weak influence: <strong style="color:var(--purple)">Fading</strong></div>
+          <div style="font-size:12px;color:var(--text-secondary)">Weak influence: <strong style="color:var(--amber)">High</strong></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Weak model guides learning</div>
+        </div>
+        <!-- Arrow -->
+        <div style="font-size:24px;color:var(--muted)">&#8594;</div>
+        <!-- Mid -->
+        <div style="text-align:center;padding:24px 20px;border-radius:14px;background:var(--code-bg);min-width:160px;border:1px solid var(--border)">
+          <div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:16px">Mid Training</div>
+          <div style="display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:16px">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--amber);opacity:0.5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--bg)">W</div>
+            <div style="width:60px;height:60px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">S</div>
           </div>
-          <!-- Late -->
-          <div style="font-size:20px;color:var(--muted);display:flex;align-items:center">&rarr;</div>
-          <div style="text-align:center;padding:16px;border-radius:10px;background:var(--code-bg);min-width:120px">
-            <div style="font-size:11px;font-weight:600;color:var(--live);margin-bottom:10px">Late Training</div>
-            <div style="display:flex;gap:8px;align-items:center;justify-content:center;height:60px">
-              <div style="width:14px;height:14px;border-radius:50%;background:var(--muted);opacity:0.3;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--bg)">W</div>
-              <div style="width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff">S</div>
-            </div>
-            <div style="font-size:11px;color:var(--text-secondary);margin-top:8px">Weak influence: <strong style="color:var(--live)">~Zero</strong></div>
+          <div style="font-size:12px;color:var(--text-secondary)">Weak influence: <strong style="color:var(--purple)">Fading</strong></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Strong model catching up</div>
+        </div>
+        <!-- Arrow -->
+        <div style="font-size:24px;color:var(--muted)">&#8594;</div>
+        <!-- Late -->
+        <div style="text-align:center;padding:24px 20px;border-radius:14px;background:var(--code-bg);min-width:160px;border:1px solid var(--border)">
+          <div style="font-size:12px;font-weight:600;color:var(--live);margin-bottom:16px">Late Training</div>
+          <div style="display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:16px">
+            <div style="width:16px;height:16px;border-radius:50%;background:var(--muted);opacity:0.3;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--bg)">w</div>
+            <div style="width:68px;height:68px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff">S</div>
           </div>
+          <div style="font-size:12px;color:var(--text-secondary)">Weak influence: <strong style="color:var(--live)">~Zero</strong></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Strong model takes over</div>
         </div>
       </div>
+      <div class="insight success" style="margin-top:8px">
+        The weak model helps early, then naturally fades. No hyperparameter scheduling needed - it's built into the math.
+      </div>
+    </div>
 
-      <div class="insight-card">
-        <div class="insight-card-num">Property 3</div>
-        <h3>Null-Space Drift</h3>
-        <p>Shifting all scores equally doesn't change the winner. Only relative gaps matter.</p>
-        <div style="margin-top:16px;display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center">
-          <div style="padding:16px;border-radius:10px;background:var(--code-bg)">
-            <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:10px">Original Scores</div>
-            <div style="position:relative;height:40px;background:var(--border);border-radius:4px;margin:8px 0">
-              <div style="position:absolute;left:10%;top:50%;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;background:var(--muted);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--bg)">C</div>
-              <div style="position:absolute;left:35%;top:50%;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--bg)">B</div>
-              <div style="position:absolute;left:60%;top:50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">A</div>
-            </div>
-            <div style="font-size:11px;color:var(--text-secondary)">C=1, B=3, <strong>A=5</strong> (winner)</div>
+    <!-- Property 3: Null-Space Drift - with number line -->
+    <div class="viz reveal reveal-d3">
+      <div class="viz-title">Property 3: Null-Space Drift</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
+        Shifting all scores by the same amount doesn't change which token wins. Only relative gaps matter.
+      </p>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;margin:24px 0">
+        <!-- Original -->
+        <div style="padding:24px;border-radius:14px;background:var(--code-bg);border:1px solid var(--border)">
+          <div style="font-size:12px;font-weight:600;color:var(--red);margin-bottom:16px">Original Scores</div>
+          <div style="position:relative;height:50px;background:var(--border);border-radius:6px;margin:12px 0">
+            <div style="position:absolute;left:10%;top:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--bg)">C</div>
+            <div style="position:absolute;left:35%;top:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--bg)">B</div>
+            <div style="position:absolute;left:60%;top:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">A</div>
           </div>
-          <div style="text-align:center;font-size:13px;color:var(--muted);font-weight:600">+3<br>to all</div>
-          <div style="padding:16px;border-radius:10px;background:var(--code-bg)">
-            <div style="font-size:11px;font-weight:600;color:var(--live);margin-bottom:10px">Shifted Scores (+3)</div>
-            <div style="position:relative;height:40px;background:var(--border);border-radius:4px;margin:8px 0">
-              <div style="position:absolute;left:35%;top:50%;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;background:var(--muted);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--bg)">C</div>
-              <div style="position:absolute;left:60%;top:50%;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--bg)">B</div>
-              <div style="position:absolute;left:85%;top:50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">A</div>
-            </div>
-            <div style="font-size:11px;color:var(--text-secondary)">C=4, B=6, <strong>A=8</strong> (still winner!)</div>
-          </div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-top:12px">C=1, B=3, <strong style="color:var(--text)">A=5</strong> (winner)</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">Gaps: A-B = 2, A-C = 4</div>
         </div>
-        <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:12px">Gaps unchanged: A-B = 2, A-C = 4. Only <strong>relative</strong> gaps matter.</div>
+        <!-- Arrow + label -->
+        <div style="text-align:center">
+          <div style="font-size:20px;font-weight:700;color:var(--text)">+3</div>
+          <div style="font-size:11px;color:var(--muted)">to all</div>
+          <div style="font-size:28px;color:var(--muted);margin-top:4px">&#8594;</div>
+        </div>
+        <!-- Shifted -->
+        <div style="padding:24px;border-radius:14px;background:var(--code-bg);border:1px solid var(--border)">
+          <div style="font-size:12px;font-weight:600;color:var(--live);margin-bottom:16px">Shifted Scores (+3)</div>
+          <div style="position:relative;height:50px;background:var(--border);border-radius:6px;margin:12px 0">
+            <div style="position:absolute;left:35%;top:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--bg)">C</div>
+            <div style="position:absolute;left:60%;top:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--bg)">B</div>
+            <div style="position:absolute;left:85%;top:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">A</div>
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-top:12px">C=4, B=6, <strong style="color:var(--text)">A=8</strong> (still winner!)</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">Gaps: A-B = 2, A-C = 4 (unchanged)</div>
+        </div>
+      </div>
+      <div class="insight" style="margin-top:8px">
+        Uniform logit shifts from weak-model mixing are harmless. The decision boundary stays the same because softmax only cares about relative differences, not absolute values.
       </div>
     </div>
   </div>
@@ -1690,7 +1726,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Comparison</div>
       <h2 class="section-title">What Each Method Actually Does</h2>
-      <p class="section-desc">How it works — and whether it solves the gradient problem.</p>
+      <p class="section-desc">How it works - and whether it solves the gradient problem.</p>
     </div>
 
     <div class="method-grid reveal reveal-d1" id="method-grid">
@@ -1803,7 +1839,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="viz reveal">
       <div class="viz-title">Ablation Study (Qwen3-4B-Base)</div>
       <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">
-        Each bar is an independent experiment vs SFT baseline — not cumulative.
+        Each bar is an independent experiment vs SFT baseline - not cumulative.
       </p>
       <div class="stat-row">
         <div class="stat-card">
@@ -1820,7 +1856,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         </div>
       </div>
       <div class="insight success" style="margin-top:12px">
-        <strong>Synergy:</strong> CEDA + JTWS individually give +2.2% and +1.9%, but full WMSS gives +5.8% —
+        <strong>Synergy:</strong> CEDA + JTWS individually give +2.2% and +1.9%, but full WMSS gives +5.8% -
         an extra +1.7% from synergy beyond the sum of parts.
       </div>
     </div>
@@ -1841,7 +1877,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
       <div class="insight" style="margin-top:16px">
         <strong>Convergence:</strong> Most improvement happens by epoch 4. Beyond that, diminishing returns.
-        Easy tasks (GSM8K at 96%+) stay stable — no catastrophic forgetting.
+        Easy tasks (GSM8K at 96%+) stay stable - no catastrophic forgetting.
       </div>
     </div>
   </div>
@@ -1906,7 +1942,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="summary-flow reveal reveal-d1">
       <div class="summary-card problem">
         <h3 style="color:var(--red)">The Problem</h3>
-        <p>SFT saturates once models grow confident. Gradients vanish — more training stops helping.</p>
+        <p>SFT saturates once models grow confident. Gradients vanish - more training stops helping.</p>
         <p style="margin-top:8px">The only known fixes: bigger models or more data.</p>
       </div>
       <div class="summary-card solution">
@@ -1933,7 +1969,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 
     <div class="insight reveal reveal-d2" style="text-align:center;font-style:italic;border-left-color:var(--purple)">
       "The key to stronger models may lie in understanding their weaker selves."
-      <div style="margin-top:4px;font-size:12px;font-style:normal;color:var(--muted)">— Chen et al. (2026)</div>
+      <div style="margin-top:4px;font-size:12px;font-style:normal;color:var(--muted)">- Chen et al. (2026)</div>
     </div>
   </div>
 </section>
@@ -1979,16 +2015,6 @@ const SFT_STEPS = [
 
 const WEAK_LOGITS  = SFT_STEPS[2]; // checkpoint from step 2
 const STRONG_LOGITS = SFT_STEPS[4]; // after full SFT
-
-// Curriculum samples
-const SAMPLES = [
-  { text: '"2+3=5"',      hWeak: 0.3, hStrong: 0.1, type: 'easy' },
-  { text: '"\u222Bsin(x)dx"',  hWeak: 1.8, hStrong: 1.6, type: 'hard' },
-  { text: '"lim x\u21920"',    hWeak: 1.2, hStrong: 0.4, type: 'consolidation' },
-  { text: '"def fib(n)"', hWeak: 0.8, hStrong: 1.3, type: 'regression' },
-  { text: '"P(A|B)="',    hWeak: 1.0, hStrong: 0.7, type: 'consolidation' },
-  { text: '"\u2207\u00B7F = 0"',    hWeak: 1.5, hStrong: 1.9, type: 'regression' },
-];
 
 // Epoch comparison data
 const EPOCH_DATA = {
@@ -2228,51 +2254,6 @@ function renderAgents() {
 
   document.getElementById('weak-entropy').textContent = entropy(weakProbs).toFixed(3);
   document.getElementById('strong-entropy').textContent = entropy(strongProbs).toFixed(3);
-}
-
-// ── Section: Curriculum ──────────────────────────────────────────────
-function updateCurriculum() {
-  const alpha = parseFloat(document.getElementById('curr-alpha').value);
-  const beta  = parseFloat(document.getElementById('curr-beta').value);
-  const gamma = parseFloat(document.getElementById('curr-gamma').value);
-  document.getElementById('curr-alpha-val').textContent = alpha.toFixed(1);
-  document.getElementById('curr-beta-val').textContent = beta.toFixed(1);
-  document.getElementById('curr-gamma-val').textContent = gamma.toFixed(1);
-
-  const grid = document.getElementById('sample-grid');
-  grid.innerHTML = '';
-
-  const weights = SAMPLES.map(s => {
-    const dH = s.hStrong - s.hWeak;
-    const baseDiff = alpha * s.hWeak;
-    const consol = beta * Math.max(0, -dH);
-    const repair = gamma * Math.max(0, dH);
-    return baseDiff + consol + repair;
-  });
-  const maxW = Math.max(...weights, 0.1);
-
-  SAMPLES.forEach((s, i) => {
-    const card = document.createElement('div');
-    const dH = s.hStrong - s.hWeak;
-    let cls = '';
-    if (dH < -0.3) cls = 'consolidation';
-    else if (dH > 0.3) cls = 'regression';
-    else if (weights[i] / maxW < 0.35) cls = 'easy';
-    card.className = 'sample-card ' + cls;
-
-    const opacity = 0.3 + 0.7 * (weights[i] / maxW);
-    card.style.opacity = opacity;
-    card.style.transform = 'scale(' + (0.9 + 0.1 * (weights[i] / maxW)) + ')';
-
-    card.innerHTML =
-      '<div class="s-text">' + s.text + '</div>' +
-      '<div class="s-weight" style="color:' + (cls === 'regression' ? 'var(--amber)' : cls === 'consolidation' ? 'var(--accent)' : 'var(--muted)') + '">' + weights[i].toFixed(2) + '</div>' +
-      '<div class="s-type">' + s.type + '</div>' +
-      '<div style="font-size:10px;color:var(--muted);margin-top:4px">' +
-        'H<sub>w</sub>=' + s.hWeak + ' \u00B7 H<sub>s</sub>=' + s.hStrong + ' \u00B7 \u0394H=' + dH.toFixed(1) +
-      '</div>';
-    grid.appendChild(card);
-  });
 }
 
 // ── Section: Logit Mixing (THE CORE) ─────────────────────────────────
@@ -2646,7 +2627,6 @@ document.addEventListener('DOMContentLoaded', function() {
   initPretrain();
   sftRender();
   renderAgents();
-  updateCurriculum();
   initMixing();
   setEpoch(0);
   drawResultsChart();
