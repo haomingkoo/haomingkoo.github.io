@@ -1337,9 +1337,12 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <!-- The COST of RLHF -->
-    <div class="stat-row reveal reveal-d2" style="margin-top:24px">
+    <div class="insight warn reveal reveal-d2" style="margin-top:20px;margin-bottom:16px">
+      <strong>Why RLHF is expensive:</strong> To run PPO, you need up to 4 models loaded simultaneously: the <strong>actor</strong> (the model being trained), the <strong>reference model</strong> (frozen copy for the KL leash), the <strong>reward model</strong> (scores responses), and the <strong>critic model</strong> (estimates future rewards for PPO). Plus, you need to re-train the reward model first, then run the entire RL pipeline on top. That's a LOT of GPU memory and compute.
+    </div>
+    <div class="stat-row reveal reveal-d2">
       <div class="stat-card" style="border-color:var(--red)">
-        <div class="stat-val text-red">2+</div>
+        <div class="stat-val text-red">4</div>
         <div class="stat-lbl">Models in Memory</div>
       </div>
       <div class="stat-card" style="border-color:var(--red)">
