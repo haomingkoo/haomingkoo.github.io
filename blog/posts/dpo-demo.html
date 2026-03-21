@@ -1023,6 +1023,148 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
     </div>
 
+    <!-- Neural Network Diagram -->
+    <div class="viz reveal" style="margin-top:16px">
+      <div class="viz-title">Inside the Reward Model: A Neural Network</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
+        The reward model is a neural network. Text goes in, a score comes out. Here's what happens inside:
+      </p>
+
+      <!-- Neural network SVG diagram -->
+      <div style="padding:24px;border-radius:14px;background:var(--code-bg);overflow-x:auto">
+        <svg viewBox="0 0 700 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;height:auto;display:block;margin:0 auto">
+          <!-- Input layer label -->
+          <text x="60" y="20" fill="var(--muted)" font-size="10" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">INPUT</text>
+          <!-- Hidden layer labels -->
+          <text x="240" y="20" fill="var(--muted)" font-size="10" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">HIDDEN LAYER 1</text>
+          <text x="420" y="20" fill="var(--muted)" font-size="10" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">HIDDEN LAYER 2</text>
+          <!-- Output label -->
+          <text x="600" y="20" fill="var(--muted)" font-size="10" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">OUTPUT</text>
+
+          <!-- Connections: Input to Hidden 1 -->
+          <line x1="90" y1="60" x2="210" y2="50" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="90" y1="60" x2="210" y2="90" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="90" y1="60" x2="210" y2="130" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="90" y1="60" x2="210" y2="170" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="90" y1="110" x2="210" y2="50" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="90" y1="110" x2="210" y2="90" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+          <line x1="90" y1="110" x2="210" y2="130" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="90" y1="110" x2="210" y2="170" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="90" y1="160" x2="210" y2="50" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="90" y1="160" x2="210" y2="90" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="90" y1="160" x2="210" y2="130" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+          <line x1="90" y1="160" x2="210" y2="170" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+
+          <!-- Connections: Hidden 1 to Hidden 2 -->
+          <line x1="270" y1="50" x2="390" y2="70" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="270" y1="50" x2="390" y2="110" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="270" y1="50" x2="390" y2="150" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="270" y1="90" x2="390" y2="70" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+          <line x1="270" y1="90" x2="390" y2="110" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="270" y1="90" x2="390" y2="150" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="270" y1="130" x2="390" y2="70" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="270" y1="130" x2="390" y2="110" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+          <line x1="270" y1="130" x2="390" y2="150" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="270" y1="170" x2="390" y2="70" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="270" y1="170" x2="390" y2="110" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+          <line x1="270" y1="170" x2="390" y2="150" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+
+          <!-- Connections: Hidden 2 to Output -->
+          <line x1="450" y1="70" x2="570" y2="110" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+          <line x1="450" y1="110" x2="570" y2="110" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+          <line x1="450" y1="150" x2="570" y2="110" stroke="var(--border)" stroke-width="1" opacity="0.5"/>
+
+          <!-- Input nodes -->
+          <circle cx="60" cy="60" r="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+          <text x="60" y="64" fill="var(--accent)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">word 1</text>
+          <circle cx="60" cy="110" r="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+          <text x="60" y="114" fill="var(--accent)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">word 2</text>
+          <circle cx="60" cy="160" r="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+          <text x="60" y="164" fill="var(--accent)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">word n</text>
+
+          <!-- Hidden layer 1 nodes -->
+          <circle cx="240" cy="50" r="14" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5"/>
+          <circle cx="240" cy="90" r="14" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+          <circle cx="240" cy="130" r="14" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+          <circle cx="240" cy="170" r="14" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5"/>
+
+          <!-- Hidden layer 2 nodes -->
+          <circle cx="420" cy="70" r="14" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+          <circle cx="420" cy="110" r="14" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+          <circle cx="420" cy="150" r="14" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5"/>
+
+          <!-- Output node -->
+          <circle cx="600" cy="110" r="22" fill="var(--surface)" stroke="var(--live)" stroke-width="2.5"/>
+          <text x="600" y="114" fill="var(--live)" font-size="14" font-family="JetBrains Mono,monospace" text-anchor="middle" font-weight="700">8.7</text>
+
+          <!-- Labels below -->
+          <text x="60" y="200" fill="var(--text-secondary)" font-size="9" font-family="Inter,sans-serif" text-anchor="middle">"Research</text>
+          <text x="60" y="212" fill="var(--text-secondary)" font-size="9" font-family="Inter,sans-serif" text-anchor="middle">thoroughly..."</text>
+          <text x="240" y="200" fill="var(--muted)" font-size="9" font-family="Inter,sans-serif" text-anchor="middle">Processes patterns</text>
+          <text x="420" y="200" fill="var(--muted)" font-size="9" font-family="Inter,sans-serif" text-anchor="middle">Extracts meaning</text>
+          <text x="600" y="148" fill="var(--live)" font-size="10" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">Score</text>
+        </svg>
+      </div>
+
+      <p style="font-size:13px;color:var(--text-secondary);text-align:center;margin-top:12px">
+        Each connection has a <strong style="color:var(--text)">weight</strong> (a number). During training, these weights are adjusted so the network outputs high scores for good responses and low scores for bad ones. The blue connections show the strongest signal paths.
+      </p>
+    </div>
+
+    <!-- PPO Weight Adjustment Visualization -->
+    <div class="viz reveal" style="margin-top:16px">
+      <div class="viz-title">Step 3 Preview: How PPO Adjusts the Language Model</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+        PPO takes the reward model's scores and uses them to adjust the <em>language model's</em> weights. Here's one training cycle:
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2px;background:var(--border);border-radius:12px;overflow:hidden">
+        <div style="background:var(--surface);padding:20px;text-align:center">
+          <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">1. Generate</div>
+          <div style="font-size:32px;margin-bottom:6px">LM</div>
+          <div style="font-size:12px;color:var(--text-secondary)">Language model writes a response to the prompt</div>
+        </div>
+        <div style="background:var(--surface);padding:20px;text-align:center">
+          <div style="font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">2. Score</div>
+          <div style="font-size:32px;margin-bottom:6px">RM</div>
+          <div style="font-size:12px;color:var(--text-secondary)">Reward model scores it<br><strong style="color:var(--amber)">4.2 / 10</strong></div>
+        </div>
+        <div style="background:var(--surface);padding:20px;text-align:center">
+          <div style="font-size:11px;font-weight:700;color:var(--live);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">3. Adjust</div>
+          <div style="font-size:32px;margin-bottom:6px">PPO</div>
+          <div style="font-size:12px;color:var(--text-secondary)">Nudge weights: make high-scoring patterns more likely</div>
+        </div>
+        <div style="background:var(--surface);padding:20px;text-align:center">
+          <div style="font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">4. Repeat</div>
+          <div style="font-size:32px;margin-bottom:6px">x1000</div>
+          <div style="font-size:12px;color:var(--text-secondary)">Do this thousands of times until the model consistently scores high</div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;padding:16px;border-radius:10px;background:var(--code-bg)">
+        <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px">WEIGHT CHANGES ACROSS TRAINING</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+          <span style="font-size:12px;color:var(--text-secondary);min-width:100px">"Research..."</span>
+          <div style="flex:1;height:16px;border-radius:8px;background:var(--border);overflow:hidden;position:relative">
+            <div style="height:100%;width:20%;background:var(--live);border-radius:8px;opacity:0.4;position:absolute;left:0;top:0"></div>
+            <div style="height:100%;width:75%;background:var(--live);border-radius:8px;position:absolute;left:0;top:0"></div>
+          </div>
+          <span style="font-size:11px;color:var(--live);font-family:'JetBrains Mono',monospace;min-width:80px">20% -> 75%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+          <span style="font-size:12px;color:var(--text-secondary);min-width:100px">"Buy Bitcoin!"</span>
+          <div style="flex:1;height:16px;border-radius:8px;background:var(--border);overflow:hidden;position:relative">
+            <div style="height:100%;width:20%;background:var(--red);border-radius:8px;opacity:0.4;position:absolute;left:0;top:0"></div>
+            <div style="height:100%;width:5%;background:var(--red);border-radius:8px;position:absolute;left:0;top:0"></div>
+          </div>
+          <span style="font-size:11px;color:var(--red);font-family:'JetBrains Mono',monospace;min-width:80px">20% -> 5%</span>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-top:8px;text-align:center">
+          Faded bar = before training. Solid bar = after training. PPO shifted the probability distribution.
+        </div>
+      </div>
+    </div>
+
     <!-- What the trained reward model outputs -->
     <div class="viz reveal" style="margin-top:16px">
       <div class="viz-title">The Trained Reward Model in Action</div>
@@ -1890,15 +2032,14 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 var TTT_GAMES = [
   {
     label: 'Game 1 - Random Moves',
-    // Moves: [position, player]. Positions 0-8, left-to-right top-to-bottom
+    // X plays randomly, O wins with a diagonal
     moves: [
-      [6,'X'], [4,'O'], [2,'X'], [0,'O'], [8,'X'], [1,'O'], [3,'X'], [5,'O'], [7,'X']
+      [5,'X'], [4,'O'], [1,'X'], [0,'O'], [7,'X'], [8,'O']
     ],
-    board: [' O','O',' X',' X','O','O','X','X','X'],  // final state - draw-ish but O wins
-    finalBoard: ['O','O','X','X','O','O','X','X','X'],
-    reward: '0 (Draw)',
-    rewardColor: 'var(--muted)',
-    narration: 'The agent places X randomly with no strategy. It doesn\'t know that the center or corners matter. Some games it wins by luck, most it loses or draws.',
+    finalBoard: ['O','X',' ',' ','O','X',' ','X','O'],
+    reward: '-1 (Lost!)',
+    rewardColor: 'var(--red)',
+    narration: 'The agent places X randomly with no strategy. It ignores the center, doesn\'t block O\'s diagonal, and loses. The <strong style="color:var(--red)">-1 reward</strong> tells it: something went wrong, but not what.',
     strategy: '<strong>Agent\'s strategy:</strong> None. Pick any empty cell at random.<br><strong>Win rate so far:</strong> ~20%'
   },
   {
@@ -1988,7 +2129,7 @@ function playTTTGames() {
     idx++;
     if (idx >= 3) { clearInterval(tttAnimInterval); return; }
     showTTTGame(idx);
-  }, 4000);
+  }, 7000);
 }
 
 // Init first game on load
