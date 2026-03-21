@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Direction C — The Minimal | Portfolio Redesign Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+/* ═══════════════════════════════════════════════════════════════════
+   DIRECTION C — "The Minimal"
+
+   Concept: Maximum restraint. Let the work speak. Almost no decoration.
+   Inspired by: Stripe's documentation, Linear's marketing, Apple HIG.
+   The site itself demonstrates craft through spacing, type, and motion.
+
+   Fonts: Space Grotesk (all headings + body) + JetBrains Mono (data)
+   Palette: Pure monochrome + single green accent for "live" signals
+   Layout: Single column, generous whitespace, bento for projects
+   Key idea: Confidence through restraint
+   ═══════════════════════════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  --bg: #000000;
+  --surface: #0A0A0A;
+  --surface-2: #111111;
+  --border: #1A1A1A;
+  --border-hover: #2A2A2A;
+  --text: #EDEDED;
+  --text-secondary: #888888;
+  --muted: #555555;
+  --green: #00D47E;
+  --green-dim: rgba(0,212,126,0.08);
+}
+[data-theme="light"] {
+  --bg: #FFFFFF;
+  --surface: #FAFAFA;
+  --surface-2: #F5F5F5;
+  --border: #E5E5E5;
+  --border-hover: #D0D0D0;
+  --text: #0A0A0A;
+  --text-secondary: #666666;
+  --muted: #999999;
+  --green: #00A862;
+  --green-dim: rgba(0,168,98,0.06);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+
+/* ── Nav ──────────────────────────────────────────────────────────── */
+.nav{
+  position:fixed;top:0;width:100%;z-index:100;
+  transition:background .3s;
+}
+.nav.scrolled{
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+[data-theme="light"] .nav.scrolled{
+  background:rgba(255,255,255,0.8);
+}
+.nav-inner{
+  max-width:960px;margin:0 auto;
+  padding:16px clamp(20px,4vw,48px);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-name{
+  font-size:14px;font-weight:600;color:var(--text);
+  text-decoration:none;letter-spacing:-0.01em;
+}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-right a{
+  font-size:13px;color:var(--muted);text-decoration:none;
+  transition:color .15s;
+}
+.nav-right a:hover{color:var(--text)}
+.theme-toggle{
+  width:28px;height:28px;border-radius:50%;
+  background:transparent;border:1px solid var(--border);
+  cursor:pointer;color:var(--muted);font-size:12px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.theme-toggle:hover{border-color:var(--text);color:var(--text)}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+.hero{
+  padding:clamp(120px,20vh,200px) 0 clamp(80px,12vh,120px);
+}
+.hero h1{
+  font-size:clamp(32px,5.5vw,56px);
+  font-weight:700;line-height:1.15;
+  letter-spacing:-0.03em;
+  margin-bottom:24px;
+}
+.hero h1 .dim{color:var(--text-secondary)}
+.hero-sub{
+  font-size:17px;line-height:1.7;
+  color:var(--text-secondary);
+  max-width:540px;margin-bottom:40px;
+}
+.hero-sub strong{color:var(--text);font-weight:500}
+.hero-links{
+  display:flex;gap:20px;align-items:center;
+}
+.hero-links a{
+  font-size:13px;font-weight:500;color:var(--text);
+  text-decoration:none;display:inline-flex;
+  align-items:center;gap:6px;
+  padding:10px 24px;border-radius:99px;
+  border:1px solid var(--border);
+  transition:all .2s;
+}
+.hero-links a:hover{border-color:var(--text)}
+.hero-links a.filled{
+  background:var(--text);color:var(--bg);border-color:var(--text);
+}
+.hero-links a.filled:hover{opacity:0.9}
+
+/* ── Proof strip ─────────────────────────────────────────────────── */
+.proof{
+  display:flex;gap:40px;padding:48px 0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  margin-bottom:80px;flex-wrap:wrap;
+}
+.proof-item{display:flex;flex-direction:column}
+.proof-val{
+  font-family:"JetBrains Mono",monospace;
+  font-size:24px;font-weight:500;letter-spacing:-0.02em;
+}
+.proof-label{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* ── Bento Project Grid ──────────────────────────────────────────── */
+.bento-label{
+  font-size:12px;font-weight:600;color:var(--muted);
+  letter-spacing:0.06em;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.bento{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:auto auto auto;
+  gap:1px;background:var(--border);
+  border-radius:16px;overflow:hidden;
+  margin-bottom:80px;
+}
+.bento-card{
+  background:var(--surface);padding:32px 28px;
+  text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;
+  justify-content:space-between;min-height:200px;
+  transition:background .2s;
+  position:relative;
+}
+.bento-card:hover{background:var(--surface-2)}
+.bento-card.featured{
+  grid-column:span 2;
+  padding:40px 36px;min-height:280px;
+}
+.bento-card .card-status{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--green);display:flex;align-items:center;gap:6px;
+  margin-bottom:16px;
+}
+.bento-card .card-status .dot{
+  width:5px;height:5px;border-radius:50%;background:var(--green);
+}
+.bento-card h3{
+  font-size:20px;font-weight:600;letter-spacing:-0.01em;
+  margin-bottom:8px;
+}
+.bento-card.featured h3{font-size:28px;letter-spacing:-0.02em}
+.bento-card p{
+  font-size:13px;color:var(--text-secondary);line-height:1.5;
+  max-width:400px;
+}
+.bento-card .card-tech{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;color:var(--muted);margin-top:auto;padding-top:20px;
+}
+.bento-card .card-arrow{
+  position:absolute;top:28px;right:28px;
+  font-size:18px;color:var(--muted);
+  transition:color .2s,transform .2s;
+}
+.bento-card:hover .card-arrow{color:var(--text);transform:translate(2px,-2px)}
+
+/* ── About — Ultra-compact ───────────────────────────────────────── */
+.about{
+  padding:80px 0;border-top:1px solid var(--border);
+}
+.about h2{
+  font-size:clamp(24px,3.5vw,36px);
+  font-weight:700;letter-spacing:-0.02em;
+  margin-bottom:32px;line-height:1.2;
+}
+.about-body{
+  display:grid;grid-template-columns:2fr 1fr;gap:64px;
+}
+.about-text{
+  font-size:16px;line-height:1.8;color:var(--text-secondary);
+}
+.about-text p{margin-bottom:16px}
+.about-text strong{color:var(--text);font-weight:500}
+.about-side{
+  font-size:13px;color:var(--text-secondary);line-height:1.6;
+}
+.about-side dt{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--muted);margin-top:20px;margin-bottom:6px;
+}
+.about-side dt:first-child{margin-top:0}
+.about-side dd{margin:0;margin-bottom:4px}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.site-footer{
+  padding:48px 0;border-top:1px solid var(--border);
+  margin-top:40px;display:flex;
+  justify-content:space-between;align-items:center;
+  font-size:13px;color:var(--muted);
+}
+.site-footer a{color:var(--text-secondary);text-decoration:none;transition:color .15s}
+.site-footer a:hover{color:var(--text)}
+.footer-links{display:flex;gap:20px}
+
+/* ── Reveal ──────────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.08s}.rd2{transition-delay:.16s}.rd3{transition-delay:.24s}
+
+@media(max-width:768px){
+  .bento{grid-template-columns:1fr}
+  .bento-card.featured{grid-column:span 1}
+  .about-body{grid-template-columns:1fr;gap:32px}
+  .proof{gap:24px}
+  .site-footer{flex-direction:column;gap:16px;align-items:flex-start}
+}
+
+/* ── Preview Banner ──────────────────────────────────────────────── */
+.preview-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:rgba(0,0,0,0.95);backdrop-filter:blur(12px);
+  border-top:1px solid var(--border);
+  padding:16px 32px;display:flex;align-items:center;justify-content:space-between;
+  font-size:13px;color:var(--text-secondary);
+}
+.preview-banner strong{color:var(--text)}
+.preview-banner .tag{
+  font-family:"JetBrains Mono",monospace;font-size:10px;
+  padding:4px 10px;border-radius:4px;
+  background:var(--green-dim);color:var(--green);
+  text-transform:uppercase;letter-spacing:0.08em;
+}
+  </style>
+</head>
+<body>
+
+<div class="preview-banner">
+  <div><strong>Direction C</strong> &mdash; "The Minimal" &middot; Maximum restraint, bento grid, monochrome, Stripe/Linear-inspired</div>
+  <span class="tag">Preview</span>
+</div>
+
+<!-- Nav -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-name">Haoming Koo</a>
+    <div class="nav-right">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="mailto:haomingkoo@gmail.com">Contact</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span class="theme-icon">&#9789;</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap">
+    <h1 class="reveal">
+      Haoming Koo builds<br>
+      <span class="dim">AI that runs in production.</span>
+    </h1>
+    <p class="hero-sub reveal rd1">
+      <strong>7 years</strong> in semiconductor manufacturing.
+      <strong>$600M+</strong> in business impact.
+      Now shipping ML systems at AI Singapore.
+      Six live apps and counting.
+    </p>
+    <div class="hero-links reveal rd2">
+      <a href="#work" class="filled">View work</a>
+      <a href="https://github.com/haomingkoo" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/haomingkoo" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- Proof -->
+<div class="wrap">
+  <div class="proof reveal">
+    <div class="proof-item">
+      <span class="proof-val">$600M+</span>
+      <span class="proof-label">Business impact, Micron</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-val">3,000+</span>
+      <span class="proof-label">Engineers aligned</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-val">6</span>
+      <span class="proof-label">Live applications</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-val">4.85/5</span>
+      <span class="proof-label">MSc GPA, NUS</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bento Projects -->
+<div class="wrap" id="work">
+  <div class="bento-label reveal">Selected Work</div>
+  <div class="bento reveal rd1">
+    <!-- Featured: Trader Koo -->
+    <a href="https://trader.kooexperience.com" class="bento-card featured" target="_blank">
+      <div>
+        <div class="card-status"><span class="dot"></span> Live</div>
+        <h3>Trader Koo</h3>
+        <p>S&amp;P 500 market dashboard with daily AI chart-pattern detection using YOLOv8, candle signals, 52-week extremes, and macro context.</p>
+      </div>
+      <div class="card-tech">FastAPI &middot; YOLOv8 &middot; Plotly &middot; SQLite</div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+
+    <!-- LionWeather -->
+    <a href="https://lionweather.kooexperience.com" class="bento-card" target="_blank">
+      <div>
+        <div class="card-status"><span class="dot"></span> Live</div>
+        <h3>LionWeather</h3>
+        <p>Singapore weather intelligence with ML rainfall forecasting and SHAP explainability.</p>
+      </div>
+      <div class="card-tech">React &middot; LightGBM &middot; Leaflet</div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+
+    <!-- Preflight -->
+    <a href="https://preflight.kooexperience.com" class="bento-card" target="_blank">
+      <div>
+        <div class="card-status"><span class="dot"></span> Live</div>
+        <h3>Preflight</h3>
+        <p>Upload CSV/Parquet for instant EDA, correlation maps, and baseline ML models.</p>
+      </div>
+      <div class="card-tech">Dash &middot; scikit-learn &middot; Plotly</div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+
+    <!-- Handwriting Lab -->
+    <a href="https://handwriting.kooexperience.com" class="bento-card" target="_blank">
+      <div>
+        <h3>Handwriting Lab</h3>
+        <p>Rotation-aware digit recognition with PyTorch + MLflow pipeline.</p>
+      </div>
+      <div class="card-tech">PyTorch &middot; MLflow &middot; FastAPI</div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+
+    <!-- Photo ID Studio -->
+    <a href="https://studio.kooexperience.com" class="bento-card" target="_blank">
+      <div>
+        <h3>Photo ID Studio</h3>
+        <p>Passport photo compliance with MediaPipe face detection.</p>
+      </div>
+      <div class="card-tech">MediaPipe &middot; OpenCV &middot; FastAPI</div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+
+    <!-- MinMax Wine -->
+    <a href="https://wine.kooexperience.com" class="bento-card" target="_blank">
+      <div>
+        <h3>MinMax Wine</h3>
+        <p>Wine price comparison with Vivino ratings and AI deal scoring.</p>
+      </div>
+      <div class="card-tech">Gemini AI &middot; FastAPI &middot; Selenium</div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+  </div>
+</div>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="wrap">
+    <h2 class="reveal">From chips to code.</h2>
+    <div class="about-body">
+      <div class="about-text reveal rd1">
+        <p>
+          At <strong>Micron Technology</strong>, I led digital transformation across four
+          semiconductor fabs &mdash; aligning 3,000+ engineers on unified data platforms.
+          Co-led LPDDR5X (Apple iPhone 16 Pro Max) and HBM3E (NVIDIA H200) product ramps.
+        </p>
+        <p>
+          Now at <strong>AI Singapore</strong>, I build production ML systems across
+          computer vision, sequence modelling, and NLP. Expanding into GenAI, RAG pipelines,
+          and agentic AI.
+        </p>
+      </div>
+      <div class="about-side reveal rd2">
+        <dl>
+          <dt>Education</dt>
+          <dd>MSc NUS &mdash; 4.85/5.00</dd>
+          <dd>BSc NUS &mdash; Distinction</dd>
+          <dt>Certifications</dt>
+          <dd>PMP</dd>
+          <dd>Full Stack AI (NUS x Emeritus)</dd>
+          <dt>Awards</dt>
+          <dd>Micron Innovation Award</dd>
+          <dd>Idea of the Quarter</dd>
+          <dt>Also</dt>
+          <dd>WSQ-certified pastry baker</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;width:100%">
+    <span>&copy; 2026 Haoming Koo</span>
+    <div class="footer-links">
+      <a href="https://github.com/haomingkoo" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/haomingkoo" target="_blank">LinkedIn</a>
+      <a href="mailto:haomingkoo@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.querySelector('.theme-icon').textContent = next === 'dark' ? '\u263D' : '\u2600';
+}
+</script>
+</body>
+</html>
