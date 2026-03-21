@@ -2077,7 +2077,7 @@ var TTT_GAMES = [
     moves: [
       [4,'X'], [1,'O'], [0,'X'], [8,'O'], [6,'X'], [3,'O'], [2,'X']
     ],
-    winLine: [0,4,8], // X wins main diagonal
+    winLine: [2,4,6], // X wins anti-diagonal
     reward: '+1 (Win!)',
     rewardColor: 'var(--live)',
     narration: 'After 100 games, the agent plays <strong>optimally</strong>. Center first, then two opposite corners - creating a fork (two ways to win at once). O can only block one. <strong>It never loses.</strong>',
