@@ -773,54 +773,59 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <p class="section-desc">Before we can understand alignment, we need the learning framework behind it: try things, get feedback, improve.</p>
     </div>
 
-    <!-- Multi-round chess example -->
+    <!-- Tic-tac-toe RL example -->
     <div class="viz reveal reveal-d1">
-      <div class="viz-title">Learning Through Trial and Error</div>
+      <div class="viz-title">Learning Through Trial and Error: Tic-Tac-Toe</div>
       <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
-        Imagine learning chess without anyone teaching you the rules. You just play, and after each move you're told: good (+1) or bad (-1).
+        Imagine an AI agent learning tic-tac-toe. Nobody tells it the rules or strategy. It just plays, gets told whether it won (+1), lost (-1), or drew (0), and slowly figures out what works.
       </p>
 
-      <div class="chat-scene" style="max-width:560px">
-        <div class="chat-row">
-          <div class="chat-avatar">P</div>
-          <div class="chat-bubble">
-            <div class="chat-name">Player (Game 1)</div>
-            I'll move my queen right away - attack!
+      <!-- Interactive: Step through games -->
+      <div class="controls" style="margin-bottom:16px">
+        <button class="btn btn-sm active" id="ttt-btn-0" onclick="showTTTGame(0)">Game 1</button>
+        <button class="btn btn-sm" id="ttt-btn-1" onclick="showTTTGame(1)">Game 10</button>
+        <button class="btn btn-sm" id="ttt-btn-2" onclick="showTTTGame(2)">Game 100</button>
+        <button class="btn btn-primary btn-sm" onclick="playTTTGames()">Auto-Play</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center">
+        <!-- Tic-tac-toe board -->
+        <div>
+          <div id="ttt-board" style="display:grid;grid-template-columns:repeat(3,60px);grid-template-rows:repeat(3,60px);gap:3px;background:var(--border);border-radius:8px;overflow:hidden">
           </div>
+          <div id="ttt-reward" style="text-align:center;margin-top:12px;font-size:14px;font-weight:700;min-height:24px"></div>
         </div>
-        <div class="chat-row right">
-          <div class="chat-avatar">G</div>
-          <div class="chat-bubble">
-            <div class="chat-name">Game</div>
-            Your queen got captured. <strong style="color:var(--red)">-1</strong>
-          </div>
+
+        <!-- Game narration -->
+        <div>
+          <div id="ttt-game-label" style="font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Game 1 - Random Moves</div>
+          <div id="ttt-narration" style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px"></div>
+          <div id="ttt-strategy" style="padding:12px 16px;border-radius:8px;background:var(--code-bg);font-size:13px;color:var(--text-secondary)"></div>
         </div>
-        <div class="chat-row">
-          <div class="chat-avatar">P</div>
-          <div class="chat-bubble">
-            <div class="chat-name">Player (Game 2)</div>
-            OK, I'll develop my knights and bishops first this time.
-          </div>
+      </div>
+
+      <!-- RL mapping below -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:24px;background:var(--border);border-radius:10px;overflow:hidden;font-size:12px">
+        <div style="background:var(--surface);padding:12px;text-align:center">
+          <div style="font-weight:700;color:var(--accent);margin-bottom:4px">State</div>
+          <div style="color:var(--text-secondary)">Current board</div>
         </div>
-        <div class="chat-row right">
-          <div class="chat-avatar">G</div>
-          <div class="chat-bubble">
-            <div class="chat-name">Game</div>
-            Strong position! You won. <strong style="color:var(--live)">+1</strong>
-          </div>
+        <div style="background:var(--surface);padding:12px;text-align:center">
+          <div style="font-weight:700;color:var(--purple);margin-bottom:4px">Action</div>
+          <div style="color:var(--text-secondary)">Place X in a cell</div>
         </div>
-        <div class="chat-row">
-          <div class="chat-avatar">P</div>
-          <div class="chat-bubble">
-            <div class="chat-name">Player (Game 50)</div>
-            I now know: develop pieces early, control the center, protect my king.
-            <div class="thought">My strategy improved from experience alone - no one taught me the rules.</div>
-          </div>
+        <div style="background:var(--surface);padding:12px;text-align:center">
+          <div style="font-weight:700;color:var(--live);margin-bottom:4px">Reward</div>
+          <div style="color:var(--text-secondary)">Win +1 / Lose -1</div>
+        </div>
+        <div style="background:var(--surface);padding:12px;text-align:center">
+          <div style="font-weight:700;color:var(--amber);margin-bottom:4px">Policy</div>
+          <div style="color:var(--text-secondary)">Where to place X</div>
         </div>
       </div>
 
       <div class="insight" style="margin-top:16px">
-        <strong>That's reinforcement learning.</strong> The player never read a chess book. They just played, got feedback (+1 or -1), and gradually built a strategy. After enough games, they consistently make good moves - not because they memorized rules, but because they learned from outcomes.
+        <strong>That's reinforcement learning.</strong> No one told the agent the rules. It played hundreds of games, got feedback (+1 or -1), and gradually figured out: take the center, block the opponent, set up forks. It learned strategy from outcomes alone.
       </div>
     </div>
 
@@ -1881,6 +1886,116 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
      JAVASCRIPT
      ====================================================================== -->
 <script>
+// == Tic-Tac-Toe RL Demo =====================================================
+var TTT_GAMES = [
+  {
+    label: 'Game 1 - Random Moves',
+    // Moves: [position, player]. Positions 0-8, left-to-right top-to-bottom
+    moves: [
+      [6,'X'], [4,'O'], [2,'X'], [0,'O'], [8,'X'], [1,'O'], [3,'X'], [5,'O'], [7,'X']
+    ],
+    board: [' O','O',' X',' X','O','O','X','X','X'],  // final state - draw-ish but O wins
+    finalBoard: ['O','O','X','X','O','O','X','X','X'],
+    reward: '0 (Draw)',
+    rewardColor: 'var(--muted)',
+    narration: 'The agent places X randomly with no strategy. It doesn\'t know that the center or corners matter. Some games it wins by luck, most it loses or draws.',
+    strategy: '<strong>Agent\'s strategy:</strong> None. Pick any empty cell at random.<br><strong>Win rate so far:</strong> ~20%'
+  },
+  {
+    label: 'Game 10 - Learning the Basics',
+    moves: [
+      [4,'X'], [0,'O'], [2,'X'], [6,'O'], [1,'X'], [7,'O'], [5,'X']
+    ],
+    finalBoard: ['O','X','X',' ','X','X','O','O',' '],
+    reward: '+1 (Win!)',
+    rewardColor: 'var(--live)',
+    narration: 'After 10 games of feedback, the agent learned its first lesson: <strong>always take the center</strong>. It also starts to prefer corners. It still makes mistakes, but wins more often.',
+    strategy: '<strong>Agent\'s strategy:</strong> Take center first. Then pick corners.<br><strong>Win rate so far:</strong> ~55%'
+  },
+  {
+    label: 'Game 100 - Optimal Play',
+    moves: [
+      [4,'X'], [0,'O'], [8,'X'], [2,'O'], [6,'X'], [3,'O'], [5,'X']
+    ],
+    finalBoard: ['O',' ','O','O','X','X','X',' ','X'],
+    reward: '+1 (Win!)',
+    rewardColor: 'var(--live)',
+    narration: 'After 100 games, the agent plays <strong>optimally</strong>. It takes the center, then sets up a "fork" - two ways to win simultaneously. The opponent can only block one, so the agent always wins or draws. <strong>It never loses.</strong>',
+    strategy: '<strong>Agent\'s strategy:</strong> Center first. Then fork (create two winning threats). Block opponent\'s winning moves.<br><strong>Win rate:</strong> ~95% (never loses, sometimes draws)'
+  }
+];
+
+var tttCurrentGame = 0;
+var tttAnimInterval = null;
+
+function renderTTTBoard(finalBoard, highlightWin) {
+  var board = document.getElementById('ttt-board');
+  board.innerHTML = '';
+  for (var i = 0; i < 9; i++) {
+    var cell = document.createElement('div');
+    cell.style.cssText = 'width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;background:var(--surface);transition:all .3s;';
+    var val = finalBoard[i];
+    if (val === 'X') {
+      cell.style.color = 'var(--accent)';
+      cell.textContent = 'X';
+    } else if (val === 'O') {
+      cell.style.color = 'var(--red)';
+      cell.textContent = 'O';
+    } else {
+      cell.textContent = '';
+    }
+    board.appendChild(cell);
+  }
+}
+
+function showTTTGame(idx) {
+  tttCurrentGame = idx;
+  var game = TTT_GAMES[idx];
+  // Update buttons
+  for (var i = 0; i < 3; i++) {
+    document.getElementById('ttt-btn-' + i).classList.toggle('active', i === idx);
+  }
+  // Animate board: show empty, then fill in moves one by one
+  var emptyBoard = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
+  renderTTTBoard(emptyBoard, false);
+  document.getElementById('ttt-reward').textContent = '';
+  document.getElementById('ttt-game-label').textContent = game.label;
+  document.getElementById('ttt-narration').innerHTML = game.narration;
+  document.getElementById('ttt-strategy').innerHTML = game.strategy;
+
+  // Animate moves
+  var currentBoard = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
+  var moves = game.moves;
+  moves.forEach(function(move, i) {
+    setTimeout(function() {
+      currentBoard[move[0]] = move[1];
+      renderTTTBoard(currentBoard.slice(), false);
+      if (i === moves.length - 1) {
+        // Show reward after last move
+        setTimeout(function() {
+          var rewardEl = document.getElementById('ttt-reward');
+          rewardEl.innerHTML = 'Reward: <strong style="color:' + game.rewardColor + '">' + game.reward + '</strong>';
+        }, 300);
+      }
+    }, (i + 1) * 400);
+  });
+}
+
+function playTTTGames() {
+  var idx = 0;
+  showTTTGame(0);
+  tttAnimInterval = setInterval(function() {
+    idx++;
+    if (idx >= 3) { clearInterval(tttAnimInterval); return; }
+    showTTTGame(idx);
+  }, 4000);
+}
+
+// Init first game on load
+document.addEventListener('DOMContentLoaded', function() {
+  showTTTGame(0);
+});
+
 // == Preference Picker ========================================================
 var prefExamples = [
   {
