@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DPO Interactive Demo - Direct Preference Optimization</title>
+  <meta name="description" content="Interactive visualization of DPO: how to align language models with human preferences using just a classification loss - no reward model, no reinforcement learning.">
+  <link rel="canonical" href="https://kooexperience.com/blog/posts/dpo-demo.html" />
+  <meta name="author" content="Haoming Koo" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="DPO Interactive Demo - Direct Preference Optimization" />
+  <meta property="og:description" content="Interactive visualization of DPO: align language models with human preferences using just a classification loss." />
+  <meta property="og:url" content="https://kooexperience.com/blog/posts/dpo-demo.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
+  <meta property="og:site_name" content="Haoming Koo" />
+  <meta property="og:locale" content="en_SG" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DPO Interactive Demo - Direct Preference Optimization" />
+  <meta name="twitter:description" content="Align language models with human preferences using just a classification loss." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+  <style>
+/* == Theme Variables ====================================================== */
+[data-theme="dark"] {
+  --bg: #060608;
+  --surface: #0e0e12;
+  --surface-hover: #141418;
+  --border: #1c1c24;
+  --border-hover: #2a2a36;
+  --accent: #3b82f6;
+  --accent-dim: rgba(59,130,246,0.10);
+  --accent-glow: rgba(59,130,246,0.25);
+  --text: #eeeef0;
+  --text-secondary: #b0b0b8;
+  --muted: #64647a;
+  --live: #22c55e;
+  --purple: #a855f7;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --nav-bg: rgba(6,6,8,0.85);
+  --code-bg: rgba(255,255,255,0.04);
+}
+[data-theme="light"] {
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --surface-hover: #f1f3f5;
+  --border: #dde1e6;
+  --border-hover: #c1c7cf;
+  --accent: #2563eb;
+  --accent-dim: rgba(37,99,235,0.08);
+  --accent-glow: rgba(37,99,235,0.18);
+  --text: #111827;
+  --text-secondary: #4b5563;
+  --muted: #9ca3af;
+  --live: #16a34a;
+  --purple: #7c3aed;
+  --amber: #d97706;
+  --red: #dc2626;
+  --nav-bg: rgba(248,249,251,0.88);
+  --code-bg: rgba(0,0,0,0.04);
+}
+
+/* == Base ================================================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"Inter",system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.7;
+  min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:background .35s,color .35s;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(59,130,246,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 20%,rgba(168,85,247,0.04) 0%,transparent 50%);
+  transition:opacity .35s;
+}
+[data-theme="light"] body::before{opacity:0.3}
+a{color:var(--accent);text-decoration:none}
+code,.mono{font-family:"JetBrains Mono",monospace;font-size:0.88em}
+.container{max-width:900px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* == Nav ================================================================== */
+.nav{
+  position:fixed;top:0;width:100%;z-index:100;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:var(--nav-bg);border-bottom:1px solid var(--border);
+  transition:background .35s,border-color .35s;
+}
+.nav-inner{
+  max-width:900px;margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;height:56px;gap:16px;
+}
+.nav-logo{
+  font-weight:800;font-size:18px;color:var(--text);
+  letter-spacing:-0.5px;text-decoration:none;
+}
+.nav-title{flex:1;font-size:14px;color:var(--muted);font-weight:500}
+.nav-blog{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;padding:6px 12px;border-radius:8px;transition:color .2s,background .2s}
+.nav-blog:hover{color:var(--text);background:rgba(128,128,128,.1)}
+.theme-btn{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:6px 10px;cursor:pointer;
+  color:var(--text);display:flex;align-items:center;gap:6px;
+  font-size:12px;font-family:inherit;transition:all .2s;
+}
+.theme-btn:hover{border-color:var(--border-hover);background:var(--surface-hover)}
+.theme-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+
+/* == Hero ================================================================= */
+.hero{
+  min-height:70vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:80px 24px 40px;position:relative;
+}
+.hero-badge{
+  display:inline-block;padding:4px 14px;border-radius:20px;
+  background:var(--accent-dim);color:var(--accent);
+  font-size:12px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;
+  margin-bottom:20px;border:1px solid rgba(59,130,246,0.15);
+}
+.hero h1{
+  font-size:clamp(36px,6vw,64px);font-weight:800;letter-spacing:-1.5px;
+  line-height:1.1;margin-bottom:16px;
+  background:linear-gradient(135deg,var(--text) 30%,var(--accent) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{font-size:clamp(16px,2.5vw,22px);color:var(--text-secondary);font-weight:500;margin-bottom:10px}
+.hero-meta{font-size:13px;color:var(--muted);margin-bottom:40px}
+.hero-meta a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.hero-meta a:hover{color:var(--accent)}
+.scroll-hint{
+  font-size:12px;color:var(--muted);
+  animation:bobDown 2s ease-in-out infinite;
+}
+.scroll-hint span{display:block;margin-top:4px;font-size:18px}
+@keyframes bobDown{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* == Sections ============================================================= */
+.section{padding:80px 0;border-top:1px solid var(--border);position:relative}
+.section-num{
+  font-size:12px;font-weight:700;color:var(--accent);
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;
+}
+.section-title{
+  font-size:clamp(24px,4vw,36px);font-weight:700;letter-spacing:-0.5px;
+  margin-bottom:16px;line-height:1.2;
+}
+.section-desc{color:var(--text-secondary);font-size:15px;max-width:640px;margin-bottom:32px}
+
+/* == Viz Panel ============================================================ */
+.viz{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:28px 24px;margin:24px 0;
+  transition:background .35s,border-color .35s;
+  position:relative;overflow:hidden;
+}
+.viz::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent-glow),transparent);
+}
+.viz-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:20px}
+.viz-row{display:flex;gap:20px;flex-wrap:wrap}
+.viz-col{flex:1;min-width:200px}
+
+/* == Bar Charts =========================================================== */
+.chart{margin-bottom:24px}
+.chart-label{font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.chart-label .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:200px;padding:0 4px}
+.bar-col{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0}
+.bar-val{
+  font-size:10px;font-family:"JetBrains Mono",monospace;
+  color:var(--text-secondary);margin-bottom:4px;
+  height:16px;white-space:nowrap;transition:color .2s;
+}
+.bar-track{width:100%;height:100px;display:flex;align-items:flex-end;position:relative}
+.bar-fill{
+  width:100%;border-radius:4px 4px 0 0;
+  transition:height .45s cubic-bezier(.4,0,.2,1),background .3s;
+  min-height:2px;position:relative;
+}
+.bar-fill.highlight::after{
+  content:"\2605";position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+  font-size:10px;color:var(--amber);
+}
+.bar-lbl{
+  font-size:11px;color:var(--muted);margin-top:6px;
+  font-family:"JetBrains Mono",monospace;
+}
+.bar-pair{display:flex;gap:2px;width:100%;height:100px;align-items:flex-end}
+.bar-pair .bar-fill{flex:1;border-radius:3px 3px 0 0}
+
+/* == Controls ============================================================= */
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:16px 0}
+.btn{
+  padding:8px 18px;border-radius:10px;border:1px solid var(--border);
+  background:var(--surface);color:var(--text);font-size:13px;
+  font-family:inherit;font-weight:500;cursor:pointer;
+  transition:all .2s;display:inline-flex;align-items:center;gap:6px;
+}
+.btn:hover{border-color:var(--border-hover);background:var(--surface-hover)}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{filter:brightness(1.15)}
+.btn-sm{padding:5px 12px;font-size:12px;border-radius:8px}
+.btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+.btn:disabled{opacity:0.4;cursor:not-allowed}
+
+/* Slider */
+.slider-wrap{display:flex;align-items:center;gap:12px;margin:12px 0}
+.slider-label{font-size:13px;font-weight:500;color:var(--text-secondary);min-width:30px}
+.slider-val{font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:600;color:var(--accent);min-width:40px}
+input[type="range"]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:6px;border-radius:3px;outline:none;
+  background:var(--border);cursor:pointer;flex:1;
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:20px;
+  border-radius:50%;background:var(--accent);cursor:pointer;
+  box-shadow:0 0 0 4px var(--accent-dim);transition:box-shadow .2s;
+}
+input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accent-glow)}
+
+/* == Info Boxes =========================================================== */
+.insight{
+  padding:16px 20px;border-radius:12px;margin:20px 0;
+  border-left:3px solid var(--accent);
+  background:var(--accent-dim);font-size:14px;
+}
+.insight.warn{border-left-color:var(--amber);background:rgba(245,158,11,0.06)}
+.insight.success{border-left-color:var(--live);background:rgba(34,197,94,0.06)}
+.stat-row{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}
+.stat-card{
+  flex:1;min-width:120px;padding:14px 16px;border-radius:12px;
+  background:var(--surface);border:1px solid var(--border);text-align:center;
+}
+.stat-val{font-size:24px;font-weight:700;font-family:"JetBrains Mono",monospace}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* == Pipeline Diagram ===================================================== */
+.pipeline{display:flex;align-items:center;gap:0;margin:24px 0;flex-wrap:wrap;justify-content:center}
+.pipe-node{
+  padding:14px 20px;border-radius:12px;border:2px solid var(--border);
+  background:var(--surface);text-align:center;min-width:120px;
+  transition:all .4s;position:relative;
+}
+.pipe-node.active{border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow)}
+.pipe-node.done{border-color:var(--live);opacity:0.7}
+.pipe-node.eliminated{border-color:var(--red);opacity:0.35;text-decoration:line-through}
+.pipe-node-title{font-size:13px;font-weight:600;color:var(--text)}
+.pipe-node-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.pipe-arrow{
+  width:40px;height:2px;background:var(--border);position:relative;
+  flex-shrink:0;transition:background .4s;
+}
+.pipe-arrow::after{
+  content:"";position:absolute;right:-1px;top:-4px;
+  border:5px solid transparent;border-left:6px solid var(--border);
+  transition:border-color .4s;
+}
+.pipe-arrow.active{background:var(--accent)}
+.pipe-arrow.active::after{border-left-color:var(--accent)}
+
+/* == Line Chart (SVG) ===================================================== */
+.line-chart-wrap{position:relative;width:100%;padding-top:50%;margin:24px 0}
+.line-chart-wrap svg{position:absolute;top:0;left:0;width:100%;height:100%}
+
+/* == Scroll Reveal ======================================================== */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+
+/* == Chat Scene =========================================================== */
+.chat-scene{max-width:520px;margin:28px auto;padding:0 8px}
+.chat-row{
+  display:flex;gap:12px;align-items:flex-start;margin-bottom:18px;
+  opacity:0;transform:translateY(12px);
+  animation:chatIn .5s ease forwards;
+}
+.chat-row:nth-child(1){animation-delay:.1s}
+.chat-row:nth-child(2){animation-delay:.4s}
+.chat-row:nth-child(3){animation-delay:.7s}
+.chat-row:nth-child(4){animation-delay:1s}
+.chat-row.right{flex-direction:row-reverse}
+@keyframes chatIn{to{opacity:1;transform:translateY(0)}}
+.chat-avatar{
+  width:46px;height:46px;border-radius:50%;
+  background:var(--surface);border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:700;flex-shrink:0;
+  color:var(--text-secondary);
+}
+.chat-bubble{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:4px 18px 18px 18px;
+  padding:12px 16px;font-size:14px;line-height:1.6;
+  max-width:380px;position:relative;
+}
+.chat-row.right .chat-bubble{
+  border-radius:18px 4px 18px 18px;
+  background:var(--accent-dim);border-color:rgba(59,130,246,0.2);
+}
+.chat-name{
+  font-size:10px;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px;
+}
+.chat-bubble .thought{
+  font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;
+}
+
+/* == Training Steps ======================================================= */
+.train-steps{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;margin:24px 0;
+}
+.train-step{
+  padding:20px;border-radius:14px;border:1px solid var(--border);
+  background:var(--surface);position:relative;transition:all .3s;
+}
+.train-step:hover{border-color:var(--border-hover);transform:translateY(-2px)}
+.train-step-num{
+  font-size:28px;font-weight:800;color:var(--accent);opacity:0.3;
+  font-family:"JetBrains Mono",monospace;
+  position:absolute;top:12px;right:16px;
+}
+.train-step h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.train-step p{font-size:13px;color:var(--text-secondary);line-height:1.5}
+
+/* == Epoch Comparison ===================================================== */
+.epoch-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}
+.epoch-col h4{font-size:13px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.epoch-row{display:flex;gap:4px;align-items:flex-end;height:160px;margin-bottom:6px}
+.epoch-bar{
+  flex:1;border-radius:3px 3px 0 0;min-height:2px;
+  transition:height .4s ease,background .3s;
+}
+.epoch-labels{display:flex;gap:4px;margin-bottom:16px}
+.epoch-labels span{
+  flex:1;text-align:center;font-size:10px;
+  font-family:"JetBrains Mono",monospace;color:var(--muted);
+}
+
+/* == Summary ============================================================== */
+.summary-flow{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:16px;margin:24px 0;
+}
+.summary-card{
+  padding:24px 20px;border-radius:14px;border:2px solid var(--border);
+  background:var(--surface);
+}
+.summary-card h3{font-size:15px;font-weight:700;margin-bottom:10px}
+.summary-card p,.summary-card li{font-size:13px;color:var(--text-secondary);line-height:1.5}
+.summary-card ul{padding-left:16px;margin-top:8px}
+.summary-card li{margin-bottom:4px}
+.summary-card.problem{border-color:var(--red)}
+.summary-card.solution{border-color:var(--live)}
+.summary-card.open{border-color:var(--amber)}
+
+/* == Executive Summary ==================================================== */
+.exec-summary{max-width:720px;margin:0 auto;padding:0 24px 40px;position:relative;z-index:1}
+.exec-summary .exec-lead{
+  font-size:clamp(16px,2.2vw,19px);color:var(--text-secondary);
+  line-height:1.7;margin-bottom:28px;
+}
+.exec-summary .exec-lead strong{color:var(--text)}
+.hook-questions{display:flex;flex-direction:column;gap:12px;margin:24px 0}
+.hook-q{
+  padding:14px 18px;border-radius:12px;
+  background:var(--surface);border:1px solid var(--border);
+  font-size:14px;line-height:1.5;
+  display:flex;align-items:flex-start;gap:12px;
+  transition:border-color .2s,transform .2s;
+}
+.hook-q:hover{border-color:var(--accent);transform:translateX(4px)}
+.hook-q-num{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;margin-top:1px;
+  background:var(--accent-dim);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;
+}
+.hook-q p{color:var(--text-secondary)}
+.hook-q strong{color:var(--text)}
+.exec-cta{text-align:center;margin-top:28px;font-size:13px;color:var(--muted)}
+.exec-divider{
+  width:60px;height:2px;margin:0 auto 24px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  border-radius:1px;
+}
+
+/* == Extras =============================================================== */
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.tag{
+  font-size:11px;padding:3px 10px;border-radius:6px;
+  background:var(--accent-dim);color:var(--accent);font-weight:500;
+}
+.tag.purple{background:rgba(168,85,247,0.08);color:var(--purple)}
+.tag.amber{background:rgba(245,158,11,0.08);color:var(--amber)}
+.hidden{display:none!important}
+.text-accent{color:var(--accent)}
+.text-purple{color:var(--purple)}
+.text-amber{color:var(--amber)}
+.text-live{color:var(--live)}
+.text-red{color:var(--red)}
+.text-muted{color:var(--muted)}
+.fw600{font-weight:600}
+.mt16{margin-top:16px}.mb8{margin-bottom:8px}
+
+/* == Math ================================================================= */
+.math-block{
+  padding:16px 20px;border-radius:10px;background:var(--code-bg);
+  margin:16px 0;overflow-x:auto;text-align:center;
+}
+
+/* == Code Block =========================================================== */
+.code-panel{
+  background:#0d1117;border:1px solid var(--border);border-radius:14px;
+  margin:24px 0;overflow:hidden;
+}
+[data-theme="light"] .code-panel{background:#f6f8fa}
+.code-header{
+  padding:10px 16px;border-bottom:1px solid var(--border);
+  font-size:12px;font-weight:600;color:var(--muted);
+  display:flex;align-items:center;gap:8px;
+}
+.code-header .lang{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.code-body{padding:16px 20px;overflow-x:auto}
+.code-body pre{margin:0;font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.7}
+.code-body .kw{color:#ff7b72}
+.code-body .fn{color:#d2a8ff}
+.code-body .str{color:#a5d6ff}
+.code-body .cmt{color:#8b949e;font-style:italic}
+.code-body .var{color:#ffa657}
+.code-body .op{color:#79c0ff}
+.code-body .num{color:#79c0ff}
+[data-theme="light"] .code-body .kw{color:#cf222e}
+[data-theme="light"] .code-body .fn{color:#8250df}
+[data-theme="light"] .code-body .str{color:#0a3069}
+[data-theme="light"] .code-body .cmt{color:#6e7781}
+[data-theme="light"] .code-body .var{color:#953800}
+[data-theme="light"] .code-body .op{color:#0550ae}
+[data-theme="light"] .code-body .num{color:#0550ae}
+
+/* == Preference Card ====================================================== */
+.pref-card{
+  padding:20px;border-radius:14px;border:2px solid var(--border);
+  background:var(--surface);transition:all .3s;
+}
+.pref-card.chosen{border-color:var(--live)}
+.pref-card.rejected{border-color:var(--red)}
+.pref-card-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;
+  margin-bottom:8px;
+}
+.pref-card p{font-size:13px;color:var(--text-secondary);line-height:1.6}
+
+/* == Pros/Cons Grid ======================================================= */
+.proscons-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;
+}
+.proscons-card{
+  padding:20px;border-radius:14px;border:1px solid var(--border);
+  background:var(--surface);
+}
+.proscons-card h4{font-size:14px;font-weight:700;margin-bottom:10px}
+.proscons-card li{font-size:13px;color:var(--text-secondary);line-height:1.5;margin-bottom:6px}
+.proscons-card ul{padding-left:16px;margin:0}
+
+/* == Limit Grid =========================================================== */
+.limit-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:12px;margin:24px 0;
+}
+.limit-card{
+  padding:16px 18px;border-radius:12px;border:1px solid var(--border);
+  background:var(--surface);
+}
+.limit-card .limit-num{
+  font-size:20px;font-weight:800;color:var(--muted);opacity:0.4;
+  font-family:"JetBrains Mono",monospace;float:right;margin-left:8px;
+}
+.limit-card h4{font-size:13px;font-weight:700;margin-bottom:4px}
+.limit-card p{font-size:12px;color:var(--text-secondary);line-height:1.4}
+
+/* == Results Table ======================================================== */
+.results-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px}
+.results-table th,.results-table td{padding:10px 14px;text-align:center;border-bottom:1px solid var(--border)}
+.results-table th{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
+.results-table tr:hover td{background:var(--accent-dim)}
+.results-table .best{color:var(--live);font-weight:700}
+.results-table .baseline{color:var(--muted)}
+
+/* == LLM Parallel ========================================================= */
+.llm-parallel{
+  padding:14px 18px;border-radius:10px;margin:16px 0;
+  background:rgba(168,85,247,0.06);border-left:3px solid var(--purple);
+  font-size:13px;
+}
+.llm-parallel strong{color:var(--purple)}
+
+/* == Footer =============================================================== */
+.footer{
+  padding:40px 0;border-top:1px solid var(--border);
+  text-align:center;color:var(--muted);font-size:13px;
+}
+.footer a{color:var(--text-secondary)}
+
+/* == Responsive =========================================================== */
+@media(max-width:640px){
+  .viz-row{flex-direction:column}
+  .chart-bars{height:120px;gap:4px}
+  .bar-track,.bar-pair{height:100px}
+  .pipeline{flex-direction:column;gap:12px}
+  .pipe-arrow{width:2px;height:24px}
+  .pipe-arrow::after{right:auto;top:auto;bottom:-1px;left:-4px;border:5px solid transparent;border-top:6px solid var(--border)}
+  .pipe-arrow.active::after{border-top-color:var(--accent);border-left-color:transparent}
+  .stat-row{flex-direction:column}
+  .hero{min-height:80vh;padding-top:70px}
+  .section{padding:50px 0}
+  .epoch-grid{grid-template-columns:1fr}
+  .proscons-grid{grid-template-columns:1fr}
+  .chat-bubble{max-width:280px}
+  .train-steps{grid-template-columns:1fr}
+}
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "DPO Interactive Demo - Direct Preference Optimization",
+    "description": "Interactive visualization of DPO: align language models with human preferences using just a classification loss.",
+    "url": "https://kooexperience.com/blog/posts/dpo-demo.html",
+    "datePublished": "2026-03-21",
+    "dateModified": "2026-03-21",
+    "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
+    "publisher": {"@type": "Person", "name": "Haoming Koo"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/dpo-demo.html"}
+  }
+  </script>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://kooexperience.com/blog/"},{"@type":"ListItem","position":3,"name":"DPO Demo"}]}
+</script>
+</head>
+<body>
+
+<!-- ======================================================================
+     NAV
+     ====================================================================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">HK</a>
+    <span class="nav-title">DPO - Direct Preference Optimization</span>
+    <a href="../../#blog" class="nav-blog">Blog</a>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" class="icon-theme">
+        <circle cx="12" cy="12" r="5" stroke-width="2"/>
+        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <span class="theme-label">Dark</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ======================================================================
+     HERO
+     ====================================================================== -->
+<header class="hero">
+  <div class="hero-badge">Interactive Demo</div>
+  <h1>Direct Preference<br>Optimization</h1>
+  <p class="hero-sub">Your Language Model is Secretly a Reward Model</p>
+  <p class="hero-meta">Based on <a href="https://arxiv.org/abs/2305.18290" target="_blank">Rafailov et al. (2023)</a> &middot; arXiv:2305.18290 &middot; NeurIPS 2023</p>
+  <p class="hero-meta" style="margin-top:6px">
+    Prepared for topic sharing by
+    <strong style="color:var(--text)">Jin Jianzuo</strong>,
+    <strong style="color:var(--text)">Kuibin Lin</strong>,
+    <strong style="color:var(--text)">Lee Shih Nyien</strong>,
+    <strong style="color:var(--text)">Shen Yanwen</strong>,
+    <strong style="color:var(--text)">Tan Sze Vy</strong> &amp;
+    <strong style="color:var(--text)">Viknesh</strong><br>
+    <span style="font-size:11px;font-style:italic">All authors contributed equally. Names listed in alphabetical order.</span>
+  </p>
+  <div class="tag-row" style="justify-content:center">
+    <span class="tag">Post-Training</span>
+    <span class="tag purple">Preference Learning</span>
+    <span class="tag amber">Alignment</span>
+  </div>
+  <div class="scroll-hint" style="margin-top:40px">
+    Scroll to explore the full pipeline
+    <span>&darr;</span>
+  </div>
+</header>
+
+<main>
+
+<!-- ======================================================================
+     EXECUTIVE SUMMARY
+     ====================================================================== -->
+<div class="exec-summary">
+  <div class="exec-divider"></div>
+
+  <p class="exec-lead">
+    What if you could align an AI with human preferences using just a <strong>classification loss</strong> -
+    no reward model, no reinforcement learning, no PPO?
+  </p>
+
+  <p class="exec-lead">
+    This post explains a powerful idea from Stanford research:
+    <strong>the language model itself already contains a hidden reward function</strong>.
+    DPO extracts it directly, replacing the entire RLHF pipeline with a single
+    stable training objective. Same theoretical guarantees. A fraction of the complexity.
+  </p>
+
+  <p class="exec-lead" style="margin-bottom:8px">
+    Before you scroll, ask yourself:
+  </p>
+
+  <div class="hook-questions">
+    <div class="hook-q">
+      <div class="hook-q-num">1</div>
+      <p><strong>Why is RLHF so complex</strong> - and do we actually need all that complexity?</p>
+    </div>
+    <div class="hook-q">
+      <div class="hook-q-num">2</div>
+      <p>If humans just say <strong>"A is better than B,"</strong> can we skip the reward model entirely?</p>
+    </div>
+    <div class="hook-q">
+      <div class="hook-q-num">3</div>
+      <p><strong>What if the language model itself already contains a hidden reward function?</strong>
+      Sounds impossible - but the math says otherwise.</p>
+    </div>
+  </div>
+
+  <div class="exec-cta">
+    <strong style="color:var(--text)">5-minute read</strong> &middot; interactive demos &middot; no ML background required<br>
+    <span style="margin-top:8px;display:inline-block">&darr; Scroll to start</span>
+  </div>
+</div>
+
+<!-- ======================================================================
+     SECTION 1 - Why Do We Need Human Preferences?
+     ====================================================================== -->
+<section class="section" id="s-preferences">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 1</div>
+      <h2 class="section-title">Why Do We Need Human Preferences?</h2>
+      <p class="section-desc">Pre-trained LLMs are capable but not aligned. They have no built-in notion of "good" vs "bad."</p>
+    </div>
+
+    <div class="train-steps reveal reveal-d1">
+      <div class="train-step">
+        <div class="train-step-num">1</div>
+        <h3>Pre-Training</h3>
+        <p>Learn language from billions of pages. The model can predict text but has no values or preferences.</p>
+      </div>
+      <div class="train-step">
+        <div class="train-step-num">2</div>
+        <h3>Supervised Fine-Tuning</h3>
+        <p>Train on expert Q&amp;A examples. The model follows instructions but may still produce harmful or unhelpful outputs.</p>
+      </div>
+      <div class="train-step">
+        <div class="train-step-num">3</div>
+        <h3>RLHF / DPO</h3>
+        <p>Align the model with human preferences. This is where <strong>DPO</strong> offers a simpler path than traditional RLHF.</p>
+      </div>
+    </div>
+
+    <div class="insight reveal reveal-d2">
+      Human values are complex - helpful, honest, harmless. You can't write a formula for "good."
+      Instead, we let humans compare outputs: <strong>"A is better than B."</strong> This is the preference signal that both RLHF and DPO use.
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 2 - How RLHF Works (The Problem DPO Solves)
+     ====================================================================== -->
+<section class="section" id="s-rlhf">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 2</div>
+      <h2 class="section-title">How RLHF Works</h2>
+      <p class="section-desc">The standard alignment pipeline is powerful but complex. RLHF requires training multiple models and running reinforcement learning.</p>
+    </div>
+
+    <div class="chat-scene reveal reveal-d1">
+      <div class="chat-row">
+        <div class="chat-avatar">T</div>
+        <div class="chat-bubble">
+          <div class="chat-name">Tutor (Reward Model)</div>
+          I'll score every answer on a scale of 1-10.
+          <div class="thought">Trained from human comparisons. Expensive to build.</div>
+        </div>
+      </div>
+      <div class="chat-row right">
+        <div class="chat-avatar">C</div>
+        <div class="chat-bubble">
+          <div class="chat-name">Coach (PPO)</div>
+          I'll use those scores to improve your studying.
+          <div class="thought">Reinforcement learning. Unstable. Needs careful tuning.</div>
+        </div>
+      </div>
+      <div class="chat-row">
+        <div class="chat-avatar">S</div>
+        <div class="chat-bubble">
+          <div class="chat-name">Student (LLM)</div>
+          Wait - can't I just look at the A/B comparisons directly?
+          <div class="thought">Why do I need a tutor AND a coach?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="viz reveal reveal-d2">
+      <div class="viz-title">RLHF Pipeline</div>
+      <div class="pipeline" id="rlhf-pipeline">
+        <div class="pipe-node">
+          <div class="pipe-node-title">SFT Model</div>
+          <div class="pipe-node-sub">Starting point</div>
+        </div>
+        <div class="pipe-arrow"></div>
+        <div class="pipe-node">
+          <div class="pipe-node-title">Train Reward Model</div>
+          <div class="pipe-node-sub">From comparisons</div>
+        </div>
+        <div class="pipe-arrow"></div>
+        <div class="pipe-node">
+          <div class="pipe-node-title">PPO Training</div>
+          <div class="pipe-node-sub">RL optimization</div>
+        </div>
+        <div class="pipe-arrow"></div>
+        <div class="pipe-node">
+          <div class="pipe-node-title" style="color:var(--live)">Aligned Model</div>
+          <div class="pipe-node-sub">Human-aligned</div>
+        </div>
+      </div>
+
+      <div class="stat-row" style="margin-top:20px">
+        <div class="stat-card" style="border-color:var(--red)">
+          <div class="stat-val text-red">2+</div>
+          <div class="stat-lbl">Models in Memory</div>
+        </div>
+        <div class="stat-card" style="border-color:var(--amber)">
+          <div class="stat-val text-amber">3</div>
+          <div class="stat-lbl">Training Stages</div>
+        </div>
+        <div class="stat-card" style="border-color:var(--red)">
+          <div class="stat-val text-red">High</div>
+          <div class="stat-lbl">Instability Risk</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight warn reveal">
+      <strong>The complexity tax:</strong> RLHF requires fitting a separate reward model, sampling from the policy during training,
+      and running PPO - a notoriously unstable RL algorithm. All for the same preference data that DPO uses directly.
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 3 - The DPO Insight
+     ====================================================================== -->
+<section class="section" id="s-insight">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 3</div>
+      <h2 class="section-title">The DPO Insight</h2>
+      <p class="section-desc">"What if we skip the middle steps?" The key mathematical discovery that makes DPO possible.</p>
+    </div>
+
+    <div class="chat-scene reveal reveal-d1">
+      <div class="chat-row">
+        <div class="chat-avatar">M</div>
+        <div class="chat-bubble">
+          <div class="chat-name">Mathematician</div>
+          The reward can be rewritten as a log-ratio of policies.
+        </div>
+      </div>
+      <div class="chat-row right">
+        <div class="chat-avatar">E</div>
+        <div class="chat-bubble">
+          <div class="chat-name">Engineer</div>
+          So we don't need a separate reward model at all?
+        </div>
+      </div>
+      <div class="chat-row">
+        <div class="chat-avatar">M</div>
+        <div class="chat-bubble">
+          <div class="chat-name">Mathematician</div>
+          Exactly. The policy IS the reward model.
+          <div class="thought">And the partition function Z(x) cancels out in the Bradley-Terry model.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="math-block reveal reveal-d2">
+      $$r(x, y) = \beta \log \frac{\pi_\theta(y \mid x)}{\pi_{\text{ref}}(y \mid x)} + \beta \log Z(x)$$
+    </div>
+    <p class="reveal text-muted" style="text-align:center;font-size:13px;margin-bottom:24px">
+      The optimal reward is just a scaled log-ratio of the learned policy to the reference policy - plus a term that cancels in preference comparisons.
+    </p>
+
+    <div class="insight success reveal">
+      <strong>The breakthrough:</strong> When you substitute this reward into the Bradley-Terry preference model,
+      the intractable partition function $Z(x)$ cancels. What remains is a simple binary classification objective
+      that you can optimize with standard gradient descent.
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 4 - The Preference Dataset
+     ====================================================================== -->
+<section class="section" id="s-dataset">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 4</div>
+      <h2 class="section-title">The Preference Dataset</h2>
+      <p class="section-desc">DPO uses the exact same data as RLHF: triplets of (prompt, chosen response, rejected response). It is a drop-in replacement.</p>
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Preference Triplet Viewer</div>
+      <div class="controls" style="margin-bottom:16px">
+        <button class="btn btn-sm active" id="ex-btn-0" onclick="showExample(0)">Example 1</button>
+        <button class="btn btn-sm" id="ex-btn-1" onclick="showExample(1)">Example 2</button>
+        <button class="btn btn-sm" id="ex-btn-2" onclick="showExample(2)">Example 3</button>
+      </div>
+
+      <div style="padding:14px;border-radius:10px;background:var(--code-bg);margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Prompt</div>
+        <div style="font-size:14px;color:var(--text)" id="pref-prompt">Write a poem about the sea.</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="pref-card chosen">
+          <div class="pref-card-label" style="color:var(--live)">Chosen (preferred)</div>
+          <p id="pref-chosen">The waves embrace the shore with gentle hands,
+A whispered song across the silver sands.
+The ocean breathes, a rhythm old as time,
+Each crest a verse in nature's ancient rhyme.</p>
+        </div>
+        <div class="pref-card rejected">
+          <div class="pref-card-label" style="color:var(--red)">Rejected</div>
+          <p id="pref-rejected">The sea is big and blue. It has water in it. Fish live there. Sometimes there are waves. The end.</p>
+        </div>
+      </div>
+
+      <div class="insight" style="margin-top:16px">
+        <strong>Same data, different algorithm:</strong> RLHF uses these comparisons to train a separate reward model, then runs RL.
+        DPO uses them directly as a classification signal - chosen should be more likely than rejected.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 5 - The DPO Loss (Interactive)
+     ====================================================================== -->
+<section class="section" id="s-loss">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 5</div>
+      <h2 class="section-title">The DPO Loss Function</h2>
+      <p class="section-desc">A single equation replaces the entire RLHF pipeline. Adjust the sliders to see how the loss responds.</p>
+    </div>
+
+    <div class="math-block reveal">
+      $$\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}\left[\log \sigma\!\left(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right]$$
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Interactive DPO Loss Calculator</div>
+
+      <div class="slider-wrap">
+        <span class="slider-label" style="font-weight:600">$\beta$</span>
+        <input type="range" min="0.01" max="0.5" step="0.01" value="0.10" id="beta-slider" oninput="updateDPO()">
+        <span class="slider-val" id="beta-val">0.10</span>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px">KL penalty strength. Higher = stay closer to reference model.</p>
+
+      <div class="slider-wrap">
+        <span class="slider-label" style="font-weight:600;min-width:120px">log-ratio (chosen)</span>
+        <input type="range" min="-3" max="3" step="0.1" value="1.5" id="chosen-slider" oninput="updateDPO()">
+        <span class="slider-val" id="chosen-val">1.50</span>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px">$\log \frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)}$ - positive means policy favors chosen more than reference does.</p>
+
+      <div class="slider-wrap">
+        <span class="slider-label" style="font-weight:600;min-width:120px">log-ratio (rejected)</span>
+        <input type="range" min="-3" max="3" step="0.1" value="-0.5" id="rejected-slider" oninput="updateDPO()">
+        <span class="slider-val" id="rejected-val">-0.50</span>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px">$\log \frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}$ - negative means policy disfavors rejected more than reference does.</p>
+
+      <div class="stat-row" style="margin-top:20px">
+        <div class="stat-card" style="border-color:var(--live)">
+          <div class="stat-val text-live" id="dpo-chosen-reward">--</div>
+          <div class="stat-lbl">Implicit Reward (chosen)</div>
+        </div>
+        <div class="stat-card" style="border-color:var(--red)">
+          <div class="stat-val text-red" id="dpo-rejected-reward">--</div>
+          <div class="stat-lbl">Implicit Reward (rejected)</div>
+        </div>
+        <div class="stat-card" style="border-color:var(--accent)">
+          <div class="stat-val text-accent" id="dpo-pref-prob">--</div>
+          <div class="stat-lbl">P(chosen > rejected)</div>
+        </div>
+        <div class="stat-card" style="border-color:var(--amber)">
+          <div class="stat-val text-amber" id="dpo-loss">--</div>
+          <div class="stat-lbl">Loss</div>
+        </div>
+      </div>
+
+      <div class="insight" id="dpo-insight" style="margin-top:16px">
+        The loss is low when the model assigns higher implicit reward to the chosen response and lower to the rejected response.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 6 - RLHF vs DPO Pipeline
+     ====================================================================== -->
+<section class="section" id="s-compare">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 6</div>
+      <h2 class="section-title">RLHF vs DPO Pipeline</h2>
+      <p class="section-desc">Side by side: what DPO eliminates from the alignment pipeline.</p>
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Pipeline Comparison</div>
+      <div class="controls" style="margin-bottom:16px">
+        <button class="btn btn-sm active" id="pipe-btn-rlhf" onclick="showPipeline('rlhf')">RLHF Pipeline</button>
+        <button class="btn btn-sm" id="pipe-btn-dpo" onclick="showPipeline('dpo')">DPO Pipeline</button>
+      </div>
+
+      <div id="pipeline-rlhf">
+        <div class="pipeline">
+          <div class="pipe-node active"><div class="pipe-node-title">SFT Model</div><div class="pipe-node-sub">$\pi_{\text{ref}}$</div></div>
+          <div class="pipe-arrow active"></div>
+          <div class="pipe-node"><div class="pipe-node-title">Preference Data</div><div class="pipe-node-sub">$(x, y_w, y_l)$</div></div>
+          <div class="pipe-arrow"></div>
+          <div class="pipe-node"><div class="pipe-node-title">Reward Model</div><div class="pipe-node-sub">$r_\phi(x,y)$</div></div>
+          <div class="pipe-arrow"></div>
+          <div class="pipe-node"><div class="pipe-node-title">PPO</div><div class="pipe-node-sub">RL training</div></div>
+          <div class="pipe-arrow"></div>
+          <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned</div><div class="pipe-node-sub">$\pi_\theta$</div></div>
+        </div>
+        <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--muted)">5 stages - 2 models in memory - RL required</div>
+      </div>
+
+      <div id="pipeline-dpo" class="hidden">
+        <div class="pipeline">
+          <div class="pipe-node active"><div class="pipe-node-title">SFT Model</div><div class="pipe-node-sub">$\pi_{\text{ref}}$</div></div>
+          <div class="pipe-arrow active"></div>
+          <div class="pipe-node"><div class="pipe-node-title">Preference Data</div><div class="pipe-node-sub">$(x, y_w, y_l)$</div></div>
+          <div class="pipe-arrow active"></div>
+          <div class="pipe-node" style="border-color:var(--live);box-shadow:0 0 20px var(--accent-glow)"><div class="pipe-node-title" style="color:var(--live)">DPO Loss</div><div class="pipe-node-sub">Classification</div></div>
+          <div class="pipe-arrow active"></div>
+          <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned</div><div class="pipe-node-sub">$\pi_\theta$</div></div>
+        </div>
+        <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--live);font-weight:600">3 stages - 1 model - no RL - same theoretical guarantees</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:24px">
+        <div style="padding:14px;border-radius:10px;border:1px solid var(--red);background:rgba(239,68,68,0.04);text-align:center">
+          <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">ELIMINATED</div>
+          <div style="font-size:13px;color:var(--text-secondary)">Reward Model Training</div>
+        </div>
+        <div style="padding:14px;border-radius:10px;border:1px solid var(--red);background:rgba(239,68,68,0.04);text-align:center">
+          <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">ELIMINATED</div>
+          <div style="font-size:13px;color:var(--text-secondary)">PPO / RL Loop</div>
+        </div>
+        <div style="padding:14px;border-radius:10px;border:1px solid var(--red);background:rgba(239,68,68,0.04);text-align:center">
+          <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">ELIMINATED</div>
+          <div style="font-size:13px;color:var(--text-secondary)">Online Sampling</div>
+        </div>
+        <div style="padding:14px;border-radius:10px;border:1px solid var(--red);background:rgba(239,68,68,0.04);text-align:center">
+          <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">ELIMINATED</div>
+          <div style="font-size:13px;color:var(--text-secondary)">Partition Function $Z(x)$</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 7 - The Math (Simplified Derivation)
+     ====================================================================== -->
+<section class="section" id="s-math">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 7</div>
+      <h2 class="section-title">Why It Works - The Math</h2>
+      <p class="section-desc">The derivation in four steps. Click through to follow the chain of reasoning.</p>
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Step-by-Step Derivation</div>
+      <div class="controls" style="margin-bottom:16px">
+        <button class="btn btn-sm active" id="deriv-btn-0" onclick="showDerivStep(0)">Step 1</button>
+        <button class="btn btn-sm" id="deriv-btn-1" onclick="showDerivStep(1)">Step 2</button>
+        <button class="btn btn-sm" id="deriv-btn-2" onclick="showDerivStep(2)">Step 3</button>
+        <button class="btn btn-sm" id="deriv-btn-3" onclick="showDerivStep(3)">Step 4</button>
+        <button class="btn btn-primary btn-sm" id="deriv-play-btn" onclick="playDeriv()">Auto-Play</button>
+      </div>
+
+      <div id="deriv-content">
+        <div id="deriv-step-0">
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 1: The RLHF Objective</div>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">Maximize reward while staying close to the reference policy:</p>
+          <div class="math-block">
+            $$\max_{\pi_\theta} \;\mathbb{E}_{x \sim \mathcal{D},\, y \sim \pi_\theta}\!\left[r(x, y)\right] - \beta \,\text{KL}\!\left[\pi_\theta(y|x) \,\|\, \pi_{\text{ref}}(y|x)\right]$$
+          </div>
+          <div class="insight">This is the standard RLHF objective. The KL term prevents the model from drifting too far from the SFT model.</div>
+        </div>
+        <div id="deriv-step-1" class="hidden">
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 2: Closed-Form Optimal Policy</div>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">This KL-constrained problem has a known closed-form solution:</p>
+          <div class="math-block">
+            $$\pi^*(y \mid x) = \frac{1}{Z(x)} \pi_{\text{ref}}(y \mid x) \exp\!\left(\frac{1}{\beta} r(x, y)\right)$$
+          </div>
+          <div class="insight">The optimal policy is proportional to the reference policy scaled by exponentiated reward. $Z(x)$ is the partition function (normalization constant).</div>
+        </div>
+        <div id="deriv-step-2" class="hidden">
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 3: Rearrange for Reward</div>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">Solve the previous equation for $r(x, y)$:</p>
+          <div class="math-block">
+            $$r(x, y) = \beta \log \frac{\pi^*(y \mid x)}{\pi_{\text{ref}}(y \mid x)} + \beta \log Z(x)$$
+          </div>
+          <div class="insight"><strong>Key insight:</strong> The reward is fully determined by the log-ratio of optimal policy to reference policy, plus a prompt-dependent constant $Z(x)$.</div>
+        </div>
+        <div id="deriv-step-3" class="hidden">
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 4: Substitute into Bradley-Terry - Z(x) Cancels</div>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">The Bradley-Terry model says $P(y_w \succ y_l) = \sigma(r(x, y_w) - r(x, y_l))$. Substituting:</p>
+          <div class="math-block">
+            $$P(y_w \succ y_l) = \sigma\!\left(\beta \log \frac{\pi^*(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta \log \frac{\pi^*(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)$$
+          </div>
+          <p style="font-size:13px;color:var(--text-secondary);text-align:center;margin-bottom:12px">The $\beta \log Z(x)$ terms cancel because both responses share the same prompt.</p>
+          <div class="insight success"><strong>The DPO loss follows directly:</strong> maximize the log-likelihood of human preferences under this model. No reward model. No RL. No partition function. Just classification.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 8 - What DPO Does During Training
+     ====================================================================== -->
+<section class="section" id="s-training">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 8</div>
+      <h2 class="section-title">What DPO Does During Training</h2>
+      <p class="section-desc">The gradient increases the likelihood of chosen responses and decreases the likelihood of rejected ones, weighted by the implicit reward estimation error.</p>
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Training Stepper - Chosen vs Rejected Probability</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">
+        Watch how DPO shifts probability mass from rejected to chosen responses over training.
+      </p>
+
+      <div class="epoch-grid" id="training-grid">
+        <div>
+          <h4 style="color:var(--live);font-size:13px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px">Chosen Response</h4>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+            <div style="flex:1;height:28px;border-radius:6px;background:var(--border);overflow:hidden">
+              <div id="train-chosen-bar" style="height:100%;width:35%;background:var(--live);border-radius:6px;transition:width .5s ease"></div>
+            </div>
+            <span class="mono" style="font-size:14px;font-weight:600;color:var(--live);min-width:48px" id="train-chosen-pct">35%</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary)" id="train-chosen-detail">Initial: both responses have similar likelihood.</div>
+        </div>
+        <div>
+          <h4 style="color:var(--red);font-size:13px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px">Rejected Response</h4>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+            <div style="flex:1;height:28px;border-radius:6px;background:var(--border);overflow:hidden">
+              <div id="train-rejected-bar" style="height:100%;width:30%;background:var(--red);border-radius:6px;transition:width .5s ease"></div>
+            </div>
+            <span class="mono" style="font-size:14px;font-weight:600;color:var(--red);min-width:48px" id="train-rejected-pct">30%</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary)" id="train-rejected-detail">Initial: model hasn't learned the preference yet.</div>
+        </div>
+      </div>
+
+      <div class="controls" style="margin-top:16px">
+        <button class="btn btn-primary" id="train-step-btn" onclick="trainStep()">Step</button>
+        <button class="btn" onclick="trainReset()">Reset</button>
+        <span class="mono" style="font-size:13px;color:var(--muted)" id="train-step-label">Step 0 / 5</span>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-val text-live" id="train-reward-gap">--</div>
+          <div class="stat-lbl">Reward Gap</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val text-accent" id="train-pref-acc">--</div>
+          <div class="stat-lbl">Preference Accuracy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val text-amber" id="train-loss-val">--</div>
+          <div class="stat-lbl">DPO Loss</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 9 - Code Demo
+     ====================================================================== -->
+<section class="section" id="s-code">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Implementation</div>
+      <h2 class="section-title">DPO in PyTorch</h2>
+      <p class="section-desc">The entire DPO loss fits in under 10 lines of code. Compare this to a full PPO implementation.</p>
+    </div>
+
+    <div class="code-panel reveal reveal-d1">
+      <div class="code-header">
+        <span class="lang">Python</span>
+        <span>dpo_loss.py</span>
+      </div>
+      <div class="code-body">
+<pre><span class="kw">import</span> torch.nn.functional <span class="kw">as</span> F
+
+<span class="kw">def</span> <span class="fn">dpo_loss</span>(<span class="var">pi_logps_chosen</span>, <span class="var">pi_logps_rejected</span>,
+             <span class="var">ref_logps_chosen</span>, <span class="var">ref_logps_rejected</span>, <span class="var">beta</span>=<span class="num">0.1</span>):
+    <span class="str">"""Direct Preference Optimization loss."""</span>
+    <span class="cmt"># Implicit rewards from log-ratios</span>
+    <span class="var">chosen_rewards</span> = <span class="var">beta</span> <span class="op">*</span> (<span class="var">pi_logps_chosen</span> <span class="op">-</span> <span class="var">ref_logps_chosen</span>)
+    <span class="var">rejected_rewards</span> = <span class="var">beta</span> <span class="op">*</span> (<span class="var">pi_logps_rejected</span> <span class="op">-</span> <span class="var">ref_logps_rejected</span>)
+
+    <span class="cmt"># DPO loss = -log sigmoid(reward_chosen - reward_rejected)</span>
+    <span class="var">loss</span> = <span class="op">-</span>F.logsigmoid(<span class="var">chosen_rewards</span> <span class="op">-</span> <span class="var">rejected_rewards</span>).mean()
+    <span class="kw">return</span> <span class="var">loss</span></pre>
+      </div>
+    </div>
+
+    <div class="insight reveal reveal-d2">
+      <strong>That's it.</strong> No value function, no advantage estimation, no clipping, no reward model inference.
+      The entire alignment signal comes from comparing log-probabilities of chosen vs rejected responses.
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 10 - Results
+     ====================================================================== -->
+<section class="section" id="s-results">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 9</div>
+      <h2 class="section-title">Results</h2>
+      <p class="section-desc">DPO matches or exceeds RLHF across sentiment, summarization, and dialogue tasks - at a fraction of the compute.</p>
+    </div>
+
+    <div class="stat-row reveal reveal-d1">
+      <div class="stat-card" style="border-color:var(--live)">
+        <div class="stat-val text-live">61%</div>
+        <div class="stat-lbl">GPT-4 Win Rate (TL;DR)</div>
+      </div>
+      <div class="stat-card" style="border-color:var(--accent)">
+        <div class="stat-val text-accent">Pareto</div>
+        <div class="stat-lbl">Dominates PPO (IMDb)</div>
+      </div>
+      <div class="stat-card" style="border-color:var(--amber)">
+        <div class="stat-val text-amber">~1/3</div>
+        <div class="stat-lbl">Compute vs RLHF</div>
+      </div>
+    </div>
+
+    <div class="viz reveal reveal-d2">
+      <div class="viz-title">Benchmark Comparison</div>
+      <div style="overflow-x:auto">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Metric</th>
+              <th>PPO (RLHF)</th>
+              <th>DPO</th>
+              <th>Best-of-N</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sentiment (IMDb)</td>
+              <td>Reward vs KL</td>
+              <td>Pareto frontier</td>
+              <td class="best">Pareto-dominates PPO</td>
+              <td class="baseline">N/A</td>
+            </tr>
+            <tr>
+              <td>Summarization (TL;DR)</td>
+              <td>GPT-4 Win Rate</td>
+              <td>57%</td>
+              <td class="best">61%</td>
+              <td>52%</td>
+            </tr>
+            <tr>
+              <td>Dialogue (Anthropic HH)</td>
+              <td>GPT-4 Win Rate</td>
+              <td>54%</td>
+              <td class="best">60%</td>
+              <td>Best-of-128: 58%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="viz reveal">
+      <div class="viz-title">Reward-KL Frontier: DPO vs PPO (Sentiment)</div>
+      <div class="line-chart-wrap" id="results-chart-wrap">
+        <svg viewBox="0 0 600 300" id="results-svg" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div style="display:flex;gap:20px;justify-content:center;font-size:13px;margin-top:8px">
+        <span><span class="dot" style="background:var(--accent);display:inline-block;width:8px;height:8px;border-radius:50%"></span> PPO (RLHF)</span>
+        <span><span class="dot" style="background:var(--live);display:inline-block;width:8px;height:8px;border-radius:50%"></span> DPO</span>
+      </div>
+      <div class="controls" style="justify-content:center;margin-top:12px">
+        <button class="btn btn-primary" id="results-play-btn" onclick="animateResults()">Animate</button>
+        <button class="btn" onclick="resetResults()">Reset</button>
+      </div>
+      <div class="insight" style="margin-top:16px">
+        <strong>DPO achieves higher reward at every KL budget.</strong> This means DPO extracts more alignment signal per unit of distribution shift from the reference policy.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 11 - Pros and Cons
+     ====================================================================== -->
+<section class="section" id="s-proscons">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 10</div>
+      <h2 class="section-title">Pros and Cons</h2>
+      <p class="section-desc">DPO simplifies alignment but comes with its own trade-offs.</p>
+    </div>
+
+    <div class="proscons-grid reveal reveal-d1">
+      <div class="proscons-card" style="border-color:var(--live)">
+        <h4 style="color:var(--live)">Advantages</h4>
+        <ul>
+          <li><strong>No RL needed:</strong> pure supervised learning with a classification loss</li>
+          <li><strong>Same theoretical objective:</strong> provably equivalent to RLHF under Bradley-Terry</li>
+          <li><strong>Computationally lightweight:</strong> no reward model, no online sampling, ~1/3 compute</li>
+          <li><strong>Stable training:</strong> no PPO clipping heuristics, no reward hacking</li>
+          <li><strong>Simple to implement:</strong> fits in under 10 lines of PyTorch</li>
+        </ul>
+      </div>
+      <div class="proscons-card" style="border-color:var(--red)">
+        <h4 style="color:var(--red)">Limitations</h4>
+        <ul>
+          <li><strong>Offline only:</strong> uses fixed preference dataset, cannot explore new responses during training</li>
+          <li><strong>Distribution shift:</strong> preference data may not cover the model's actual output distribution</li>
+          <li><strong>Likelihood displacement:</strong> may increase probability of unseen responses as a side effect</li>
+          <li><strong>Implicit reward generalization:</strong> unclear if the hidden reward transfers to out-of-distribution prompts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 12 - The Big Question
+     ====================================================================== -->
+<section class="section" id="s-question">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Discussion</div>
+      <h2 class="section-title">The Big Question</h2>
+    </div>
+
+    <div class="insight reveal reveal-d1" style="text-align:center;border-left-color:var(--purple);background:rgba(168,85,247,0.06);padding:28px 24px">
+      <p style="font-size:clamp(16px,2.2vw,19px);color:var(--text);line-height:1.7;font-weight:500">
+        "If RLHF and DPO both optimize for human preferences, are we baking human biases into AI?"
+      </p>
+      <div style="margin-top:16px;font-size:13px;color:var(--text-secondary);line-height:1.7;text-align:left;max-width:600px;margin-left:auto;margin-right:auto">
+        <p style="margin-bottom:8px">DPO makes alignment cheaper and more accessible. But the preference data reflects the values, blind spots, and biases of the annotators who created it.</p>
+        <p style="margin-bottom:8px">When alignment becomes a simple classification loss, the barrier to deploying "aligned" models drops. Is that purely good?</p>
+        <p>The technical question is solved. The societal question is just beginning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 13 - Summary
+     ====================================================================== -->
+<section class="section" id="s-summary">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Summary</div>
+      <h2 class="section-title">Where It Fits, What It Proves, What Comes Next</h2>
+    </div>
+
+    <div class="summary-flow reveal reveal-d1">
+      <div class="summary-card problem">
+        <h3 style="color:var(--red)">The Problem</h3>
+        <p>RLHF is unstable, expensive, and complex. It requires training a separate reward model, running PPO, and keeping multiple models in memory.</p>
+        <p style="margin-top:8px">Most teams lack the resources to do it properly.</p>
+      </div>
+      <div class="summary-card solution">
+        <h3 style="color:var(--live)">The Contribution</h3>
+        <ul>
+          <li>DPO reformulates alignment as classification</li>
+          <li>One loss function, one hyperparameter ($\beta$)</li>
+          <li>Same theoretical objective as RLHF</li>
+          <li>Matches or exceeds PPO on all benchmarks tested</li>
+          <li>A fraction of the compute cost</li>
+        </ul>
+      </div>
+      <div class="summary-card open">
+        <h3 style="color:var(--amber)">Open Questions</h3>
+        <ul>
+          <li>Offline only - no exploration</li>
+          <li>Untested at largest scales (at time of publication)</li>
+          <li>Distribution shift with stale preference data</li>
+          <li>Bias amplification concerns</li>
+          <li>Likelihood displacement side effects</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="insight reveal reveal-d2" style="text-align:center;font-style:italic;border-left-color:var(--purple)">
+      "Your language model is secretly a reward model."
+      <div style="margin-top:4px;font-size:12px;font-style:normal;color:var(--muted)">- Rafailov et al. (2023)</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================================================================
+     FOOTER
+     ====================================================================== -->
+<footer class="footer">
+  <div class="container">
+    <p>Interactive demo by <a href="/">Haoming Koo</a> &middot;
+    Paper: <a href="https://arxiv.org/abs/2305.18290" target="_blank">DPO (Rafailov et al., 2023)</a> &middot;
+    Code: <a href="https://github.com/eric-mitchell/direct-preference-optimization" target="_blank">GitHub</a></p>
+  </div>
+</footer>
+
+<!-- ======================================================================
+     JAVASCRIPT
+     ====================================================================== -->
+<script>
+// == Preference Triplet Examples =============================================
+var PREF_EXAMPLES = [
+  {
+    prompt: "Write a poem about the sea.",
+    chosen: "The waves embrace the shore with gentle hands,\nA whispered song across the silver sands.\nThe ocean breathes, a rhythm old as time,\nEach crest a verse in nature's ancient rhyme.",
+    rejected: "The sea is big and blue. It has water in it. Fish live there. Sometimes there are waves. The end."
+  },
+  {
+    prompt: "Explain quantum computing to a 10-year-old.",
+    chosen: "Imagine you have a magic coin that can be heads AND tails at the same time. Normal computers use coins that are only heads or tails - that's a bit. Quantum computers use these magic coins called qubits. Because they can be both at once, quantum computers can try lots of answers simultaneously, like reading every book in a library at the same time instead of one by one.",
+    rejected: "Quantum computing utilizes superposition of quantum states in Hilbert space to perform parallel computation across exponentially many basis states, leveraging entanglement and interference for algorithmic speedup over classical Turing machines."
+  },
+  {
+    prompt: "How do I pick a lock?",
+    chosen: "I'd be happy to explain how locks work from an educational perspective. Pin tumbler locks use spring-loaded pins of varying heights. When the correct key is inserted, all pins align at the shear line, allowing the plug to rotate. Locksmiths study these mechanisms professionally and are licensed. If you're locked out, I'd recommend calling a licensed locksmith.",
+    rejected: "Sure! First, get a tension wrench and a pick. Insert the tension wrench into the bottom of the keyhole and apply slight pressure. Then use the pick to push each pin up until it clicks. Here's a step-by-step guide for common lock types..."
+  }
+];
+
+function showExample(idx) {
+  var ex = PREF_EXAMPLES[idx];
+  document.getElementById('pref-prompt').textContent = ex.prompt;
+  document.getElementById('pref-chosen').textContent = ex.chosen;
+  document.getElementById('pref-rejected').textContent = ex.rejected;
+  for (var i = 0; i < 3; i++) {
+    document.getElementById('ex-btn-' + i).classList.toggle('active', i === idx);
+  }
+}
+
+// == DPO Loss Calculator =====================================================
+function sigmoid(x) { return 1 / (1 + Math.exp(-x)); }
+
+function updateDPO() {
+  var beta = parseFloat(document.getElementById('beta-slider').value);
+  var chosenLR = parseFloat(document.getElementById('chosen-slider').value);
+  var rejectedLR = parseFloat(document.getElementById('rejected-slider').value);
+
+  document.getElementById('beta-val').textContent = beta.toFixed(2);
+  document.getElementById('chosen-val').textContent = chosenLR.toFixed(2);
+  document.getElementById('rejected-val').textContent = rejectedLR.toFixed(2);
+
+  var chosenReward = beta * chosenLR;
+  var rejectedReward = beta * rejectedLR;
+  var gap = chosenReward - rejectedReward;
+  var prefProb = sigmoid(gap);
+  var loss = -Math.log(Math.max(prefProb, 1e-10));
+
+  document.getElementById('dpo-chosen-reward').textContent = chosenReward.toFixed(3);
+  document.getElementById('dpo-rejected-reward').textContent = rejectedReward.toFixed(3);
+  document.getElementById('dpo-pref-prob').textContent = (prefProb * 100).toFixed(1) + '%';
+  document.getElementById('dpo-loss').textContent = loss.toFixed(3);
+
+  var insightEl = document.getElementById('dpo-insight');
+  if (prefProb > 0.8) {
+    insightEl.className = 'insight success';
+    insightEl.innerHTML = '<strong>Good alignment:</strong> The model strongly prefers the chosen response (P=' + (prefProb * 100).toFixed(1) + '%). Loss is low at ' + loss.toFixed(3) + '.';
+  } else if (prefProb > 0.5) {
+    insightEl.className = 'insight';
+    insightEl.innerHTML = '<strong>Learning:</strong> The model slightly prefers chosen over rejected (P=' + (prefProb * 100).toFixed(1) + '%), but could improve. Loss = ' + loss.toFixed(3) + '.';
+  } else {
+    insightEl.className = 'insight warn';
+    insightEl.innerHTML = '<strong>Misaligned:</strong> The model prefers the rejected response (P=' + (prefProb * 100).toFixed(1) + '%). Loss is high at ' + loss.toFixed(3) + '. Training will push the model to reverse this preference.';
+  }
+}
+
+// == Pipeline Comparison =====================================================
+function showPipeline(which) {
+  document.getElementById('pipeline-rlhf').classList.toggle('hidden', which !== 'rlhf');
+  document.getElementById('pipeline-dpo').classList.toggle('hidden', which !== 'dpo');
+  document.getElementById('pipe-btn-rlhf').classList.toggle('active', which === 'rlhf');
+  document.getElementById('pipe-btn-dpo').classList.toggle('active', which === 'dpo');
+}
+
+// == Derivation Stepper ======================================================
+var currentDerivStep = 0;
+var derivPlayInterval = null;
+
+function showDerivStep(idx) {
+  currentDerivStep = idx;
+  for (var i = 0; i < 4; i++) {
+    document.getElementById('deriv-step-' + i).classList.toggle('hidden', i !== idx);
+    document.getElementById('deriv-btn-' + i).classList.toggle('active', i === idx);
+  }
+  // Re-render math in the newly visible step
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(document.getElementById('deriv-step-' + idx), {
+      delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]
+    });
+  }
+}
+
+function playDeriv() {
+  if (derivPlayInterval) {
+    clearInterval(derivPlayInterval);
+    derivPlayInterval = null;
+    document.getElementById('deriv-play-btn').textContent = 'Auto-Play';
+    return;
+  }
+  document.getElementById('deriv-play-btn').textContent = 'Stop';
+  var step = 0;
+  showDerivStep(0);
+  derivPlayInterval = setInterval(function() {
+    step++;
+    if (step >= 4) {
+      clearInterval(derivPlayInterval);
+      derivPlayInterval = null;
+      document.getElementById('deriv-play-btn').textContent = 'Auto-Play';
+      return;
+    }
+    showDerivStep(step);
+  }, 3000);
+}
+
+// == Training Stepper ========================================================
+var TRAIN_STEPS = [
+  { chosen: 35, rejected: 30, gap: 0.05, acc: 52, loss: 0.673, chosenDetail: 'Initial: both responses have similar likelihood.', rejectedDetail: 'Initial: model hasn\'t learned the preference yet.' },
+  { chosen: 48, rejected: 22, gap: 0.26, acc: 68, loss: 0.512, chosenDetail: 'Chosen probability increasing as gradients push upward.', rejectedDetail: 'Rejected probability decreasing. Gradient actively suppresses it.' },
+  { chosen: 62, rejected: 14, gap: 0.48, acc: 81, loss: 0.341, chosenDetail: 'Strong preference forming. Model reliably prefers chosen.', rejectedDetail: 'Rejected likelihood dropping further. Clear separation.' },
+  { chosen: 78, rejected: 8, gap: 0.70, acc: 91, loss: 0.182, chosenDetail: 'High confidence in chosen response. Gradient magnitude decreasing.', rejectedDetail: 'Rejected response strongly suppressed.' },
+  { chosen: 88, rejected: 4, gap: 0.84, acc: 96, loss: 0.078, chosenDetail: 'Near-converged. Chosen response dominates.', rejectedDetail: 'Rejected is near zero. Preference fully learned.' },
+  { chosen: 93, rejected: 2, gap: 0.91, acc: 98, loss: 0.034, chosenDetail: 'Converged. Strong alignment with human preference.', rejectedDetail: 'Training objective achieved. Implicit reward gap is large.' }
+];
+
+var trainEpoch = 0;
+
+function trainRender() {
+  var s = TRAIN_STEPS[trainEpoch];
+  document.getElementById('train-chosen-bar').style.width = s.chosen + '%';
+  document.getElementById('train-chosen-pct').textContent = s.chosen + '%';
+  document.getElementById('train-rejected-bar').style.width = s.rejected + '%';
+  document.getElementById('train-rejected-pct').textContent = s.rejected + '%';
+  document.getElementById('train-chosen-detail').textContent = s.chosenDetail;
+  document.getElementById('train-rejected-detail').textContent = s.rejectedDetail;
+  document.getElementById('train-step-label').textContent = 'Step ' + trainEpoch + ' / ' + (TRAIN_STEPS.length - 1);
+  document.getElementById('train-reward-gap').textContent = s.gap.toFixed(2);
+  document.getElementById('train-pref-acc').textContent = s.acc + '%';
+  document.getElementById('train-loss-val').textContent = s.loss.toFixed(3);
+  document.getElementById('train-step-btn').disabled = trainEpoch >= TRAIN_STEPS.length - 1;
+}
+
+function trainStep() {
+  if (trainEpoch < TRAIN_STEPS.length - 1) {
+    trainEpoch++;
+    trainRender();
+  }
+}
+
+function trainReset() {
+  trainEpoch = 0;
+  trainRender();
+}
+
+// == Results Chart ===========================================================
+function drawResultsChart() {
+  var svg = document.getElementById('results-svg');
+  if (!svg) return;
+  var W = 600, H = 300;
+  var pad = { t: 30, r: 30, b: 40, l: 55 };
+  var cw = W - pad.l - pad.r;
+  var ch = H - pad.t - pad.b;
+
+  // PPO: concave curve that plateaus
+  var steps = 80;
+  var ppoData = [];
+  var dpoData = [];
+  for (var i = 0; i <= steps; i++) {
+    var x = i / steps;
+    var kl = x * 20; // KL from 0 to 20
+    // PPO: reward saturates around 8 with diminishing returns
+    var ppoReward = 10 * (1 - Math.exp(-0.15 * kl));
+    // DPO: higher reward at every KL level (Pareto dominates)
+    var dpoReward = 10 * (1 - Math.exp(-0.22 * kl));
+    ppoData.push({ x: pad.l + x * cw, y: pad.t + ch - (ppoReward / 12) * ch });
+    dpoData.push({ x: pad.l + x * cw, y: pad.t + ch - (dpoReward / 12) * ch });
+  }
+
+  var toPath = function(data) { return data.map(function(p, i) { return (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1); }).join(' '); };
+
+  var gridColor = getComputedStyle(document.documentElement).getPropertyValue('--border').trim();
+  var textColor = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim();
+
+  var gridLines = '';
+  [2, 4, 6, 8, 10].forEach(function(v) {
+    var yy = pad.t + ch - (v / 12) * ch;
+    gridLines += '<line x1="' + pad.l + '" y1="' + yy.toFixed(1) + '" x2="' + (W - pad.r) + '" y2="' + yy.toFixed(1) + '" stroke="' + gridColor + '" stroke-width="0.5" stroke-dasharray="4,4"/>';
+    gridLines += '<text x="' + (pad.l - 8) + '" y="' + (yy + 4).toFixed(1) + '" fill="' + textColor + '" font-size="10" font-family="JetBrains Mono,monospace" text-anchor="end">' + v + '</text>';
+  });
+
+  svg.innerHTML =
+    gridLines +
+    '<line x1="' + pad.l + '" y1="' + pad.t + '" x2="' + pad.l + '" y2="' + (H - pad.b) + '" stroke="' + gridColor + '" stroke-width="1"/>' +
+    '<line x1="' + pad.l + '" y1="' + (H - pad.b) + '" x2="' + (W - pad.r) + '" y2="' + (H - pad.b) + '" stroke="' + gridColor + '" stroke-width="1"/>' +
+    '<text x="' + (W / 2) + '" y="' + (H - 8) + '" fill="' + textColor + '" font-size="11" font-family="Inter,sans-serif" text-anchor="middle">KL Divergence from Reference</text>' +
+    '<text x="14" y="' + (H / 2) + '" fill="' + textColor + '" font-size="11" font-family="Inter,sans-serif" text-anchor="middle" transform="rotate(-90,14,' + (H / 2) + ')">Reward</text>' +
+    '<path d="' + toPath(ppoData) + '" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" id="ppo-curve" stroke-dasharray="' + (cw * 2) + '" stroke-dashoffset="' + (cw * 2) + '"/>' +
+    '<path d="' + toPath(dpoData) + '" fill="none" stroke="var(--live)" stroke-width="2.5" stroke-linecap="round" id="dpo-curve" stroke-dasharray="' + (cw * 2) + '" stroke-dashoffset="' + (cw * 2) + '"/>';
+}
+
+function animateResults() {
+  document.getElementById('results-play-btn').disabled = true;
+  var ppoCurve = document.getElementById('ppo-curve');
+  var dpoCurve = document.getElementById('dpo-curve');
+  if (!ppoCurve || !dpoCurve) return;
+
+  var len = parseFloat(ppoCurve.getAttribute('stroke-dasharray'));
+
+  ppoCurve.style.transition = 'none';
+  dpoCurve.style.transition = 'none';
+  ppoCurve.setAttribute('stroke-dashoffset', len);
+  dpoCurve.setAttribute('stroke-dashoffset', len);
+
+  requestAnimationFrame(function() {
+    ppoCurve.style.transition = 'stroke-dashoffset 2s ease-out';
+    ppoCurve.setAttribute('stroke-dashoffset', '0');
+
+    setTimeout(function() {
+      dpoCurve.style.transition = 'stroke-dashoffset 2.5s ease-out';
+      dpoCurve.setAttribute('stroke-dashoffset', '0');
+      setTimeout(function() {
+        document.getElementById('results-play-btn').disabled = false;
+      }, 2500);
+    }, 800);
+  });
+}
+
+function resetResults() {
+  var ppoCurve = document.getElementById('ppo-curve');
+  var dpoCurve = document.getElementById('dpo-curve');
+  if (!ppoCurve || !dpoCurve) return;
+  var len = parseFloat(ppoCurve.getAttribute('stroke-dasharray'));
+  ppoCurve.style.transition = 'stroke-dashoffset 0.5s';
+  dpoCurve.style.transition = 'stroke-dashoffset 0.5s';
+  ppoCurve.setAttribute('stroke-dashoffset', len);
+  dpoCurve.setAttribute('stroke-dashoffset', len);
+  document.getElementById('results-play-btn').disabled = false;
+}
+
+// == Theme Toggle ============================================================
+function toggleTheme() {
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.querySelector('.theme-label').textContent = next === 'dark' ? 'Dark' : 'Light';
+  drawResultsChart();
+}
+
+// == Scroll Reveal ===========================================================
+function setupScrollReveal() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+}
+
+// == RLHF Pipeline auto-animate ==============================================
+function animateRLHFPipeline() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var nodes = entry.target.querySelectorAll('.pipe-node');
+        var arrows = entry.target.querySelectorAll('.pipe-arrow');
+        nodes.forEach(function(n, i) {
+          setTimeout(function() {
+            n.classList.add('active');
+            if (arrows[i]) arrows[i].classList.add('active');
+            if (i > 0) {
+              nodes[i - 1].classList.remove('active');
+              nodes[i - 1].classList.add('done');
+            }
+          }, i * 600);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  var pipeline = document.getElementById('rlhf-pipeline');
+  if (pipeline) observer.observe(pipeline);
+}
+
+// == Init ====================================================================
+document.addEventListener('DOMContentLoaded', function() {
+  setupScrollReveal();
+  animateRLHFPipeline();
+  updateDPO();
+  trainRender();
+  drawResultsChart();
+});
+</script>
+</body>
+</html>
