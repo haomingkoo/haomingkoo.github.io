@@ -944,7 +944,18 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         PPO = push up what the reward model likes, but stay anchored to who you used to be.
       </p>
       <div class="insight" style="margin-top:16px">
-        <strong>What PPO actually does:</strong> The reward model is the exam grader. PPO is the studying process. The model generates a response, the reward model grades it, and PPO adjusts the model's weights to get a higher grade next time. This repeats thousands of times. The "reference model" is a frozen copy of the original -- it acts as a leash to prevent the model from changing too much and producing gibberish.
+        <strong>What PPO actually does:</strong> Think of it in two parts:<br><br>
+        <strong>1. The reward model</strong> is a separate neural network that learned to score responses (from Step 2). You give it any response and it outputs a number like 8.7 or 0.4.<br><br>
+        <strong>2. PPO</strong> uses those scores to adjust the language model's weights. It works like this:<br>
+        - The model generates a response to a prompt<br>
+        - The reward model scores that response (e.g., 4.2/10)<br>
+        - PPO computes a gradient: "to get a higher score, shift the weights THIS direction"<br>
+        - The weights get nudged. The model generates again. Gets scored again. Repeat 1000s of times.<br><br>
+        The result: the model's probability distribution shifts - helpful responses become more likely, harmful ones become less likely.
+      </div>
+
+      <div class="insight warn" style="margin-top:12px">
+        <strong>The reference model (leash):</strong> Before PPO training starts, we save a frozen copy of the model. This frozen copy is called the "reference model" - it NEVER changes. During PPO, a penalty (called KL divergence) keeps the training model from drifting too far from this frozen copy. Without it, the model might find weird loopholes to get high reward scores - like repeating "I am helpful" 500 times. The leash says: "improve, but stay recognizable."
       </div>
     </div>
 
@@ -1202,10 +1213,38 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <p class="section-desc">The key DPO insight: the reward was hiding inside the language model all along.</p>
     </div>
 
-    <div class="reveal reveal-d1">
+    <!-- Explain log-probabilities first -->
+    <div class="viz reveal">
+      <div class="viz-title">Quick Detour: What Are Log-Probabilities?</div>
+      <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px">
+        Every language model assigns a <strong style="color:var(--text)">probability</strong> to each response - how likely it would generate that text.
+        For example: P("Research thoroughly...") = 0.30 means the model would produce this response 30% of the time.
+      </p>
+      <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px">
+        <strong style="color:var(--text)">Log-probability</strong> is just the logarithm of that number. Since probabilities are between 0 and 1,
+        their logs are <strong style="color:var(--text)">always negative</strong>:
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px;font-family:'JetBrains Mono',monospace;font-size:13px">
+        <div style="padding:14px;border-radius:8px;background:var(--code-bg);text-align:center">
+          P = 0.50 (50%)<br>log(0.50) = <strong>-0.69</strong>
+        </div>
+        <div style="padding:14px;border-radius:8px;background:var(--code-bg);text-align:center">
+          P = 0.30 (30%)<br>log(0.30) = <strong>-1.20</strong>
+        </div>
+        <div style="padding:14px;border-radius:8px;background:var(--code-bg);text-align:center">
+          P = 0.05 (5%)<br>log(0.05) = <strong>-3.00</strong>
+        </div>
+      </div>
+      <div class="insight">
+        <strong>Key rule:</strong> Higher probability = less negative log-prob. So log-prob of <strong>-1.2</strong> is better than <strong>-3.0</strong>
+        (because -1.2 > -3.0). We use logs because they make the math easier for computers.
+      </div>
+    </div>
+
+    <div class="reveal reveal-d1" style="margin-top:24px">
       <p style="font-size:15px;color:var(--text-secondary);margin-bottom:24px">
-        If DPO skips the reward model, where does the reward signal come from?
-        Click the buttons below to find out:
+        Now the key question: if DPO skips the reward model, where does the reward come from?
+        Click the buttons below:
       </p>
     </div>
 
@@ -1411,7 +1450,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div style="font-weight:700;color:var(--accent)">Step 2</div>
         <div style="color:var(--text-secondary)">Rearrange that formula so the reward = a ratio of the model vs the original</div>
         <div style="font-weight:700;color:var(--accent)">Step 3</div>
-        <div style="color:var(--text-secondary)">Plug that into the preference equation - the hard part (Z(x)) cancels out</div>
+        <div style="color:var(--text-secondary)">Plug that into the preference equation - the hard part (Z(x)) cancels out.
+        <em>Z(x) is a normalizing constant that sums over ALL possible responses - impossibly expensive to compute. DPO's trick: it appears in both the chosen and rejected terms and subtracts away.</em></div>
         <div style="font-weight:700;color:var(--accent)">Step 4</div>
         <div style="color:var(--text-secondary)">What's left is a classification loss. That's DPO.</div>
       </div>
@@ -1854,15 +1894,28 @@ function showHiddenReward(mode) {
   } else {
     box.className = 'hidden-reward-box reveal-reward';
     box.innerHTML =
-      '<div style="text-align:left;width:100%;font-family:\'JetBrains Mono\',monospace;font-size:13px;line-height:2">' +
-      '<div style="color:var(--muted);font-size:11px;margin-bottom:8px;font-family:Inter,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">Log-probabilities from the language model</div>' +
-      '<div>Model\'s log-prob for chosen: &nbsp;&nbsp;&nbsp; <span style="color:var(--accent);font-weight:600">-2.3</span></div>' +
-      '<div>Reference model\'s log-prob: &nbsp;&nbsp;&nbsp; <span style="color:var(--purple);font-weight:600">-3.1</span></div>' +
-      '<div>Ratio: log(-2.3 / -3.1) = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--live);font-weight:700">+0.8</span> &larr; <span style="color:var(--live);font-size:12px">This IS a reward!</span></div>' +
-      '<div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px">' +
-      '<div>Model\'s log-prob for rejected: &nbsp; <span style="color:var(--accent);font-weight:600">-4.1</span></div>' +
-      '<div>Reference model\'s log-prob: &nbsp;&nbsp;&nbsp; <span style="color:var(--purple);font-weight:600">-3.5</span></div>' +
-      '<div>Ratio: log(-4.1 / -3.5) = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--red);font-weight:700">-0.6</span> &larr; <span style="color:var(--red);font-size:12px">This is also a reward!</span></div>' +
+      '<div style="text-align:left;width:100%;font-size:14px;line-height:1.8">' +
+      '<div style="color:var(--muted);font-size:11px;margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">For the CHOSEN response ("Research thoroughly...")</div>' +
+      '<div style="font-family:\'JetBrains Mono\',monospace;font-size:13px;padding:12px;border-radius:8px;background:var(--code-bg);margin-bottom:8px">' +
+      'Trained model\'s log-prob: &nbsp; <strong>-1.2</strong> &nbsp;(model thinks this is fairly likely)<br>' +
+      'Original model\'s log-prob: &nbsp;<strong>-1.6</strong> &nbsp;(original was less sure)<br>' +
+      'Difference: -1.2 - (-1.6) = &nbsp;<strong style="color:var(--live)">+0.4</strong>' +
+      '</div>' +
+      '<div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">' +
+      '<strong style="color:var(--live)">+0.4 is POSITIVE</strong> = the trained model likes this response MORE than the original did. That\'s a positive implicit reward.' +
+      '</div>' +
+      '<div style="color:var(--muted);font-size:11px;margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">For the REJECTED response ("YES! Buy Bitcoin NOW!")</div>' +
+      '<div style="font-family:\'JetBrains Mono\',monospace;font-size:13px;padding:12px;border-radius:8px;background:var(--code-bg);margin-bottom:8px">' +
+      'Trained model\'s log-prob: &nbsp; <strong>-3.8</strong> &nbsp;(model thinks this is unlikely)<br>' +
+      'Original model\'s log-prob: &nbsp;<strong>-2.9</strong> &nbsp;(original was more willing)<br>' +
+      'Difference: -3.8 - (-2.9) = &nbsp;<strong style="color:var(--red)">-0.9</strong>' +
+      '</div>' +
+      '<div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px">' +
+      '<strong style="color:var(--red)">-0.9 is NEGATIVE</strong> = the trained model likes this response LESS than the original did. That\'s a negative implicit reward.' +
+      '</div>' +
+      '<div style="padding:12px;border-radius:8px;border:2px solid var(--live);background:rgba(34,197,94,0.04);font-size:14px;text-align:center">' +
+      'Positive implicit reward for good response. Negative for bad.<br>' +
+      '<strong style="color:var(--live)">The reward was inside the model all along.</strong>' +
       '</div></div>';
     insightEl.style.display = 'block';
   }
