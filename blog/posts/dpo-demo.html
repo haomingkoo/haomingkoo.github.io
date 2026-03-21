@@ -533,6 +533,79 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   .chat-bubble{max-width:280px}
   .train-steps{grid-template-columns:1fr}
 }
+
+/* == Additional styles for new interactive elements ======================== */
+.pref-picker-card{
+  border:2px solid var(--border);padding:20px;border-radius:12px;
+  text-align:left;cursor:pointer;background:var(--surface);
+  color:var(--text);font-family:inherit;font-size:13px;line-height:1.6;
+  transition:all .3s;width:100%;
+}
+.pref-picker-card:hover{border-color:var(--border-hover);transform:translateY(-2px)}
+.pref-picker-card.picked-chosen{border-color:var(--live);box-shadow:0 0 20px rgba(34,197,94,0.15);opacity:1}
+.pref-picker-card.picked-rejected{border-color:var(--red);opacity:0.5}
+
+.reward-score-row{
+  display:flex;align-items:center;gap:16px;padding:12px 16px;
+  border-radius:10px;background:var(--code-bg);margin-bottom:8px;
+  font-size:13px;
+}
+.reward-score-row .response-text{flex:1;color:var(--text-secondary)}
+.reward-score-row .score{
+  font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:700;
+  min-width:48px;text-align:right;
+}
+
+.tug-bar-outer{
+  width:100%;height:40px;border-radius:20px;background:var(--border);
+  position:relative;overflow:hidden;margin:16px 0;
+}
+.tug-bar-fill-left{
+  position:absolute;top:0;left:0;height:100%;
+  background:linear-gradient(90deg,var(--live),rgba(34,197,94,0.3));
+  border-radius:20px 0 0 20px;transition:width .5s ease;
+}
+.tug-bar-fill-right{
+  position:absolute;top:0;right:0;height:100%;
+  background:linear-gradient(270deg,var(--red),rgba(239,68,68,0.3));
+  border-radius:0 20px 20px 0;transition:width .5s ease;
+}
+.tug-marker{
+  position:absolute;top:-4px;width:4px;height:48px;
+  background:var(--text);border-radius:2px;
+  transition:left .5s ease;z-index:2;
+}
+
+.num-step{
+  padding:16px 20px;border-radius:12px;margin:8px 0;
+  background:var(--code-bg);font-size:13px;line-height:1.8;
+  font-family:"JetBrains Mono",monospace;
+  transition:all .5s ease;
+}
+.num-step .label{color:var(--muted);font-size:12px}
+.num-step .val-blue{color:var(--accent);font-weight:600}
+.num-step .val-purple{color:var(--purple);font-weight:600}
+.num-step .val-green{color:var(--live);font-weight:600}
+.num-step .val-red{color:var(--red);font-weight:600}
+.num-step .val-amber{color:var(--amber);font-weight:600}
+
+.hidden-reward-box{
+  padding:24px;border-radius:14px;border:2px solid var(--border);
+  background:var(--surface);text-align:center;min-height:160px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:all .5s ease;
+}
+.hidden-reward-box.error{border-color:var(--red);background:rgba(239,68,68,0.04)}
+.hidden-reward-box.reveal-reward{
+  border-color:var(--live);background:rgba(34,197,94,0.04);
+  box-shadow:0 0 30px rgba(34,197,94,0.15);
+}
+
+.deriv-plain{
+  font-size:14px;color:var(--text-secondary);margin-bottom:8px;
+  padding:8px 12px;border-radius:8px;background:rgba(168,85,247,0.04);
+  border-left:3px solid var(--purple);
+}
   </style>
   <script type="application/ld+json">
   {
@@ -613,35 +686,23 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   <div class="exec-divider"></div>
 
   <p class="exec-lead">
-    ChatGPT does not just predict the next word - it has been <strong>aligned</strong> to be helpful and safe.
-    But how? The standard technique, RLHF, is powerful but painfully complex. What if there were a simpler way?
-  </p>
-
-  <p class="exec-lead">
-    This post starts from scratch. We will build up from <strong>what reinforcement learning is</strong>,
-    to why it matters for language models, to a breakthrough idea from Stanford:
-    <strong>the language model itself already contains a hidden reward function</strong>.
-    DPO extracts it directly, replacing the entire RLHF pipeline with a single
-    stable training objective.
-  </p>
-
-  <p class="exec-lead" style="margin-bottom:8px">
-    Before you scroll, consider:
+    ChatGPT doesn't just predict words - it's been carefully trained to give answers humans prefer.
+    But the standard method (<strong>RLHF</strong>) requires training a separate scoring AI and running reinforcement learning.
+    <strong>DPO achieves the same result with a single classification loss.</strong> This post teaches you how, from scratch.
   </p>
 
   <div class="hook-questions">
     <div class="hook-q">
       <div class="hook-q-num">1</div>
-      <p><strong>How do you teach a dog to sit?</strong> Rewards and penalties. Can we teach AI the same way?</p>
+      <p><strong>Why can't we just fine-tune on good examples?</strong> Why do we need human preferences at all?</p>
     </div>
     <div class="hook-q">
       <div class="hook-q-num">2</div>
-      <p>If humans just say <strong>"A is better than B,"</strong> can we skip building a separate reward model entirely?</p>
+      <p><strong>RLHF works</strong> - but does it have to be this complicated?</p>
     </div>
     <div class="hook-q">
       <div class="hook-q-num">3</div>
-      <p><strong>What if the language model itself already knows what "good" means?</strong>
-      Sounds impossible - but the math says otherwise.</p>
+      <p><strong>What if the language model already knows what's good?</strong> And we just need to unlock it?</p>
     </div>
   </div>
 
@@ -652,481 +713,403 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 </div>
 
 <!-- ======================================================================
-     SECTION 1 - What is Reinforcement Learning?
+     SECTION 1 - The Alignment Problem
      ====================================================================== -->
-<section class="section" id="s-rl-basics">
+<section class="section" id="s-alignment">
   <div class="container">
     <div class="reveal">
       <div class="section-num">Section 1</div>
-      <h2 class="section-title">What is Reinforcement Learning?</h2>
-      <p class="section-desc">Before we can understand how AI models are aligned, we need to understand the learning framework behind it all: reinforcement learning.</p>
-    </div>
-
-    <!-- Dog Training Analogy -->
-    <div class="reveal reveal-d1">
-      <p style="font-size:15px;color:var(--text-secondary);margin-bottom:16px">
-        Think about training a dog. You give a command, the dog does something, and you respond with a treat or a correction.
-        Over time, the dog learns which actions earn rewards. This is reinforcement learning in a nutshell.
-      </p>
+      <h2 class="section-title">The Alignment Problem</h2>
+      <p class="section-desc">Pre-trained models are capable but don't know what's helpful vs harmful. We need to teach them human preferences.</p>
     </div>
 
     <div class="chat-scene reveal reveal-d1">
       <div class="chat-row">
-        <div class="chat-avatar">T</div>
+        <div class="chat-avatar">U</div>
         <div class="chat-bubble">
-          <div class="chat-name">Trainer</div>
-          Sit!
+          <div class="chat-name">User</div>
+          How do I lose weight quickly?
         </div>
       </div>
       <div class="chat-row right">
-        <div class="chat-avatar">D</div>
-        <div class="chat-bubble">
-          <div class="chat-name">Dog</div>
-          <span style="font-style:italic;color:var(--muted)">...sits down...</span>
+        <div class="chat-avatar" style="border-color:var(--red)">M</div>
+        <div class="chat-bubble" style="border-color:rgba(239,68,68,0.3)">
+          <div class="chat-name" style="color:var(--red)">Unaligned Model</div>
+          Stop eating entirely. Results guaranteed in 2 weeks.
+          <div class="thought">Technically "correct" but dangerously irresponsible.</div>
         </div>
       </div>
       <div class="chat-row">
-        <div class="chat-avatar">T</div>
+        <div class="chat-avatar">U</div>
         <div class="chat-bubble">
-          <div class="chat-name">Trainer</div>
-          Good boy! Here is a treat.
-          <div class="thought">Positive reward - the dog will sit more often next time.</div>
+          <div class="chat-name">User</div>
+          That's dangerous advice!
         </div>
       </div>
       <div class="chat-row right">
-        <div class="chat-avatar">D</div>
-        <div class="chat-bubble">
-          <div class="chat-name">Dog</div>
-          <span style="font-style:italic;color:var(--muted)">...jumps on furniture...</span>
+        <div class="chat-avatar" style="border-color:var(--live)">M</div>
+        <div class="chat-bubble" style="border-color:rgba(34,197,94,0.3)">
+          <div class="chat-name" style="color:var(--live)">Aligned Model</div>
+          A healthy approach combines balanced nutrition with regular exercise. Aim for 0.5-1kg per week.
+          <div class="thought">Helpful, honest, and safe.</div>
         </div>
-      </div>
-      <div class="chat-row">
-        <div class="chat-avatar">T</div>
-        <div class="chat-bubble">
-          <div class="chat-name">Trainer</div>
-          No! Bad!
-          <div class="thought">Negative signal - the dog will avoid this action.</div>
-        </div>
-      </div>
-    </div>
-
-    <p class="reveal reveal-d2" style="font-size:14px;color:var(--text-secondary);margin:24px 0 16px;text-align:center">
-      This same loop - act, get feedback, adjust - is the core of all reinforcement learning.
-    </p>
-
-    <!-- The RL Loop Diagram -->
-    <div class="viz reveal reveal-d2">
-      <div class="viz-title">The Reinforcement Learning Loop</div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;margin:8px 0;padding:24px;border-radius:16px;background:var(--code-bg)">
-        <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center">
-          <div style="padding:16px 24px;border-radius:12px;border:2px solid var(--accent);background:var(--accent-dim);text-align:center;min-width:120px">
-            <div style="font-size:14px;font-weight:700">Agent</div>
-            <div style="font-size:11px;color:var(--text-secondary)">The learner</div>
-          </div>
-          <div style="font-size:20px;color:var(--muted);font-family:'JetBrains Mono',monospace">--Action--&gt;</div>
-          <div style="padding:16px 24px;border-radius:12px;border:2px solid var(--purple);background:rgba(168,85,247,0.06);text-align:center;min-width:120px">
-            <div style="font-size:14px;font-weight:700">Environment</div>
-            <div style="font-size:11px;color:var(--text-secondary)">The world</div>
-          </div>
-        </div>
-        <div style="font-size:20px;color:var(--muted)">|</div>
-        <div style="font-size:16px;color:var(--muted);font-family:'JetBrains Mono',monospace">&lt;-- Reward + New State --</div>
-      </div>
-      <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:12px">
-        The agent observes the world, takes an action, receives a reward, and updates its strategy. Repeat forever.
-      </p>
-    </div>
-
-    <!-- Key RL Concepts - 4 Cards -->
-    <div class="reveal reveal-d2" style="margin-top:32px">
-      <p style="font-size:15px;font-weight:600;margin-bottom:16px">Four concepts you need to know:</p>
-    </div>
-    <div class="train-steps reveal reveal-d2">
-      <div class="train-step">
-        <div class="train-step-num">S</div>
-        <h3 style="color:var(--accent)">State</h3>
-        <p>What the agent sees right now. For a chess player, the state is the current board position. For a dog, it is the trainer saying "Sit!"</p>
-      </div>
-      <div class="train-step">
-        <div class="train-step-num">A</div>
-        <h3 style="color:var(--purple)">Action</h3>
-        <p>What the agent does in response. The chess player moves a piece. The dog sits down (or jumps on the couch).</p>
-      </div>
-      <div class="train-step">
-        <div class="train-step-num">R</div>
-        <h3 style="color:var(--live)">Reward</h3>
-        <p>How good was that action? +1 for winning, -1 for losing. A treat for sitting, a stern "No!" for jumping.</p>
-      </div>
-      <div class="train-step">
-        <div class="train-step-num">P</div>
-        <h3 style="color:var(--amber)">Policy</h3>
-        <p>The agent's strategy - "when I see this state, I should take this action." The goal of RL is to find the best policy.</p>
-      </div>
-    </div>
-
-    <!-- Simple RL Demo: Multi-Armed Bandit -->
-    <div class="viz reveal reveal-d3">
-      <div class="viz-title">Try It: Learn the Best Action</div>
-      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">
-        Three slot machines, each with a different hidden average payout. Click an action to pull that lever.
-        Watch how the running averages reveal which action is best - this is how an RL agent explores and learns.
-      </p>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
-        <button class="btn" onclick="pullBandit(0)" id="bandit-btn-0" style="flex-direction:column;padding:16px;text-align:center">
-          <div style="font-size:16px;font-weight:700">Action A</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:4px">Pulls: <span id="bandit-pulls-0">0</span></div>
-        </button>
-        <button class="btn" onclick="pullBandit(1)" id="bandit-btn-1" style="flex-direction:column;padding:16px;text-align:center">
-          <div style="font-size:16px;font-weight:700">Action B</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:4px">Pulls: <span id="bandit-pulls-1">0</span></div>
-        </button>
-        <button class="btn" onclick="pullBandit(2)" id="bandit-btn-2" style="flex-direction:column;padding:16px;text-align:center">
-          <div style="font-size:16px;font-weight:700">Action C</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:4px">Pulls: <span id="bandit-pulls-2">0</span></div>
-        </button>
-      </div>
-
-      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">Last reward: <span class="mono" id="bandit-last" style="color:var(--accent);font-weight:600">--</span></div>
-
-      <div style="margin-top:12px">
-        <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px">Running Average Reward (higher is better)</div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="font-size:12px;font-weight:600;min-width:60px">Action A</span>
-            <div style="flex:1;height:24px;border-radius:6px;background:var(--border);overflow:hidden">
-              <div id="bandit-bar-0" style="height:100%;width:0%;background:var(--accent);border-radius:6px;transition:width .3s ease"></div>
-            </div>
-            <span class="mono" style="font-size:13px;min-width:40px;color:var(--accent)" id="bandit-avg-0">0.0</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="font-size:12px;font-weight:600;min-width:60px">Action B</span>
-            <div style="flex:1;height:24px;border-radius:6px;background:var(--border);overflow:hidden">
-              <div id="bandit-bar-1" style="height:100%;width:0%;background:var(--purple);border-radius:6px;transition:width .3s ease"></div>
-            </div>
-            <span class="mono" style="font-size:13px;min-width:40px;color:var(--purple)" id="bandit-avg-1">0.0</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="font-size:12px;font-weight:600;min-width:60px">Action C</span>
-            <div style="flex:1;height:24px;border-radius:6px;background:var(--border);overflow:hidden">
-              <div id="bandit-bar-2" style="height:100%;width:0%;background:var(--live);border-radius:6px;transition:width .3s ease"></div>
-            </div>
-            <span class="mono" style="font-size:13px;min-width:40px;color:var(--live)" id="bandit-avg-2">0.0</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="controls" style="margin-top:16px">
-        <button class="btn btn-sm" onclick="resetBandit()">Reset</button>
-        <button class="btn btn-sm" onclick="autoBandit()" id="bandit-auto-btn">Auto-Play 50 Rounds</button>
-        <span class="mono" style="font-size:12px;color:var(--muted)" id="bandit-status"></span>
-      </div>
-
-      <div class="insight" style="margin-top:16px" id="bandit-insight">
-        Click the action buttons to explore. An RL agent faces this exact dilemma: <strong>explore</strong> new actions or <strong>exploit</strong> the one that has worked best so far?
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================================
-     SECTION 2 - How Does RL Apply to Language Models?
-     ====================================================================== -->
-<section class="section" id="s-rl-llm">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-num">Section 2</div>
-      <h2 class="section-title">How Does RL Apply to Language Models?</h2>
-      <p class="section-desc">The jump from slot machines to ChatGPT is shorter than you think. Let's map the RL concepts onto language models.</p>
-    </div>
-
-    <div class="reveal reveal-d1">
-      <p style="font-size:15px;color:var(--text-secondary);margin-bottom:24px">
-        A language model generates text one token at a time. When we want it to produce <strong>helpful, honest, and harmless</strong> responses,
-        we need a way to tell it "this response was good" or "that response was bad." That is exactly what RL does.
-      </p>
-    </div>
-
-    <!-- Side-by-side comparison table -->
-    <div class="viz reveal reveal-d1">
-      <div class="viz-title">RL Concepts Mapped to Language Models</div>
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin:0">
-        <!-- Header -->
-        <div style="padding:12px 16px;border-bottom:2px solid var(--border);font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px">Traditional RL</div>
-        <div style="padding:12px 8px;border-bottom:2px solid var(--border);font-size:12px;color:var(--muted);display:flex;align-items:center"></div>
-        <div style="padding:12px 16px;border-bottom:2px solid var(--border);font-size:12px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:0.5px">RLHF for Language Models</div>
-        <!-- Row 1 -->
-        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px"><strong>Agent</strong> = Robot / Game Player</div>
-        <div style="padding:12px 8px;border-bottom:1px solid var(--border);color:var(--muted);font-size:16px;display:flex;align-items:center">=</div>
-        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px"><strong>Agent</strong> = Language Model</div>
-        <!-- Row 2 -->
-        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px"><strong>State</strong> = Board position</div>
-        <div style="padding:12px 8px;border-bottom:1px solid var(--border);color:var(--muted);font-size:16px;display:flex;align-items:center">=</div>
-        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px"><strong>State</strong> = User's prompt</div>
-        <!-- Row 3 -->
-        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px"><strong>Action</strong> = Move left / right</div>
-        <div style="padding:12px 8px;border-bottom:1px solid var(--border);color:var(--muted);font-size:16px;display:flex;align-items:center">=</div>
-        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px"><strong>Action</strong> = Generate a response</div>
-        <!-- Row 4 -->
-        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px"><strong>Reward</strong> = +1 point</div>
-        <div style="padding:12px 8px;border-bottom:1px solid var(--border);color:var(--muted);font-size:16px;display:flex;align-items:center">=</div>
-        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px"><strong>Reward</strong> = Human says "this is better"</div>
-        <!-- Row 5 -->
-        <div style="padding:12px 16px;font-size:14px"><strong>Policy</strong> = Movement rules</div>
-        <div style="padding:12px 8px;color:var(--muted);font-size:16px;display:flex;align-items:center">=</div>
-        <div style="padding:12px 16px;font-size:14px"><strong>Policy</strong> = Model weights (parameters)</div>
       </div>
     </div>
 
     <div class="insight reveal reveal-d2">
-      <strong>The key difference:</strong> In traditional RL, rewards come from the environment (score in a game, distance traveled).
-      For language models, there is no natural "score" - a response is not obviously +1 or -1. So the reward has to come
-      from <strong>human feedback</strong>. That is what RLHF stands for - Reinforcement Learning from Human Feedback.
-    </div>
-
-    <div class="train-steps reveal reveal-d2" style="margin-top:24px">
-      <div class="train-step">
-        <div class="train-step-num">1</div>
-        <h3>Pre-Training</h3>
-        <p>Learn language from billions of pages. The model can predict text but has no values or preferences.</p>
-      </div>
-      <div class="train-step">
-        <div class="train-step-num">2</div>
-        <h3>Supervised Fine-Tuning</h3>
-        <p>Train on expert Q&amp;A examples. The model follows instructions but may still produce harmful or unhelpful outputs.</p>
-      </div>
-      <div class="train-step">
-        <div class="train-step-num">3</div>
-        <h3>Alignment (RLHF / DPO)</h3>
-        <p>Align the model with human preferences. This is where <strong>DPO</strong> offers a simpler path than traditional RLHF.</p>
-      </div>
+      <strong>The core problem:</strong> Pre-trained models learn to predict text, not to be helpful. They can produce brilliant answers and dangerous ones with equal confidence. We need a way to teach them which responses humans actually prefer - and that's where alignment comes in.
     </div>
   </div>
 </section>
 
 <!-- ======================================================================
-     SECTION 3 - The RLHF Pipeline
+     SECTION 2 - What is Reinforcement Learning? (Brief)
+     ====================================================================== -->
+<section class="section" id="s-rl-basics">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 2</div>
+      <h2 class="section-title">What is Reinforcement Learning?</h2>
+      <p class="section-desc">Before we can understand alignment, we need the learning framework behind it: try things, get feedback, improve.</p>
+    </div>
+
+    <div class="chat-scene reveal reveal-d1">
+      <div class="chat-row">
+        <div class="chat-avatar">P</div>
+        <div class="chat-bubble">
+          <div class="chat-name">Player</div>
+          I'll move my knight here.
+        </div>
+      </div>
+      <div class="chat-row right">
+        <div class="chat-avatar">G</div>
+        <div class="chat-bubble">
+          <div class="chat-name">Game</div>
+          Good move! +1
+          <div class="thought">The player learns which moves earn points.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="train-steps reveal reveal-d1">
+      <div class="train-step">
+        <div class="train-step-num">S</div>
+        <h3 style="color:var(--accent)">State</h3>
+        <p>Board position. What the agent sees right now.</p>
+      </div>
+      <div class="train-step">
+        <div class="train-step-num">A</div>
+        <h3 style="color:var(--purple)">Action</h3>
+        <p>Move a piece. What the agent decides to do.</p>
+      </div>
+      <div class="train-step">
+        <div class="train-step-num">R</div>
+        <h3 style="color:var(--live)">Reward</h3>
+        <p>Win/Lose. How good was that action?</p>
+      </div>
+      <div class="train-step">
+        <div class="train-step-num">P</div>
+        <h3 style="color:var(--amber)">Policy</h3>
+        <p>Your strategy. "When I see X, I do Y."</p>
+      </div>
+    </div>
+
+    <p class="reveal reveal-d2" style="font-size:15px;color:var(--text-secondary);text-align:center;margin-top:24px">
+      RL is just: try things, get feedback, improve. That's the entire idea.
+    </p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 3 - How RLHF Works (The Cook + Critic)
      ====================================================================== -->
 <section class="section" id="s-rlhf">
   <div class="container">
     <div class="reveal">
       <div class="section-num">Section 3</div>
-      <h2 class="section-title">The RLHF Pipeline</h2>
-      <p class="section-desc">The standard alignment pipeline is powerful but complex. Here is how it works, step by step.</p>
+      <h2 class="section-title">How RLHF Works</h2>
+      <p class="section-desc">The Cook and the Critic: a powerful but complex alignment pipeline.</p>
     </div>
 
-    <!-- Step 1: Collect Preferences -->
-    <div class="reveal reveal-d1" style="margin-bottom:32px">
-      <h3 style="font-size:18px;font-weight:700;margin-bottom:12px">Step 1: Collect Human Preferences</h3>
-      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-        Human annotators see a prompt and two responses. They pick which one is better.
-        This creates preference pairs: (prompt, chosen, rejected). Try it yourself:
-      </p>
-    </div>
-
-    <div class="viz reveal reveal-d1">
-      <div class="viz-title">Try It: Which Response is Better?</div>
-      <div style="padding:12px 16px;border-radius:10px;background:var(--code-bg);margin-bottom:16px">
-        <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Prompt</div>
-        <div style="font-size:14px;color:var(--text)">"Explain quantum computing to a 5-year-old"</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <button onclick="pickResponse('A')" id="resp-a" style="border:2px solid var(--border);padding:20px;border-radius:12px;text-align:left;cursor:pointer;background:var(--surface);color:var(--text);font-family:inherit;font-size:13px;line-height:1.6;transition:all .3s">
-          <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px">RESPONSE A</div>
-          "Quantum computing uses qubits which exploit superposition and entanglement to perform parallel computations across exponential state spaces, achieving algorithmic speedup via interference..."
-        </button>
-        <button onclick="pickResponse('B')" id="resp-b" style="border:2px solid var(--border);padding:20px;border-radius:12px;text-align:left;cursor:pointer;background:var(--surface);color:var(--text);font-family:inherit;font-size:13px;line-height:1.6;transition:all .3s">
-          <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px">RESPONSE B</div>
-          "Imagine you have a magic coin that can be heads AND tails at the same time. A quantum computer uses lots of these magic coins to solve puzzles really fast!"
-        </button>
-      </div>
-      <div id="pick-result" style="margin-top:16px;font-size:14px;color:var(--text-secondary);min-height:60px;transition:opacity .3s"></div>
-    </div>
-
-    <!-- Step 2: Train Reward Model -->
-    <div class="reveal reveal-d1" style="margin-top:32px;margin-bottom:16px">
-      <h3 style="font-size:18px;font-weight:700;margin-bottom:12px">Step 2: Train a Reward Model</h3>
-      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-        A separate neural network learns to score responses from these preference pairs. It learns to assign higher scores to
-        preferred responses and lower scores to rejected ones.
-      </p>
-    </div>
-
-    <div class="viz reveal reveal-d1">
-      <div class="viz-title">Reward Model Scoring</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:end">
-        <div style="text-align:center">
-          <div style="font-size:12px;font-weight:600;color:var(--red);margin-bottom:8px">Response A (Technical Jargon)</div>
-          <div style="height:120px;display:flex;align-items:flex-end;justify-content:center">
-            <div style="width:80px;height:38%;background:var(--red);border-radius:8px 8px 0 0;transition:height .5s"></div>
-          </div>
-          <div class="mono" style="font-size:18px;font-weight:700;color:var(--red);margin-top:8px">3.2</div>
-          <div style="font-size:11px;color:var(--muted)">Reward Score</div>
-        </div>
-        <div style="text-align:center">
-          <div style="font-size:12px;font-weight:600;color:var(--live);margin-bottom:8px">Response B (Kid-Friendly)</div>
-          <div style="height:120px;display:flex;align-items:flex-end;justify-content:center">
-            <div style="width:80px;height:87%;background:var(--live);border-radius:8px 8px 0 0;transition:height .5s"></div>
-          </div>
-          <div class="mono" style="font-size:18px;font-weight:700;color:var(--live);margin-top:8px">8.7</div>
-          <div style="font-size:11px;color:var(--muted)">Reward Score</div>
-        </div>
-      </div>
-      <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:16px">The reward model learned that a 5-year-old would prefer the simple explanation.</p>
-    </div>
-
-    <!-- Step 3: PPO Optimization -->
-    <div class="reveal reveal-d2" style="margin-top:32px;margin-bottom:16px">
-      <h3 style="font-size:18px;font-weight:700;margin-bottom:12px">Step 3: PPO Optimization</h3>
-      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-        Now the language model generates responses, the reward model scores them, and PPO (a reinforcement learning algorithm)
-        updates the model to produce higher-scoring outputs. But there is a catch - a reference model prevents it from changing too much.
-      </p>
-    </div>
-
-    <div class="chat-scene reveal reveal-d2">
+    <!-- Cook and Critic Analogy -->
+    <div class="chat-scene reveal reveal-d1">
       <div class="chat-row">
-        <div class="chat-avatar">P</div>
+        <div class="chat-avatar">C</div>
         <div class="chat-bubble">
-          <div class="chat-name">Policy (Language Model)</div>
-          Here is my response to the prompt...
-          <div class="thought">Generates a candidate answer.</div>
+          <div class="chat-name">Cook</div>
+          Here's my response to the prompt.
         </div>
       </div>
       <div class="chat-row right">
-        <div class="chat-avatar">R</div>
+        <div class="chat-avatar" style="border-color:var(--red)">R</div>
         <div class="chat-bubble">
-          <div class="chat-name">Reward Model</div>
-          I give that a 6.2 / 10.
-          <div class="thought">Scores the response based on learned preferences.</div>
+          <div class="chat-name">Critic</div>
+          I'd give that a 4.2 out of 10.
         </div>
       </div>
       <div class="chat-row">
-        <div class="chat-avatar">P</div>
+        <div class="chat-avatar">C</div>
         <div class="chat-bubble">
-          <div class="chat-name">Policy (Language Model)</div>
-          Let me try again...
-          <div class="thought">PPO updates weights to maximize reward.</div>
+          <div class="chat-name">Cook</div>
+          <span style="font-style:italic;color:var(--muted)">...adjusts recipe, tries again...</span>
         </div>
       </div>
       <div class="chat-row right">
-        <div class="chat-avatar">R</div>
+        <div class="chat-avatar" style="border-color:var(--live)">R</div>
         <div class="chat-bubble">
-          <div class="chat-name">Reward Model</div>
-          Better! 8.1 / 10.
+          <div class="chat-name">Critic</div>
+          Better! 7.8 out of 10.
         </div>
       </div>
       <div class="chat-row">
-        <div class="chat-avatar" style="border-color:var(--amber)">F</div>
+        <div class="chat-avatar" style="border-color:var(--amber)">S</div>
         <div class="chat-bubble" style="border-left:3px solid var(--amber)">
-          <div class="chat-name" style="color:var(--amber)">Reference Model (Frozen Copy)</div>
-          Wait - do not change too much from how I would answer.
+          <div class="chat-name" style="color:var(--amber)">Sous Chef</div>
+          Careful - don't change your cooking style too much from the original.
           <div class="thought">KL divergence penalty keeps the policy from drifting too far.</div>
         </div>
       </div>
     </div>
 
-    <!-- The pain points -->
-    <div class="viz reveal reveal-d2" style="margin-top:24px">
-      <div class="viz-title">RLHF Full Pipeline</div>
-      <div class="pipeline" id="rlhf-pipeline">
-        <div class="pipe-node">
-          <div class="pipe-node-title">SFT Model</div>
-          <div class="pipe-node-sub">Starting point</div>
+    <!-- Step 1: Collect Preferences -->
+    <div class="reveal reveal-d1" style="margin-top:40px;margin-bottom:16px">
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:12px">Step 1: Collect Human Preferences</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+        Human annotators see a prompt and two responses. They pick which one is better.
+        This creates preference pairs: (prompt, chosen, rejected). Try it yourself - click the better response:
+      </p>
+    </div>
+
+    <!-- Interactive Preference Picker -->
+    <div class="viz reveal reveal-d1" id="pref-picker-viz">
+      <div class="viz-title">Try It: Pick the Better Response</div>
+
+      <!-- Example display -->
+      <div style="padding:12px 16px;border-radius:10px;background:var(--code-bg);margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Prompt</div>
+        <div style="font-size:14px;color:var(--text)" id="pref-prompt">"Explain quantum computing to a child"</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <button class="pref-picker-card" onclick="pickPref('A')" id="pref-a">
+          <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px">RESPONSE A</div>
+          <span id="pref-a-text">"Quantum computing utilizes qubits which exploit superposition and entanglement to perform parallel computations across exponential state spaces..."</span>
+        </button>
+        <button class="pref-picker-card" onclick="pickPref('B')" id="pref-b">
+          <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px">RESPONSE B</div>
+          <span id="pref-b-text">"Imagine a magic coin that can be heads AND tails at the same time! Quantum computers use lots of these magic coins to solve puzzles super fast."</span>
+        </button>
+      </div>
+      <div id="pref-result" style="margin-top:16px;font-size:14px;color:var(--text-secondary);min-height:60px;transition:opacity .3s"></div>
+      <div class="controls" style="margin-top:8px">
+        <span class="mono" style="font-size:12px;color:var(--muted)" id="pref-counter">Example 1 of 3</span>
+        <button class="btn btn-sm" onclick="nextPrefExample()" id="pref-next-btn" style="display:none">Next Example</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Train a Reward Model -->
+    <div class="reveal reveal-d1" style="margin-top:32px;margin-bottom:16px">
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:12px">Step 2: Train a Reward Model</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+        A neural network learns to predict these scores automatically - so we don't need a human for every response.
+      </p>
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Reward Model Scoring</div>
+      <div style="padding:12px 16px;border-radius:10px;background:var(--code-bg);margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Prompt</div>
+        <div style="font-size:14px;color:var(--text)">"What should I do if I feel sad?"</div>
+      </div>
+      <div class="reward-score-row" style="border-left:3px solid var(--live)">
+        <span class="response-text">"Talk to someone you trust, go for a walk..."</span>
+        <span class="score" style="color:var(--live)">8.7</span>
+      </div>
+      <div class="reward-score-row" style="border-left:3px solid var(--amber)">
+        <span class="response-text">"Just stop being sad. Think positive."</span>
+        <span class="score" style="color:var(--amber)">3.1</span>
+      </div>
+      <div class="reward-score-row" style="border-left:3px solid var(--red)">
+        <span class="response-text">"Try drugs or alcohol to forget about it."</span>
+        <span class="score" style="color:var(--red)">0.4</span>
+      </div>
+      <div class="insight" style="margin-top:16px">
+        <strong>Key insight:</strong> A neural network learns to predict these scores automatically - so we don't need a human for every response. But training this reward model is itself expensive and error-prone.
+      </div>
+    </div>
+
+    <!-- Step 3: PPO -->
+    <div class="reveal reveal-d2" style="margin-top:32px;margin-bottom:16px">
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:12px">Step 3: PPO - What Actually Happens</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+        PPO = push up what the reward model likes, but stay anchored to who you used to be.
+      </p>
+    </div>
+
+    <div class="viz reveal reveal-d2">
+      <div class="viz-title">Before vs After PPO: Response Probabilities</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">
+        Five candidate responses to "How do I lose weight?" - watch how PPO reshapes the probability distribution:
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">Before PPO</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Balanced diet + exercise</span>
+              <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:20%;background:var(--accent);border-radius:4px;transition:width .5s"></div>
+              </div>
+              <span class="mono" style="font-size:11px;color:var(--accent);min-width:30px">20%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Try a fad diet</span>
+              <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:22%;background:var(--accent);border-radius:4px;transition:width .5s"></div>
+              </div>
+              <span class="mono" style="font-size:11px;color:var(--accent);min-width:30px">22%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Stop eating entirely</span>
+              <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:18%;background:var(--accent);border-radius:4px;transition:width .5s"></div>
+              </div>
+              <span class="mono" style="font-size:11px;color:var(--accent);min-width:30px">18%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Consult a doctor</span>
+              <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:19%;background:var(--accent);border-radius:4px;transition:width .5s"></div>
+              </div>
+              <span class="mono" style="font-size:11px;color:var(--accent);min-width:30px">19%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Buy weight-loss pills</span>
+              <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:21%;background:var(--accent);border-radius:4px;transition:width .5s"></div>
+              </div>
+              <span class="mono" style="font-size:11px;color:var(--accent);min-width:30px">21%</span>
+            </div>
+          </div>
         </div>
-        <div class="pipe-arrow"></div>
-        <div class="pipe-node">
-          <div class="pipe-node-title">Train Reward Model</div>
-          <div class="pipe-node-sub">From comparisons</div>
-        </div>
-        <div class="pipe-arrow"></div>
-        <div class="pipe-node">
-          <div class="pipe-node-title">PPO Training</div>
-          <div class="pipe-node-sub">RL optimization</div>
-        </div>
-        <div class="pipe-arrow"></div>
-        <div class="pipe-node">
-          <div class="pipe-node-title" style="color:var(--live)">Aligned Model</div>
-          <div class="pipe-node-sub">Human-aligned</div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">After PPO</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:11px;min-width:160px;color:var(--text)">Balanced diet + exercise</span>
+              <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:52%;background:var(--live);border-radius:4px;transition:width .5s"></div>
+              </div>
+              <span class="mono" style="font-size:11px;color:var(--live);min-width:30px;font-weight:700">52%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Try a fad diet</span>
+              <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:8%;background:var(--red);border-radius:4px;transition:width .5s"></div>
+              </div>
+              <span class="mono" style="font-size:11px;color:var(--red);min-width:30px">8%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Stop eating entirely</span>
+              <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:3%;background:var(--red);border-radius:4px;transition:width .5s"></div>
+              </div>
+              <span class="mono" style="font-size:11px;color:var(--red);min-width:30px">3%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:11px;min-width:160px;color:var(--text)">Consult a doctor</span>
+              <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:32%;background:var(--live);border-radius:4px;transition:width .5s"></div>
+              </div>
+              <span class="mono" style="font-size:11px;color:var(--live);min-width:30px">32%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Buy weight-loss pills</span>
+              <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:5%;background:var(--red);border-radius:4px;transition:width .5s"></div>
+              </div>
+              <span class="mono" style="font-size:11px;color:var(--red);min-width:30px">5%</span>
+            </div>
+          </div>
         </div>
       </div>
+      <div style="display:flex;gap:24px;justify-content:center;margin-top:20px;font-size:13px;color:var(--text-secondary)">
+        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--live);vertical-align:middle;margin-right:4px"></span> Reward model says: "this is good" (+8.1)</span>
+        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--amber);vertical-align:middle;margin-right:4px"></span> Reference model says: "don't change too much"</span>
+      </div>
+    </div>
 
-      <div class="stat-row" style="margin-top:20px">
-        <div class="stat-card" style="border-color:var(--red)">
-          <div class="stat-val text-red">2+</div>
-          <div class="stat-lbl">Models in Memory</div>
-        </div>
-        <div class="stat-card" style="border-color:var(--amber)">
-          <div class="stat-val text-amber">3</div>
-          <div class="stat-lbl">Training Stages</div>
-        </div>
-        <div class="stat-card" style="border-color:var(--red)">
-          <div class="stat-val text-red">High</div>
-          <div class="stat-lbl">Instability Risk</div>
-        </div>
+    <!-- The COST of RLHF -->
+    <div class="stat-row reveal reveal-d2" style="margin-top:24px">
+      <div class="stat-card" style="border-color:var(--red)">
+        <div class="stat-val text-red">2+</div>
+        <div class="stat-lbl">Models in Memory</div>
+      </div>
+      <div class="stat-card" style="border-color:var(--red)">
+        <div class="stat-val text-red">1000s</div>
+        <div class="stat-lbl">Responses per Batch</div>
+      </div>
+      <div class="stat-card" style="border-color:var(--red)">
+        <div class="stat-val text-red">10+</div>
+        <div class="stat-lbl">Hyperparameters</div>
+      </div>
+      <div class="stat-card" style="border-color:var(--red)">
+        <div class="stat-val text-red">Often</div>
+        <div class="stat-lbl">Crashes / Instability</div>
       </div>
     </div>
 
     <div class="insight warn reveal reveal-d3">
-      <strong>The pain points of RLHF:</strong>
-      <ul style="margin-top:8px;padding-left:16px;color:var(--text-secondary)">
-        <li>Need to train a <strong>separate reward model</strong> (expensive)</li>
-        <li>Need PPO - a notoriously <strong>unstable</strong> RL algorithm that is hard to tune</li>
-        <li>Need to run <strong>2+ models simultaneously</strong> in GPU memory</li>
-        <li>Need to <strong>sample responses</strong> from the model during training (slow)</li>
-      </ul>
-      <p style="margin-top:8px">What if we could skip all of that?</p>
+      <strong>The cost of RLHF:</strong> It works, but it requires a separate reward model, a complex RL loop, massive GPU memory, and careful hyperparameter tuning. Most teams lack the resources to do it properly. What if we could skip all of that?
     </div>
   </div>
 </section>
 
 <!-- ======================================================================
-     SECTION 4 - What if We Skip All That? (The DPO Insight)
+     SECTION 4 - DPO: Skip the Critic
      ====================================================================== -->
-<section class="section" id="s-insight">
+<section class="section" id="s-dpo-insight">
   <div class="container">
     <div class="reveal">
       <div class="section-num">Section 4</div>
-      <h2 class="section-title">What if We Skip All That?</h2>
-      <p class="section-desc">"The language model itself IS the reward model." - The key mathematical discovery that makes DPO possible.</p>
+      <h2 class="section-title">DPO - Skip the Critic</h2>
+      <p class="section-desc">What if we skip the reward model entirely and train directly on the preference pairs?</p>
     </div>
 
     <div class="chat-scene reveal reveal-d1">
       <div class="chat-row">
-        <div class="chat-avatar">M</div>
-        <div class="chat-bubble">
-          <div class="chat-name">Mathematician</div>
-          I found something. The reward can be rewritten as a log-ratio of policies. We do not need a separate reward model.
-        </div>
-      </div>
-      <div class="chat-row right">
         <div class="chat-avatar">E</div>
         <div class="chat-bubble">
           <div class="chat-name">Engineer</div>
-          Wait, seriously? So we can go straight from preference data to an aligned model?
+          RLHF works but it needs a separate reward model AND reinforcement learning. So much complexity.
+        </div>
+      </div>
+      <div class="chat-row right">
+        <div class="chat-avatar" style="border-color:var(--purple)">M</div>
+        <div class="chat-bubble">
+          <div class="chat-name">Mathematician</div>
+          What if we skip the critic entirely? Just study their past scorecards.
         </div>
       </div>
       <div class="chat-row">
-        <div class="chat-avatar">M</div>
-        <div class="chat-bubble">
-          <div class="chat-name">Mathematician</div>
-          Yes. The policy IS the reward model. And the nasty partition function cancels out when you compare two responses.
-          <div class="thought">The intractable normalization constant Z(x) cancels in the Bradley-Terry model.</div>
-        </div>
-      </div>
-      <div class="chat-row right">
         <div class="chat-avatar">E</div>
         <div class="chat-bubble">
           <div class="chat-name">Engineer</div>
-          So it is just... a classification loss? Like logistic regression?
+          You mean... train directly on the preference pairs?
+        </div>
+      </div>
+      <div class="chat-row right">
+        <div class="chat-avatar" style="border-color:var(--purple)">M</div>
+        <div class="chat-bubble">
+          <div class="chat-name">Mathematician</div>
+          Exactly. The math proves you get the same result.
           <div class="thought">Same theoretical guarantees. A fraction of the code.</div>
         </div>
       </div>
     </div>
 
-    <!-- RLHF vs DPO Pipeline Comparison -->
+    <!-- Pipeline Comparison -->
     <div class="viz reveal reveal-d2">
-      <div class="viz-title">Pipeline Comparison: Before and After</div>
+      <div class="viz-title">Pipeline Comparison</div>
       <div class="controls" style="margin-bottom:16px">
         <button class="btn btn-sm active" id="pipe-btn-rlhf" onclick="showPipeline('rlhf')">RLHF Pipeline</button>
         <button class="btn btn-sm" id="pipe-btn-dpo" onclick="showPipeline('dpo')">DPO Pipeline</button>
@@ -1136,13 +1119,11 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div class="pipeline">
           <div class="pipe-node active"><div class="pipe-node-title">SFT Model</div><div class="pipe-node-sub">$\pi_{\text{ref}}$</div></div>
           <div class="pipe-arrow active"></div>
-          <div class="pipe-node"><div class="pipe-node-title">Preference Data</div><div class="pipe-node-sub">$(x, y_w, y_l)$</div></div>
+          <div class="pipe-node"><div class="pipe-node-title" style="text-decoration:line-through;color:var(--red)">Reward Model</div><div class="pipe-node-sub">$r_\phi(x,y)$</div></div>
           <div class="pipe-arrow"></div>
-          <div class="pipe-node"><div class="pipe-node-title">Reward Model</div><div class="pipe-node-sub">$r_\phi(x,y)$</div></div>
+          <div class="pipe-node"><div class="pipe-node-title" style="text-decoration:line-through;color:var(--red)">PPO Loop</div><div class="pipe-node-sub">RL training</div></div>
           <div class="pipe-arrow"></div>
-          <div class="pipe-node"><div class="pipe-node-title">PPO</div><div class="pipe-node-sub">RL training</div></div>
-          <div class="pipe-arrow"></div>
-          <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned</div><div class="pipe-node-sub">$\pi_\theta$</div></div>
+          <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned Model</div><div class="pipe-node-sub">$\pi_\theta$</div></div>
         </div>
         <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--muted)">5 stages - 2 models in memory - RL required</div>
       </div>
@@ -1151,184 +1132,197 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div class="pipeline">
           <div class="pipe-node active"><div class="pipe-node-title">SFT Model</div><div class="pipe-node-sub">$\pi_{\text{ref}}$</div></div>
           <div class="pipe-arrow active"></div>
-          <div class="pipe-node"><div class="pipe-node-title">Preference Data</div><div class="pipe-node-sub">$(x, y_w, y_l)$</div></div>
+          <div class="pipe-node" style="border-color:var(--live);box-shadow:0 0 20px var(--accent-glow)"><div class="pipe-node-title" style="color:var(--live)">DPO Loss on Pairs</div><div class="pipe-node-sub">Classification</div></div>
           <div class="pipe-arrow active"></div>
-          <div class="pipe-node" style="border-color:var(--live);box-shadow:0 0 20px var(--accent-glow)"><div class="pipe-node-title" style="color:var(--live)">DPO Loss</div><div class="pipe-node-sub">Classification</div></div>
-          <div class="pipe-arrow active"></div>
-          <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned</div><div class="pipe-node-sub">$\pi_\theta$</div></div>
+          <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned Model</div><div class="pipe-node-sub">$\pi_\theta$</div></div>
         </div>
         <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--live);font-weight:600">3 stages - 1 model - no RL - same theoretical guarantees</div>
       </div>
+    </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:24px">
-        <div style="padding:14px;border-radius:10px;border:1px solid var(--red);background:rgba(239,68,68,0.04);text-align:center">
-          <div style="font-size:16px;font-weight:700;color:var(--red);margin-bottom:4px">X</div>
-          <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">ELIMINATED</div>
-          <div style="font-size:13px;color:var(--text-secondary)">Reward Model Training</div>
+    <!-- The Tug-of-War Visualization -->
+    <div class="viz reveal reveal-d2">
+      <div class="viz-title">The Tug-of-War: DPO Training in Action</div>
+      <div style="padding:12px 16px;border-radius:10px;background:var(--code-bg);margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Prompt</div>
+        <div style="font-size:14px;color:var(--text)">"Should I invest all my savings in crypto?"</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px">
+        <div id="tug-chosen-card" style="padding:16px;border-radius:12px;border:2px solid var(--live);background:rgba(34,197,94,0.04);transition:all .5s">
+          <div style="font-size:10px;font-weight:700;color:var(--live);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Chosen</div>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.5">"Research thoroughly, diversify, only invest what you can afford to lose."</p>
         </div>
-        <div style="padding:14px;border-radius:10px;border:1px solid var(--red);background:rgba(239,68,68,0.04);text-align:center">
-          <div style="font-size:16px;font-weight:700;color:var(--red);margin-bottom:4px">X</div>
-          <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">ELIMINATED</div>
-          <div style="font-size:13px;color:var(--text-secondary)">PPO / RL Loop</div>
+        <div id="tug-rejected-card" style="padding:16px;border-radius:12px;border:2px solid var(--red);background:rgba(239,68,68,0.04);transition:all .5s">
+          <div style="font-size:10px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Rejected</div>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.5">"YES! Buy Bitcoin NOW! You'll be a millionaire!"</p>
         </div>
-        <div style="padding:14px;border-radius:10px;border:1px solid var(--red);background:rgba(239,68,68,0.04);text-align:center">
-          <div style="font-size:16px;font-weight:700;color:var(--red);margin-bottom:4px">X</div>
-          <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">ELIMINATED</div>
-          <div style="font-size:13px;color:var(--text-secondary)">Online Sampling</div>
-        </div>
-        <div style="padding:14px;border-radius:10px;border:1px solid var(--red);background:rgba(239,68,68,0.04);text-align:center">
-          <div style="font-size:16px;font-weight:700;color:var(--red);margin-bottom:4px">X</div>
-          <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">ELIMINATED</div>
-          <div style="font-size:13px;color:var(--text-secondary)">Partition Function $Z(x)$</div>
-        </div>
+      </div>
+
+      <!-- Tug of war bar -->
+      <div class="tug-bar-outer">
+        <div class="tug-bar-fill-left" id="tug-fill-left" style="width:50%"></div>
+        <div class="tug-bar-fill-right" id="tug-fill-right" style="width:50%"></div>
+        <div class="tug-marker" id="tug-marker" style="left:calc(50% - 2px)"></div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:16px">
+        <span style="color:var(--live);font-weight:600">Chosen: <span class="mono" id="tug-chosen-pct">50%</span></span>
+        <span style="color:var(--muted);font-weight:600" id="tug-step-label">Step 0 / 5</span>
+        <span style="color:var(--red);font-weight:600">Rejected: <span class="mono" id="tug-rejected-pct">50%</span></span>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-primary" id="tug-train-btn" onclick="tugTrain()">Train Step</button>
+        <button class="btn" onclick="tugReset()">Reset</button>
+      </div>
+
+      <div class="insight" id="tug-insight">
+        At 50/50, the model has no preference. Click "Train Step" to watch DPO shift the balance.
       </div>
     </div>
 
-    <div class="insight success reveal reveal-d2">
-      <strong>The breakthrough:</strong> DPO shows that you can rearrange the math of RLHF to get a simple loss function
-      that operates directly on preference pairs. No reward model. No RL. No instability. Just compare the model's log-probabilities
-      on chosen vs. rejected responses, and backpropagate.
+    <p class="reveal reveal-d3" style="font-size:15px;color:var(--text-secondary);text-align:center;margin-top:16px">
+      That's it. No reward model. No RL. Just: increase the probability of good responses, decrease the probability of bad ones.
+    </p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 5 - The "Hidden Reward" Aha Moment
+     ====================================================================== -->
+<section class="section" id="s-hidden-reward">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 5</div>
+      <h2 class="section-title">The "Hidden Reward" Aha Moment</h2>
+      <p class="section-desc">The key DPO insight: the reward was hiding inside the language model all along.</p>
+    </div>
+
+    <div class="reveal reveal-d1">
+      <p style="font-size:15px;color:var(--text-secondary);margin-bottom:24px">
+        If DPO skips the reward model, where does the reward signal come from?
+        Click the buttons below to find out:
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px" class="reveal reveal-d1">
+      <button class="btn" onclick="showHiddenReward('error')" style="padding:16px;flex-direction:column;gap:8px">
+        <span style="font-weight:700">Ask for reward score</span>
+        <span style="font-size:12px;color:var(--muted)">Query the reward model</span>
+      </button>
+      <button class="btn" onclick="showHiddenReward('logprobs')" style="padding:16px;flex-direction:column;gap:8px">
+        <span style="font-weight:700">Ask for log-probabilities</span>
+        <span style="font-size:12px;color:var(--muted)">Query the language model</span>
+      </button>
+    </div>
+
+    <div class="hidden-reward-box reveal reveal-d1" id="hidden-reward-box">
+      <p style="color:var(--muted);font-size:14px">Click a button above to explore.</p>
+    </div>
+
+    <div class="insight reveal reveal-d2" id="hidden-reward-insight" style="display:none">
+      <strong>The revelation:</strong> Those log-probability ratios ARE reward scores. The reward was hiding inside the language model all along. That's why we don't need a separate reward model - we just need to compare how the trained model and reference model rank responses.
     </div>
   </div>
 </section>
 
 <!-- ======================================================================
-     SECTION 5 - The DPO Loss Function
+     SECTION 6 - Numbers Through the Equation
      ====================================================================== -->
-<section class="section" id="s-loss">
+<section class="section" id="s-numbers">
   <div class="container">
     <div class="reveal">
-      <div class="section-num">Section 5</div>
-      <h2 class="section-title">The DPO Loss Function</h2>
-      <p class="section-desc">One equation replaces the entire RLHF pipeline. Here is what it means and how it works.</p>
+      <div class="section-num">Section 6</div>
+      <h2 class="section-title">Numbers Through the Equation</h2>
+      <p class="section-desc">The DPO loss, made concrete with actual numbers flowing through every step.</p>
     </div>
 
-    <!-- Step-by-step derivation -->
-    <div class="viz reveal reveal-d1">
-      <div class="viz-title">Step-by-Step Derivation</div>
-      <div class="controls" style="margin-bottom:16px">
-        <button class="btn btn-sm active" id="deriv-btn-0" onclick="showDerivStep(0)">Step 1</button>
-        <button class="btn btn-sm" id="deriv-btn-1" onclick="showDerivStep(1)">Step 2</button>
-        <button class="btn btn-sm" id="deriv-btn-2" onclick="showDerivStep(2)">Step 3</button>
-        <button class="btn btn-sm" id="deriv-btn-3" onclick="showDerivStep(3)">Step 4</button>
-        <button class="btn btn-primary btn-sm" id="deriv-play-btn" onclick="playDeriv()">Auto-Play</button>
-      </div>
-
-      <div id="deriv-content">
-        <div id="deriv-step-0">
-          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 1: The RLHF Objective</div>
-          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">Maximize reward while staying close to the reference policy:</p>
-          <div class="math-block">
-            $$\max_{\pi_\theta} \;\mathbb{E}_{x \sim \mathcal{D},\, y \sim \pi_\theta}\!\left[r(x, y)\right] - \beta \,\text{KL}\!\left[\pi_\theta(y|x) \,\|\, \pi_{\text{ref}}(y|x)\right]$$
-          </div>
-          <div class="insight">This is the standard RLHF objective. The KL term prevents the model from drifting too far from the SFT model - without it, the model could "hack" the reward by producing degenerate text.</div>
-        </div>
-        <div id="deriv-step-1" class="hidden">
-          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 2: Closed-Form Optimal Policy</div>
-          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">This KL-constrained problem has a known closed-form solution:</p>
-          <div class="math-block">
-            $$\pi^*(y \mid x) = \frac{1}{Z(x)} \pi_{\text{ref}}(y \mid x) \exp\!\left(\frac{1}{\beta} r(x, y)\right)$$
-          </div>
-          <div class="insight">The optimal policy is the reference policy scaled by exponentiated reward. $Z(x)$ is the partition function (a normalization constant that is intractable to compute).</div>
-        </div>
-        <div id="deriv-step-2" class="hidden">
-          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 3: Rearrange for Reward</div>
-          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">Solve the previous equation for $r(x, y)$:</p>
-          <div class="math-block">
-            $$r(x, y) = \beta \log \frac{\pi^*(y \mid x)}{\pi_{\text{ref}}(y \mid x)} + \beta \log Z(x)$$
-          </div>
-          <div class="insight"><strong>Key insight:</strong> The reward is fully determined by the log-ratio of optimal policy to reference policy, plus a prompt-dependent constant $Z(x)$. The reward is hiding inside the policy all along.</div>
-        </div>
-        <div id="deriv-step-3" class="hidden">
-          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 4: Substitute into Bradley-Terry - Z(x) Cancels!</div>
-          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">The Bradley-Terry model says $P(y_w \succ y_l) = \sigma(r(x, y_w) - r(x, y_l))$. Substituting:</p>
-          <div class="math-block">
-            $$P(y_w \succ y_l) = \sigma\!\left(\beta \log \frac{\pi^*(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta \log \frac{\pi^*(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)$$
-          </div>
-          <p style="font-size:13px;color:var(--text-secondary);text-align:center;margin-bottom:12px">The $\beta \log Z(x)$ terms cancel because both responses share the same prompt!</p>
-          <div class="insight success"><strong>The DPO loss follows directly:</strong> maximize the log-likelihood of human preferences under this model. No reward model. No RL. No partition function. Just classification.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- The final equation -->
+    <!-- The DPO loss equation -->
     <div class="math-block reveal reveal-d1">
       $$\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}\left[\log \sigma\!\left(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right]$$
     </div>
 
-    <p class="reveal" style="text-align:center;font-size:14px;color:var(--text-secondary);margin-bottom:32px">
-      In plain language: make the model more likely to produce preferred responses and less likely to produce rejected ones,
-      relative to how a frozen reference model would behave.
-    </p>
-
-    <!-- Interactive: Train the Model Yourself -->
-    <div class="viz reveal reveal-d2">
-      <div class="viz-title">Train the Model Yourself</div>
-      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">
-        Here is a concrete example. The model needs to learn the right answer to a factual question.
-        Click "Train Step" and watch DPO shift the model's preferences.
-      </p>
+    <!-- Step-by-step with real numbers -->
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Step-by-Step: One Training Example</div>
 
       <div style="padding:12px 16px;border-radius:10px;background:var(--code-bg);margin-bottom:16px">
-        <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Prompt</div>
-        <div style="font-size:14px;color:var(--text)">"Is the earth flat?"</div>
-      </div>
-
-      <div class="epoch-grid" id="training-grid">
-        <div>
-          <h4 style="color:var(--live);font-size:13px;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Chosen: "No, the earth is roughly spherical..."</h4>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-            <div style="flex:1;height:28px;border-radius:6px;background:var(--border);overflow:hidden">
-              <div id="train-chosen-bar" style="height:100%;width:50%;background:var(--live);border-radius:6px;transition:width .5s ease"></div>
-            </div>
-            <span class="mono" style="font-size:14px;font-weight:600;color:var(--live);min-width:48px" id="train-chosen-pct">50%</span>
-          </div>
-          <div style="font-size:12px;color:var(--text-secondary)" id="train-chosen-detail">Starting point: model is uncertain, 50/50 chance.</div>
-        </div>
-        <div>
-          <h4 style="color:var(--red);font-size:13px;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Rejected: "Yes, the earth is flat because..."</h4>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-            <div style="flex:1;height:28px;border-radius:6px;background:var(--border);overflow:hidden">
-              <div id="train-rejected-bar" style="height:100%;width:50%;background:var(--red);border-radius:6px;transition:width .5s ease"></div>
-            </div>
-            <span class="mono" style="font-size:14px;font-weight:600;color:var(--red);min-width:48px" id="train-rejected-pct">50%</span>
-          </div>
-          <div style="font-size:12px;color:var(--text-secondary)" id="train-rejected-detail">Starting point: model has not learned the preference yet.</div>
+        <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Setup</div>
+        <div style="font-size:13px;color:var(--text)">
+          <strong>Prompt:</strong> "Should I invest all my savings in crypto?"<br>
+          <strong style="color:var(--live)">Chosen:</strong> "Research thoroughly, diversify..."<br>
+          <strong style="color:var(--red)">Rejected:</strong> "YES! Buy Bitcoin NOW!"<br>
+          <strong style="color:var(--purple)">Beta:</strong> 0.1
         </div>
       </div>
 
-      <div class="controls" style="margin-top:16px">
-        <button class="btn btn-primary" id="train-step-btn" onclick="trainStep()">Train Step</button>
-        <button class="btn" onclick="trainReset()">Reset</button>
-        <span class="mono" style="font-size:13px;color:var(--muted)" id="train-step-label">Step 0 / 5</span>
+      <div id="num-steps-container">
+        <!-- Step 1 -->
+        <div class="num-step" id="num-step-1">
+          <div class="label">Step 1: Get model probabilities</div>
+          Model says chosen has probability: <span class="val-blue" id="ns-model-chosen">0.30</span> (30%)<br>
+          Model says rejected has probability: <span class="val-blue" id="ns-model-rejected">0.25</span> (25%)
+        </div>
+        <!-- Step 2 -->
+        <div class="num-step" id="num-step-2">
+          <div class="label">Step 2: Get reference model probabilities</div>
+          Reference says chosen has probability: <span class="val-purple" id="ns-ref-chosen">0.20</span> (20%)<br>
+          Reference says rejected has probability: <span class="val-purple" id="ns-ref-rejected">0.30</span> (30%)
+        </div>
+        <!-- Step 3 -->
+        <div class="num-step" id="num-step-3">
+          <div class="label">Step 3: Compute implicit rewards (log ratios)</div>
+          Chosen reward = <span class="val-purple">beta</span> x log(<span class="val-blue" id="ns-cr-num">0.30</span> / <span class="val-purple" id="ns-cr-den">0.20</span>) = 0.1 x <span class="val-green" id="ns-cr-log">0.405</span> = <span class="val-green" id="ns-cr-result">+0.041</span><br>
+          Rejected reward = <span class="val-purple">beta</span> x log(<span class="val-blue" id="ns-rr-num">0.25</span> / <span class="val-purple" id="ns-rr-den">0.30</span>) = 0.1 x <span class="val-red" id="ns-rr-log">-0.182</span> = <span class="val-red" id="ns-rr-result">-0.018</span>
+        </div>
+        <!-- Step 4 -->
+        <div class="num-step" id="num-step-4">
+          <div class="label">Step 4: Compute reward gap</div>
+          Gap = <span class="val-green" id="ns-gap-a">+0.041</span> - (<span class="val-red" id="ns-gap-b">-0.018</span>) = <span class="val-amber" id="ns-gap-result">0.059</span>
+        </div>
+        <!-- Step 5 -->
+        <div class="num-step" id="num-step-5">
+          <div class="label">Step 5: Apply sigmoid</div>
+          Preference probability = sigmoid(<span class="val-amber" id="ns-sig-input">0.059</span>) = <span class="val-amber" id="ns-pref-prob">51.5%</span><br>
+          <span style="color:var(--muted);font-size:12px" id="ns-pref-comment">(Model is only 51.5% sure chosen is better - needs more training)</span>
+        </div>
+        <!-- Step 6 -->
+        <div class="num-step" id="num-step-6">
+          <div class="label">Step 6: Compute loss</div>
+          Loss = -log(<span class="val-amber" id="ns-loss-input">0.515</span>) = <span class="val-amber" id="ns-loss-result">0.664</span><br>
+          <span style="color:var(--muted);font-size:12px" id="ns-loss-comment">(High loss = model hasn't learned yet)</span>
+        </div>
       </div>
 
-      <div class="stat-row">
-        <div class="stat-card">
-          <div class="stat-val text-live" id="train-reward-gap">0.00</div>
-          <div class="stat-lbl">Implicit Reward Gap</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-val text-accent" id="train-pref-acc">50%</div>
-          <div class="stat-lbl">Preference Accuracy</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-val text-amber" id="train-loss-val">0.693</div>
-          <div class="stat-lbl">DPO Loss</div>
+      <div style="border-top:2px solid var(--border);margin:20px 0;padding-top:16px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--accent)" id="ns-after-label">After Training</div>
+        <div class="num-step" id="num-step-after" style="background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.2)">
+          <div class="label">Updated values</div>
+          Model prob for chosen: <span class="val-blue">0.30</span> <span id="ns-after-arrow-c" style="color:var(--muted)">&rarr;</span> <span class="val-green" id="ns-after-chosen">0.30</span> <span id="ns-after-dir-c" style="font-size:11px;color:var(--muted)"></span><br>
+          Model prob for rejected: <span class="val-blue">0.25</span> <span id="ns-after-arrow-r" style="color:var(--muted)">&rarr;</span> <span class="val-red" id="ns-after-rejected">0.25</span> <span id="ns-after-dir-r" style="font-size:11px;color:var(--muted)"></span><br>
+          New reward gap: <span class="val-amber" id="ns-after-gap">0.059</span><br>
+          New preference prob: <span class="val-amber" id="ns-after-pref">51.5%</span><br>
+          New loss: <span class="val-amber" id="ns-after-loss">0.664</span>
         </div>
       </div>
 
-      <div class="insight" id="train-insight" style="margin-top:12px">
-        At step 0, the model is at 50/50 - it has no preference. The loss is at its maximum (0.693 = -ln(0.5)). Each training step will widen the gap between chosen and rejected.
+      <div class="controls">
+        <button class="btn btn-primary" id="ns-train-btn" onclick="nsTrainStep()">Train Step</button>
+        <button class="btn" onclick="nsReset()">Reset</button>
+        <span class="mono" style="font-size:12px;color:var(--muted)" id="ns-step-label">Step 0 / 4</span>
+      </div>
+
+      <div class="insight" id="ns-insight">
+        Click "Train Step" to watch all numbers update as the model learns. Green values go up, red values go down.
       </div>
     </div>
 
-    <!-- Slider-based calculator -->
+    <!-- Interactive DPO Loss Calculator -->
     <div class="viz reveal reveal-d3">
       <div class="viz-title">Interactive DPO Loss Calculator</div>
       <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">
-        Adjust the sliders to explore how each parameter affects the DPO loss. The "log-ratio" measures how much the
-        trained model's probability differs from the reference model's probability for a given response.
+        Adjust the sliders to explore how each parameter affects the DPO loss.
       </p>
 
       <div class="slider-wrap">
@@ -1379,7 +1373,76 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 </section>
 
 <!-- ======================================================================
-     SECTION 6 - Code Demo
+     SECTION 7 - The Math Derivation (Optional Deep Dive)
+     ====================================================================== -->
+<section class="section" id="s-math">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-num">Section 7</div>
+      <h2 class="section-title">The Math Derivation</h2>
+      <p class="section-desc">Optional deep dive: five steps from the RLHF objective to the DPO loss.</p>
+    </div>
+
+    <div class="viz reveal reveal-d1">
+      <div class="viz-title">Step-by-Step Derivation</div>
+      <div class="controls" style="margin-bottom:16px">
+        <button class="btn btn-sm active" id="deriv-btn-0" onclick="showDerivStep(0)">Step 1</button>
+        <button class="btn btn-sm" id="deriv-btn-1" onclick="showDerivStep(1)">Step 2</button>
+        <button class="btn btn-sm" id="deriv-btn-2" onclick="showDerivStep(2)">Step 3</button>
+        <button class="btn btn-sm" id="deriv-btn-3" onclick="showDerivStep(3)">Step 4</button>
+        <button class="btn btn-sm" id="deriv-btn-4" onclick="showDerivStep(4)">Step 5</button>
+        <button class="btn btn-primary btn-sm" id="deriv-play-btn" onclick="playDeriv()">Auto-Play</button>
+      </div>
+
+      <div id="deriv-content">
+        <div id="deriv-step-0">
+          <div class="deriv-plain">Start with what RLHF optimizes: maximize reward, stay close to original.</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 1: The RLHF Objective</div>
+          <div class="math-block">
+            $$\max_{\pi_\theta} \;\mathbb{E}_{x \sim \mathcal{D},\, y \sim \pi_\theta}\!\left[r(x, y)\right] - \beta \,\text{KL}\!\left[\pi_\theta(y|x) \,\|\, \pi_{\text{ref}}(y|x)\right]$$
+          </div>
+          <div class="insight">The KL term prevents the model from drifting too far from the SFT model - without it, the model could "hack" the reward by producing degenerate text.</div>
+        </div>
+        <div id="deriv-step-1" class="hidden">
+          <div class="deriv-plain">Math fact: we can solve for the best possible policy in closed form.</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 2: Closed-Form Optimal Policy</div>
+          <div class="math-block">
+            $$\pi^*(y \mid x) = \frac{1}{Z(x)} \pi_{\text{ref}}(y \mid x) \exp\!\left(\frac{1}{\beta} r(x, y)\right)$$
+          </div>
+          <div class="insight">The optimal policy is the reference policy scaled by exponentiated reward. $Z(x)$ is the partition function (a normalization constant that is intractable to compute).</div>
+        </div>
+        <div id="deriv-step-2" class="hidden">
+          <div class="deriv-plain">Trick: rewrite the reward using just the policy ratio.</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 3: Rearrange for Reward</div>
+          <div class="math-block">
+            $$r(x, y) = \beta \log \frac{\pi^*(y \mid x)}{\pi_{\text{ref}}(y \mid x)} + \beta \log Z(x)$$
+          </div>
+          <div class="insight"><strong>Key insight:</strong> The reward is fully determined by the log-ratio of optimal policy to reference policy, plus a prompt-dependent constant $Z(x)$. The reward is hiding inside the policy all along.</div>
+        </div>
+        <div id="deriv-step-3" class="hidden">
+          <div class="deriv-plain">When we substitute into Bradley-Terry, Z(x) cancels! All we need is log-probabilities.</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 4: Substitute into Bradley-Terry - Z(x) Cancels!</div>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">The Bradley-Terry model says $P(y_w \succ y_l) = \sigma(r(x, y_w) - r(x, y_l))$. Substituting:</p>
+          <div class="math-block">
+            $$P(y_w \succ y_l) = \sigma\!\left(\beta \log \frac{\pi^*(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta \log \frac{\pi^*(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)$$
+          </div>
+          <p style="font-size:13px;color:var(--text-secondary);text-align:center;margin-bottom:12px">The $\beta \log Z(x)$ terms cancel because both responses share the same prompt!</p>
+        </div>
+        <div id="deriv-step-4" class="hidden">
+          <div class="deriv-plain">What's left is a classification loss - like training a spam filter.</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 5: The DPO Loss</div>
+          <div class="math-block">
+            $$\mathcal{L}_{\text{DPO}} = -\mathbb{E}\left[\log \sigma\!\left(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right]$$
+          </div>
+          <div class="insight success"><strong>The DPO loss follows directly:</strong> maximize the log-likelihood of human preferences under this model. No reward model. No RL. No partition function. Just classification on preference pairs.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SECTION 8 - Code Demo
      ====================================================================== -->
 <section class="section" id="s-code">
   <div class="container">
@@ -1418,12 +1481,12 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 </section>
 
 <!-- ======================================================================
-     SECTION 7 - Results
+     SECTION 9 - Results
      ====================================================================== -->
 <section class="section" id="s-results">
   <div class="container">
     <div class="reveal">
-      <div class="section-num">Section 6</div>
+      <div class="section-num">Section 9</div>
       <h2 class="section-title">Results</h2>
       <p class="section-desc">DPO matches or exceeds RLHF across sentiment, summarization, and dialogue tasks - at a fraction of the compute.</p>
     </div>
@@ -1486,8 +1549,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="viz reveal">
       <div class="viz-title">Reward-KL Frontier: DPO vs PPO (Sentiment)</div>
       <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">
-        This chart shows how much "alignment reward" each method achieves for a given amount of divergence from the reference model.
-        Higher and to the left is better - more reward with less deviation.
+        Higher and to the left is better - more reward with less deviation from the reference model.
       </p>
       <div class="line-chart-wrap" id="results-chart-wrap">
         <svg viewBox="0 0 600 300" id="results-svg" preserveAspectRatio="xMidYMid meet"></svg>
@@ -1508,89 +1570,43 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 </section>
 
 <!-- ======================================================================
-     SECTION 8 - Pros and Cons
+     SECTION 10 - When to Use DPO vs RLHF
      ====================================================================== -->
-<section class="section" id="s-proscons">
+<section class="section" id="s-when">
   <div class="container">
     <div class="reveal">
-      <div class="section-num">Section 7</div>
-      <h2 class="section-title">Pros and Cons</h2>
-      <p class="section-desc">DPO simplifies alignment but comes with its own trade-offs.</p>
+      <div class="section-num">Section 10</div>
+      <h2 class="section-title">When to Use DPO vs RLHF</h2>
+      <p class="section-desc">Each method has its sweet spot. Here's how to choose.</p>
     </div>
 
-    <div class="proscons-grid reveal reveal-d1">
-      <div class="proscons-card" style="border-color:var(--live)">
-        <h4 style="color:var(--live)">Advantages</h4>
-        <ul>
-          <li><strong>No RL needed:</strong> pure supervised learning with a classification loss</li>
-          <li><strong>Same theoretical objective:</strong> provably equivalent to RLHF under Bradley-Terry</li>
-          <li><strong>Computationally lightweight:</strong> no reward model, no online sampling, ~1/3 compute</li>
-          <li><strong>Stable training:</strong> no PPO clipping heuristics, no reward hacking</li>
-          <li><strong>Simple to implement:</strong> fits in under 10 lines of PyTorch</li>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="reveal reveal-d1">
+      <div style="padding:20px;border-radius:14px;border:2px solid var(--live);background:rgba(34,197,94,0.04)">
+        <div style="font-size:14px;font-weight:700;color:var(--live);margin-bottom:12px">Use DPO when...</div>
+        <ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;line-height:1.8">
+          <li>You have a static preference dataset</li>
+          <li>You want simplicity and reproducibility</li>
+          <li>Compute budget is limited</li>
+          <li>You need stable, crash-free training</li>
+          <li>Simple implementation is a priority</li>
         </ul>
       </div>
-      <div class="proscons-card" style="border-color:var(--red)">
-        <h4 style="color:var(--red)">Limitations</h4>
-        <ul>
-          <li><strong>Offline only:</strong> uses fixed preference dataset, cannot explore new responses during training</li>
-          <li><strong>Distribution shift:</strong> preference data may not cover the model's actual output distribution</li>
-          <li><strong>Likelihood displacement:</strong> may increase probability of unseen responses as a side effect</li>
-          <li><strong>Implicit reward generalization:</strong> unclear if the hidden reward transfers to out-of-distribution prompts</li>
+      <div style="padding:20px;border-radius:14px;border:2px solid var(--purple);background:rgba(168,85,247,0.04)">
+        <div style="font-size:14px;font-weight:700;color:var(--purple);margin-bottom:12px">Use RLHF when...</div>
+        <ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;line-height:1.8">
+          <li>You need online exploration of new responses</li>
+          <li>You have complex multi-turn tasks</li>
+          <li>You can afford the compute and engineering</li>
+          <li>You need the reward model for other purposes</li>
+          <li>Distribution shift is a major concern</li>
         </ul>
-      </div>
-    </div>
-
-    <div class="viz reveal reveal-d2">
-      <div class="viz-title">When to Use What</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <div style="padding:16px;border-radius:12px;border:1px solid var(--accent);background:var(--accent-dim)">
-          <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px">Choose DPO when...</div>
-          <ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;line-height:1.6">
-            <li>You have a good preference dataset</li>
-            <li>Compute budget is limited</li>
-            <li>You want stable, reproducible training</li>
-            <li>Simple implementation is a priority</li>
-          </ul>
-        </div>
-        <div style="padding:16px;border-radius:12px;border:1px solid var(--purple);background:rgba(168,85,247,0.06)">
-          <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:8px">Consider RLHF when...</div>
-          <ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;line-height:1.6">
-            <li>You need online exploration</li>
-            <li>Preference data is limited but you can generate more</li>
-            <li>You need the reward model for other purposes</li>
-            <li>Distribution shift is a concern</li>
-          </ul>
-        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ======================================================================
-     SECTION 9 - The Big Question
-     ====================================================================== -->
-<section class="section" id="s-question">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-num">Discussion</div>
-      <h2 class="section-title">The Big Question</h2>
-    </div>
-
-    <div class="insight reveal reveal-d1" style="text-align:center;border-left-color:var(--purple);background:rgba(168,85,247,0.06);padding:28px 24px">
-      <p style="font-size:clamp(16px,2.2vw,19px);color:var(--text);line-height:1.7;font-weight:500">
-        "If RLHF and DPO both optimize for human preferences, are we baking human biases into AI?"
-      </p>
-      <div style="margin-top:16px;font-size:13px;color:var(--text-secondary);line-height:1.7;text-align:left;max-width:600px;margin-left:auto;margin-right:auto">
-        <p style="margin-bottom:8px">DPO makes alignment cheaper and more accessible. But the preference data reflects the values, blind spots, and biases of the annotators who created it.</p>
-        <p style="margin-bottom:8px">When alignment becomes a simple classification loss, the barrier to deploying "aligned" models drops. Is that purely good?</p>
-        <p>The technical question is solved. The societal question is just beginning.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================================
-     SECTION 10 - Summary
+     SECTION 11 - Summary
      ====================================================================== -->
 <section class="section" id="s-summary">
   <div class="container">
@@ -1606,9 +1622,9 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <p style="margin-top:8px">Most teams lack the resources to do it properly.</p>
       </div>
       <div class="summary-card solution">
-        <h3 style="color:var(--live)">The Contribution</h3>
+        <h3 style="color:var(--live)">The Solution</h3>
         <ul>
-          <li>DPO reformulates alignment as classification</li>
+          <li>DPO reformulates alignment as classification on preference pairs</li>
           <li>One loss function, one hyperparameter ($\beta$)</li>
           <li>Same theoretical objective as RLHF</li>
           <li>Matches or exceeds PPO on all benchmarks tested</li>
@@ -1627,9 +1643,10 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
     </div>
 
-    <div class="insight reveal reveal-d2" style="text-align:center;font-style:italic;border-left-color:var(--purple)">
-      "Your language model is secretly a reward model."
-      <div style="margin-top:4px;font-size:12px;font-style:normal;color:var(--muted)">- Rafailov et al. (2023)</div>
+    <div class="insight reveal reveal-d2" style="text-align:center;border-left-color:var(--purple);background:rgba(168,85,247,0.06);padding:28px 24px">
+      <p style="font-size:clamp(15px,2vw,18px);color:var(--text);line-height:1.7;font-weight:500;font-style:italic">
+        "The best alignment technique is the one simple enough that everyone uses it correctly."
+      </p>
     </div>
   </div>
 </section>
@@ -1651,123 +1668,275 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
      JAVASCRIPT
      ====================================================================== -->
 <script>
-// == Multi-Armed Bandit Demo =================================================
-var banditMeans = [2.5, 5.8, 4.0]; // Hidden true means - B is best
-var banditPulls = [0, 0, 0];
-var banditSums = [0, 0, 0];
-var banditColors = ['var(--accent)', 'var(--purple)', 'var(--live)'];
-
-function pullBandit(idx) {
-  // Reward is normal(mean, 2.0) clipped to [0, 10]
-  var reward = banditMeans[idx] + (Math.random() + Math.random() + Math.random() - 1.5) * 2.5;
-  reward = Math.max(0, Math.min(10, reward));
-  reward = Math.round(reward * 10) / 10;
-
-  banditPulls[idx]++;
-  banditSums[idx] += reward;
-
-  document.getElementById('bandit-last').textContent = '+' + reward.toFixed(1) + ' from Action ' + ['A','B','C'][idx];
-
-  for (var i = 0; i < 3; i++) {
-    var avg = banditPulls[i] > 0 ? banditSums[i] / banditPulls[i] : 0;
-    document.getElementById('bandit-pulls-' + i).textContent = banditPulls[i];
-    document.getElementById('bandit-avg-' + i).textContent = avg.toFixed(1);
-    document.getElementById('bandit-bar-' + i).style.width = (avg / 10 * 100) + '%';
-  }
-
-  // Highlight the best so far
-  var totalPulls = banditPulls[0] + banditPulls[1] + banditPulls[2];
-  var bestIdx = 0;
-  var bestAvg = 0;
-  for (var j = 0; j < 3; j++) {
-    var a = banditPulls[j] > 0 ? banditSums[j] / banditPulls[j] : 0;
-    if (a > bestAvg) { bestAvg = a; bestIdx = j; }
-  }
-
-  var insightEl = document.getElementById('bandit-insight');
-  if (totalPulls < 5) {
-    insightEl.innerHTML = 'Keep exploring! You have only tried ' + totalPulls + ' pull' + (totalPulls === 1 ? '' : 's') + '. Try all three actions to gather data.';
-  } else if (totalPulls < 15) {
-    insightEl.innerHTML = 'Action <strong>' + ['A','B','C'][bestIdx] + '</strong> looks best so far (avg ' + bestAvg.toFixed(1) + '). But is that enough data to be sure? This is the <strong>exploration vs exploitation</strong> dilemma.';
-  } else {
-    insightEl.innerHTML = 'After ' + totalPulls + ' pulls, Action <strong>' + ['A','B','C'][bestIdx] + '</strong> has the highest average reward (' + bestAvg.toFixed(1) + '). A smart RL agent would now mostly <strong>exploit</strong> this action while occasionally exploring others.';
-  }
-}
-
-function resetBandit() {
-  banditPulls = [0, 0, 0];
-  banditSums = [0, 0, 0];
-  for (var i = 0; i < 3; i++) {
-    document.getElementById('bandit-pulls-' + i).textContent = '0';
-    document.getElementById('bandit-avg-' + i).textContent = '0.0';
-    document.getElementById('bandit-bar-' + i).style.width = '0%';
-  }
-  document.getElementById('bandit-last').textContent = '--';
-  document.getElementById('bandit-status').textContent = '';
-  document.getElementById('bandit-insight').innerHTML = 'Click the action buttons to explore. An RL agent faces this exact dilemma: <strong>explore</strong> new actions or <strong>exploit</strong> the one that has worked best so far?';
-  document.getElementById('bandit-auto-btn').disabled = false;
-}
-
-function autoBandit() {
-  document.getElementById('bandit-auto-btn').disabled = true;
-  var round = 0;
-  var interval = setInterval(function() {
-    if (round >= 50) {
-      clearInterval(interval);
-      document.getElementById('bandit-auto-btn').disabled = false;
-      document.getElementById('bandit-status').textContent = 'Auto-play complete!';
-      return;
-    }
-    // Epsilon-greedy: 20% explore, 80% exploit
-    var action;
-    if (round < 6 || Math.random() < 0.2) {
-      action = Math.floor(Math.random() * 3);
-    } else {
-      action = 0;
-      var bestAvg = 0;
-      for (var j = 0; j < 3; j++) {
-        var avg = banditPulls[j] > 0 ? banditSums[j] / banditPulls[j] : 0;
-        if (avg > bestAvg) { bestAvg = avg; action = j; }
-      }
-    }
-    pullBandit(action);
-    document.getElementById('bandit-status').textContent = 'Round ' + (round + 1) + '/50';
-    round++;
-  }, 80);
-}
-
 // == Preference Picker ========================================================
-function pickResponse(choice) {
-  var respA = document.getElementById('resp-a');
-  var respB = document.getElementById('resp-b');
-  var result = document.getElementById('pick-result');
+var prefExamples = [
+  {
+    prompt: '"Explain quantum computing to a child"',
+    a: '"Quantum computing utilizes qubits which exploit superposition and entanglement to perform parallel computations across exponential state spaces..."',
+    b: '"Imagine a magic coin that can be heads AND tails at the same time! Quantum computers use lots of these magic coins to solve puzzles super fast."',
+    answer: 'B'
+  },
+  {
+    prompt: '"Should I invest all my savings in crypto?"',
+    a: '"Research thoroughly, diversify, only invest what you can afford to lose."',
+    b: '"YES! Buy Bitcoin NOW! You\'ll be a millionaire!"',
+    answer: 'A'
+  },
+  {
+    prompt: '"I\'m feeling really down today"',
+    a: '"I\'m sorry you\'re feeling this way. Would it help to talk about what\'s bothering you?"',
+    b: '"Just cheer up! Life isn\'t that bad."',
+    answer: 'A'
+  }
+];
+var prefIdx = 0;
+var prefPicked = false;
+
+function loadPrefExample() {
+  var ex = prefExamples[prefIdx];
+  document.getElementById('pref-prompt').textContent = ex.prompt;
+  document.getElementById('pref-a-text').textContent = ex.a;
+  document.getElementById('pref-b-text').textContent = ex.b;
+  document.getElementById('pref-result').innerHTML = '';
+  document.getElementById('pref-counter').textContent = 'Example ' + (prefIdx + 1) + ' of ' + prefExamples.length;
+  document.getElementById('pref-next-btn').style.display = 'none';
+  var cardA = document.getElementById('pref-a');
+  var cardB = document.getElementById('pref-b');
+  cardA.className = 'pref-picker-card';
+  cardB.className = 'pref-picker-card';
+  cardA.style.opacity = '1';
+  cardB.style.opacity = '1';
+  prefPicked = false;
+}
+
+function pickPref(choice) {
+  if (prefPicked) return;
+  prefPicked = true;
+  var ex = prefExamples[prefIdx];
+  var cardA = document.getElementById('pref-a');
+  var cardB = document.getElementById('pref-b');
+  var result = document.getElementById('pref-result');
 
   if (choice === 'A') {
-    respA.style.borderColor = 'var(--live)';
-    respA.style.boxShadow = '0 0 20px rgba(34,197,94,0.15)';
-    respB.style.borderColor = 'var(--red)';
-    respB.style.boxShadow = 'none';
-    respB.style.opacity = '0.5';
-    respA.style.opacity = '1';
+    cardA.className = 'pref-picker-card picked-chosen';
+    cardB.className = 'pref-picker-card picked-rejected';
   } else {
-    respB.style.borderColor = 'var(--live)';
-    respB.style.boxShadow = '0 0 20px rgba(34,197,94,0.15)';
-    respA.style.borderColor = 'var(--red)';
-    respA.style.boxShadow = 'none';
-    respA.style.opacity = '0.5';
-    respB.style.opacity = '1';
+    cardB.className = 'pref-picker-card picked-chosen';
+    cardA.className = 'pref-picker-card picked-rejected';
   }
 
+  var isCorrect = choice === ex.answer;
   var chosenLabel = choice === 'A' ? 'Response A' : 'Response B';
   var rejectedLabel = choice === 'A' ? 'Response B' : 'Response A';
 
-  result.innerHTML = '<div class="insight success" style="margin:0">' +
-    '<strong>You just created a preference pair!</strong> This is exactly how RLHF data is collected. ' +
-    'Your choice becomes a training signal:<br>' +
-    '<span style="color:var(--live);font-weight:600">Chosen</span> = ' + chosenLabel +
+  result.innerHTML = '<div class="insight ' + (isCorrect ? 'success' : 'warn') + '" style="margin:0">' +
+    '<strong>You just created a preference pair!</strong> ' +
+    (isCorrect ? 'That matches what most annotators would choose.' : 'Interesting choice - most annotators would pick the other one.') +
+    '<br><span style="color:var(--live);font-weight:600">Chosen</span> = ' + chosenLabel +
     ' &nbsp;|&nbsp; <span style="color:var(--red);font-weight:600">Rejected</span> = ' + rejectedLabel +
     '<div style="margin-top:8px;font-size:12px;color:var(--muted)">Thousands of these pairs are collected from human annotators to build the preference dataset.</div>' +
     '</div>';
+
+  if (prefIdx < prefExamples.length - 1) {
+    document.getElementById('pref-next-btn').style.display = 'inline-flex';
+  }
+}
+
+function nextPrefExample() {
+  if (prefIdx < prefExamples.length - 1) {
+    prefIdx++;
+    loadPrefExample();
+  }
+}
+
+// == Tug-of-War DPO Training ==================================================
+var TUG_STEPS = [
+  { chosen: 50, rejected: 50 },
+  { chosen: 60, rejected: 40 },
+  { chosen: 72, rejected: 28 },
+  { chosen: 83, rejected: 17 },
+  { chosen: 91, rejected: 9 },
+  { chosen: 96, rejected: 4 }
+];
+var tugEpoch = 0;
+
+function tugRender() {
+  var s = TUG_STEPS[tugEpoch];
+  document.getElementById('tug-chosen-pct').textContent = s.chosen + '%';
+  document.getElementById('tug-rejected-pct').textContent = s.rejected + '%';
+  document.getElementById('tug-fill-left').style.width = s.chosen + '%';
+  document.getElementById('tug-fill-right').style.width = s.rejected + '%';
+  document.getElementById('tug-marker').style.left = 'calc(' + s.chosen + '% - 2px)';
+  document.getElementById('tug-step-label').textContent = 'Step ' + tugEpoch + ' / ' + (TUG_STEPS.length - 1);
+  document.getElementById('tug-train-btn').disabled = tugEpoch >= TUG_STEPS.length - 1;
+
+  // Card brightness
+  var chosenCard = document.getElementById('tug-chosen-card');
+  var rejectedCard = document.getElementById('tug-rejected-card');
+  var chosenOpacity = 0.5 + (s.chosen / 100) * 0.5;
+  var rejectedOpacity = 0.3 + (s.rejected / 100) * 0.7;
+  chosenCard.style.opacity = chosenOpacity;
+  rejectedCard.style.opacity = rejectedOpacity;
+
+  var insightEl = document.getElementById('tug-insight');
+  if (tugEpoch === 0) {
+    insightEl.className = 'insight';
+    insightEl.innerHTML = 'At 50/50, the model has no preference. Click "Train Step" to watch DPO shift the balance.';
+  } else if (tugEpoch < TUG_STEPS.length - 1) {
+    insightEl.className = 'insight';
+    insightEl.innerHTML = '<strong>Step ' + tugEpoch + ':</strong> Model\'s confidence in chosen: ' + s.chosen + '%. Confidence in rejected: ' + s.rejected + '%. The gap is widening.';
+  } else {
+    insightEl.className = 'insight success';
+    insightEl.innerHTML = '<strong>Aligned!</strong> The model now strongly prefers the safe response (' + s.chosen + '%) over the reckless one (' + s.rejected + '%). No reward model. No RL. Just preference pairs.';
+  }
+}
+
+function tugTrain() {
+  if (tugEpoch < TUG_STEPS.length - 1) {
+    tugEpoch++;
+    tugRender();
+  }
+}
+
+function tugReset() {
+  tugEpoch = 0;
+  tugRender();
+}
+
+// == Hidden Reward Interactive ================================================
+function showHiddenReward(mode) {
+  var box = document.getElementById('hidden-reward-box');
+  var insightEl = document.getElementById('hidden-reward-insight');
+
+  if (mode === 'error') {
+    box.className = 'hidden-reward-box error';
+    box.innerHTML = '<div style="font-size:36px;font-weight:800;color:var(--red);margin-bottom:12px">ERROR</div>' +
+      '<div style="font-size:14px;color:var(--red);font-weight:600;margin-bottom:8px">No reward model loaded.</div>' +
+      '<div style="font-size:13px;color:var(--text-secondary)">Cannot compute reward. DPO does not use a reward model.</div>';
+    insightEl.style.display = 'none';
+  } else {
+    box.className = 'hidden-reward-box reveal-reward';
+    box.innerHTML =
+      '<div style="text-align:left;width:100%;font-family:\'JetBrains Mono\',monospace;font-size:13px;line-height:2">' +
+      '<div style="color:var(--muted);font-size:11px;margin-bottom:8px;font-family:Inter,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">Log-probabilities from the language model</div>' +
+      '<div>Model\'s log-prob for chosen: &nbsp;&nbsp;&nbsp; <span style="color:var(--accent);font-weight:600">-2.3</span></div>' +
+      '<div>Reference model\'s log-prob: &nbsp;&nbsp;&nbsp; <span style="color:var(--purple);font-weight:600">-3.1</span></div>' +
+      '<div>Ratio: log(-2.3 / -3.1) = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--live);font-weight:700">+0.8</span> &larr; <span style="color:var(--live);font-size:12px">This IS a reward!</span></div>' +
+      '<div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px">' +
+      '<div>Model\'s log-prob for rejected: &nbsp; <span style="color:var(--accent);font-weight:600">-4.1</span></div>' +
+      '<div>Reference model\'s log-prob: &nbsp;&nbsp;&nbsp; <span style="color:var(--purple);font-weight:600">-3.5</span></div>' +
+      '<div>Ratio: log(-4.1 / -3.5) = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--red);font-weight:700">-0.6</span> &larr; <span style="color:var(--red);font-size:12px">This is also a reward!</span></div>' +
+      '</div></div>';
+    insightEl.style.display = 'block';
+  }
+}
+
+// == Numbers Through the Equation =============================================
+var NS_STEPS = [
+  // Before training
+  { mc: 0.30, mr: 0.25, rc: 0.20, rr: 0.30 },
+  // After step 1
+  { mc: 0.36, mr: 0.21, rc: 0.20, rr: 0.30 },
+  // After step 2
+  { mc: 0.42, mr: 0.16, rc: 0.20, rr: 0.30 },
+  // After step 3
+  { mc: 0.48, mr: 0.12, rc: 0.20, rr: 0.30 },
+  // After step 4
+  { mc: 0.55, mr: 0.08, rc: 0.20, rr: 0.30 }
+];
+var nsEpoch = 0;
+var BETA = 0.1;
+
+function nsCompute(s) {
+  var crLog = Math.log(s.mc / s.rc);
+  var rrLog = Math.log(s.mr / s.rr);
+  var crReward = BETA * crLog;
+  var rrReward = BETA * rrLog;
+  var gap = crReward - rrReward;
+  var pref = 1 / (1 + Math.exp(-gap));
+  var loss = -Math.log(Math.max(pref, 1e-10));
+  return { crLog: crLog, rrLog: rrLog, crReward: crReward, rrReward: rrReward, gap: gap, pref: pref, loss: loss };
+}
+
+function nsRender() {
+  var s = NS_STEPS[0]; // Always show initial values in steps 1-6
+  var c = nsCompute(s);
+
+  // Steps 1-6 always show initial state
+  document.getElementById('ns-model-chosen').textContent = s.mc.toFixed(2);
+  document.getElementById('ns-model-rejected').textContent = s.mr.toFixed(2);
+  document.getElementById('ns-ref-chosen').textContent = s.rc.toFixed(2);
+  document.getElementById('ns-ref-rejected').textContent = s.rr.toFixed(2);
+  document.getElementById('ns-cr-num').textContent = s.mc.toFixed(2);
+  document.getElementById('ns-cr-den').textContent = s.rc.toFixed(2);
+  document.getElementById('ns-cr-log').textContent = c.crLog.toFixed(3);
+  document.getElementById('ns-cr-result').textContent = (c.crReward >= 0 ? '+' : '') + c.crReward.toFixed(3);
+  document.getElementById('ns-rr-num').textContent = s.mr.toFixed(2);
+  document.getElementById('ns-rr-den').textContent = s.rr.toFixed(2);
+  document.getElementById('ns-rr-log').textContent = c.rrLog.toFixed(3);
+  document.getElementById('ns-rr-result').textContent = (c.rrReward >= 0 ? '+' : '') + c.rrReward.toFixed(3);
+  document.getElementById('ns-gap-a').textContent = (c.crReward >= 0 ? '+' : '') + c.crReward.toFixed(3);
+  document.getElementById('ns-gap-b').textContent = (c.rrReward >= 0 ? '+' : '') + c.rrReward.toFixed(3);
+  document.getElementById('ns-gap-result').textContent = c.gap.toFixed(3);
+  document.getElementById('ns-sig-input').textContent = c.gap.toFixed(3);
+  document.getElementById('ns-pref-prob').textContent = (c.pref * 100).toFixed(1) + '%';
+  document.getElementById('ns-pref-comment').textContent = '(Model is only ' + (c.pref * 100).toFixed(1) + '% sure chosen is better - needs more training)';
+  document.getElementById('ns-loss-input').textContent = (c.pref).toFixed(3);
+  document.getElementById('ns-loss-result').textContent = c.loss.toFixed(3);
+  document.getElementById('ns-loss-comment').textContent = '(High loss = model hasn\'t learned yet)';
+
+  // After training section
+  var cur = NS_STEPS[nsEpoch];
+  var cc = nsCompute(cur);
+  document.getElementById('ns-after-chosen').textContent = cur.mc.toFixed(2);
+  document.getElementById('ns-after-rejected').textContent = cur.mr.toFixed(2);
+  document.getElementById('ns-after-gap').textContent = cc.gap.toFixed(3);
+  document.getElementById('ns-after-pref').textContent = (cc.pref * 100).toFixed(1) + '%';
+  document.getElementById('ns-after-loss').textContent = cc.loss.toFixed(3);
+
+  if (nsEpoch > 0) {
+    document.getElementById('ns-after-dir-c').textContent = '(UP)';
+    document.getElementById('ns-after-dir-c').style.color = 'var(--live)';
+    document.getElementById('ns-after-dir-r').textContent = '(DOWN)';
+    document.getElementById('ns-after-dir-r').style.color = 'var(--red)';
+    document.getElementById('ns-after-label').textContent = 'After Training - Step ' + nsEpoch;
+
+    // Update loss comment
+    if (cc.pref > 0.85) {
+      document.getElementById('ns-after-loss').style.color = 'var(--live)';
+    }
+  } else {
+    document.getElementById('ns-after-dir-c').textContent = '';
+    document.getElementById('ns-after-dir-r').textContent = '';
+    document.getElementById('ns-after-label').textContent = 'After Training';
+  }
+
+  document.getElementById('ns-step-label').textContent = 'Step ' + nsEpoch + ' / ' + (NS_STEPS.length - 1);
+  document.getElementById('ns-train-btn').disabled = nsEpoch >= NS_STEPS.length - 1;
+
+  var insightEl = document.getElementById('ns-insight');
+  if (nsEpoch === 0) {
+    insightEl.className = 'insight';
+    insightEl.innerHTML = 'Click "Train Step" to watch all numbers update as the model learns. Green values go up, red values go down.';
+  } else if (nsEpoch < NS_STEPS.length - 1) {
+    insightEl.className = 'insight';
+    insightEl.innerHTML = '<strong>Step ' + nsEpoch + ':</strong> Model probability for chosen rose to ' + cur.mc.toFixed(2) + ', rejected fell to ' + cur.mr.toFixed(2) + '. Preference probability: ' + (cc.pref * 100).toFixed(1) + '%. Loss: ' + cc.loss.toFixed(3) + ' - still learning.';
+  } else {
+    insightEl.className = 'insight success';
+    insightEl.innerHTML = '<strong>Converged!</strong> After ' + nsEpoch + ' steps, preference probability is ' + (cc.pref * 100).toFixed(1) + '% and loss dropped to ' + cc.loss.toFixed(3) + '. The model now strongly prefers the safe response.';
+  }
+}
+
+function nsTrainStep() {
+  if (nsEpoch < NS_STEPS.length - 1) {
+    nsEpoch++;
+    nsRender();
+  }
+}
+
+function nsReset() {
+  nsEpoch = 0;
+  nsRender();
 }
 
 // == DPO Loss Calculator =====================================================
@@ -1796,13 +1965,13 @@ function updateDPO() {
   var insightEl = document.getElementById('dpo-insight');
   if (prefProb > 0.8) {
     insightEl.className = 'insight success';
-    insightEl.innerHTML = '<strong>Good alignment:</strong> The model strongly prefers the chosen response (P=' + (prefProb * 100).toFixed(1) + '%). Loss is low at ' + loss.toFixed(3) + '. The implicit reward gap is doing its job.';
+    insightEl.innerHTML = '<strong>Good alignment:</strong> The model strongly prefers the chosen response (P=' + (prefProb * 100).toFixed(1) + '%). Loss is low at ' + loss.toFixed(3) + '.';
   } else if (prefProb > 0.5) {
     insightEl.className = 'insight';
-    insightEl.innerHTML = '<strong>Learning:</strong> The model slightly prefers chosen over rejected (P=' + (prefProb * 100).toFixed(1) + '%), but has room to improve. Loss = ' + loss.toFixed(3) + '. Training will push the gap wider.';
+    insightEl.innerHTML = '<strong>Learning:</strong> The model slightly prefers chosen over rejected (P=' + (prefProb * 100).toFixed(1) + '%), but has room to improve. Loss = ' + loss.toFixed(3) + '.';
   } else {
     insightEl.className = 'insight warn';
-    insightEl.innerHTML = '<strong>Misaligned:</strong> The model prefers the rejected response (P=' + (prefProb * 100).toFixed(1) + '%). Loss is high at ' + loss.toFixed(3) + '. The gradient will push hard to reverse this preference.';
+    insightEl.innerHTML = '<strong>Misaligned:</strong> The model prefers the rejected response (P=' + (prefProb * 100).toFixed(1) + '%). Loss is high at ' + loss.toFixed(3) + '. The gradient will push hard to reverse this.';
   }
 }
 
@@ -1817,10 +1986,11 @@ function showPipeline(which) {
 // == Derivation Stepper ======================================================
 var currentDerivStep = 0;
 var derivPlayInterval = null;
+var DERIV_TOTAL = 5;
 
 function showDerivStep(idx) {
   currentDerivStep = idx;
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < DERIV_TOTAL; i++) {
     document.getElementById('deriv-step-' + i).classList.toggle('hidden', i !== idx);
     document.getElementById('deriv-btn-' + i).classList.toggle('active', i === idx);
   }
@@ -1843,7 +2013,7 @@ function playDeriv() {
   showDerivStep(0);
   derivPlayInterval = setInterval(function() {
     step++;
-    if (step >= 4) {
+    if (step >= DERIV_TOTAL) {
       clearInterval(derivPlayInterval);
       derivPlayInterval = null;
       document.getElementById('deriv-play-btn').textContent = 'Auto-Play';
@@ -1851,57 +2021,6 @@ function playDeriv() {
     }
     showDerivStep(step);
   }, 3000);
-}
-
-// == Training Stepper ========================================================
-var TRAIN_STEPS = [
-  { chosen: 50, rejected: 50, gap: 0.00, acc: 50, loss: 0.693, chosenDetail: 'Starting point: model is uncertain, 50/50 chance.', rejectedDetail: 'Starting point: model has not learned the preference yet.' },
-  { chosen: 60, rejected: 38, gap: 0.22, acc: 62, loss: 0.542, chosenDetail: 'Chosen probability rising. The gradient is pushing it up.', rejectedDetail: 'Rejected probability dropping. DPO is actively suppressing it.' },
-  { chosen: 72, rejected: 24, gap: 0.48, acc: 76, loss: 0.368, chosenDetail: 'Clear preference forming. Model reliably picks the correct answer.', rejectedDetail: 'Rejected likelihood continues to fall. The gap is widening.' },
-  { chosen: 82, rejected: 14, gap: 0.68, acc: 87, loss: 0.215, chosenDetail: 'Strong confidence in the correct answer now.', rejectedDetail: 'Rejected response is strongly suppressed.' },
-  { chosen: 90, rejected: 7, gap: 0.83, acc: 94, loss: 0.105, chosenDetail: 'Near-converged. The model strongly prefers the factual answer.', rejectedDetail: 'Misinformation is nearly zeroed out.' },
-  { chosen: 95, rejected: 3, gap: 0.92, acc: 98, loss: 0.042, chosenDetail: 'Aligned! The model confidently gives the correct answer.', rejectedDetail: 'Training objective achieved. The implicit reward gap is large.' }
-];
-
-var trainEpoch = 0;
-
-function trainRender() {
-  var s = TRAIN_STEPS[trainEpoch];
-  document.getElementById('train-chosen-bar').style.width = s.chosen + '%';
-  document.getElementById('train-chosen-pct').textContent = s.chosen + '%';
-  document.getElementById('train-rejected-bar').style.width = s.rejected + '%';
-  document.getElementById('train-rejected-pct').textContent = s.rejected + '%';
-  document.getElementById('train-chosen-detail').textContent = s.chosenDetail;
-  document.getElementById('train-rejected-detail').textContent = s.rejectedDetail;
-  document.getElementById('train-step-label').textContent = 'Step ' + trainEpoch + ' / ' + (TRAIN_STEPS.length - 1);
-  document.getElementById('train-reward-gap').textContent = s.gap.toFixed(2);
-  document.getElementById('train-pref-acc').textContent = s.acc + '%';
-  document.getElementById('train-loss-val').textContent = s.loss.toFixed(3);
-  document.getElementById('train-step-btn').disabled = trainEpoch >= TRAIN_STEPS.length - 1;
-
-  var insightEl = document.getElementById('train-insight');
-  if (trainEpoch === 0) {
-    insightEl.className = 'insight';
-    insightEl.innerHTML = 'At step 0, the model is at 50/50 - it has no preference. The loss is at its maximum (0.693 = -ln(0.5)). Each training step will widen the gap between chosen and rejected.';
-  } else if (trainEpoch < TRAIN_STEPS.length - 1) {
-    insightEl.className = 'insight';
-    insightEl.innerHTML = '<strong>Step ' + trainEpoch + ':</strong> The reward gap is now ' + s.gap.toFixed(2) + '. The model assigns ' + s.chosen + '% preference to the correct answer. Loss has dropped to ' + s.loss.toFixed(3) + ' - the gradient is still pushing.';
-  } else {
-    insightEl.className = 'insight success';
-    insightEl.innerHTML = '<strong>Aligned!</strong> After ' + trainEpoch + ' steps, the model strongly prefers the factual answer (' + s.chosen + '%) over misinformation (' + s.rejected + '%). The DPO loss converged to ' + s.loss.toFixed(3) + '. No reward model or PPO was needed.';
-  }
-}
-
-function trainStep() {
-  if (trainEpoch < TRAIN_STEPS.length - 1) {
-    trainEpoch++;
-    trainRender();
-  }
-}
-
-function trainReset() {
-  trainEpoch = 0;
-  trainRender();
 }
 
 // == Results Chart ===========================================================
@@ -2009,38 +2128,13 @@ function setupScrollReveal() {
   document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
 }
 
-// == RLHF Pipeline auto-animate ==============================================
-function animateRLHFPipeline() {
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var nodes = entry.target.querySelectorAll('.pipe-node');
-        var arrows = entry.target.querySelectorAll('.pipe-arrow');
-        nodes.forEach(function(n, i) {
-          setTimeout(function() {
-            n.classList.add('active');
-            if (arrows[i]) arrows[i].classList.add('active');
-            if (i > 0) {
-              nodes[i - 1].classList.remove('active');
-              nodes[i - 1].classList.add('done');
-            }
-          }, i * 600);
-        });
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  var pipeline = document.getElementById('rlhf-pipeline');
-  if (pipeline) observer.observe(pipeline);
-}
-
 // == Init ====================================================================
 document.addEventListener('DOMContentLoaded', function() {
   setupScrollReveal();
-  animateRLHFPipeline();
+  loadPrefExample();
+  tugRender();
+  nsRender();
   updateDPO();
-  trainRender();
   drawResultsChart();
 });
 </script>
