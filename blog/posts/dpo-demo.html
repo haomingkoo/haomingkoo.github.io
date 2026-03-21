@@ -2049,38 +2049,38 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 var TTT_GAMES = [
   {
     label: 'Game 1 - Random Moves',
-    // X plays randomly, O wins with top row
+    // X plays randomly (edges), O takes center and wins anti-diagonal
     moves: [
-      [7,'X'], [0,'O'], [5,'X'], [1,'O'], [3,'X'], [2,'O']
+      [8,'X'], [4,'O'], [0,'X'], [2,'O'], [5,'X'], [6,'O']
     ],
-    winLine: [0,1,2], // O wins top row
+    winLine: [2,4,6], // O wins anti-diagonal
     reward: '-1 (Lost!)',
     rewardColor: 'var(--red)',
-    narration: 'The agent places X randomly. It ignores the center, doesn\'t block O\'s top row, and <strong style="color:var(--red)">loses</strong>. The -1 reward tells it: something went wrong, but not what.',
+    narration: 'The agent places X randomly. It ignores the center (O takes it), doesn\'t block O\'s anti-diagonal, and <strong style="color:var(--red)">loses</strong>. The -1 reward tells it: something went wrong, but not what.',
     strategy: '<strong>Agent\'s strategy:</strong> None. Pick any empty cell at random.<br><strong>Win rate so far:</strong> ~20%'
   },
   {
     label: 'Game 10 - Learning the Basics',
-    // X takes center, plays better but still imperfect
+    // X takes center first, then wins middle row
     moves: [
-      [4,'X'], [0,'O'], [2,'X'], [6,'O'], [8,'X'], [7,'O'], [5,'X']
+      [4,'X'], [0,'O'], [2,'X'], [6,'O'], [3,'X'], [7,'O'], [5,'X']
     ],
-    winLine: [2,4,6], // X wins anti-diagonal
+    winLine: [3,4,5], // X wins middle row
     reward: '+1 (Win!)',
     rewardColor: 'var(--live)',
-    narration: 'After 10 games of feedback, the agent learned: <strong>always take the center</strong>. It also prefers corners. It still makes mistakes, but wins more often.',
+    narration: 'After 10 games of feedback, the agent learned: <strong>always take the center</strong>. It also prefers corners. From the center, it builds a winning row. Win rate is climbing.',
     strategy: '<strong>Agent\'s strategy:</strong> Take center first. Then pick corners.<br><strong>Win rate so far:</strong> ~55%'
   },
   {
     label: 'Game 100 - Optimal Play',
-    // X plays perfectly: center, corner, then wins with a row
+    // X takes center, then sets up a fork and wins anti-diagonal
     moves: [
-      [4,'X'], [0,'O'], [2,'X'], [6,'O'], [1,'X'], [3,'O'], [7,'X']
+      [4,'X'], [1,'O'], [0,'X'], [8,'O'], [6,'X'], [3,'O'], [2,'X']
     ],
-    winLine: [1,4,7], // X wins middle column
+    winLine: [0,4,8], // X wins main diagonal
     reward: '+1 (Win!)',
     rewardColor: 'var(--live)',
-    narration: 'After 100 games, the agent plays <strong>optimally</strong>. Center first, then builds toward multiple winning threats. The opponent can only block one. <strong>It never loses.</strong>',
+    narration: 'After 100 games, the agent plays <strong>optimally</strong>. Center first, then two opposite corners - creating a fork (two ways to win at once). O can only block one. <strong>It never loses.</strong>',
     strategy: '<strong>Agent\'s strategy:</strong> Center, then fork (two winning threats at once). Block opponent.<br><strong>Win rate:</strong> ~95% (never loses)'
   }
 ];
