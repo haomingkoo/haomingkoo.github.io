@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Direction C — The Grid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+/* ═══════════════════════════════════════════════════════════════════
+   TRAVEL C — "The Grid"
+
+   Concept: Clean, data-rich, Pinterest-meets-Nomadlist.
+   Compact but information-dense. Maps front and center.
+   The anti-blog — more like a travel dashboard.
+
+   Fonts: Space Grotesk + JetBrains Mono
+   Palette: Monochrome + single warm accent
+   Inspiration: Nomadlist, Are.na, Linear
+   ═══════════════════════════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  --bg: #000000;
+  --surface: #0A0A0A;
+  --surface-2: #111111;
+  --border: #1A1A1A;
+  --text: #EDEDED;
+  --text-secondary: #888888;
+  --muted: #555555;
+  --warm: #E0B87A;
+  --warm-dim: rgba(224,184,122,0.06);
+}
+[data-theme="light"] {
+  --bg: #FFFFFF;
+  --surface: #F8F8F8;
+  --surface-2: #F0F0F0;
+  --border: #E0E0E0;
+  --text: #0A0A0A;
+  --text-secondary: #666666;
+  --muted: #AAAAAA;
+  --warm: #8B6914;
+  --warm-dim: rgba(139,105,20,0.05);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(20px,3vw,40px)}
+
+/* ── Nav ──────────────────────────────────────────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(0,0,0,0.8);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+[data-theme="light"] .nav{background:rgba(255,255,255,0.85)}
+.nav-inner{
+  max-width:1100px;margin:0 auto;
+  padding:0 clamp(20px,3vw,40px);
+  display:flex;align-items:center;justify-content:space-between;
+  height:48px;
+}
+.nav-name{font-size:14px;font-weight:600;color:var(--text);text-decoration:none}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-right a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .15s}
+.nav-right a:hover,.nav-right a.active{color:var(--text)}
+.theme-toggle{
+  width:26px;height:26px;border-radius:50%;
+  background:transparent;border:1px solid var(--border);
+  cursor:pointer;color:var(--muted);font-size:11px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.theme-toggle:hover{border-color:var(--text);color:var(--text)}
+
+/* ── Hero — Compact ──────────────────────────────────────────────── */
+.hero{padding:clamp(40px,8vh,80px) 0 32px}
+.hero-row{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.hero h1{
+  font-size:clamp(28px,4.5vw,44px);
+  font-weight:700;letter-spacing:-0.03em;
+}
+.hero-meta{
+  font-family:"JetBrains Mono",monospace;
+  font-size:12px;color:var(--muted);
+  display:flex;gap:16px;
+}
+
+/* ── Map — Prominent ─────────────────────────────────────────────── */
+.map-container{
+  width:100%;height:340px;border-radius:12px;overflow:hidden;
+  border:1px solid var(--border);margin:24px 0 40px;
+}
+.leaflet-container{height:100%;width:100%;background:var(--bg)}
+.leaflet-popup-content-wrapper{
+  background:var(--surface);color:var(--text);
+  border:1px solid var(--border);border-radius:8px;
+  box-shadow:0 4px 16px rgba(0,0,0,.2);
+}
+.leaflet-popup-tip{background:var(--surface)}
+.leaflet-control-attribution{font-size:9px;opacity:.2}
+
+/* ── Bento Trip Grid ─────────────────────────────────────────────── */
+.bento{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-auto-rows:auto;
+  gap:1px;background:var(--border);
+  border-radius:12px;overflow:hidden;
+  margin-bottom:80px;
+}
+.bento-card{
+  background:var(--surface);padding:28px 24px;
+  text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;
+  transition:background .15s;
+  position:relative;min-height:220px;
+}
+.bento-card:hover{background:var(--surface-2)}
+.bento-card.span-2{grid-column:span 2}
+.bento-card.span-row{grid-row:span 2}
+
+.bento-card .card-num{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:0.08em;
+  color:var(--warm);margin-bottom:auto;
+}
+.bento-card h3{
+  font-size:20px;font-weight:600;letter-spacing:-0.02em;
+  margin-bottom:6px;
+}
+.bento-card.span-2 h3{font-size:28px}
+.bento-card .route{
+  font-size:12px;color:var(--text-secondary);
+  line-height:1.5;margin-bottom:12px;
+}
+.bento-card .card-meta{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;color:var(--muted);
+  display:flex;gap:12px;margin-top:auto;
+}
+.bento-card .card-arrow{
+  position:absolute;top:24px;right:24px;
+  font-size:16px;color:var(--muted);
+  transition:color .15s,transform .15s;
+}
+.bento-card:hover .card-arrow{color:var(--text);transform:translate(2px,-2px)}
+
+/* ── Stats Row ───────────────────────────────────────────────────── */
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);border-radius:12px;
+  overflow:hidden;margin:40px 0 24px;
+}
+.stat-cell{
+  background:var(--surface);padding:20px;text-align:center;
+}
+.stat-cell .val{
+  font-family:"JetBrains Mono",monospace;
+  font-size:24px;font-weight:500;
+}
+.stat-cell .lbl{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.site-footer{
+  padding:32px 0;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;color:var(--muted);
+}
+.site-footer a{color:var(--text-secondary);text-decoration:none;transition:color .15s}
+.site-footer a:hover{color:var(--text)}
+.footer-links{display:flex;gap:16px}
+
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  .bento{grid-template-columns:1fr}
+  .bento-card.span-2{grid-column:span 1}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .hero-row{flex-direction:column}
+  .site-footer{flex-direction:column;gap:12px;align-items:flex-start}
+}
+
+.preview-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:rgba(0,0,0,0.95);backdrop-filter:blur(12px);
+  border-top:1px solid var(--border);
+  padding:16px 32px;display:flex;align-items:center;justify-content:space-between;
+  font-size:13px;color:#999;
+}
+.preview-banner strong{color:#fff}
+.preview-banner .tag{
+  font-family:"JetBrains Mono",monospace;font-size:10px;
+  padding:4px 10px;border-radius:4px;
+  background:rgba(224,184,122,0.1);color:var(--warm);
+  text-transform:uppercase;letter-spacing:0.08em;
+}
+  </style>
+</head>
+<body>
+
+<div class="preview-banner">
+  <div><strong>Travel C</strong> &mdash; "The Grid" &middot; Data-rich bento, Nomadlist-inspired, compact dashboard feel</div>
+  <span class="tag">Preview</span>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-name">Haoming Koo</a>
+    <div class="nav-right">
+      <a href="/">Portfolio</a>
+      <a href="#" class="active">Travel</a>
+      <button class="theme-toggle" onclick="toggleTheme()"><span class="theme-icon">&#9789;</span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-row reveal">
+      <h1>Travel Journal</h1>
+      <div class="hero-meta">
+        <span>5 trips</span>
+        <span>4 countries</span>
+        <span>2023&ndash;2025</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <!-- Stats -->
+  <div class="stats-row reveal">
+    <div class="stat-cell"><div class="val">48</div><div class="lbl">Days traveled</div></div>
+    <div class="stat-cell"><div class="val">4</div><div class="lbl">Countries</div></div>
+    <div class="stat-cell"><div class="val">5</div><div class="lbl">Detailed guides</div></div>
+    <div class="stat-cell"><div class="val">~68</div><div class="lbl">Min total reading</div></div>
+  </div>
+
+  <!-- Map -->
+  <div class="map-container reveal" id="world-map"></div>
+
+  <!-- Bento Grid -->
+  <div class="bento reveal">
+    <a href="#" class="bento-card span-2">
+      <div class="card-num">01 &mdash; APR 2025 &middot; SPRING</div>
+      <h3>Netherlands</h3>
+      <div class="route">Amsterdam &rarr; Keukenhof &rarr; Delft &rarr; Rotterdam &rarr; Kinderdijk</div>
+      <div class="card-meta"><span>9 days</span><span>14 min</span></div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+    <a href="#" class="bento-card span-row">
+      <div class="card-num">02 &mdash; FEB 2025</div>
+      <h3>Japan<br>Winter</h3>
+      <div class="route">Sapporo &rarr; Otaru &rarr; Izu &rarr; Tokyo</div>
+      <div class="card-meta"><span>10 days</span><span>14 min</span></div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+    <a href="#" class="bento-card">
+      <div class="card-num">03 &mdash; DEC 2024</div>
+      <h3>Italy</h3>
+      <div class="route">Milan &rarr; Florence &rarr; Rome &rarr; Venice</div>
+      <div class="card-meta"><span>13 days</span><span>14 min</span></div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+    <a href="#" class="bento-card">
+      <div class="card-num">04 &mdash; APR 2023</div>
+      <h3>Japan Sakura</h3>
+      <div class="route">Tokyo &rarr; Osaka &rarr; Hiroshima &rarr; Miyajima</div>
+      <div class="card-meta"><span>11 days</span><span>16 min</span></div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+    <a href="#" class="bento-card">
+      <div class="card-num">05 &mdash; AUG 2023</div>
+      <h3>Seoul</h3>
+      <div class="route">Palaces &rarr; Nami Island &rarr; DMZ &rarr; Hongdae</div>
+      <div class="card-meta"><span>5 days</span><span>10 min</span></div>
+      <span class="card-arrow">&nearr;</span>
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;width:100%">
+    <span>&copy; 2026 &middot; <a href="/">Portfolio</a></span>
+    <div class="footer-links">
+      <a href="https://github.com/haomingkoo" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/haomingkoo" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const TRIPS=[{lat:52.2,lng:5.0,n:"Netherlands"},{lat:39,lng:140,n:"Japan"},{lat:43,lng:11.5,n:"Italy"},{lat:35,lng:135.5,n:"Japan"},{lat:37.57,lng:126.98,n:"Korea"}];
+const map=L.map('world-map',{scrollWheelZoom:false}).setView([38,60],3);
+const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+let tl=L.tileLayer(isDark?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png':'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'\u00A9 CartoDB'}).addTo(map);
+TRIPS.forEach(function(t){L.circleMarker([t.lat,t.lng],{radius:6,fillColor:'#E0B87A',color:'rgba(224,184,122,0.3)',weight:2,fillOpacity:.9}).addTo(map).bindPopup('<strong>'+t.n+'</strong>')});
+map.fitBounds(L.latLngBounds(TRIPS.map(function(t){return[t.lat,t.lng]})).pad(.4));
+function toggleTheme(){var h=document.documentElement,n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.querySelector('.theme-icon').textContent=n==='dark'?'\u263D':'\u2600';map.removeLayer(tl);tl=L.tileLayer(n==='dark'?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png':'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'\u00A9 CartoDB'}).addTo(map)}
+var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('visible')})},{threshold:.05});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+</script>
+</body>
+</html>

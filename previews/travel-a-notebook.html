@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Direction A — The Field Notebook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+/* ═══════════════════════════════════════════════════════════════════
+   TRAVEL A — "The Field Notebook"
+
+   Concept: A beautifully kept travel journal. Warm, intimate, editorial.
+   Like a Moleskine that got art-directed by Cereal Magazine.
+   Stamps, coordinates, hand-drawn feel.
+
+   Fonts: Playfair Display (titles) + Source Serif 4 (body) + DM Sans (UI)
+   Palette: Cream/ivory + charcoal + terracotta accent
+   Inspiration: Craig Mod, Cereal Magazine, Kinfolk
+   ═══════════════════════════════════════════════════════════════════ */
+
+[data-theme="light"] {
+  --bg: #FAF7F2;
+  --surface: #FFFFFF;
+  --surface-hover: #F5F1EB;
+  --border: #E6DFD4;
+  --border-hover: #D4CCBF;
+  --accent: #C4704B;
+  --accent-dim: rgba(196,112,75,0.08);
+  --text: #2C2C2C;
+  --text-secondary: #6B635A;
+  --muted: #9C948A;
+  --cream: #FAF7F2;
+}
+[data-theme="dark"] {
+  --bg: #1A1816;
+  --surface: #22201D;
+  --surface-hover: #2A2724;
+  --border: #353230;
+  --border-hover: #454240;
+  --accent: #D4855C;
+  --accent-dim: rgba(212,133,92,0.1);
+  --text: #F0EBE4;
+  --text-secondary: #A89F94;
+  --muted: #706860;
+  --cream: #1A1816;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"DM Sans",system-ui,sans-serif;
+  font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+
+.wrap{max-width:1000px;margin:0 auto;padding:0 clamp(24px,5vw,64px)}
+
+/* ── Nav ──────────────────────────────────────────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(250,247,242,0.88);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:background .3s;
+}
+[data-theme="dark"] .nav{background:rgba(26,24,22,0.88)}
+.nav-inner{
+  max-width:1000px;margin:0 auto;
+  padding:0 clamp(24px,5vw,64px);
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;
+}
+.nav-name{
+  font-family:"Playfair Display",serif;
+  font-size:18px;font-weight:400;font-style:italic;
+  color:var(--text);text-decoration:none;
+}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-right a{
+  font-size:12px;font-weight:500;color:var(--muted);
+  text-decoration:none;letter-spacing:0.04em;
+  text-transform:uppercase;transition:color .2s;
+}
+.nav-right a:hover,.nav-right a.active{color:var(--text)}
+.theme-toggle{
+  width:30px;height:30px;border-radius:50%;
+  background:transparent;border:1px solid var(--border);
+  cursor:pointer;color:var(--muted);font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.theme-toggle:hover{border-color:var(--text);color:var(--text)}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+.hero{padding:clamp(60px,12vh,120px) 0 40px;text-align:center}
+.hero-coord{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;letter-spacing:0.12em;
+  color:var(--muted);margin-bottom:24px;
+}
+.hero h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(40px,8vw,80px);
+  font-weight:400;line-height:1.0;
+  letter-spacing:-0.02em;margin-bottom:20px;
+}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{
+  font-family:"Source Serif 4",serif;
+  font-size:18px;line-height:1.7;
+  color:var(--text-secondary);
+  max-width:480px;margin:0 auto 32px;
+}
+.hero-stats{
+  display:flex;gap:40px;justify-content:center;flex-wrap:wrap;
+}
+.hero-stat{text-align:center}
+.hero-stat .val{
+  font-family:"Playfair Display",serif;
+  font-size:32px;font-weight:400;
+}
+.hero-stat .lbl{
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);margin-top:2px;
+}
+
+/* ── Map ─────────────────────────────────────────────────────────── */
+.map-section{margin:48px 0;position:relative}
+.map-label{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px;text-align:center;
+}
+.map-container{
+  width:100%;height:400px;border-radius:16px;overflow:hidden;
+  border:1px solid var(--border);
+}
+.leaflet-container{height:100%;width:100%;background:var(--bg)}
+.leaflet-popup-content-wrapper{
+  background:var(--surface);color:var(--text);
+  border:1px solid var(--border);border-radius:10px;
+  box-shadow:0 8px 32px rgba(0,0,0,.12);font-family:"DM Sans",sans-serif;
+}
+.leaflet-popup-tip{background:var(--surface)}
+.leaflet-popup-content{font-size:13px}
+.leaflet-control-attribution{font-size:9px;opacity:.3}
+
+/* ── Divider ─────────────────────────────────────────────────────── */
+.divider{
+  display:flex;align-items:center;gap:16px;
+  margin:64px 0 40px;color:var(--muted);
+}
+.divider::before,.divider::after{
+  content:"";flex:1;height:1px;background:var(--border);
+}
+.divider span{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+}
+
+/* ── Trip Cards — Immersive ──────────────────────────────────────── */
+.trips{margin:0 0 80px}
+.trip-card{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;margin-bottom:24px;
+  border-radius:16px;overflow:hidden;
+  border:1px solid var(--border);
+  background:var(--surface);
+  text-decoration:none;color:inherit;
+  transition:transform .3s cubic-bezier(.25,.1,.25,1),box-shadow .3s,border-color .3s;
+  min-height:280px;
+}
+.trip-card:nth-child(even){direction:rtl}
+.trip-card:nth-child(even) > *{direction:ltr}
+.trip-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--accent);
+  box-shadow:0 20px 60px rgba(0,0,0,0.08);
+}
+.trip-card-img{
+  background:var(--surface-hover);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+  min-height:280px;
+}
+.trip-card-img .placeholder-geo{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;color:var(--muted);opacity:0.5;
+  position:absolute;bottom:16px;left:16px;
+}
+.trip-card-img .placeholder-flag{
+  font-size:56px;opacity:0.15;
+}
+.trip-card-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s cubic-bezier(.25,.1,.25,1);
+}
+.trip-card:hover .trip-card-img img{transform:scale(1.04)}
+
+.trip-card-body{
+  padding:36px 32px;display:flex;flex-direction:column;
+  justify-content:center;
+}
+.trip-card-date{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;
+}
+.trip-card-body h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(22px,3vw,30px);
+  font-weight:400;line-height:1.2;
+  letter-spacing:-0.01em;margin-bottom:12px;
+}
+.trip-card-route{
+  font-family:"Source Serif 4",serif;
+  font-size:14px;color:var(--text-secondary);
+  line-height:1.6;margin-bottom:16px;
+  font-style:italic;
+}
+.trip-card-details{
+  display:flex;gap:20px;font-size:12px;color:var(--muted);
+  margin-top:auto;
+}
+.trip-card-details span{
+  display:flex;align-items:center;gap:4px;
+}
+
+/* ── Compact trip row (for variety) ──────────────────────────────── */
+.trips-compact{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  margin-bottom:80px;
+}
+.trip-mini{
+  padding:28px 24px;border-radius:14px;
+  border:1px solid var(--border);background:var(--surface);
+  text-decoration:none;color:inherit;
+  transition:all .25s;
+}
+.trip-mini:hover{border-color:var(--accent);transform:translateY(-2px)}
+.trip-mini-date{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:0.08em;
+  color:var(--accent);margin-bottom:8px;text-transform:uppercase;
+}
+.trip-mini h3{
+  font-family:"Playfair Display",serif;
+  font-size:18px;font-weight:400;margin-bottom:6px;
+}
+.trip-mini p{font-size:13px;color:var(--text-secondary);line-height:1.5}
+.trip-mini .meta{
+  font-size:11px;color:var(--muted);margin-top:12px;
+  font-family:"JetBrains Mono",monospace;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.site-footer{
+  padding:48px 0;border-top:1px solid var(--border);
+  text-align:center;font-size:13px;color:var(--muted);
+}
+.site-footer a{color:var(--text-secondary);text-decoration:none;transition:color .15s}
+.site-footer a:hover{color:var(--text)}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-top:12px}
+
+/* ── Reveal ──────────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}
+
+@media(max-width:768px){
+  .trip-card{grid-template-columns:1fr;min-height:auto}
+  .trip-card:nth-child(even){direction:ltr}
+  .trip-card-img{min-height:200px}
+  .trips-compact{grid-template-columns:1fr}
+  .hero-stats{gap:24px}
+}
+
+/* ── Preview Banner ──────────────────────────────────────────────── */
+.preview-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:rgba(44,44,44,0.95);backdrop-filter:blur(12px);
+  border-top:1px solid rgba(100,100,100,0.3);
+  padding:16px 32px;display:flex;align-items:center;justify-content:space-between;
+  font-size:13px;color:#ccc;
+}
+.preview-banner strong{color:#fff}
+.preview-banner .tag{
+  font-family:"JetBrains Mono",monospace;font-size:10px;
+  padding:4px 10px;border-radius:4px;
+  background:rgba(196,112,75,0.15);color:#C4704B;
+  text-transform:uppercase;letter-spacing:0.08em;
+}
+  </style>
+</head>
+<body>
+
+<div class="preview-banner">
+  <div><strong>Travel A</strong> &mdash; "The Field Notebook" &middot; Warm cream, editorial serif, Cereal Magazine-inspired</div>
+  <span class="tag">Preview</span>
+</div>
+
+<!-- Nav -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-name">Haoming Koo</a>
+    <div class="nav-right">
+      <a href="/">Portfolio</a>
+      <a href="#" class="active">Travel</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span class="theme-icon">&#9789;</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-coord reveal">1&deg;17'N 103&deg;51'E &mdash; Singapore</div>
+    <h1 class="reveal">Field <em>Notes</em></h1>
+    <p class="hero-sub reveal rd1">
+      Itineraries, route maps, and honest notes from the road.
+      Every trip documented so you can plan yours.
+    </p>
+    <div class="hero-stats reveal rd2">
+      <div class="hero-stat">
+        <div class="val">5</div>
+        <div class="lbl">Trips</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">48</div>
+        <div class="lbl">Days</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">4</div>
+        <div class="lbl">Countries</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Map -->
+<div class="wrap">
+  <div class="map-section reveal">
+    <div class="map-label">Where I&rsquo;ve been</div>
+    <div class="map-container" id="world-map"></div>
+  </div>
+</div>
+
+<div class="wrap"><div class="divider"><span>Journals</span></div></div>
+
+<!-- Featured Trips (alternating image/text) -->
+<div class="wrap">
+  <div class="trips">
+    <a href="#" class="trip-card reveal">
+      <div class="trip-card-img">
+        <span class="placeholder-flag">&#x1F1F3;&#x1F1F1;</span>
+        <span class="placeholder-geo">52.2&deg;N 5.0&deg;E</span>
+      </div>
+      <div class="trip-card-body">
+        <div class="trip-card-date">Apr 2025 &middot; Spring</div>
+        <h2>Tulips, Windmills &amp; Dutch Masters</h2>
+        <div class="trip-card-route">Amsterdam &rarr; Keukenhof &rarr; Delft &rarr; Rotterdam &rarr; Kinderdijk</div>
+        <div class="trip-card-details">
+          <span>9 days</span>
+          <span>14 min read</span>
+          <span>&rarr;</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="trip-card reveal">
+      <div class="trip-card-img">
+        <span class="placeholder-flag">&#x1F1EF;&#x1F1F5;</span>
+        <span class="placeholder-geo">39.0&deg;N 140.0&deg;E</span>
+      </div>
+      <div class="trip-card-body">
+        <div class="trip-card-date">Feb 2025 &middot; Winter</div>
+        <h2>Snow Festivals, Early Sakura &amp; Mount Fuji</h2>
+        <div class="trip-card-route">Sapporo &rarr; Asahikawa &rarr; Otaru &rarr; Odawara &rarr; Izu &rarr; Tokyo</div>
+        <div class="trip-card-details">
+          <span>10 days</span>
+          <span>14 min read</span>
+          <span>&rarr;</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="trip-card reveal">
+      <div class="trip-card-img">
+        <span class="placeholder-flag">&#x1F1EE;&#x1F1F9;</span>
+        <span class="placeholder-geo">43.0&deg;N 11.5&deg;E</span>
+      </div>
+      <div class="trip-card-body">
+        <div class="trip-card-date">Dec 2024 &middot; Winter</div>
+        <h2>13 Days Across Italy</h2>
+        <div class="trip-card-route">Milan &rarr; Florence &rarr; Pisa &rarr; Rome &rarr; Venice</div>
+        <div class="trip-card-details">
+          <span>13 days</span>
+          <span>14 min read</span>
+          <span>&rarr;</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Compact row for older trips -->
+  <div class="divider"><span>Earlier trips</span></div>
+
+  <div class="trips-compact reveal">
+    <a href="#" class="trip-mini">
+      <div class="trip-mini-date">Apr 2023 &middot; Sakura Season</div>
+      <h3>Tokyo to Hiroshima</h3>
+      <p>Cherry blossoms, DisneySea, Kobe beef, Shimanami Kaido cycling, and the Peace Memorial.</p>
+      <div class="meta">11 days &middot; 16 min read</div>
+    </a>
+    <a href="#" class="trip-mini">
+      <div class="trip-mini-date">Aug 2023 &middot; Summer</div>
+      <h3>5 Days in Seoul</h3>
+      <p>Palaces, street food, extraordinary cafe culture, and a sobering trip to the DMZ.</p>
+      <div class="meta">5 days &middot; 10 min read</div>
+    </a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 Haoming Koo &middot; <a href="/">Back to portfolio</a></p>
+    <div class="footer-links">
+      <a href="https://github.com/haomingkoo" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/haomingkoo" target="_blank">LinkedIn</a>
+      <a href="mailto:haomingkoo@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const TRIPS = [
+  { lat:52.2, lng:5.0, name:"Netherlands", date:"Apr 2025" },
+  { lat:39.0, lng:140.0, name:"Japan (Winter)", date:"Feb 2025" },
+  { lat:43.0, lng:11.5, name:"Italy", date:"Dec 2024" },
+  { lat:35.0, lng:135.5, name:"Japan (Sakura)", date:"Apr 2023" },
+  { lat:37.5665, lng:126.978, name:"Korea", date:"Aug 2023" },
+];
+
+const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+const tileUrl = isDark
+  ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+  : 'https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png';
+
+const map = L.map('world-map', { scrollWheelZoom:false, zoomControl:true }).setView([38,60],3);
+let tileLayer = L.tileLayer(tileUrl, { attribution:'\u00A9 CartoDB', maxZoom:18 }).addTo(map);
+
+TRIPS.forEach(function(t) {
+  L.circleMarker([t.lat, t.lng], {
+    radius:7, fillColor:'#C4704B', color:'rgba(196,112,75,0.3)',
+    weight:2, fillOpacity:0.9
+  }).addTo(map).bindPopup(
+    '<strong>' + t.name + '</strong><br><span style="font-size:12px;color:#999">' + t.date + '</span>'
+  );
+});
+
+const bounds = L.latLngBounds(TRIPS.map(function(t){return [t.lat,t.lng]}));
+map.fitBounds(bounds.pad(0.4));
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.querySelector('.theme-icon').textContent = next === 'light' ? '\u263D' : '\u2600';
+  map.removeLayer(tileLayer);
+  tileLayer = L.tileLayer(next === 'dark'
+    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    : 'https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png',
+    { attribution:'\u00A9 CartoDB', maxZoom:18 }).addTo(map);
+}
+
+const obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold:0.05 });
+document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+</script>
+</body>
+</html>
