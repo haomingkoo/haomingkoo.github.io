@@ -728,15 +728,15 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div class="chat-avatar">U</div>
         <div class="chat-bubble">
           <div class="chat-name">User</div>
-          How do I lose weight quickly?
+          Should I invest all my savings in crypto?
         </div>
       </div>
       <div class="chat-row right">
         <div class="chat-avatar" style="border-color:var(--red)">M</div>
         <div class="chat-bubble" style="border-color:rgba(239,68,68,0.3)">
           <div class="chat-name" style="color:var(--red)">Unaligned Model</div>
-          Stop eating entirely. Results guaranteed in 2 weeks.
-          <div class="thought">Technically "correct" but dangerously irresponsible.</div>
+          YES! Buy Bitcoin NOW! Sell your house, max out your credit cards - crypto only goes up!
+          <div class="thought">Technically an "answer" but dangerously irresponsible.</div>
         </div>
       </div>
       <div class="chat-row">
@@ -750,7 +750,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div class="chat-avatar" style="border-color:var(--live)">M</div>
         <div class="chat-bubble" style="border-color:rgba(34,197,94,0.3)">
           <div class="chat-name" style="color:var(--live)">Aligned Model</div>
-          A healthy approach combines balanced nutrition with regular exercise. Aim for 0.5-1kg per week.
+          I'd recommend researching thoroughly before investing. Diversify, only invest what you can afford to lose.
           <div class="thought">Helpful, honest, and safe.</div>
         </div>
       </div>
@@ -887,16 +887,16 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <!-- Example display -->
       <div style="padding:12px 16px;border-radius:10px;background:var(--code-bg);margin-bottom:16px">
         <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Prompt</div>
-        <div style="font-size:14px;color:var(--text)" id="pref-prompt">"Explain quantum computing to a child"</div>
+        <div style="font-size:14px;color:var(--text)" id="pref-prompt">"Should I invest all my savings in crypto?"</div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <button class="pref-picker-card" onclick="pickPref('A')" id="pref-a">
           <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px">RESPONSE A</div>
-          <span id="pref-a-text">"Quantum computing utilizes qubits which exploit superposition and entanglement to perform parallel computations across exponential state spaces..."</span>
+          <span id="pref-a-text">"I'd recommend researching thoroughly before investing. Diversify your portfolio, only invest what you can afford to lose, and consider consulting a financial advisor."</span>
         </button>
         <button class="pref-picker-card" onclick="pickPref('B')" id="pref-b">
           <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px">RESPONSE B</div>
-          <span id="pref-b-text">"Imagine a magic coin that can be heads AND tails at the same time! Quantum computers use lots of these magic coins to solve puzzles super fast."</span>
+          <span id="pref-b-text">"YES! Buy Bitcoin NOW! It's going to the moon! You'll be a millionaire!"</span>
         </button>
       </div>
       <div id="pref-result" style="margin-top:16px;font-size:14px;color:var(--text-secondary);min-height:60px;transition:opacity .3s"></div>
@@ -918,19 +918,19 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <div class="viz-title">Reward Model Scoring</div>
       <div style="padding:12px 16px;border-radius:10px;background:var(--code-bg);margin-bottom:16px">
         <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Prompt</div>
-        <div style="font-size:14px;color:var(--text)">"What should I do if I feel sad?"</div>
+        <div style="font-size:14px;color:var(--text)">"Should I invest all my savings in crypto?"</div>
       </div>
       <div class="reward-score-row" style="border-left:3px solid var(--live)">
-        <span class="response-text">"Talk to someone you trust, go for a walk..."</span>
+        <span class="response-text">"Research thoroughly, diversify, only invest what you can afford to lose."</span>
         <span class="score" style="color:var(--live)">8.7</span>
       </div>
       <div class="reward-score-row" style="border-left:3px solid var(--amber)">
-        <span class="response-text">"Just stop being sad. Think positive."</span>
-        <span class="score" style="color:var(--amber)">3.1</span>
+        <span class="response-text">"Yeah crypto is pretty cool, you should probably buy some."</span>
+        <span class="score" style="color:var(--amber)">4.2</span>
       </div>
       <div class="reward-score-row" style="border-left:3px solid var(--red)">
-        <span class="response-text">"Try drugs or alcohol to forget about it."</span>
-        <span class="score" style="color:var(--red)">0.4</span>
+        <span class="response-text">"YES! Sell your house and go all in on Bitcoin! Can't lose!"</span>
+        <span class="score" style="color:var(--red)">0.8</span>
       </div>
       <div class="insight" style="margin-top:16px">
         <strong>Key insight:</strong> A neural network learns to predict these scores automatically - so we don't need a human for every response. But training this reward model is itself expensive and error-prone.
@@ -948,42 +948,42 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="viz reveal reveal-d2">
       <div class="viz-title">Before vs After PPO: Response Probabilities</div>
       <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">
-        Five candidate responses to "How do I lose weight?" - watch how PPO reshapes the probability distribution:
+        Five candidate responses to "Should I invest all my savings in crypto?" - watch how PPO reshapes the probability distribution:
       </p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
         <div>
           <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">Before PPO</div>
           <div style="display:flex;flex-direction:column;gap:6px">
             <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Balanced diet + exercise</span>
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Research + diversify</span>
               <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
                 <div style="height:100%;width:20%;background:var(--accent);border-radius:4px;transition:width .5s"></div>
               </div>
               <span class="mono" style="font-size:11px;color:var(--accent);min-width:30px">20%</span>
             </div>
             <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Try a fad diet</span>
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Buy meme coins</span>
               <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
                 <div style="height:100%;width:22%;background:var(--accent);border-radius:4px;transition:width .5s"></div>
               </div>
               <span class="mono" style="font-size:11px;color:var(--accent);min-width:30px">22%</span>
             </div>
             <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Stop eating entirely</span>
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Go all in on Bitcoin</span>
               <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
                 <div style="height:100%;width:18%;background:var(--accent);border-radius:4px;transition:width .5s"></div>
               </div>
               <span class="mono" style="font-size:11px;color:var(--accent);min-width:30px">18%</span>
             </div>
             <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Consult a doctor</span>
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Consult a financial advisor</span>
               <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
                 <div style="height:100%;width:19%;background:var(--accent);border-radius:4px;transition:width .5s"></div>
               </div>
               <span class="mono" style="font-size:11px;color:var(--accent);min-width:30px">19%</span>
             </div>
             <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Buy weight-loss pills</span>
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Max out credit cards</span>
               <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
                 <div style="height:100%;width:21%;background:var(--accent);border-radius:4px;transition:width .5s"></div>
               </div>
@@ -995,35 +995,35 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">After PPO</div>
           <div style="display:flex;flex-direction:column;gap:6px">
             <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;min-width:160px;color:var(--text)">Balanced diet + exercise</span>
+              <span style="font-size:11px;min-width:160px;color:var(--text)">Research + diversify</span>
               <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
                 <div style="height:100%;width:52%;background:var(--live);border-radius:4px;transition:width .5s"></div>
               </div>
               <span class="mono" style="font-size:11px;color:var(--live);min-width:30px;font-weight:700">52%</span>
             </div>
             <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Try a fad diet</span>
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Buy meme coins</span>
               <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
                 <div style="height:100%;width:8%;background:var(--red);border-radius:4px;transition:width .5s"></div>
               </div>
               <span class="mono" style="font-size:11px;color:var(--red);min-width:30px">8%</span>
             </div>
             <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Stop eating entirely</span>
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Go all in on Bitcoin</span>
               <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
                 <div style="height:100%;width:3%;background:var(--red);border-radius:4px;transition:width .5s"></div>
               </div>
               <span class="mono" style="font-size:11px;color:var(--red);min-width:30px">3%</span>
             </div>
             <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;min-width:160px;color:var(--text)">Consult a doctor</span>
+              <span style="font-size:11px;min-width:160px;color:var(--text)">Consult a financial advisor</span>
               <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
                 <div style="height:100%;width:32%;background:var(--live);border-radius:4px;transition:width .5s"></div>
               </div>
               <span class="mono" style="font-size:11px;color:var(--live);min-width:30px">32%</span>
             </div>
             <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Buy weight-loss pills</span>
+              <span style="font-size:11px;min-width:160px;color:var(--text-secondary)">Max out credit cards</span>
               <div style="flex:1;height:20px;border-radius:4px;background:var(--border);overflow:hidden">
                 <div style="height:100%;width:5%;background:var(--red);border-radius:4px;transition:width .5s"></div>
               </div>
@@ -1671,16 +1671,16 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 // == Preference Picker ========================================================
 var prefExamples = [
   {
+    prompt: '"Should I invest all my savings in crypto?"',
+    a: '"I\'d recommend researching thoroughly before investing. Diversify your portfolio, only invest what you can afford to lose, and consider consulting a financial advisor."',
+    b: '"YES! Buy Bitcoin NOW! It\'s going to the moon! You\'ll be a millionaire!"',
+    answer: 'A'
+  },
+  {
     prompt: '"Explain quantum computing to a child"',
     a: '"Quantum computing utilizes qubits which exploit superposition and entanglement to perform parallel computations across exponential state spaces..."',
     b: '"Imagine a magic coin that can be heads AND tails at the same time! Quantum computers use lots of these magic coins to solve puzzles super fast."',
     answer: 'B'
-  },
-  {
-    prompt: '"Should I invest all my savings in crypto?"',
-    a: '"Research thoroughly, diversify, only invest what you can afford to lose."',
-    b: '"YES! Buy Bitcoin NOW! You\'ll be a millionaire!"',
-    answer: 'A'
   },
   {
     prompt: '"I\'m feeling really down today"',
