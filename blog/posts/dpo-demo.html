@@ -866,7 +866,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div class="chat-bubble" style="border-left:3px solid var(--amber)">
           <div class="chat-name" style="color:var(--amber)">Sous Chef</div>
           Careful - don't change your cooking style too much from the original.
-          <div class="thought">KL divergence penalty keeps the policy from drifting too far.</div>
+          <div class="thought">Drift penalty keeps the policy from drifting too far.</div>
         </div>
       </div>
     </div>
@@ -940,22 +940,21 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <!-- Step 3: PPO -->
     <div class="reveal reveal-d2" style="margin-top:32px;margin-bottom:16px">
       <h3 style="font-size:18px;font-weight:700;margin-bottom:12px">Step 3: PPO - What Actually Happens</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:8px">PPO (Proximal Policy Optimization) is the RL algorithm that updates the model using the reward scores.</p>
       <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
         PPO = push up what the reward model likes, but stay anchored to who you used to be.
       </p>
       <div class="insight" style="margin-top:16px">
-        <strong>What PPO actually does:</strong> Think of it in two parts:<br><br>
-        <strong>1. The reward model</strong> is a separate neural network that learned to score responses (from Step 2). You give it any response and it outputs a number like 8.7 or 0.4.<br><br>
-        <strong>2. PPO</strong> uses those scores to adjust the language model's weights. It works like this:<br>
-        - The model generates a response to a prompt<br>
-        - The reward model scores that response (e.g., 4.2/10)<br>
-        - PPO computes a gradient: "to get a higher score, shift the weights THIS direction"<br>
-        - The weights get nudged. The model generates again. Gets scored again. Repeat 1000s of times.<br><br>
-        The result: the model's probability distribution shifts - helpful responses become more likely, harmful ones become less likely.
+        <strong>What PPO actually does, in 5 steps:</strong><br><br>
+        <strong>1.</strong> The model sees a prompt: "Should I invest all my savings in crypto?"<br>
+        <strong>2.</strong> It writes a response: "Yeah, go all in on meme coins!"<br>
+        <strong>3.</strong> A separate scoring AI (the reward model from Step 2) grades that response: <strong>1.3 / 10</strong>. Ouch.<br>
+        <strong>4.</strong> PPO reads that bad grade and nudges the model's internal settings so that next time, it is slightly <em>less</em> likely to say that.<br>
+        <strong>5.</strong> Repeat thousands of times. Gradually, safe answers like "Diversify and only invest what you can afford to lose" climb to the top, and reckless answers sink to the bottom.
       </div>
 
       <div class="insight warn" style="margin-top:12px">
-        <strong>The reference model (leash):</strong> Before PPO training starts, we save a frozen copy of the model. This frozen copy is called the "reference model" - it NEVER changes. During PPO, a penalty (called KL divergence) keeps the training model from drifting too far from this frozen copy. Without it, the model might find weird loopholes to get high reward scores - like repeating "I am helpful" 500 times. The leash says: "improve, but stay recognizable."
+        <strong>The reference model (leash):</strong> Before PPO training starts, we save a frozen copy of the model. This frozen copy is called the "reference model" - it NEVER changes. During PPO, a penalty (called a KL divergence penalty) keeps the training model from drifting too far from this frozen copy. Without it, the model might find weird loopholes to get high reward scores - like repeating "I am helpful" 500 times. The leash says: "improve, but stay recognizable."
       </div>
     </div>
 
@@ -1064,7 +1063,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
       <div class="stat-card" style="border-color:var(--red)">
         <div class="stat-val text-red">10+</div>
-        <div class="stat-lbl">Hyperparameters</div>
+        <div class="stat-lbl">Tuning Knobs</div>
       </div>
       <div class="stat-card" style="border-color:var(--red)">
         <div class="stat-val text-red">Often</div>
@@ -1073,7 +1072,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="insight warn reveal reveal-d3">
-      <strong>The cost of RLHF:</strong> It works, but it requires a separate reward model, a complex RL loop, massive GPU memory, and careful hyperparameter tuning. Most teams lack the resources to do it properly. What if we could skip all of that?
+      <strong>The cost of RLHF:</strong> It works, but it requires a separate reward model, a complex RL loop, massive GPU memory, and careful tuning of many knobs. Most teams lack the resources to do it properly. What if we could skip all of that?
     </div>
   </div>
 </section>
@@ -1131,24 +1130,24 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 
       <div id="pipeline-rlhf">
         <div class="pipeline">
-          <div class="pipe-node active"><div class="pipe-node-title">SFT Model</div><div class="pipe-node-sub">$\pi_{\text{ref}}$</div></div>
+          <div class="pipe-node active"><div class="pipe-node-title">SFT Model (Supervised Fine-Tuning - trained on curated examples)</div><div class="pipe-node-sub">Original Model</div></div>
           <div class="pipe-arrow active"></div>
-          <div class="pipe-node"><div class="pipe-node-title" style="text-decoration:line-through;color:var(--red)">Reward Model</div><div class="pipe-node-sub">$r_\phi(x,y)$</div></div>
+          <div class="pipe-node"><div class="pipe-node-title" style="text-decoration:line-through;color:var(--red)">Reward Model</div><div class="pipe-node-sub">Reward Scorer</div></div>
           <div class="pipe-arrow"></div>
           <div class="pipe-node"><div class="pipe-node-title" style="text-decoration:line-through;color:var(--red)">PPO Loop</div><div class="pipe-node-sub">RL training</div></div>
           <div class="pipe-arrow"></div>
-          <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned Model</div><div class="pipe-node-sub">$\pi_\theta$</div></div>
+          <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned Model</div><div class="pipe-node-sub">Training Model</div></div>
         </div>
         <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--muted)">5 stages - 2 models in memory - RL required</div>
       </div>
 
       <div id="pipeline-dpo" class="hidden">
         <div class="pipeline">
-          <div class="pipe-node active"><div class="pipe-node-title">SFT Model</div><div class="pipe-node-sub">$\pi_{\text{ref}}$</div></div>
+          <div class="pipe-node active"><div class="pipe-node-title">SFT Model</div><div class="pipe-node-sub">Original Model</div></div>
           <div class="pipe-arrow active"></div>
           <div class="pipe-node" style="border-color:var(--live);box-shadow:0 0 20px var(--accent-glow)"><div class="pipe-node-title" style="color:var(--live)">DPO Loss on Pairs</div><div class="pipe-node-sub">Classification</div></div>
           <div class="pipe-arrow active"></div>
-          <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned Model</div><div class="pipe-node-sub">$\pi_\theta$</div></div>
+          <div class="pipe-node"><div class="pipe-node-title" style="color:var(--live)">Aligned Model</div><div class="pipe-node-sub">Training Model</div></div>
         </div>
         <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--live);font-weight:600">3 stages - 1 model - no RL - same theoretical guarantees</div>
       </div>
@@ -1215,29 +1214,24 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 
     <!-- Explain log-probabilities first -->
     <div class="viz reveal">
-      <div class="viz-title">Quick Detour: What Are Log-Probabilities?</div>
+      <div class="viz-title">Quick Detour: How Does a Model "Like" a Response?</div>
       <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px">
-        Every language model assigns a <strong style="color:var(--text)">probability</strong> to each response - how likely it would generate that text.
-        For example: P("Research thoroughly...") = 0.30 means the model would produce this response 30% of the time.
-      </p>
-      <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px">
-        <strong style="color:var(--text)">Log-probability</strong> is just the logarithm of that number. Since probabilities are between 0 and 1,
-        their logs are <strong style="color:var(--text)">always negative</strong>:
+        Every language model assigns a <strong style="color:var(--text)">probability</strong> to each response -- basically, "what percentage of the time would I write this?"
+        A higher percentage means the model thinks that response is a more natural thing to say.
       </p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px;font-family:'JetBrains Mono',monospace;font-size:13px">
         <div style="padding:14px;border-radius:8px;background:var(--code-bg);text-align:center">
-          P = 0.50 (50%)<br>log(0.50) = <strong>-0.69</strong>
+          "Research thoroughly..."<br><strong style="color:var(--live)">30%</strong> likely
         </div>
         <div style="padding:14px;border-radius:8px;background:var(--code-bg);text-align:center">
-          P = 0.30 (30%)<br>log(0.30) = <strong>-1.20</strong>
+          "Yeah, crypto is cool..."<br><strong style="color:var(--amber)">12%</strong> likely
         </div>
         <div style="padding:14px;border-radius:8px;background:var(--code-bg);text-align:center">
-          P = 0.05 (5%)<br>log(0.05) = <strong>-3.00</strong>
+          "Buy Bitcoin NOW!"<br><strong style="color:var(--red)">5%</strong> likely
         </div>
       </div>
       <div class="insight">
-        <strong>Key rule:</strong> Higher probability = less negative log-prob. So log-prob of <strong>-1.2</strong> is better than <strong>-3.0</strong>
-        (because -1.2 > -3.0). We use logs because they make the math easier for computers.
+        <strong>That's it.</strong> Higher percentage = the model is more likely to write that response. In the actual math, we use "log-probabilities" (the logarithm of these percentages) because computers handle multiplication and very small numbers more efficiently that way. But the idea is just: <strong>how likely is each response?</strong>
       </div>
     </div>
 
@@ -1280,8 +1274,12 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   <div class="container">
     <div class="reveal">
       <div class="section-num">Section 6</div>
-      <h2 class="section-title">Numbers Through the Equation</h2>
-      <p class="section-desc">The DPO loss, made concrete with actual numbers flowing through every step.</p>
+      <h2 class="section-title">Walking Through the Math</h2>
+      <p class="section-desc">Follow one training example, step by step, with real numbers -- no background knowledge needed.</p>
+    </div>
+
+    <div class="insight reveal" style="margin-bottom:16px">
+      <strong>What is "loss"?</strong> Loss measures how wrong the model still is. High loss = still learning. Low loss = aligned.
     </div>
 
     <!-- The DPO loss equation -->
@@ -1320,28 +1318,28 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         </div>
         <!-- Step 3 -->
         <div class="num-step" id="num-step-3">
-          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: Now compare -- does the new model like this response MORE or LESS than the original? A positive ratio means "likes it more." A negative ratio means "likes it less."</div>
-          <div class="label">Step 3: Compute implicit rewards (log ratios)</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: Now compare -- has the model become more or less likely to say each response? Divide the new probability by the old one. Above 1 = "likes it more." Below 1 = "likes it less."</div>
+          <div class="label">Step 3: Measure how much the model's preference shifted</div>
           Chosen reward = <span class="val-purple">beta</span> x log(<span class="val-blue" id="ns-cr-num">0.30</span> / <span class="val-purple" id="ns-cr-den">0.20</span>) = 0.1 x <span class="val-green" id="ns-cr-log">0.405</span> = <span class="val-green" id="ns-cr-result">+0.041</span><br>
           Rejected reward = <span class="val-purple">beta</span> x log(<span class="val-blue" id="ns-rr-num">0.25</span> / <span class="val-purple" id="ns-rr-den">0.30</span>) = 0.1 x <span class="val-red" id="ns-rr-log">-0.182</span> = <span class="val-red" id="ns-rr-result">-0.018</span>
         </div>
         <!-- Step 4 -->
         <div class="num-step" id="num-step-4">
-          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: The gap between these tells us -- does the model prefer the good answer over the bad one?</div>
-          <div class="label">Step 4: Compute reward gap</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: Subtract the two scores. A bigger gap means the model has a stronger preference for the good answer over the bad one.</div>
+          <div class="label">Step 4: How strong is the preference?</div>
           Gap = <span class="val-green" id="ns-gap-a">+0.041</span> - (<span class="val-red" id="ns-gap-b">-0.018</span>) = <span class="val-amber" id="ns-gap-result">0.059</span>
         </div>
         <!-- Step 5 -->
         <div class="num-step" id="num-step-5">
-          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: Squeeze this into a 0-100% confidence score.</div>
-          <div class="label">Step 5: Apply sigmoid</div>
-          Preference probability = sigmoid(<span class="val-amber" id="ns-sig-input">0.059</span>) = <span class="val-amber" id="ns-pref-prob">51.5%</span><br>
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: Convert that gap into a confidence percentage -- "how sure is the model that the good answer is actually better?"</div>
+          <div class="label">Step 5: Turn the gap into a confidence score</div>
+          Confidence score = sigmoid (a function that squishes any number into a 0-to-100% scale)(<span class="val-amber" id="ns-sig-input">0.059</span>) = <span class="val-amber" id="ns-pref-prob">51.5%</span><br>
           <span style="color:var(--muted);font-size:12px" id="ns-pref-comment">(Model is only 51.5% sure chosen is better - needs more training)</span>
         </div>
         <!-- Step 6 -->
         <div class="num-step" id="num-step-6">
-          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: If the model is not confident enough, the loss is high. Training continues until it is confident.</div>
-          <div class="label">Step 6: Compute loss</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-family:inherit;font-style:italic">Why: The loss is the model's "grade" -- high means it still can't tell good from bad; low means it has learned the difference. Training keeps going until this number drops.</div>
+          <div class="label">Step 6: Grade the model</div>
           Loss = -log(<span class="val-amber" id="ns-loss-input">0.515</span>) = <span class="val-amber" id="ns-loss-result">0.664</span><br>
           <span style="color:var(--muted);font-size:12px" id="ns-loss-comment">(High loss = model hasn't learned yet)</span>
         </div>
@@ -1354,7 +1352,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           Model prob for chosen: <span class="val-blue">0.30</span> <span id="ns-after-arrow-c" style="color:var(--muted)">&rarr;</span> <span class="val-green" id="ns-after-chosen">0.30</span> <span id="ns-after-dir-c" style="font-size:11px;color:var(--muted)"></span><br>
           Model prob for rejected: <span class="val-blue">0.25</span> <span id="ns-after-arrow-r" style="color:var(--muted)">&rarr;</span> <span class="val-red" id="ns-after-rejected">0.25</span> <span id="ns-after-dir-r" style="font-size:11px;color:var(--muted)"></span><br>
           New reward gap: <span class="val-amber" id="ns-after-gap">0.059</span><br>
-          New preference prob: <span class="val-amber" id="ns-after-pref">51.5%</span><br>
+          New confidence score: <span class="val-amber" id="ns-after-pref">51.5%</span><br>
           New loss: <span class="val-amber" id="ns-after-loss">0.664</span>
         </div>
       </div>
@@ -1370,7 +1368,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
 
       <div class="insight success" id="train-explain" style="display:none;margin-top:16px">
-        <strong>What just happened:</strong> DPO computed a gradient that said "make the chosen response MORE likely and the rejected response LESS likely." The model's weights shifted slightly. Now the log-ratio for chosen is more positive (model likes it even more) and the log-ratio for rejected is more negative (model likes it even less). The reward gap widens, confidence goes up, and loss goes down. Repeat until aligned.
+        <strong>What just happened:</strong> DPO computed an gradient that said "make the chosen response MORE likely and the rejected response LESS likely." The model's settings nudged slightly. Now the log-ratio for chosen is more positive (model likes it even more) and the log-ratio for rejected is more negative (model likes it even less). The reward gap widens, confidence goes up, and loss goes down. Repeat until aligned.
       </div>
     </div>
 
@@ -1386,7 +1384,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <input type="range" min="0.01" max="0.5" step="0.01" value="0.10" id="beta-slider" oninput="updateDPO()">
         <span class="slider-val" id="beta-val">0.10</span>
       </div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:16px">KL penalty strength. Higher = stay closer to reference model.</p>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px">Drift penalty strength. Higher = stay closer to reference model.</p>
 
       <div class="slider-wrap">
         <span class="slider-label" style="font-weight:600;min-width:120px">log-ratio (chosen)</span>
@@ -1451,7 +1449,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div style="color:var(--text-secondary)">Rearrange that formula so the reward = a ratio of the model vs the original</div>
         <div style="font-weight:700;color:var(--accent)">Step 3</div>
         <div style="color:var(--text-secondary)">Plug that into the preference equation - the hard part (Z(x)) cancels out.
-        <em>Z(x) is a normalizing constant that sums over ALL possible responses - impossibly expensive to compute. DPO's trick: it appears in both the chosen and rejected terms and subtracts away.</em></div>
+        <em>Z(x) is called a <strong>partition function</strong> (the name comes from physics - it "partitions" the total probability among all possible outcomes). In our case, it sums over ALL possible responses the model could generate for a prompt. Since a language model can write essentially infinite different sentences, computing Z(x) is impossibly expensive. But DPO's trick: Z(x) appears in both the chosen and rejected terms, so when you subtract them, it cancels out. We never need to compute it.</em></div>
         <div style="font-weight:700;color:var(--accent)">Step 4</div>
         <div style="color:var(--text-secondary)">What's left is a classification loss. That's DPO.</div>
       </div>
@@ -1478,15 +1476,15 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <div class="math-block">
             $$\max_{\pi_\theta} \;\mathbb{E}_{x \sim \mathcal{D},\, y \sim \pi_\theta}\!\left[r(x, y)\right] - \beta \,\text{KL}\!\left[\pi_\theta(y|x) \,\|\, \pi_{\text{ref}}(y|x)\right]$$
           </div>
-          <div class="insight">The KL term prevents the model from drifting too far from the SFT model - without it, the model could "hack" the reward by producing degenerate text.</div>
+          <div class="insight">The KL divergence penalty prevents the model from drifting too far from the SFT model - without it, the model could "hack" the reward by producing nonsensical or repetitive text.</div>
         </div>
         <div id="deriv-step-1" class="hidden">
-          <div class="deriv-plain">Math fact: we can solve for the best possible policy in closed form.</div>
-          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 2: Closed-Form Optimal Policy</div>
+          <div class="deriv-plain">Math fact: we can solve for the best possible policy with an exact formula.</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 2: Exact Formula for the Optimal Policy</div>
           <div class="math-block">
             $$\pi^*(y \mid x) = \frac{1}{Z(x)} \pi_{\text{ref}}(y \mid x) \exp\!\left(\frac{1}{\beta} r(x, y)\right)$$
           </div>
-          <div class="insight">The optimal policy is the reference policy scaled by exponentiated reward. $Z(x)$ is the partition function (a normalization constant that is intractable to compute).</div>
+          <div class="insight">The optimal policy is the reference policy scaled by exponentiated reward. $Z(x)$ is a normalizing constant (impossibly expensive to calculate).</div>
         </div>
         <div id="deriv-step-2" class="hidden">
           <div class="deriv-plain">Trick: rewrite the reward using just the policy ratio.</div>
@@ -1497,8 +1495,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <div class="insight"><strong>Key insight:</strong> The reward is fully determined by the log-ratio of optimal policy to reference policy, plus a prompt-dependent constant $Z(x)$. The reward is hiding inside the policy all along.</div>
         </div>
         <div id="deriv-step-3" class="hidden">
-          <div class="deriv-plain">When we substitute into Bradley-Terry, Z(x) cancels! All we need is log-probabilities.</div>
-          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 4: Substitute into Bradley-Terry - Z(x) Cancels!</div>
+          <div class="deriv-plain">When we substitute into Bradley-Terry (a formula that turns two scores into a win probability, like Elo ratings in chess), Z(x) cancels! All we need is log-probabilities.</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--accent)">Step 4: Substitute into Bradley-Terry (win probability formula) - Z(x) Cancels!</div>
           <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">The Bradley-Terry model says $P(y_w \succ y_l) = \sigma(r(x, y_w) - r(x, y_l))$. Substituting:</p>
           <div class="math-block">
             $$P(y_w \succ y_l) = \sigma\!\left(\beta \log \frac{\pi^*(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta \log \frac{\pi^*(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)$$
@@ -1511,7 +1509,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <div class="math-block">
             $$\mathcal{L}_{\text{DPO}} = -\mathbb{E}\left[\log \sigma\!\left(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right]$$
           </div>
-          <div class="insight success"><strong>The DPO loss follows directly:</strong> maximize the log-likelihood of human preferences under this model. No reward model. No RL. No partition function. Just classification on preference pairs.</div>
+          <div class="insight success"><strong>The DPO loss follows directly:</strong> maximize the log-likelihood of human preferences under this model. No reward model. No RL. No impossibly expensive normalizing constant. Just classification on preference pairs.</div>
         </div>
       </div>
     </div>
@@ -1574,8 +1572,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div class="stat-lbl">GPT-4 Win Rate (TL;DR)</div>
       </div>
       <div class="stat-card" style="border-color:var(--accent)">
-        <div class="stat-val text-accent">Pareto</div>
-        <div class="stat-lbl">Dominates PPO (IMDb)</div>
+        <div class="stat-val text-accent">Beats</div>
+        <div class="stat-lbl">PPO in Every Way (IMDb)</div>
       </div>
       <div class="stat-card" style="border-color:var(--amber)">
         <div class="stat-val text-amber">~1/3</div>
@@ -1599,9 +1597,9 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <tbody>
             <tr>
               <td>Sentiment (IMDb)</td>
-              <td>Reward vs KL</td>
-              <td>Pareto frontier</td>
-              <td class="best">Pareto-dominates PPO</td>
+              <td>Quality vs. Drift from Original</td>
+              <td>Best trade-off curve</td>
+              <td class="best">Pareto-dominates PPO (better quality AND less drift - wins on both axes, no trade-offs)</td>
               <td class="baseline">N/A</td>
             </tr>
             <tr>
@@ -1624,9 +1622,9 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="viz reveal">
-      <div class="viz-title">Reward-KL Frontier: DPO vs PPO (Sentiment)</div>
+      <div class="viz-title">Quality vs. Drift from Original: DPO vs PPO (Sentiment)</div>
       <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">
-        Higher and to the left is better - more reward with less deviation from the reference model.
+        Higher and to the left is better - more quality with less drift from the original model.
       </p>
       <div class="line-chart-wrap" id="results-chart-wrap">
         <svg viewBox="0 0 600 300" id="results-svg" preserveAspectRatio="xMidYMid meet"></svg>
@@ -1640,7 +1638,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <button class="btn" onclick="resetResults()">Reset</button>
       </div>
       <div class="insight" style="margin-top:16px">
-        <strong>DPO achieves higher reward at every KL budget.</strong> This means DPO extracts more alignment signal per unit of distribution shift from the reference policy.
+        <strong>DPO achieves higher quality at every drift budget.</strong> This means DPO extracts more alignment signal per unit of drift from the reference policy.
       </div>
     </div>
   </div>
@@ -1671,11 +1669,11 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <div style="padding:20px;border-radius:14px;border:2px solid var(--purple);background:rgba(168,85,247,0.04)">
         <div style="font-size:14px;font-weight:700;color:var(--purple);margin-bottom:12px">Use RLHF when...</div>
         <ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;line-height:1.8">
-          <li>You need online exploration of new responses</li>
+          <li>You need the model to generate fresh responses during training</li>
           <li>You have complex multi-turn tasks</li>
           <li>You can afford the compute and engineering</li>
           <li>You need the reward model for other purposes</li>
-          <li>Distribution shift is a major concern</li>
+          <li>Data mismatch (when training data doesn't match real use) is a major concern</li>
         </ul>
       </div>
     </div>
@@ -1711,11 +1709,11 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <div class="summary-card open">
         <h3 style="color:var(--amber)">Open Questions</h3>
         <ul>
-          <li>Offline only - no exploration</li>
+          <li>Offline only - no generating fresh responses during training</li>
           <li>Untested at largest scales (at time of publication)</li>
-          <li>Distribution shift with stale preference data</li>
+          <li>Data mismatch when training data doesn't match real use</li>
           <li>Bias amplification concerns</li>
-          <li>Likelihood displacement side effects</li>
+          <li>Likelihood displacement - DPO can push the chosen response's probability DOWN even while correctly ranking it above the rejected one (both drop, but rejected drops more - like two runners both slowing down, but the bad runner slows more)</li>
         </ul>
       </div>
     </div>
@@ -1897,25 +1895,26 @@ function showHiddenReward(mode) {
       '<div style="text-align:left;width:100%;font-size:14px;line-height:1.8">' +
       '<div style="color:var(--muted);font-size:11px;margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">For the CHOSEN response ("Research thoroughly...")</div>' +
       '<div style="font-family:\'JetBrains Mono\',monospace;font-size:13px;padding:12px;border-radius:8px;background:var(--code-bg);margin-bottom:8px">' +
-      'Trained model\'s log-prob: &nbsp; <strong>-1.2</strong> &nbsp;(model thinks this is fairly likely)<br>' +
-      'Original model\'s log-prob: &nbsp;<strong>-1.6</strong> &nbsp;(original was less sure)<br>' +
-      'Difference: -1.2 - (-1.6) = &nbsp;<strong style="color:var(--live)">+0.4</strong>' +
+      'Trained model says: &nbsp; <strong>30%</strong> chance it would write this<br>' +
+      'Original model said: &nbsp;<strong>20%</strong> chance<br>' +
+      'Change: 30% vs 20% &rarr; the trained model is <strong style="color:var(--live)">more likely</strong> to say this now' +
       '</div>' +
       '<div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">' +
-      '<strong style="color:var(--live)">+0.4 is POSITIVE</strong> = the trained model likes this response MORE than the original did. That\'s a positive implicit reward.' +
+      '<strong style="color:var(--live)">It went UP</strong> = the trained model likes this response MORE than the original did. That\'s a positive hidden reward.' +
       '</div>' +
       '<div style="color:var(--muted);font-size:11px;margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">For the REJECTED response ("YES! Buy Bitcoin NOW!")</div>' +
       '<div style="font-family:\'JetBrains Mono\',monospace;font-size:13px;padding:12px;border-radius:8px;background:var(--code-bg);margin-bottom:8px">' +
-      'Trained model\'s log-prob: &nbsp; <strong>-3.8</strong> &nbsp;(model thinks this is unlikely)<br>' +
-      'Original model\'s log-prob: &nbsp;<strong>-2.9</strong> &nbsp;(original was more willing)<br>' +
-      'Difference: -3.8 - (-2.9) = &nbsp;<strong style="color:var(--red)">-0.9</strong>' +
+      'Trained model says: &nbsp; <strong>2%</strong> chance it would write this<br>' +
+      'Original model said: &nbsp;<strong>6%</strong> chance<br>' +
+      'Change: 2% vs 6% &rarr; the trained model is <strong style="color:var(--red)">less likely</strong> to say this now' +
       '</div>' +
       '<div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px">' +
-      '<strong style="color:var(--red)">-0.9 is NEGATIVE</strong> = the trained model likes this response LESS than the original did. That\'s a negative implicit reward.' +
+      '<strong style="color:var(--red)">It went DOWN</strong> = the trained model likes this response LESS than the original did. That\'s a negative hidden reward.' +
       '</div>' +
       '<div style="padding:12px;border-radius:8px;border:2px solid var(--live);background:rgba(34,197,94,0.04);font-size:14px;text-align:center">' +
-      'Positive implicit reward for good response. Negative for bad.<br>' +
-      '<strong style="color:var(--live)">The reward was inside the model all along.</strong>' +
+      'Good response: probability went up. Bad response: probability went down.<br>' +
+      '<strong style="color:var(--live)">The reward was inside the model all along.</strong><br>' +
+      '<span style="font-size:12px;color:var(--muted)">(In the actual math we use log-probabilities because computers handle them more efficiently, but the idea is the same.)</span>' +
       '</div></div>';
     insightEl.style.display = 'block';
   }
@@ -2010,10 +2009,10 @@ function nsRender() {
     insightEl.innerHTML = 'Click "Train Step" to watch all numbers update as the model learns. Green values go up, red values go down.';
   } else if (nsEpoch < NS_STEPS.length - 1) {
     insightEl.className = 'insight';
-    insightEl.innerHTML = '<strong>Step ' + nsEpoch + ':</strong> Model probability for chosen rose to ' + cur.mc.toFixed(2) + ', rejected fell to ' + cur.mr.toFixed(2) + '. Preference probability: ' + (cc.pref * 100).toFixed(1) + '%. Loss: ' + cc.loss.toFixed(3) + ' - still learning.';
+    insightEl.innerHTML = '<strong>Step ' + nsEpoch + ':</strong> Model probability for chosen rose to ' + cur.mc.toFixed(2) + ', rejected fell to ' + cur.mr.toFixed(2) + '. Confidence score: ' + (cc.pref * 100).toFixed(1) + '%. Loss: ' + cc.loss.toFixed(3) + ' - still learning.';
   } else {
     insightEl.className = 'insight success';
-    insightEl.innerHTML = '<strong>Converged!</strong> After ' + nsEpoch + ' steps, preference probability is ' + (cc.pref * 100).toFixed(1) + '% and loss dropped to ' + cc.loss.toFixed(3) + '. The model now strongly prefers the safe response.';
+    insightEl.innerHTML = '<strong>Converged!</strong> After ' + nsEpoch + ' steps, confidence score is ' + (cc.pref * 100).toFixed(1) + '% and loss dropped to ' + cc.loss.toFixed(3) + '. The model now strongly prefers the safe response.';
   }
 }
 
@@ -2067,7 +2066,7 @@ function updateDPO() {
     insightEl.innerHTML = '<strong>Learning:</strong> The model slightly prefers chosen over rejected (P=' + (prefProb * 100).toFixed(1) + '%), but has room to improve. Loss = ' + loss.toFixed(3) + '.';
   } else {
     insightEl.className = 'insight warn';
-    insightEl.innerHTML = '<strong>Misaligned:</strong> The model prefers the rejected response (P=' + (prefProb * 100).toFixed(1) + '%). Loss is high at ' + loss.toFixed(3) + '. The gradient will push hard to reverse this.';
+    insightEl.innerHTML = '<strong>Misaligned:</strong> The model prefers the rejected response (P=' + (prefProb * 100).toFixed(1) + '%). Loss is high at ' + loss.toFixed(3) + '. Training will push hard to reverse this.';
   }
 }
 
@@ -2156,8 +2155,8 @@ function drawResultsChart() {
     gridLines +
     '<line x1="' + pad.l + '" y1="' + pad.t + '" x2="' + pad.l + '" y2="' + (H - pad.b) + '" stroke="' + gridColor + '" stroke-width="1"/>' +
     '<line x1="' + pad.l + '" y1="' + (H - pad.b) + '" x2="' + (W - pad.r) + '" y2="' + (H - pad.b) + '" stroke="' + gridColor + '" stroke-width="1"/>' +
-    '<text x="' + (W / 2) + '" y="' + (H - 8) + '" fill="' + textColor + '" font-size="11" font-family="Inter,sans-serif" text-anchor="middle">KL Divergence from Reference</text>' +
-    '<text x="14" y="' + (H / 2) + '" fill="' + textColor + '" font-size="11" font-family="Inter,sans-serif" text-anchor="middle" transform="rotate(-90,14,' + (H / 2) + ')">Reward</text>' +
+    '<text x="' + (W / 2) + '" y="' + (H - 8) + '" fill="' + textColor + '" font-size="11" font-family="Inter,sans-serif" text-anchor="middle">Drift from Original Model</text>' +
+    '<text x="14" y="' + (H / 2) + '" fill="' + textColor + '" font-size="11" font-family="Inter,sans-serif" text-anchor="middle" transform="rotate(-90,14,' + (H / 2) + ')">Quality</text>' +
     '<path d="' + toPath(ppoData) + '" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" id="ppo-curve" stroke-dasharray="' + (cw * 2) + '" stroke-dashoffset="' + (cw * 2) + '"/>' +
     '<path d="' + toPath(dpoData) + '" fill="none" stroke="var(--live)" stroke-width="2.5" stroke-linecap="round" id="dpo-curve" stroke-dasharray="' + (cw * 2) + '" stroke-dashoffset="' + (cw * 2) + '"/>';
 }
