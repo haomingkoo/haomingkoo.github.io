@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Haoming Koo - AI Systems Engineer Blog</title>
+    <link>https://kooexperience.com/blog/</link>
+    <description>Blog posts about AI, ML, and building production systems by Haoming Koo.</description>
+    <language>en-sg</language>
+    <atom:link href="https://kooexperience.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>What Mood Is the Market In? An Interactive Guide to HMM Regime Detection</title>
+      <link>https://kooexperience.com/blog/posts/hmm-regime.html</link>
+      <description>Markets have moods. A Hidden Markov Model reads the volatility regime (calm, normal, or stormy) so you can trade with the weather, not against it. Interactive walkthrough with live visualizations.</description>
+      <pubDate>Sun, 22 Mar 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/hmm-regime.html</guid>
+    </item>
+    <item>
+      <title>DPO Interactive Demo - Your Language Model is Secretly a Reward Model</title>
+      <link>https://kooexperience.com/blog/posts/dpo-demo.html</link>
+      <description>Interactive walkthrough of Direct Preference Optimization - how to align LLMs with human preferences using just a classification loss. No reward model, no RL, no PPO. Play with the DPO loss calculator and watch training step by step.</description>
+      <pubDate>Sat, 21 Mar 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/dpo-demo.html</guid>
+    </item>
+    <item>
+      <title>What I Learned from a Live LLM Serving Gauntlet</title>
+      <link>https://kooexperience.com/blog/posts/llm-gauntlet.html</link>
+      <description>19 engineers, 19 A100 GPUs, two hours of Locust fire. I tuned 40+ vLLM configs and scraped peer metrics. Then someone with a 30-line cache proxy beat all of us.</description>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/llm-gauntlet.html</guid>
+    </item>
+    <item>
+      <title>LLM Inference: The Theory You Need Before Deploying</title>
+      <link>https://kooexperience.com/blog/posts/llm-inference-theory.html</link>
+      <description>Prefill vs decode. Why memory bandwidth matters more than FLOPS. VRAM budget math. Quantization methods (GPTQ, AWQ, FP8). Batching strategies. The theory behind every LLM serving decision.</description>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/llm-inference-theory.html</guid>
+    </item>
+    <item>
+      <title>Visualizing Weak-Driven Learning: An Interactive WMSS Demo</title>
+      <link>https://kooexperience.com/blog/posts/wmss-demo.html</link>
+      <description>Interactive walkthrough of the WMSS paper — from SFT saturation to logit mixing and gradient amplification. Play with lambda sliders, watch training curves, and understand how weak agents make strong agents stronger.</description>
+      <pubDate>Fri, 13 Mar 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/wmss-demo.html</guid>
+    </item>
+    <item>
+      <title>How 468 Facial Landmarks Decide If You're Passport-Ready</title>
+      <link>https://kooexperience.com/blog/posts/photo-id-studio.html</link>
+      <description>MediaPipe face mesh, rembg segmentation, 25+ compliance checks, and country-specific rules for 6 countries. Here's how Photo ID Studio decides if your face is passport-worthy.</description>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/photo-id-studio.html</guid>
+    </item>
+    <item>
+      <title>How I Built an AI-Powered Stock Market Dashboard</title>
+      <link>https://kooexperience.com/blog/posts/trader-koo.html</link>
+      <description>A deep dive into Trader Koo – from using a pre-trained YOLOv8 model to detect chart patterns, to solving the coordinate mapping problem, to running a five-layer detection ensemble every night.</description>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/trader-koo.html</guid>
+    </item>
+    <item>
+      <title>I Tried to Predict Singapore's Rain and It Humbled Me</title>
+      <link>https://kooexperience.com/blog/posts/lionweather.html</link>
+      <description>Building LionWeather: 8 years of NEA data, LightGBM rainfall prediction, SHAP explainability, animated radar, and a whole lot of lessons about tropical weather.</description>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/lionweather.html</guid>
+    </item>
+  </channel>
+</rss>

@@ -193,6 +193,7 @@
       "description": "Building Photo ID Studio: an AI-powered passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules for Singapore, US, UK, Canada, Australia, and India.",
       "url": "https://kooexperience.com/blog/posts/photo-id-studio.html",
       "datePublished": "2026-03-12",
+      "dateModified": "2026-03-12",
       "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
       "publisher": {"@type": "Person", "name": "Haoming Koo"},
       "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/photo-id-studio.html"}
@@ -950,7 +951,7 @@
     <div class="hp-face-col" style="flex-shrink: 0;">
       <div class="hp-face-container" style="width: 240px; height: 300px; perspective: 800px; display: flex; align-items: center; justify-content: center;">
         <div class="hp-face-inner" style="width: 100%; height: 100%; transition: transform 0.15s ease-out; transform-style: preserve-3d; display: flex; align-items: center; justify-content: center; filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.18));">
-          <svg viewBox="0 0 200 260" width="200" height="260" style="overflow: visible;">
+          <svg viewBox="0 0 200 280" width="200" height="280" style="overflow: visible;">
             <defs>
               <linearGradient id="hp-face-grad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#e0b48a"/>
@@ -961,23 +962,33 @@
                 <stop offset="100%" stop-color="#2d1810"/>
               </linearGradient>
             </defs>
+            <!-- Shoulders -->
+            <path d="M30 280 Q45 250 65 240 Q78 234 85 230 L85 215 L115 215 L115 230 Q122 234 135 240 Q155 250 170 280 Z" fill="#5b7e6b"/>
+            <!-- Neck -->
+            <path d="M85 215 Q85 200 88 195 L88 210 Q90 217 100 217 Q110 217 112 210 L112 195 Q115 200 115 215 Z" fill="#d4a574"/>
+            <!-- Ears -->
             <ellipse cx="38" cy="135" rx="14" ry="22" fill="#d4a574" stroke="#b8916a" stroke-width="1.5"/>
             <ellipse cx="162" cy="135" rx="14" ry="22" fill="#d4a574" stroke="#b8916a" stroke-width="1.5"/>
             <ellipse cx="38" cy="135" rx="8" ry="14" fill="#c4945e" opacity="0.5"/>
             <ellipse cx="162" cy="135" rx="8" ry="14" fill="#c4945e" opacity="0.5"/>
-            <rect x="80" y="210" width="40" height="40" rx="4" fill="#d4a574"/>
+            <!-- Face -->
             <ellipse cx="100" cy="135" rx="62" ry="82" fill="url(#hp-face-grad)" stroke="#b8916a" stroke-width="2"/>
+            <!-- Hair -->
             <path d="M38 110 Q38 45 100 38 Q162 45 162 110 Q155 80 130 72 Q115 66 100 68 Q85 66 70 72 Q45 80 38 110 Z" fill="url(#hp-hair-grad)"/>
+            <!-- Eyebrows -->
             <path d="M65 108 Q75 102 88 106" stroke="#2d1810" stroke-width="2.5" fill="none" stroke-linecap="round"/>
             <path d="M112 106 Q125 102 135 108" stroke="#2d1810" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- Eyes -->
             <ellipse cx="78" cy="125" rx="14" ry="10" fill="white" stroke="#b8916a" stroke-width="1"/>
             <circle cx="80" cy="125" r="5.5" fill="#2d1810"/>
             <circle cx="82" cy="123" r="2" fill="white" opacity="0.7"/>
             <ellipse cx="122" cy="125" rx="14" ry="10" fill="white" stroke="#b8916a" stroke-width="1"/>
             <circle cx="120" cy="125" r="5.5" fill="#2d1810"/>
             <circle cx="122" cy="123" r="2" fill="white" opacity="0.7"/>
+            <!-- Nose -->
             <path d="M100 135 L95 158 Q100 162 105 158 Z" fill="#c4945e" opacity="0.6"/>
             <path d="M95 158 Q100 162 105 158" stroke="#b8916a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Mouth -->
             <path d="M82 180 Q92 190 100 190 Q108 190 118 180" stroke="#a0674a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
             <path d="M82 180 Q92 190 100 190 Q108 190 118 180 Q108 185 100 185 Q92 185 82 180 Z" fill="#c07a5a" opacity="0.4"/>
           </svg>
@@ -1000,7 +1011,7 @@
     @media (max-width: 600px) {
       .hp-layout { flex-direction: column !important; align-items: center !important; }
       .hp-face-container { width: 180px !important; height: 225px !important; }
-      .hp-face-container svg { width: 150px; height: 195px; }
+      .hp-face-container svg { width: 150px; height: 210px; }
     }
     .hp-range-wrap { position: relative; }
     .hp-range-wrap input[type="range"] {
@@ -1286,51 +1297,20 @@
   function personPath(cx, baseY, scale) {
     const s = scale;
     const path = new Path2D();
+    // Body/shoulders
     path.moveTo(cx - 90 * s, baseY);
     path.bezierCurveTo(cx - 95 * s, baseY - 30 * s, cx - 75 * s, baseY - 70 * s, cx - 40 * s, baseY - 85 * s);
-    path.bezierCurveTo(cx - 28 * s, baseY - 92 * s, cx - 22 * s, baseY - 100 * s, cx - 18 * s, baseY - 110 * s);
-    path.lineTo(cx - 16 * s, baseY - 120 * s);
-    path.bezierCurveTo(cx - 42 * s, baseY - 130 * s, cx - 52 * s, baseY - 165 * s, cx - 48 * s, baseY - 195 * s);
-    path.bezierCurveTo(cx - 44 * s, baseY - 230 * s, cx - 25 * s, baseY - 250 * s, cx, baseY - 252 * s);
-    path.bezierCurveTo(cx + 25 * s, baseY - 250 * s, cx + 44 * s, baseY - 230 * s, cx + 48 * s, baseY - 195 * s);
-    path.bezierCurveTo(cx + 52 * s, baseY - 165 * s, cx + 42 * s, baseY - 130 * s, cx + 16 * s, baseY - 120 * s);
-    path.lineTo(cx + 18 * s, baseY - 110 * s);
-    path.bezierCurveTo(cx + 22 * s, baseY - 100 * s, cx + 28 * s, baseY - 92 * s, cx + 40 * s, baseY - 85 * s);
+    path.lineTo(cx - 16 * s, baseY - 105 * s);
+    path.lineTo(cx + 16 * s, baseY - 105 * s);
+    path.lineTo(cx + 40 * s, baseY - 85 * s);
     path.bezierCurveTo(cx + 75 * s, baseY - 70 * s, cx + 95 * s, baseY - 30 * s, cx + 90 * s, baseY);
     path.closePath();
-    return path;
-  }
-
-  function hairPath(cx, baseY, scale) {
-    const s = scale;
-    const path = new Path2D();
-    // Outer edge: from left temple up over crown to right temple
-    path.moveTo(cx - 44 * s, baseY - 180 * s);
-    path.bezierCurveTo(cx - 50 * s, baseY - 210 * s, cx - 46 * s, baseY - 242 * s, cx - 25 * s, baseY - 255 * s);
-    path.bezierCurveTo(cx - 10 * s, baseY - 262 * s, cx + 10 * s, baseY - 262 * s, cx + 25 * s, baseY - 255 * s);
-    path.bezierCurveTo(cx + 46 * s, baseY - 242 * s, cx + 50 * s, baseY - 210 * s, cx + 44 * s, baseY - 180 * s);
-    // Hairline: arc across forehead (high up, above face)
-    path.bezierCurveTo(cx + 35 * s, baseY - 215 * s, cx - 35 * s, baseY - 215 * s, cx - 44 * s, baseY - 180 * s);
-    path.closePath();
-    return path;
-  }
-
-  function facePath(cx, baseY, scale) {
-    const s = scale;
-    const path = new Path2D();
-    path.ellipse(cx, baseY - 172 * s, 30 * s, 38 * s, 0, 0, Math.PI * 2);
-    path.closePath();
-    return path;
-  }
-
-  function neckPath(cx, baseY, scale) {
-    const s = scale;
-    const path = new Path2D();
-    path.moveTo(cx - 14 * s, baseY - 135 * s);
-    path.lineTo(cx - 16 * s, baseY - 110 * s);
-    path.lineTo(cx + 16 * s, baseY - 110 * s);
-    path.lineTo(cx + 14 * s, baseY - 135 * s);
-    path.closePath();
+    // Neck
+    path.rect(cx - 14 * s, baseY - 135 * s, 28 * s, 35 * s);
+    // Back hair (inflated head ellipse)
+    path.ellipse(cx, baseY - 178 * s, 44 * s, 52 * s, 0, 0, Math.PI * 2);
+    // Head
+    path.ellipse(cx, baseY - 172 * s, 40 * s, 50 * s, 0, 0, Math.PI * 2);
     return path;
   }
 
@@ -1358,32 +1338,79 @@
   }
 
   function drawPerson(cx, baseY, scale) {
-    const body = personPath(cx, baseY, scale);
-    const hair = hairPath(cx, baseY, scale);
-    const face = facePath(cx, baseY, scale);
-    const neck = neckPath(cx, baseY, scale);
     const s = scale;
 
-    ctx.fillStyle = '#4a5568'; ctx.fill(body);
-    ctx.fillStyle = '#d4a574'; ctx.fill(neck);
-    ctx.fillStyle = '#d4a574'; ctx.fill(face);
-    ctx.fillStyle = '#3a3a3a'; ctx.fill(hair);
+    // 1. Body/shoulders
+    ctx.fillStyle = '#4a5568';
+    ctx.beginPath();
+    ctx.moveTo(cx - 90 * s, baseY);
+    ctx.bezierCurveTo(cx - 95 * s, baseY - 30 * s, cx - 75 * s, baseY - 70 * s, cx - 40 * s, baseY - 85 * s);
+    ctx.lineTo(cx - 16 * s, baseY - 105 * s);
+    ctx.lineTo(cx + 16 * s, baseY - 105 * s);
+    ctx.lineTo(cx + 40 * s, baseY - 85 * s);
+    ctx.bezierCurveTo(cx + 75 * s, baseY - 70 * s, cx + 95 * s, baseY - 30 * s, cx + 90 * s, baseY);
+    ctx.closePath();
+    ctx.fill();
 
+    // 2. Neck
+    ctx.fillStyle = '#d4a574';
+    ctx.beginPath();
+    ctx.rect(cx - 14 * s, baseY - 135 * s, 28 * s, 35 * s);
+    ctx.fill();
+
+    // 3. Back hair — inflated head ellipse (hugs head tightly, only thin crescent visible)
+    ctx.fillStyle = '#3a3a3a';
+    ctx.beginPath();
+    ctx.ellipse(cx, baseY - 178 * s, 44 * s, 52 * s, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 4. Head (skin)
+    ctx.fillStyle = '#d4a574';
+    ctx.beginPath();
+    ctx.ellipse(cx, baseY - 172 * s, 40 * s, 50 * s, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 5. Ears
+    ctx.fillStyle = '#c4945e';
+    ctx.beginPath(); ctx.ellipse(cx - 39 * s, baseY - 170 * s, 5 * s, 8 * s, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + 39 * s, baseY - 170 * s, 5 * s, 8 * s, 0, 0, Math.PI * 2); ctx.fill();
+
+    // 6. Front hair (bangs) — covers top of head with irregular bottom edge
+    ctx.fillStyle = '#3a3a3a';
+    ctx.beginPath();
+    ctx.moveTo(cx - 41 * s, baseY - 188 * s);
+    ctx.bezierCurveTo(cx - 43 * s, baseY - 210 * s, cx - 34 * s, baseY - 226 * s, cx, baseY - 228 * s);
+    ctx.bezierCurveTo(cx + 34 * s, baseY - 226 * s, cx + 43 * s, baseY - 210 * s, cx + 41 * s, baseY - 188 * s);
+    ctx.quadraticCurveTo(cx + 28 * s, baseY - 196 * s, cx + 16 * s, baseY - 190 * s);
+    ctx.lineTo(cx + 10 * s, baseY - 196 * s);
+    ctx.lineTo(cx + 2 * s, baseY - 189 * s);
+    ctx.lineTo(cx - 6 * s, baseY - 197 * s);
+    ctx.lineTo(cx - 14 * s, baseY - 188 * s);
+    ctx.lineTo(cx - 24 * s, baseY - 196 * s);
+    ctx.quadraticCurveTo(cx - 34 * s, baseY - 191 * s, cx - 41 * s, baseY - 188 * s);
+    ctx.fill();
+
+    // 7. Facial features
     const fy = baseY - 172 * s;
+    // Eyes
     ctx.fillStyle = '#2d2d2d';
-    ctx.beginPath(); ctx.ellipse(cx - 11 * s, fy - 4 * s, 3.5 * s, 2.5 * s, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(cx + 11 * s, fy - 4 * s, 3.5 * s, 2.5 * s, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx - 13 * s, fy + 2 * s, 3.5 * s, 2.5 * s, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + 13 * s, fy + 2 * s, 3.5 * s, 2.5 * s, 0, 0, Math.PI * 2); ctx.fill();
+    // Eye highlights
     ctx.fillStyle = '#fff'; ctx.globalAlpha = 0.5;
-    ctx.beginPath(); ctx.ellipse(cx - 11 * s, fy - 4.5 * s, 1.5 * s, 1 * s, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(cx + 11 * s, fy - 4.5 * s, 1.5 * s, 1 * s, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx - 12 * s, fy + 1 * s, 1.5 * s, 1 * s, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + 14 * s, fy + 1 * s, 1.5 * s, 1 * s, 0, 0, Math.PI * 2); ctx.fill();
     ctx.globalAlpha = 1;
+    // Eyebrows
     ctx.strokeStyle = '#3a3a3a'; ctx.lineWidth = 1.5 * s;
-    ctx.beginPath(); ctx.moveTo(cx - 16 * s, fy - 10 * s); ctx.quadraticCurveTo(cx - 11 * s, fy - 13 * s, cx - 6 * s, fy - 10 * s); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(cx + 6 * s, fy - 10 * s); ctx.quadraticCurveTo(cx + 11 * s, fy - 13 * s, cx + 16 * s, fy - 10 * s); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx - 19 * s, fy - 6 * s); ctx.quadraticCurveTo(cx - 13 * s, fy - 10 * s, cx - 7 * s, fy - 6 * s); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx + 7 * s, fy - 6 * s); ctx.quadraticCurveTo(cx + 13 * s, fy - 10 * s, cx + 19 * s, fy - 6 * s); ctx.stroke();
+    // Nose
     ctx.strokeStyle = '#b8956a'; ctx.lineWidth = 1.2 * s;
-    ctx.beginPath(); ctx.moveTo(cx, fy - 2 * s); ctx.quadraticCurveTo(cx + 4 * s, fy + 8 * s, cx, fy + 10 * s); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, fy + 6 * s); ctx.quadraticCurveTo(cx + 4 * s, fy + 14 * s, cx, fy + 16 * s); ctx.stroke();
+    // Mouth
     ctx.strokeStyle = '#c4836a'; ctx.lineWidth = 1.5 * s;
-    ctx.beginPath(); ctx.moveTo(cx - 8 * s, fy + 18 * s); ctx.quadraticCurveTo(cx, fy + 22 * s, cx + 8 * s, fy + 18 * s); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx - 8 * s, fy + 24 * s); ctx.quadraticCurveTo(cx, fy + 28 * s, cx + 8 * s, fy + 24 * s); ctx.stroke();
   }
 
   function drawStage0() {
