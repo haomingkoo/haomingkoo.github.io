@@ -1,5 +1,19 @@
 [
   {
+    "slug": "hmm-regime",
+    "title": "What Mood Is the Market In? An Interactive Guide to HMM Regime Detection",
+    "date": "2026-03-22",
+    "tags": [
+      "Building",
+      "ML",
+      "Visualization",
+      "Trading"
+    ],
+    "excerpt": "Markets have moods. A Hidden Markov Model reads the volatility regime (calm, normal, or stormy) so you can trade with the weather, not against it. Interactive walkthrough with live visualizations.",
+    "cover": "",
+    "readingTime": "10 min"
+  },
+  {
     "slug": "dpo-demo",
     "title": "DPO Interactive Demo - Your Language Model is Secretly a Reward Model",
     "date": "2026-03-21",
