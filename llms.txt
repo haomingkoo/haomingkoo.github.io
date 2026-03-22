@@ -34,6 +34,8 @@ Python, PyTorch, TensorFlow, scikit-learn, LightGBM, YOLOv8, OpenCV, MediaPipe, 
 
 ## Blog Posts
 
+- [DPO Interactive Demo: Your Language Model is Secretly a Reward Model](https://kooexperience.com/blog/posts/dpo-demo.html): Interactive walkthrough of Direct Preference Optimization — from RLHF to DPO, with tic-tac-toe RL demo, tug-of-war training visualization, and step-by-step math.
+- [What Mood Is the Market In? An Interactive Guide to HMM Regime Detection](https://kooexperience.com/blog/posts/hmm-regime.html): Hidden Markov Model for market volatility regime detection — interactive visualizations of calm, normal, and stormy market states.
 - [Visualizing Weak-Driven Learning: An Interactive WMSS Demo](https://kooexperience.com/blog/posts/wmss-demo.html): Interactive walkthrough of the WMSS paper — from SFT saturation to logit mixing and gradient amplification.
 - [How 468 Facial Landmarks Decide If You're Passport-Ready](https://kooexperience.com/blog/posts/photo-id-studio.html): MediaPipe face mesh, rembg segmentation, 25+ compliance checks, and country-specific rules.
 - [How I Built an AI-Powered Stock Market Dashboard](https://kooexperience.com/blog/posts/trader-koo.html): From YOLOv8 chart pattern detection to a five-layer detection ensemble.
