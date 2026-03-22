@@ -15,6 +15,11 @@
   <meta property="og:image" content="https://kooexperience.com/assets/og-image.png">
   <meta property="og:site_name" content="Haoming Koo">
   <meta property="og:locale" content="en_SG">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LLM Inference: The Theory You Need Before Deploying">
+  <meta name="twitter:description" content="How LLM inference works under the hood. Covers prefill/decode phases, VRAM math, KV cache sizing, quantization methods (GPTQ, AWQ, FP8), batching strategies, and the metrics that define serving performance.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1321,6 +1326,27 @@ Example: 100M tokens/day
         Most mature products use a hybrid: API for development, experimentation, and frontier model tasks.
         Self-hosted for high-volume production paths and fine-tuned models.
       </p>
+    </div>
+  </div>
+</section>
+
+<!-- Related Posts -->
+<section class="section" style="padding:40px 0">
+  <div class="container">
+    <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px">Related Posts</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px">
+      <a href="llm-gauntlet.html" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s">
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">What I Learned from a Live LLM Serving Gauntlet</div>
+        <div style="font-size:12px;color:var(--muted)">19 engineers, 19 A100 GPUs, two hours of Locust fire</div>
+      </a>
+      <a href="dpo-demo.html" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s">
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">DPO Interactive Demo</div>
+        <div style="font-size:12px;color:var(--muted)">Learn RLHF and DPO from scratch with interactive demos</div>
+      </a>
+      <a href="wmss-demo.html" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s">
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">Visualizing Weak-Driven Learning (WMSS)</div>
+        <div style="font-size:12px;color:var(--muted)">Interactive walkthrough of gradient saturation and logit mixing</div>
+      </a>
     </div>
   </div>
 </section>

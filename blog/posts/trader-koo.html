@@ -11,6 +11,11 @@
     <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
     <meta property="og:site_name" content="Haoming Koo" />
     <meta property="og:locale" content="en_SG" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How I Built an AI-Powered Stock Market Dashboard">
+    <meta name="twitter:description" content="A deep dive into Trader Koo: using YOLOv8 computer vision to detect chart patterns on S&P 500 stocks, combined with rule-based analysis and a FastAPI backend.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -610,6 +615,27 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
         </ul>
 
       </article>
+
+      <!-- Related Posts -->
+      <section class="section" style="padding:40px 0">
+        <div class="container">
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px">Related Posts</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px">
+            <a href="hmm-regime.html" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s">
+              <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">HMM Market Regime Detection</div>
+              <div style="font-size:12px;color:var(--muted)">Hidden Markov Models for market volatility detection</div>
+            </a>
+            <a href="lionweather.html" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s">
+              <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">I Tried to Predict Singapore's Rain</div>
+              <div style="font-size:12px;color:var(--muted)">ML rainfall forecasting with LightGBM and SHAP</div>
+            </a>
+            <a href="photo-id-studio.html" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s">
+              <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">468 Facial Landmarks for Passport Photos</div>
+              <div style="font-size:12px;color:var(--muted)">MediaPipe face mesh for passport photo compliance</div>
+            </a>
+          </div>
+        </div>
+      </section>
 
       <footer>
         <a href="../../" style="color: var(--accent); text-decoration: none;">kooexperience.com</a>
