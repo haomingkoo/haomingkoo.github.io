@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-    <title>I Built an AI Wine Deal Hunter — Here's What 50 Bottles Taught Me - Haoming Koo</title>
+    <title>I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me - Haoming Koo</title>
     <meta name="description" content="How I built an automated wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with search grounding, and a self-sustaining daily pipeline." />
     <meta name="keywords" content="wine price comparison, Singapore wine, Gemini AI, web scraping, FastAPI, Vivino, Platinum Wine Club, Grand Cru, deal finder" />
     <meta name="author" content="Haoming Koo" />
@@ -17,7 +17,7 @@
     <meta property="og:locale" content="en_SG" />
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://kooexperience.com/assets/og/minmax-wine.png">
-    <meta name="twitter:title" content="I Built an AI Wine Deal Hunter — Here's What 50 Bottles Taught Me">
+    <meta name="twitter:title" content="I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me">
     <meta name="twitter:description" content="How I built an automated wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with search grounding, and a self-sustaining daily pipeline.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
@@ -166,7 +166,7 @@
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": "I Built an AI Wine Deal Hunter — Here's What 50 Bottles Taught Me - Haoming Koo",
+      "headline": "I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me - Haoming Koo",
       "description": "How I built an automated wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with search grounding, and a self-sustaining daily pipeline.",
       "url": "https://kooexperience.com/blog/posts/minmax-wine.html",
       "datePublished": "2026-03-27",
@@ -206,7 +206,7 @@
           <span>March 27, 2026</span>
           <span class="reading-time">8 min read</span>
         </div>
-        <h1>I Built an AI Wine Deal Hunter &mdash; Here's What 50 Bottles Taught Me</h1>
+        <h1>I Built an AI Wine Deal Finder &mdash; Here's What 50 Bottles Taught Me</h1>
         <p class="subtitle">
           How I built an automated wine price comparison tool for Singapore that compares
           Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with
@@ -229,7 +229,7 @@
 
         <div class="toc">
           <div class="toc-title">Contents</div>
-          <a href="#problem">The problem &mdash; am I getting ripped off?</a>
+          <a href="#problem">The idea &mdash; spend smarter on wine</a>
           <a href="#try-it">Try it yourself</a>
           <a href="#numbers">The numbers</a>
           <a href="#pipeline">How the pipeline works</a>
@@ -241,27 +241,32 @@
           <a href="#whats-next">What's next</a>
         </div>
 
-        <h2 id="problem">The problem &mdash; am I getting ripped off?</h2>
+        <h2 id="problem">The idea &mdash; spend smarter on wine</h2>
 
         <p>
-          It started with a simple question: am I getting ripped off on wine?
+          It started with a simple question: where's the best value?
         </p>
 
         <p>
-          I'm a member of <a href="https://www.platinumwineclub.com.sg/" target="_blank" rel="noopener">Platinum Wine Club</a>
-          in Singapore. They send monthly selections &mdash; nice Burgundies, Barolos, the occasional
-          Champagne. The prices seem reasonable, but "seems reasonable" isn't a number. I wanted to know:
-          how do these prices actually compare to other retailers? Am I getting member value or member theatre?
+          If you have an American Express Platinum card in Singapore, you get $200 credits back
+          on a $300 wine purchase through
+          <a href="https://www.platinumwineclub.com.sg/" target="_blank" rel="noopener">Platinum Wine Club</a>.
+          That's already a great perk. But the real question is: are Platinum's base prices competitive
+          in the first place? If you're effectively paying $100 for a bottle that's $80 elsewhere,
+          the credit isn't doing as much work as you think. I wanted to know which wines are genuinely
+          the best value &mdash; where the Platinum price plus the Amex credit gives you
+          the biggest win.
         </p>
 
         <p>
           The obvious move is to check each wine on
           <a href="https://www.grandcru.com.sg/" target="_blank" rel="noopener">Grand Cru</a>
-          (another big Singapore retailer) and
+          (another popular Singapore retailer) and
           <a href="https://www.vivino.com/" target="_blank" rel="noopener">Vivino</a>
-          (the global wine marketplace). Doing this manually for one wine takes about five minutes.
-          For 50 wines, that's over four hours of tab-switching and squinting at price labels.
-          So I did what any reasonable engineer would do and automated the whole thing.
+          (the global wine marketplace with community ratings). Doing this manually for one wine
+          takes about five minutes. For 50 wines, that's over four hours of tab-switching and
+          squinting at price labels. So I did what any reasonable engineer would do and automated
+          the whole thing.
         </p>
 
         <div class="callout">
@@ -303,14 +308,14 @@
           <li><strong>Average Vivino rating:</strong> 4.09 out of 5 &mdash; the selection quality is solid.</li>
           <li><strong>Price range:</strong> $45 to $780 per bottle.</li>
           <li><strong>Best deal:</strong> Gevrey-Chambertin by Domaine Claude Dugat &mdash; $170 on Platinum vs $1,020 on Grand Cru. That's 83% cheaper, though it's a bundle of 3 bottles, which is doing a lot of heavy lifting in that comparison.</li>
-          <li><strong>Worst "deal":</strong> Gattinara Molsino &mdash; 25% MORE expensive on Platinum than Grand Cru. Ouch.</li>
+          <li><strong>Worth checking first:</strong> Gattinara Molsino is 25% cheaper on Grand Cru &mdash; good to know before buying.</li>
           <li><strong>Most reviewed:</strong> Miraval Ros&eacute; 2024 with 58,336 Vivino ratings. More on this legend later.</li>
         </ul>
 
         <p>
-          The short version: Platinum isn't a scam, but it's not universally cheaper either. About a third
-          of the wines are genuine deals. The rest are priced similarly or sometimes higher. Knowing which
-          is which &mdash; that's the whole point of this tool.
+          The takeaway: Platinum has genuinely great deals on about a third of their wines. The rest
+          are competitively priced &mdash; sometimes identical, sometimes Grand Cru edges them out.
+          The value of this tool is knowing which category each wine falls into before you buy.
         </p>
 
         <h2 id="pipeline">How the pipeline works</h2>
@@ -394,16 +399,25 @@
         </blockquote>
 
         <p>
-          Gemini searches, finds the Vivino page, and returns structured data. It's not scraping &mdash;
-          it's having an AI assistant do the research for me. The success rate is about 82% automated.
-          For the remaining 18%, the wine is either too obscure for Vivino or Gemini returns ambiguous
-          results. Those get flagged for manual review.
+          Gemini searches Google, finds the Vivino page, reads it, and returns structured JSON
+          with the rating, review count, price, and tasting notes. It works because Google's
+          own infrastructure does the web access &mdash; not my server. Vivino trusts Google's
+          crawlers, so the data comes through cleanly.
         </p>
 
         <p>
-          Before Gemini, I also use the <a href="https://brave.com/search/api/" target="_blank" rel="noopener">Brave Search API</a>
-          to find the exact Vivino URL for each wine. This gives Gemini a direct link to work with
-          rather than relying on its own search, which improves accuracy significantly.
+          Technically, it's just one extra parameter in the API call: <code>"tools": [{"google_search": {}}]</code>.
+          That enables "search grounding" &mdash; Gemini can search the live web before responding.
+          The free tier gives you 500 grounded requests per day, which is more than enough for 50 wines.
+        </p>
+
+        <p>
+          To improve accuracy, I first use the <a href="https://brave.com/search/api/" target="_blank" rel="noopener">Brave Search API</a>
+          to find the exact Vivino URL for each wine, then pass that URL as a hint to Gemini.
+          This way Gemini looks up that specific page rather than searching broadly. If the URL
+          hint fails, it falls back to a broad search, then tries again with a simplified wine name.
+          Three attempts, each getting progressively less specific. The overall success rate is about
+          82% fully automated from a server that Vivino would normally block.
         </p>
 
         <h2 id="deal-score">The deal score</h2>
