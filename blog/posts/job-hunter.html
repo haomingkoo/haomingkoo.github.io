@@ -192,13 +192,47 @@ p{margin-bottom:16px}
 /* ── Feature Grid ─────────────────────────────────────────────────── */
 .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:24px 0}
 .feature-card{
-  padding:20px;border-radius:14px;border:1px solid var(--border);
-  background:var(--surface);transition:all .3s;
+  padding:24px;border-radius:16px;border:1px solid var(--border);
+  background:var(--surface);transition:all .4s cubic-bezier(.25,.46,.45,.94);
+  position:relative;overflow:hidden;
 }
-.feature-card:hover{border-color:var(--border-hover);transform:translateY(-2px)}
-.feature-icon{font-size:24px;margin-bottom:10px}
-.feature-title{font-size:14px;font-weight:600;margin-bottom:6px}
-.feature-desc{font-size:13px;color:var(--text-secondary);line-height:1.5}
+.feature-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--purple));
+  opacity:0;transition:opacity .3s;
+}
+.feature-card:hover{
+  border-color:var(--border-hover);transform:translateY(-4px);
+  box-shadow:0 12px 40px rgba(0,0,0,0.15),0 0 0 1px var(--border-hover);
+}
+.feature-card:hover::before{opacity:1}
+.feature-icon{
+  width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:14px;
+  background:linear-gradient(135deg,var(--accent-dim),rgba(168,85,247,0.08));
+  border:1px solid rgba(59,130,246,0.12);
+}
+.feature-card:nth-child(2) .feature-icon{background:linear-gradient(135deg,rgba(168,85,247,0.1),var(--accent-dim));border-color:rgba(168,85,247,0.12)}
+.feature-card:nth-child(3) .feature-icon{background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(59,130,246,0.06));border-color:rgba(34,197,94,0.12)}
+.feature-card:nth-child(4) .feature-icon{background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(239,68,68,0.06));border-color:rgba(245,158,11,0.12)}
+.feature-title{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:-0.01em}
+.feature-desc{font-size:13px;color:var(--text-secondary);line-height:1.6}
+
+/* ── Source Grid ──────────────────────────────────────────────────── */
+.source-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:24px 0}
+.source-card{
+  padding:16px;border-radius:12px;border:1px solid var(--border);
+  background:var(--surface);transition:all .3s;position:relative;overflow:hidden;
+}
+.source-card:hover{border-color:var(--border-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
+.source-badge{
+  font-size:9px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;
+  padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:8px;
+}
+.source-card.api .source-badge{background:var(--accent-dim);color:var(--accent)}
+.source-card.scraper .source-badge{background:rgba(245,158,11,0.1);color:var(--amber)}
+.source-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.source-info{font-size:11px;color:var(--muted);line-height:1.4}
 
 /* ── Gate Table ───────────────────────────────────────────────────── */
 .gate-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
@@ -278,32 +312,42 @@ p{margin-bottom:16px}
     <p class="section-desc">Before starting AIAP, I was job searching in Singapore and hit a wall.</p>
   </div>
 
-  <p class="reveal reveal-d1">Singapore has multiple job portals - MyCareersFuture, Careers@Gov, NodeFlair, Indeed, JobStreet - each with different interfaces, different search experiences, and no way to compare across them. Government jobs on Careers@Gov are particularly fragmented, running on a Workday backend that makes skills extraction nearly impossible.</p>
+  <p class="reveal reveal-d1">The project started before AIAP, during my own job search. I was building a scraper for Careers@Gov to create a job matching and reminder system - back when Careers@Gov 2.0 was still in the pipeline and the existing portal had limited search functionality. The original version was simple: scrape, match keywords, send notifications.</p>
 
-  <p class="reveal reveal-d2">When my friend Yanwen brought up resume building during a conversation, it reignited the project. The tools that existed were either generic (not built for the Singapore market) or too simple (keyword stuffing without understanding the actual job requirements).</p>
+  <p class="reveal reveal-d2">But the AI landscape wasn't ready yet. LLMs hadn't reached the point where you could reliably rewrite resume bullets without hallucinating metrics or fabricating skills. The project sat dormant.</p>
 
-  <p class="reveal reveal-d3">I wanted something that could:</p>
+  <p class="reveal reveal-d2">Then my friend <a href="https://github.com/0xMeowth" target="_blank">Yanwen</a> brought up resume building during a conversation, and it reignited everything. With SEA-LION (AI Singapore's open models) now available and capable enough for structured text generation, the missing piece was finally in place. What started as a Careers@Gov scraper evolved into a full resume coaching platform.</p>
+
+  <p class="reveal reveal-d3">The tools that existed were either generic (not built for Singapore) or too simple (keyword stuffing without understanding the actual JD). I wanted something that could:</p>
 
   <div class="feature-grid reveal reveal-d3">
     <div class="feature-card">
-      <div class="feature-icon">&#128269;</div>
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
       <div class="feature-title">Search everywhere at once</div>
-      <div class="feature-desc">Aggregate 7 Singapore job portals into one interface with deduplication.</div>
+      <div class="feature-desc">Aggregate 7 Singapore job portals into one unified interface with cross-source deduplication.</div>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">&#128196;</div>
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+      </div>
       <div class="feature-title">Understand the JD</div>
-      <div class="feature-desc">Pre-parse every job description at scrape time - skills, experience years, education level.</div>
+      <div class="feature-desc">Pre-parse every job description at scrape time into structured fields: skills, experience years, education level.</div>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">&#129302;</div>
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--live)" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      </div>
       <div class="feature-title">Coach, not just match</div>
-      <div class="feature-desc">AI that rewrites your resume with validation gates to prevent hallucination.</div>
+      <div class="feature-desc">AI that rewrites resume bullets with 5 validation gates to prevent hallucinated metrics and fabricated skills.</div>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">&#127480;&#127468;</div>
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+      </div>
       <div class="feature-title">Built for Singapore</div>
-      <div class="feature-desc">Understand Careers@Gov competency frameworks, Singapore Professional templates, PR/citizenship fields.</div>
+      <div class="feature-desc">Careers@Gov competency frameworks, Singapore Professional templates, PR/citizenship-aware fields.</div>
     </div>
   </div>
 </section>
@@ -509,35 +553,14 @@ p{margin-bottom:16px}
     <p class="section-desc">Aggregated and deduplicated across the major Singapore job portals.</p>
   </div>
 
-  <div class="feature-grid reveal reveal-d1">
-    <div class="feature-card">
-      <div class="feature-title">MyCareersFuture</div>
-      <div class="feature-desc">Public API. Highest coverage (~30K jobs). Includes salary ranges and skills metadata.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-title">Careers@Gov 2.0</div>
-      <div class="feature-desc">Workday-powered government jobs. Special handling for agency data and competency framework extraction.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-title">NodeFlair</div>
-      <div class="feature-desc">Tech-focused job board popular in Singapore's startup ecosystem.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-title">Indeed SG</div>
-      <div class="feature-desc">Broad coverage across all industries and seniority levels.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-title">JobStreet</div>
-      <div class="feature-desc">SEA-focused platform with strong presence in Singapore.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-title">Adzuna</div>
-      <div class="feature-desc">API-based aggregator with salary estimate data.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-title">Jooble</div>
-      <div class="feature-desc">Global aggregator with Singapore-specific listings.</div>
-    </div>
+  <div class="source-grid reveal reveal-d1">
+    <div class="source-card api"><div class="source-badge">API</div><div class="source-name">MyCareersFuture</div><div class="source-info">~30K jobs, salary ranges, skills metadata</div></div>
+    <div class="source-card api"><div class="source-badge">API</div><div class="source-name">Careers@Gov 2.0</div><div class="source-info">Government jobs via Workday backend</div></div>
+    <div class="source-card scraper"><div class="source-badge">Scraper</div><div class="source-name">NodeFlair</div><div class="source-info">Tech-focused, startup ecosystem</div></div>
+    <div class="source-card scraper"><div class="source-badge">Scraper</div><div class="source-name">Indeed SG</div><div class="source-info">Broad coverage, all industries</div></div>
+    <div class="source-card scraper"><div class="source-badge">Scraper</div><div class="source-name">JobStreet</div><div class="source-info">SEA-focused, strong SG presence</div></div>
+    <div class="source-card api"><div class="source-badge">API</div><div class="source-name">Adzuna</div><div class="source-info">Aggregator with salary estimates</div></div>
+    <div class="source-card api"><div class="source-badge">API</div><div class="source-name">Jooble</div><div class="source-info">Global aggregator, 67+ countries</div></div>
   </div>
 
   <div class="insight warn reveal reveal-d2">
@@ -554,34 +577,46 @@ p{margin-bottom:16px}
 
   <div class="feature-grid reveal reveal-d1">
     <div class="feature-card">
-      <div class="feature-icon">&#9889;</div>
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
       <div class="feature-title">Pre-parse at scrape time</div>
-      <div class="feature-desc">JDs are parsed into skills, experience years, and education level at scrape time (50ms/job), not on-demand. When a user clicks "Tailor," skill gap analysis is instant.</div>
+      <div class="feature-desc">JDs are parsed into skills, experience years, and education level at scrape time (50ms/job), not on-demand. Skill gap analysis is instant.</div>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">&#129504;</div>
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4Z"/><circle cx="12" cy="15" r="2"/></svg>
+      </div>
       <div class="feature-title">70B vs 32B model split</div>
-      <div class="feature-desc">70B for strategic analysis (user sees progress bar, can wait 10s). 32B for interactive bullet rewrites (user is watching, need &lt;2s).</div>
+      <div class="feature-desc">70B for strategic analysis (progress bar, 10s). 32B for interactive bullet rewrites (user is watching, need &lt;2s).</div>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">&#128274;</div>
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--live)" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"/></svg>
+      </div>
       <div class="feature-title">Validate, don't trust</div>
-      <div class="feature-desc">Every AI output passes through 5 gates. If any gate fails, the original text is preserved. The resume stays factual even when the AI hallucinates.</div>
+      <div class="feature-desc">Every AI output passes through 5 gates. If any gate fails, the original text is preserved. The resume stays factual.</div>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">&#128221;</div>
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+      </div>
       <div class="feature-title">Structured resume model</div>
-      <div class="feature-desc">Resumes are parsed into a hierarchical JSON (sections, entries, bullets) enabling surgical edits, per-bullet scoring, and change tracking.</div>
+      <div class="feature-desc">Resumes are parsed into hierarchical JSON (sections, entries, bullets) enabling surgical edits, per-bullet scoring, and change tracking.</div>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">&#128260;</div>
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+      </div>
       <div class="feature-title">Round-robin API keys</div>
       <div class="feature-desc">5 SEA-LION API keys rotate round-robin for 50 req/min throughput on the free tier. Token-bucket rate limiting prevents hard rejections.</div>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">&#128203;</div>
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+      </div>
       <div class="feature-title">8 ATS-friendly templates</div>
-      <div class="feature-desc">From Classic (government/consulting) to Technical (skills-first) to Singapore Professional (includes PR/citizenship field). DOCX generation via python-docx.</div>
+      <div class="feature-desc">From Classic (government/consulting) to Technical (skills-first) to Singapore Professional (includes PR/citizenship field). DOCX via python-docx.</div>
     </div>
   </div>
 </section>
