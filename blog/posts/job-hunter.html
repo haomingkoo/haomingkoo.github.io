@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <title>Building Job Hunter SG - AI Resume Coaching for Singapore</title>
+  <meta name="description" content="How I built an AI-powered job aggregator and resume coaching platform for the Singapore job market, with 70K+ jobs from 7 sources and a 7-stage validation pipeline.">
+  <link rel="canonical" href="https://kooexperience.com/blog/posts/job-hunter.html" />
+  <meta name="author" content="Haoming Koo" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Building Job Hunter SG - AI Resume Coaching for Singapore" />
+  <meta property="og:description" content="AI-powered job aggregator + resume coaching for the Singapore market. 70K+ jobs, 7 sources, 7-stage validation pipeline." />
+  <meta property="og:url" content="https://kooexperience.com/blog/posts/job-hunter.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://kooexperience.com/assets/og/job-hunter.png" />
+  <meta property="og:site_name" content="Haoming Koo" />
+  <meta property="og:locale" content="en_SG" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://kooexperience.com/assets/og/job-hunter.png" />
+  <meta name="twitter:title" content="Building Job Hunter SG" />
+  <meta name="twitter:description" content="AI resume coaching for the Singapore job market." />
+  <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+/* ── Theme Variables ──────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg: #060608;
+  --surface: #0e0e12;
+  --surface-hover: #141418;
+  --border: #1c1c24;
+  --border-hover: #2a2a36;
+  --accent: #3b82f6;
+  --accent-dim: rgba(59,130,246,0.10);
+  --accent-glow: rgba(59,130,246,0.25);
+  --text: #eeeef0;
+  --text-secondary: #b0b0b8;
+  --muted: #64647a;
+  --live: #22c55e;
+  --purple: #a855f7;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --nav-bg: rgba(6,6,8,0.85);
+  --code-bg: rgba(255,255,255,0.04);
+}
+[data-theme="light"] {
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --surface-hover: #f1f3f5;
+  --border: #dde1e6;
+  --border-hover: #c1c7cf;
+  --accent: #2563eb;
+  --accent-dim: rgba(37,99,235,0.08);
+  --accent-glow: rgba(37,99,235,0.18);
+  --text: #111827;
+  --text-secondary: #4b5563;
+  --muted: #9ca3af;
+  --live: #16a34a;
+  --purple: #7c3aed;
+  --amber: #d97706;
+  --red: #dc2626;
+  --nav-bg: rgba(248,249,251,0.88);
+  --code-bg: rgba(0,0,0,0.04);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"Inter",system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.7;
+  min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:background .35s,color .35s;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(59,130,246,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 20%,rgba(168,85,247,0.04) 0%,transparent 50%);
+  transition:opacity .35s;
+}
+[data-theme="light"] body::before{opacity:0.3}
+a{color:var(--accent);text-decoration:none}
+code,.mono{font-family:"JetBrains Mono",monospace;font-size:0.88em}
+.container{max-width:900px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* ── Nav ──────────────────────────────────────────────────────────── */
+.nav{
+  position:fixed;top:0;width:100%;z-index:100;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:var(--nav-bg);border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  max-width:900px;margin:0 auto;padding:12px 24px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.nav-brand{font-weight:700;font-size:15px;color:var(--text)}
+.nav-links{display:flex;gap:20px;align-items:center;font-size:13px}
+.nav-links a{color:var(--text-secondary);transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.theme-toggle{
+  background:none;border:1px solid var(--border);border-radius:8px;
+  padding:6px 8px;cursor:pointer;color:var(--text-secondary);
+  font-size:14px;transition:all .2s;
+}
+.theme-toggle:hover{border-color:var(--border-hover);color:var(--text)}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+.hero{text-align:center;padding:120px 0 60px;position:relative}
+.hero-badge{
+  display:inline-block;padding:4px 14px;border-radius:20px;
+  background:var(--accent-dim);color:var(--accent);
+  font-size:12px;font-weight:600;letter-spacing:0.5px;margin-bottom:16px;
+}
+.hero h1{
+  font-size:clamp(28px,5vw,44px);font-weight:800;
+  line-height:1.15;margin-bottom:14px;
+  background:linear-gradient(135deg,var(--text) 60%,var(--accent));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{font-size:17px;color:var(--text-secondary);max-width:600px;margin:0 auto 12px}
+.hero-meta{font-size:13px;color:var(--muted)}
+
+/* ── Sections ─────────────────────────────────────────────────────── */
+.section{padding:60px 0;border-top:1px solid var(--border)}
+.section-header{margin-bottom:32px}
+.section-num{font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.section-title{font-size:clamp(22px,3.5vw,30px);font-weight:700;line-height:1.25;margin-bottom:8px}
+.section-desc{font-size:15px;color:var(--text-secondary);max-width:700px}
+p{margin-bottom:16px}
+
+/* ── Stats ─────────────────────────────────────────────────────────── */
+.stat-row{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0}
+.stat-card{
+  flex:1;min-width:120px;padding:14px 16px;border-radius:12px;
+  background:var(--surface);border:1px solid var(--border);text-align:center;
+}
+.stat-val{font-size:24px;font-weight:700;font-family:"JetBrains Mono",monospace}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ── Tags ──────────────────────────────────────────────────────────── */
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.tag{
+  font-size:11px;padding:3px 10px;border-radius:6px;
+  background:var(--accent-dim);color:var(--accent);font-weight:500;
+}
+.tag.purple{background:rgba(168,85,247,0.08);color:var(--purple)}
+.tag.amber{background:rgba(245,158,11,0.08);color:var(--amber)}
+.tag.green{background:rgba(34,197,94,0.08);color:var(--live)}
+
+/* ── Insight Boxes ────────────────────────────────────────────────── */
+.insight{
+  padding:16px 20px;border-radius:12px;margin:20px 0;
+  border-left:3px solid var(--accent);
+  background:var(--accent-dim);font-size:14px;
+}
+.insight.warn{border-left-color:var(--amber);background:rgba(245,158,11,0.06)}
+.insight.success{border-left-color:var(--live);background:rgba(34,197,94,0.06)}
+
+/* ── Pipeline ─────────────────────────────────────────────────────── */
+.pipeline{display:flex;align-items:center;gap:0;margin:24px 0;flex-wrap:wrap;justify-content:center}
+.pipe-node{
+  padding:14px 20px;border-radius:12px;border:2px solid var(--border);
+  background:var(--surface);text-align:center;min-width:100px;
+  transition:all .4s;position:relative;
+}
+.pipe-node.active{border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow)}
+.pipe-node-title{font-size:12px;font-weight:600;color:var(--text)}
+.pipe-node-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.pipe-arrow{
+  width:30px;height:2px;background:var(--border);position:relative;flex-shrink:0;
+}
+.pipe-arrow::after{
+  content:"";position:absolute;right:-1px;top:-4px;
+  border:5px solid transparent;border-left:6px solid var(--border);
+}
+
+/* ── Code Block ───────────────────────────────────────────────────── */
+.code-block{
+  background:var(--code-bg);border:1px solid var(--border);
+  border-radius:10px;padding:16px 20px;margin:16px 0;
+  font-family:"JetBrains Mono",monospace;font-size:13px;
+  overflow-x:auto;line-height:1.6;color:var(--text-secondary);
+}
+
+/* ── Feature Grid ─────────────────────────────────────────────────── */
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:24px 0}
+.feature-card{
+  padding:20px;border-radius:14px;border:1px solid var(--border);
+  background:var(--surface);transition:all .3s;
+}
+.feature-card:hover{border-color:var(--border-hover);transform:translateY(-2px)}
+.feature-icon{font-size:24px;margin-bottom:10px}
+.feature-title{font-size:14px;font-weight:600;margin-bottom:6px}
+.feature-desc{font-size:13px;color:var(--text-secondary);line-height:1.5}
+
+/* ── Gate Table ───────────────────────────────────────────────────── */
+.gate-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.gate-table th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--border);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.gate-table td{padding:10px 12px;border-bottom:1px solid var(--border)}
+.gate-table tr:hover td{background:var(--surface-hover)}
+.gate-status{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.gate-status.pass{background:var(--live)}
+.gate-status.fail{background:var(--red)}
+
+/* ── Scroll Reveal ────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+
+/* ── Footer ───────────────────────────────────────────────────────── */
+.footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px}
+.footer a{color:var(--text-secondary)}
+
+.text-accent{color:var(--accent)}
+.text-purple{color:var(--purple)}
+.text-amber{color:var(--amber)}
+.text-live{color:var(--live)}
+.text-red{color:var(--red)}
+.text-muted{color:var(--muted)}
+.fw600{font-weight:600}
+
+@media(max-width:640px){
+  .stat-row{gap:8px}
+  .stat-card{min-width:80px;padding:10px}
+  .stat-val{font-size:18px}
+  .pipeline{gap:4px}
+  .pipe-node{padding:10px 12px;min-width:70px}
+  .pipe-arrow{width:16px}
+  .feature-grid{grid-template-columns:1fr}
+}
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">HK</a>
+    <div class="nav-links">
+      <a href="/">Portfolio</a>
+      <a href="/blog">Blog</a>
+      <a href="/about.html">About</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span id="theme-icon">&#9790;</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ───────────────────────────────────────────────────────── -->
+<div class="container">
+<header class="hero">
+  <div class="hero-badge">Case Study</div>
+  <h1>Building Job Hunter SG</h1>
+  <p class="hero-sub">An AI-powered job aggregator and resume coaching platform for the Singapore job market.</p>
+  <p class="hero-meta">March 2026 &middot; <a href="https://job.kooexperience.com" target="_blank">job.kooexperience.com</a></p>
+  <div class="tag-row" style="justify-content:center;margin-top:16px">
+    <span class="tag">FastAPI</span>
+    <span class="tag">React</span>
+    <span class="tag purple">SEA-LION AI</span>
+    <span class="tag amber">7 Job Sources</span>
+    <span class="tag green">70K+ Jobs</span>
+  </div>
+</header>
+
+<!-- ── The Problem ────────────────────────────────────────────────── -->
+<section class="section" id="s-problem">
+  <div class="section-header reveal">
+    <div class="section-num">Origin</div>
+    <h2 class="section-title">The Problem</h2>
+    <p class="section-desc">Before starting AIAP, I was job searching in Singapore and hit a wall.</p>
+  </div>
+
+  <p class="reveal reveal-d1">Singapore has multiple job portals - MyCareersFuture, Careers@Gov, NodeFlair, Indeed, JobStreet - each with different interfaces, different search experiences, and no way to compare across them. Government jobs on Careers@Gov are particularly fragmented, running on a Workday backend that makes skills extraction nearly impossible.</p>
+
+  <p class="reveal reveal-d2">When my friend Yanwen brought up resume building during a conversation, it reignited the project. The tools that existed were either generic (not built for the Singapore market) or too simple (keyword stuffing without understanding the actual job requirements).</p>
+
+  <p class="reveal reveal-d3">I wanted something that could:</p>
+
+  <div class="feature-grid reveal reveal-d3">
+    <div class="feature-card">
+      <div class="feature-icon">&#128269;</div>
+      <div class="feature-title">Search everywhere at once</div>
+      <div class="feature-desc">Aggregate 7 Singapore job portals into one interface with deduplication.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128196;</div>
+      <div class="feature-title">Understand the JD</div>
+      <div class="feature-desc">Pre-parse every job description at scrape time - skills, experience years, education level.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#129302;</div>
+      <div class="feature-title">Coach, not just match</div>
+      <div class="feature-desc">AI that rewrites your resume with validation gates to prevent hallucination.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#127480;&#127468;</div>
+      <div class="feature-title">Built for Singapore</div>
+      <div class="feature-desc">Understand Careers@Gov competency frameworks, Singapore Professional templates, PR/citizenship fields.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── By the Numbers ─────────────────────────────────────────────── -->
+<section class="section" id="s-numbers">
+  <div class="section-header reveal">
+    <div class="section-num">Scale</div>
+    <h2 class="section-title">By the Numbers</h2>
+  </div>
+
+  <div class="stat-row reveal reveal-d1">
+    <div class="stat-card">
+      <div class="stat-val text-accent">70K+</div>
+      <div class="stat-lbl">Jobs Cached</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val text-purple">7</div>
+      <div class="stat-lbl">Job Sources</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val text-amber">7</div>
+      <div class="stat-lbl">Pipeline Stages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val text-live">5</div>
+      <div class="stat-lbl">Validation Gates</div>
+    </div>
+  </div>
+  <div class="stat-row reveal reveal-d2">
+    <div class="stat-card">
+      <div class="stat-val">8</div>
+      <div class="stat-lbl">Resume Templates</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">200+</div>
+      <div class="stat-lbl">Multi-Word Skills</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">40+</div>
+      <div class="stat-lbl">API Endpoints</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">50ms</div>
+      <div class="stat-lbl">JD Pre-Parse</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Architecture ───────────────────────────────────────────────── -->
+<section class="section" id="s-arch">
+  <div class="section-header reveal">
+    <div class="section-num">Architecture</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-desc">A FastAPI backend powers job aggregation and AI coaching. React frontend provides the search and resume editing experience.</p>
+  </div>
+
+  <div class="feature-grid reveal reveal-d1">
+    <div class="feature-card">
+      <div class="feature-title">Backend</div>
+      <div class="feature-desc">
+        <span class="tag" style="margin-bottom:4px">FastAPI</span>
+        <span class="tag">SQLAlchemy</span>
+        <span class="tag">PostgreSQL</span><br>
+        Async Python with auto-migrating ORM. SQLite locally, PostgreSQL on Railway.
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">Frontend</div>
+      <div class="feature-desc">
+        <span class="tag">React 18</span>
+        <span class="tag">Vite</span>
+        <span class="tag">Tailwind</span><br>
+        Single-page app with drag-and-drop resume editing and Framer Motion animations.
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">AI Models</div>
+      <div class="feature-desc">
+        <span class="tag purple">SEA-LION 70B</span>
+        <span class="tag purple">SEA-LION 32B</span><br>
+        70B for strategic reasoning (10s), 32B for interactive rewrites (1s). Round-robin across 5 API keys.
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">Deployment</div>
+      <div class="feature-desc">
+        <span class="tag amber">Railway</span>
+        <span class="tag">Docker</span><br>
+        Auto-deploys on git push. Persistent PostgreSQL.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── The Pipeline ───────────────────────────────────────────────── -->
+<section class="section" id="s-pipeline">
+  <div class="section-header reveal">
+    <div class="section-num">Core Feature</div>
+    <h2 class="section-title">The 7-Stage Resume Pipeline</h2>
+    <p class="section-desc">The heart of Job Hunter is the resume tailoring pipeline. It takes your resume and a job description, then produces a tailored version through 7 validated stages.</p>
+  </div>
+
+  <div class="pipeline reveal reveal-d1">
+    <div class="pipe-node active">
+      <div class="pipe-node-title">Analyze</div>
+      <div class="pipe-node-sub">Local, 200ms</div>
+    </div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node">
+      <div class="pipe-node-title">Strategize</div>
+      <div class="pipe-node-sub">70B, ~10s</div>
+    </div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node">
+      <div class="pipe-node-title">Cleanup</div>
+      <div class="pipe-node-sub">Local, 50ms</div>
+    </div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node">
+      <div class="pipe-node-title">Rewrite</div>
+      <div class="pipe-node-sub">32B, ~15s</div>
+    </div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node">
+      <div class="pipe-node-title">Polish</div>
+      <div class="pipe-node-sub">Local, 50ms</div>
+    </div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node">
+      <div class="pipe-node-title">Summarize</div>
+      <div class="pipe-node-sub">70B, ~12s</div>
+    </div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node">
+      <div class="pipe-node-title">Validate</div>
+      <div class="pipe-node-sub">Local, 50ms</div>
+    </div>
+  </div>
+
+  <div class="insight reveal reveal-d2">
+    <strong>Key design decision:</strong> Every AI step is followed by a local validation step. The AI generates, the gates verify. This prevents hallucinated metrics, fabricated skills, and inflated claims from reaching the final resume.
+  </div>
+
+  <p class="reveal reveal-d2">The pipeline supports three intensity modes: <strong>nudge</strong> (local only, 5s), <strong>keywords</strong> (with bullet rewrites, 30s), and <strong>full</strong> (all stages including summary, 45-60s).</p>
+</section>
+
+<!-- ── Validation Gates ────────────────────────────────────────────── -->
+<section class="section" id="s-gates">
+  <div class="section-header reveal">
+    <div class="section-num">Quality Control</div>
+    <h2 class="section-title">5 Validation Gates</h2>
+    <p class="section-desc">Every AI-generated rewrite passes through five gates before being accepted. Any failure reverts to the original text.</p>
+  </div>
+
+  <table class="gate-table reveal reveal-d1">
+    <thead>
+      <tr>
+        <th>Gate</th>
+        <th>What it checks</th>
+        <th>On failure</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="gate-status pass"></span><strong>Fact Preservation</strong></td>
+        <td>All numbers and metrics from original must appear in rewrite</td>
+        <td class="text-red">Revert</td>
+      </tr>
+      <tr>
+        <td><span class="gate-status pass"></span><strong>AI Phrase Detection</strong></td>
+        <td>Auto-replace 107 weak phrases ("leveraged", "synergize")</td>
+        <td class="text-amber">Auto-fix</td>
+      </tr>
+      <tr>
+        <td><span class="gate-status pass"></span><strong>Keyword Verbatim</strong></td>
+        <td>Required keywords appear exactly as in JD</td>
+        <td class="text-amber">Warn</td>
+      </tr>
+      <tr>
+        <td><span class="gate-status pass"></span><strong>Length Sanity</strong></td>
+        <td>Max 40 words per bullet, not 1.8x longer than original</td>
+        <td class="text-red">Revert</td>
+      </tr>
+      <tr>
+        <td><span class="gate-status pass"></span><strong>Hallucination Detection</strong></td>
+        <td>Reject unknown terms not in resume or JD</td>
+        <td class="text-red">Revert</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight success reveal reveal-d2">
+    <strong>Why this matters:</strong> LLMs hallucinate. A model might turn "managed 5-person team" into "led 200-person team." The fact preservation gate catches this and reverts. Your resume stays honest.
+  </div>
+</section>
+
+<!-- ── Job Sources ────────────────────────────────────────────────── -->
+<section class="section" id="s-sources">
+  <div class="section-header reveal">
+    <div class="section-num">Data</div>
+    <h2 class="section-title">7 Singapore Job Sources</h2>
+    <p class="section-desc">Aggregated and deduplicated across the major Singapore job portals.</p>
+  </div>
+
+  <div class="feature-grid reveal reveal-d1">
+    <div class="feature-card">
+      <div class="feature-title">MyCareersFuture</div>
+      <div class="feature-desc">Public API. Highest coverage (~30K jobs). Includes salary ranges and skills metadata.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">Careers@Gov 2.0</div>
+      <div class="feature-desc">Workday-powered government jobs. Special handling for agency data and competency framework extraction.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">NodeFlair</div>
+      <div class="feature-desc">Tech-focused job board popular in Singapore's startup ecosystem.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">Indeed SG</div>
+      <div class="feature-desc">Broad coverage across all industries and seniority levels.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">JobStreet</div>
+      <div class="feature-desc">SEA-focused platform with strong presence in Singapore.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">Adzuna</div>
+      <div class="feature-desc">API-based aggregator with salary estimate data.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">Jooble</div>
+      <div class="feature-desc">Global aggregator with Singapore-specific listings.</div>
+    </div>
+  </div>
+
+  <div class="insight warn reveal reveal-d2">
+    <strong>Careers@Gov challenge:</strong> Government jobs on Workday don't expose skills in the API. We built a custom scraper that fetches detail pages, extracts competency framework terms, and derives skill cues from the job description using regex pattern matching.
+  </div>
+</section>
+
+<!-- ── Key Decisions ──────────────────────────────────────────────── -->
+<section class="section" id="s-decisions">
+  <div class="section-header reveal">
+    <div class="section-num">Engineering</div>
+    <h2 class="section-title">Key Technical Decisions</h2>
+  </div>
+
+  <div class="feature-grid reveal reveal-d1">
+    <div class="feature-card">
+      <div class="feature-icon">&#9889;</div>
+      <div class="feature-title">Pre-parse at scrape time</div>
+      <div class="feature-desc">JDs are parsed into skills, experience years, and education level at scrape time (50ms/job), not on-demand. When a user clicks "Tailor," skill gap analysis is instant.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#129504;</div>
+      <div class="feature-title">70B vs 32B model split</div>
+      <div class="feature-desc">70B for strategic analysis (user sees progress bar, can wait 10s). 32B for interactive bullet rewrites (user is watching, need &lt;2s).</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128274;</div>
+      <div class="feature-title">Validate, don't trust</div>
+      <div class="feature-desc">Every AI output passes through 5 gates. If any gate fails, the original text is preserved. The resume stays factual even when the AI hallucinates.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128221;</div>
+      <div class="feature-title">Structured resume model</div>
+      <div class="feature-desc">Resumes are parsed into a hierarchical JSON (sections, entries, bullets) enabling surgical edits, per-bullet scoring, and change tracking.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128260;</div>
+      <div class="feature-title">Round-robin API keys</div>
+      <div class="feature-desc">5 SEA-LION API keys rotate round-robin for 50 req/min throughput on the free tier. Token-bucket rate limiting prevents hard rejections.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128203;</div>
+      <div class="feature-title">8 ATS-friendly templates</div>
+      <div class="feature-desc">From Classic (government/consulting) to Technical (skills-first) to Singapore Professional (includes PR/citizenship field). DOCX generation via python-docx.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── What's Next ────────────────────────────────────────────────── -->
+<section class="section" id="s-next">
+  <div class="section-header reveal">
+    <div class="section-num">Roadmap</div>
+    <h2 class="section-title">What's Next</h2>
+  </div>
+
+  <p class="reveal reveal-d1">Job Hunter is live at <a href="https://job.kooexperience.com" target="_blank">job.kooexperience.com</a>. The core experience works, but there's more to build:</p>
+
+  <div class="feature-grid reveal reveal-d2">
+    <div class="feature-card">
+      <div class="feature-title">Daily job refresh</div>
+      <div class="feature-desc">Automated cron-based scraping instead of manual triggers.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">Skill taxonomy learning</div>
+      <div class="feature-desc">Learn from user feedback which skills matter most for each role type.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">ATS gap visualization</div>
+      <div class="feature-desc">The backend scores skill gaps; the frontend needs to visualize them clearly.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">SkillsFuture integration</div>
+      <div class="feature-desc">Link skill gaps to relevant SkillsFuture courses available in Singapore.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <p>&copy; 2026 Haoming Koo &middot; <a href="/">kooexperience.com</a></p>
+</footer>
+</div>
+
+<script>
+// Theme toggle
+function toggleTheme(){
+  const html=document.documentElement;
+  const next=html.dataset.theme==="dark"?"light":"dark";
+  html.dataset.theme=next;
+  localStorage.setItem("theme",next);
+  document.getElementById("theme-icon").textContent=next==="dark"?"☾":"☀";
+}
+(function(){
+  const saved=localStorage.getItem("theme");
+  if(saved){document.documentElement.dataset.theme=saved;
+    document.getElementById("theme-icon").textContent=saved==="dark"?"☾":"☀";}
+})();
+
+// Scroll reveal
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}})
+},{threshold:0.08,rootMargin:"0px 0px -40px 0px"});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>

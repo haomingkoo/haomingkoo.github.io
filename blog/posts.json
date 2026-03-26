@@ -1,5 +1,19 @@
 [
   {
+    "slug": "job-hunter",
+    "title": "Building Job Hunter SG - AI Resume Coaching for Singapore",
+    "date": "2026-03-26",
+    "tags": [
+      "Building",
+      "AI",
+      "Full-Stack",
+      "Singapore"
+    ],
+    "excerpt": "How I built an AI-powered job aggregator and resume coaching platform for the Singapore job market. 70K+ jobs from 7 sources, a 7-stage validation pipeline, and 5 gates to prevent AI hallucination. Born from a real job search frustration and revived by a friend's conversation about resume building.",
+    "cover": "",
+    "readingTime": "8 min"
+  },
+  {
     "slug": "hmm-regime",
     "title": "What Mood Is the Market In? An Interactive Guide to HMM Regime Detection",
     "date": "2026-03-22",
