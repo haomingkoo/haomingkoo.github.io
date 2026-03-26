@@ -585,11 +585,11 @@ p{margin-bottom:16px}
   <div class="section-header reveal">
     <div class="section-num">Data</div>
     <h2 class="section-title">Job Sources</h2>
-    <p class="section-desc">Two primary sources power the crawl pipeline, triggered via admin endpoint. Extensible scraper architecture supports more.</p>
+    <p class="section-desc">Two primary sources power the nightly crawl via a Railway cron job at 22:00 UTC. Extensible scraper architecture supports more.</p>
   </div>
 
   <div class="source-grid reveal reveal-d1" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
-    <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">MyCareersFuture</div><div class="source-info">Public API. Full pagination per crawl (~12K jobs). Salary ranges and skills metadata included.</div></div>
+    <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">MyCareersFuture</div><div class="source-info">Public API. Full pagination nightly (~12K jobs). Salary ranges and skills metadata included.</div></div>
     <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">Careers@Gov 2.0</div><div class="source-info">Workday backend. Custom scraper fetches detail pages and parses skill tags from the API response (~3K jobs).</div></div>
   </div>
 
@@ -685,8 +685,8 @@ p{margin-bottom:16px}
 
   <div class="feature-grid reveal reveal-d2">
     <div class="feature-card">
-      <div class="feature-title">Automated daily refresh</div>
-      <div class="feature-desc">Move from admin-triggered crawls to Railway cron-based nightly seeding across all sources.</div>
+      <div class="feature-title">Enable remaining 5 sources in cron</div>
+      <div class="feature-desc">The nightly cron currently seeds MCF + Careers@Gov. Extend it to include the 5 additional scrapers.</div>
     </div>
     <div class="feature-card">
       <div class="feature-title">Enable remaining 5 scrapers</div>
