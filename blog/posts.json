@@ -1,5 +1,19 @@
 [
   {
+    "slug": "minmax-wine",
+    "title": "I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me",
+    "date": "2026-03-27",
+    "tags": [
+      "Building",
+      "AI",
+      "Full-Stack",
+      "Singapore"
+    ],
+    "excerpt": "How I built an automated wine price comparison tool for Singapore. Amex Platinum gives you $200 back on wine — but are the base prices competitive? I automated the answer with Selenium scraping, Gemini AI search grounding, and a daily pipeline that runs itself.",
+    "cover": "",
+    "readingTime": "8 min"
+  },
+  {
     "slug": "job-hunter",
     "title": "Building Job Hunter SG - AI Resume Coaching for Singapore",
     "date": "2026-03-26",
