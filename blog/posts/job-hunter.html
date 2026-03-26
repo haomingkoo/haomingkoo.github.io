@@ -23,7 +23,23 @@
   <meta name="twitter:image" content="https://kooexperience.com/assets/og/job-hunter.png" />
   <meta name="twitter:title" content="Building Job Hunter SG" />
   <meta name="twitter:description" content="AI resume coaching for the Singapore job market." />
+  <meta property="article:published_time" content="2026-03-26T00:00:00+08:00" />
+  <meta property="article:author" content="Haoming Koo" />
   <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Building Job Hunter SG - AI Resume Coaching for Singapore",
+    "description": "How I built an AI-powered job aggregator and resume coaching platform for the Singapore job market.",
+    "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
+    "datePublished": "2026-03-26",
+    "dateModified": "2026-03-27",
+    "url": "https://kooexperience.com/blog/posts/job-hunter.html",
+    "publisher": {"@type": "Person", "name": "Haoming Koo"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/job-hunter.html"}
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -235,13 +251,22 @@ p{margin-bottom:16px}
 .source-info{font-size:11px;color:var(--muted);line-height:1.4}
 
 /* ── Gate Table ───────────────────────────────────────────────────── */
-.gate-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.gate-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0}
+.gate-table{width:100%;border-collapse:collapse;font-size:13px;min-width:500px}
 .gate-table th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--border);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px}
 .gate-table td{padding:10px 12px;border-bottom:1px solid var(--border)}
 .gate-table tr:hover td{background:var(--surface-hover)}
 .gate-status{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
 .gate-status.pass{background:var(--live)}
 .gate-status.fail{background:var(--red)}
+
+/* ── Before/After ────────────────────────────────────────────────── */
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.ba-card{padding:14px 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-size:13px;line-height:1.6}
+.ba-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.ba-label.before{color:var(--red)}
+.ba-label.after{color:var(--live)}
+@media(max-width:640px){.ba-grid{grid-template-columns:1fr}}
 
 /* ── Scroll Reveal ────────────────────────────────────────────────── */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
@@ -294,7 +319,7 @@ p{margin-bottom:16px}
   <div class="hero-badge">Case Study</div>
   <h1>Building Job Hunter SG</h1>
   <p class="hero-sub">An AI-powered job aggregator and resume coaching platform for the Singapore job market.</p>
-  <p class="hero-meta">March 2026 &middot; <a href="https://job.kooexperience.com" target="_blank">job.kooexperience.com</a></p>
+  <p class="hero-meta">March 2026 &middot; 10 min read &middot; <a href="https://job.kooexperience.com" target="_blank">job.kooexperience.com</a></p>
   <div class="tag-row" style="justify-content:center;margin-top:16px">
     <span class="tag">FastAPI</span>
     <span class="tag">React</span>
@@ -366,7 +391,7 @@ p{margin-bottom:16px}
     </div>
     <div class="stat-card">
       <div class="stat-val text-purple">15K+</div>
-      <div class="stat-lbl">Jobs Crawled Nightly</div>
+      <div class="stat-lbl">Jobs Per Full Crawl</div>
     </div>
     <div class="stat-card">
       <div class="stat-val text-amber">7</div>
@@ -383,11 +408,11 @@ p{margin-bottom:16px}
       <div class="stat-lbl">Resume Templates</div>
     </div>
     <div class="stat-card">
-      <div class="stat-val">200+</div>
-      <div class="stat-lbl">Multi-Word Skills</div>
+      <div class="stat-val">413</div>
+      <div class="stat-lbl">Known Skills</div>
     </div>
     <div class="stat-card">
-      <div class="stat-val">40+</div>
+      <div class="stat-val">60+</div>
       <div class="stat-lbl">API Endpoints</div>
     </div>
     <div class="stat-card">
@@ -412,7 +437,7 @@ p{margin-bottom:16px}
         <span class="tag" style="margin-bottom:4px">FastAPI</span>
         <span class="tag">SQLAlchemy</span>
         <span class="tag">PostgreSQL</span><br>
-        Async Python with auto-migrating ORM. SQLite locally, PostgreSQL on Railway.
+        60+ endpoints, auto-migrating ORM. SQLite locally, PostgreSQL on Railway.
       </div>
     </div>
     <div class="feature-card">
@@ -429,7 +454,7 @@ p{margin-bottom:16px}
       <div class="feature-desc">
         <span class="tag purple">SEA-LION 70B</span>
         <span class="tag purple">SEA-LION 32B</span><br>
-        70B for strategic reasoning (10s), 32B for interactive rewrites (1s). Round-robin across 5 API keys.
+        70B for strategy and summaries (~10s). 32B for batched bullet rewrites (~15s pipeline, &lt;2s interactive). 5 keys round-robin at ~45 req/min.
       </div>
     </div>
     <div class="feature-card">
@@ -503,7 +528,8 @@ p{margin-bottom:16px}
     <p class="section-desc">Every AI-generated rewrite passes through five gates before being accepted. Any failure reverts to the original text.</p>
   </div>
 
-  <table class="gate-table reveal reveal-d1">
+  <div class="gate-table-wrap reveal reveal-d1">
+  <table class="gate-table">
     <thead>
       <tr>
         <th>Gate</th>
@@ -519,7 +545,7 @@ p{margin-bottom:16px}
       </tr>
       <tr>
         <td><span class="gate-status pass"></span><strong>AI Phrase Detection</strong></td>
-        <td>Auto-replace 107 weak phrases ("leveraged", "synergize")</td>
+        <td>Auto-replace 84 weak phrases ("leveraged", "synergize") unless phrase appears in the JD</td>
         <td class="text-amber">Auto-fix</td>
       </tr>
       <tr>
@@ -539,10 +565,19 @@ p{margin-bottom:16px}
       </tr>
     </tbody>
   </table>
+  </div>
 
   <div class="insight success reveal reveal-d2">
     <strong>Why this matters:</strong> LLMs hallucinate. A model might turn "managed 5-person team" into "led 200-person team." The fact preservation gate catches this and reverts. Your resume stays honest.
   </div>
+
+  <h3 style="font-size:16px;font-weight:700;margin:28px 0 8px" class="reveal reveal-d2">Before / After</h3>
+  <p class="reveal reveal-d2" style="font-size:14px;color:var(--text-secondary)">Here is what happens when the pipeline rewrites a bullet and the gates intervene:</p>
+  <div class="ba-grid reveal reveal-d3">
+    <div class="ba-card"><div class="ba-label before">Original</div>"Managed team and improved processes across departments"</div>
+    <div class="ba-card"><div class="ba-label after">After pipeline + gates</div>"Managed 5-person analytics team, reducing report turnaround by 40% across 3 departments"</div>
+  </div>
+  <p class="reveal reveal-d3" style="font-size:12px;color:var(--muted)">The "40%" and "5-person" are only kept if they already exist in the original resume. If the AI fabricated them, the fact preservation gate would revert to the original text.</p>
 </section>
 
 <!-- ── Job Sources ────────────────────────────────────────────────── -->
@@ -550,19 +585,40 @@ p{margin-bottom:16px}
   <div class="section-header reveal">
     <div class="section-num">Data</div>
     <h2 class="section-title">Job Sources</h2>
-    <p class="section-desc">Two primary sources power the nightly crawl, with an extensible scraper architecture.</p>
+    <p class="section-desc">Two primary sources power the crawl pipeline, triggered via admin endpoint. Extensible scraper architecture supports more.</p>
   </div>
 
   <div class="source-grid reveal reveal-d1" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
     <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">MyCareersFuture</div><div class="source-info">Public API. Full pagination nightly (~12K jobs). Salary ranges and skills metadata included.</div></div>
-    <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">Careers@Gov 2.0</div><div class="source-info">Workday backend. Custom scraper fetches detail pages, extracts competency frameworks (~3K jobs).</div></div>
+    <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">Careers@Gov 2.0</div><div class="source-info">Workday backend. Custom scraper fetches detail pages and parses skill tags from the API response (~3K jobs).</div></div>
   </div>
 
-  <p class="reveal reveal-d2" style="margin-top:16px">The scraper architecture supports additional sources (NodeFlair, Indeed, JobStreet, Adzuna, Jooble) via a pluggable <code>SOURCE_MAP</code>, but the nightly pipeline currently runs only the two primary APIs. MCF alone covers most of the Singapore job market with structured salary and skills data. Adding more sources is a config change, not a code change.</p>
+  <p class="reveal reveal-d2" style="margin-top:16px">The scraper architecture supports additional sources (NodeFlair, Indeed, JobStreet, Adzuna, Jooble) via a pluggable <code>SOURCE_MAP</code>, but the crawl currently runs only the two primary APIs. MCF alone covers most of the Singapore job market with structured salary and skills data. Enabling an existing scraper is a config change; adding a new source requires writing a scraper class.</p>
 
   <div class="insight warn reveal reveal-d2">
-    <strong>Careers@Gov challenge:</strong> Government jobs on Workday don't expose skills in the API. The scraper fetches individual detail pages, extracts competency framework terms, and derives skill cues from the job description using regex pattern matching.
+    <strong>Careers@Gov challenge:</strong> Government jobs on Workday return minimal metadata. The <code>CareersGovScraper</code> fetches individual detail pages, extracts <code>skillTags</code> from the API response, and falls back to parsing skill cues from the JD text using <code>jd_preparser.py</code> (regex pattern matching, ~50ms/job).
   </div>
+</section>
+
+<!-- ── What I Tried ──────────────────────────────────────────────── -->
+<section class="section" id="s-tradeoffs">
+  <div class="section-header reveal">
+    <div class="section-num">Tradeoffs</div>
+    <h2 class="section-title">What I Tried and What Broke</h2>
+    <p class="section-desc">The interesting engineering is in the failures, not the features.</p>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:700;margin:0 0 8px" class="reveal reveal-d1">Injectable vs non-injectable keywords</h3>
+  <p class="reveal reveal-d1">The first version of the keyword integration just stuffed every missing JD keyword into the resume. The result read like a search engine, not a human. The fix: Stage 0 classifies every missing skill as <strong>injectable</strong> (user has adjacent experience) or <strong>non-injectable</strong> (user has no basis for this claim). The AI is only allowed to weave in injectable keywords. Non-injectable ones get flagged as skill gaps, not fabricated onto the resume.</p>
+
+  <h3 style="font-size:16px;font-weight:700;margin:28px 0 8px" class="reveal reveal-d1">Sibling bullet context</h3>
+  <p class="reveal reveal-d1">Early rewrites had a duplication problem: the AI would rewrite three bullets in the same entry to all start with "Spearheaded" and repeat the same achievement. Stage 3 now passes sibling context to every rewrite call, so the model knows what the other bullets already say. Stage 4 then runs verb synonym dedup (14 verb groups) as a safety net.</p>
+
+  <h3 style="font-size:16px;font-weight:700;margin:28px 0 8px" class="reveal reveal-d2">Degraded mode</h3>
+  <p class="reveal reveal-d2">SEA-LION's 70B model occasionally times out or returns malformed JSON. When Stage 1 (strategic analysis) fails, the pipeline doesn't crash. It falls back to a local heuristic: prioritize bullets with the most issues (from the scorer) and mark the result as <code>_degraded</code>. The user still gets a tailored resume, just without the full strategic reasoning.</p>
+
+  <h3 style="font-size:16px;font-weight:700;margin:28px 0 8px" class="reveal reveal-d2">Semantic search with embeddings</h3>
+  <p class="reveal reveal-d2">Keyword matching misses jobs described differently from how you'd write your resume. The backend includes a semantic search layer using <code>sentence-transformers/all-MiniLM-L6-v2</code> (384-dim embeddings). Both job descriptions and resumes are encoded, and cosine similarity surfaces matches that keyword search would miss. This is how a "data pipeline engineer" resume can match a "data infrastructure" JD.</p>
 </section>
 
 <!-- ── Key Decisions ──────────────────────────────────────────────── -->
@@ -585,14 +641,14 @@ p{margin-bottom:16px}
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4Z"/><circle cx="12" cy="15" r="2"/></svg>
       </div>
       <div class="feature-title">70B vs 32B model split</div>
-      <div class="feature-desc">70B for strategic analysis (progress bar, 10s). 32B for interactive bullet rewrites (user is watching, need &lt;2s).</div>
+      <div class="feature-desc">70B for strategic analysis (progress bar, ~10s). 32B for batched bullet rewrites (~15s in pipeline, &lt;2s for single interactive edits).</div>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--live)" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"/></svg>
       </div>
       <div class="feature-title">Validate, don't trust</div>
-      <div class="feature-desc">Every AI output passes through 5 gates. If any gate fails, the original text is preserved. The resume stays factual.</div>
+      <div class="feature-desc">Every AI output passes through 5 gates. If any gate fails, the original text is preserved. 222 backend tests verify the gates work.</div>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
@@ -606,14 +662,14 @@ p{margin-bottom:16px}
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
       </div>
       <div class="feature-title">Round-robin API keys</div>
-      <div class="feature-desc">5 SEA-LION API keys rotate round-robin for 50 req/min throughput on the free tier. Token-bucket rate limiting prevents hard rejections.</div>
+      <div class="feature-desc">5 SEA-LION API keys rotate round-robin for ~45 req/min on the free tier (9/key buffer to avoid hard limits). Token-bucket rate limiting prevents rejections.</div>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
       </div>
-      <div class="feature-title">8 ATS-friendly templates</div>
-      <div class="feature-desc">From Classic (government/consulting) to Technical (skills-first) to Singapore Professional (includes PR/citizenship field). DOCX via python-docx.</div>
+      <div class="feature-title">Multi-user auth + versioning</div>
+      <div class="feature-desc">JWT + bcrypt auth with tier-based rate limiting. Users can save, label, and manage multiple resume versions linked to specific jobs.</div>
     </div>
   </div>
 </section>
@@ -629,21 +685,25 @@ p{margin-bottom:16px}
 
   <div class="feature-grid reveal reveal-d2">
     <div class="feature-card">
-      <div class="feature-title">Daily job refresh</div>
-      <div class="feature-desc">Automated cron-based scraping instead of manual triggers.</div>
+      <div class="feature-title">Automated daily refresh</div>
+      <div class="feature-desc">Move from admin-triggered crawls to Railway cron-based nightly seeding across all sources.</div>
     </div>
     <div class="feature-card">
-      <div class="feature-title">Skill taxonomy learning</div>
-      <div class="feature-desc">Learn from user feedback which skills matter most for each role type.</div>
+      <div class="feature-title">Enable all 7 scrapers</div>
+      <div class="feature-desc">NodeFlair, Indeed, JobStreet, Adzuna, Jooble are coded but not in the production pipeline yet.</div>
     </div>
     <div class="feature-card">
       <div class="feature-title">ATS gap visualization</div>
       <div class="feature-desc">The backend scores skill gaps; the frontend needs to visualize them clearly.</div>
     </div>
     <div class="feature-card">
-      <div class="feature-title">SkillsFuture integration</div>
-      <div class="feature-desc">Link skill gaps to relevant SkillsFuture courses available in Singapore.</div>
+      <div class="feature-title">SkillsFuture course linking</div>
+      <div class="feature-desc">The SSG-WSG Skills Framework API is already integrated. Next: link skill gaps to specific SkillsFuture courses.</div>
     </div>
+  </div>
+
+  <div class="insight reveal reveal-d3">
+    <strong>Related posts:</strong> See how I approached <a href="/blog/posts/trader-koo.html">stock pattern detection with YOLOv8</a>, <a href="/blog/posts/lionweather.html">weather prediction with LightGBM</a>, or <a href="/blog/posts/photo-id-studio.html">passport compliance with MediaPipe</a>.
   </div>
 </section>
 

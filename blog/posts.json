@@ -11,7 +11,7 @@
     ],
     "excerpt": "How I built an AI-powered job aggregator and resume coaching platform for the Singapore job market. Nightly crawls from MyCareersFuture and Careers@Gov, a 7-stage resume tailoring pipeline, and 5 validation gates to prevent AI hallucination. Born from a real job search frustration and revived by a friend's conversation about resume building.",
     "cover": "",
-    "readingTime": "8 min"
+    "readingTime": "10 min"
   },
   {
     "slug": "hmm-regime",
