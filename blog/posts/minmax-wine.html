@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <title>I Built an AI Wine Deal Hunter — Here's What 50 Bottles Taught Me - Haoming Koo</title>
+    <meta name="description" content="How I built an automated wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with search grounding, and a self-sustaining daily pipeline." />
+    <meta name="keywords" content="wine price comparison, Singapore wine, Gemini AI, web scraping, FastAPI, Vivino, Platinum Wine Club, Grand Cru, deal finder" />
+    <meta name="author" content="Haoming Koo" />
+    <link rel="canonical" href="https://kooexperience.com/blog/posts/minmax-wine.html" />
+    <meta property="og:image" content="https://kooexperience.com/assets/og/minmax-wine.png" />
+    <meta property="og:site_name" content="Haoming Koo" />
+    <meta property="og:locale" content="en_SG" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://kooexperience.com/assets/og/minmax-wine.png">
+    <meta name="twitter:title" content="I Built an AI Wine Deal Hunter — Here's What 50 Bottles Taught Me">
+    <meta name="twitter:description" content="How I built an automated wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with search grounding, and a self-sustaining daily pipeline.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      [data-theme="dark"] {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #3b82f6;
+        --accent-dim: rgba(59,130,246,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+        --nav-bg: rgba(6,6,8,0.72);
+      }
+      [data-theme="light"] {
+        --bg: #f8f9fb;
+        --surface: #ffffff;
+        --border: #dde1e6;
+        --accent: #2563eb;
+        --accent-dim: rgba(37,99,235,0.08);
+        --text: #111318;
+        --text-secondary: #3d4250;
+        --muted: #6b7280;
+        --nav-bg: rgba(248,249,251,0.85);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        transition: background .35s, color .35s;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+      [data-theme="light"] body::before { opacity: 0.3; }
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: var(--nav-bg);
+        backdrop-filter: blur(16px) saturate(1.6);
+        transition: background .35s, border-color .35s;
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between; height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px; transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle { font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; }
+      .article h2 { font-size: 22px; font-weight: 700; margin: 48px 0 16px; letter-spacing: -.01em; color: var(--text); }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article code {
+        background: rgba(59,130,246,.08); padding: 2px 7px; border-radius: 5px;
+        font-size: 13px; font-family: "SF Mono", "Fira Code", monospace; color: var(--accent);
+      }
+      .article pre {
+        background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+        padding: 20px 24px; overflow-x: auto; margin: 24px 0;
+      }
+      .article pre code { background: none; padding: 0; font-size: 13px; line-height: 1.65; color: var(--text-secondary); }
+      .article blockquote {
+        border-left: 3px solid var(--accent); padding: 14px 20px; margin: 24px 0;
+        background: var(--accent-dim); border-radius: 0 10px 10px 0; color: var(--text-secondary);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+      .toc a { display: block; font-size: 13.5px; color: var(--text-secondary); text-decoration: none; padding: 4px 0; transition: color .2s; }
+      .toc a:hover { color: var(--accent); }
+      .callout {
+        display: flex; gap: 12px;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 16px 20px; margin: 24px 0;
+        font-size: 13.5px; color: var(--text-secondary); line-height: 1.55;
+      }
+      .callout-icon { font-size: 18px; flex-shrink: 0; line-height: 1.4; }
+      .stack-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 24px 0; }
+      .stack-box-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+      .stack-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+      .stack-tag {
+        font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 8px;
+        background: rgba(255,255,255,.04); color: var(--text-secondary); border: 1px solid rgba(255,255,255,.05);
+      }
+      footer { border-top: 1px solid var(--border); padding: 32px 0 40px; font-size: 13px; color: var(--muted); text-align: center; }
+      .nav-right { display: flex; align-items: center; gap: 12px; }
+      .theme-btn {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 8px; padding: 6px 10px; cursor: pointer;
+        color: var(--text); display: flex; align-items: center; gap: 6px;
+        font-size: 12px; font-family: inherit; transition: all .2s;
+      }
+      .theme-btn:hover { border-color: #2a2a36; }
+      .theme-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+      @media (max-width: 600px) { .container { padding: 0 18px; } nav { padding: 0 18px; } }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "I Built an AI Wine Deal Hunter — Here's What 50 Bottles Taught Me - Haoming Koo",
+      "description": "How I built an automated wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with search grounding, and a self-sustaining daily pipeline.",
+      "url": "https://kooexperience.com/blog/posts/minmax-wine.html",
+      "datePublished": "2026-03-27",
+      "dateModified": "2026-03-27",
+      "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
+      "publisher": {"@type": "Person", "name": "Haoming Koo"},
+      "image": "https://kooexperience.com/assets/og/minmax-wine.png",
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/minmax-wine.html"}
+    }
+    </script>
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://kooexperience.com/blog/"},{"@type":"ListItem","position":3,"name":"MinMax Wine"}]}
+</script>
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../../">HK</a>
+        <div class="nav-right">
+          <a href="../../#blog">Blog</a>
+          <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <span class="theme-label">Dark</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../../#blog">&larr; Back to blog</a>
+        <div class="article-meta">
+          <span class="article-tag">Building</span>
+          <span class="article-tag">AI</span>
+          <span class="article-tag">Full-Stack</span>
+          <span class="article-tag">Singapore</span>
+          <span>March 27, 2026</span>
+          <span class="reading-time">8 min read</span>
+        </div>
+        <h1>I Built an AI Wine Deal Hunter &mdash; Here's What 50 Bottles Taught Me</h1>
+        <p class="subtitle">
+          How I built an automated wine price comparison tool for Singapore that compares
+          Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with
+          search grounding, and a self-sustaining daily pipeline.
+        </p>
+
+        <div class="stack-box">
+          <div class="stack-box-title">Tech Stack</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">Selenium</span>
+            <span class="stack-tag">Gemini AI</span>
+            <span class="stack-tag">Brave API</span>
+            <span class="stack-tag">PostgreSQL</span>
+            <span class="stack-tag">Leaflet.js</span>
+            <span class="stack-tag">Railway</span>
+          </div>
+        </div>
+
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#problem">The problem &mdash; am I getting ripped off?</a>
+          <a href="#try-it">Try it yourself</a>
+          <a href="#numbers">The numbers</a>
+          <a href="#pipeline">How the pipeline works</a>
+          <a href="#vivino-problem">The Vivino problem (and the AI fix)</a>
+          <a href="#deal-score">The deal score</a>
+          <a href="#surprising-finds">Surprising finds from the data</a>
+          <a href="#stack">The stack</a>
+          <a href="#whats-next">What's next</a>
+        </div>
+
+        <h2 id="problem">The problem &mdash; am I getting ripped off?</h2>
+
+        <p>
+          It started with a simple question: am I getting ripped off on wine?
+        </p>
+
+        <p>
+          I'm a member of <a href="https://www.platinumwineclub.com.sg/" target="_blank" rel="noopener">Platinum Wine Club</a>
+          in Singapore. They send monthly selections &mdash; nice Burgundies, Barolos, the occasional
+          Champagne. The prices seem reasonable, but "seems reasonable" isn't a number. I wanted to know:
+          how do these prices actually compare to other retailers? Am I getting member value or member theatre?
+        </p>
+
+        <p>
+          The obvious move is to check each wine on
+          <a href="https://www.grandcru.com.sg/" target="_blank" rel="noopener">Grand Cru</a>
+          (another big Singapore retailer) and
+          <a href="https://www.vivino.com/" target="_blank" rel="noopener">Vivino</a>
+          (the global wine marketplace). Doing this manually for one wine takes about five minutes.
+          For 50 wines, that's over four hours of tab-switching and squinting at price labels.
+          So I did what any reasonable engineer would do and automated the whole thing.
+        </p>
+
+        <div class="callout">
+          <span class="callout-icon">&#127468;&#127480;</span>
+          <div>
+            <strong>Singapore only.</strong> This tool compares Singapore wine retailers
+            (Platinum Wine Club and Grand Cru). Prices are in SGD. Vivino prices reflect
+            the Singapore market where available.
+          </div>
+        </div>
+
+        <h2 id="try-it">Try it yourself</h2>
+
+        <p>
+          Head to <a href="https://wine.kooexperience.com" target="_blank" rel="noopener">wine.kooexperience.com</a>.
+          You'll see a table of ~50 wines with prices from Platinum, Grand Cru, and Vivino side by side.
+          Each wine gets a deal score from 0 to 100, colour-coded so the best deals pop out immediately.
+        </p>
+
+        <p>
+          You can sort by deal score, filter by wine type (red, white, sparkling), or click into any
+          wine to see a breakdown of why it scored the way it did. There's also a map showing where
+          each wine comes from, because I'm a sucker for Leaflet maps and any excuse to add one.
+        </p>
+
+        <p>
+          The data refreshes daily via a cron pipeline. No manual intervention. I built it once and it
+          just runs, like a Roomba for wine deals.
+        </p>
+
+        <h2 id="numbers">The numbers</h2>
+
+        <p>
+          After tracking 50 wines across three sources, here's what the data says:
+        </p>
+
+        <ul>
+          <li><strong>16 out of 50 wines (32%)</strong> are genuinely cheaper on Platinum than Grand Cru.</li>
+          <li><strong>Average Vivino rating:</strong> 4.09 out of 5 &mdash; the selection quality is solid.</li>
+          <li><strong>Price range:</strong> $45 to $780 per bottle.</li>
+          <li><strong>Best deal:</strong> Gevrey-Chambertin by Domaine Claude Dugat &mdash; $170 on Platinum vs $1,020 on Grand Cru. That's 83% cheaper, though it's a bundle of 3 bottles, which is doing a lot of heavy lifting in that comparison.</li>
+          <li><strong>Worst "deal":</strong> Gattinara Molsino &mdash; 25% MORE expensive on Platinum than Grand Cru. Ouch.</li>
+          <li><strong>Most reviewed:</strong> Miraval Ros&eacute; 2024 with 58,336 Vivino ratings. More on this legend later.</li>
+        </ul>
+
+        <p>
+          The short version: Platinum isn't a scam, but it's not universally cheaper either. About a third
+          of the wines are genuine deals. The rest are priced similarly or sometimes higher. Knowing which
+          is which &mdash; that's the whole point of this tool.
+        </p>
+
+        <h2 id="pipeline">How the pipeline works</h2>
+
+        <p>
+          The system runs as a daily cron job on Railway. Here's the flow:
+        </p>
+
+        <pre><code>┌────────────────────────────────────────────────────────────┐
+│  Daily Pipeline (cron @ 06:00 SGT)                         │
+│                                                            │
+│  1. SCRAPE                                                 │
+│  ├── Selenium → Platinum Wine Club (prices + labels)       │
+│  └── Selenium → Grand Cru (matched wines + prices)         │
+│                                                            │
+│  2. MATCH                                                  │
+│  ├── Fuzzy string matching (wine names across retailers)   │
+│  └── Manual overrides for tricky labels                    │
+│                                                            │
+│  3. ENRICH (Vivino)                                        │
+│  ├── Brave Search API → find Vivino URLs                   │
+│  ├── Gemini AI (search grounding) → extract:               │
+│  │   ├── Vivino rating + review count                      │
+│  │   ├── Average price (SGD)                               │
+│  │   └── Wine metadata (region, grape, style)              │
+│  └── Fallback: manual CSV for wines Gemini can't resolve   │
+│                                                            │
+│  4. SCORE                                                  │
+│  └── Compute deal score (0-100) per wine                   │
+│                                                            │
+│  5. SERVE                                                  │
+│  ├── FastAPI → /api/wines (JSON)                           │
+│  ├── PostgreSQL (Railway) for persistence                  │
+│  └── Static frontend (vanilla JS + Leaflet.js)             │
+└────────────────────────────────────────────────────────────┘</code></pre>
+
+        <p>
+          The scraping layer uses Selenium with headless Chrome. Both Platinum and Grand Cru
+          render their catalogues with JavaScript, so a simple HTTP request won't cut it.
+          Selenium waits for the page to fully render, then extracts wine names, vintages,
+          regions, and prices from the DOM.
+        </p>
+
+        <p>
+          The matching step is trickier than it sounds. "Chambolle-Musigny 1er Cru Les Amoureuses 2020"
+          on one site might be listed as "Domaine Serveau Chambolle Musigny Amoureuses Premier Cru 2020"
+          on another. Fuzzy matching with a similarity threshold of 0.75 catches most of these, but
+          some wines need manual overrides stored in a CSV.
+        </p>
+
+        <h2 id="vivino-problem">The Vivino problem (and the AI fix)</h2>
+
+        <p>
+          This was the part that almost killed the project. I needed Vivino data &mdash; ratings,
+          review counts, average prices &mdash; to make the deal score meaningful. The problem?
+          Vivino blocks everything.
+        </p>
+
+        <p>
+          I tried <code>urllib</code>. Blocked. I tried <code>requests</code> with custom headers.
+          Blocked. I tried Playwright with stealth mode. Blocked. I tried rotating proxies.
+          Still blocked. Vivino's anti-bot detection is genuinely impressive (and genuinely annoying).
+          Every server IP &mdash; Railway, AWS, GCP, you name it &mdash; gets detected and rejected.
+        </p>
+
+        <p>
+          The breakthrough came from a weird direction: <strong>Gemini AI with Google Search grounding</strong>.
+        </p>
+
+        <p>
+          Google's Gemini API has a feature called
+          <a href="https://ai.google.dev/gemini-api/docs/grounding" target="_blank" rel="noopener">search grounding</a>
+          where you can ask Gemini a question and it will search the web in real time to find the answer.
+          Crucially, Google's own crawlers can access Vivino just fine. So instead of scraping Vivino
+          directly, I ask Gemini:
+        </p>
+
+        <blockquote>
+          "What is the Vivino rating, number of reviews, and average Singapore price for
+          Domaine Claude Dugat Gevrey-Chambertin 2021?"
+        </blockquote>
+
+        <p>
+          Gemini searches, finds the Vivino page, and returns structured data. It's not scraping &mdash;
+          it's having an AI assistant do the research for me. The success rate is about 82% automated.
+          For the remaining 18%, the wine is either too obscure for Vivino or Gemini returns ambiguous
+          results. Those get flagged for manual review.
+        </p>
+
+        <p>
+          Before Gemini, I also use the <a href="https://brave.com/search/api/" target="_blank" rel="noopener">Brave Search API</a>
+          to find the exact Vivino URL for each wine. This gives Gemini a direct link to work with
+          rather than relying on its own search, which improves accuracy significantly.
+        </p>
+
+        <h2 id="deal-score">The deal score</h2>
+
+        <p>
+          Every wine gets a score from 0 to 100. The formula weights four components:
+        </p>
+
+        <ul>
+          <li><strong>Price gap (40 points):</strong> How much cheaper is Platinum compared to Grand Cru and Vivino's average price? Bigger savings = more points. If Platinum is more expensive, this goes negative and drags the score down.</li>
+          <li><strong>Vivino rating (25 points):</strong> Higher-rated wines score higher. A 4.5-rated wine at a discount is more interesting than a 3.5-rated wine at the same discount. Quality matters.</li>
+          <li><strong>Rating confidence (20 points):</strong> A 4.2 rating backed by 10,000 reviews is more reliable than a 4.2 with 12 reviews. This component scales with review count, rewarding wines with strong community consensus.</li>
+          <li><strong>Market position (15 points):</strong> Where does the Platinum price sit relative to the overall market? If it's in the bottom quartile of known prices, that's a strong signal.</li>
+        </ul>
+
+        <p>
+          The result is a single number that answers: "Is this wine a good deal on Platinum?"
+          A score above 70 means you're probably getting genuine value. Below 40 means you should
+          price-check before buying. Scores are colour-coded on the frontend &mdash; green for great deals,
+          red for overpriced ones.
+        </p>
+
+        <h2 id="surprising-finds">Surprising finds from the data</h2>
+
+        <p>
+          After staring at 50 wines for longer than is healthy, a few patterns jumped out:
+        </p>
+
+        <p>
+          <strong>Ros&eacute; has the best value.</strong> The Miraval Ros&eacute; 2024 &mdash; yes, the one from
+          Brad Pitt and Angelina Jolie's Provence estate, a.k.a. the world's most famous divorce wine &mdash;
+          is consistently cheaper on Platinum than anywhere else. With 58,336 Vivino reviews and a solid
+          rating, it's the highest-confidence deal in the dataset.
+        </p>
+
+        <p>
+          <strong>Champagne is mostly the same price everywhere.</strong> The big Champagne houses
+          (Mo&euml;t, Veuve Clicquot, etc.) have tight distribution agreements. Price differences
+          across retailers are usually under $5. Not much to optimise here.
+        </p>
+
+        <p>
+          <strong>Italian wines need checking.</strong> The biggest price variances showed up in Italian
+          bottles &mdash; Barolo, Barbaresco, Gattinara. Some were great deals on Platinum; others were
+          significantly overpriced. Italian wine pricing in Singapore appears to be all over the place.
+        </p>
+
+        <p>
+          <strong>Burgundy is where the real deals hide.</strong> The Gevrey-Chambertin by Domaine Claude
+          Dugat at 83% cheaper is the extreme case, but several other Burgundies showed 20-40% savings.
+          These tend to be smaller producers where Platinum's direct import relationships actually matter.
+        </p>
+
+        <h2 id="stack">The stack</h2>
+
+        <pre><code>Backend:    Python 3.12 + FastAPI + Uvicorn
+Scraping:   Selenium (headless Chrome)
+Search:     Brave Search API (Vivino URL discovery)
+AI:         Gemini 2.0 Flash (search grounding for Vivino data)
+Database:   PostgreSQL (Railway managed)
+Frontend:   Vanilla JS + Leaflet.js (wine origin map)
+Hosting:    Railway (backend) + static frontend
+Scheduling: Railway cron (daily 06:00 SGT)
+Cost:       ~$0/month (all free tiers)</code></pre>
+
+        <p>
+          The entire thing runs on free tiers. Railway's free plan covers the backend. Brave Search
+          has a generous free tier. Gemini's free API handles the volume easily (50 wines is nothing).
+          PostgreSQL is included with Railway. The only thing I pay for is my time, which I choose
+          not to quantify because it would be depressing.
+        </p>
+
+        <h2 id="whats-next">What's next</h2>
+
+        <p>
+          A few things I want to add:
+        </p>
+
+        <ul>
+          <li><strong>More retailers:</strong> Wine Connection, 1855 The Bottle Shop, and other Singapore wine stores. More data points = better price intelligence.</li>
+          <li><strong>Price history:</strong> Track prices over time to spot trends. Does Platinum get cheaper before Christmas? Do Grand Cru prices spike during promotions?</li>
+          <li><strong>Alert system:</strong> Get notified when a high-rated wine drops below a price threshold. Because checking a website daily is exactly the kind of manual work this project was supposed to eliminate.</li>
+          <li><strong>Better Vivino coverage:</strong> Push that 82% automation rate higher. Some wines just need better search queries or alternative data sources.</li>
+        </ul>
+
+        <p>
+          If you made it this far, thanks for reading. And if you're a wine drinker in Singapore,
+          go check <a href="https://wine.kooexperience.com" target="_blank" rel="noopener">wine.kooexperience.com</a>
+          before your next purchase. Your wallet might thank you. Or you'll discover that your
+          favourite bottle was overpriced all along, in which case, sorry about that.
+        </p>
+
+        <p>
+          Questions, suggestions, or wine recommendations?
+          <a href="mailto:haomingkoo@gmail.com">Reach out</a>. I'm always looking for new bottles to add to the tracker.
+        </p>
+
+        <hr class="divider" />
+
+        <h2 id="references">References</h2>
+
+        <ul>
+          <li><a href="https://wine.kooexperience.com" target="_blank" rel="noopener">MinMax Wine (live app)</a></li>
+          <li><a href="https://www.platinumwineclub.com.sg/" target="_blank" rel="noopener">Platinum Wine Club Singapore</a></li>
+          <li><a href="https://www.grandcru.com.sg/" target="_blank" rel="noopener">Grand Cru Singapore</a></li>
+          <li><a href="https://www.vivino.com/" target="_blank" rel="noopener">Vivino</a></li>
+          <li><a href="https://ai.google.dev/gemini-api/docs/grounding" target="_blank" rel="noopener">Gemini Search Grounding</a></li>
+          <li><a href="https://brave.com/search/api/" target="_blank" rel="noopener">Brave Search API</a></li>
+          <li><a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a></li>
+          <li><a href="https://leafletjs.com/" target="_blank" rel="noopener">Leaflet.js</a></li>
+          <li><a href="https://railway.app" target="_blank" rel="noopener">Railway</a></li>
+        </ul>
+
+      </article>
+
+      <!-- Related Posts -->
+      <section class="section" style="padding:40px 0">
+        <div class="container">
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px">Related Posts</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px">
+            <a href="trader-koo.html" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s">
+              <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">AI-Powered Stock Market Dashboard</div>
+              <div style="font-size:12px;color:var(--muted)">YOLOv8 computer vision for chart pattern detection</div>
+            </a>
+            <a href="lionweather.html" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s">
+              <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">I Tried to Predict Singapore's Rain</div>
+              <div style="font-size:12px;color:var(--muted)">ML rainfall forecasting with LightGBM and SHAP</div>
+            </a>
+            <a href="job-hunter.html" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s">
+              <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">Building a Job Application Tracker</div>
+              <div style="font-size:12px;color:var(--muted)">Full-stack app for managing the job hunt</div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <a href="../../" style="color: var(--accent); text-decoration: none;">kooexperience.com</a>
+        &middot; &copy; 2026 Haoming Koo
+      </footer>
+    </div>
+  <script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.querySelector('.theme-label').textContent = next === 'dark' ? 'Dark' : 'Light';
+}
+</script>
+  </body>
+</html>

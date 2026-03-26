@@ -1,5 +1,19 @@
 [
   {
+    "slug": "minmax-wine",
+    "title": "I Built an AI Wine Deal Hunter — Here's What 50 Bottles Taught Me",
+    "date": "2026-03-27",
+    "tags": [
+      "Building",
+      "AI",
+      "Full-Stack",
+      "Singapore"
+    ],
+    "excerpt": "How I built an automated wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino using web scraping, Gemini AI with search grounding, and a self-sustaining daily pipeline. Only 32% of Platinum wines are actually cheaper.",
+    "cover": "",
+    "readingTime": "8 min"
+  },
+  {
     "slug": "job-hunter",
     "title": "Building Job Hunter SG - AI Resume Coaching for Singapore",
     "date": "2026-03-26",
