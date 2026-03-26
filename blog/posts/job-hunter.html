@@ -372,7 +372,7 @@ p{margin-bottom:16px}
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
       </div>
       <div class="feature-title">Built for Singapore</div>
-      <div class="feature-desc">Careers@Gov competency frameworks, Singapore Professional templates, PR/citizenship-aware fields.</div>
+      <div class="feature-desc">SkillsFuture Skills Framework integration, Singapore Professional templates, PR/citizenship-aware fields.</div>
     </div>
   </div>
 </section>
@@ -574,10 +574,10 @@ p{margin-bottom:16px}
   <h3 style="font-size:16px;font-weight:700;margin:28px 0 8px" class="reveal reveal-d2">Before / After</h3>
   <p class="reveal reveal-d2" style="font-size:14px;color:var(--text-secondary)">Here is what happens when the pipeline rewrites a bullet and the gates intervene:</p>
   <div class="ba-grid reveal reveal-d3">
-    <div class="ba-card"><div class="ba-label before">Original</div>"Managed team and improved processes across departments"</div>
-    <div class="ba-card"><div class="ba-label after">After pipeline + gates</div>"Managed 5-person analytics team, reducing report turnaround by 40% across 3 departments"</div>
+    <div class="ba-card"><div class="ba-label before">Original</div>"Managed 5-person analytics team and improved report turnaround by 40% across 3 departments"</div>
+    <div class="ba-card"><div class="ba-label after">After pipeline + gates</div>"Led a 5-person analytics team that cut report turnaround by 40%, streamlining workflows across 3 departments"</div>
   </div>
-  <p class="reveal reveal-d3" style="font-size:12px;color:var(--muted)">The "40%" and "5-person" are only kept if they already exist in the original resume. If the AI fabricated them, the fact preservation gate would revert to the original text.</p>
+  <p class="reveal reveal-d3" style="font-size:12px;color:var(--muted)">The gate checks: "5-person", "40%", and "3 departments" all appear in the original and survive in the rewrite. If the AI had inflated "5-person" to "20-person", the fact preservation gate would revert the entire bullet to the original.</p>
 </section>
 
 <!-- ── Job Sources ────────────────────────────────────────────────── -->
@@ -589,7 +589,7 @@ p{margin-bottom:16px}
   </div>
 
   <div class="source-grid reveal reveal-d1" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
-    <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">MyCareersFuture</div><div class="source-info">Public API. Full pagination nightly (~12K jobs). Salary ranges and skills metadata included.</div></div>
+    <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">MyCareersFuture</div><div class="source-info">Public API. Full pagination per crawl (~12K jobs). Salary ranges and skills metadata included.</div></div>
     <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">Careers@Gov 2.0</div><div class="source-info">Workday backend. Custom scraper fetches detail pages and parses skill tags from the API response (~3K jobs).</div></div>
   </div>
 
@@ -689,8 +689,8 @@ p{margin-bottom:16px}
       <div class="feature-desc">Move from admin-triggered crawls to Railway cron-based nightly seeding across all sources.</div>
     </div>
     <div class="feature-card">
-      <div class="feature-title">Enable all 7 scrapers</div>
-      <div class="feature-desc">NodeFlair, Indeed, JobStreet, Adzuna, Jooble are coded but not in the production pipeline yet.</div>
+      <div class="feature-title">Enable remaining 5 scrapers</div>
+      <div class="feature-desc">NodeFlair, Indeed, JobStreet, Adzuna, and Jooble scrapers are built but not yet in the production crawl pipeline.</div>
     </div>
     <div class="feature-card">
       <div class="feature-title">ATS gap visualization</div>
