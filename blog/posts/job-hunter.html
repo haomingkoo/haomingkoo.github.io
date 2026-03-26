@@ -8,12 +8,12 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
   <title>Building Job Hunter SG - AI Resume Coaching for Singapore</title>
-  <meta name="description" content="How I built an AI-powered job aggregator and resume coaching platform for the Singapore job market, with 70K+ jobs from 7 sources and a 7-stage validation pipeline.">
+  <meta name="description" content="How I built an AI-powered job aggregator and resume coaching platform for the Singapore job market, with a 7-stage validation pipeline and 5 gates to prevent AI hallucination.">
   <link rel="canonical" href="https://kooexperience.com/blog/posts/job-hunter.html" />
   <meta name="author" content="Haoming Koo" />
   <meta name="robots" content="index, follow" />
   <meta property="og:title" content="Building Job Hunter SG - AI Resume Coaching for Singapore" />
-  <meta property="og:description" content="AI-powered job aggregator + resume coaching for the Singapore market. 70K+ jobs, 7 sources, 7-stage validation pipeline." />
+  <meta property="og:description" content="AI-powered job aggregator + resume coaching for the Singapore market. 7-stage validation pipeline, 5 gates to prevent AI hallucination." />
   <meta property="og:url" content="https://kooexperience.com/blog/posts/job-hunter.html" />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://kooexperience.com/assets/og/job-hunter.png" />
@@ -299,8 +299,8 @@ p{margin-bottom:16px}
     <span class="tag">FastAPI</span>
     <span class="tag">React</span>
     <span class="tag purple">SEA-LION AI</span>
-    <span class="tag amber">7 Job Sources</span>
-    <span class="tag green">70K+ Jobs</span>
+    <span class="tag amber">MCF + Careers@Gov</span>
+    <span class="tag green">5 Validation Gates</span>
   </div>
 </header>
 
@@ -326,7 +326,7 @@ p{margin-bottom:16px}
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       </div>
       <div class="feature-title">Search everywhere at once</div>
-      <div class="feature-desc">Aggregate 7 Singapore job portals into one unified interface with cross-source deduplication.</div>
+      <div class="feature-desc">Aggregate MyCareersFuture and Careers@Gov into one interface with deduplication. Extensible to more sources.</div>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
@@ -361,12 +361,12 @@ p{margin-bottom:16px}
 
   <div class="stat-row reveal reveal-d1">
     <div class="stat-card">
-      <div class="stat-val text-accent">70K+</div>
-      <div class="stat-lbl">Jobs Cached</div>
+      <div class="stat-val text-accent">2</div>
+      <div class="stat-lbl">Active Sources</div>
     </div>
     <div class="stat-card">
-      <div class="stat-val text-purple">7</div>
-      <div class="stat-lbl">Job Sources</div>
+      <div class="stat-val text-purple">15K+</div>
+      <div class="stat-lbl">Jobs Crawled Nightly</div>
     </div>
     <div class="stat-card">
       <div class="stat-val text-amber">7</div>
@@ -549,22 +549,19 @@ p{margin-bottom:16px}
 <section class="section" id="s-sources">
   <div class="section-header reveal">
     <div class="section-num">Data</div>
-    <h2 class="section-title">7 Singapore Job Sources</h2>
-    <p class="section-desc">Aggregated and deduplicated across the major Singapore job portals.</p>
+    <h2 class="section-title">Job Sources</h2>
+    <p class="section-desc">Two primary sources power the nightly crawl, with an extensible scraper architecture.</p>
   </div>
 
-  <div class="source-grid reveal reveal-d1">
-    <div class="source-card api"><div class="source-badge">API</div><div class="source-name">MyCareersFuture</div><div class="source-info">~30K jobs, salary ranges, skills metadata</div></div>
-    <div class="source-card api"><div class="source-badge">API</div><div class="source-name">Careers@Gov 2.0</div><div class="source-info">Government jobs via Workday backend</div></div>
-    <div class="source-card scraper"><div class="source-badge">Scraper</div><div class="source-name">NodeFlair</div><div class="source-info">Tech-focused, startup ecosystem</div></div>
-    <div class="source-card scraper"><div class="source-badge">Scraper</div><div class="source-name">Indeed SG</div><div class="source-info">Broad coverage, all industries</div></div>
-    <div class="source-card scraper"><div class="source-badge">Scraper</div><div class="source-name">JobStreet</div><div class="source-info">SEA-focused, strong SG presence</div></div>
-    <div class="source-card api"><div class="source-badge">API</div><div class="source-name">Adzuna</div><div class="source-info">Aggregator with salary estimates</div></div>
-    <div class="source-card api"><div class="source-badge">API</div><div class="source-name">Jooble</div><div class="source-info">Global aggregator, 67+ countries</div></div>
+  <div class="source-grid reveal reveal-d1" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
+    <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">MyCareersFuture</div><div class="source-info">Public API. Full pagination nightly (~12K jobs). Salary ranges and skills metadata included.</div></div>
+    <div class="source-card api"><div class="source-badge">Active</div><div class="source-name">Careers@Gov 2.0</div><div class="source-info">Workday backend. Custom scraper fetches detail pages, extracts competency frameworks (~3K jobs).</div></div>
   </div>
+
+  <p class="reveal reveal-d2" style="margin-top:16px">The scraper architecture supports additional sources (NodeFlair, Indeed, JobStreet, Adzuna, Jooble) via a pluggable <code>SOURCE_MAP</code>, but the nightly pipeline currently runs only the two primary APIs. MCF alone covers most of the Singapore job market with structured salary and skills data. Adding more sources is a config change, not a code change.</p>
 
   <div class="insight warn reveal reveal-d2">
-    <strong>Careers@Gov challenge:</strong> Government jobs on Workday don't expose skills in the API. We built a custom scraper that fetches detail pages, extracts competency framework terms, and derives skill cues from the job description using regex pattern matching.
+    <strong>Careers@Gov challenge:</strong> Government jobs on Workday don't expose skills in the API. The scraper fetches individual detail pages, extracts competency framework terms, and derives skill cues from the job description using regex pattern matching.
   </div>
 </section>
 
