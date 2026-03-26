@@ -454,7 +454,7 @@ p{margin-bottom:16px}
       <div class="feature-desc">
         <span class="tag purple">SEA-LION 70B</span>
         <span class="tag purple">SEA-LION 32B</span><br>
-        70B for strategy and summaries (~10s). 32B for batched bullet rewrites (~15s pipeline, &lt;2s interactive). 5 keys round-robin at ~45 req/min.
+        70B for strategy and summaries (~10s). 32B for batched bullet rewrites (~15s pipeline, &lt;2s interactive). 5 API keys cycled to stay under per-key rate limits.
       </div>
     </div>
     <div class="feature-card">
@@ -661,8 +661,8 @@ p{margin-bottom:16px}
       <div class="feature-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
       </div>
-      <div class="feature-title">Round-robin API keys</div>
-      <div class="feature-desc">5 SEA-LION API keys rotate round-robin for ~45 req/min on the free tier (9/key buffer to avoid hard limits). Token-bucket rate limiting prevents rejections.</div>
+      <div class="feature-title">Rate limit distribution</div>
+      <div class="feature-desc">SEA-LION's free tier allows 10 req/min per key. 5 keys are cycled with a simple index counter, and a single in-memory token bucket (45 tokens, no Redis) gates all outbound calls.</div>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
