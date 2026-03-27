@@ -239,6 +239,7 @@
           <a href="#stack">The stack</a>
           <a href="#lessons">Lessons learned</a>
           <a href="#whats-next">What's next</a>
+          <a href="#update-march">Update: The market price incident</a>
         </div>
 
         <h2 id="problem">The idea &mdash; spend smarter on wine</h2>
@@ -316,8 +317,8 @@
           <li><strong>16 out of 50 wines (32%)</strong> are genuinely cheaper on Platinum than Grand Cru.</li>
           <li><strong>Average Vivino rating:</strong> 4.09 out of 5 &mdash; the selection quality is solid.</li>
           <li><strong>Price range:</strong> $45 to $780 per bottle.</li>
-          <li><strong>Best deal:</strong> Gevrey-Chambertin by Domaine Claude Dugat &mdash; $170 on Platinum vs $1,020 on Grand Cru. That's 83% cheaper, though it's a bundle of 3 bottles, which is doing a lot of heavy lifting in that comparison.</li>
-          <li><strong>Worth checking first:</strong> Gattinara Molsino is 25% cheaper on Grand Cru &mdash; good to know before buying.</li>
+          <li><strong>Best deal:</strong> Gevrey-Chambertin by Domaine Claude Dugat &mdash; S$510 for 3 bottles on Platinum vs S$1,020 per bottle on Grand Cru. The bundle pricing makes a huge difference.</li>
+          <li><strong>Worth checking first:</strong> Some wines are cheaper on Grand Cru &mdash; the tool flags these so you can compare before buying.</li>
           <li><strong>Most reviewed:</strong> Miraval Ros&eacute; 2024 with 58,336 Vivino ratings. More on this legend later.</li>
         </ul>
 
@@ -378,20 +379,14 @@
         <h2 id="vivino-problem">The Vivino problem (and the AI fix)</h2>
 
         <p>
-          This was the part that almost killed the project. I needed Vivino data &mdash; ratings,
-          review counts, average prices &mdash; to make the deal score meaningful. The problem?
-          Vivino blocks everything.
+          Vivino data &mdash; ratings, review counts, average prices &mdash; is essential for the deal
+          score to be meaningful. The challenge is that Vivino employs aggressive bot detection.
+          Standard HTTP clients, headless browsers, and stealth-mode scrapers are all blocked from
+          datacenter IPs.
         </p>
 
         <p>
-          I tried <code>urllib</code>. Blocked. I tried <code>requests</code> with custom headers.
-          Blocked. I tried Playwright with stealth mode. Blocked. I tried rotating proxies.
-          Still blocked. Vivino's anti-bot detection is genuinely impressive (and genuinely annoying).
-          Every server IP &mdash; Railway, AWS, GCP, you name it &mdash; gets detected and rejected.
-        </p>
-
-        <p>
-          The breakthrough came from a weird direction: <strong>Gemini AI with Google Search grounding</strong>.
+          The solution was <strong>Gemini AI with Google Search grounding</strong>.
         </p>
 
         <p>
@@ -436,17 +431,16 @@
         </p>
 
         <ul>
-          <li><strong>Price gap (40 points):</strong> How much cheaper is Platinum compared to Grand Cru and Vivino's average price? Bigger savings = more points. If Platinum is more expensive, this goes negative and drags the score down.</li>
-          <li><strong>Vivino rating (25 points):</strong> Higher-rated wines score higher. A 4.5-rated wine at a discount is more interesting than a 3.5-rated wine at the same discount. Quality matters.</li>
-          <li><strong>Rating confidence (20 points):</strong> A 4.2 rating backed by 10,000 reviews is more reliable than a 4.2 with 12 reviews. This component scales with review count, rewarding wines with strong community consensus.</li>
-          <li><strong>Market position (15 points):</strong> Where does the Platinum price sit relative to the overall market? If it's in the bottom quartile of known prices, that's a strong signal.</li>
+          <li><strong>Retailer discount (30 points):</strong> How much cheaper is Platinum compared to Grand Cru? Bigger savings = more points.</li>
+          <li><strong>Market discount (30 points):</strong> How much cheaper is Platinum compared to Vivino's average market price? This catches cases where both retailers are overpriced relative to the wider market.</li>
+          <li><strong>Vivino rating (25 points):</strong> Higher-rated wines score higher. A well-rated wine at a discount is more compelling than a mediocre wine at the same discount.</li>
+          <li><strong>Rating confidence (10 points):</strong> Scales with review count (logarithmic). A 4.2 backed by 10,000 reviews is more reliable than a 4.2 with 12 reviews.</li>
+          <li><strong>Bonus (5 points):</strong> Extra points when a wine beats both Grand Cru and Vivino by more than 5%.</li>
         </ul>
 
         <p>
-          The result is a single number that answers: "Is this wine a good deal on Platinum?"
-          A score above 70 means you're probably getting genuine value. Below 40 means you should
-          price-check before buying. Scores are colour-coded on the frontend &mdash; green for great deals,
-          red for overpriced ones.
+          The result is a single number that answers: is this wine a good deal on Platinum?
+          Scores are colour-coded on the frontend so the best opportunities are immediately visible.
         </p>
 
         <h2 id="surprising-finds">Surprising finds from the data</h2>
@@ -493,52 +487,102 @@ Scheduling: Railway cron (daily 06:00 SGT)
 Cost:       ~$0/month (all free tiers)</code></pre>
 
         <p>
-          The entire thing runs on free tiers. Railway's free plan covers the backend. Brave Search
-          has a generous free tier. Gemini's free API handles the volume easily (50 wines is nothing).
-          PostgreSQL is included with Railway. The only thing I pay for is my time, which I choose
-          not to quantify because it would be depressing.
+          As a side project, keeping costs at zero was a constraint from the start. Railway's
+          free plan covers the backend and PostgreSQL. Brave Search's free tier provides 1,000
+          queries per month. Gemini's free API handles the Vivino resolution volume comfortably.
+          Paid services (such as Wine-Searcher's API for global price data) were evaluated but
+          aren't justified at this scale.
         </p>
 
         <h2 id="lessons">Lessons learned</h2>
 
         <p>
-          <strong>Don't fight the wall, go around it.</strong> I spent days trying to scrape Vivino
-          directly &mdash; urllib, Playwright, stealth plugins, rotating headers. None of it worked.
-          The moment I stopped trying to beat their bot detection and instead asked an AI to do the
-          lookup through Google, it just worked. Sometimes the clever solution is admitting the
-          brute-force approach won't win.
+          <strong>Work around constraints, don't fight them.</strong> When direct scraping is blocked,
+          look for indirect paths. Gemini's search grounding accesses Vivino through Google's own
+          infrastructure &mdash; a legitimate API feature that sidesteps the bot detection problem entirely.
         </p>
 
         <p>
-          <strong>Free tiers go surprisingly far.</strong> This whole project runs on $0/month.
-          Railway, Gemini, Brave &mdash; all free tiers. For a side project serving one person's
-          wine purchases, you don't need infrastructure that scales to millions. You need
-          infrastructure that works reliably for 50 wines a day.
+          <strong>Free tiers are viable at small scale.</strong> Railway, Gemini, and Brave's free
+          tiers handle this workload comfortably. The identity cache keeps API usage well within limits
+          even as the wine catalogue grows. Paid APIs become necessary only at significantly larger scale.
         </p>
 
         <p>
-          <strong>Data quality beats data quantity.</strong> Early on I was focused on getting more
-          wines, more sources, more data points. But the real value came from getting accurate prices
-          and verified Vivino matches for the wines I already had. A wrong price is worse than no price.
+          <strong>Data accuracy is the product.</strong> The Wine-Searcher experiment reinforced this.
+          Wrong prices erode trust faster than missing prices. Every data point shown to users should
+          be verifiable against its source.
         </p>
 
         <p>
-          <strong>Build for yourself first.</strong> This tool exists because I genuinely use it before
-          every wine purchase. That's the best feature spec: your own frustration. If it solves your
-          problem, it'll probably solve someone else's too.
+          <strong>Build for a real use case.</strong> This tool exists because I use it before every
+          wine purchase. Solving your own problem produces better design decisions than building for
+          hypothetical users.
         </p>
 
         <h2 id="whats-next">What's next</h2>
 
+        <ul>
+          <li><strong>More retailers:</strong> Wine Connection, 1855 The Bottle Shop, and other Singapore wine stores.</li>
+          <li><strong>Alert system:</strong> Get notified when a high-rated wine drops below a price threshold.</li>
+          <li><strong>Better Vivino coverage:</strong> Push that automation rate higher. Some wines just need better search queries or alternative data sources.</li>
+        </ul>
+
+        <h2 id="update-march">Update: Global market prices &mdash; what worked and what didn't</h2>
+
         <p>
-          A few things I want to add:
+          After launch, I explored adding Wine-Searcher's global average as a fourth price reference.
+          The intent was to give users a broader market benchmark alongside the Platinum, Grand Cru,
+          and Vivino prices. The implementation revealed two data integrity challenges worth documenting.
+        </p>
+
+        <p>
+          The first was <strong>wine identity matching</strong>. Automated search-based resolution
+          (via Brave Search API) frequently returned incorrect Wine-Searcher pages for wines with
+          similar names. A village-level Gevrey-Chambertin (~S$158) was matched to the Premier Cru
+          (~S$375) from the same producer. Wines from "Hudelot-Baillet" were confused with
+          "Hudelot-Noellat" &mdash; separate domaines that share a surname. Full item-by-item
+          verification flagged 17 out of 54 wines with incorrect matches.
+        </p>
+
+        <p>
+          The second was <strong>regional pricing discrepancies</strong>. Wine-Searcher computes
+          separate averages per region, drawing from different retailer pools. Their USD average
+          (which Brave indexes) and SGD average (shown to Singapore visitors) can differ
+          meaningfully &mdash; roughly 5% for widely distributed wines, but up to 37% for wines
+          with significant US import premiums. Unfortunately, the Brave Search API does not currently
+          support Singapore as a target region, so there is no way to retrieve SGD-denominated
+          results programmatically. A direct USD-to-SGD conversion does not produce the same
+          figures users see on Wine-Searcher's Singapore page.
+        </p>
+
+        <p>
+          Alternative approaches were evaluated: headless browser scraping (blocked by
+          Wine-Searcher's PerimeterX protection), the Scrapling framework (also blocked),
+          and Wine-Searcher's own API (paid, not cost-effective at this scale). None produced
+          reliable SGD prices in a fully automated pipeline.
+        </p>
+
+        <p>
+          The decision was to <strong>remove market prices</strong> rather than display
+          approximate figures. The Vivino price &mdash; already sourced in SGD through the
+          existing pipeline &mdash; serves as the market reference for 35 of 54 wines. For
+          the remaining wines where Vivino has no listed price, no market reference is shown.
+        </p>
+
+        <p>
+          The exercise did produce lasting infrastructure improvements:
         </p>
 
         <ul>
-          <li><strong>More retailers:</strong> Wine Connection, 1855 The Bottle Shop, and other Singapore wine stores. More data points = better price intelligence.</li>
-          <li><strong>Price history:</strong> Track prices over time to spot trends. Does Platinum get cheaper before Christmas? Do Grand Cru prices spike during promotions?</li>
-          <li><strong>Alert system:</strong> Get notified when a high-rated wine drops below a price threshold. Because checking a website daily is exactly the kind of manual work this project was supposed to eliminate.</li>
-          <li><strong>Better Vivino coverage:</strong> Push that 82% automation rate higher. Some wines just need better search queries or alternative data sources.</li>
+          <li>A <strong>URL validation layer</strong> that checks resolved URLs against the
+          wine's identity (producer, vineyard name, classification level) before data reaches
+          production.</li>
+          <li>A <strong>permanent identity cache</strong> for validated wine-to-URL mappings,
+          reducing redundant API calls by approximately 84% across the resolver pipeline.</li>
+          <li>A <strong>resolve &rarr; validate &rarr; retry</strong> workflow where failed
+          matches trigger progressively tighter searches, and persistent failures are flagged
+          rather than silently accepted.</li>
         </ul>
 
         <p>
