@@ -34,7 +34,7 @@ He holds an MSc in Smart Industries and Digital Transformation from the National
 - **Blog post**: https://kooexperience.com/blog/posts/trader-koo.html
 
 ### 2. LionWeather
-- **URL**: https://weather.kooexperience.com
+- **URL**: https://lionweather.kooexperience.com
 - **What it does**: Singapore weather intelligence application. Ingests real-time data from NEA (National Environment Agency) APIs. Features ML-powered rainfall forecasting using LightGBM trained on 8 years of historical data, with SHAP explainability for model predictions. Includes animated radar overlay on an interactive map.
 - **Stack**: FastAPI, React, LightGBM, Leaflet, SHAP, SQLite
 - **Blog post**: https://kooexperience.com/blog/posts/lionweather.html
