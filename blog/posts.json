@@ -132,7 +132,7 @@
       "FastAPI",
       "EDA"
     ],
-    "excerpt": "Building LionWeather: 8 years of NEA data, LightGBM rainfall prediction, SHAP explainability, animated radar, and a whole lot of lessons about tropical weather.",
+    "excerpt": "Building LionWeather: tropical weather data from 2016 to 2024, LightGBM rainfall forecasting, SHAP explainability, animated radar, and a whole lot of lessons about Singapore weather.",
     "cover": "",
     "readingTime": "18 min"
   }

@@ -58,7 +58,7 @@
     <item>
       <title>I Tried to Predict Singapore's Rain and It Humbled Me</title>
       <link>https://kooexperience.com/blog/posts/lionweather.html</link>
-      <description>Building LionWeather: 8 years of NEA data, LightGBM rainfall prediction, SHAP explainability, animated radar, and a whole lot of lessons about tropical weather.</description>
+      <description>Building LionWeather: tropical weather data from 2016 to 2024, LightGBM rainfall forecasting, SHAP explainability, animated radar, and a whole lot of lessons about Singapore weather.</description>
       <pubDate>Wed, 11 Mar 2026 00:00:00 +0800</pubDate>
       <guid>https://kooexperience.com/blog/posts/lionweather.html</guid>
     </item>
