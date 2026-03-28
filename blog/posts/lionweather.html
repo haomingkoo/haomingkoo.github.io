@@ -366,7 +366,7 @@
         <p class="subtitle">
           In a country with three weather modes &ndash; hot, hotter, and raining sideways &ndash;
           I built a real-time weather dashboard with LightGBM rainfall forecasting,
-          SHAP explainability, animated radar, and 8 years of tropical weather data.
+          SHAP explainability, animated radar, and tropical weather data from 2016 to 2024.
           Now with interactive charts so you can explore the data yourself.
         </p>
 
@@ -445,7 +445,7 @@
 
         <ul>
           <li><strong>Current conditions</strong> from NEA: temperature, humidity, wind, rainfall, UV index, pressure, and visibility</li>
-          <li><strong>4-day and hourly forecasts</strong> from NEA's official API</li>
+          <li><strong>7-day and hourly forecasts</strong> anchored on NEA's official outlook, with Open-Meteo extending the longer range</li>
           <li><strong>ML rainfall predictions</strong> for the next 1, 3, 6, and 12 hours with confidence levels</li>
           <li><strong>Animated radar</strong> overlay showing real-time rain movement across the island</li>
           <li><strong>Sun/moon arc</strong> with live position tracking (sunrise, sunset, golden hour)</li>
@@ -453,8 +453,9 @@
         </ul>
 
         <p>
-          Your location never leaves the browser. Everything is stored in localStorage. I'm not
-          tracking you; I just want to show you if it's going to rain.
+          Saved locations are cached in localStorage, but coordinates are sent to the backend
+          to fetch weather and area names. I'm not building a tracking product; the location
+          data is there for one reason: to tell you whether it's about to rain where you are.
         </p>
 
         <div class="callout">
@@ -572,7 +573,7 @@ WIND_MAX = 60.0                       # km/h
         </div>
         <div class="chart-wrap">
           <div class="chart-title">Average by Hour of Day</div>
-          <div class="chart-subtitle">8 years of hourly observations (2016&ndash;2024)</div>
+          <div class="chart-subtitle">Hourly observations from 2016&ndash;2024</div>
           <div id="chart-hourly" class="chart-loading">Loading chart data...</div>
         </div>
 
@@ -610,7 +611,7 @@ WIND_MAX = 60.0                       # km/h
         </p>
 
         <p>
-          I had 8 years of NEA historical data (2016 to 2024) and I wanted to understand it
+          I had NEA historical data from 2016 to 2024 and I wanted to understand it
           properly before throwing it at a model. The training script runs a full statistical
           workup and saves everything to a <code>full_analysis.json</code> that the frontend
           renders as an interactive dashboard. Here's each technique, what it means, and what
@@ -667,7 +668,7 @@ WIND_MAX = 60.0                       # km/h
           <span class="callout-icon">&#128270;</span>
           <div>
             <strong>What to look for:</strong> Look at the seasonal component &mdash; the peaks
-            align with the northeast monsoon (Nov&ndash;Jan). The trend line reveals whether
+            align with Singapore's wetter end-of-year season and the Northeast Monsoon. The trend line reveals whether
             Singapore is getting wetter or drier over time. The residual shows pure randomness:
             the larger it is relative to the other components, the harder prediction will be.
           </div>
@@ -675,8 +676,8 @@ WIND_MAX = 60.0                       # km/h
 
         <p>
           <strong>What I found:</strong> The seasonal component was crystal clear. The northeast
-          monsoon (November to January) brings sustained rain, while the southwest monsoon (May
-          to September) brings shorter, more intense afternoon showers. But the residual was
+          monsoon generally brings wetter conditions, while June to September is relatively
+          drier overall and more dominated by short afternoon convective showers. But the residual was
           large, meaning rainfall has a lot of unexplained variance. This told me early on:
           don't expect 90% accuracy. Tropical rain is inherently noisy.
         </p>
@@ -1235,15 +1236,16 @@ params = {
         <h2 id="deployment">Deployment on Railway</h2>
 
         <p>
-          Two services on Railway: backend on a Python buildpack, frontend served
-          through Vite's preview mode. A few things I learned:
+          Two services on Railway: the backend now deploys from a custom Dockerfile
+          so LightGBM's system dependencies are explicit, and the frontend is served as a
+          static build. A few things I learned:
         </p>
 
         <ul>
           <li><strong>Database auto-detection:</strong> SQLAlchemy checks if <code>DATABASE_URL</code> starts with "postgresql". Locally it falls back to SQLite. This means I develop on a single file and deploy to Postgres without changing any code.</li>
           <li><strong>Connection pooling matters:</strong> PostgreSQL with a pool size of 10 and max overflow of 20. SQLite gets <code>StaticPool</code> with <code>check_same_thread=False</code>. Getting this wrong in production means random connection errors at 3 AM.</li>
           <li><strong>Model artifacts in git:</strong> The joblib files are small enough (largest is 14 MB) to commit directly. Railway builds from the repo, so the models are available at startup. No S3, no model registry. Keep it simple.</li>
-          <li><strong>Scheduled retraining:</strong> Every Sunday at 2 AM, the backend kicks off a retrain job using the data collected that week. It runs in a subprocess so the main API stays responsive. The admin dashboard shows training progress and logs.</li>
+          <li><strong>Training workflow:</strong> There's a weekly Sunday 2 AM training check, but full retraining is triggered through <code>/admin/retrain</code> and tracked via <code>/admin/retrain-status</code>. That keeps the API responsive while still exposing logs and progress.</li>
         </ul>
 
         <!-- ── Lessons ────────────────────────────────────────────────── -->
