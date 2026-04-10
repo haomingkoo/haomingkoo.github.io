@@ -2356,64 +2356,59 @@ damaged on 15 January...
 
                   <div class="vit-stage-card">
                     <div class="vit-stage-title">2. Resize to 384×384, cut into 16×16 patches → 24×24 grid</div>
-                    <!-- SVG: the word "Jones" rendered INSIDE the patch grid so you see what's being cut -->
+                    <!-- SVG Step 2: uniform patch grid, NO letter-column highlights, NO decoder attention -->
+                    <!-- Scattered individual patch highlights show ink-bearing patches regardless of letter boundaries -->
                     <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px;display:block;background:#0f0f14">
 
-                      <!-- Subtle ink patches (green) where letters are — drawn FIRST so grid sits on top -->
-                      <!-- J column: rows 4–9, cols 0–2 -->
-                      <rect x="0"   y="60"  width="30" height="10" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="0"   y="70"  width="10" height="60" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="0"   y="120" width="30" height="10" fill="rgba(34,197,94,0.18)"/>
-                      <!-- o column: rows 4–9, cols 4–6 — highlighted BLUE (decoder attending) -->
-                      <rect x="50"  y="60"  width="40" height="80" fill="rgba(59,130,246,0.22)"/>
-                      <!-- n column -->
-                      <rect x="100" y="60"  width="10" height="80" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="100" y="60"  width="40" height="10" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="130" y="60"  width="10" height="80" fill="rgba(34,197,94,0.18)"/>
-                      <!-- e column -->
-                      <rect x="150" y="60"  width="40" height="10" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="150" y="60"  width="10" height="80" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="150" y="100" width="30" height="10" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="150" y="130" width="40" height="10" fill="rgba(34,197,94,0.18)"/>
-                      <!-- s column -->
-                      <rect x="200" y="60"  width="40" height="10" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="200" y="70"  width="10" height="30" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="200" y="100" width="40" height="10" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="230" y="110" width="10" height="30" fill="rgba(34,197,94,0.18)"/>
-                      <rect x="200" y="140" width="40" height="10" fill="rgba(34,197,94,0.18)"/>
+                      <!-- Scattered ink-bearing patches (green squares) — deliberately crossing letter boundaries -->
+                      <!-- These are individual 10×10 cells that happen to contain pen strokes -->
+                      <rect x="10"  y="70"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="20"  y="80"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="20"  y="90"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="10"  y="120" width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="60"  y="80"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="70"  y="70"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="80"  y="80"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="70"  y="110" width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <!-- patch spanning n→e boundary: emphasises non-letter-aligned cutting -->
+                      <rect x="130" y="80"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="140" y="70"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="140" y="90"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="170" y="80"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="200" y="75"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="210" y="90"  width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
+                      <rect x="220" y="110" width="10" height="10" fill="rgba(34,197,94,0.35)" rx="1"/>
 
-                      <!-- Grid lines: 24×24 = one line every 10px -->
-                      <!-- vertical lines -->
+                      <!-- Uniform grid lines — same spacing everywhere, letter-blind -->
                       <line x1="10"  y1="0" x2="10"  y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="20"  y1="0" x2="20"  y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
-                      <line x1="30"  y1="0" x2="30"  y2="240" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+                      <line x1="30"  y1="0" x2="30"  y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="40"  y1="0" x2="40"  y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
-                      <line x1="50"  y1="0" x2="50"  y2="240" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+                      <line x1="50"  y1="0" x2="50"  y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="60"  y1="0" x2="60"  y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="70"  y1="0" x2="70"  y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="80"  y1="0" x2="80"  y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
-                      <line x1="90"  y1="0" x2="90"  y2="240" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
-                      <line x1="100" y1="0" x2="100" y2="240" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+                      <line x1="90"  y1="0" x2="90"  y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+                      <line x1="100" y1="0" x2="100" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="110" y1="0" x2="110" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="120" y1="0" x2="120" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="130" y1="0" x2="130" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
-                      <line x1="140" y1="0" x2="140" y2="240" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
-                      <line x1="150" y1="0" x2="150" y2="240" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+                      <line x1="140" y1="0" x2="140" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+                      <line x1="150" y1="0" x2="150" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="160" y1="0" x2="160" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="170" y1="0" x2="170" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="180" y1="0" x2="180" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
-                      <line x1="190" y1="0" x2="190" y2="240" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
-                      <line x1="200" y1="0" x2="200" y2="240" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+                      <line x1="190" y1="0" x2="190" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+                      <line x1="200" y1="0" x2="200" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="210" y1="0" x2="210" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="220" y1="0" x2="220" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="230" y1="0" x2="230" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
-                      <!-- horizontal lines -->
                       <line x1="0" y1="10"  x2="240" y2="10"  stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="20"  x2="240" y2="20"  stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="30"  x2="240" y2="30"  stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="40"  x2="240" y2="40"  stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="50"  x2="240" y2="50"  stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
-                      <line x1="0" y1="60"  x2="240" y2="60"  stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+                      <line x1="0" y1="60"  x2="240" y2="60"  stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="70"  x2="240" y2="70"  stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="80"  x2="240" y2="80"  stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="90"  x2="240" y2="90"  stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
@@ -2421,7 +2416,7 @@ damaged on 15 January...
                       <line x1="0" y1="110" x2="240" y2="110" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="120" x2="240" y2="120" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="130" x2="240" y2="130" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
-                      <line x1="0" y1="140" x2="240" y2="140" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+                      <line x1="0" y1="140" x2="240" y2="140" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="150" x2="240" y2="150" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="160" x2="240" y2="160" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="170" x2="240" y2="170" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
@@ -2432,27 +2427,23 @@ damaged on 15 January...
                       <line x1="0" y1="220" x2="240" y2="220" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
                       <line x1="0" y1="230" x2="240" y2="230" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
 
-                      <!-- The actual word, drawn ON TOP of the grid -->
-                      <text x="12"  y="135" font-family="Georgia,serif" font-size="80" font-weight="700" fill="rgba(56,189,248,0.75)">J</text>
-                      <text x="58"  y="135" font-family="Georgia,serif" font-size="80" font-weight="700" fill="rgba(59,130,246,0.95)">o</text>
-                      <text x="105" y="135" font-family="Georgia,serif" font-size="80" font-weight="700" fill="rgba(34,197,94,0.75)">n</text>
-                      <text x="150" y="135" font-family="Georgia,serif" font-size="80" font-weight="700" fill="rgba(239,68,68,0.75)">e</text>
-                      <text x="197" y="135" font-family="Georgia,serif" font-size="80" font-weight="700" fill="rgba(56,189,248,0.75)">s</text>
+                      <!-- Word drawn ON TOP — single neutral white, no per-letter colouring -->
+                      <text x="8"   y="135" font-family="Georgia,serif" font-size="80" font-weight="700" fill="rgba(255,255,255,0.82)">Jones</text>
 
-                      <!-- Callout: annotate one patch size -->
-                      <rect x="50" y="60" width="10" height="10" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1"/>
-                      <line x1="60" y1="60" x2="80" y2="40" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
-                      <text x="82" y="39" font-family="system-ui,sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">= 16×16 px</text>
+                      <!-- Callout: one patch square annotated -->
+                      <rect x="130" y="80" width="10" height="10" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.2"/>
+                      <line x1="140" y1="80" x2="162" y2="58" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
+                      <text x="164" y="57" font-family="system-ui,sans-serif" font-size="9" fill="rgba(255,255,255,0.75)">= 16×16 px</text>
 
-                      <!-- Label: patch count -->
-                      <rect x="4" y="222" width="90" height="14" rx="4" fill="rgba(17,17,26,0.8)"/>
+                      <!-- Patch count label -->
+                      <rect x="4" y="222" width="90" height="14" rx="4" fill="rgba(17,17,26,0.85)"/>
                       <text x="8" y="232" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="rgba(255,255,255,0.7)">24 × 24 = 576 patches</text>
 
-                      <!-- Border -->
                       <rect width="240" height="240" rx="8" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
                     </svg>
 
-                    <p class="vit-stage-text">The crop is resized to <strong>384×384 px</strong>. The grid cuts it into <strong>16×16 px squares</strong>. 384 ÷ 16 = 24, so the grid is <strong>24×24 = 576 patches</strong>. Blue column = the patch the decoder is attending to right now.</p>
+                    <p class="vit-stage-text">The crop is resized to <strong>384×384 px</strong>. The grid cuts it into <strong>16×16 px squares — uniform, letter-blind</strong>. 384 ÷ 16 = 24, so the grid is <strong>24×24 = 576 patches</strong>. <span style="color:var(--green)">Green squares</span> = patches that contain pen strokes.</p>
+                    <p class="vit-stage-note" style="margin-top:6px">Schematic only. The model does not split the image into letter columns. It cuts the whole resized image into equal squares regardless of where letters start or end.</p>
                   </div>
 
                   <div class="vit-arrow">↓</div>
