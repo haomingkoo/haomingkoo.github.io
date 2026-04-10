@@ -1490,7 +1490,7 @@
         <div class="tool-caps">
           <span class="tag amber">Digital PDF</span>
           <span class="tag amber">AcroForm</span>
-          <span class="tag amber">Fastest</span>
+          <span class="tag amber">Fast + tables</span>
         </div>
       </div>
       <div class="tool-card">
@@ -2658,7 +2658,7 @@ damaged on 15 January...
           <div class="dialog-avatar exp">⚡</div>
           <div class="dialog-body">
             <div class="dialog-name exp">Expert insight</div>
-            <div class="dialog-bubble">TrOCR is built on two pre-trained models fused together: <strong>BEiT</strong> (a 86M-parameter vision transformer trained on masked image patches) acts as the visual encoder, and <strong>RoBERTa</strong> (a 125M-parameter language model) acts as the text decoder. The cross-attention bridge lets the language model's knowledge of plausible character sequences resolve visually ambiguous ink strokes — "rn" that looks identical to "m" in handwriting gets pushed toward whichever makes a real word in context. This is the advantage of an end-to-end trained encoder-decoder over a purely visual classifier.</div>
+            <div class="dialog-bubble">TrOCR fuses two pre-trained models: a <strong>BEiT vision transformer</strong> acts as the visual encoder and a <strong>RoBERTa-family language model</strong> acts as the text decoder. (The large-handwritten variant used here — <code>microsoft/trocr-large-handwritten</code> — is substantially bigger than the base family; the architecture pattern is the same.) The cross-attention bridge lets the language model's knowledge of plausible character sequences resolve visually ambiguous ink strokes — "rn" that looks identical to "m" in handwriting gets pushed toward whichever makes a real word in context. This is the advantage of an end-to-end trained encoder-decoder over a purely visual classifier.</div>
           </div>
         </div>
       </div>
@@ -2925,7 +2925,7 @@ flowchart TD
     N -->|YES| O{High monthly volume\nor strict local control?}
     O -->|YES| P["✅ Docling + TrOCR\nSelf-hosted pipeline"]
     O -->|NO| Q{Cloud OK?}
-    Q -->|YES| R["☁️ AWS Textract Forms API\n$0.065 per page"]
+    Q -->|YES| R["☁️ AWS Textract Forms+Tables\n$0.065 per page"]
     Q -->|NO| P
     N -->|NO — Printed text only| S{High monthly volume\nor lowest unit cost?}
     S -->|YES| U["✅ Self-hosted OCR/layout\nDocling or Tesseract path"]
@@ -3001,11 +3001,11 @@ flowchart TD
       <div class="compare-col">
         <h4 style="color:var(--green)">✓ Must-do</h4>
         <ul>
-          <li>Preprocessing pipeline before any OCR</li>
+          <li>Quality-gated preprocessing before OCR (when scan quality warrants it)</li>
           <li>Empirical confidence calibration (not vendor defaults)</li>
           <li>Field-level metrics, not form-level</li>
           <li>Pydantic v2 cross-field validation</li>
-          <li>Immutable audit log (CFPB requirement)</li>
+          <li>Immutable audit log (recommended compliance control)</li>
           <li>Presidio PII redaction before storage</li>
           <li>DPA in place before any cloud API</li>
         </ul>
@@ -3042,7 +3042,7 @@ flowchart TD
       <div class="viz-title">Monthly Cost Estimate — Structured Extraction (1 form ≈ 3 pages)</div>
       <div class="chart-bars" id="costChart" style="height:220px"></div>
       <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap" id="costLegend"></div>
-      <p style="font-size:0.75rem;color:var(--muted);margin-top:12px">Illustrative break-even under the self-hosted cost assumptions in this chart: vs Google Document AI Form Parser ≈ 167K forms/month; vs AWS Textract Forms+Tables ≈ 26K forms/month. Source: vendor pricing pages checked April 2026. Prices and volume discounts change — reprice before budgeting.</p>
+      <p style="font-size:0.75rem;color:var(--muted);margin-top:12px">Under the infrastructure assumptions in this chart, self-hosted Docling is already cheaper than both cloud options at the 10K forms/month point shown. The crossover volume depends entirely on your actual server cost and utilisation rate — reprice against your own infrastructure before budgeting. Source: vendor pricing pages checked April 2026.</p>
     </div>
 
     <div class="insight success">
