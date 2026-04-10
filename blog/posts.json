@@ -1,5 +1,19 @@
 [
   {
+    "slug": "pdf-parsing-comparison",
+    "title": "PDF Parsing for Complaint Forms — Docling vs PyMuPDF vs PaddleOCR",
+    "date": "2026-04-10",
+    "tags": [
+      "Building",
+      "ML",
+      "OCR",
+      "Open Source"
+    ],
+    "excerpt": "A head-to-head ablation of 7 open-source PDF parsers on customer complaint forms — scanned, handwritten, AcroForm, and degraded fax. How each parser internally detects words, where they break, and which to pick for production.",
+    "cover": "",
+    "readingTime": "14 min"
+  },
+  {
     "slug": "minmax-wine",
     "title": "I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me",
     "date": "2026-03-27",
@@ -9,7 +23,7 @@
       "Full-Stack",
       "Singapore"
     ],
-    "excerpt": "How I built an automated wine price comparison tool for Singapore. Amex Platinum gives you $200 back on wine — but are the base prices competitive? I automated the answer with Selenium scraping, Gemini AI search grounding, and a daily pipeline that runs itself.",
+    "excerpt": "How I built a wine price comparison tool for Singapore. Amex Platinum gives you S$200 back on wine, but are the base prices actually competitive? I answered that with Selenium scraping, bundle-aware comparisons, Brave-assisted Vivino resolution, and a guarded daily refresh pipeline.",
     "cover": "",
     "readingTime": "8 min"
   },
