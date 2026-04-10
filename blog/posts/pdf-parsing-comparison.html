@@ -1305,7 +1305,7 @@
   <section class="hero">
     <div class="hero-badge">Interactive Deep Dive</div>
     <h1>Parsing Customer<br><span class="gradient-text">Complaint Forms</span></h1>
-    <p class="hero-sub">A head-to-head evaluation of the top open-source PDF parsers — ablation tests, rubric scoring, production architecture, and a decision framework for your specific constraints.</p>
+    <p class="hero-sub">Head-to-head benchmark of open-source PDF parsers on customer complaint forms — ablation tests, rubric scoring, and a decision framework.</p>
     <div class="hero-meta">
       <span>Haoming Koo</span>
       <span>·</span>
@@ -1324,7 +1324,7 @@
   <div class="container">
     <div class="section-num">Background</div>
     <h2 class="section-title">Why complaint forms break every parser</h2>
-    <p class="section-intro">Most PDF parsing benchmarks test clean academic papers or financial reports. Complaint forms are a different beast — they combine six difficulty layers simultaneously.</p>
+    <p class="section-intro">Most PDF parsing benchmarks test clean academic papers or financial reports. Complaint forms are harder — they stack six difficulty layers at once.</p>
 
     <div class="viz reveal">
       <div class="viz-title">Difficulty Stack — Customer Complaint Forms</div>
@@ -1475,7 +1475,7 @@
       <div class="tool-card highlight">
         <div class="tool-name">Docling<span class="cite"><a href="#ref-4">[4]</a></span></div>
         <div class="tool-license"><span class="tag blue">MIT</span> &nbsp; IBM Research · 37k ★</div>
-        <div class="tool-desc">Strong open-source ML layout parser for mixed document layouts. Fully local, air-gap compatible, and a practical first choice when tables and scanned pages matter.</div>
+        <div class="tool-desc">ML layout parser for mixed document types. Runs fully local and air-gap compatible. Good first choice when tables or scanned pages are involved.</div>
         <div class="tool-caps">
           <span class="tag blue">Scanned</span>
           <span class="tag blue">Tables</span>
@@ -1496,7 +1496,7 @@
       <div class="tool-card">
         <div class="tool-name">PaddleOCR</div>
         <div class="tool-license"><span class="tag green">Apache-2.0</span> &nbsp; Baidu · 70k ★</div>
-        <div class="tool-desc">Most comprehensive open-source OCR suite. PP-OCRv4<span class="cite"><a href="#ref-6">[6]</a></span> + PP-StructureV2 for layout and tables. 80+ language support. Best choice for multilingual complaint forms from diverse customer bases.</div>
+        <div class="tool-desc">The broadest open-source OCR suite. PP-OCRv4<span class="cite"><a href="#ref-6">[6]</a></span> + PP-StructureV2 for layout and tables. 80+ language support — useful for multilingual complaint forms.</div>
         <div class="tool-caps">
           <span class="tag green">Scanned</span>
           <span class="tag green">Tables (ML)</span>
@@ -1513,7 +1513,7 @@
   <div class="container">
     <div class="section-num">Under the Hood</div>
     <h2 class="section-title">How parsers actually detect words</h2>
-    <p class="section-intro">Three completely different mechanisms live under the umbrella term "PDF parser." Which mechanism a tool uses determines what it can and cannot read — understanding the internals explains every entry in the benchmark table above.</p>
+    <p class="section-intro">The tools called "PDF parsers" use three completely different mechanisms. Which one a tool uses determines what it can and cannot read — that's what separates the benchmark rows.</p>
 
     <!-- ── 3.1 Text extraction ── -->
     <div class="viz reveal">
@@ -1767,7 +1767,7 @@ endbfchar</div>
           <div class="dialog-avatar prof">🎓</div>
           <div class="dialog-body">
             <div class="dialog-name prof">Professor</div>
-            <div class="dialog-bubble">Let me walk through what happens when pypdf opens a digital complaint form. The binary file opens with <code>%PDF-1.4</code>. Inside are numbered objects — think of them as rows in a database. <strong>Object 12 is the Page. Object 14 is the Font. Object 15 is the Contents stream</strong> — a list of drawing operators like <code>BT</code> (begin text block), <code>Tf</code> (select font), <code>Td</code> (move cursor to position), <code>Tj</code> (draw a text string at the cursor).</div>
+            <div class="dialog-bubble">Here's what pypdf sees when it opens a digital complaint form. The binary file starts with <code>%PDF-1.4</code>. Inside are numbered objects — think of them as rows in a database. <strong>Object 12 is the Page. Object 14 is the Font. Object 15 is the Contents stream</strong> — a list of drawing operators like <code>BT</code> (begin text block), <code>Tf</code> (select font), <code>Td</code> (move cursor to position), <code>Tj</code> (draw a text string at the cursor).</div>
           </div>
         </div>
         <div class="dialog-turn is-stu">
@@ -1811,7 +1811,7 @@ endbfchar</div>
     <!-- ── 3.2 OCR ── -->
     <div class="viz reveal">
       <div class="viz-title">Category 2 — Traditional OCR (Tesseract · PaddleOCR PP-OCRv4<span class="cite"><a href="#ref-6">[6]</a></span>)</div>
-      <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">Converts a raster image into text through a multi-stage vision pipeline. Each stage is a prerequisite for the next.</p>
+      <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">Converts a raster image to text through a multi-stage pipeline — each stage feeds the next.</p>
 
       <div class="explain-demo js-stepper" data-interval="6000">
         <div class="explain-head">
@@ -2004,7 +2004,7 @@ endbfchar</div>
           <div class="dialog-avatar prof">🎓</div>
           <div class="dialog-body">
             <div class="dialog-name prof">Professor</div>
-            <div class="dialog-bubble">Let me explain the rough intuition for what the Tesseract recognizer sees. It works on line or word-height image regions and reads them left to right, predicting character probabilities across the crop. If the image resolution is too low, adjacent strokes blur together and the recognizer starts seeing ambiguous blobs where distinct characters should be.</div>
+            <div class="dialog-bubble">Tesseract works on line or word-height image crops, reading left to right and predicting character probabilities across each region. When resolution is too low, adjacent strokes blur together and the recognizer sees ambiguous blobs where distinct characters should be.</div>
           </div>
         </div>
         <div class="dialog-turn is-stu">
@@ -2048,7 +2048,7 @@ endbfchar</div>
     <!-- ── 3.3 ML layout parsers ── -->
     <div class="viz reveal">
       <div class="viz-title">Category 3 — ML layout parsing (Docling · TableFormer)</div>
-      <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">Treats a document page as a 2-D photograph and applies <strong style="color:var(--text)">object detection</strong> to it — not byte parsing, not pixel thresholding, but vision-model inference that recognises regions and reconstructs table structure from large document-image corpora.</p>
+      <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">Treats a document page as a 2D photograph. A <strong style="color:var(--text)">vision model</strong> recognises regions — text block, table, figure, heading — and TableFormer reconstructs table structure from patterns learned across large document corpora.</p>
 
       <div class="explain-demo js-stepper" data-interval="6000">
         <div class="explain-head">
@@ -2279,7 +2279,7 @@ damaged on 15 January...
     <!-- ── 3.4 Handwriting ── -->
     <div class="viz reveal">
       <div class="viz-title">Category 4 — Handwriting recognition (TrOCR<span class="cite"><a href="#ref-5">[5]</a></span>)</div>
-      <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">Microsoft TrOCR is a Vision-Encoder–Language-Decoder transformer fine-tuned for handwritten text recognition. It does not rely on an explicit character-segmentation stage or sliding-window character classifier.</p>
+      <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">Microsoft TrOCR is a Vision-Encoder–Language-Decoder transformer fine-tuned for handwritten text recognition. Unlike traditional OCR, it skips explicit character segmentation entirely.</p>
 
       <div class="explain-demo js-stepper" data-interval="6000">
         <div class="explain-head">
@@ -2610,10 +2610,10 @@ damaged on 15 January...
 
       <div class="viz-row cols-2" style="margin-top:24px;gap:32px">
         <div class="insight success" style="margin:0">
-          <strong>What TrOCR gets right:</strong> because it reads a field as a whole image rather than requiring an explicit character split, connected script and ligatures that break character classifiers are handled more naturally. The public large handwritten model reports CER ~2.9% on the clean IAM benchmark.<span class="cite"><a href="#ref-7">[7]</a></span>
+          <strong>What TrOCR gets right:</strong> because it reads a field as a whole image, connected script and ligatures that break character classifiers just work. The public large handwritten model reports CER ~2.9% on the clean IAM benchmark.<span class="cite"><a href="#ref-7">[7]</a></span>
         </div>
         <div class="insight warn" style="margin:0">
-          <strong>What TrOCR gets wrong:</strong> real complaint forms have noisy, degraded, variable-size handwriting. Performance can drop sharply on messy real-world inputs because the public benchmark number comes from cleaner line images. Use it per-field, not whole-page, and measure it on your own handwriting corpus.
+          <strong>What TrOCR gets wrong:</strong> real complaint forms have noisy, degraded, variable-size handwriting. Performance drops on messy real-world inputs — the IAM benchmark uses much cleaner line images than complaint forms typically are. Use it per-field, not whole-page, and calibrate on your own data.
         </div>
       </div>
 
@@ -2651,7 +2651,7 @@ damaged on 15 January...
           <div class="dialog-avatar prof">🎓</div>
           <div class="dialog-body">
             <div class="dialog-name prof">Professor</div>
-            <div class="dialog-bubble">That is the core reason TrOCR performs so well on clean IAM handwriting. Traditional character-segmentation OCR breaks badly on connected script, while TrOCR handles it more naturally. <strong>The limitation is training data</strong>: the public model was evaluated on cleaner, curated line images. Real complaint forms have degraded ink, mixed print and handwriting, and much more writer variation, which is why we run TrOCR <em>per-field</em>, with a coordinate-based crop, not whole-page.</div>
+            <div class="dialog-bubble">That's why TrOCR performs so well on clean IAM handwriting. Traditional character-segmentation OCR breaks badly on connected script, while TrOCR handles it more naturally. <strong>The limitation is training data</strong>: the public model was evaluated on cleaner, curated line images. Real complaint forms have degraded ink, mixed print and handwriting, and much more writer variation, which is why we run TrOCR <em>per-field</em>, with a coordinate-based crop, not whole-page.</div>
           </div>
         </div>
         <div class="dialog-turn">
@@ -2665,7 +2665,7 @@ damaged on 15 January...
     </div>
 
     <div class="insight" style="margin-top:8px">
-      <strong>The bottom line:</strong> Categories 1–4 are not interchangeable. A digital complaint form submitted as AcroForm → Category 1 (text extraction) wins. A faxed, crooked, coffee-stained form → Category 2 + preprocessing. A form with multi-column tables and headers → Category 3. A form with handwritten notes in the margins → Category 4. Production pipelines route to the right category per page, not per document.
+      <strong>In short:</strong> Categories 1–4 aren't interchangeable. A digital complaint form submitted as AcroForm → Category 1 (text extraction) wins. A faxed, crooked, coffee-stained form → Category 2 + preprocessing. A form with multi-column tables and headers → Category 3. A form with handwritten notes in the margins → Category 4. Production pipelines route to the right category per page, not per document.
     </div>
   </div>
 </section>
@@ -2902,7 +2902,7 @@ damaged on 15 January...
   <div class="container">
     <div class="section-num">Decision Framework</div>
     <h2 class="section-title">Which parser for which form?</h2>
-    <p class="section-intro">Answers to four questions narrow you to the right tool. Route different form subtypes to different parsers in a hybrid pipeline.</p>
+    <p class="section-intro">Four questions narrow you to the right tool. A hybrid pipeline — different parsers for different form subtypes — almost always beats running a single parser on everything.</p>
 
     <div class="mermaid-wrap reveal">
       <div class="mermaid" id="decisionMermaid">
