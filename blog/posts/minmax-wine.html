@@ -8,17 +8,23 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
     <title>I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me - Haoming Koo</title>
-    <meta name="description" content="How I built an automated wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with search grounding, and a self-sustaining daily pipeline." />
-    <meta name="keywords" content="wine price comparison, Singapore wine, Gemini AI, web scraping, FastAPI, Vivino, Platinum Wine Club, Grand Cru, deal finder" />
+    <meta name="description" content="How I built a wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Brave-powered URL resolution, bundle-aware pricing, and a guarded daily pipeline with local review for edge cases." />
+    <meta name="keywords" content="wine price comparison, Singapore wine, Brave Search API, HTML scraping, FastAPI, Vivino, Platinum Wine Club, Grand Cru, deal finder" />
     <meta name="author" content="Haoming Koo" />
     <link rel="canonical" href="https://kooexperience.com/blog/posts/minmax-wine.html" />
+    <meta property="og:title" content="I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me" />
+    <meta property="og:description" content="How I built a wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Brave-powered URL resolution, bundle-aware pricing, and a guarded daily pipeline with local review for edge cases." />
+    <meta property="og:url" content="https://kooexperience.com/blog/posts/minmax-wine.html" />
+    <meta property="og:type" content="article" />
     <meta property="og:image" content="https://kooexperience.com/assets/og/minmax-wine.png" />
     <meta property="og:site_name" content="Haoming Koo" />
     <meta property="og:locale" content="en_SG" />
+    <meta property="article:published_time" content="2026-03-27T00:00:00+08:00" />
+    <meta property="article:author" content="Haoming Koo" />
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://kooexperience.com/assets/og/minmax-wine.png">
     <meta name="twitter:title" content="I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me">
-    <meta name="twitter:description" content="How I built an automated wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with search grounding, and a self-sustaining daily pipeline.">
+    <meta name="twitter:description" content="How I built a wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Brave-powered URL resolution, bundle-aware pricing, and a guarded daily pipeline with local review for edge cases.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -167,10 +173,10 @@
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me - Haoming Koo",
-      "description": "How I built an automated wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with search grounding, and a self-sustaining daily pipeline.",
+      "description": "How I built a wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Brave-powered URL resolution, bundle-aware pricing, and a guarded daily pipeline with local review for edge cases.",
       "url": "https://kooexperience.com/blog/posts/minmax-wine.html",
       "datePublished": "2026-03-27",
-      "dateModified": "2026-03-27",
+      "dateModified": "2026-03-29",
       "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
       "publisher": {"@type": "Person", "name": "Haoming Koo"},
       "image": "https://kooexperience.com/assets/og/minmax-wine.png",
@@ -208,9 +214,10 @@
         </div>
         <h1>I Built an AI Wine Deal Finder &mdash; Here's What 50 Bottles Taught Me</h1>
         <p class="subtitle">
-          How I built an automated wine price comparison tool for Singapore that compares
-          Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Gemini AI with
-          search grounding, and a self-sustaining daily pipeline.
+          How I built a wine price comparison tool for Singapore that compares
+          Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Brave-powered
+          Vivino resolution, bundle-aware pricing, and a guarded daily pipeline with
+          local review for edge cases.
         </p>
 
         <div class="stack-box">
@@ -219,8 +226,8 @@
             <span class="stack-tag">Python</span>
             <span class="stack-tag">FastAPI</span>
             <span class="stack-tag">Selenium</span>
-            <span class="stack-tag">Gemini AI</span>
             <span class="stack-tag">Brave API</span>
+            <span class="stack-tag">HTML Scraping</span>
             <span class="stack-tag">PostgreSQL</span>
             <span class="stack-tag">Leaflet.js</span>
             <span class="stack-tag">Railway</span>
@@ -233,13 +240,14 @@
           <a href="#try-it">Try it yourself</a>
           <a href="#numbers">The numbers</a>
           <a href="#pipeline">How the pipeline works</a>
-          <a href="#vivino-problem">The Vivino problem (and the AI fix)</a>
+          <a href="#vivino-problem">The Vivino problem (and the boring fix)</a>
           <a href="#deal-score">The deal score</a>
           <a href="#surprising-finds">Surprising finds from the data</a>
           <a href="#stack">The stack</a>
           <a href="#lessons">Lessons learned</a>
           <a href="#whats-next">What's next</a>
-          <a href="#update-march">Update: The market price incident</a>
+          <a href="#update-pricing">Update: Pricing &amp; resolver hardening</a>
+          <a href="#update-march">Update: Global market prices</a>
         </div>
 
         <h2 id="problem">The idea &mdash; spend smarter on wine</h2>
@@ -292,7 +300,10 @@
 
         <p>
           Head to <a href="https://wine.kooexperience.com" target="_blank" rel="noopener">wine.kooexperience.com</a>.
-          You'll see a table of ~50 wines with prices from Platinum, Grand Cru, and Vivino side by side.
+          The live catalogue changes as retailers add and remove stock, but the app shows the current
+          Platinum, Grand Cru, and Vivino comparison side by side.
+          Platinum is the anchor price: if Platinum sells a 3-bottle bundle for S$600, the app shows S$600,
+          and Grand Cru plus Vivino are scaled to the same 3-bottle quantity before comparison.
           Each wine gets a deal score from 0 to 100, colour-coded so the best deals pop out immediately.
         </p>
 
@@ -303,29 +314,29 @@
         </p>
 
         <p>
-          The data refreshes daily via a cron pipeline. No manual intervention. I built it once and it
-          just runs, like a Roomba for wine deals.
+          The scrape/import path refreshes daily via cron. For tricky Vivino identity cases, I keep
+          a guarded local review loop, because a missing price is still better than a wrong match.
         </p>
 
         <h2 id="numbers">The numbers</h2>
 
         <p>
-          After tracking 50 wines across three sources, here's what the data says:
+          I stopped hard-coding exact catalogue stats here because they go stale quickly as retailer
+          inventory changes. The durable patterns are:
         </p>
 
         <ul>
-          <li><strong>16 out of 50 wines (32%)</strong> are genuinely cheaper on Platinum than Grand Cru.</li>
-          <li><strong>Average Vivino rating:</strong> 4.09 out of 5 &mdash; the selection quality is solid.</li>
-          <li><strong>Price range:</strong> $45 to $780 per bottle.</li>
-          <li><strong>Best deal:</strong> Gevrey-Chambertin by Domaine Claude Dugat &mdash; S$510 for 3 bottles on Platinum vs S$1,020 per bottle on Grand Cru. The bundle pricing makes a huge difference.</li>
-          <li><strong>Worth checking first:</strong> Some wines are cheaper on Grand Cru &mdash; the tool flags these so you can compare before buying.</li>
-          <li><strong>Most reviewed:</strong> Miraval Ros&eacute; 2024 with 58,336 Vivino ratings. More on this legend later.</li>
+          <li><strong>Platinum is genuinely cheaper on a meaningful slice of the catalogue.</strong> It is not just an Amex-credit gimmick.</li>
+          <li><strong>Bundle math changes rankings.</strong> Some apparent deals disappear once every competitor is scaled to Platinum's listing quantity.</li>
+          <li><strong>Same-price listings are common.</strong> Those are convenience plays, not true price edges.</li>
+          <li><strong>Grand Cru still wins on part of the catalogue.</strong> The useful part is seeing that before checkout.</li>
+          <li><strong>Live numbers belong in the app, not frozen in the post.</strong> The write-up should explain the system, not pretend to be a dashboard.</li>
         </ul>
 
         <p>
-          The takeaway: Platinum has genuinely great deals on about a third of their wines. The rest
-          are competitively priced &mdash; sometimes identical, sometimes Grand Cru edges them out.
-          The value of this tool is knowing which category each wine falls into before you buy.
+          The takeaway: Platinum has genuinely good deals on a meaningful slice of the catalogue, but
+          the bundle-aware math matters. The value of the tool is that it shows the listing you can
+          actually buy, then scales the other benchmarks to match before you checkout.
         </p>
 
         <h2 id="pipeline">How the pipeline works</h2>
@@ -338,45 +349,48 @@
 │  Daily Pipeline (cron @ 06:00 SGT)                         │
 │                                                            │
 │  1. SCRAPE                                                 │
-│  ├── Selenium → Platinum Wine Club (prices + labels)       │
-│  └── Selenium → Grand Cru (matched wines + prices)         │
+│  ├── Selenium → Platinum Wine Club (catalog + pricing)     │
+│  └── Shopify API → Grand Cru (catalog + pricing)           │
 │                                                            │
 │  2. MATCH                                                  │
-│  ├── Fuzzy string matching (wine names across retailers)   │
-│  └── Manual overrides for tricky labels                    │
+│  ├── Fuzzy string matching across retailers                │
+│  ├── Bundle detection + quantity normalization             │
+│  └── Platinum listing price stays as the anchor            │
 │                                                            │
-│  3. ENRICH (Vivino)                                        │
-│  ├── Brave Search API → find Vivino URLs                   │
-│  ├── Gemini AI (search grounding) → extract:               │
-│  │   ├── Vivino rating + review count                      │
-│  │   ├── Average price (SGD)                               │
-│  │   └── Wine metadata (region, grape, style)              │
-│  └── Fallback: manual CSV for wines Gemini can't resolve   │
+│  3. BRAVE RESOLVE                                          │
+│  ├── Brave Search API → find the exact Vivino URL          │
+│  └── Identity cache skips known wines                      │
 │                                                            │
-│  4. SCORE                                                  │
-│  └── Compute deal score (0-100) per wine                   │
+│  4. HTML SCRAPE                                            │
+│  ├── Fetch Vivino page HTML                                │
+│  ├── Parse rating, review count, and SGD price             │
+│  └── Extract grapes, region, and tasting context           │
 │                                                            │
-│  5. SERVE                                                  │
-│  ├── FastAPI → /api/wines (JSON)                           │
-│  ├── PostgreSQL (Railway) for persistence                  │
-│  └── Static frontend (vanilla JS + Leaflet.js)             │
+│  5. IMPORT                                                 │
+│  └── Merge sources, score deals, write PostgreSQL          │
+│                                                            │
+│  6. SERVE                                                  │
+│  └── FastAPI + static frontend                             │
 └────────────────────────────────────────────────────────────┘</code></pre>
 
         <p>
-          The scraping layer uses Selenium with headless Chrome. Both Platinum and Grand Cru
-          render their catalogues with JavaScript, so a simple HTTP request won't cut it.
-          Selenium waits for the page to fully render, then extracts wine names, vintages,
-          regions, and prices from the DOM.
+          The high-level pipeline today is intentionally simple:
+          <code>Scrape &rarr; Match &rarr; Brave Resolve &rarr; HTML Scrape &rarr; Import</code>.
+          I removed the Gemini fallback after it started returning wrong-vintage, wrong-currency,
+          and outright fabricated prices.
         </p>
 
         <p>
           The matching step is trickier than it sounds. "Chambolle-Musigny 1er Cru Les Amoureuses 2020"
           on one site might be listed as "Domaine Serveau Chambolle Musigny Amoureuses Premier Cru 2020"
           on another. Fuzzy matching with a similarity threshold of 0.75 catches most of these, but
-          some wines need manual overrides stored in a CSV.
+          some wines need manual overrides stored in a CSV. The other subtle rule lives here too:
+          Platinum is the pricing anchor. I show Platinum's listing price exactly as sold, then scale
+          Grand Cru and Vivino up to that same quantity. Earlier comparison CSVs had some stale
+          divided-per-bottle rows, which looked tidy but broke apples-to-apples comparisons.
         </p>
 
-        <h2 id="vivino-problem">The Vivino problem (and the AI fix)</h2>
+        <h2 id="vivino-problem">The Vivino problem (and the boring fix)</h2>
 
         <p>
           Vivino data &mdash; ratings, review counts, average prices &mdash; is essential for the deal
@@ -386,42 +400,30 @@
         </p>
 
         <p>
-          The solution was <strong>Gemini AI with Google Search grounding</strong>.
+          The current resolver is deliberately boring: use the
+          <a href="https://brave.com/search/api/" target="_blank" rel="noopener">Brave Search API</a>
+          to find the exact Vivino URL, fetch that page's HTML, and parse the structured data directly.
+          Rating, review count, price, grapes, region, and tasting context all come from the resolved
+          page itself, not from a model summary.
         </p>
 
         <p>
-          Google's Gemini API has a feature called
-          <a href="https://ai.google.dev/gemini-api/docs/grounding" target="_blank" rel="noopener">search grounding</a>
-          where you can ask Gemini a question and it will search the web in real time to find the answer.
-          Crucially, Google's own crawlers can access Vivino just fine. So instead of scraping Vivino
-          directly, I ask Gemini:
-        </p>
-
-        <blockquote>
-          "What is the Vivino rating, number of reviews, and average Singapore price for
-          Domaine Claude Dugat Gevrey-Chambertin 2021?"
-        </blockquote>
-
-        <p>
-          Gemini searches Google, finds the Vivino page, reads it, and returns structured JSON
-          with the rating, review count, price, and tasting notes. It works because Google's
-          own infrastructure does the web access &mdash; not my server. Vivino trusts Google's
-          crawlers, so the data comes through cleanly.
+          Most daily runs skip search entirely thanks to an identity cache of validated wine-to-Vivino
+          mappings. Once a URL is proven correct, the pipeline reuses it and goes straight to HTML
+          extraction on the next run.
         </p>
 
         <p>
-          Technically, it's just one extra parameter in the API call: <code>"tools": [{"google_search": {}}]</code>.
-          That enables "search grounding" &mdash; Gemini can search the live web before responding.
-          The free tier gives you 500 grounded requests per day, which is more than enough for 50 wines.
+          Earlier versions had a Gemini + Google Search grounding fallback for cases where Brave
+          failed or ran out of credits. It sounded clever, but it was too risky for price data.
+          Wrong vintages and wrong currencies were bad enough; one run returned a surreal
+          S$35,020 Vivino price for a bottle that should have been around S$390.
         </p>
 
         <p>
-          To improve accuracy, I first use the <a href="https://brave.com/search/api/" target="_blank" rel="noopener">Brave Search API</a>
-          to find the exact Vivino URL for each wine, then pass that URL as a hint to Gemini.
-          This way Gemini looks up that specific page rather than searching broadly. If the URL
-          hint fails, it falls back to a broad search, then tries again with a simplified wine name.
-          Three attempts, each getting progressively less specific. The overall success rate is about
-          82% fully automated from a server that Vivino would normally block.
+          So the fallback is gone. If Brave can't resolve a trustworthy page and the HTML doesn't
+          contain parseable pricing, the system would rather show no Vivino price than invent one.
+          Missing data is annoying. Fabricated price data destroys trust.
         </p>
 
         <h2 id="deal-score">The deal score</h2>
@@ -477,34 +479,42 @@
         <h2 id="stack">The stack</h2>
 
         <pre><code>Backend:    Python 3.12 + FastAPI + Uvicorn
-Scraping:   Selenium (headless Chrome)
-Search:     Brave Search API (Vivino URL discovery)
-AI:         Gemini 2.0 Flash (search grounding for Vivino data)
+Scraping:   Selenium + Shopify catalog API
+Resolve:    Brave Search API + identity cache
+Parsing:    Vivino HTML + JSON-LD extraction
 Database:   PostgreSQL (Railway managed)
 Frontend:   Vanilla JS + Leaflet.js (wine origin map)
 Hosting:    Railway (backend) + static frontend
 Scheduling: Railway cron (daily 06:00 SGT)
-Cost:       ~$0/month (all free tiers)</code></pre>
+Cost:       ~$0/month (free tiers)</code></pre>
 
         <p>
           As a side project, keeping costs at zero was a constraint from the start. Railway's
-          free plan covers the backend and PostgreSQL. Brave Search's free tier provides 1,000
-          queries per month. Gemini's free API handles the Vivino resolution volume comfortably.
-          Paid services (such as Wine-Searcher's API for global price data) were evaluated but
-          aren't justified at this scale.
+          free plan covers the backend and PostgreSQL. Brave Search's free tier provides enough
+          URL discovery for the current catalogue, and the identity cache keeps repeat lookups low.
+          Removing the Gemini fallback also removed a whole class of bad outputs. Paid services
+          (such as Wine-Searcher's API for global price data) were evaluated but aren't justified
+          at this scale.
         </p>
 
         <h2 id="lessons">Lessons learned</h2>
 
         <p>
-          <strong>Work around constraints, don't fight them.</strong> When direct scraping is blocked,
-          look for indirect paths. Gemini's search grounding accesses Vivino through Google's own
-          infrastructure &mdash; a legitimate API feature that sidesteps the bot detection problem entirely.
+          <strong>Prefer deterministic extraction over clever fallbacks.</strong> When you're showing
+          user-facing prices, boring beats magical. Brave + HTML parsing is less flashy than an LLM
+          fallback, but it's auditable, reproducible, and much easier to debug.
         </p>
 
         <p>
-          <strong>Free tiers are viable at small scale.</strong> Railway, Gemini, and Brave's free
-          tiers handle this workload comfortably. The identity cache keeps API usage well within limits
+          <strong>Listing semantics matter as much as the raw price.</strong> If one retailer sells
+          a 3-bottle bundle and another sells singles, per-bottle math will quietly lie to users.
+          Showing Platinum's listing price as-is, then scaling the comparison set to match, turned
+          out to be the only convention that felt honest in the UI.
+        </p>
+
+        <p>
+          <strong>Free tiers are viable at small scale.</strong> Railway and Brave's free tiers
+          handle this workload comfortably. The identity cache keeps API usage well within limits
           even as the wine catalogue grows. Paid APIs become necessary only at significantly larger scale.
         </p>
 
@@ -527,6 +537,24 @@ Cost:       ~$0/month (all free tiers)</code></pre>
           <li><strong>Alert system:</strong> Get notified when a high-rated wine drops below a price threshold.</li>
           <li><strong>Better Vivino coverage:</strong> Push that automation rate higher. Some wines just need better search queries or alternative data sources.</li>
         </ul>
+
+        <h2 id="update-pricing">Update: Pricing &amp; resolver hardening</h2>
+
+        <p>
+          A few resolver changes shipped in late March 2026.
+        </p>
+
+        <ul>
+          <li><strong>Bundle-aware pricing is now explicit.</strong> Platinum's listing price is the anchor shown as-is. If Platinum sells a 3-bottle bundle for S$600, the app shows S$600. Grand Cru and Vivino are scaled to the same 3-bottle quantity before comparison. I regenerated the comparison CSV after finding stale rows that had quietly divided bundles back down to per-bottle figures.</li>
+          <li><strong>Gemini grounding is out of the resolver path.</strong> When Brave Search ran out of credits, the old fallback used Gemini with Google Search grounding. It occasionally hallucinated absurd Vivino prices, including one S$35,020 quote for a wine that should have been around S$390. That fallback is gone.</li>
+          <li><strong>AI review moved to the local operator loop, not the runtime path.</strong> I use local coding agents such as Codex or Claude Code as review assistants for suspicious resolver output, candidate-page checks, and override diffs before anything is pushed. They help with verification; they do not write production prices directly.</li>
+        </ul>
+
+        <p>
+          The architecture today is <code>Scrape &rarr; Match &rarr; Brave Resolve &rarr; HTML Scrape &rarr; Import</code>,
+          plus a guarded local review loop for edge cases. In other words: automate the boring parts,
+          review the risky parts. Missing data is acceptable. Fabricated price data isn't.
+        </p>
 
         <h2 id="update-march">Update: Global market prices &mdash; what worked and what didn't</h2>
 
@@ -606,7 +634,6 @@ Cost:       ~$0/month (all free tiers)</code></pre>
           <li><a href="https://www.platinumwineclub.com.sg/" target="_blank" rel="noopener">Platinum Wine Club Singapore</a></li>
           <li><a href="https://grandcruwines.com/" target="_blank" rel="noopener">Grand Cru Singapore</a></li>
           <li><a href="https://www.vivino.com/" target="_blank" rel="noopener">Vivino</a></li>
-          <li><a href="https://ai.google.dev/gemini-api/docs/grounding" target="_blank" rel="noopener">Gemini Search Grounding</a></li>
           <li><a href="https://brave.com/search/api/" target="_blank" rel="noopener">Brave Search API</a></li>
           <li><a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a></li>
           <li><a href="https://leafletjs.com/" target="_blank" rel="noopener">Leaflet.js</a></li>

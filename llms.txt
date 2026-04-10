@@ -30,7 +30,7 @@ Python, PyTorch, TensorFlow, scikit-learn, LightGBM, YOLOv8, OpenCV, MediaPipe, 
 - [Preflight](https://preflight.kooexperience.com): Upload any CSV or Parquet file for instant data health checks, EDA charts, correlation maps, and baseline ML models with cross-validation metrics. Stack: Dash, scikit-learn, Plotly.
 - [Handwriting Lab](https://handwriting.kooexperience.com): Rotation-aware digit recognition playground with canvas prediction, confusion matrix reporting, and PyTorch training pipeline tracked by MLflow. Stack: FastAPI, PyTorch, MLflow.
 - [Photo ID Studio](https://studio.kooexperience.com): Passport and visa photo compliance checker using MediaPipe face mesh (468 landmarks), rembg segmentation, 25+ compliance checks for 6 countries. Stack: FastAPI, MediaPipe, OpenCV.
-- [MinMax Wine](https://wine.kooexperience.com): Three-way wine price comparison (Platinum vs Grand Cru vs Vivino market) with AI deal scoring, tasting notes, and daily price tracking for Singapore. Stack: FastAPI, SQLAlchemy, Gemini, Vivino API.
+- [MinMax Wine](https://wine.kooexperience.com): Three-way wine price comparison for Singapore across Platinum, Grand Cru, and Vivino, with bundle-aware pricing, tasting notes, and daily refreshes. Stack: FastAPI, SQLAlchemy, Brave Search, HTML scraping.
 
 ## Blog Posts
 

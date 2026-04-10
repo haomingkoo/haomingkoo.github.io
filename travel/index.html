@@ -190,9 +190,79 @@
       <div class="world-map" id="world-map-container"></div>
 
       <div class="filters" id="filters"></div>
-      <div class="results-count" id="results-count"></div>
+      <div class="results-count" id="results-count">
+        <!-- GENERATED:travel-count START -->
+        5 stories
+        <!-- GENERATED:travel-count END -->
+      </div>
       <div class="post-grid" id="post-grid">
-        <div class="empty-state">Loading...</div>
+        <!-- GENERATED:travel-list START -->
+        <a class="post-card" href="./posts/netherlands.html">
+          <div class="post-cover"></div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="post-tag">Netherlands</span>
+              <span class="post-tag">Flowers</span>
+              <span>Apr 2025</span>
+            </div>
+            <div class="post-title">9 Days in the Netherlands — Tulips, Windmills &amp; Dutch Masters</div>
+            <div class="post-excerpt">Amsterdam → Sassenheim → Haarlem → Keukenhof → The Hague → Delft → Rotterdam → Kinderdijk. Flower parades, tulip fields by bike, Delft tile painting, and the best Indonesian food outside Asia.</div>
+            <span class="post-read">Read &rsaquo;</span>
+          </div>
+        </a>
+        <a class="post-card" href="./posts/japan.html">
+          <div class="post-cover"></div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="post-tag">Japan</span>
+              <span class="post-tag">Hokkaido</span>
+              <span>Feb 2025</span>
+            </div>
+            <div class="post-title">10 Days in Japan — Snow Festivals, Early Sakura &amp; Mount Fuji</div>
+            <div class="post-excerpt">Sapporo → Asahikawa → Otaru → Odawara → Izu → Tokyo. Snow festivals and penguin parades in Hokkaido, then early-blooming sakura and coastal drives through the Izu Peninsula.</div>
+            <span class="post-read">Read &rsaquo;</span>
+          </div>
+        </a>
+        <a class="post-card" href="./posts/italy.html">
+          <div class="post-cover"></div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="post-tag">Italy</span>
+              <span class="post-tag">Budget</span>
+              <span>Jan 2025</span>
+            </div>
+            <div class="post-title">13 Days Across Italy — A Winter Family Trip</div>
+            <div class="post-excerpt">Milan → Florence → Pisa → Rome → Venice. Christmas in Milan, NYE at the Colosseum, a gondola through Venice — a comfortable family winter trip with full cost breakdown.</div>
+            <span class="post-read">Read &rsaquo;</span>
+          </div>
+        </a>
+        <a class="post-card" href="./posts/korea.html">
+          <div class="post-cover"></div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="post-tag">Korea</span>
+              <span class="post-tag">Seoul</span>
+              <span>Aug 2023</span>
+            </div>
+            <div class="post-title">5 Days in Seoul — Palaces, Street Food &amp; Cafe Culture</div>
+            <div class="post-excerpt">Gyeongbokgung → Bukchon → Nami Island → DMZ → Hongdae. Hanbok-clad palace walks, BBQ feasts, extraordinary cafe culture, and a sobering trip to the DMZ.</div>
+            <span class="post-read">Read &rsaquo;</span>
+          </div>
+        </a>
+        <a class="post-card" href="./posts/japan-sakura.html">
+          <div class="post-cover"></div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="post-tag">Japan</span>
+              <span class="post-tag">Sakura</span>
+              <span>Apr 2023</span>
+            </div>
+            <div class="post-title">11 Days Across Japan — Sakura Season from Tokyo to Hiroshima</div>
+            <div class="post-excerpt">Tokyo → Mt Fuji → Hakone → Osaka → Yoshino → Kobe → Himeji → Kurashiki → Hiroshima → Shimanami Kaido → Miyajima. Cherry blossoms, DisneySea, Kobe beef, and the Peace Memorial.</div>
+            <span class="post-read">Read &rsaquo;</span>
+          </div>
+        </a>
+        <!-- GENERATED:travel-list END -->
       </div>
 
       <footer>&copy; 2026 Haoming Koo</footer>
@@ -261,10 +331,7 @@
 
           render(posts);
         })
-        .catch(function () {
-          document.getElementById("post-grid").innerHTML =
-            '<div class="empty-state">No travel stories yet — check back soon.</div>';
-        });
+        .catch(function () {});
 
       function render(posts) {
         var btns = document.querySelectorAll(".filter-btn");

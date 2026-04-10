@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://kooexperience.com/</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -20,79 +20,37 @@
   </url>
   <url>
     <loc>https://kooexperience.com/blog/</loc>
-    <lastmod>2026-03-16</lastmod>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kooexperience.com/travel/</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kooexperience.com/blog/posts/lionweather.html</loc>
-    <lastmod>2026-03-12</lastmod>
+    <loc>https://kooexperience.com/blog/posts/minmax-wine.html</loc>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kooexperience.com/blog/posts/trader-koo.html</loc>
-    <lastmod>2026-03-12</lastmod>
+    <loc>https://kooexperience.com/blog/posts/job-hunter.html</loc>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kooexperience.com/blog/posts/photo-id-studio.html</loc>
-    <lastmod>2026-03-12</lastmod>
+    <loc>https://kooexperience.com/blog/posts/hmm-regime.html</loc>
+    <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kooexperience.com/travel/posts/italy.html</loc>
-    <lastmod>2025-01-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kooexperience.com/wmss.html</loc>
-    <lastmod>2026-03-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kooexperience.com/blog/posts/wmss-demo.html</loc>
-    <lastmod>2026-03-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kooexperience.com/travel/posts/japan.html</loc>
-    <lastmod>2026-03-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kooexperience.com/travel/posts/japan-sakura.html</loc>
-    <lastmod>2026-03-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kooexperience.com/travel/posts/korea.html</loc>
-    <lastmod>2026-03-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kooexperience.com/travel/posts/netherlands.html</loc>
-    <lastmod>2026-03-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kooexperience.com/blog/posts/llm-inference-theory.html</loc>
-    <lastmod>2026-03-16</lastmod>
+    <loc>https://kooexperience.com/blog/posts/dpo-demo.html</loc>
+    <lastmod>2026-03-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -103,15 +61,69 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kooexperience.com/blog/posts/dpo-demo.html</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://kooexperience.com/blog/posts/llm-inference-theory.html</loc>
+    <lastmod>2026-03-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kooexperience.com/blog/posts/hmm-regime.html</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://kooexperience.com/blog/posts/wmss-demo.html</loc>
+    <lastmod>2026-03-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kooexperience.com/blog/posts/photo-id-studio.html</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kooexperience.com/blog/posts/trader-koo.html</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kooexperience.com/blog/posts/lionweather.html</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kooexperience.com/travel/posts/netherlands.html</loc>
+    <lastmod>2025-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kooexperience.com/travel/posts/japan.html</loc>
+    <lastmod>2025-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kooexperience.com/travel/posts/italy.html</loc>
+    <lastmod>2025-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kooexperience.com/travel/posts/korea.html</loc>
+    <lastmod>2023-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kooexperience.com/travel/posts/japan-sakura.html</loc>
+    <lastmod>2023-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kooexperience.com/wmss.html</loc>
+    <lastmod>2026-03-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

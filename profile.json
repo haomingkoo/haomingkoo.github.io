@@ -317,8 +317,8 @@
     {
       "name": "MinMax Wine",
       "url": "https://wine.kooexperience.com",
-      "description": "Three-way wine price comparison (Platinum vs Grand Cru vs Vivino) with AI deal scoring for Singapore",
-      "tech": ["Gemini", "Vivino API", "SQLAlchemy", "FastAPI"]
+      "description": "Three-way wine price comparison for Singapore with bundle-aware pricing, Vivino context, and deal scoring",
+      "tech": ["Brave Search", "HTML scraping", "SQLAlchemy", "FastAPI"]
     }
   ],
 

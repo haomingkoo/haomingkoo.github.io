@@ -7,7 +7,7 @@
 #   ./new-post.sh travel "5 Days in Tokyo" "Japan,Food" --lat 35.6762 --lng 139.6503
 #
 # This creates a post file from the template, adds it to posts.json,
-# and updates sitemap.xml.
+# and regenerates the crawlable homepage/archive sections plus feed/sitemap.
 # ─────────────────────────────────────────────────────────────────────
 set -e
 
@@ -89,17 +89,16 @@ with open('$MANIFEST', 'w') as f:
 "
 echo "Updated: $MANIFEST"
 
-# Add to sitemap.xml
-SITEMAP_ENTRY="  <url>\n    <loc>https://kooexperience.com/$POST_FILE</loc>\n    <lastmod>$DATE</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>"
-sed -i '' "s|</urlset>|$SITEMAP_ENTRY\n</urlset>|" sitemap.xml 2>/dev/null || \
-sed -i "s|</urlset>|$SITEMAP_ENTRY\n</urlset>|" sitemap.xml
-echo "Updated: sitemap.xml"
+# Refresh generated crawlable content + SEO artifacts
+python3 "$(dirname "$0")/sync_site_content.py"
+echo "Updated: homepage/archive fallback content, feed.xml, sitemap.xml"
 
 echo ""
 echo "Next steps:"
 echo "  1. Edit $POST_FILE with your content"
 echo "  2. Update the excerpt in $MANIFEST"
-echo "  3. git add $POST_FILE $MANIFEST sitemap.xml"
-echo "  4. git commit -m 'feat($TYPE): add $SLUG'"
-echo "  5. git push"
+echo "  3. Re-run python3 sync_site_content.py after final title/excerpt edits"
+echo "  4. git add $POST_FILE $MANIFEST index.html $TYPE/index.html feed.xml sitemap.xml"
+echo "  5. git commit -m 'feat($TYPE): add $SLUG'"
+echo "  6. git push"
 echo ""

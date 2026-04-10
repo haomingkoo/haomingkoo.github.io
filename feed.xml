@@ -7,6 +7,20 @@
     <language>en-sg</language>
     <atom:link href="https://kooexperience.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me</title>
+      <link>https://kooexperience.com/blog/posts/minmax-wine.html</link>
+      <description>How I built a wine price comparison tool for Singapore. Amex Platinum gives you S$200 back on wine, but are the base prices actually competitive? I answered that with Selenium scraping, bundle-aware comparisons, Brave-assisted Vivino resolution, and a guarded daily refresh pipeline.</description>
+      <pubDate>Fri, 27 Mar 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/minmax-wine.html</guid>
+    </item>
+    <item>
+      <title>Building Job Hunter SG - AI Resume Coaching for Singapore</title>
+      <link>https://kooexperience.com/blog/posts/job-hunter.html</link>
+      <description>How I built an AI-powered job aggregator and resume coaching platform for the Singapore job market. Nightly crawls from MyCareersFuture and Careers@Gov, a 7-stage resume tailoring pipeline, and 5 validation gates to prevent AI hallucination. Born from a real job search frustration and revived by a friend's conversation about resume building.</description>
+      <pubDate>Thu, 26 Mar 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/job-hunter.html</guid>
+    </item>
+    <item>
       <title>What Mood Is the Market In? An Interactive Guide to HMM Regime Detection</title>
       <link>https://kooexperience.com/blog/posts/hmm-regime.html</link>
       <description>Markets have moods. A Hidden Markov Model reads the volatility regime (calm, normal, or stormy) so you can trade with the weather, not against it. Interactive walkthrough with live visualizations.</description>

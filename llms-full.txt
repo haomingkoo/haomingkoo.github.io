@@ -57,8 +57,8 @@ He holds an MSc in Smart Industries and Digital Transformation from the National
 
 ### 6. MinMax Wine
 - **URL**: https://wine.kooexperience.com
-- **What it does**: Three-way wine price comparison tool for Singapore. Compares Platinum Wine Club vs Grand Cru vs Vivino market price. Features AI-powered deal scoring (0-100), Vivino tasting notes, community reviews, continent-colored origin map, and daily price tracking. Uses Gemini for wine name parsing and Vivino's internal API for flavor profiles.
-- **Stack**: FastAPI, SQLAlchemy, Gemini Flash, Vivino API, Leaflet
+- **What it does**: Three-way wine price comparison tool for Singapore. It compares Platinum Wine Club, Grand Cru, and Vivino with bundle-aware pricing, deal scoring, tasting notes, community reviews, an origin map, and daily refreshes.
+- **Stack**: FastAPI, SQLAlchemy, Brave Search, HTML scraping, Leaflet
 
 ---
 
