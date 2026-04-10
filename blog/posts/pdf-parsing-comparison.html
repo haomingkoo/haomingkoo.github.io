@@ -2658,7 +2658,7 @@ damaged on 15 January...
           <div class="dialog-avatar exp">⚡</div>
           <div class="dialog-body">
             <div class="dialog-name exp">Expert insight</div>
-            <div class="dialog-bubble">TrOCR fuses two pre-trained models: a <strong>BEiT vision transformer</strong> acts as the visual encoder and a <strong>RoBERTa-family language model</strong> acts as the text decoder. (The large-handwritten variant used here — <code>microsoft/trocr-large-handwritten</code> — is substantially bigger than the base family; the architecture pattern is the same.) The cross-attention bridge lets the language model's knowledge of plausible character sequences resolve visually ambiguous ink strokes — "rn" that looks identical to "m" in handwriting gets pushed toward whichever makes a real word in context. This is the advantage of an end-to-end trained encoder-decoder over a purely visual classifier.</div>
+            <div class="dialog-bubble">TrOCR pairs a <strong>BEiT vision transformer</strong> (encoder) with a <strong>RoBERTa-family language model</strong> (decoder). The variant used here, <code>microsoft/trocr-large-handwritten</code>, is larger than the base family, but the architecture is the same. Cross-attention is what resolves ambiguous strokes — "rn" that looks like "m" gets pushed toward whichever makes a real word. A purely visual classifier just sees pixels.</div>
           </div>
         </div>
       </div>
@@ -3001,11 +3001,11 @@ flowchart TD
       <div class="compare-col">
         <h4 style="color:var(--green)">✓ Must-do</h4>
         <ul>
-          <li>Quality-gated preprocessing before OCR (when scan quality warrants it)</li>
+          <li>Preprocessing before OCR, gated on actual scan quality</li>
           <li>Empirical confidence calibration (not vendor defaults)</li>
           <li>Field-level metrics, not form-level</li>
           <li>Pydantic v2 cross-field validation</li>
-          <li>Immutable audit log (recommended compliance control)</li>
+          <li>Immutable audit log (strong compliance practice; no specific CFPB rule cited)</li>
           <li>Presidio PII redaction before storage</li>
           <li>DPA in place before any cloud API</li>
         </ul>
@@ -3042,15 +3042,15 @@ flowchart TD
       <div class="viz-title">Monthly Cost Estimate — Structured Extraction (1 form ≈ 3 pages)</div>
       <div class="chart-bars" id="costChart" style="height:220px"></div>
       <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap" id="costLegend"></div>
-      <p style="font-size:0.75rem;color:var(--muted);margin-top:12px">Under the infrastructure assumptions in this chart, self-hosted Docling is already cheaper than both cloud options at the 10K forms/month point shown. The crossover volume depends entirely on your actual server cost and utilisation rate — reprice against your own infrastructure before budgeting. Source: vendor pricing pages checked April 2026.</p>
+      <p style="font-size:0.75rem;color:var(--muted);margin-top:12px">These numbers assume Docling on a shared server with reasonable utilisation. At 10K forms/month it already undercuts both cloud options shown. The actual crossover depends on your hardware cost and server load — calculate it against your own setup. Vendor pricing checked April 2026.</p>
     </div>
 
     <div class="insight success">
-      <strong>Practical starting point for most teams:</strong> Start with <strong>Docling</strong> locally if you need one general parser for scanned and layout-heavy documents. Add <strong>TrOCR fine-tuned</strong> on real handwritten complaint fields if handwriting matters. For digital AcroForms specifically, the current local measurements favor <strong>pypdf.get_fields()</strong> for field extraction speed and accuracy on the synthetic corpus used here. Keep HITL for low-confidence cases rather than assuming one parser will cover every subtype.
+      <strong>Practical starting point for most teams:</strong> If you need one parser for both scanned and layout-heavy documents, <strong>Docling</strong> is the safe default. For handwritten fields, fine-tune <strong>TrOCR</strong> on real complaint samples. For digital AcroForms, <strong>pypdf.get_fields()</strong> was fastest and most accurate on the synthetic corpus here. Keep HITL for low-confidence cases — no single parser handles every subtype well.
     </div>
 
     <div class="insight warn">
-      <strong>Before you start:</strong> Annotate 200 real forms (ground truth JSON), run the ablation in <code>sandbox/evaluate.py</code>, measure your actual CER/WER/FER, and calibrate your confidence thresholds empirically. The numbers on this page are starting points, whether they come from local proxy measurements or published research — not measurements on your complaint forms.
+      <strong>Before you start:</strong> Annotate 200 real forms as ground truth JSON, run <code>sandbox/evaluate.py</code>, and measure CER/WER/FER on your actual documents. Confidence thresholds need to come from real data, not published benchmarks. The numbers here are a starting point.
     </div>
   </div>
 </section>
