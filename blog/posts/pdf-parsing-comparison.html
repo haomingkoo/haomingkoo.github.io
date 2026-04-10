@@ -782,6 +782,79 @@
     .patch-col-label.amber { color: var(--amber); }
     .patch-col-label.green { color: var(--green); }
     .patch-col-label.red   { color: var(--red); }
+    /* Word-image strip — shows the single source image before it's tiled */
+    .word-image-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 2px;
+      position: relative;
+      gap: 2px;
+    }
+    .word-strip-letter {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      flex: 1;
+      text-align: center;
+    }
+    .word-strip-letter.sky   { color: var(--sky); }
+    .word-strip-letter.amber { color: var(--amber); }
+    .word-strip-letter.green { color: var(--green); }
+    .word-strip-letter.red   { color: var(--red); }
+    /* Vertical dividers between letter columns */
+    .word-image-strip::after {
+      content: '';
+      position: absolute;
+      inset: 8px 0;
+      background: repeating-linear-gradient(
+        to right,
+        transparent 0%,
+        transparent calc(20% - 1px),
+        rgba(255,255,255,0.08) calc(20% - 1px),
+        rgba(255,255,255,0.08) 20%
+      );
+      pointer-events: none;
+      border-radius: 8px;
+    }
+    .word-strip-caption {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.68rem; color: var(--muted);
+      padding: 3px 2px 6px;
+    }
+    .patch-row-label {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.62rem; color: var(--muted); font-family: 'JetBrains Mono', monospace;
+      writing-mode: horizontal-tb;
+      padding-right: 4px;
+      white-space: nowrap;
+    }
+    .patch-grid-with-rows {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 6px;
+      align-items: start;
+    }
+    .patch-row-labels {
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      gap: 8px;
+      align-self: stretch;
+    }
+    .patch-row-label {
+      display: flex;
+      align-items: center;
+      font-size: 0.60rem;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      white-space: nowrap;
+      height: 100%;
+    }
     .seq-row {
       display: flex;
       flex-wrap: wrap;
@@ -2160,8 +2233,22 @@ damaged on 15 January...
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Patch tokens from the crop — each patch = 16×16 px</div>
-                <!-- column headers: one per letter -->
+                <div class="demo-label">One image → tiled into 16×16 px patches</div>
+
+                <!-- ① Source image: the single word "Jones" -->
+                <div class="word-image-strip">
+                  <span class="word-strip-letter sky">J</span>
+                  <span class="word-strip-letter amber">o</span>
+                  <span class="word-strip-letter green">n</span>
+                  <span class="word-strip-letter red">e</span>
+                  <span class="word-strip-letter sky">s</span>
+                </div>
+                <div class="word-strip-caption">
+                  <span>← the single cropped image (e.g. 80 × 32 px)</span>
+                  <span>↓ divided into 16×16 tiles</span>
+                </div>
+
+                <!-- ② Column headers -->
                 <div class="patch-grid-outer">
                   <div class="patch-col-label sky">J</div>
                   <div class="patch-col-label amber">o</div>
@@ -2169,33 +2256,49 @@ damaged on 15 January...
                   <div class="patch-col-label red">e</div>
                   <div class="patch-col-label sky">s</div>
                 </div>
-                <div class="patch-grid-demo">
-                  <!-- row 1: top strokes -->
-                  <div class="patch-cell"><span class="patch-letter">J</span></div>
-                  <div class="patch-cell hot"><span class="patch-letter">o</span></div>
-                  <div class="patch-cell"><span class="patch-letter">n</span></div>
-                  <div class="patch-cell"><span class="patch-letter">e</span></div>
-                  <div class="patch-cell"><span class="patch-letter">s</span></div>
-                  <!-- row 2: mid strokes -->
-                  <div class="patch-cell ink"><span class="patch-letter">J</span></div>
-                  <div class="patch-cell hot"><span class="patch-letter">o</span></div>
-                  <div class="patch-cell ink"><span class="patch-letter">n</span></div>
-                  <div class="patch-cell ink"><span class="patch-letter">e</span></div>
-                  <div class="patch-cell"><span class="patch-letter">s</span></div>
-                  <!-- row 3: lower strokes -->
-                  <div class="patch-cell ink"><span class="patch-letter">J</span></div>
-                  <div class="patch-cell hot"><span class="patch-letter">o</span></div>
-                  <div class="patch-cell ink"><span class="patch-letter">n</span></div>
-                  <div class="patch-cell"><span class="patch-letter">e</span></div>
-                  <div class="patch-cell ink"><span class="patch-letter">s</span></div>
-                  <!-- row 4: tail strokes -->
-                  <div class="patch-cell ink"><span class="patch-letter">J</span></div>
-                  <div class="patch-cell hot"><span class="patch-letter">o</span></div>
-                  <div class="patch-cell ink"><span class="patch-letter">n</span></div>
-                  <div class="patch-cell ink"><span class="patch-letter">e</span></div>
-                  <div class="patch-cell ink"><span class="patch-letter">s</span></div>
+
+                <!-- ③ Patch grid — 4 rows = 4 horizontal 16px bands of the SAME image -->
+                <div class="patch-grid-with-rows">
+                  <!-- row labels -->
+                  <div class="patch-row-labels">
+                    <div class="patch-row-label">top 16px</div>
+                    <div class="patch-row-label">mid-hi</div>
+                    <div class="patch-row-label">mid-lo</div>
+                    <div class="patch-row-label">bot 16px</div>
+                  </div>
+                  <!-- patch cells -->
+                  <div class="patch-grid-demo">
+                    <!-- row 1: top band — tops of letters (o-top arc; n-humps; e-top; J mostly blank here) -->
+                    <div class="patch-cell"><span class="patch-letter">J</span></div>
+                    <div class="patch-cell hot"><span class="patch-letter">o</span></div>
+                    <div class="patch-cell ink"><span class="patch-letter">n</span></div>
+                    <div class="patch-cell ink"><span class="patch-letter">e</span></div>
+                    <div class="patch-cell"><span class="patch-letter">s</span></div>
+                    <!-- row 2: upper-mid band — main body strokes for all letters -->
+                    <div class="patch-cell ink"><span class="patch-letter">J</span></div>
+                    <div class="patch-cell hot"><span class="patch-letter">o</span></div>
+                    <div class="patch-cell ink"><span class="patch-letter">n</span></div>
+                    <div class="patch-cell ink"><span class="patch-letter">e</span></div>
+                    <div class="patch-cell ink"><span class="patch-letter">s</span></div>
+                    <!-- row 3: lower-mid band — J stem; o base; n legs; s lower curve -->
+                    <div class="patch-cell ink"><span class="patch-letter">J</span></div>
+                    <div class="patch-cell hot"><span class="patch-letter">o</span></div>
+                    <div class="patch-cell ink"><span class="patch-letter">n</span></div>
+                    <div class="patch-cell"><span class="patch-letter">e</span></div>
+                    <div class="patch-cell ink"><span class="patch-letter">s</span></div>
+                    <!-- row 4: bottom band — J tail/hook; o baseline; s tail; others blank -->
+                    <div class="patch-cell ink"><span class="patch-letter">J</span></div>
+                    <div class="patch-cell hot"><span class="patch-letter">o</span></div>
+                    <div class="patch-cell"><span class="patch-letter">n</span></div>
+                    <div class="patch-cell"><span class="patch-letter">e</span></div>
+                    <div class="patch-cell ink"><span class="patch-letter">s</span></div>
+                  </div>
                 </div>
-                <div class="demo-note" style="margin-top:8px">Each column = one character. <span style="color:var(--accent)">Blue = decoder attending now.</span> <span style="color:var(--green)">Green = ink pixels in that patch.</span></div>
+                <div class="demo-note" style="margin-top:8px">
+                  The letters repeat because each <strong>row = one horizontal band</strong> of the same word image — not a separate copy.
+                  <span style="color:var(--accent)"> Blue = decoder attending now (character "o").</span>
+                  <span style="color:var(--green)"> Green = ink pixels in that tile.</span>
+                </div>
               </div>
               <div>
                 <div class="demo-label">What the encoder does</div>
