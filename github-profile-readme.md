@@ -55,7 +55,7 @@ Previously led global AI-enabled transformation at **Micron Technology** for 6+ 
 | [**Preflight**](https://preflight.kooexperience.com) | Upload CSV/Parquet for instant EDA, data health checks, and baseline ML | Dash, scikit-learn, Plotly |
 | [**Handwriting Lab**](https://handwriting.kooexperience.com) | Rotation-aware digit recognition with canvas prediction and training pipeline | PyTorch, MLflow, FastAPI |
 | [**Photo Compliance Studio**](https://studio.kooexperience.com) | Passport-photo compliance checks with country rules and guided corrections | MediaPipe, OpenCV, FastAPI |
-| [**MinMax Wine**](https://wine.kooexperience.com) | Three-way wine price comparison with AI deal scoring | Gemini, Vivino API, FastAPI |
+| [**MinMax Wine**](https://wine.kooexperience.com) | Three-way wine price comparison with bundle-aware pricing, Vivino context, and daily refreshes | Brave Search, HTML scraping, FastAPI |
 
 ## GitHub Stats
 
@@ -69,6 +69,7 @@ Previously led global AI-enabled transformation at **Micron Technology** for 6+ 
 ## Latest Blog Posts
 
 <!-- BLOG-POST-LIST:START -->
+- [PDF Parsing for Complaint Forms — Docling vs PyMuPDF vs PaddleOCR](https://kooexperience.com/blog/posts/pdf-parsing-comparison.html) — Head-to-head benchmark of open-source PDF parsers with animated step-by-step explainers for each parsing method.
 <!-- BLOG-POST-LIST:END -->
 
 ## Connect
