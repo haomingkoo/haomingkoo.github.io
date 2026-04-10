@@ -374,8 +374,8 @@
     }
     .explain-steps {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 8px;
       margin-bottom: 16px;
     }
     .explain-step {
@@ -383,12 +383,12 @@
       color: var(--text-secondary);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 10px 12px;
+      padding: 8px 10px;
       font: inherit;
-      font-size: 0.82rem;
+      font-size: 0.76rem;
       font-weight: 700;
       line-height: 1.35;
-      text-align: left;
+      text-align: center;
       cursor: pointer;
       transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease, color 0.2s ease;
     }
@@ -471,14 +471,18 @@
       align-items: center;
       padding: 10px 12px;
       border-radius: 12px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.02);
+      border: 1px solid transparent;
+      background: transparent;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.84rem;
+      opacity: 0.4;
+      transition: opacity 0.2s, border-color 0.2s, background 0.2s;
     }
     .demo-line.highlight {
-      border-color: rgba(59,130,246,0.45);
-      background: rgba(59,130,246,0.08);
+      border-color: rgba(59,130,246,0.55);
+      border-left: 3px solid var(--accent);
+      background: rgba(59,130,246,0.1);
+      opacity: 1;
     }
     .demo-token {
       display: inline-flex;
@@ -727,23 +731,57 @@
     }
     .patch-grid-demo {
       display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 8px;
+    }
+    .patch-grid-outer {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 6px;
     }
     .patch-cell {
       aspect-ratio: 1;
       border-radius: 10px;
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.02);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .patch-cell.hot {
-      border-color: rgba(59,130,246,0.45);
-      background: rgba(59,130,246,0.12);
+      border-color: rgba(59,130,246,0.55);
+      background: rgba(59,130,246,0.15);
     }
     .patch-cell.ink {
-      border-color: rgba(34,197,94,0.45);
-      background: rgba(34,197,94,0.10);
+      border-color: rgba(34,197,94,0.55);
+      background: rgba(34,197,94,0.12);
     }
+    .patch-letter {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text-secondary);
+      opacity: 0.18;
+      user-select: none;
+      pointer-events: none;
+    }
+    .patch-cell.ink  .patch-letter { opacity: 0.6;  color: var(--green); }
+    .patch-cell.hot  .patch-letter { opacity: 0.75; color: var(--accent); }
+    .patch-col-label {
+      text-align: center;
+      font-family: Georgia, serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--muted);
+      padding-bottom: 4px;
+    }
+    .patch-col-label.sky   { color: var(--sky); }
+    .patch-col-label.amber { color: var(--amber); }
+    .patch-col-label.green { color: var(--green); }
+    .patch-col-label.red   { color: var(--red); }
     .seq-row {
       display: flex;
       flex-wrap: wrap;
@@ -1004,6 +1042,15 @@
       font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
       color: var(--muted); min-width: 48px; text-align: center;
     }
+    .stepper-play-pause {
+      background: var(--surface); color: var(--accent);
+      border: 1px solid rgba(59,130,246,0.35); border-radius: 10px;
+      padding: 7px 14px; font: inherit; font-size: 0.84rem; font-weight: 700;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .stepper-play-pause:hover { border-color: rgba(59,130,246,0.7); background: rgba(59,130,246,0.08); transform: translateY(-1px); }
+    .stepper-play-pause.is-paused { color: var(--muted); border-color: var(--border); }
     /* ── Operator colour legend ─────────────────────────────────── */
     .op-legend { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
     .op-legend-item {
@@ -1053,7 +1100,7 @@
       .explain-demo { padding: 16px; }
       .demo-stack { grid-template-columns: 1fr; }
       .demo-output-line, .ocr-result-line { flex-direction: column; align-items: flex-start; }
-      .patch-grid-demo { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .patch-grid-demo, .patch-grid-outer { grid-template-columns: repeat(5, minmax(0, 1fr)); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1330,6 +1377,7 @@
         <div class="stepper-nav">
           <button class="stepper-btn stepper-prev" type="button">← Prev</button>
           <span class="stepper-counter">1 / 7</span>
+          <button class="stepper-play-pause" type="button" title="Play / Pause auto-advance">⏸</button>
           <button class="stepper-btn stepper-next" type="button">Next →</button>
         </div>
         <div class="explain-screen">
@@ -1614,6 +1662,7 @@ endbfchar</div>
         <div class="stepper-nav">
           <button class="stepper-btn stepper-prev" type="button">← Prev</button>
           <span class="stepper-counter">1 / 5</span>
+          <button class="stepper-play-pause" type="button" title="Play / Pause auto-advance">⏸</button>
           <button class="stepper-btn stepper-next" type="button">Next →</button>
         </div>
         <div class="explain-screen">
@@ -1683,11 +1732,12 @@ endbfchar</div>
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Character reading</div>
+                <div class="demo-label">Raw character read — what OCR sees</div>
                 <div class="ocr-char-row">
                   <div class="ocr-char good">C</div>
                   <div class="ocr-char good">o</div>
-                  <div class="ocr-char good">m</div>
+                  <div class="ocr-char fix" title="misread: 'r' + 'n' decoded instead of 'm'">r</div>
+                  <div class="ocr-char fix" title="misread: second glyph of the confused 'rn' pair">n</div>
                   <div class="ocr-char good">p</div>
                   <div class="ocr-char good">l</div>
                   <div class="ocr-char good">a</div>
@@ -1695,13 +1745,13 @@ endbfchar</div>
                   <div class="ocr-char good">n</div>
                   <div class="ocr-char good">t</div>
                 </div>
-                <div class="demo-note">The recognizer converts each cropped word image into tokens.</div>
+                <div class="demo-note"><span style="color:var(--green)">Green = confident match.</span> <span style="color:var(--amber)">Amber = low-confidence: OCR read <strong>rn</strong> but the actual glyph is <strong>m</strong>.</span></div>
               </div>
               <div>
                 <div class="demo-label">Model output</div>
                 <div class="demo-output">
-                  <div class="demo-output-line"><span>Raw decode</span><strong>Comprlaint</strong></div>
-                  <div class="demo-output-line"><span>Low-confidence area</span><strong><code>rn</code> vs <code>m</code></strong></div>
+                  <div class="demo-output-line"><span>Raw decode</span><strong>Cornplaint</strong></div>
+                  <div class="demo-output-line"><span>Low-confidence area</span><strong><code>rn</code> confused for <code>m</code></strong></div>
                 </div>
               </div>
             </div>
@@ -1735,19 +1785,19 @@ endbfchar</div>
       </div>
 
       <div class="pipeline">
-        <div class="pipe-node warn">Raster image<sub>from PDF or scan</sub></div>
+        <div class="pipe-node warn">Raster image<sub>scanned page</sub></div>
         <div class="pipe-arrow">→</div>
-        <div class="pipe-node">Binarization<sub>Otsu / Sauvola</sub></div>
+        <div class="pipe-node">Binarize<sub>Otsu / Sauvola</sub></div>
         <div class="pipe-arrow">→</div>
         <div class="pipe-node">Deskew<sub>Hough transform</sub></div>
         <div class="pipe-arrow">→</div>
-        <div class="pipe-node">Layout analysis<sub>connected components</sub></div>
+        <div class="pipe-node">Detect words<sub>find ink blobs</sub></div>
         <div class="pipe-arrow">→</div>
-        <div class="pipe-node">Word segmentation<sub>projection profiles</sub></div>
+        <div class="pipe-node">Word split<sub>projection profiles</sub></div>
         <div class="pipe-arrow">→</div>
-        <div class="pipe-node active">LSTM classifier<sub>character → token</sub></div>
+        <div class="pipe-node active">LSTM read<sub>char → token</sub></div>
         <div class="pipe-arrow">→</div>
-        <div class="pipe-node active">Language model<sub>beam search decode</sub></div>
+        <div class="pipe-node active">LM rescore<sub>beam search</sub></div>
       </div>
 
       <div class="viz-row cols-2" style="margin-top:24px;gap:32px;align-items:start">
@@ -1849,6 +1899,7 @@ endbfchar</div>
         <div class="stepper-nav">
           <button class="stepper-btn stepper-prev" type="button">← Prev</button>
           <span class="stepper-counter">1 / 5</span>
+          <button class="stepper-play-pause" type="button" title="Play / Pause auto-advance">⏸</button>
           <button class="stepper-btn stepper-next" type="button">Next →</button>
         </div>
         <div class="explain-screen">
@@ -2078,6 +2129,7 @@ damaged on 15 January...
         <div class="stepper-nav">
           <button class="stepper-btn stepper-prev" type="button">← Prev</button>
           <span class="stepper-counter">1 / 4</span>
+          <button class="stepper-play-pause" type="button" title="Play / Pause auto-advance">⏸</button>
           <button class="stepper-btn stepper-next" type="button">Next →</button>
         </div>
         <div class="explain-screen">
@@ -2108,13 +2160,42 @@ damaged on 15 January...
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Patch tokens from the crop</div>
-                <div class="patch-grid-demo">
-                  <div class="patch-cell"></div><div class="patch-cell"></div><div class="patch-cell hot"></div><div class="patch-cell hot"></div><div class="patch-cell"></div><div class="patch-cell"></div>
-                  <div class="patch-cell"></div><div class="patch-cell ink"></div><div class="patch-cell hot"></div><div class="patch-cell hot"></div><div class="patch-cell ink"></div><div class="patch-cell"></div>
-                  <div class="patch-cell ink"></div><div class="patch-cell ink"></div><div class="patch-cell hot"></div><div class="patch-cell hot"></div><div class="patch-cell ink"></div><div class="patch-cell"></div>
-                  <div class="patch-cell"></div><div class="patch-cell ink"></div><div class="patch-cell hot"></div><div class="patch-cell hot"></div><div class="patch-cell"></div><div class="patch-cell"></div>
+                <div class="demo-label">Patch tokens from the crop — each patch = 16×16 px</div>
+                <!-- column headers: one per letter -->
+                <div class="patch-grid-outer">
+                  <div class="patch-col-label sky">J</div>
+                  <div class="patch-col-label amber">o</div>
+                  <div class="patch-col-label green">n</div>
+                  <div class="patch-col-label red">e</div>
+                  <div class="patch-col-label sky">s</div>
                 </div>
+                <div class="patch-grid-demo">
+                  <!-- row 1: top strokes -->
+                  <div class="patch-cell"><span class="patch-letter">J</span></div>
+                  <div class="patch-cell hot"><span class="patch-letter">o</span></div>
+                  <div class="patch-cell"><span class="patch-letter">n</span></div>
+                  <div class="patch-cell"><span class="patch-letter">e</span></div>
+                  <div class="patch-cell"><span class="patch-letter">s</span></div>
+                  <!-- row 2: mid strokes -->
+                  <div class="patch-cell ink"><span class="patch-letter">J</span></div>
+                  <div class="patch-cell hot"><span class="patch-letter">o</span></div>
+                  <div class="patch-cell ink"><span class="patch-letter">n</span></div>
+                  <div class="patch-cell ink"><span class="patch-letter">e</span></div>
+                  <div class="patch-cell"><span class="patch-letter">s</span></div>
+                  <!-- row 3: lower strokes -->
+                  <div class="patch-cell ink"><span class="patch-letter">J</span></div>
+                  <div class="patch-cell hot"><span class="patch-letter">o</span></div>
+                  <div class="patch-cell ink"><span class="patch-letter">n</span></div>
+                  <div class="patch-cell"><span class="patch-letter">e</span></div>
+                  <div class="patch-cell ink"><span class="patch-letter">s</span></div>
+                  <!-- row 4: tail strokes -->
+                  <div class="patch-cell ink"><span class="patch-letter">J</span></div>
+                  <div class="patch-cell hot"><span class="patch-letter">o</span></div>
+                  <div class="patch-cell ink"><span class="patch-letter">n</span></div>
+                  <div class="patch-cell ink"><span class="patch-letter">e</span></div>
+                  <div class="patch-cell ink"><span class="patch-letter">s</span></div>
+                </div>
+                <div class="demo-note" style="margin-top:8px">Each column = one character. <span style="color:var(--accent)">Blue = decoder attending now.</span> <span style="color:var(--green)">Green = ink pixels in that patch.</span></div>
               </div>
               <div>
                 <div class="demo-label">What the encoder does</div>
@@ -3124,15 +3205,25 @@ function initExplainers() {
     demo.dataset.activeStep = String(safeIndex);
   };
 
+  const updatePlayPauseBtn = (demo) => {
+    const btn = demo.querySelector('.stepper-play-pause');
+    if (!btn) return;
+    const playing = !!demo._stepTimer;
+    btn.textContent = playing ? '⏸' : '▶';
+    btn.title = playing ? 'Pause auto-advance' : 'Play auto-advance';
+    btn.classList.toggle('is-paused', !playing);
+  };
+
   const stopDemo = (demo) => {
     if (demo._stepTimer) {
       clearInterval(demo._stepTimer);
       demo._stepTimer = null;
     }
+    updatePlayPauseBtn(demo);
   };
 
   const startDemo = (demo) => {
-    if (reducedMotion || demo._stepTimer || demo.dataset.inview !== '1') return;
+    if (reducedMotion || demo._stepTimer || demo.dataset.inview !== '1' || demo._userPaused) return;
     const steps = demo.querySelectorAll('.explain-step');
     if (steps.length <= 1) return;
     const intervalMs = Number(demo.dataset.interval || 6000);
@@ -3140,19 +3231,19 @@ function initExplainers() {
       const current = Number(demo.dataset.activeStep || 0);
       activateStep(demo, (current + 1) % steps.length);
     }, intervalMs);
+    updatePlayPauseBtn(demo);
   };
 
   demos.forEach((demo) => {
     const steps = Array.from(demo.querySelectorAll('.explain-step'));
     activateStep(demo, 0);
 
-    // Step button clicks
+    // Step button clicks — pause on manual click
     steps.forEach((step, index) => {
       step.addEventListener('click', () => {
         activateStep(demo, index);
+        demo._userPaused = true;
         stopDemo(demo);
-        // restart auto-advance after manual interaction
-        startDemo(demo);
       });
     });
 
@@ -3163,14 +3254,32 @@ function initExplainers() {
       prevBtn.addEventListener('click', () => {
         const current = Number(demo.dataset.activeStep || 0);
         activateStep(demo, current - 1);
-        stopDemo(demo);  // stop auto-play when user takes manual control
+        demo._userPaused = true;
+        stopDemo(demo);
       });
     }
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
         const current = Number(demo.dataset.activeStep || 0);
         activateStep(demo, current + 1);
-        stopDemo(demo);  // stop auto-play when user takes manual control
+        demo._userPaused = true;
+        stopDemo(demo);
+      });
+    }
+
+    // Play / Pause toggle
+    const playPauseBtn = demo.querySelector('.stepper-play-pause');
+    if (playPauseBtn) {
+      playPauseBtn.addEventListener('click', () => {
+        if (demo._stepTimer) {
+          // currently playing → pause
+          demo._userPaused = true;
+          stopDemo(demo);
+        } else {
+          // currently paused → play
+          demo._userPaused = false;
+          startDemo(demo);
+        }
       });
     }
   });
