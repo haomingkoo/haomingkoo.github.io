@@ -688,20 +688,20 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   <div class="exec-divider"></div>
 
   <p class="exec-lead">
-    You've probably heard that bigger models and more data make AI better.
-    But what if the <strong>training itself</strong> is the bottleneck?
+    More data and bigger models get most of the attention.
+    The <strong>training process itself</strong> can be the bottleneck.
   </p>
 
   <p class="exec-lead">
-    This post explains a simple but powerful idea from recent research:
-    <strong>a model's own weaker past self can make it smarter</strong> -
-    no bigger model, no extra data, no added cost at inference.
+    This post explains one idea from a 2026 paper:
+    <strong>a model's own weaker past self can make it smarter</strong> —
+    no bigger model, no extra data, no added inference cost.
     The technique is called <strong>WMSS</strong> (Weak-Driven Learning), and it
     improves math and code benchmarks by <strong>+6%</strong> over standard training.
   </p>
 
   <p class="exec-lead" style="margin-bottom:8px">
-    Before you scroll, ask yourself:
+    Three questions worth sitting with before you read:
   </p>
 
   <div class="hook-questions">
@@ -718,12 +718,12 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="hook-q">
       <div class="hook-q-num">3</div>
       <p><strong>Can a weaker model teach a stronger one something useful?</strong>
-      Sounds backwards - but it works. This post shows you exactly how and why.</p>
+      Sounds backwards — but it works. Here's exactly how and why.</p>
     </div>
   </div>
 
   <div class="exec-cta">
-    <strong style="color:var(--text)">5-minute read</strong> &middot; interactive demos &middot; no ML background required<br>
+    <strong style="color:var(--text)">5-minute read</strong> &middot; interactive demos &middot; assumes no ML background<br>
     <span style="margin-top:8px;display:inline-block">&darr; Scroll to start</span>
   </div>
 </div>
@@ -759,7 +759,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="insight reveal reveal-d2">
-      WMSS focuses on <strong>Step 2</strong> - specifically, making Supervised Fine-Tuning more effective when it hits a performance ceiling.
+      WMSS targets <strong>Step 2</strong> — making Supervised Fine-Tuning more effective once it hits a ceiling.
     </div>
   </div>
 </section>
@@ -807,7 +807,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">The Problem</div>
       <h2 class="section-title">The Overconfident Student</h2>
-      <p class="section-desc">To understand why SFT hits a ceiling, think about exam prep...</p>
+      <p class="section-desc">SFT hits a ceiling for the same reason a student can ace practice tests and still fail the final.</p>
     </div>
 
     <!-- Score journey: 95% → 75% -->
@@ -896,9 +896,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="insight reveal reveal-d2">
-      <strong>The core idea:</strong> Instead of learning from a stronger teacher (knowledge distillation),
-      WMSS uses a <em>weaker</em> historical checkpoint to inject structured uncertainty that reactivates
-      vanishing gradients and drives the strong model to keep improving.
+      <strong>The core idea:</strong> WMSS uses a <em>weaker</em> historical checkpoint — not a stronger teacher —
+      to inject uncertainty that reactivates vanishing gradients.
     </div>
   </div>
 </section>
@@ -1055,9 +1054,9 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="llm-parallel reveal reveal-d3">
-      <strong>This is exactly what WMSS does!</strong> A weaker model acts as the "study partner" -
-      it injects plausible wrong answers, forcing the strong model to keep learning.
-      Gradients stay alive, and performance breaks through the ceiling.
+      <strong>This is what WMSS does.</strong> A weaker model acts as the study partner —
+      it injects plausible wrong answers so the strong model can't coast.
+      Gradients stay alive, and performance keeps climbing.
     </div>
 
     <!-- Analogy-to-WMSS mapping -->
@@ -1092,7 +1091,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Context</div>
       <h2 class="section-title">Three Paradigms for Improving Models</h2>
-      <p class="section-desc">Where does the learning signal come from? Three paradigms - each using a different source and direction of supervision.</p>
+      <p class="section-desc">Three paradigms, each drawing from a different source of supervision.</p>
     </div>
 
     <div class="paradigm-grid reveal reveal-d1">
@@ -1129,7 +1128,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <span class="paradigm-node" style="border-color:var(--purple)">$M_{\text{weak}}$</span>
         </div>
         <p>An older, weaker checkpoint injects uncertainty <strong>upward</strong> into the strong model's training signal.</p>
-        <p style="margin-top:8px;font-size:12px;color:var(--accent)">No extra model. No extra inference cost. Just one old checkpoint.</p>
+        <p style="margin-top:8px;font-size:12px;color:var(--accent)">Just one old checkpoint — no extra model, no added inference cost.</p>
       </div>
     </div>
   </div>
@@ -1198,8 +1197,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <div class="section-num">Phase 2A</div>
       <h2 class="section-title">Curriculum-Enhanced Data Activation</h2>
       <p class="section-desc">
-        Not all training samples are equally useful. WMSS uses entropy dynamics between weak
-        and strong agents to weight samples by three signals.
+        WMSS weights training samples using entropy dynamics between the weak and strong agents — three signals that together determine how much each sample is worth.
       </p>
     </div>
 
@@ -1349,9 +1347,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <div class="section-num">Phase 2B - The Core</div>
       <h2 class="section-title">Joint Training via Logit Mixing</h2>
       <p class="section-desc">
-        The heart of WMSS: mix the weak agent's logits with the strong agent's logits to create
-        a joint distribution. This reintroduces probability mass on hard negatives, amplifying
-        gradients that had vanished.
+        Mix the weak agent's logits with the strong agent's to create a joint distribution.
+        This puts probability mass back on hard negatives, amplifying the gradients that had vanished.
       </p>
     </div>
 
@@ -1464,8 +1461,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
 
       <div class="insight success" style="margin-top:16px">
-        <strong>Key insight:</strong> As $\lambda$ decreases, the weak agent's softer distribution
-        injects more probability mass onto hard negatives. This directly amplifies gradient magnitudes
+        As $\lambda$ decreases, the weak agent's softer distribution
+        puts more probability mass on hard negatives. This directly amplifies gradient magnitudes
         via $\frac{\partial\mathcal{L}}{\partial z_k} = P_{\text{mix}}(k|x)$, reactivating learning
         in saturated regions.
       </div>
@@ -1528,7 +1525,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Algorithm 1</div>
       <h2 class="section-title">The Complete Pipeline</h2>
-      <p class="section-desc">WMSS follows three phases. Watch the algorithm execute step by step.</p>
+      <p class="section-desc">WMSS runs in three phases.</p>
     </div>
 
     <div class="viz reveal reveal-d1">
@@ -1582,7 +1579,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <div class="section-num">Why It Works</div>
       <h2 class="section-title">Mechanistic Insights</h2>
       <p class="section-desc">
-        WMSS self-regulates through three inherent mechanisms - no hyperparameter tuning required.
+        WMSS self-regulates — three properties that fall out of the math without any hyperparameter tuning.
       </p>
     </div>
 
@@ -1688,7 +1685,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         </div>
       </div>
       <div class="insight success" style="margin-top:8px">
-        The weak model helps early, then naturally fades. No hyperparameter scheduling needed - it's built into the math.
+        The weak model helps early, then fades naturally — it's built into the math.
       </div>
     </div>
 
@@ -1894,7 +1891,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
       <div class="insight" style="margin-top:16px">
         <strong>Convergence:</strong> Most improvement happens by epoch 4. Beyond that, diminishing returns.
-        Easy tasks (GSM8K at 96%+) stay stable - no catastrophic forgetting.
+        Easy tasks (GSM8K at 96%+) stay stable.
       </div>
     </div>
   </div>
@@ -1908,7 +1905,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Limitations</div>
       <h2 class="section-title">What WMSS Hasn't Proven Yet</h2>
-      <p class="section-desc">Scope boundaries stated directly in the paper. No speculation added.</p>
+      <p class="section-desc">Taken directly from the paper — no extrapolation.</p>
     </div>
 
     <div class="limit-grid reveal reveal-d1">
@@ -1960,7 +1957,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       <div class="summary-card problem">
         <h3 style="color:var(--red)">The Problem</h3>
         <p>SFT saturates once models grow confident. Gradients vanish - more training stops helping.</p>
-        <p style="margin-top:8px">The only known fixes: bigger models or more data.</p>
+        <p style="margin-top:8px">The standard fixes are a bigger model or more data.</p>
       </div>
       <div class="summary-card solution">
         <h3 style="color:var(--live)">The Contribution</h3>
