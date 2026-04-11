@@ -482,8 +482,8 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
           (typically 14 days). A stock that moves $5/day has a higher ATR than one that moves
           $0.50/day. By expressing all distances as ATR multiples instead of fixed dollar amounts,
           the system adapts automatically to each stock's volatility. A low-volatility utility
-          stock gets tighter zones; a volatile tech stock gets wider ones. No manual tuning needed.
-          This is a technique worth stealing for any price-based analysis.
+          stock gets tighter zones; a volatile tech stock gets wider ones. Each stock
+          self-calibrates. This is a technique worth stealing for any price-based analysis.
         </p>
 
         <h3>2. Rule-based chart patterns</h3>
@@ -525,8 +525,8 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
         <p>
           The YOLOv8 layer sits alongside these as a sixth, independent voice. When three or
           four layers flag the same pattern on the same chart, that convergence means something.
-          When only one layer sees it, take it with a grain of salt. That's the power of the
-          ensemble approach: you don't need any single detector to be perfect.
+          When only one layer sees it, take it with a grain of salt. You don't need any
+          single detector to be perfect; you just need them to fail differently.
         </p>
 
         <h2 id="pipeline">The nightly data pipeline</h2>

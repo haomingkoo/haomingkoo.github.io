@@ -1218,8 +1218,7 @@
           but heavier. On a 2 GB Railway instance, you can't keep it loaded all the time.
           So I implemented lazy loading: rembg loads on first use and auto-unloads after 15
           minutes of idle. This keeps memory usage manageable while still giving good results
-          when someone actually uses the app. If rembg is unavailable, MediaPipe kicks in
-          seamlessly.
+          when someone actually uses the app. If rembg is unavailable, MediaPipe takes over.
         </p>
 
         <h3>The background whitening pipeline</h3>
@@ -1641,7 +1640,7 @@ IN        413 x 531      8 MB      800 x 1100    varies         varies</code></p
 
         <p>
           All of this is stored in a <code>countries.yaml</code> config file. Adding a new
-          country means adding a new YAML block with its requirements. No code changes needed.
+          country means adding a new YAML block with its requirements and touching nothing else.
         </p>
 
         <pre><code># Example: Singapore profile (countries.yaml)
@@ -1772,10 +1771,10 @@ SG:
           engineering.
         </p>
 
-        <p><strong>Privacy is a feature, not a checkbox.</strong>
-          Processing photos in memory with no persistence isn't just privacy-friendly; it's
-          simpler to build and deploy. No database to manage, no storage to secure, no GDPR
-          deletion requests to handle. Sometimes the most private design is also the simplest.
+        <p><strong>In-memory processing is simpler to build than you'd think.</strong>
+          No persistence means no database to manage, no storage to secure, and no GDPR
+          deletion requests to handle. It also happens to be the most privacy-respecting
+          design available. The simplest approach was also the right one here.
         </p>
 
         <p>
