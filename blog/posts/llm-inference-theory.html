@@ -591,14 +591,11 @@ tr:hover td{background:rgba(255,255,255,.02)}
     </div>
 
     <div class="insight reveal">
-      <strong>Key insight:</strong> Training uses ~6N FLOPs per token (forward + backward pass).
+      Training uses ~6N FLOPs per token (forward + backward pass).
       Inference uses ~2N FLOPs per token (forward only). But training processes tokens in large parallel batches,
       while inference generates them one at a time. This is why inference is bandwidth-bound and training is compute-bound.
     </div>
 
-    <div class="reveal">
-      <h3>Training vs inference: a comparison</h3>
-    </div>
     <div class="viz reveal">
       <div class="viz-title">Training vs Inference</div>
       <table>
@@ -729,9 +726,7 @@ Total latency = 300 + (200 x 20) = 4,300ms</code></pre>
       <h2 class="section-title">Memory Is the Bottleneck, Not Compute</h2>
       <div class="tag-row"><span class="tag">VRAM</span><span class="tag amber">KV Cache</span><span class="tag red">OOM</span></div>
       <p class="section-desc">
-        The single most important concept in LLM serving: <strong>your throughput ceiling is set by how many
-        KV caches fit in the VRAM left over after loading model weights.</strong>
-        Not by GPU FLOPS, not by CUDA core count. VRAM.
+        Your throughput ceiling is set by how many KV caches fit in the VRAM left over after loading model weights — not GPU FLOPS, not CUDA core count.
       </p>
     </div>
 
@@ -841,9 +836,8 @@ Practical rule of thumb:
     </div>
 
     <div class="insight success reveal">
-      <strong>This is why quantization matters so much for serving.</strong>
-      Quantization does not just make inference faster per token. It frees VRAM for more KV cache,
-      which allows more concurrent sequences, which increases throughput. The memory savings compound.
+      Quantization speeds up inference per token and frees VRAM for more KV cache,
+      which allows more concurrent sequences and increases throughput. The memory savings compound.
     </div>
 
     <div class="reveal">
@@ -903,9 +897,6 @@ Practical rule of thumb:
       </p>
     </div>
 
-    <div class="reveal">
-      <h3>The quantization landscape</h3>
-    </div>
     <div class="viz reveal">
       <div class="viz-title">Quantization Methods</div>
       <table>
@@ -969,7 +960,7 @@ Practical rule of thumb:
     <div class="reveal">
       <h3>Optimization order of operations</h3>
       <p>
-        Apply optimizations in ROI order. Don't jump to complex techniques before exhausting simple ones:
+        Apply optimizations in ROI order:
       </p>
       <ol>
         <li><strong>Quantization (INT8/INT4)</strong> - 2-4x memory reduction, minimal quality impact</li>
@@ -1150,7 +1141,6 @@ Where T = temperature (higher = softer distributions = richer information)</code
       <h2 class="section-title">Operational Readiness</h2>
       <div class="tag-row"><span class="tag">Monitoring</span><span class="tag purple">Prometheus</span><span class="tag amber">Grafana</span></div>
       <p class="section-desc">
-        Serving an LLM is not just about model performance.
         The operational layer around the model determines whether it survives real traffic.
       </p>
     </div>
@@ -1199,7 +1189,7 @@ Where T = temperature (higher = softer distributions = richer information)</code
 
     <div class="reveal">
       <p>
-        Key vLLM metrics to dashboard:
+        vLLM metrics to dashboard:
       </p>
       <ul>
         <li><code>vllm:e2e_request_latency_seconds</code> - histogram with p50/p95/p99</li>
@@ -1293,7 +1283,7 @@ Where T = temperature (higher = softer distributions = richer information)</code
       <h2 class="section-title">Self-Hosting vs API</h2>
       <div class="tag-row"><span class="tag">Cost</span><span class="tag purple">Data Privacy</span><span class="tag amber">Team Size</span></div>
       <p class="section-desc">
-        Not every LLM workload needs self-hosting. The decision depends on three factors.
+        Not every LLM workload needs self-hosting. The right choice depends on volume, data sensitivity, and team capability.
       </p>
     </div>
 
@@ -1308,11 +1298,8 @@ Example: 100M tokens/day
   Self-hosted A100 (~$2/hr):  ~$1,500/month with 7B model</code></pre>
     </div>
 
-    <div class="reveal">
-      <h3>Data sensitivity</h3>
-    </div>
     <div class="viz reveal">
-      <div class="viz-title">Decision Matrix</div>
+      <div class="viz-title">Decision Matrix by data sensitivity</div>
       <table>
         <tr><th></th><th>Low volume (&lt;1M tok/day)</th><th>High volume (&gt;50M tok/day)</th></tr>
         <tr><td><strong>Sensitive data</strong></td><td>Self-host or private cloud</td><td>Self-host (mandatory)</td></tr>
