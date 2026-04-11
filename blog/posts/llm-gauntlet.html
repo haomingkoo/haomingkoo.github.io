@@ -755,9 +755,8 @@ footer{border-top:1px solid var(--border);padding:32px 0 40px;font-size:13px;col
         </p>
 
         <div class="insight success">
-          <strong>The real lesson:</strong> I spent an entire weekend tuning vLLM parameters to squeeze out
-          an extra 10-15% throughput. A 30-line Python cache proxy gave a 50x improvement.
-          Full-stack thinking beats ML-layer tunnel vision every time.
+          I spent an entire weekend tuning vLLM parameters to squeeze out an extra 10-15% throughput.
+          A 30-line Python cache proxy gave a 50x improvement.
         </div>
       </section>
 
@@ -799,8 +798,7 @@ footer{border-top:1px solid var(--border);padding:32px 0 40px;font-size:13px;col
         </p>
 
         <div class="insight">
-          <strong>Rule:</strong> Always instrument your server to log incoming requests.
-          Understanding the workload is half the optimization.
+          Always instrument your server to log incoming requests.
           The first question for any serving optimization: "What exactly does the client send, and what does it measure?"
         </div>
       </section>
@@ -985,7 +983,6 @@ footer{border-top:1px solid var(--border);padding:32px 0 40px;font-size:13px;col
           which explains her <code>gpu_util=0.46</code> and low KV block usage.
         </p>
         <p>
-          That is the lesson I will carry forward: <strong>don't just optimize the model, optimize the system.</strong>
           The best ML optimization in the world loses to someone who asks "do we even need to run inference on this request?"
         </p>
         <p>
