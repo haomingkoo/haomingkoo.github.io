@@ -661,7 +661,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 <header class="hero">
   <div class="hero-badge">Interactive Demo</div>
   <h1>Direct Preference<br>Optimization</h1>
-  <p class="hero-sub">Your Language Model is Secretly a Reward Model</p>
+  <p class="hero-sub">The Language Model Already Contains a Reward Model</p>
   <p class="hero-meta">Based on <a href="https://arxiv.org/abs/2305.18290" target="_blank">Rafailov et al. (2023)</a> &middot; arXiv:2305.18290 &middot; NeurIPS 2023</p>
   <p class="hero-meta" style="margin-top:6px">
     Prepared for topic sharing by
@@ -680,7 +680,6 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <span class="tag amber">Alignment</span>
   </div>
   <div class="scroll-hint" style="margin-top:40px">
-    Scroll to explore the full pipeline
     <span>&darr;</span>
   </div>
 </header>
@@ -696,7 +695,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   <p class="exec-lead">
     ChatGPT doesn't just predict words - it's been carefully trained to give answers humans prefer.
     But the standard method (<strong>RLHF</strong>) requires training a separate scoring AI and running reinforcement learning.
-    <strong>DPO achieves the same result with a single classification loss.</strong> This post teaches you how, from scratch.
+    <strong>DPO achieves the same result with a single classification loss.</strong>
   </p>
 
   <div class="hook-questions">
@@ -715,8 +714,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   </div>
 
   <div class="exec-cta">
-    <strong style="color:var(--text)">10-minute read</strong> &middot; interactive demos &middot; no ML background required<br>
-    <span style="margin-top:8px;display:inline-block">&darr; Scroll to start</span>
+    <strong style="color:var(--text)">10-minute read</strong> &middot; interactive demos &middot; assumes no ML background<br>
+    <span style="margin-top:8px;display:inline-block">&darr;</span>
   </div>
 </div>
 
@@ -800,7 +799,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Section 2</div>
       <h2 class="section-title">What is Reinforcement Learning?</h2>
-      <p class="section-desc">Before we can understand alignment, we need the learning framework behind it: try things, get feedback, improve.</p>
+      <p class="section-desc">RLHF borrows the same framework as game-playing agents: the model generates responses, gets scored, and updates its weights based on the score.</p>
     </div>
 
     <!-- Tic-tac-toe RL example -->
@@ -855,7 +854,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
 
       <div class="insight" style="margin-top:16px">
-        <strong>That's reinforcement learning.</strong> No one told the agent the rules. It played hundreds of games, got feedback (+1 or -1), and gradually figured out: take the center, block the opponent, set up forks. It learned strategy from outcomes alone.
+        No one told the agent the rules. It played hundreds of games, got feedback (+1 or -1), and gradually figured out: take the center, block the opponent, set up forks. Strategy emerged from outcomes alone.
       </div>
     </div>
 
@@ -914,7 +913,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="insight reveal" style="margin-top:16px">
-      <strong>The key challenge for chatbots:</strong> In chess, the reward is clear - you win or lose. But for a chatbot, what counts as a "good" response? We need humans to judge. That's where RLHF comes in.
+      In chess, the reward is unambiguous — you win or lose. For a chatbot, "good response" has no objective definition. That's why RLHF uses human judgments as the reward signal.
     </div>
   </div>
 </section>
@@ -927,7 +926,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Section 3</div>
       <h2 class="section-title">How RLHF Works</h2>
-      <p class="section-desc">The Cook and the Critic: a powerful but complex alignment pipeline.</p>
+      <p class="section-desc">RLHF requires training a separate reward model, then running reinforcement learning on top — two distinct training stages.</p>
     </div>
 
     <!-- Cook and Critic Analogy -->
@@ -1047,9 +1046,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
 
       <div class="insight">
-        <strong>After seeing thousands of pairs like these,</strong> the reward model learns a pattern:
-        responses that are helpful, honest, and safe get high scores. Responses that are reckless,
-        misleading, or harmful get low scores. Now it can score ANY new response automatically.
+        After thousands of pairs like these, the reward model learns to assign high scores to helpful, honest, safe responses and low scores to reckless or misleading ones. It can then score any new response without a human.
       </div>
     </div>
 
@@ -1265,10 +1262,10 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           </div>
         </div>
         <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:12px">
-          <strong style="color:var(--text)">Why it matters:</strong> Without the KL penalty, the model might find weird loopholes to get high reward scores - like repeating "I am helpful" 500 times (reward hacking). The KL divergence acts as a leash: "improve your answers, but don't change so much that you become a completely different model."
+          Without the KL penalty, the model can find loopholes to get high reward scores — like repeating "I am helpful" 500 times. The KL divergence prevents that: improve responses, but don't drift so far that the model becomes unrecognizable.
         </p>
         <p style="font-size:14px;color:var(--text-secondary);line-height:1.7">
-          <strong style="color:var(--text)">How it works in practice:</strong> The RLHF objective has a term $\beta \cdot D_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]$ that penalizes large changes. The hyperparameter $\beta$ controls how tight the leash is - higher $\beta$ means the model stays closer to the original, lower $\beta$ gives it more freedom to change.
+          The RLHF objective has a term $\beta \cdot D_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]$ that penalizes large changes. The hyperparameter $\beta$ controls how tight the leash is - higher $\beta$ means the model stays closer to the original, lower $\beta$ gives it more freedom to change.
         </p>
       </div>
     </div>
@@ -1390,7 +1387,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="insight warn reveal reveal-d3">
-      <strong>The cost of RLHF:</strong> It works, but it requires a separate reward model, a complex RL loop, massive GPU memory, and careful tuning of many knobs. Most teams lack the resources to do it properly. What if we could skip all of that?
+      RLHF works, but it requires a separate reward model, a complex RL loop, massive GPU memory, and careful tuning of many knobs. Most teams lack the resources to run it reliably.
     </div>
   </div>
 </section>
@@ -1514,7 +1511,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <p class="reveal reveal-d3" style="font-size:15px;color:var(--text-secondary);text-align:center;margin-top:16px">
-      That's it. No reward model, no critic model, no RL loop. Just the policy model and a frozen reference model - increase the probability of good responses, decrease the probability of bad ones.
+      The policy model and a frozen reference model. Increase the probability of good responses, decrease the probability of bad ones.
     </p>
   </div>
 </section>
@@ -1527,7 +1524,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Section 5</div>
       <h2 class="section-title">The "Hidden Reward" Aha Moment</h2>
-      <p class="section-desc">The key DPO insight: the reward was hiding inside the language model all along.</p>
+      <p class="section-desc">DPO works because the log-probability ratio between the trained model and the reference model is mathematically equivalent to an implicit reward signal.</p>
     </div>
 
     <!-- Explain log-probabilities first -->
@@ -1549,14 +1546,13 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         </div>
       </div>
       <div class="insight">
-        <strong>That's it.</strong> Higher percentage = the model is more likely to write that response. In the actual math, we use "log-probabilities" (the logarithm of these percentages) because computers handle multiplication and very small numbers more efficiently that way. But the idea is just: <strong>how likely is each response?</strong>
+        Higher percentage means the model is more likely to write that response. In practice, the math uses log-probabilities — the logarithm of these percentages — because computers handle multiplication and very small numbers more efficiently that way.
       </div>
     </div>
 
     <div class="reveal reveal-d1" style="margin-top:24px">
       <p style="font-size:15px;color:var(--text-secondary);margin-bottom:24px">
-        Now the key question: if DPO skips the reward model, where does the reward come from?
-        Click the buttons below:
+        If DPO skips the reward model, where does the reward come from?
       </p>
     </div>
 
@@ -1576,7 +1572,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="insight reveal reveal-d2" id="hidden-reward-insight" style="display:none">
-      <strong>The revelation:</strong> Those log-probability ratios ARE reward scores. The reward was hiding inside the language model all along. That's why we don't need a separate reward model - we just need to compare how the trained model and reference model rank responses.
+      Those log-probability ratios are reward scores. That is why DPO does not need a separate reward model — comparing how the trained model and reference model rank responses gives the same signal.
     </div>
 
     <div class="insight reveal reveal-d3" style="margin-top:12px">
@@ -1686,7 +1682,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
 
       <div class="insight success" id="train-explain" style="display:none;margin-top:16px">
-        <strong>What just happened:</strong> DPO computed an gradient that said "make the chosen response MORE likely and the rejected response LESS likely." The model's settings nudged slightly. Now the log-ratio for chosen is more positive (model likes it even more) and the log-ratio for rejected is more negative (model likes it even less). The reward gap widens, confidence goes up, and loss goes down. Repeat until aligned.
+        DPO computed a gradient that nudged the model to make the chosen response more likely and the rejected response less likely. The log-ratio for chosen became more positive, the log-ratio for rejected more negative. The reward gap widens, confidence goes up, and loss goes down. Repeat until aligned.
       </div>
     </div>
 
@@ -1752,13 +1748,13 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Section 7</div>
       <h2 class="section-title">The Math Derivation</h2>
-      <p class="section-desc">Optional deep dive - but here's what you need to know first.</p>
+      <p class="section-desc">Optional deep dive into the four-step derivation that connects the RLHF objective to the DPO loss.</p>
     </div>
 
     <div class="viz reveal">
-      <div class="viz-title">What is the math trying to prove?</div>
+      <div class="viz-title">What the derivation proves</div>
       <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:16px">
-        <strong>One thing:</strong> you don't need a reward model. The reward is already hiding inside the language model itself.
+        You don't need a reward model. The reward is already inside the language model.
       </p>
       <div style="display:grid;grid-template-columns:auto 1fr;gap:12px 16px;font-size:14px;margin-bottom:16px">
         <div style="font-weight:700;color:var(--accent)">Step 1</div>
@@ -1772,7 +1768,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div style="color:var(--text-secondary)">What's left is a classification loss. That's DPO.</div>
       </div>
       <div class="insight success">
-        <strong>Why this matters:</strong> The math guarantees that DPO gives the <em>exact same result</em> as RLHF - not an approximation, not a shortcut, but mathematically identical. Just simpler to compute. Like proving (a+b)&sup2; = a&sup2; + 2ab + b&sup2; - both sides give the same answer, but one form is more useful.
+        The math guarantees that DPO gives the <em>exact same result</em> as RLHF — not an approximation, but mathematically identical. Just simpler to compute. Like proving (a+b)&sup2; = a&sup2; + 2ab + b&sup2; - both sides give the same answer, but one form is more useful.
       </div>
     </div>
 
@@ -1810,7 +1806,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <div class="math-block">
             $$r(x, y) = \beta \log \frac{\pi^*(y \mid x)}{\pi_{\text{ref}}(y \mid x)} + \beta \log Z(x)$$
           </div>
-          <div class="insight"><strong>Key insight:</strong> The reward is fully determined by the log-ratio of optimal policy to reference policy, plus a prompt-dependent constant $Z(x)$. The reward is hiding inside the policy all along.</div>
+          <div class="insight">The reward is fully determined by the log-ratio of optimal policy to reference policy, plus a prompt-dependent constant $Z(x)$. The reward is inside the policy.</div>
         </div>
         <div id="deriv-step-3" class="hidden">
           <div class="deriv-plain">When we substitute into Bradley-Terry (a formula that turns two scores into a win probability, like Elo ratings in chess), Z(x) cancels! All we need is log-probabilities.</div>
@@ -1827,7 +1823,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <div class="math-block">
             $$\mathcal{L}_{\text{DPO}} = -\mathbb{E}\left[\log \sigma\!\left(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right]$$
           </div>
-          <div class="insight success"><strong>The DPO loss follows directly:</strong> maximize the log-likelihood of human preferences under this model. No reward model. No RL. No impossibly expensive normalizing constant. Just classification on preference pairs.</div>
+          <div class="insight success">Maximize the log-likelihood of human preferences under this model. Classification on preference pairs — no reward model, no RL, no partition function.</div>
         </div>
       </div>
     </div>
@@ -1867,7 +1863,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     </div>
 
     <div class="insight reveal reveal-d2">
-      <strong>That's it.</strong> No value function, no advantage estimation, no clipping, no reward model inference.
+      No value function, no advantage estimation, no clipping, no reward model inference.
       The entire alignment signal comes from comparing log-probabilities of chosen vs rejected responses.
     </div>
   </div>
@@ -1881,7 +1877,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Section 9</div>
       <h2 class="section-title">Results</h2>
-      <p class="section-desc">DPO matches or exceeds RLHF across sentiment, summarization, and dialogue tasks - at a fraction of the compute.</p>
+      <p class="section-desc">From the original paper: DPO matches or exceeds PPO on sentiment, summarization, and dialogue benchmarks, using roughly one-third the compute.</p>
     </div>
 
     <div class="stat-row reveal reveal-d1">
@@ -1956,7 +1952,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <button class="btn" onclick="resetResults()">Reset</button>
       </div>
       <div class="insight" style="margin-top:16px">
-        <strong>DPO achieves higher quality at every drift budget.</strong> This means DPO extracts more alignment signal per unit of drift from the reference policy.
+        At every KL budget, DPO reaches a higher reward — it extracts more alignment signal per unit of drift from the reference policy.
       </div>
     </div>
   </div>
@@ -1970,7 +1966,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
     <div class="reveal">
       <div class="section-num">Section 10</div>
       <h2 class="section-title">When to Use DPO vs RLHF</h2>
-      <p class="section-desc">Each method has its sweet spot. Here's how to choose.</p>
+      <p class="section-desc">The two methods make different tradeoffs. Which one fits depends on your compute budget and training setup.</p>
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="reveal reveal-d1">
@@ -2005,7 +2001,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   <div class="container">
     <div class="reveal">
       <div class="section-num">Summary</div>
-      <h2 class="section-title">Where It Fits, What It Proves, What Comes Next</h2>
+      <h2 class="section-title">Summary</h2>
     </div>
 
     <div class="summary-flow reveal reveal-d1">
