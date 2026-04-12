@@ -769,11 +769,84 @@ export const DESTRUCTIVE = {
   </div>
 </div>
 
-<!-- SECTION 10: Getting discovered -->
+<!-- SECTION 10: Benchmarking the skill -->
 <div class="container">
   <div class="section reveal">
     <div class="section-header">
       <div class="section-num">10</div>
+      <div class="section-title">Does the Skill Actually Work?</div>
+      <div class="section-desc">Three independent scenarios, graded against 34 quality assertions.</div>
+    </div>
+
+    <p>Writing a checklist is easy. The harder question is whether the skill reliably produces the output it claims to. I ran it on three independent scenarios with a baseline comparison to measure pass rates, timing, and where the new assertions catch gaps the old approach missed.</p>
+
+    <div class="gate-table-wrap reveal reveal-d1">
+      <table class="gate-table">
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>Type</th>
+            <th>Pass rate</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CoinGecko crypto MCP</strong></td>
+            <td><span class="tag">Create</span></td>
+            <td><span class="text-live fw600">11/12 (92%)</span></td>
+            <td>133s</td>
+          </tr>
+          <tr>
+            <td><strong>Recipe MCP audit</strong></td>
+            <td><span class="tag amber">Audit</span></td>
+            <td><span class="text-live fw600">10/10 (100%)</span></td>
+            <td>95s</td>
+          </tr>
+          <tr>
+            <td><strong>OpenWeatherMap MCP</strong></td>
+            <td><span class="tag">Create</span></td>
+            <td><span class="text-live fw600">12/12 (100%)</span></td>
+            <td>110s</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The one miss in the crypto eval was an ambiguous assertion about TTL constants — the grader read "TTL inside the handler body" as requiring the constant to be defined in the handler, not just used there. The actual code was correct: <code>getOrFetch(key, TTL.PRICES, fn)</code> called in every handler. Wording issue, not a skill issue.</p>
+
+    <p>The audit scenario is where the previous version of the skill had a real gap. It would identify all the problems and describe the fixes — but not always write <code>package.json</code> and the smithery config as output files. The revised skill makes this explicit: <em>generate these files as output, not as a suggestion</em>. The audit eval now verifies both files physically exist in the output directory.</p>
+
+    <div class="insight reveal-d2">
+      <strong>The new assertions that discriminate.</strong> The baseline (older skill) failed on two checks the new assertions added: <em>package.json values must not be placeholder text</em> (the old skill left <code>"author": "Your Name"</code> and GitHub placeholder URLs), and <em>prompt message text must name at least one tool by its dot notation name</em>. The new skill passes both. Evals only improve when assertions are hard to satisfy without actually doing the work.
+    </div>
+
+    <div class="stat-row reveal reveal-d1">
+      <div class="stat-card">
+        <div class="stat-val text-accent">3</div>
+        <div class="stat-lbl">Scenarios tested</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val text-live">97%</div>
+        <div class="stat-lbl">Avg pass rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val text-purple">113s</div>
+        <div class="stat-lbl">Avg generation time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val text-amber">34</div>
+        <div class="stat-lbl">Total assertions</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 11: Getting discovered -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">11</div>
       <div class="section-title">Getting Discovered</div>
       <div class="section-desc">Five directories. Most of them take less than 10 minutes.</div>
     </div>
@@ -833,11 +906,11 @@ export const DESTRUCTIVE = {
   </div>
 </div>
 
-<!-- SECTION 11: Closing -->
+<!-- SECTION 12: Closing -->
 <div class="container">
   <div class="section reveal">
     <div class="section-header">
-      <div class="section-num">11</div>
+      <div class="section-num">12</div>
       <div class="section-title">That's the Whole Thing</div>
     </div>
 
