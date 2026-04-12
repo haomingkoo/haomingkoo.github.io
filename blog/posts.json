@@ -1,5 +1,20 @@
 [
   {
+    "slug": "create-mcp",
+    "title": "I Went from 64 to 100/100 on Smithery. Here's Every Fix.",
+    "date": "2026-04-12",
+    "tags": [
+      "Building",
+      "AI",
+      "MCP",
+      "TypeScript",
+      "Open Source"
+    ],
+    "excerpt": "A full walkthrough of every quality dimension that separates a working MCP server from a well-built one — tool descriptions, dot notation naming, annotations, caching, smithery.yaml, and the skill that automates all of it.",
+    "cover": "",
+    "readingTime": "15 min"
+  },
+  {
     "slug": "pdf-parsing-comparison",
     "title": "PDF Parsing for Complaint Forms — Docling vs PyMuPDF vs PaddleOCR",
     "date": "2026-04-10",

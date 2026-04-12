@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <title>I Went from 64 to 100/100 on Smithery. Here's Every Fix. | Haoming Koo</title>
+  <meta name="description" content="Every quality fix that took a working MCP server from 64 to 100/100 on Smithery — tool descriptions, dot notation naming, annotations, caching patterns, and the create-mcp skill that automates all of it.">
+  <link rel="canonical" href="https://kooexperience.com/blog/posts/create-mcp.html" />
+  <meta name="author" content="Haoming Koo" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="I Went from 64 to 100/100 on Smithery. Here's Every Fix." />
+  <meta property="og:description" content="Every quality fix that took a working MCP server from 64 to 100/100 on Smithery — tool descriptions, dot notation naming, annotations, caching patterns, and the create-mcp skill that automates all of it." />
+  <meta property="og:url" content="https://kooexperience.com/blog/posts/create-mcp.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://kooexperience.com/assets/og/create-mcp.png" />
+  <meta property="og:site_name" content="Haoming Koo" />
+  <meta property="og:locale" content="en_SG" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://kooexperience.com/assets/og/create-mcp.png" />
+  <meta name="twitter:title" content="I Went from 64 to 100/100 on Smithery. Here's Every Fix." />
+  <meta name="twitter:description" content="Every quality fix that took a working MCP server from 64 to 100/100 on Smithery — tool descriptions, dot notation naming, annotations, caching patterns, and the create-mcp skill that automates all of it." />
+  <meta property="article:published_time" content="2026-04-12T00:00:00+08:00" />
+  <meta property="article:author" content="Haoming Koo" />
+  <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "I Went from 64 to 100/100 on Smithery. Here's Every Fix.",
+    "description": "Every quality fix that took a working MCP server from 64 to 100/100 on Smithery — tool descriptions, dot notation naming, annotations, caching patterns, and the create-mcp skill that automates all of it.",
+    "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
+    "datePublished": "2026-04-12",
+    "dateModified": "2026-04-12",
+    "url": "https://kooexperience.com/blog/posts/create-mcp.html",
+    "publisher": {"@type": "Person", "name": "Haoming Koo"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/create-mcp.html"}
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+/* ── Theme Variables ──────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg: #060608;
+  --surface: #0e0e12;
+  --surface-hover: #141418;
+  --border: #1c1c24;
+  --border-hover: #2a2a36;
+  --accent: #3b82f6;
+  --accent-dim: rgba(59,130,246,0.10);
+  --accent-glow: rgba(59,130,246,0.25);
+  --text: #eeeef0;
+  --text-secondary: #b0b0b8;
+  --muted: #64647a;
+  --live: #22c55e;
+  --purple: #a855f7;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --nav-bg: rgba(6,6,8,0.85);
+  --code-bg: rgba(255,255,255,0.04);
+}
+[data-theme="light"] {
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --surface-hover: #f1f3f5;
+  --border: #dde1e6;
+  --border-hover: #c1c7cf;
+  --accent: #2563eb;
+  --accent-dim: rgba(37,99,235,0.08);
+  --accent-glow: rgba(37,99,235,0.18);
+  --text: #111827;
+  --text-secondary: #4b5563;
+  --muted: #9ca3af;
+  --live: #16a34a;
+  --purple: #7c3aed;
+  --amber: #d97706;
+  --red: #dc2626;
+  --nav-bg: rgba(248,249,251,0.88);
+  --code-bg: rgba(0,0,0,0.04);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"Inter",system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.7;
+  min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:background .35s,color .35s;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(59,130,246,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 20%,rgba(168,85,247,0.04) 0%,transparent 50%);
+  transition:opacity .35s;
+}
+[data-theme="light"] body::before{opacity:0.3}
+a{color:var(--accent);text-decoration:none}
+code,.mono{font-family:"JetBrains Mono",monospace;font-size:0.88em}
+.container{max-width:900px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.nav{position:fixed;top:0;width:100%;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:var(--nav-bg);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:900px;margin:0 auto;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;}
+.nav-brand{font-weight:700;font-size:15px;color:var(--text)}
+.nav-links{display:flex;gap:20px;align-items:center;font-size:13px}
+.nav-links a{color:var(--text-secondary);transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.theme-toggle{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 8px;cursor:pointer;color:var(--text-secondary);font-size:14px;transition:all .2s;}
+.theme-toggle:hover{border-color:var(--border-hover);color:var(--text)}
+.hero{text-align:center;padding:120px 0 60px;position:relative}
+.hero-badge{display:inline-block;padding:4px 14px;border-radius:20px;background:var(--accent-dim);color:var(--accent);font-size:12px;font-weight:600;letter-spacing:0.5px;margin-bottom:16px;}
+.hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.15;margin-bottom:14px;background:linear-gradient(135deg,var(--text) 60%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:17px;color:var(--text-secondary);max-width:600px;margin:0 auto 12px}
+.hero-meta{font-size:13px;color:var(--muted)}
+.section{padding:60px 0;border-top:1px solid var(--border)}
+.section-header{margin-bottom:32px}
+.section-num{font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.section-title{font-size:clamp(22px,3.5vw,30px);font-weight:700;line-height:1.25;margin-bottom:8px}
+.section-desc{font-size:15px;color:var(--text-secondary);max-width:700px}
+p{margin-bottom:16px}
+.stat-row{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0}
+.stat-card{flex:1;min-width:120px;padding:14px 16px;border-radius:12px;background:var(--surface);border:1px solid var(--border);text-align:center;}
+.stat-val{font-size:24px;font-weight:700;font-family:"JetBrains Mono",monospace}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.tag{font-size:11px;padding:3px 10px;border-radius:6px;background:var(--accent-dim);color:var(--accent);font-weight:500;}
+.tag.purple{background:rgba(168,85,247,0.08);color:var(--purple)}
+.tag.amber{background:rgba(245,158,11,0.08);color:var(--amber)}
+.tag.green{background:rgba(34,197,94,0.08);color:var(--live)}
+.tag.red{background:rgba(239,68,68,0.08);color:var(--red)}
+.insight{padding:16px 20px;border-radius:12px;margin:20px 0;border-left:3px solid var(--accent);background:var(--accent-dim);font-size:14px;}
+.insight.warn{border-left-color:var(--amber);background:rgba(245,158,11,0.06)}
+.insight.success{border-left-color:var(--live);background:rgba(34,197,94,0.06)}
+.insight.purple{border-left-color:var(--purple);background:rgba(168,85,247,0.06)}
+.pipeline{display:flex;align-items:center;gap:0;margin:24px 0;flex-wrap:wrap;justify-content:center}
+.pipe-node{padding:14px 20px;border-radius:12px;border:2px solid var(--border);background:var(--surface);text-align:center;min-width:100px;transition:all .4s;position:relative;}
+.pipe-node.active{border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow)}
+.pipe-node.purple{border-color:var(--purple);box-shadow:0 0 20px rgba(168,85,247,0.2)}
+.pipe-node.green{border-color:var(--live);box-shadow:0 0 20px rgba(34,197,94,0.2)}
+.pipe-node-title{font-size:12px;font-weight:600;color:var(--text)}
+.pipe-node-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.pipe-arrow{width:30px;height:2px;background:var(--border);position:relative;flex-shrink:0;}
+.pipe-arrow::after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left:6px solid var(--border);}
+.code-block{background:var(--code-bg);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:16px 0;font-family:"JetBrains Mono",monospace;font-size:13px;overflow-x:auto;line-height:1.6;color:var(--text-secondary);}
+.code-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:24px 0}
+.feature-card{padding:24px;border-radius:16px;border:1px solid var(--border);background:var(--surface);transition:all .4s cubic-bezier(.25,.46,.45,.94);position:relative;overflow:hidden;}
+.feature-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--purple));opacity:0;transition:opacity .3s;}
+.feature-card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.15),0 0 0 1px var(--border-hover);}
+.feature-card:hover::before{opacity:1}
+.feature-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;background:linear-gradient(135deg,var(--accent-dim),rgba(168,85,247,0.08));border:1px solid rgba(59,130,246,0.12);}
+.feature-card:nth-child(2) .feature-icon{background:linear-gradient(135deg,rgba(168,85,247,0.1),var(--accent-dim));border-color:rgba(168,85,247,0.12)}
+.feature-card:nth-child(3) .feature-icon{background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(59,130,246,0.06));border-color:rgba(34,197,94,0.12)}
+.feature-card:nth-child(4) .feature-icon{background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(239,68,68,0.06));border-color:rgba(245,158,11,0.12)}
+.feature-title{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:-0.01em}
+.feature-desc{font-size:13px;color:var(--text-secondary);line-height:1.6}
+.gate-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0}
+.gate-table{width:100%;border-collapse:collapse;font-size:13px;min-width:500px}
+.gate-table th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--border);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.gate-table td{padding:10px 12px;border-bottom:1px solid var(--border)}
+.gate-table tr:hover td{background:var(--surface-hover)}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.ba-card{padding:14px 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-size:13px;line-height:1.6}
+.ba-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.ba-label.before{color:var(--red)}
+.ba-label.after{color:var(--live)}
+.score-bar-wrap{margin:8px 0}
+.score-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-secondary);margin-bottom:4px}
+.score-bar-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width 1s ease}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+.footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px}
+.footer a{color:var(--text-secondary)}
+.text-accent{color:var(--accent)}.text-purple{color:var(--purple)}.text-amber{color:var(--amber)}.text-live{color:var(--live)}.text-red{color:var(--red)}.text-muted{color:var(--muted)}.fw600{font-weight:600}
+h3{font-size:18px;font-weight:700;margin:28px 0 10px;letter-spacing:-0.01em}
+h4{font-size:15px;font-weight:600;margin:20px 0 8px;color:var(--text-secondary)}
+ul,ol{margin:0 0 16px 20px}
+li{margin-bottom:6px;font-size:14px;color:var(--text-secondary)}
+li strong{color:var(--text)}
+@media(max-width:640px){
+  .stat-row{gap:8px}.stat-card{min-width:80px;padding:10px}.stat-val{font-size:18px}
+  .pipeline{gap:4px}.pipe-node{padding:10px 12px;min-width:70px}.pipe-arrow{width:16px}
+  .feature-grid{grid-template-columns:1fr}
+  .ba-grid{grid-template-columns:1fr}
+}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">HK</a>
+    <div class="nav-links">
+      <a href="/">Portfolio</a>
+      <a href="/blog">Blog</a>
+      <a href="/about.html">About</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span id="theme-icon">&#9790;</span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="container">
+  <div class="hero">
+    <div class="hero-badge">Deep Dive</div>
+    <h1>I Went from 64 to 100/100 on Smithery.<br>Here's Every Fix.</h1>
+    <p class="hero-sub">A complete account of every quality dimension that separates a working MCP server from a well-built one, plus the skill that automates all of it.</p>
+    <p class="hero-meta">April 2026 &nbsp;·&nbsp; 15 min read &nbsp;·&nbsp; <a href="https://seasons.kooexperience.com" target="_blank" rel="noopener">seasons.kooexperience.com</a></p>
+    <div class="tag-row" style="justify-content:center;margin-top:14px">
+      <span class="tag">MCP</span>
+      <span class="tag purple">Claude Code</span>
+      <span class="tag amber">TypeScript</span>
+      <span class="tag green">Smithery</span>
+      <span class="tag">Open Source</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: What is MCP? -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title">What is MCP?</div>
+      <div class="section-desc">The short version: it's how you give AI clients access to your live data.</div>
+    </div>
+
+    <p>Before MCP, an AI assistant only knew what it was trained on plus whatever you pasted into the chat. If you wanted it to check your database, call an API, or get a live weather reading, you were doing that yourself and copy-pasting the result. That workflow breaks at scale and breaks badly when the data changes fast.</p>
+
+    <p>MCP — Model Context Protocol — is an open protocol that lets AI clients call external tools and data sources directly. You write a server that exposes tools. AI clients discover and call those tools at inference time. The AI gets real, live data. You stop copy-pasting.</p>
+
+    <p>What makes it actually useful: it's not proprietary. Anthropic published the spec, but OpenAI, Google DeepMind, and every major AI client has adopted it. Write one server, and it works in Claude, Cursor, Windsurf, and anything else that implements the protocol.</p>
+
+    <div class="insight reveal-d1">
+      <strong>The mental model:</strong> MCP is to AI clients what REST APIs are to web apps. It's a standard interface. Clients don't need to know how your server is built. They just call the tools.
+    </div>
+
+    <div class="pipeline reveal reveal-d2">
+      <div class="pipe-node active">
+        <div class="pipe-node-title">AI Client</div>
+        <div class="pipe-node-sub">Claude / Cursor / Windsurf</div>
+      </div>
+      <div class="pipe-arrow"></div>
+      <div class="pipe-node purple">
+        <div class="pipe-node-title">MCP Server</div>
+        <div class="pipe-node-sub">Your tools + logic</div>
+      </div>
+      <div class="pipe-arrow"></div>
+      <div class="pipe-node green">
+        <div class="pipe-node-title">Your API / Data</div>
+        <div class="pipe-node-sub">Live, real-time</div>
+      </div>
+    </div>
+
+    <p>Real examples already in production: the GitHub MCP lets Claude read and write code in your repos. The Stripe MCP lets it query payment data. Internal database MCPs at companies give their AI assistants direct access to proprietary data that never hit training. The pattern is the same everywhere — expose your data as tools, let the AI call them.</p>
+
+    <p>The protocol handles tool discovery, parameter validation, error responses, and streaming. You focus on writing the tools themselves.</p>
+  </div>
+</div>
+
+<!-- SECTION 2: Why build your own? -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title">Why Build Your Own?</div>
+      <div class="section-desc">Four reasons that actually hold up in practice.</div>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><circle cx="12" cy="12" r="3"/><path d="M3 12h3M18 12h3M12 3v3M12 18v3"/><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/></svg>
+        </div>
+        <div class="feature-title">Your data, live</div>
+        <div class="feature-desc">If you have an API or database, MCP gives AI clients direct access without any manual copy-paste step. The data is always current. You don't maintain a separate sync pipeline.</div>
+      </div>
+      <div class="feature-card reveal reveal-d1">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple)"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="feature-title">Works everywhere</div>
+        <div class="feature-desc">One server, every client. Claude Desktop, Cursor, Windsurf, and any other MCP-compatible tool can use it without modification. The protocol is the integration layer.</div>
+      </div>
+      <div class="feature-card reveal reveal-d2">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--live)"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <div class="feature-title">Discoverable</div>
+        <div class="feature-desc">Smithery, mcp.so, Glama, and PulseMCP index MCP servers like npm indexes packages. Build it once, publish it, and people find it through their tool of choice without you doing anything else.</div>
+      </div>
+      <div class="feature-card reveal reveal-d3">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--amber)"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="feature-title">Replaces custom integrations</div>
+        <div class="feature-desc">Before MCP, you'd write a bespoke integration for each AI tool separately — once for Claude, once for Cursor, once for your internal Slack bot. One MCP server beats five separate integrations, and you maintain one codebase.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: What I built -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title">What I Built</div>
+      <div class="section-desc">japan-seasons-mcp — a live data server for Japan seasonal travel.</div>
+    </div>
+
+    <p>I built <a href="https://seasons.kooexperience.com" target="_blank" rel="noopener">seasons.kooexperience.com</a> because I was tired of asking AI assistants about sakura bloom timing and getting responses based on averages from years ago. The actual bloom date shifts by weeks depending on the year. You need live data.</p>
+
+    <p>The MCP server wraps the JMA (Japan Meteorological Association) and n-kishou APIs and exposes them as callable tools. Ask Claude when cherry blossoms will peak in Kyoto this year, it calls <code>sakura.forecast</code>, gets current data, and gives you a real answer.</p>
+
+    <div class="stat-row reveal reveal-d1">
+      <div class="stat-card">
+        <div class="stat-val text-accent">12</div>
+        <div class="stat-lbl">Tools</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val text-purple">1,700+</div>
+        <div class="stat-lbl">Spots tracked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val text-amber">6</div>
+        <div class="stat-lbl">Data types</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val text-live">100</div>
+        <div class="stat-lbl">Smithery score</div>
+      </div>
+    </div>
+
+    <p>The six data types: sakura (cherry blossom), koyo (autumn foliage), flowers (wisteria, hydrangea, plum), fruit farms, festivals, and short-range weather. All live. All from official Japanese meteorological sources.</p>
+
+    <div class="insight success">
+      <strong>100/100 on Smithery.</strong> The server is listed at <a href="https://smithery.ai" target="_blank" rel="noopener">smithery.ai</a> and achieves a perfect quality score. Getting there took about 15 specific fixes — all covered in the sections below.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: The 10 quality dimensions -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-title">The 10 Quality Dimensions</div>
+      <div class="section-desc">Smithery scores servers across ten dimensions. Here's what each one checks.</div>
+    </div>
+
+    <p>When I first submitted to Smithery I got a 64. I could see the score but not the breakdown. That forced me to read the spec carefully and reverse-engineer what each dimension actually evaluates. Here's what I found.</p>
+
+    <div class="gate-table-wrap reveal reveal-d1">
+      <table class="gate-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Points</th>
+            <th>What it checks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Tool descriptions</strong></td>
+            <td><span class="text-accent fw600">12</span></td>
+            <td>Every tool has a clear, verb-first description that names the resource and explains when to call it</td>
+          </tr>
+          <tr>
+            <td><strong>Parameter descriptions</strong></td>
+            <td><span class="text-accent fw600">11</span></td>
+            <td>Every parameter has a description, type, and example where relevant — nothing left implicit</td>
+          </tr>
+          <tr>
+            <td><strong>Annotations</strong></td>
+            <td><span class="text-accent fw600">7</span></td>
+            <td>Tools declare <code>readOnlyHint</code>, <code>destructiveHint</code>, <code>openWorldHint</code> — signals for how clients should treat the tool</td>
+          </tr>
+          <tr>
+            <td><strong>Tool names (dot notation)</strong></td>
+            <td><span class="text-accent fw600">5</span></td>
+            <td>Tool names use domain.action format to form a navigable tree (e.g. <code>sakura.forecast</code>, not <code>get_sakura_forecast</code>)</td>
+          </tr>
+          <tr>
+            <td><strong>Prompts</strong></td>
+            <td><span class="text-accent fw600">5</span></td>
+            <td>Server exposes at least one prompt that helps users understand how to interact with the server</td>
+          </tr>
+          <tr>
+            <td><strong>Resources</strong></td>
+            <td><span class="text-accent fw600">5</span></td>
+            <td>Awarded automatically — Smithery's own tooltip says "Resources are always awarded full points"</td>
+          </tr>
+          <tr>
+            <td><strong>Server metadata</strong></td>
+            <td><span class="text-purple fw600">30</span></td>
+            <td>Complete <code>smithery.yaml</code> with name, description, homepage, categories, and tags</td>
+          </tr>
+          <tr>
+            <td><strong>Config UX</strong></td>
+            <td><span class="text-purple fw600">25</span></td>
+            <td>Config schema is minimal — no unnecessary required fields, sensible defaults for optional params</td>
+          </tr>
+          <tr>
+            <td><strong>Server instructions</strong></td>
+            <td><span class="text-amber fw600">varies</span></td>
+            <td>The server sends an <code>instructions</code> string in <code>initialize</code> response — routing guidance for the AI</td>
+          </tr>
+          <tr>
+            <td><strong>Static data &amp; caching</strong></td>
+            <td><span class="text-live fw600">bonus</span></td>
+            <td>Frequently-called data is cached with appropriate TTLs — reduces upstream API load and latency</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight warn">
+      <strong>The resources dimension is free.</strong> Smithery awards those 5 points automatically. Don't implement custom resources just for the score — it won't change anything.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: The score journey -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-title">The Score Journey</div>
+      <div class="section-desc">Five stages from 64 to 100. What broke and what fixed it.</div>
+    </div>
+
+    <div class="reveal reveal-d1">
+      <h3>Stage 1 — First submission: 64/100</h3>
+      <p>The server worked. All 12 tools returned correct data. But the quality score told a different story. What was actually wrong:</p>
+      <ul>
+        <li>Tool descriptions were generic one-liners — "Get sakura information for Japan" — no verbs, no specifics</li>
+        <li>Parameters had no descriptions at all, just names and types</li>
+        <li>No annotations — clients had no signal on read vs write, safe vs destructive</li>
+        <li>Tool names were all <code>get_*</code> — no dot notation, no domain grouping</li>
+        <li>No <code>smithery.yaml</code> beyond the bare minimum</li>
+        <li>No server instructions</li>
+      </ul>
+
+      <div class="score-bar-wrap">
+        <div class="score-bar-label"><span>Starting score</span><span class="text-red">64/100</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:64%"></div></div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-d2">
+      <h3>Stage 2 — Tool descriptions + parameter descriptions + annotations: ~82</h3>
+      <p>Rewrote every tool description to be verb-first, specific, and useful. Added full parameter descriptions with types and examples. Added annotations to every tool using four constants (covered in section 8). Jumped 18 points in one pass.</p>
+      <p>The parameter descriptions alone were probably worth 8 of those points. I had 40+ parameters across 12 tools with no descriptions. That's a lot of missing signal.</p>
+
+      <div class="score-bar-wrap">
+        <div class="score-bar-label"><span>After descriptions + annotations</span><span class="text-accent">~82/100</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:82%"></div></div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-d1">
+      <h3>Stage 3 — Server instructions + prompts: ~90</h3>
+      <p>Added an <code>instructions</code> string to the <code>initialize</code> response. This is the routing guide — it tells the AI when to use which tool, in what order, and for what kind of question. Wrote it like internal documentation for the model, not for humans.</p>
+      <p>Also added two prompts: one for sakura season planning, one for koyo. These are pre-built interaction patterns that users can invoke directly from supported clients.</p>
+
+      <div class="score-bar-wrap">
+        <div class="score-bar-label"><span>After server instructions + prompts</span><span class="text-accent">~90/100</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:90%"></div></div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-d2">
+      <h3>Stage 4 — smithery.yaml + full metadata: ~98</h3>
+      <p>Wrote a complete <code>smithery.yaml</code> with name, description, homepage URL, categories (<code>travel</code>, <code>weather</code>, <code>japan</code>), tags, and a minimal config schema. The config UX dimension rewards you for keeping the setup friction low — no required API keys for a public read-only server means full marks there.</p>
+
+      <div class="score-bar-wrap">
+        <div class="score-bar-label"><span>After smithery.yaml + metadata</span><span class="text-accent">~98/100</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:98%"></div></div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-d1">
+      <h3>Stage 5 — Dot notation tool names: 100</h3>
+      <p>Stuck at 98 for longer than I'd like to admit. The fix was the last 2 points and the most non-obvious change in the whole process. Full story in the next section.</p>
+
+      <div class="score-bar-wrap">
+        <div class="score-bar-label"><span>After dot notation rename</span><span class="text-live">100/100</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--live),var(--accent))"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: The dot notation discovery -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-title">The Dot Notation Discovery</div>
+      <div class="section-desc">Stuck at 98 for days. The fix was hiding in a tooltip.</div>
+    </div>
+
+    <p>After stage 4, I was at 98. I knew I was missing 2 points somewhere in the tool naming dimension. I'd read the docs. I thought my names were fine. They followed the pattern, had underscores, were descriptive. Standard stuff.</p>
+
+    <p>I asked Grok to review the tool names. It suggested varying the verb prefixes — replace all <code>get_</code> with a mix of <code>list_</code>, <code>find_</code>, and <code>fetch_</code> depending on whether the tool retrieves a collection or a single item. That made semantic sense, so I tried it. Still 98.</p>
+
+    <p>Then I hovered the tooltip on the tool names section in the Smithery dashboard. The text read: <em>"Tool names should form a navigable tree using dot-notation (e.g. admin.tools.list)"</em>.</p>
+
+    <p>That was it. Not underscores. Dots. The dimension is checking for a grouped, hierarchical naming scheme — the kind that lets a client build a tree view of your tools instead of a flat list of 12 similarly-named functions.</p>
+
+    <div class="ba-grid reveal reveal-d1">
+      <div class="ba-card">
+        <div class="ba-label before">Before — flat snake_case</div>
+        <code>get_sakura_forecast</code><br>
+        <code>get_sakura_spots</code><br>
+        <code>get_sakura_best_dates</code><br>
+        <code>get_koyo_forecast</code><br>
+        <code>get_koyo_spots</code><br>
+        <code>get_koyo_best_dates</code><br>
+        <code>get_kawazu_cherry</code><br>
+        <code>get_weather_forecast</code>
+      </div>
+      <div class="ba-card">
+        <div class="ba-label after">After — dot notation</div>
+        <code>sakura.forecast</code><br>
+        <code>sakura.spots</code><br>
+        <code>sakura.best_dates</code><br>
+        <code>koyo.forecast</code><br>
+        <code>koyo.spots</code><br>
+        <code>koyo.best_dates</code><br>
+        <code>kawazu.cherry</code><br>
+        <code>weather.forecast</code>
+      </div>
+    </div>
+
+    <p>Renamed all 12 tools. Resubmitted. 100.</p>
+
+    <div class="insight purple">
+      <strong>Why it matters beyond the score:</strong> The dot notation groups tools by domain. When an AI client lists your tools, it sees <code>sakura.*</code>, <code>koyo.*</code>, <code>weather.*</code> as natural clusters — not a flat list of 12 equally-weighted names. The model can route more accurately because the naming itself is structured signal.
+    </div>
+
+    <p>Here's what a tool registration looks like with the current SDK:</p>
+
+    <div class="code-label">TypeScript — registering a tool with dot notation</div>
+    <div class="code-block">server.registerTool(
+  "sakura.forecast",
+  {
+    title: "Sakura Forecast",
+    description:
+      "Get live cherry blossom bloom progress for 48 cities across Japan. " +
+      "Returns bloom percentage, status, and peak date estimates. " +
+      "Call this first for city-level timing, then use sakura.spots for specific parks.",
+    inputSchema: {
+      prefecture: z.string().optional()
+        .describe("Optional prefecture name in English. Example: 'Tokyo', 'Kyoto', 'Hokkaido'."),
+    },
+    annotations: READONLY_EXTERNAL,
+  },
+  async ({ prefecture }) => {
+    try {
+      const data = await getOrFetch(`sakura:${prefecture ?? "all"}`, TTL.FORECAST, () =>
+        fetchForecast(prefecture)
+      );
+      return { content: [{ type: "text", text: JSON.stringify(data) }] };
+    } catch (err) {
+      return {
+        isError: true,
+        content: [{ type: "text", text: `Failed: ${err instanceof Error ? err.message : String(err)}` }],
+      };
+    }
+  }
+);</div>
+  </div>
+</div>
+
+<!-- SECTION 7: Tool description quality -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <div class="section-title">Tool Description Quality</div>
+      <div class="section-desc">Worth 12 points. Also the single biggest impact on how accurately the AI routes tool calls.</div>
+    </div>
+
+    <p>The description is what the AI reads to decide whether to call your tool and what to pass it. A bad description leads to wrong tool selection, wrong parameter choices, or the model hallucinating data instead of calling your tool at all. The score dimension rewards quality here because it correlates directly with usability.</p>
+
+    <div class="ba-grid reveal reveal-d1">
+      <div class="ba-card">
+        <div class="ba-label before">Bad</div>
+        <p style="color:var(--text-secondary);font-size:13px;margin:0">"This tool provides information about sakura spots in Japan."</p>
+      </div>
+      <div class="ba-card">
+        <div class="ba-label after">Good</div>
+        <p style="color:var(--text-secondary);font-size:13px;margin:0">"Get live bloom percentages for 1,012 cherry blossom spots across Japan. Filter by prefecture. Call sakura.forecast first for city-level timing, then use this for specific parks."</p>
+      </div>
+    </div>
+
+    <h3>Four rules for tool descriptions</h3>
+
+    <ul>
+      <li><strong>Verb-first.</strong> Start with an action verb: Get, List, Fetch, Check, Calculate. The model parses this as a function signature.</li>
+      <li><strong>Name the resource specifically.</strong> "1,012 cherry blossom spots" is better than "sakura data". Specificity helps the model calibrate confidence and pick the right tool when two tools are similar.</li>
+      <li><strong>Two sentences max.</strong> One for what it returns. One for when to call it and what to call next. Longer descriptions get ignored.</li>
+      <li><strong>State the call order.</strong> If your tools have a natural sequence (forecast → spots → best_dates), say so explicitly. The model will respect it and your users will get better results.</li>
+    </ul>
+
+    <div class="insight">
+      <strong>Parameter descriptions matter just as much.</strong> For a parameter like <code>prefecture</code>, "Prefecture to filter by" is nearly useless. "Optional prefecture name in English or Japanese to filter results. Example: 'Tokyo', 'Kyoto', '東京'" tells the model the format, the optionality, and gives a concrete example. That's the difference between the model guessing and the model knowing.
+    </div>
+
+    <div class="code-label">Good parameter description in schema</div>
+    <div class="code-block">{
+  type: "object",
+  properties: {
+    prefecture: {
+      type: "string",
+      description:
+        "Optional prefecture name in English or Japanese. " +
+        "Example: 'Kyoto', 'Hokkaido', '北海道'. " +
+        "Omit to return all prefectures.",
+    },
+    year: {
+      type: "number",
+      description:
+        "Four-digit year for historical data. Defaults to current year. " +
+        "Range: 2010–2026.",
+    },
+  },
+  required: [],
+}</div>
+  </div>
+</div>
+
+<!-- SECTION 8: Annotations and caching -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <div class="section-title">Annotations and Caching</div>
+      <div class="section-desc">Seven points and a production necessity. Define these once and reuse everywhere.</div>
+    </div>
+
+    <p>Annotations are metadata attached to each tool that tells clients how to treat it. A client that knows a tool is read-only can call it without asking for user confirmation. A client that knows a tool is destructive should warn the user. These signals also flow through to logging, rate limiting, and audit trails.</p>
+
+    <p>I defined four constants and apply them to every tool. No guessing, no inconsistency:</p>
+
+    <div class="code-label">TypeScript — annotation constants</div>
+    <div class="code-block">// Read-only: safe to call repeatedly, no side effects, data from cache or internal state
+export const READONLY = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  idempotentHint: true,
+  openWorldHint: false,
+} as const;
+
+// Read-only with external calls: fetches from upstream APIs, may have latency/rate limits
+export const READONLY_EXTERNAL = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  idempotentHint: true,
+  openWorldHint: true,   // signals that this tool calls outside the local environment
+} as const;
+
+// Write: modifies state, idempotent (calling twice has the same effect as once)
+export const WRITE = {
+  readOnlyHint: false,
+  destructiveHint: false,
+  idempotentHint: true,
+  openWorldHint: false,
+} as const;
+
+// Destructive: deletes or irreversibly modifies — clients should prompt for confirmation
+export const DESTRUCTIVE = {
+  readOnlyHint: false,
+  destructiveHint: true,
+  idempotentHint: false,
+  openWorldHint: false,
+} as const;</div>
+
+    <p>For japan-seasons-mcp, every tool uses either <code>READONLY</code> or <code>READONLY_EXTERNAL</code>. Tools that return cached static data (prefectures, flower types) use <code>READONLY</code>. Tools that make live API calls use <code>READONLY_EXTERNAL</code> — the <code>openWorldHint: true</code> flag is the signal.</p>
+
+    <h3>Caching</h3>
+
+    <p>One tool call without caching means one upstream API request. With 12 tools and potentially dozens of calls per session, that adds up fast. More importantly, most of the data doesn't change on a per-request basis — bloom percentages update once or twice a day, not on every query.</p>
+
+    <p>I defined TTL constants that match the actual update cadence of each data type:</p>
+
+    <div class="code-label">TypeScript — cache TTL constants</div>
+    <div class="code-block">export const TTL = {
+  WEATHER:   30 * 60 * 1000,        // 30 minutes — forecast changes frequently
+  FORECAST:   4 * 60 * 60 * 1000,   // 4 hours — bloom progress updates daily, but check often
+  DAILY:      6 * 60 * 60 * 1000,   // 6 hours — best dates, spot data — updated once or twice daily
+  STATIC:   365 * 24 * 60 * 60 * 1000, // 1 year — prefecture lists, flower types, static metadata
+} as const;</div>
+
+    <div class="insight warn">
+      <strong>Don't cache weather too aggressively.</strong> Weather data for Japan in sakura season changes hourly. A 30-minute TTL is already aggressive — go longer and you'll serve stale rain forecasts that affect bloom viewing recommendations.
+    </div>
+
+    <p>The cache layer is a simple in-memory Map with timestamp-based invalidation. No Redis, no external dependency. For a server that runs in a single process and handles read-only data, that's all you need.</p>
+  </div>
+</div>
+
+<!-- SECTION 9: The create-mcp skill -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">09</div>
+      <div class="section-title">The create-mcp Skill</div>
+      <div class="section-desc">A Claude Code skill that encodes all of this so you go straight to 100.</div>
+    </div>
+
+    <p>After going through the whole process manually, I wrote a Claude Code skill that captures every lesson. A skill is a markdown file that gives Claude a structured workflow — it loads into context and guides the session with specific steps, checklists, and patterns to follow.</p>
+
+    <p>The create-mcp skill has two paths:</p>
+
+    <ul>
+      <li><strong>Create from scratch</strong> — you describe what API or data you want to expose, and it scaffolds a complete TypeScript MCP server with all quality dimensions built in from the start</li>
+      <li><strong>Audit existing</strong> — you point it at your existing MCP server, it walks through all 10 dimensions, identifies gaps, and patches them</li>
+    </ul>
+
+    <p>Both paths encode every fix covered in this post — dot notation naming, verb-first descriptions, annotation constants, TTL strategy, smithery.yaml structure — so you're not discovering them one at a time by watching your score move.</p>
+
+    <div class="pipeline reveal reveal-d1">
+      <div class="pipe-node active">
+        <div class="pipe-node-title">Gather</div>
+        <div class="pipe-node-sub">API spec, auth, data shape</div>
+      </div>
+      <div class="pipe-arrow"></div>
+      <div class="pipe-node">
+        <div class="pipe-node-title">Design</div>
+        <div class="pipe-node-sub">Tools, names, grouping</div>
+      </div>
+      <div class="pipe-arrow"></div>
+      <div class="pipe-node purple">
+        <div class="pipe-node-title">Build</div>
+        <div class="pipe-node-sub">TypeScript + cache</div>
+      </div>
+      <div class="pipe-arrow"></div>
+      <div class="pipe-node">
+        <div class="pipe-node-title">Audit</div>
+        <div class="pipe-node-sub">All 10 dimensions</div>
+      </div>
+      <div class="pipe-arrow"></div>
+      <div class="pipe-node green">
+        <div class="pipe-node-title">Publish</div>
+        <div class="pipe-node-sub">5 directories</div>
+      </div>
+    </div>
+
+    <p>The audit step is where most of the value is. It runs through a checklist of every dimension — tool names (dot notation check), descriptions (verb-first check, max 2 sentence check), parameters (description present, example present), annotations (type assigned), server instructions (present and complete), smithery.yaml (all fields filled), prompts (at least one), resources (hosted registry check).</p>
+
+    <p>Install it with:</p>
+
+    <div class="code-label">Install create-mcp skill</div>
+    <div class="code-block">curl -fsSL https://raw.githubusercontent.com/haomingkoo/create-mcp/main/install.sh | sh</div>
+
+    <p>Once installed, invoke it in any Claude Code session with <code>/create-mcp</code>. It will ask whether you're creating or auditing, then walk you through the full workflow.</p>
+
+    <div class="insight success">
+      <strong>The skill encodes the fixes.</strong> The dot notation rule, description format, annotation constants, TTL values, smithery.yaml structure — all of it is in the skill's workflow. Whether you're auditing something that already exists or building from scratch, you run through the same checklist once.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 10: Getting discovered -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">10</div>
+      <div class="section-title">Getting Discovered</div>
+      <div class="section-desc">Five directories. Most of them take less than 10 minutes.</div>
+    </div>
+
+    <p>Publishing to Smithery is the highest-leverage directory because it scores your server, shows up in the most MCP clients, and has the most users. But the others are worth doing — they each have different audiences and some are crawled by AI search tools directly.</p>
+
+    <div class="gate-table-wrap reveal reveal-d1">
+      <table class="gate-table">
+        <thead>
+          <tr>
+            <th>Directory</th>
+            <th>Setup</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Smithery</strong></td>
+            <td><span class="tag">CLI</span></td>
+            <td>Highest traffic. Scores your server. Hosted registry gives you the free resources points.</td>
+          </tr>
+          <tr>
+            <td><strong>mcp.so</strong></td>
+            <td><span class="tag amber">UI</span></td>
+            <td>Submit via their web form. Simple listing, no scoring. Gets indexed by Google.</td>
+          </tr>
+          <tr>
+            <td><strong>Glama</strong></td>
+            <td><span class="tag">CLI</span></td>
+            <td>Submit via GitHub PR to their registry repo. Fast review, usually merged same day.</td>
+          </tr>
+          <tr>
+            <td><strong>PulseMCP</strong></td>
+            <td><span class="tag amber">UI</span></td>
+            <td>Web submission form. Categorized directory, good for niche discovery.</td>
+          </tr>
+          <tr>
+            <td><strong>mcp.run</strong></td>
+            <td><span class="tag amber">UI</span></td>
+            <td>Smaller community but active. Good for getting early feedback and stars.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>For Smithery specifically, if your server is hosted (not just directory-listed), you can deploy updates with:</p>
+
+    <div class="code-label">Smithery CLI — publish hosted server</div>
+    <div class="code-block">npx @smithery/cli mcp publish \
+  "https://your-domain.com/mcp" \
+  -n your-github-username/your-repo \
+  --config-schema "$(cat smithery.remote-config.json)"</div>
+
+    <p>For stdio servers (installed via npx), go to smithery.ai → Add Server → paste the GitHub URL. It picks up the <code>smithery.yaml</code> automatically.</p>
+
+    <p>Submitting to all five directories takes 30–60 minutes total. Each one wants roughly the same information — name, GitHub URL, a one-paragraph description — just in slightly different forms.</p>
+  </div>
+</div>
+
+<!-- SECTION 11: Closing -->
+<div class="container">
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-num">11</div>
+      <div class="section-title">That's the Whole Thing</div>
+    </div>
+
+    <p>Building MCPs is straightforward. The SDK is well-documented, TypeScript support is solid, and the deploy story (Railway, Smithery hosted, or self-hosted) is mature enough. A working MCP server is an afternoon of work.</p>
+
+    <p>The gap between a working MCP and a well-built one is about 15 specific things: dot notation naming, verb-first descriptions, parameter examples, annotation constants, server instructions, a complete smithery.yaml, at least one prompt, appropriate TTLs, minimal config surface area, and submitting to all five directories instead of just one.</p>
+
+    <p>This post covers all of them. The <code>create-mcp</code> skill automates most of them.</p>
+
+    <p>If you're building your own, the japan-seasons-mcp source is on GitHub and has all of these patterns in production. Feel free to use it as a reference.</p>
+
+    <div class="insight success">
+      <strong>Live demo:</strong> The MCP server is running now at <a href="https://seasons.kooexperience.com" target="_blank" rel="noopener">seasons.kooexperience.com</a>. If you're in a sakura season window, ask Claude when cherry blossoms will peak in a city you're visiting. It'll call <code>sakura.forecast</code> and give you a real answer with current bloom data.
+    </div>
+
+    <div class="stat-row reveal reveal-d1">
+      <div class="stat-card">
+        <div class="stat-val text-accent">15</div>
+        <div class="stat-lbl">Specific fixes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val text-purple">+36</div>
+        <div class="stat-lbl">Points gained</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val text-live">100</div>
+        <div class="stat-lbl">Final score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val text-amber">5</div>
+        <div class="stat-lbl">Directories listed</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p style="margin-bottom:6px">
+      <a href="/">Haoming Koo</a> &nbsp;·&nbsp;
+      <a href="/blog">Blog</a> &nbsp;·&nbsp;
+      <a href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Japan in Seasons</a> &nbsp;·&nbsp;
+      <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+    </p>
+    <p>&copy; 2026 Haoming Koo. Built and deployed from Singapore.</p>
+  </div>
+</footer>
+
+<script>
+function toggleTheme(){const h=document.documentElement;const t=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',t);document.getElementById('theme-icon').innerHTML=t==='dark'?'&#9790;':'&#9728;';localStorage.setItem('theme',t)}
+const saved=localStorage.getItem('theme');if(saved)document.documentElement.setAttribute('data-theme',saved);
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
