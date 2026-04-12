@@ -885,6 +885,28 @@ npm publish --otp=123456   # one-time password from npm account</div>
       <strong>Which should you build?</strong> If your data is public and doesn't vary per user, hosted HTTP is simpler — one deployment, zero user installs. If your tool needs access to the user's local files, localhost services, or private credentials, stdio is the right choice.
     </div>
 
+    <h3>Hosting a server on Railway</h3>
+
+    <p>Railway is the easiest way to get a hosted MCP live. Connect your GitHub repo and it deploys on every push — no infra to manage.</p>
+
+    <ol>
+      <li>Push your server to GitHub</li>
+      <li>Go to railway.app → New Project → Deploy from GitHub repo</li>
+      <li>Set the start command: <code>node dist/index.js</code></li>
+      <li>Add environment variables (API keys, etc.) in the Railway dashboard</li>
+      <li>Copy the public URL Railway assigns (e.g. <code>https://your-app.up.railway.app</code>)</li>
+    </ol>
+
+    <p>That URL is your MCP endpoint. Register it on Smithery once:</p>
+
+    <div class="code-label">Register hosted endpoint on Smithery</div>
+    <div class="code-block">npx @smithery/cli mcp publish \
+  "https://your-app.up.railway.app/mcp" \
+  -n your-github-username/your-repo \
+  --config-schema "$(cat smithery.remote-config.json)"</div>
+
+    <p>After that, every <code>git push</code> to main triggers a Railway redeploy. Everyone connecting via Smithery or the direct URL gets the update automatically — no version bumps, no user action required. This is how japan-seasons-mcp ships updates: push the code, Railway deploys in ~30 seconds, Smithery users see the new tools immediately.</p>
+
     <div class="gate-table-wrap reveal reveal-d1">
       <table class="gate-table">
         <thead>
