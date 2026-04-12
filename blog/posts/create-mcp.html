@@ -234,7 +234,7 @@ li strong{color:var(--text)}
 
     <p>MCP — Model Context Protocol — is an open protocol that lets AI clients call external tools and data sources directly. You write a server that exposes tools. AI clients discover and call those tools at inference time. The AI gets real, live data. You stop copy-pasting.</p>
 
-    <p>What makes it actually useful: it's not proprietary. Anthropic published the spec, but OpenAI, Google DeepMind, and every major AI client has adopted it. Write one server, and it works in Claude, Cursor, Windsurf, and anything else that implements the protocol.</p>
+    <p>It's also not proprietary. Anthropic published the spec, and most major clients have picked it up — Claude, Cursor, Windsurf, Cline. Write one server and it runs in all of them.</p>
 
     <div class="insight reveal-d1">
       <strong>The mental model:</strong> MCP is to AI clients what REST APIs are to web apps. It's a standard interface. Clients don't need to know how your server is built. They just call the tools.
@@ -354,7 +354,7 @@ li strong{color:var(--text)}
       <div class="section-desc">Smithery scores servers across ten dimensions. Here's what each one checks.</div>
     </div>
 
-    <p>When I first submitted to Smithery I got a 64. I could see the score but not the breakdown. That forced me to read the spec carefully and reverse-engineer what each dimension actually evaluates. Here's what I found.</p>
+    <p>When I first submitted to Smithery I got a 64. I could see the score but not the breakdown. That forced me to read the spec carefully and reverse-engineer what each dimension actually checks.</p>
 
     <div class="gate-table-wrap reveal reveal-d1">
       <table class="gate-table">
@@ -607,7 +607,7 @@ li strong{color:var(--text)}
       <li><strong>Verb-first.</strong> Start with an action verb: Get, List, Fetch, Check, Calculate. The model parses this as a function signature.</li>
       <li><strong>Name the resource specifically.</strong> "1,012 cherry blossom spots" is better than "sakura data". Specificity helps the model calibrate confidence and pick the right tool when two tools are similar.</li>
       <li><strong>Two sentences max.</strong> One for what it returns. One for when to call it and what to call next. Longer descriptions get ignored.</li>
-      <li><strong>State the call order.</strong> If your tools have a natural sequence (forecast → spots → best_dates), say so explicitly. The model will respect it and your users will get better results.</li>
+      <li><strong>State the call order.</strong> If your tools have a natural sequence (forecast → spots → best_dates), say so explicitly. In practice the model tends to follow it, and routing accuracy improves noticeably.</li>
     </ul>
 
     <div class="insight">
@@ -778,7 +778,7 @@ export const DESTRUCTIVE = {
       <div class="section-desc">Three independent scenarios, graded against 34 quality assertions.</div>
     </div>
 
-    <p>Writing a checklist is easy. The harder question is whether the skill reliably produces the output it claims to. I ran it on three independent scenarios with a baseline comparison to measure pass rates, timing, and where the new assertions catch gaps the old approach missed.</p>
+    <p>Writing a checklist is easy. The test is whether it holds up on real tasks. I ran it against three independent scenarios — different APIs, one audit of a broken server — and graded the outputs against explicit assertions with a baseline for comparison.</p>
 
     <div class="gate-table-wrap reveal reveal-d1">
       <table class="gate-table">
@@ -818,7 +818,7 @@ export const DESTRUCTIVE = {
     <p>The audit scenario is where the previous version of the skill had a real gap. It would identify all the problems and describe the fixes — but not always write <code>package.json</code> and the smithery config as output files. The revised skill makes this explicit: <em>generate these files as output, not as a suggestion</em>. The audit eval now verifies both files physically exist in the output directory.</p>
 
     <div class="insight reveal-d2">
-      <strong>The new assertions that discriminate.</strong> The baseline (older skill) failed on two checks the new assertions added: <em>package.json values must not be placeholder text</em> (the old skill left <code>"author": "Your Name"</code> and GitHub placeholder URLs), and <em>prompt message text must name at least one tool by its dot notation name</em>. The new skill passes both. Evals only improve when assertions are hard to satisfy without actually doing the work.
+      <strong>The new assertions that discriminate.</strong> The baseline (older skill) failed on two checks the new assertions added: <em>package.json values must not be placeholder text</em> (the old skill left <code>"author": "Your Name"</code> and GitHub placeholder URLs), and <em>prompt message text must name at least one tool by its dot notation name</em>. The new skill passes both. The only useful assertion is one a bad output can't accidentally pass.
     </div>
 
     <div class="stat-row reveal reveal-d1">
@@ -879,7 +879,7 @@ export const DESTRUCTIVE = {
     <div class="code-block">npm run build          # compile TypeScript to dist/
 npm publish --otp=123456   # one-time password from npm account</div>
 
-    <p>Users will always get the latest version because <code>npx</code> checks for updates on each run. When you ship a fix, push to npm and it's live for everyone without them doing anything.</p>
+    <p>Users get the latest version on each run — <code>npx</code> checks for updates automatically. Push a fix to npm and it rolls out without anyone touching their config.</p>
 
     <div class="insight">
       <strong>Which should you build?</strong> If your data is public and doesn't vary per user, hosted HTTP is simpler — one deployment, zero user installs. If your tool needs access to the user's local files, localhost services, or private credentials, stdio is the right choice.
@@ -905,7 +905,7 @@ npm publish --otp=123456   # one-time password from npm account</div>
   -n your-github-username/your-repo \
   --config-schema "$(cat smithery.remote-config.json)"</div>
 
-    <p>After that, every <code>git push</code> to main triggers a Railway redeploy. Everyone connecting via Smithery or the direct URL gets the update automatically — no version bumps, no user action required. This is how japan-seasons-mcp ships updates: push the code, Railway deploys in ~30 seconds, Smithery users see the new tools immediately.</p>
+    <p>After that, every <code>git push</code> to main triggers a Railway redeploy. Everyone connecting via Smithery or the direct URL gets the update automatically — no version bumps, no user action required. This is how japan-seasons-mcp ships updates: push the code, Railway deploys in under a minute, and users connecting via Smithery or the direct URL get the new version on their next call.</p>
 
     <div class="gate-table-wrap reveal reveal-d1">
       <table class="gate-table">
