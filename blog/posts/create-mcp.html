@@ -853,6 +853,38 @@ export const DESTRUCTIVE = {
 
     <p>Publishing to Smithery is the highest-leverage directory because it scores your server, shows up in the most MCP clients, and has the most users. But the others are worth doing — they each have different audiences and some are crawled by AI search tools directly.</p>
 
+    <h3>Do you need npm?</h3>
+
+    <p>It depends on how your server runs.</p>
+
+    <p><strong>Hosted servers (HTTP, deployed on Railway/Fly.io)</strong> don't need npm at all. Users connect directly to your URL — Smithery stores the endpoint and handles the connection. You push to GitHub, Railway deploys, users get the update automatically. japan-seasons-mcp works this way. No npm, no user installs.</p>
+
+    <p><strong>Local servers (stdio, runs on the user's machine)</strong> need npm. When a user adds your server to Claude Desktop, the config looks like this:</p>
+
+    <div class="code-label">claude_desktop_config.json — stdio server entry</div>
+    <div class="code-block">{
+  "mcpServers": {
+    "my-weather": {
+      "command": "npx",
+      "args": ["my-weather-mcp"]
+    }
+  }
+}</div>
+
+    <p>Claude Desktop spawns <code>npx my-weather-mcp</code> as a subprocess whenever it starts. <code>npx</code> fetches your package from the npm registry and runs it — that's the entire install story from the user's side. No manual setup, no cloning, no build step. But it only works if the package is on npm.</p>
+
+    <p>To publish:</p>
+
+    <div class="code-label">Publish stdio server to npm</div>
+    <div class="code-block">npm run build          # compile TypeScript to dist/
+npm publish --otp=123456   # one-time password from npm account</div>
+
+    <p>Users will always get the latest version because <code>npx</code> checks for updates on each run. When you ship a fix, push to npm and it's live for everyone without them doing anything.</p>
+
+    <div class="insight">
+      <strong>Which should you build?</strong> If your data is public and doesn't vary per user, hosted HTTP is simpler — one deployment, zero user installs. If your tool needs access to the user's local files, localhost services, or private credentials, stdio is the right choice.
+    </div>
+
     <div class="gate-table-wrap reveal reveal-d1">
       <table class="gate-table">
         <thead>
