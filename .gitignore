@@ -3,3 +3,11 @@ __pycache__/
 *.pyc
 .env
 .env.*
+
+# Local design drafts and agent notes
+previews/
+.claude/
+claude-review-prompt.md
+portfolio-v2-animation-plan.md
+portfolio-video-prompts.md
+github-profile-readme.md
