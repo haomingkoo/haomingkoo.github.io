@@ -386,22 +386,22 @@
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
-        --bg: #060608;
-        --surface: #0e0e12;
-        --surface-hover: #141418;
-        --border: #1c1c24;
-        --border-hover: #2a2a36;
-        --accent: #3b82f6;
-        --accent-dim: rgba(59, 130, 246, 0.10);
-        --accent-glow: rgba(59, 130, 246, 0.06);
-        --mint: #6ee7b7;
-        --gold: #e9d48a;
+        --bg: #05070a;
+        --surface: #0d1117;
+        --surface-hover: #121923;
+        --border: #1b2532;
+        --border-hover: #334155;
+        --accent: #38bdf8;
+        --accent-dim: rgba(56, 189, 248, 0.11);
+        --accent-glow: rgba(56, 189, 248, 0.07);
+        --mint: #38bdf8;
+        --gold: #f5c451;
         --coral: #fb7185;
-        --text: #eeeef0;
-        --text-secondary: #b0b0b8;
-        --muted: #64647a;
+        --text: #f8fafc;
+        --text-secondary: #b4c2d1;
+        --muted: #718096;
         --live: #22c55e;
-        --purple: #a855f7;
+        --purple: #8b9cff;
         --amber: #f59e0b;
       }
 
@@ -424,8 +424,8 @@
         position: fixed;
         inset: 0;
         background:
-          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,0.07) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 40% at 85% 20%, rgba(168,85,247,0.04) 0%, transparent 50%);
+          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(56,189,248,0.08) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 40% at 86% 18%, rgba(245,196,81,0.045) 0%, transparent 52%);
         pointer-events: none;
         z-index: 0;
       }
@@ -444,7 +444,7 @@
         position: sticky;
         top: 0;
         z-index: 100;
-        background: rgba(6, 6, 8, 0.72);
+        background: rgba(5, 7, 10, 0.74);
         backdrop-filter: blur(16px) saturate(1.6);
         -webkit-backdrop-filter: blur(16px) saturate(1.6);
         border-bottom: 1px solid rgba(28, 28, 36, 0.6);
@@ -488,11 +488,11 @@
       /* ── Hero ───────────────────────────────────────────────────────────── */
       .hero {
         order: 1;
-        padding: 76px 0 56px;
+        padding: 72px 0 48px;
         display: grid;
-        grid-template-columns: minmax(0, 0.86fr) minmax(460px, 1.14fr);
+        grid-template-columns: minmax(0, 0.78fr) minmax(520px, 1.22fr);
         align-items: center;
-        gap: 44px;
+        gap: 52px;
       }
       .hero-inner { flex: 1; min-width: 0; }
 
@@ -502,13 +502,15 @@
         gap: 8px;
         font-size: 12px;
         font-weight: 600;
-        letter-spacing: 0.14em;
+        letter-spacing: 0.10em;
         text-transform: uppercase;
         color: var(--mint);
         margin-bottom: 20px;
-        padding: 6px 14px;
-        background: rgba(110, 231, 183, 0.08);
-        border: 1px solid rgba(110, 231, 183, 0.18);
+        padding: 6px 12px;
+        max-width: 100%;
+        line-height: 1.25;
+        background: rgba(56, 189, 248, 0.08);
+        border: 1px solid rgba(56, 189, 248, 0.20);
         border-radius: 99px;
       }
       .hero-label::before {
@@ -528,7 +530,7 @@
       }
       .hero-title span {
         display: block;
-        color: var(--gold);
+        color: var(--accent);
       }
       .hero-subtitle {
         font-size: clamp(24px, 3.4vw, 42px);
@@ -561,11 +563,11 @@
       .btn:hover { transform: translateY(-1px); }
       .btn-primary {
         background: var(--accent);
-        color: #fff;
-        box-shadow: 0 4px 16px rgba(59,130,246,0.25);
+        color: #041016;
+        box-shadow: 0 4px 16px rgba(56,189,248,0.22);
       }
       .btn-primary:hover {
-        box-shadow: 0 6px 24px rgba(59,130,246,0.35);
+        box-shadow: 0 6px 24px rgba(56,189,248,0.30);
       }
       .btn-ghost {
         background: rgba(255,255,255,0.04);
@@ -581,7 +583,7 @@
       /* ── Personal hero visual ─────────────────────────────────────────── */
       .portrait-stage {
         position: relative;
-        min-height: 600px;
+        min-height: 560px;
         display: grid;
         place-items: center;
         isolation: isolate;
@@ -594,87 +596,86 @@
         aspect-ratio: 1;
         border-radius: 50%;
         background:
-          radial-gradient(circle at 32% 18%, rgba(110, 231, 183, 0.20), transparent 30%),
-          radial-gradient(circle at 72% 34%, rgba(59, 130, 246, 0.22), transparent 36%),
-          radial-gradient(circle at 58% 72%, rgba(233, 212, 138, 0.15), transparent 34%);
+          radial-gradient(circle at 32% 18%, rgba(56, 189, 248, 0.22), transparent 30%),
+          radial-gradient(circle at 74% 30%, rgba(245, 196, 81, 0.13), transparent 36%);
         filter: blur(10px);
         z-index: -1;
       }
       .product-orbit {
         position: relative;
-        width: min(640px, 100%);
-        height: 590px;
+        width: min(680px, 100%);
+        height: 548px;
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        grid-template-rows: 176px 176px 168px;
+        gap: 14px;
       }
       .product-orbit::before {
         content: "";
         position: absolute;
-        inset: 72px 68px;
-        border: 1px solid rgba(255,255,255,0.10);
-        border-radius: 40px;
-        transform: rotate(-8deg);
+        inset: -18px;
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 28px;
         background:
           linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
           linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
         background-size: 36px 36px;
-        mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+        mask-image: linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent);
+        z-index: -1;
       }
       .portrait-frame {
         position: relative;
-        width: min(300px, 58vw);
-        aspect-ratio: 3 / 4;
-        border-radius: 26px;
+        width: 104px;
+        aspect-ratio: 1;
+        border-radius: 50%;
         border: 1px solid rgba(255,255,255,0.12);
         background:
           linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)),
-          radial-gradient(circle at 50% 18%, rgba(110,231,183,0.20), transparent 34%),
+          radial-gradient(circle at 50% 18%, rgba(56,189,248,0.20), transparent 34%),
           linear-gradient(145deg, #101820, #08090d 70%);
-        box-shadow: 0 34px 90px rgba(0,0,0,0.45);
+        box-shadow: 0 18px 42px rgba(0,0,0,0.38);
         overflow: visible;
       }
       .identity-card {
         position: absolute;
-        left: 50%;
-        top: 48%;
-        transform: translate(-50%, -50%);
-        z-index: 5;
+        right: 18px;
+        top: 18px;
+        z-index: 8;
       }
       .portrait-frame::after {
-        content: "";
-        position: absolute;
-        inset: auto 28px 26px;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(233,212,138,0.6), transparent);
+        display: none;
       }
       .portrait-cutout {
         position: absolute;
-        inset: -32px 0 0;
+        inset: 0;
         width: 100%;
-        height: calc(100% + 32px);
+        height: 100%;
         object-fit: cover;
-        object-position: center bottom;
-        border-radius: 26px;
-        filter: drop-shadow(0 22px 36px rgba(0,0,0,0.42));
+        object-position: center 28%;
+        border-radius: 50%;
+        filter: drop-shadow(0 12px 24px rgba(0,0,0,0.34));
       }
       .portrait-fallback {
         position: absolute;
-        inset: 24px;
+        inset: 8px;
         display: grid;
         place-items: center;
-        border-radius: 24px;
+        border-radius: 50%;
         border: 1px solid rgba(255,255,255,0.08);
         background:
-          linear-gradient(160deg, rgba(110,231,183,0.12), transparent 44%),
+          linear-gradient(160deg, rgba(56,189,248,0.12), transparent 44%),
           repeating-linear-gradient(135deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 12px);
         color: rgba(238,238,240,0.9);
         text-align: center;
       }
       .portrait-monogram {
-        font-size: 86px;
+        font-size: 34px;
         line-height: 1;
         font-weight: 850;
         letter-spacing: 0;
       }
       .portrait-caption {
+        display: none;
         margin-top: 14px;
         color: var(--text-secondary);
         font-size: 12px;
@@ -682,36 +683,51 @@
         text-transform: uppercase;
       }
       .orbit-card {
-        position: absolute;
+        position: relative;
         display: block;
-        width: 250px;
+        width: auto;
+        height: 100%;
         overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.13);
-        border-radius: 18px;
-        background: rgba(13, 17, 24, 0.82);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 16px;
+        background: rgba(13, 17, 24, 0.84);
         color: inherit;
         text-decoration: none;
         box-shadow: 0 24px 70px rgba(0,0,0,0.38);
         backdrop-filter: blur(16px);
-        animation: cardFloat 7s ease-in-out infinite;
+        animation: none;
         transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
         z-index: 2;
+      }
+      .orbit-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(5,7,10,0.02), rgba(5,7,10,0.70)),
+          radial-gradient(circle at 20% 10%, rgba(56,189,248,0.12), transparent 36%);
+        pointer-events: none;
       }
       .orbit-card img {
         display: block;
         width: 100%;
-        height: 132px;
+        height: 100%;
         object-fit: cover;
-        border-bottom: 1px solid rgba(255,255,255,0.09);
-        filter: saturate(1.08) contrast(1.05);
+        border-bottom: 0;
+        filter: saturate(1.06) contrast(1.04);
       }
       .orbit-card span,
       .orbit-card strong {
+        position: absolute;
+        z-index: 1;
+        left: 14px;
+        right: 14px;
         display: block;
         padding: 0 13px;
       }
       .orbit-card span {
-        padding-top: 11px;
+        bottom: 36px;
+        padding: 0;
         color: var(--mint);
         font-size: 10px;
         font-weight: 800;
@@ -719,32 +735,33 @@
         text-transform: uppercase;
       }
       .orbit-card strong {
-        padding-bottom: 12px;
+        bottom: 13px;
+        padding: 0;
         color: var(--text);
         font-size: 14px;
         letter-spacing: 0;
       }
-      .orbit-job { top: 4px; left: 20px; transform: rotate(-5deg); }
-      .orbit-trader { top: 42px; right: 8px; transform: rotate(4deg); animation-delay: -1.7s; }
-      .orbit-seasons { left: 6px; bottom: 48px; transform: rotate(4deg); animation-delay: -3.2s; }
-      .orbit-amex { right: 34px; bottom: 2px; transform: rotate(-5deg); animation-delay: -4.6s; }
+      .orbit-job { grid-column: 1 / 4; grid-row: 1 / 3; }
+      .orbit-trader { grid-column: 4 / 7; grid-row: 1; }
+      .orbit-seasons { grid-column: 4 / 7; grid-row: 2; }
+      .orbit-amex { grid-column: 1 / 7; grid-row: 3; }
       .orbit-card:hover {
-        transform: translateY(-8px) rotate(0deg) scale(1.03);
+        transform: translateY(-6px) scale(1.015);
         animation-play-state: paused;
-        border-color: rgba(110,231,183,0.36);
-        box-shadow: 0 30px 90px rgba(59,130,246,0.18);
+        border-color: rgba(56,189,248,0.34);
+        box-shadow: 0 30px 90px rgba(56,189,248,0.15);
         z-index: 8;
       }
       .orbit-chip {
         position: absolute;
-        left: 50%;
-        bottom: 138px;
+        left: 18px;
+        top: 18px;
         z-index: 7;
-        transform: translateX(-50%);
+        transform: none;
         padding: 9px 14px;
         border-radius: 999px;
-        border: 1px solid rgba(233,212,138,0.26);
-        background: rgba(8, 10, 14, 0.82);
+        border: 1px solid rgba(56,189,248,0.22);
+        background: rgba(5, 7, 10, 0.78);
         color: var(--gold);
         font-size: 12px;
         font-weight: 800;
@@ -936,13 +953,13 @@
         inset: 0;
         background:
           linear-gradient(180deg, rgba(5,6,9,0.14), rgba(5,6,9,0.88)),
-          radial-gradient(circle at 20% 20%, rgba(110,231,183,0.24), transparent 34%);
+          radial-gradient(circle at 20% 20%, rgba(56,189,248,0.22), transparent 34%);
         z-index: -1;
       }
       .launch-card:hover {
         transform: translateY(-5px);
-        border-color: rgba(110,231,183,0.36);
-        box-shadow: 0 30px 90px rgba(59,130,246,0.16);
+        border-color: rgba(56,189,248,0.34);
+        box-shadow: 0 30px 90px rgba(56,189,248,0.14);
       }
       .launch-card:hover img {
         transform: scale(1.05);
@@ -972,7 +989,7 @@
       /* ── About ────────────────────────────────────────────────────────── */
       .about-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.7fr);
         gap: 40px;
         margin-top: 8px;
       }
@@ -988,6 +1005,35 @@
         font-weight: 500;
       }
       .about-sidebar { display: flex; flex-direction: column; gap: 28px; }
+      .about-sidebar.compact-proof {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-content: start;
+      }
+      .proof-tile {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)),
+          var(--surface);
+        padding: 18px;
+      }
+      .proof-tile strong {
+        display: block;
+        color: var(--text);
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: 0;
+      }
+      .proof-tile span {
+        display: block;
+        margin-top: 7px;
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
       .about-block-title {
         font-size: 11px;
         font-weight: 600;
@@ -1051,19 +1097,22 @@
         padding: 6px 14px;
         border-radius: 8px;
         background: var(--accent-dim);
-        border: 1px solid rgba(59,130,246,0.12);
+        border: 1px solid rgba(56,189,248,0.14);
         transition: background 0.2s, border-color 0.2s;
       }
       .about-link:hover {
-        background: rgba(59,130,246,0.15);
-        border-color: rgba(59,130,246,0.25);
+        background: rgba(56,189,248,0.15);
+        border-color: rgba(56,189,248,0.25);
       }
       @media (max-width: 768px) {
         .about-grid { grid-template-columns: 1fr; gap: 32px; }
       }
 
       /* ── Section ────────────────────────────────────────────────────────── */
-      .section { padding: 48px 0; }
+      .section {
+        padding: 48px 0;
+        scroll-margin-top: 76px;
+      }
       #projects { order: 4; }
       #about { order: 5; }
       #blog { order: 6; }
@@ -1121,7 +1170,7 @@
         position: absolute;
         inset: 0;
         pointer-events: none;
-        background: radial-gradient(circle at 20% 0%, rgba(59,130,246,0.14), transparent 32%);
+        background: radial-gradient(circle at 20% 0%, rgba(56,189,248,0.14), transparent 32%);
         opacity: 0;
         transition: opacity 0.24s;
       }
@@ -1160,8 +1209,8 @@
         border-radius: 14px 14px 8px 8px;
         border-bottom: 1px solid var(--border);
         background:
-          radial-gradient(circle at 18% 20%, rgba(110,231,183,0.18), transparent 24%),
-          radial-gradient(circle at 78% 25%, rgba(59,130,246,0.18), transparent 26%),
+          radial-gradient(circle at 18% 20%, rgba(56,189,248,0.18), transparent 24%),
+          radial-gradient(circle at 78% 25%, rgba(245,196,81,0.15), transparent 26%),
           linear-gradient(145deg, rgba(12,24,30,0.96), rgba(8,9,13,0.98));
         position: relative;
         overflow: hidden;
@@ -1217,8 +1266,8 @@
         border-radius: 50%;
         display: grid;
         place-items: center;
-        border: 1px solid rgba(110,231,183,0.35);
-        background: rgba(110,231,183,0.10);
+        border: 1px solid rgba(56,189,248,0.35);
+        background: rgba(56,189,248,0.10);
         color: var(--mint);
         font-weight: 850;
         font-size: 13px;
@@ -1227,8 +1276,8 @@
       .card:hover {
         transform: translateY(-4px);
         background: var(--surface-hover);
-        border-color: rgba(59, 130, 246, 0.3);
-        box-shadow: 0 12px 40px rgba(59, 130, 246, 0.08), 0 0 0 1px rgba(59,130,246,0.05);
+        border-color: rgba(56, 189, 248, 0.28);
+        box-shadow: 0 12px 40px rgba(56, 189, 248, 0.08), 0 0 0 1px rgba(56,189,248,0.05);
       }
       .card[aria-disabled="true"] { cursor: default; }
       .card[aria-disabled="true"]:hover {
@@ -1291,10 +1340,10 @@
         flex: 0 0 6px;
         border-radius: 50%;
         background: var(--accent);
-        box-shadow: 0 0 0 3px rgba(59,130,246,0.10);
+        box-shadow: 0 0 0 3px rgba(56,189,248,0.10);
       }
-      .flow-step:nth-child(2)::before { background: var(--mint); box-shadow: 0 0 0 3px rgba(110,231,183,0.10); }
-      .flow-step:nth-child(3)::before { background: var(--gold); box-shadow: 0 0 0 3px rgba(233,212,138,0.10); }
+      .flow-step:nth-child(2)::before { background: var(--mint); box-shadow: 0 0 0 3px rgba(56,189,248,0.10); }
+      .flow-step:nth-child(3)::before { background: var(--gold); box-shadow: 0 0 0 3px rgba(245,196,81,0.10); }
       .card-tags {
         display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px;
       }
@@ -1504,25 +1553,21 @@
           padding: 56px 0 40px;
         }
         .portrait-stage {
-          min-height: 560px;
+          min-height: auto;
         }
         .product-orbit {
-          height: 540px;
+          height: 520px;
+          grid-template-rows: 166px 166px 160px;
         }
         .portrait-frame {
-          width: min(250px, 62vw);
+          width: 86px;
         }
         .orbit-card {
-          width: 220px;
+          width: auto;
         }
         .orbit-card img {
-          height: 112px;
+          height: 100%;
         }
-        .orbit-job { top: 0; left: 0; }
-        .orbit-trader { top: 42px; right: 0; }
-        .orbit-seasons { left: 0; bottom: 50px; }
-        .orbit-amex { right: 0; bottom: 0; }
-        .orbit-chip { bottom: 128px; }
         .stats { flex-direction: column; border-radius: 14px; }
         .stat { border-radius: 0 !important; }
         .stat:first-child { border-radius: 14px 14px 0 0 !important; }
@@ -1558,34 +1603,47 @@
         }
         .nav-links {
           gap: 2px;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           justify-content: flex-end;
           max-width: calc(100vw - 72px);
+        }
+        .nav-links a[href="#blog"],
+        .nav-links a[href="#travel"] {
+          display: none;
         }
         .nav-links a { padding: 4px 7px; font-size: 12px; }
         .hero-actions { flex-direction: column; }
         .btn { justify-content: center; }
+        .hero-label { font-size: 10.5px; letter-spacing: 0.08em; }
         .hero-title { font-size: 48px; }
         .hero-subtitle { font-size: 26px; }
-        .portrait-stage { min-height: 520px; }
-        .product-orbit { height: 500px; }
-        .product-orbit::before { inset: 88px 36px; }
-        .portrait-frame { width: min(218px, 66vw); }
+        .portrait-stage { min-height: auto; }
+        .product-orbit {
+          height: auto;
+          grid-template-columns: 1fr;
+          grid-template-rows: repeat(4, 168px);
+        }
+        .product-orbit::before { inset: -12px; }
+        .portrait-frame { width: 72px; }
         .orbit-card {
-          width: 188px;
           border-radius: 15px;
         }
-        .orbit-card img { height: 92px; }
+        .orbit-card img { height: 100%; }
         .orbit-card span { font-size: 9px; padding-top: 8px; }
         .orbit-card strong { font-size: 12px; padding-bottom: 9px; }
-        .orbit-job { top: 0; left: -4px; }
-        .orbit-trader { top: 46px; right: -4px; }
-        .orbit-seasons { left: -4px; bottom: 44px; }
-        .orbit-amex { right: -4px; bottom: 0; }
+        .orbit-job,
+        .orbit-trader,
+        .orbit-seasons,
+        .orbit-amex {
+          grid-column: 1;
+          grid-row: auto;
+        }
         .orbit-chip {
-          bottom: 116px;
+          top: 12px;
+          left: 12px;
           font-size: 11px;
         }
+        .identity-card { top: 12px; right: 12px; }
         .skill-badge {
           font-size: 11px;
           padding: 7px 10px;
@@ -1623,7 +1681,7 @@
       <!-- Hero -->
       <section class="hero">
         <div class="hero-inner">
-          <div class="hero-label hero-reveal hero-reveal-1">Haoming Koo · Forward Deployed AI Engineer in Singapore</div>
+          <div class="hero-label hero-reveal hero-reveal-1">AI Engineer · Singapore</div>
           <h1 class="hero-title hero-reveal hero-reveal-2">
             Haoming <span>Koo</span>
           </h1>
@@ -1696,7 +1754,7 @@
         </div>
         <div class="stat">
           <div class="stat-value">3,000<span class="stat-accent">+</span></div>
-          <div class="stat-label">Users Aligned</div>
+          <div class="stat-label">Engineers Aligned</div>
         </div>
         <div class="stat">
           <div class="stat-value">4</div>
@@ -1715,7 +1773,7 @@
             <div>
               <span>Top project</span>
               <h2>Job Hunter SG</h2>
-              <p>RAG matching, ATS scoring, and fact-checked resume edits for Singapore roles.</p>
+              <p>Resume scoring, inline fixes, RAG matching, and guarded edits for Singapore roles.</p>
             </div>
           </a>
           <a class="launch-card" href="https://trader.kooexperience.com" target="_blank" rel="noopener">
@@ -1723,7 +1781,7 @@
             <div>
               <span>Signal workflow</span>
               <h2>Trader Koo</h2>
-              <p>Market scans, chart signals, source freshness, and review queues.</p>
+              <p>Chart overlays, signal checks, risk flags, and review queues for market research.</p>
             </div>
           </a>
           <a class="launch-card" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">
@@ -1769,62 +1827,27 @@
               </a>
             </p>
           </div>
-          <div class="about-sidebar reveal">
-            <div>
-              <div class="about-block-title">Key Metrics</div>
-              <div class="about-metrics">
-                <div class="about-metric">
-                  <div class="about-metric-value">$600M+</div>
-                  <div class="about-metric-label">Business Impact</div>
-                </div>
-                <div class="about-metric">
-                  <div class="about-metric-value">3,000+</div>
-                  <div class="about-metric-label">Engineers Aligned</div>
-                </div>
-                <div class="about-metric">
-                  <div class="about-metric-value">8</div>
-                  <div class="about-metric-label">Whitepapers</div>
-                </div>
-                <div class="about-metric">
-                  <div class="about-metric-value">4 Fabs</div>
-                  <div class="about-metric-label">Global Sites</div>
-                </div>
-              </div>
+          <div class="about-sidebar compact-proof reveal">
+            <div class="proof-tile">
+              <strong>7+ years</strong>
+              <span>systems in real operations</span>
             </div>
-            <div>
-              <div class="about-block-title">Education</div>
-              <ul class="about-list">
-                <li>MSc, Smart Industries &amp; Digital Transformation <span>&ndash; NUS (4.85/5.00)</span></li>
-                <li>BSc (Hons), Chemistry &amp; Nanoscience <span>&ndash; NUS (Distinction)</span></li>
-                <li>Full Stack Development with AI <span>&ndash; NUS x Emeritus</span></li>
-                <li>PMP <span>&ndash; Project Management Institute</span></li>
-              </ul>
+            <div class="proof-tile">
+              <strong>$600M+</strong>
+              <span>business impact at Micron</span>
             </div>
-            <div>
-              <div class="about-block-title">Awards</div>
-              <ul class="about-list">
-                <li>Micron Innovation Award <span>&ndash; ResNet-50 CV model</span></li>
-                <li>Micron Idea of the Quarter <span>&ndash; Digital twin, $7M+ savings</span></li>
-                <li>Micron Culture Champion <span>&ndash; Cross-site collaboration</span></li>
-              </ul>
+            <div class="proof-tile">
+              <strong>8 apps</strong>
+              <span>live public products</span>
             </div>
-            <div>
-              <div class="about-block-title">Connect</div>
-              <div class="about-links">
-                <a class="about-link" href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">Haoming Koo on LinkedIn</a>
-                <a class="about-link" href="https://github.com/haomingkoo" target="_blank" rel="noopener">Haoming Koo on GitHub</a>
-                <a class="about-link" href="mailto:haomingkoo@gmail.com">Email</a>
-                <a class="about-link" href="./about.html">About me</a>
-              </div>
+            <div class="proof-tile">
+              <strong>4 fabs</strong>
+              <span>cross-site delivery</span>
             </div>
-            <div>
-              <div class="about-block-title">Recruiter Search</div>
-              <ul class="about-list">
-                <li>Haoming Koo <span>&ndash; AI Engineer Singapore</span></li>
-                <li>Haoming Koo <span>&ndash; Forward Deployed AI Engineer</span></li>
-                <li>Haoming Koo <span>&ndash; Production LLM Systems</span></li>
-                <li>Haoming Koo <span>&ndash; LangGraph, RAG, Evals</span></li>
-              </ul>
+            <div class="about-links">
+              <a class="about-link" href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="about-link" href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+              <a class="about-link" href="mailto:haomingkoo@gmail.com">Email</a>
             </div>
           </div>
         </div>
@@ -1845,13 +1868,13 @@
             </div>
             <p class="card-name">Job Hunter SG</p>
             <p class="card-desc">
-              Job search product for Singapore.
-              It combines scraping, RAG matching, ATS scoring, role-fit keyword checks, and validation gates.
+              Job search and resume editor for Singapore.
+              It shows score, inline fixes, honest keywords, and guarded AI edits.
             </p>
             <div class="card-flow" aria-label="How it works">
               <span class="flow-step">Aggregate Singapore roles</span>
-              <span class="flow-step">Find honest resume keywords</span>
-              <span class="flow-step">Reject inflated claims before export</span>
+              <span class="flow-step">Score resume strength and gaps</span>
+              <span class="flow-step">Keep claims factual before export</span>
             </div>
             <div class="card-tags">
               <span class="card-tag">SEA-LION</span>
@@ -1874,13 +1897,13 @@
             </div>
             <p class="card-name">Trader Koo</p>
             <p class="card-desc">
-              Market workflow for the S&amp;P 500.
-              It turns noisy signals into a review queue.
+              Market research workflow for the S&amp;P 500.
+              It overlays patterns, support levels, and risk flags.
               Nothing is treated as financial advice.
             </p>
             <div class="card-flow" aria-label="How it works">
               <span class="flow-step">Refresh market and macro data</span>
-              <span class="flow-step">Detect patterns and technical signals</span>
+              <span class="flow-step">Detect chart patterns and signals</span>
               <span class="flow-step">Rank ideas for human review</span>
             </div>
             <div class="card-tags">
@@ -1932,14 +1955,13 @@
             <p class="card-name">Amex Explorer</p>
             <p class="card-desc">
               Source-backed benefit explorer.
-              It separates official facts from enrichment.
-              Review alerts catch stale source data.
-              Table for Two alerts poll live slots.
+              It maps venues, hashes official sources, and flags stale data.
+              Table for Two checks cached slots.
             </p>
             <div class="card-flow" aria-label="How it works">
               <span class="flow-step">Hash official PDFs and pages</span>
               <span class="flow-step">Flag source changes for review</span>
-              <span class="flow-step">Map benefits and availability</span>
+              <span class="flow-step">Map benefits and set-menu slots</span>
             </div>
             <div class="card-tags">
               <span class="card-tag">TypeScript</span>
@@ -1969,8 +1991,7 @@
             <p class="card-desc">
               Planning workflow for complex operations.
               It turns fuzzy requests into reviewable steps.
-              It validates before action.
-              Next: score complex agent runs.
+              It validates context, tool calls, and human checkpoints.
             </p>
             <div class="card-flow" aria-label="How it works">
               <span class="flow-step">Write specs and acceptance checks</span>
