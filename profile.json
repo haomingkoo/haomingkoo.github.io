@@ -297,7 +297,7 @@
     {
       "name": "Job Hunter SG",
       "url": "https://job.kooexperience.com",
-      "description": "AI-powered job aggregator and resume tailoring for Singapore. Multi-source scraping, RAG semantic matching, ATS scoring, injectable keyword checks, and five validation gates.",
+      "description": "AI-powered job aggregator and resume tailoring for Singapore. Multi-source scraping, RAG semantic matching, ATS scoring, role-fit keyword checks, and five validation gates.",
       "tech": ["SEA-LION", "RAG", "ATS Scoring", "Validation Gates", "FastAPI", "React"]
     },
     {

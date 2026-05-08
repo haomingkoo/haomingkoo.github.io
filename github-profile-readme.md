@@ -54,7 +54,7 @@ Previously led global AI-enabled transformation at **Micron Technology** for 7+ 
 
 | Project | Description | Stack |
 |---------|-------------|-------|
-| [**Job Hunter SG**](https://job.kooexperience.com) | Singapore job aggregator with RAG matching, ATS scoring, injectable keywords, and guarded resume edits | SEA-LION, RAG, ATS Scoring, Validation Gates |
+| [**Job Hunter SG**](https://job.kooexperience.com) | Singapore job search product with RAG matching, ATS scoring, role-fit keyword checks, and fact-checked resume edits | SEA-LION, RAG, ATS Scoring, Validation Gates |
 | [**Trader Koo**](https://trader.kooexperience.com) | Market review workflow with signals, paper-trade records, reports, and source freshness | FastAPI, React, YOLOv8, LightGBM |
 | [**Japan in Seasons**](https://seasons.kooexperience.com) | Japan travel intelligence with 12 MCP tools, 1,700+ places, and seasonal signals | TypeScript, Leaflet, MCP, Smithery 100/100 |
 | [**Amex Explorer**](https://amex-explorer.kooexperience.com) | Source-backed benefit explorer with maps, official data tracking, and stale-source alerts | TypeScript, Leaflet, Playwright, GitHub Actions |

@@ -69,7 +69,7 @@ def app_stack(app: dict[str, Any]) -> str:
 
 def app_description(app: dict[str, Any]) -> str:
     overrides = {
-        "Job Hunter SG": "Singapore job aggregator with RAG matching, ATS scoring, injectable keywords, and guarded resume edits",
+        "Job Hunter SG": "Singapore job search product with RAG matching, ATS scoring, role-fit keyword checks, and fact-checked resume edits",
         "Trader Koo": "Market review workflow with signals, paper-trade records, reports, and source freshness",
         "Japan in Seasons": "Japan travel intelligence with 12 MCP tools, 1,700+ places, and seasonal signals",
         "Amex Explorer": "Source-backed benefit explorer with maps, official data tracking, and stale-source alerts",

@@ -124,7 +124,7 @@
       "@type": "ItemList",
       "name": "Portfolio Projects by Haoming Koo",
       "description": "Public AI products and reusable AI system architecture patterns by Haoming Koo.",
-      "numberOfItems": 10,
+      "numberOfItems": 9,
       "itemListElement": [
             {
                   "@type": "ListItem",
@@ -227,19 +227,6 @@
                   "@type": "ListItem",
                   "position": 6,
                   "item": {
-                        "@type": "CreativeWork",
-                        "name": "ATS Resume Engine",
-                        "description": "Resume scoring and tailoring system inside Job Hunter SG, using impact scoring, RAG semantic matching, injectable keyword checks, fact preservation, length sanity checks, and hallucination detection.",
-                        "author": {
-                              "@id": "https://kooexperience.com/#person"
-                        },
-                        "keywords": "ATS scoring, resume tailoring, RAG semantic matching, injectable keywords, validation gates, hallucination detection, fact preservation"
-                  }
-            },
-            {
-                  "@type": "ListItem",
-                  "position": 7,
-                  "item": {
                         "@type": "SoftwareApplication",
                         "name": "LionWeather",
                         "description": "Singapore weather intelligence app with NEA real-time data, LightGBM rainfall forecasting, SHAP analysis, and animated radar.",
@@ -259,7 +246,7 @@
             },
             {
                   "@type": "ListItem",
-                  "position": 8,
+                  "position": 7,
                   "item": {
                         "@type": "SoftwareApplication",
                         "name": "Photo Compliance Studio",
@@ -280,7 +267,7 @@
             },
             {
                   "@type": "ListItem",
-                  "position": 9,
+                  "position": 8,
                   "item": {
                         "@type": "SoftwareApplication",
                         "name": "Preflight",
@@ -301,7 +288,7 @@
             },
             {
                   "@type": "ListItem",
-                  "position": 10,
+                  "position": 9,
                   "item": {
                         "@type": "SoftwareApplication",
                         "name": "MinMax Wine",
@@ -1425,14 +1412,12 @@
       </div>
 
       <section class="search-signal reveal" aria-label="Recruiter search summary">
-        <div class="search-signal-title">Recruiter Search Summary</div>
+        <div class="search-signal-title">Search Signal</div>
         <p>
-          <strong>Haoming Koo</strong> is a Singapore-based <strong>Forward Deployed AI Engineer</strong>.
-          He builds <strong>production LLM systems</strong>, <strong>RAG workflows</strong>,
-          <strong>agent orchestration</strong>, <strong>evals</strong>, <strong>LLM observability</strong>,
-          and <strong>full-stack AI products</strong>.
-          Find Haoming Koo on <a href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>,
-          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>, and kooexperience.com.
+          <strong>Haoming Koo</strong> builds production LLM systems, RAG workflows,
+          agent orchestration, evals, observability, and full-stack AI products in Singapore.
+          Find him on <a href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
+          and <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>.
         </p>
       </section>
 
@@ -1455,7 +1440,7 @@
               At <span class="about-highlight">AI Singapore</span>, I build ML systems end to end.
               That includes vision, sequence modelling, RAG, and MLOps.
               I also built <a href="https://job.kooexperience.com" style="color:var(--accent)">Job Hunter SG</a>.
-              It uses RAG matching and guarded resume guidance.
+              It uses RAG matching and fact-checked resume guidance.
             </p>
             <p>
               I like messy, useful problems.
@@ -1542,17 +1527,18 @@
             <p class="card-name">Job Hunter SG</p>
             <p class="card-desc">
               Job search product for Singapore.
-              It combines scraping, RAG matching, ATS scoring, and validation gates.
+              It combines scraping, RAG matching, ATS scoring, role-fit keyword checks, and validation gates.
             </p>
             <div class="card-flow" aria-label="How it works">
               <span class="flow-step">Aggregate Singapore roles</span>
-              <span class="flow-step">Classify injectable keywords</span>
-              <span class="flow-step">Validate facts before export</span>
+              <span class="flow-step">Find honest resume keywords</span>
+              <span class="flow-step">Reject inflated claims before export</span>
             </div>
             <div class="card-tags">
               <span class="card-tag">SEA-LION</span>
               <span class="card-tag">RAG</span>
               <span class="card-tag">ATS</span>
+              <span class="card-tag">Validation</span>
               <span class="card-tag">FastAPI</span>
               <span class="card-tag">React</span>
             </div>
@@ -1678,29 +1664,6 @@
               <span class="card-tag">Phoenix</span>
               <span class="card-tag">RAG</span>
               <span class="card-tag">Evals</span>
-            </div>
-          </article>
-          <article class="card reveal reveal-delay-1">
-            <div class="card-top">
-              <span class="card-icon">📄</span>
-              <span class="badge badge-building">Resume System</span>
-            </div>
-            <p class="card-name">ATS Resume Engine</p>
-            <p class="card-desc">
-              The resume logic inside Job Hunter.
-              It rewrites carefully, not aggressively.
-              The gates keep claims honest.
-            </p>
-            <div class="card-flow" aria-label="How it works">
-              <span class="flow-step">Score impact, presentation, and skills</span>
-              <span class="flow-step">Separate usable keywords from gaps</span>
-              <span class="flow-step">Reject inflated facts and weak phrases</span>
-            </div>
-            <div class="card-tags">
-              <span class="card-tag">ATS</span>
-              <span class="card-tag">RAG</span>
-              <span class="card-tag">Validation</span>
-              <span class="card-tag">Resume UX</span>
             </div>
           </article>
           <a class="card reveal reveal-delay-5" href="https://lionweather.kooexperience.com/" target="_blank" rel="noopener">
@@ -1829,7 +1792,7 @@
               <span>Apr 12, 2026</span>
             </div>
             <p class="post-title">I Went from 64 to 100/100 on Smithery. Here's Every Fix.</p>
-            <p class="post-excerpt">A full walkthrough of every quality dimension that separates a working MCP server from a well-built one — tool descriptions, dot notation naming, annotations, caching, smithery.yaml, and the skill that automates all of it.</p>
+            <p class="post-excerpt">MCP quality fixes: tool names, annotations, caching, Smithery config, and a reusable create-mcp skill.</p>
             <span class="post-read">Read &rsaquo;</span>
           </a>
           <a class="post-card reveal visible" href="./blog/posts/pdf-parsing-comparison.html">
@@ -1838,7 +1801,7 @@
               <span>Apr 10, 2026</span>
             </div>
             <p class="post-title">PDF Parsing for Complaint Forms — Docling vs PyMuPDF vs PaddleOCR</p>
-            <p class="post-excerpt">A head-to-head ablation of 7 open-source PDF parsers on customer complaint forms — scanned, handwritten, AcroForm, and degraded fax. How each parser internally detects words, where they break, and which to pick for production.</p>
+            <p class="post-excerpt">Seven PDF parsers tested on scanned, handwritten, AcroForm, and degraded complaint forms.</p>
             <span class="post-read">Read &rsaquo;</span>
           </a>
           <a class="post-card reveal visible" href="./blog/posts/minmax-wine.html">
@@ -1847,7 +1810,7 @@
               <span>Mar 27, 2026</span>
             </div>
             <p class="post-title">I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me</p>
-            <p class="post-excerpt">How I built a wine price comparison tool for Singapore. Amex Platinum gives you S$200 back on wine, but are the base prices actually competitive? I answered that with Selenium scraping, bundle-aware comparisons, Brave-assisted Vivino resolution, and a guarded daily refresh pipeline.</p>
+            <p class="post-excerpt">Wine price comparison for Singapore, with scraping, Vivino matching, and guarded daily refreshes.</p>
             <span class="post-read">Read &rsaquo;</span>
           </a>
           <!-- GENERATED:home-blog END -->
@@ -1868,7 +1831,7 @@
               <span>Apr 19, 2025</span>
             </div>
             <p class="post-title">9 Days in the Netherlands — Tulips, Windmills &amp; Dutch Masters</p>
-            <p class="post-excerpt">Amsterdam → Sassenheim → Haarlem → Keukenhof → The Hague → Delft → Rotterdam → Kinderdijk. Flower parades, tulip fields by bike, Delft tile painting, and the best Indonesian food outside Asia.</p>
+            <p class="post-excerpt">Tulips, windmills, Dutch masters, Delft tiles, and Indonesian food across the Netherlands.</p>
             <span class="post-read">Read &rsaquo;</span>
           </a>
           <a class="post-card reveal visible" href="./travel/posts/japan.html">
@@ -1877,7 +1840,7 @@
               <span>Feb 18, 2025</span>
             </div>
             <p class="post-title">10 Days in Japan — Snow Festivals, Early Sakura &amp; Mount Fuji</p>
-            <p class="post-excerpt">Sapporo → Asahikawa → Otaru → Odawara → Izu → Tokyo. Snow festivals and penguin parades in Hokkaido, then early-blooming sakura and coastal drives through the Izu Peninsula.</p>
+            <p class="post-excerpt">Hokkaido snow festivals, early sakura, Mount Fuji views, and Izu coastal drives.</p>
             <span class="post-read">Read &rsaquo;</span>
           </a>
           <a class="post-card reveal visible" href="./travel/posts/italy.html">
@@ -1886,7 +1849,7 @@
               <span>Jan 5, 2025</span>
             </div>
             <p class="post-title">13 Days Across Italy — A Winter Family Trip</p>
-            <p class="post-excerpt">Milan → Florence → Pisa → Rome → Venice. Christmas in Milan, NYE at the Colosseum, a gondola through Venice — a comfortable family winter trip with full cost breakdown.</p>
+            <p class="post-excerpt">Milan, Florence, Pisa, Rome, and Venice with a full winter family trip breakdown.</p>
             <span class="post-read">Read &rsaquo;</span>
           </a>
           <!-- GENERATED:home-travel END -->

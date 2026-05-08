@@ -23,7 +23,7 @@ Applied AI engineering, forward deployed engineering, AI deployment engineering,
 
 ## Selected Live Products
 
-- [Job Hunter SG](https://job.kooexperience.com): Singapore job search and resume workflow with RAG semantic matching, ATS scoring, injectable keyword checks, and validation gates.
+- [Job Hunter SG](https://job.kooexperience.com): Singapore job search and resume workflow with RAG semantic matching, ATS scoring, role-fit keyword checks, and validation gates.
 - [Trader Koo](https://trader.kooexperience.com): evidence-first market research workflow with source freshness, ranked setups, paper-trade audit trails, and alerts.
 - [Japan in Seasons](https://seasons.kooexperience.com): live Japan seasonal travel map and 100/100 Smithery-scored MCP server with 12 tools and 1,700+ places.
 - [LionWeather](https://lionweather.kooexperience.com): Singapore weather intelligence with LightGBM rainfall forecasting and SHAP analysis.

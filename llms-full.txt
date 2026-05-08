@@ -53,7 +53,7 @@ Haoming is open to:
 ## Live Products
 
 1. Job Hunter SG - https://job.kooexperience.com
-   Singapore job search and resume workflow with multi-source scraping, RAG semantic matching, ATS scoring, injectable keyword checks, fact preservation, hallucination detection, and five validation gates.
+   Singapore job search and resume workflow with multi-source scraping, RAG semantic matching, ATS scoring, role-fit keyword checks, fact preservation, hallucination detection, and five validation gates.
 
 2. Trader Koo - https://trader.kooexperience.com
    Evidence-first market research workflow with source freshness, ranked setups, chart-pattern detection, paper-trade audit trails, Telegram alerts, model versioning, and clear research/execution boundaries.

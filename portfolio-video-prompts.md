@@ -10,6 +10,23 @@ Mood: calm, precise, cinematic, warm, curious.
 
 Avoid: superhero poses, luxury offices, fake robots, company logos, sensitive factory details, dramatic cyberpunk overload, exaggerated self-praise.
 
+Style language to use:
+
+- warm hand-painted animated-film atmosphere
+- soft watercolor light
+- premium Apple product-page motion
+- precise interface details
+- Singapore-born builder energy
+- calm technical worldbuilding
+
+Style language to avoid:
+
+- direct named-studio references
+- anime cosplay
+- fantasy office scenes
+- fake robot assistants
+- unreadable cyberpunk dashboards
+
 Use two ingredient images first:
 
 1. `Character image`: a consistent illustrated version of Haoming.
@@ -36,6 +53,12 @@ No sci-fi armor.
 Style: premium product-launch illustration, Apple keynote still, Studio Ghibli warmth, clean modern web hero.
 Aspect ratio 4:5.
 High detail.
+```
+
+If a generator blocks named-studio wording, use this safer style line instead:
+
+```text
+Style: warm hand-painted animated-film portrait, soft watercolor lighting, premium product-launch still, clean modern web hero.
 ```
 
 ## Nano Banana / Gemini Image Prompt 2: World
@@ -74,6 +97,51 @@ Mood: precise, warm, quietly confident.
 Style: Apple product page motion, premium editorial, clean depth of field.
 Output 16:9, high fidelity, loopable ending.
 ```
+
+## Required Video Inventory
+
+Generate these in order.
+
+Do not generate everything at once. The first three assets decide the visual language.
+
+### A. Ingredient Images
+
+| Asset | Use | Ratio | Priority |
+| --- | --- | --- | --- |
+| `character-haoming.png` | Consistent illustrated identity | 4:5 | Must have |
+| `world-lab-fab-ai.png` | Visual world and color system | 16:9 | Must have |
+| `project-constellation.png` | Poster for project section | 16:9 | Nice to have |
+
+### B. Core Site Videos
+
+| File | Length | Ratio | Where it goes | Why |
+| --- | ---: | --- | --- | --- |
+| `hero-loop.mp4` | 8s | 16:9 | Hire page hero | First emotional hook |
+| `operating-loop.mp4` | 8s | 16:9 | Operating Loop section | Shows your method |
+| `project-constellation.mp4` | 8s | 16:9 | Selected Work intro | Makes projects feel alive |
+| `private-work-safe.mp4` | 8s | 16:9 | Private work section | Shows agent planning safely |
+
+### C. Project Card Videos
+
+These are the most important for making the page feel interactive.
+
+| File | Length | Ratio | Source | Motion |
+| --- | ---: | --- | --- | --- |
+| `job-hunter-card.mp4` | 5s | 16:9 | Real app capture preferred | Search to match to resume signal |
+| `trader-koo-card.mp4` | 5s | 16:9 | Real app capture preferred | Dashboard review, source freshness, chart signal |
+| `japan-seasons-card.mp4` | 5s | 16:9 | Real app capture preferred | Map pan, seasonal layer, MCP tool hint |
+| `amex-explorer-card.mp4` | 5s | 16:9 | Real app capture preferred | Map/filter/source-review signal |
+| `photo-compliance-card.mp4` | 5s | 16:9 | Real app capture preferred | Face landmark/rule checks, no real ID data |
+
+### D. Optional Background Loops
+
+Only generate these after the page works.
+
+| File | Length | Use |
+| --- | ---: | --- |
+| `lab-to-ai-transition.mp4` | 8s | Story section |
+| `eval-trace-loop.mp4` | 6s | LLM observability proof |
+| `cta-system-loop.mp4` | 6s | Final CTA background |
 
 ## Veo / Google Flow Clip 2: Operating Loop
 
