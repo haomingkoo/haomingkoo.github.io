@@ -1,35 +1,43 @@
 {
   "name": "Haoming Koo",
-  "headline": "AI Engineer & Digital Transformation Leader | $600M+ Business Impact | Production ML Systems | Ex-Micron | MSc (NUS)",
+  "headline": "Forward Deployed AI Engineer | Production LLM Systems | LangGraph, RAG & Evals | $600M+ Business Impact | Ex-Micron | MSc (NUS)",
   "location": "Singapore",
   "email": "haomingkoo@gmail.com",
   "linkedin": "https://linkedin.com/in/haomingkoo",
   "github": "https://github.com/haomingkoo",
   "website": "https://kooexperience.com",
   "nationality": "Singapore Citizen",
+  "searchAliases": [
+    "Haoming Koo",
+    "Haoming Koo LinkedIn",
+    "Haoming Koo portfolio",
+    "Haoming Koo AI Engineer Singapore",
+    "Haoming Koo Forward Deployed AI Engineer",
+    "Haoming Koo Production LLM Systems"
+  ],
 
-  "summary": "AI engineer and transformation leader with 7+ years delivering AI-enabled programs across semiconductor manufacturing, cloud infrastructure, and data platforms. Led cross-site digital transformation at Micron across four fabs, aligning 3,000+ engineers on a unified data and analytics ecosystem. Driven more than USD 600M in business impact through yield optimisation, cycle-time reduction, risk analytics, and platform unification. Currently building and deploying production ML systems at AI Singapore across computer vision, sequence modelling, and NLP. Passionate about the intersection of AI engineering and operational transformation — turning technical depth into measurable business outcomes.",
+  "summary": "Forward deployed AI engineer in Singapore. 7+ years across semiconductor manufacturing, cloud, and data platforms. Led cross-site transformation at Micron across four fabs. Aligned 3,000+ engineers on shared data workflows. Delivered USD 600M+ impact through yield, risk, cycle-time, and platform work. Now building production ML systems at AI Singapore. Focus areas: RAG, agent workflows, evals, observability, vision, sequence modelling, deployment, and usable interfaces.",
 
   "topSkills": [
     "AI Engineering & MLOps",
     "Production ML Systems",
     "Digital & Cloud Transformation (GCP/AWS)",
-    "Computer Vision & Deep Learning",
-    "GenAI, RAG & LLM Applications",
+    "Vision Pipelines & Applied ML",
+    "GenAI, RAG, LangGraph, Evals & LLM Observability",
     "Global Program Leadership"
   ],
 
   "technicalSkills": {
     "languages": ["Python", "SQL", "JavaScript", "R", "MATLAB"],
-    "mlAndAI": ["PyTorch", "TensorFlow", "scikit-learn", "OpenCV", "YOLOv8", "LightGBM", "ResNet-50", "CNN", "LSTM", "Transfer Learning", "SHAP"],
-    "genAI": ["LLM Prompt Engineering", "RAG (Retrieval-Augmented Generation)", "GenAI Workflow Automation", "n8n", "MCP", "OpenAI APIs", "Hugging Face"],
-    "mlOps": ["Docker", "GitLab CI/CD", "Git", "MLflow", "Airflow", "Kedro", "PySpark", "Model Lifecycle Management"],
+    "mlAndAI": ["PyTorch", "TensorFlow", "scikit-learn", "OpenCV", "YOLOv8", "LightGBM", "ResNet-50", "Vision Pipelines", "Sequence Modelling", "Transfer Learning", "SHAP"],
+    "genAI": ["LLM Workflow Automation", "RAG (Retrieval-Augmented Generation)", "LangGraph", "Langfuse", "Arize Phoenix", "LLM Observability", "Evaluation Frameworks", "Agentic Workflow Orchestration", "Tool-Using Agents", "Human-in-the-Loop Workflows", "Prompt Engineering", "n8n", "MCP", "OpenAI APIs", "Hugging Face"],
+    "mlOps": ["Docker", "GitLab CI/CD", "Git", "MLflow", "Airflow", "Kedro", "PySpark", "Model Lifecycle Management", "Traceability", "Monitoring"],
     "cloud": ["Google Cloud Platform (GCP)", "AWS (S3, Lambda, SageMaker)", "Snowflake"],
     "fullStack": ["React", "FastAPI", "Flask", "Node.js", "HTML/CSS/JS", "REST APIs", "MongoDB", "PostgreSQL", "SQLite"],
     "dataAndViz": ["Tableau", "Power BI", "Plotly", "Jupyter", "Pandas", "NumPy"],
     "automation": ["UiPath", "Power Automate", "RPA"],
     "semiconductor": ["SPC", "MES", "EQMS", "Digital Twins", "SEMulator3D", "KLA CIRCL/Surfscan/Voyager", "JMP", "SAP"],
-    "methodologies": ["Agile/Scrum", "Lean Six Sigma", "ISO 9001", "Design Thinking", "Red-Team UAT Testing", "Secure-by-Design"]
+    "methodologies": ["Spec-Driven Development", "Agile/Scrum", "Lean Six Sigma", "ISO 9001", "Design Thinking", "Red-Team UAT Testing", "Secure-by-Design"]
   },
 
   "spokenLanguages": [
@@ -47,21 +55,21 @@
           "startDate": "2026-01",
           "endDate": null,
           "location": "Singapore",
-          "description": "Full-time AI engineering apprenticeship under AI Singapore's national AI programme. Building and deploying end-to-end ML systems across structured data, computer vision, and sequential modelling domains.",
+          "description": "Full-time AI engineering apprenticeship under AI Singapore's national AI programme. Building and deploying end-to-end ML systems across structured data, vision, and sequence modelling domains.",
           "bullets": [
             "Delivered production-ready pipelines using GitLab CI/CD, Docker, and Google Cloud — including backend inference services and frontend UIs",
-            "Built CNN architectures and transfer learning models for image classification and object detection",
-            "Developed LSTM-based sequence modelling systems for time-series prediction",
+            "Built vision models for image classification, object detection, and quality checks",
+            "Developed sequence modelling systems for time-series prediction",
             "Implemented containerised deployment, model lifecycle management, and MLOps automation",
             "Built 8 live portfolio applications integrating ML models with cloud-hosted dashboards (kooexperience.com)",
-            "Expanding into NLP, Large Language Model architectures, and agentic AI workflows"
+            "Expanding into NLP, LLM architectures, LangGraph-style orchestration, observability, and agentic AI workflows"
           ]
         }
       ]
     },
     {
       "company": "Micron Technology",
-      "totalDuration": "6 years 11 months",
+      "totalDuration": "7+ calendar years",
       "roles": [
         {
           "title": "Manager, Front End Central Process Integration Engineering",
@@ -77,11 +85,13 @@
             "Modernised infrastructure from Hadoop to Google Cloud Platform (GCP), improving model deployment speed, traceability, and cost efficiency",
             "Developed ML risk-scoring dashboards using anomaly detection for yield and reliability — preventing USD 100M+ potential losses",
             "Built and deployed GenAI SOP Assistant: prompt packs + retrieval on audited SOPs; 80-90% answer relevance, ~15 min/query deflection, ~2 weeks faster onboarding, scaled to ~3,000 users",
+            "Designed planning workflow patterns with specs, retrieval, tool orchestration, validation gates, traceability, human review, and auditable recommendations",
             "Scaled RPA (UiPath/Power Automate) for targeting-lot workflow — 100% adoption; mentored ~30 engineers",
             "Built reliability/observability infrastructure: pipeline health dashboards, canary/shadow runs, rollback runbooks — near-zero ML-pipeline outages",
             "Embedded ESG-linked metrics (GHG, water, energy, waste) and SPC analytics into dashboards for compliance and sustainability governance",
             "Drove SEMulator3D rollout: accelerated validation by 2 weeks, >$10M in time-to-market gains",
             "Conducted red-team UAT simulations, reducing post-deployment issues by 25%",
+            "Used spec-driven delivery for ambiguous automation work: write requirements, define acceptance checks, test edge cases, and make exceptions reviewable",
             "Chaired conversion SteerCo with monthly executive updates; managed USD 9M front-end travel/ops portfolio",
             "Mentored cross-regional team across US, Japan, Taiwan, Singapore — promoting Agile delivery, resilience, and stakeholder alignment"
           ]
@@ -287,20 +297,32 @@
     {
       "name": "Job Hunter SG",
       "url": "https://job.kooexperience.com",
-      "description": "AI-powered job aggregator and resume tailoring for Singapore. Multi-source scraping, ATS scoring, and smart matching with SEA-LION.",
-      "tech": ["SEA-LION", "FastAPI", "React", "Tailwind"]
+      "description": "AI-powered job aggregator and resume tailoring for Singapore. Multi-source scraping, RAG semantic matching, ATS scoring, injectable keyword checks, and five validation gates.",
+      "tech": ["SEA-LION", "RAG", "ATS Scoring", "Validation Gates", "FastAPI", "React"]
     },
     {
       "name": "Trader Koo",
       "url": "https://trader.kooexperience.com",
-      "description": "S&P 500 market dashboard with daily AI chart-pattern detection (YOLOv8), candle signals, and macro context",
-      "tech": ["FastAPI", "YOLOv8", "Plotly", "SQLite"]
+      "description": "Evidence-first market research workflow with source freshness, ranked setups, chart-pattern detection, paper-trade audit trails, Telegram alerts, and model versioning.",
+      "tech": ["FastAPI", "React", "YOLOv8", "LightGBM", "SHAP", "SQLite", "Telegram"]
     },
     {
       "name": "Japan in Seasons",
       "url": "https://seasons.kooexperience.com",
-      "description": "Live Japan seasonal travel — cherry blossom forecasts, autumn leaves, fruit picking and festivals. 1,700+ GPS-tagged spots from Japan Meteorological Corporation. MCP server and interactive map.",
-      "tech": ["TypeScript", "Leaflet", "MCP"]
+      "description": "Japan seasonal travel map and MCP server with 12 tools, 1,700+ GPS-tagged places, real forecast data, dot-notation tool design, and 100/100 Smithery score.",
+      "tech": ["TypeScript", "Leaflet", "MCP", "Smithery 100/100"]
+    },
+    {
+      "name": "Amex Explorer",
+      "url": "https://amex-explorer.kooexperience.com",
+      "description": "Source-backed Amex Platinum benefit explorer with official source hashes, cached metadata, map-first UX, source-change issues, Table for Two availability checks, and alert workflows.",
+      "tech": ["TypeScript", "Leaflet", "Playwright", "GitHub Actions", "Source Monitoring"]
+    },
+    {
+      "name": "Enterprise Planning Workflow",
+      "url": "https://kooexperience.com/#projects",
+      "description": "Public-safe architecture pattern for enterprise planning workflows: specs, RAG, stateful orchestration, validators, traces, human review, auditable handoff, and future agent-run scoring.",
+      "tech": ["LangGraph", "Langfuse", "Arize Phoenix", "RAG", "Evaluation Frameworks", "Human-in-the-Loop", "Spec-Driven Development"]
     },
     {
       "name": "LionWeather",
@@ -315,22 +337,16 @@
       "tech": ["MediaPipe", "OpenCV", "FastAPI"]
     },
     {
-      "name": "Amex Explorer",
-      "url": "https://amex-explorer.kooexperience.com",
-      "description": "Unofficial Amex Platinum dining guide covering Japan, global dining credits, Love Dining, and Plat Stay. Live scraped data with interactive maps and filters.",
-      "tech": ["TypeScript", "Leaflet", "Playwright"]
-    },
-    {
       "name": "Preflight",
       "url": "https://preflight.kooexperience.com",
-      "description": "Upload any CSV/Parquet — instant data health checks, EDA charts, correlation maps, and baseline ML with CV metrics",
-      "tech": ["Dash", "scikit-learn", "Plotly"]
+      "description": "Dataset triage workbench for CSV/Parquet files. Checks missingness, duplicates, feature types, EDA, correlations, baseline models, CV metrics, and secured deployment defaults.",
+      "tech": ["Dash", "scikit-learn", "Plotly", "Docker", "Railway"]
     },
     {
       "name": "MinMax Wine",
       "url": "https://wine.kooexperience.com",
-      "description": "Three-way wine price comparison for Singapore with bundle-aware pricing, Vivino context, and deal scoring",
-      "tech": ["Brave Search", "HTML scraping", "SQLAlchemy", "FastAPI"]
+      "description": "Wine deal intelligence pipeline with scraping, fuzzy matching, Brave/Vivino resolution, identity cache, quarantine checks, guarded review loop, and 0-100 deal scoring.",
+      "tech": ["Brave Search", "Selenium", "FastAPI", "SQLAlchemy", "PostgreSQL"]
     }
   ],
 

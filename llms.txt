@@ -1,10 +1,12 @@
 # Haoming Koo
 
-> AI engineer in Singapore building production ML systems, LLM workflows, computer vision tools, and full-stack AI products.
+> AI engineer in Singapore building production ML systems, LLM workflows, RAG, agent workflows, evals, vision pipelines, and full-stack AI products.
+
+Search aliases: Haoming Koo, Haoming Koo LinkedIn, Haoming Koo portfolio, Haoming Koo AI Engineer Singapore, Haoming Koo Forward Deployed AI Engineer.
 
 ## Primary Pages
 
-- [Hire / Work with Haoming](https://kooexperience.com/hire.html): story-driven page for recruiters, frontier AI teams, and client projects.
+- [Hire / Work with Haoming Koo](https://kooexperience.com/hire.html): story-driven page for recruiters, frontier AI teams, and client projects.
 - [Portfolio Home](https://kooexperience.com/): overview of experience, live projects, blog posts, and travel writing.
 - [About](https://kooexperience.com/about.html): full professional background, education, awards, and experience.
 - [Blog](https://kooexperience.com/blog/): technical posts about AI systems, LLM serving, OCR, ML, and product builds.
@@ -13,22 +15,26 @@
 
 Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He has 7+ years of experience at Micron Technology, where his work contributed to USD 600M+ in business impact across semiconductor manufacturing, cloud infrastructure, and data platforms. He currently builds production ML systems at AI Singapore's AIAP programme.
 
-He is open to AI engineering roles, applied AI/product engineering roles, forward deployed engineering roles, and focused client projects involving LLM workflows, RAG, computer vision, data products, automation, dashboards, and production ML.
+He is open to AI engineering roles, applied AI/product engineering roles, forward deployed engineering roles, and focused client projects involving LLM workflows, RAG, evals, LLM observability, vision pipelines, data products, automation, dashboards, and production ML.
+
+## Role Fit Keywords
+
+Applied AI engineering, forward deployed engineering, AI deployment engineering, production LLM systems, RAG, LangGraph, Langfuse, Arize Phoenix, evals, LLM observability, tool-using agents, agent workflows, MCP, spec-driven development, user discovery, API design, Python, TypeScript, FastAPI, React, Docker, GCP, AWS, CI/CD.
 
 ## Selected Live Products
 
-- [Job Hunter SG](https://job.kooexperience.com): AI-powered Singapore job aggregator and resume tailoring platform.
-- [Trader Koo](https://trader.kooexperience.com): S&P 500 market dashboard with AI chart-pattern detection and macro context.
-- [Japan in Seasons](https://seasons.kooexperience.com): live Japan seasonal travel map and MCP server.
+- [Job Hunter SG](https://job.kooexperience.com): Singapore job search and resume workflow with RAG semantic matching, ATS scoring, injectable keyword checks, and validation gates.
+- [Trader Koo](https://trader.kooexperience.com): evidence-first market research workflow with source freshness, ranked setups, paper-trade audit trails, and alerts.
+- [Japan in Seasons](https://seasons.kooexperience.com): live Japan seasonal travel map and 100/100 Smithery-scored MCP server with 12 tools and 1,700+ places.
 - [LionWeather](https://lionweather.kooexperience.com): Singapore weather intelligence with LightGBM rainfall forecasting and SHAP analysis.
 - [Photo Compliance Studio](https://studio.kooexperience.com): passport-style photo compliance checks with MediaPipe and OpenCV.
-- [Amex Explorer](https://amex-explorer.kooexperience.com): source-backed Amex Platinum benefit explorer with maps and review alerts.
+- [Amex Explorer](https://amex-explorer.kooexperience.com): source-backed Amex Platinum benefit explorer with maps, source hashes, review alerts, and Table for Two availability checks.
 - [Preflight](https://preflight.kooexperience.com): automated EDA and baseline ML for CSV/Parquet files.
 - [MinMax Wine](https://wine.kooexperience.com): Singapore wine price comparison and deal scoring.
 
 ## Contact
 
 - Email: haomingkoo@gmail.com
-- LinkedIn: https://linkedin.com/in/haomingkoo
-- GitHub: https://github.com/haomingkoo
+- Haoming Koo LinkedIn: https://linkedin.com/in/haomingkoo
+- Haoming Koo GitHub: https://github.com/haomingkoo
 - Full context: https://kooexperience.com/llms-full.txt

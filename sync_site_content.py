@@ -15,7 +15,6 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent
 SGT = timezone(timedelta(hours=8))
 STATIC_LASTMODS = {
-    "https://kooexperience.com/about.html": "2026-03-12",
     "https://wine.kooexperience.com": "2026-03-20",
     "https://kooexperience.com/wmss.html": "2026-03-14",
 }
@@ -179,7 +178,7 @@ def render_sitemap(blog_posts: list[dict[str, Any]], travel_posts: list[dict[str
         },
         {
             "loc": "https://kooexperience.com/about.html",
-            "lastmod": STATIC_LASTMODS["https://kooexperience.com/about.html"],
+            "lastmod": file_lastmod("about.html"),
             "changefreq": "monthly",
             "priority": "0.9",
         },
@@ -198,6 +197,24 @@ def render_sitemap(blog_posts: list[dict[str, Any]], travel_posts: list[dict[str
         {
             "loc": "https://kooexperience.com/travel/",
             "lastmod": file_lastmod("travel/index.html"),
+            "changefreq": "weekly",
+            "priority": "0.8",
+        },
+        {
+            "loc": "https://kooexperience.com/profile.json",
+            "lastmod": file_lastmod("profile.json"),
+            "changefreq": "weekly",
+            "priority": "0.8",
+        },
+        {
+            "loc": "https://kooexperience.com/llms.txt",
+            "lastmod": file_lastmod("llms.txt"),
+            "changefreq": "weekly",
+            "priority": "0.8",
+        },
+        {
+            "loc": "https://kooexperience.com/llms-full.txt",
+            "lastmod": file_lastmod("llms-full.txt"),
             "changefreq": "weekly",
             "priority": "0.8",
         },

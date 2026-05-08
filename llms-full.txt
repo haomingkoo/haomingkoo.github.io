@@ -4,13 +4,15 @@ This file gives AI search and assistant systems a concise, accurate summary of k
 
 ## Identity
 
-Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He builds production ML systems, LLM workflows, computer vision tools, automation pipelines, dashboards, and full-stack AI products.
+Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He builds production ML systems, LLM workflows, RAG, agent workflows, eval loops, vision pipelines, automation pipelines, dashboards, and full-stack AI products.
 
 Primary site: https://kooexperience.com
 Hiring page: https://kooexperience.com/hire.html
 Email: haomingkoo@gmail.com
 LinkedIn: https://linkedin.com/in/haomingkoo
 GitHub: https://github.com/haomingkoo
+
+Search aliases: Haoming Koo, Haoming Koo LinkedIn, Haoming Koo portfolio, Haoming Koo AI Engineer Singapore, Haoming Koo Forward Deployed AI Engineer, Haoming Koo Production LLM Systems.
 
 ## Career Summary
 
@@ -28,27 +30,36 @@ Haoming is open to:
 - ML engineering roles.
 - Forward deployed engineering roles.
 - AI product engineering roles.
-- Frontier AI product roles involving LLM systems, agents, evals, RAG, model behavior, and customer-facing engineering.
-- Focused client projects involving AI workflows, automation, dashboards, data products, computer vision, scraping, source monitoring, and ML prototypes.
+- Frontier AI product roles involving LLM systems, tool-using agents, evals, RAG, model behavior, customer discovery, and user-facing engineering.
+- Focused client projects involving AI workflows, automation, dashboards, data products, vision pipelines, scraping, source monitoring, and ML prototypes.
+
+## Search and ATS Keyword Signals
+
+- Role titles: AI Engineer, Applied AI Engineer, Forward Deployed Engineer, AI Deployment Engineer, AI Product Engineer, ML Engineer.
+- LLM systems: production LLM systems, RAG, retrieval workflows, tool-using agents, agent workflows, LangGraph, MCP, prompt systems.
+- Reliability: evaluation frameworks, evals, LLM observability, Langfuse, Arize Phoenix, traces, validation gates, human-in-the-loop review.
+- Product delivery: customer discovery, user discovery, spec-driven development, API design, full-stack AI products, deployment at scale.
+- Core stack: Python, TypeScript, FastAPI, React, Docker, GCP, AWS, CI/CD, MLflow, PyTorch, scikit-learn.
+- Applied ML: vision pipelines, object detection, quality checks, sequence modelling, forecasting, SHAP, data products.
 
 ## Technical Strengths
 
 - Languages and product stack: Python, TypeScript, JavaScript, SQL, HTML/CSS, FastAPI, React, Dash, Plotly.
 - ML/AI: PyTorch, TensorFlow, scikit-learn, LightGBM, YOLOv8, OpenCV, MediaPipe, SHAP, MLflow.
-- LLM systems: RAG, prompt systems, AI agents, workflow automation, evaluation loops, MCP.
+- LLM systems: RAG, prompt systems, LangGraph-style agent workflows, tool use, evaluation loops, Langfuse, Arize Phoenix, LLM observability, MCP.
 - Infrastructure: Docker, GitHub Actions, Railway, GCP, AWS, CI/CD, scheduled data refreshes.
-- Product habits: user discovery, data ingestion, API design, frontend implementation, monitoring, source review, and handoff.
+- Product habits: user discovery, concept development, spec-driven development, data ingestion, API design, frontend implementation, monitoring, source review, and handoff.
 
 ## Live Products
 
 1. Job Hunter SG - https://job.kooexperience.com
-   AI-powered Singapore job aggregator and resume tailoring platform with multi-source scraping, ATS scoring, semantic matching, and guarded LLM output.
+   Singapore job search and resume workflow with multi-source scraping, RAG semantic matching, ATS scoring, injectable keyword checks, fact preservation, hallucination detection, and five validation gates.
 
 2. Trader Koo - https://trader.kooexperience.com
-   S&P 500 market dashboard with YOLOv8 chart-pattern detection, candle signals, 52-week extremes, and macro context.
+   Evidence-first market research workflow with source freshness, ranked setups, chart-pattern detection, paper-trade audit trails, Telegram alerts, model versioning, and clear research/execution boundaries.
 
 3. Japan in Seasons - https://seasons.kooexperience.com
-   Japan seasonal travel map and MCP server covering sakura, autumn leaves, fruit picking, flowers, festivals, and 1,700+ GPS-tagged spots.
+   Japan seasonal travel map and MCP server covering sakura, autumn leaves, fruit picking, flowers, festivals, and 1,700+ GPS-tagged spots. The MCP exposes 12 tools and scored 100/100 on Smithery.
 
 4. LionWeather - https://lionweather.kooexperience.com
    Singapore weather intelligence app with NEA data, LightGBM rainfall forecasting, SHAP explainability, and animated radar.
@@ -57,13 +68,13 @@ Haoming is open to:
    Passport-style photo compliance checks using MediaPipe, OpenCV, quality diagnostics, and guided correction flows.
 
 6. Amex Explorer - https://amex-explorer.kooexperience.com
-   Unofficial source-backed Amex Platinum benefit explorer with scraped data, maps, filters, source alerts, and manual review gates.
+   Source-backed Amex Platinum benefit explorer with official hashes, cache metadata, maps, filters, source-change issues, manual review gates, and Table for Two availability checks.
 
 7. Preflight - https://preflight.kooexperience.com
    Data health checks, EDA charts, correlation maps, and baseline ML models for CSV and Parquet uploads.
 
 8. MinMax Wine - https://wine.kooexperience.com
-   Singapore wine price comparison with bundle-aware pricing, Vivino ratings, daily tracking, and deal scoring.
+   Singapore wine deal intelligence with scraping, fuzzy matching, Brave/Vivino resolution, identity cache, quarantine checks, guarded review loop, and 0-100 deal scoring.
 
 ## Blog Topics
 
