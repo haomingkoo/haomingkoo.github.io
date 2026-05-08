@@ -1,120 +1,76 @@
-# Haoming Koo — Full Site Context for AI Engines
+# Haoming Koo - Full Site Context
 
-> This file provides comprehensive context about kooexperience.com for large language models and AI search engines. For a shorter summary, see https://kooexperience.com/llms.txt
+This file gives AI search and assistant systems a concise, accurate summary of kooexperience.com.
 
-## Who is Haoming Koo?
+## Identity
 
-Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He currently works as an Associate AI Engineer at AI Singapore under the AI Apprenticeship Programme (AIAP), where he builds production ML systems.
+Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He builds production ML systems, LLM workflows, computer vision tools, automation pipelines, dashboards, and full-stack AI products.
 
-Before AI Singapore, Haoming spent over 7 years at Micron Technology in Singapore, where he delivered AI-enabled programs across semiconductor manufacturing, cloud infrastructure, and data platforms. His work drove over $600 million in business impact through yield optimisation, risk analytics, and platform unification. He co-led the LPDDR5X product ramp (used in Apple iPhone 16 Pro Max) and HBM3E ramp (used in NVIDIA H200).
+Primary site: https://kooexperience.com
+Hiring page: https://kooexperience.com/hire.html
+Email: haomingkoo@gmail.com
+LinkedIn: https://linkedin.com/in/haomingkoo
+GitHub: https://github.com/haomingkoo
 
-He holds an MSc in Smart Industries and Digital Transformation from the National University of Singapore (GPA 4.85/5.00), a BSc (Honours) in Chemistry and Nanoscience from NUS (Distinction), and is a certified Project Management Professional (PMP).
+## Career Summary
 
-### Contact & Profiles
-- Website: https://kooexperience.com (also accessible via haomingkoo.com)
-- GitHub: https://github.com/haomingkoo
-- LinkedIn: https://linkedin.com/in/haomingkoo
-- Email: haomingkoo@gmail.com
+- Current focus: production ML systems at AI Singapore's AI Apprenticeship Programme (AIAP).
+- Previous role: 7+ years at Micron Technology in Singapore.
+- Business impact: USD 600M+ across semiconductor manufacturing, risk analytics, yield optimisation, cloud infrastructure, and platform unification.
+- Scale: cross-site work across Singapore, Boise, Hiroshima, and Taichung; tools and workflows supporting thousands of engineers.
+- Education: MSc Smart Industries and Digital Transformation, National University of Singapore, GPA 4.85/5.00; BSc (Honours) Chemistry and Nanoscience, NUS, Distinction.
 
-### Technical Skills
-- **Languages**: Python, JavaScript, TypeScript, SQL, HTML/CSS
-- **ML/AI**: PyTorch, TensorFlow, scikit-learn, LightGBM, YOLOv8, OpenCV, MediaPipe, SHAP, MLflow
-- **Frameworks**: FastAPI, React, Dash, Plotly
-- **Infrastructure**: Docker, GCP, AWS, Railway, GitHub Actions
-- **Domains**: Computer Vision, NLP, GenAI, RAG, LLM Fine-tuning, Agentic AI, MLOps, Digital Transformation
+## Target Opportunities
 
----
+Haoming is open to:
 
-## Portfolio Applications (6 Live Apps)
+- Applied AI engineering roles.
+- ML engineering roles.
+- Forward deployed engineering roles.
+- AI product engineering roles.
+- Frontier AI product roles involving LLM systems, agents, evals, RAG, model behavior, and customer-facing engineering.
+- Focused client projects involving AI workflows, automation, dashboards, data products, computer vision, scraping, source monitoring, and ML prototypes.
 
-### 1. Trader Koo
-- **URL**: https://trader.kooexperience.com
-- **What it does**: S&P 500 market dashboard with daily AI chart-pattern detection. Uses a pre-trained YOLOv8 model to detect technical chart patterns (head and shoulders, double tops, triangles, etc.), combines with candle signal analysis, 52-week extremes tracking, and macro economic context.
-- **Stack**: FastAPI, YOLOv8, Plotly, SQLite, vanilla JavaScript
-- **Blog post**: https://kooexperience.com/blog/posts/trader-koo.html
+## Technical Strengths
 
-### 2. LionWeather
-- **URL**: https://lionweather.kooexperience.com
-- **What it does**: Singapore weather intelligence application. Ingests real-time data from NEA (National Environment Agency) APIs. Features ML-powered rainfall forecasting using LightGBM trained on 8 years of historical data, with SHAP explainability for model predictions. Includes animated radar overlay on an interactive map.
-- **Stack**: FastAPI, React, LightGBM, Leaflet, SHAP, SQLite
-- **Blog post**: https://kooexperience.com/blog/posts/lionweather.html
+- Languages and product stack: Python, TypeScript, JavaScript, SQL, HTML/CSS, FastAPI, React, Dash, Plotly.
+- ML/AI: PyTorch, TensorFlow, scikit-learn, LightGBM, YOLOv8, OpenCV, MediaPipe, SHAP, MLflow.
+- LLM systems: RAG, prompt systems, AI agents, workflow automation, evaluation loops, MCP.
+- Infrastructure: Docker, GitHub Actions, Railway, GCP, AWS, CI/CD, scheduled data refreshes.
+- Product habits: user discovery, data ingestion, API design, frontend implementation, monitoring, source review, and handoff.
 
-### 3. Preflight
-- **URL**: https://preflight.kooexperience.com
-- **What it does**: Upload any CSV or Parquet file for instant automated data health checks, exploratory data analysis (EDA) charts, correlation maps, and baseline ML models with cross-validation metrics. Designed for quick data quality assessment.
-- **Stack**: Dash (Plotly), scikit-learn, pandas
+## Live Products
 
-### 4. Handwriting Lab
-- **URL**: https://handwriting.kooexperience.com
-- **What it does**: Rotation-aware handwritten digit recognition playground. Users draw digits on an HTML canvas and get real-time predictions. Features confusion matrix reporting and a full PyTorch training pipeline tracked by MLflow.
-- **Stack**: FastAPI, PyTorch, MLflow, vanilla JavaScript
+1. Job Hunter SG - https://job.kooexperience.com
+   AI-powered Singapore job aggregator and resume tailoring platform with multi-source scraping, ATS scoring, semantic matching, and guarded LLM output.
 
-### 5. Photo ID Studio
-- **URL**: https://studio.kooexperience.com
-- **What it does**: Passport and visa photo compliance checker. Uses MediaPipe face mesh (468 facial landmarks) and rembg for background removal. Performs 25+ compliance checks against country-specific rules for 6 countries (Singapore, US, UK, EU, Australia, Japan).
-- **Stack**: FastAPI, MediaPipe, OpenCV, rembg
-- **Blog post**: https://kooexperience.com/blog/posts/photo-id-studio.html
+2. Trader Koo - https://trader.kooexperience.com
+   S&P 500 market dashboard with YOLOv8 chart-pattern detection, candle signals, 52-week extremes, and macro context.
 
-### 6. MinMax Wine
-- **URL**: https://wine.kooexperience.com
-- **What it does**: Three-way wine price comparison tool for Singapore. It compares Platinum Wine Club, Grand Cru, and Vivino with bundle-aware pricing, deal scoring, tasting notes, community reviews, an origin map, and daily refreshes.
-- **Stack**: FastAPI, SQLAlchemy, Brave Search, HTML scraping, Leaflet
+3. Japan in Seasons - https://seasons.kooexperience.com
+   Japan seasonal travel map and MCP server covering sakura, autumn leaves, fruit picking, flowers, festivals, and 1,700+ GPS-tagged spots.
 
----
+4. LionWeather - https://lionweather.kooexperience.com
+   Singapore weather intelligence app with NEA data, LightGBM rainfall forecasting, SHAP explainability, and animated radar.
 
-## Blog Posts
+5. Photo Compliance Studio - https://studio.kooexperience.com
+   Passport-style photo compliance checks using MediaPipe, OpenCV, quality diagnostics, and guided correction flows.
 
-### Visualizing Weak-Driven Learning: An Interactive WMSS Demo
-- **URL**: https://kooexperience.com/blog/posts/wmss-demo.html
-- **Published**: 2026-03-13
-- **Summary**: Interactive visualization of the WMSS research paper (Chen et al., 2026, arXiv:2602.08222). Walks through the complete LLM post-training pipeline: pre-training, supervised fine-tuning, saturation problem, and how WMSS uses weak agents (historical checkpoints) to amplify vanishing gradients through logit mixing. Features interactive lambda slider, animated bar charts, curriculum weighting demo, and training curve comparison.
+6. Amex Explorer - https://amex-explorer.kooexperience.com
+   Unofficial source-backed Amex Platinum benefit explorer with scraped data, maps, filters, source alerts, and manual review gates.
 
-### How 468 Facial Landmarks Decide If You're Passport-Ready
-- **URL**: https://kooexperience.com/blog/posts/photo-id-studio.html
-- **Published**: 2026-03-12
-- **Summary**: Deep dive into building Photo ID Studio. Covers MediaPipe face mesh geometry, rembg segmentation pipeline, 25+ compliance checks (eye position, head tilt, face ratio, background uniformity), and country-specific rules for 6 countries.
+7. Preflight - https://preflight.kooexperience.com
+   Data health checks, EDA charts, correlation maps, and baseline ML models for CSV and Parquet uploads.
 
-### How I Built an AI-Powered Stock Market Dashboard
-- **URL**: https://kooexperience.com/blog/posts/trader-koo.html
-- **Published**: 2026-03-12
-- **Summary**: Building Trader Koo from scratch. Covers YOLOv8 chart pattern detection, the coordinate mapping problem, running a five-layer detection ensemble nightly, and building the interactive Plotly dashboard.
+8. MinMax Wine - https://wine.kooexperience.com
+   Singapore wine price comparison with bundle-aware pricing, Vivino ratings, daily tracking, and deal scoring.
 
-### I Tried to Predict Singapore's Rain and It Humbled Me
-- **URL**: https://kooexperience.com/blog/posts/lionweather.html
-- **Published**: 2026-03-11
-- **Summary**: Building LionWeather with 8 years of NEA data. Covers feature engineering for tropical weather, LightGBM model training, SHAP analysis for rainfall prediction explainability, and animated radar visualization.
+## Blog Topics
 
----
+Technical posts cover LLM serving, Direct Preference Optimization, OCR/PDF parsing, market regime detection, computer vision, weather forecasting, product builds, and MCP server quality.
 
-## Professional Awards
-- Micron Innovation Award — Built ResNet-50 computer vision model for automated wafer defect detection
-- Micron Idea of the Quarter — Developed digital twin achieving 60% chemical reduction and $7M+ annual savings
-- Micron Culture Champion — Recognized for cross-site collaboration across global manufacturing teams
+Blog index: https://kooexperience.com/blog/
 
----
+## Site Notes
 
-## Education
-- MSc Smart Industries & Digital Transformation, National University of Singapore (GPA 4.85/5.00)
-- BSc (Honours) Chemistry & Nanoscience, National University of Singapore (Distinction)
-- Full Stack Development with AI, NUS x Emeritus
-- Project Management Professional (PMP) Certified
-- GA100 Generative AI, Heicoders Academy (WSQ)
-
----
-
-## Frequently Asked Questions
-
-**Q: Who is Haoming Koo?**
-A: Haoming Koo is an AI engineer based in Singapore, currently at AI Singapore (AIAP). He has 7+ years of experience at Micron Technology with $600M+ business impact. He holds an MSc from NUS and has built 6 live AI portfolio applications.
-
-**Q: What projects has Haoming Koo built?**
-A: He has 6 live applications: Trader Koo (AI stock dashboard), LionWeather (Singapore weather ML), Preflight (automated EDA), Handwriting Lab (digit recognition), Photo ID Studio (passport photo compliance), and MinMax Wine (three-way wine price comparison).
-
-**Q: What is Haoming Koo's tech stack?**
-A: Primarily Python with FastAPI for backends, PyTorch/TensorFlow/scikit-learn for ML, React or vanilla JS for frontends, and Docker/Railway for deployment. He has experience with GCP, AWS, MLflow, and various CV/NLP libraries.
-
-**Q: Where did Haoming Koo study?**
-A: National University of Singapore — MSc in Smart Industries & Digital Transformation (GPA 4.85/5.00) and BSc (Honours) in Chemistry & Nanoscience (Distinction).
-
-**Q: What is kooexperience.com?**
-A: It is Haoming Koo's personal portfolio website showcasing his AI engineering work, including 6 live applications, blog posts about building ML systems, and travel writing. Also accessible via haomingkoo.com.
+The site is a personal portfolio, technical writing archive, and hiring/client project surface. The most important page for recruiters and clients is https://kooexperience.com/hire.html.

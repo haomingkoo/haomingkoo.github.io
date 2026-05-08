@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <title>Hire Haoming Koo | AI Engineer, Product Builder, Client Projects</title>
+    <meta
+      name="description"
+      content="Work with Haoming Koo, an AI engineer in Singapore who ships production ML systems, LLM workflows, computer vision tools, and full-stack AI products."
+    />
+    <meta name="author" content="Haoming Koo" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <link rel="canonical" href="https://kooexperience.com/hire.html" />
+    <meta property="og:title" content="Hire Haoming Koo | AI Engineer and Product Builder" />
+    <meta
+      property="og:description"
+      content="A story-driven hiring page for Haoming Koo: production ML, LLM workflows, computer vision, full-stack AI products, and client-ready delivery."
+    />
+    <meta property="og:url" content="https://kooexperience.com/hire.html" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Haoming Koo" />
+    <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
+    <meta property="og:locale" content="en_SG" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Hire Haoming Koo | AI Engineer and Product Builder" />
+    <meta
+      name="twitter:description"
+      content="Production ML, LLM workflows, computer vision, full-stack AI products, and client-ready delivery."
+    />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "name": "Hire Haoming Koo",
+      "url": "https://kooexperience.com/hire.html",
+      "description": "Hiring and collaboration page for Haoming Koo, an AI engineer in Singapore building production ML systems and full-stack AI products.",
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "https://kooexperience.com/#person",
+        "name": "Haoming Koo",
+        "jobTitle": "AI Engineer",
+        "url": "https://kooexperience.com",
+        "email": "haomingkoo@gmail.com",
+        "sameAs": [
+          "https://github.com/haomingkoo",
+          "https://linkedin.com/in/haomingkoo"
+        ],
+        "knowsAbout": [
+          "Production machine learning",
+          "LLM applications",
+          "Retrieval augmented generation",
+          "Computer vision",
+          "MLOps",
+          "FastAPI",
+          "React",
+          "Python",
+          "PyTorch",
+          "TensorFlow"
+        ]
+      }
+    }
+    </script>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      :root {
+        --bg: #071019;
+        --panel: #0d1824;
+        --panel-2: #102337;
+        --ink: #f4efe5;
+        --muted: #aab7c7;
+        --soft: #d9c68f;
+        --blue: #8bd3ff;
+        --green: #73d19a;
+        --rose: #ff9d8a;
+        --line: rgba(244, 239, 229, 0.16);
+        --shadow: rgba(0, 0, 0, 0.36);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          linear-gradient(180deg, rgba(115, 209, 154, 0.06), transparent 520px),
+          repeating-linear-gradient(135deg, rgba(255,255,255,0.018) 0 1px, transparent 1px 12px),
+          var(--bg);
+        color: var(--ink);
+        font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; }
+      .progress {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 50;
+        width: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--green), var(--blue), var(--soft));
+      }
+      .shell {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        backdrop-filter: blur(18px);
+        background: rgba(7, 16, 25, 0.82);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav-inner {
+        width: min(1180px, calc(100% - 32px));
+        height: 62px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+      .mark {
+        font-weight: 850;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.86rem;
+        font-weight: 700;
+        padding: 8px 10px;
+        border-radius: 8px;
+      }
+      .nav-links a:hover { color: var(--ink); background: rgba(255,255,255,0.06); }
+      .hero {
+        min-height: calc(100vh - 62px);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr);
+        align-items: center;
+        gap: clamp(28px, 6vw, 72px);
+        padding: 74px 0 56px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--green);
+        font-size: 0.78rem;
+        font-weight: 850;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 32px;
+        height: 2px;
+        background: currentColor;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(3rem, 8vw, 6.8rem);
+        line-height: 0.92;
+        letter-spacing: -0.055em;
+        max-width: 860px;
+      }
+      h1 span {
+        display: block;
+        color: var(--soft);
+      }
+      .hero-copy {
+        max-width: 720px;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.28rem);
+      }
+      .hero-copy strong { color: var(--ink); font-weight: 800; }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+      }
+      .button {
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border-radius: 10px;
+        padding: 0 18px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.05);
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 820;
+      }
+      .button.primary {
+        background: linear-gradient(135deg, var(--green), var(--blue));
+        color: #06111b;
+        border-color: transparent;
+      }
+      .button:hover { transform: translateY(-1px); }
+      .signal-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        margin-top: 36px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--line);
+      }
+      .signal {
+        background: rgba(13, 24, 36, 0.92);
+        padding: 18px;
+      }
+      .signal strong {
+        display: block;
+        font-size: 1.55rem;
+        line-height: 1;
+      }
+      .signal span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .story-panel {
+        position: relative;
+        min-height: 580px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+        background:
+          linear-gradient(180deg, rgba(139, 211, 255, 0.14), rgba(13, 24, 36, 0.92) 42%),
+          var(--panel);
+        box-shadow: 0 24px 60px var(--shadow);
+      }
+      .sky-line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 118px;
+        height: 1px;
+        background: rgba(255,255,255,0.18);
+      }
+      .path-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .path-svg path {
+        fill: none;
+        stroke: rgba(217, 198, 143, 0.8);
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-dasharray: 12 12;
+        animation: pathMove 18s linear infinite;
+      }
+      .chapter-dot {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--soft);
+        box-shadow: 0 0 0 8px rgba(217, 198, 143, 0.14);
+      }
+      .chapter-card {
+        position: absolute;
+        width: min(230px, calc(100% - 40px));
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: rgba(7, 16, 25, 0.72);
+        backdrop-filter: blur(12px);
+      }
+      .chapter-card h2 {
+        margin: 0 0 4px;
+        font-size: 0.95rem;
+      }
+      .chapter-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+      .c1 { left: 8%; top: 12%; }
+      .c2 { right: 8%; top: 31%; }
+      .c3 { left: 10%; bottom: 26%; }
+      .c4 { right: 10%; bottom: 8%; }
+      .d1 { left: 21%; top: 28%; }
+      .d2 { right: 31%; top: 48%; }
+      .d3 { left: 34%; bottom: 25%; }
+      .d4 { right: 19%; bottom: 26%; }
+      .firefly {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--green);
+        opacity: 0.7;
+        animation: drift 9s ease-in-out infinite;
+      }
+      .firefly:nth-child(2) { left: 74%; top: 16%; animation-delay: -2s; }
+      .firefly:nth-child(3) { left: 18%; top: 70%; animation-delay: -5s; background: var(--blue); }
+      .firefly:nth-child(4) { left: 56%; top: 78%; animation-delay: -7s; background: var(--soft); }
+      .section {
+        padding: 82px 0;
+        border-top: 1px solid var(--line);
+      }
+      .section-head {
+        display: grid;
+        grid-template-columns: 0.62fr 1fr;
+        gap: 36px;
+        margin-bottom: 28px;
+      }
+      .section-label {
+        color: var(--green);
+        font-size: 0.78rem;
+        font-weight: 850;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      h2 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3.6rem);
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+      .section-head p {
+        color: var(--muted);
+        margin: 10px 0 0;
+        max-width: 650px;
+      }
+      .lens {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 18px;
+      }
+      .lens-tabs {
+        display: grid;
+        gap: 10px;
+        align-content: start;
+      }
+      .lens-tab {
+        text-align: left;
+        cursor: pointer;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+        background: rgba(255,255,255,0.04);
+        color: var(--muted);
+        font: inherit;
+      }
+      .lens-tab strong {
+        display: block;
+        color: var(--ink);
+      }
+      .lens-tab.active {
+        background: rgba(115, 209, 154, 0.12);
+        border-color: rgba(115, 209, 154, 0.42);
+      }
+      .lens-panel {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--panel);
+        padding: 28px;
+        min-height: 300px;
+      }
+      .lens-panel h3 {
+        margin: 0 0 12px;
+        font-size: clamp(1.6rem, 3vw, 2.8rem);
+        line-height: 1;
+        letter-spacing: -0.035em;
+      }
+      .lens-panel p { color: var(--muted); max-width: 780px; }
+      .evidence-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 24px;
+      }
+      .evidence {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+        background: rgba(255,255,255,0.04);
+      }
+      .evidence strong {
+        display: block;
+        font-size: 1.4rem;
+        color: var(--soft);
+      }
+      .evidence span {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+      .proof-grid, .case-grid, .service-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .impact-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 16px;
+      }
+      .impact-main, .impact-side {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(13, 24, 36, 0.82);
+        padding: 26px;
+      }
+      .impact-main h3, .impact-side h3 {
+        margin: 0 0 14px;
+        font-size: clamp(1.6rem, 3vw, 2.7rem);
+        line-height: 1;
+        letter-spacing: -0.035em;
+      }
+      .impact-main p, .impact-side p {
+        color: var(--muted);
+        margin: 0;
+      }
+      .impact-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .impact-item {
+        display: grid;
+        grid-template-columns: 38px minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(255,255,255,0.04);
+      }
+      .impact-icon {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: rgba(115, 209, 154, 0.14);
+        color: var(--green);
+        font-weight: 900;
+      }
+      .impact-item strong { display: block; }
+      .impact-item span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-top: 3px;
+      }
+      .proof, .case, .service {
+        min-height: 250px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(13, 24, 36, 0.82);
+        padding: 22px;
+        transition: transform 0.22s, border-color 0.22s, background 0.22s;
+      }
+      .proof:hover, .case:hover, .service:hover {
+        transform: translateY(-4px);
+        border-color: rgba(139, 211, 255, 0.45);
+        background: var(--panel-2);
+      }
+      .kicker {
+        color: var(--green);
+        font-size: 0.76rem;
+        font-weight: 850;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .proof h3, .case h3, .service h3 {
+        margin: 12px 0 10px;
+        font-size: 1.35rem;
+        line-height: 1.12;
+      }
+      .proof p, .case p, .service p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .case a {
+        display: inline-flex;
+        margin-top: 18px;
+        color: var(--blue);
+        font-weight: 800;
+        text-decoration: none;
+      }
+      .timeline {
+        position: relative;
+        display: grid;
+        gap: 16px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 11px;
+        top: 10px;
+        bottom: 10px;
+        width: 2px;
+        background: var(--line);
+      }
+      .moment {
+        position: relative;
+        display: grid;
+        grid-template-columns: 130px minmax(0, 1fr);
+        gap: 22px;
+        padding-left: 34px;
+      }
+      .moment::before {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 7px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 8px rgba(115, 209, 154, 0.12);
+      }
+      .moment time {
+        color: var(--soft);
+        font-weight: 850;
+      }
+      .moment h3 {
+        margin: 0 0 4px;
+      }
+      .moment p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .final-card {
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: clamp(28px, 6vw, 58px);
+        background:
+          linear-gradient(135deg, rgba(115, 209, 154, 0.16), rgba(139, 211, 255, 0.12)),
+          var(--panel);
+      }
+      .final-card h2 { max-width: 850px; }
+      .final-card p {
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 1.1rem;
+      }
+      footer {
+        color: var(--muted);
+        padding: 34px 0 54px;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @keyframes pathMove {
+        to { stroke-dashoffset: -240; }
+      }
+      @keyframes drift {
+        0%, 100% { transform: translate(0, 0); opacity: 0.2; }
+        35% { transform: translate(18px, -26px); opacity: 0.9; }
+        70% { transform: translate(-22px, 18px); opacity: 0.55; }
+      }
+      @media (max-width: 920px) {
+        .hero, .section-head, .lens { grid-template-columns: 1fr; }
+        .story-panel { min-height: 520px; }
+        .signal-row, .proof-grid, .case-grid, .service-grid, .evidence-list, .impact-grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 620px) {
+        .nav-inner { height: auto; padding: 12px 0; align-items: flex-start; }
+        .nav-links { gap: 2px; }
+        .nav-links a { font-size: 0.78rem; padding: 6px 7px; }
+        .hero { padding-top: 44px; }
+        .story-panel { min-height: 640px; }
+        .chapter-card { position: relative; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; margin: 14px; width: auto; }
+        .chapter-dot, .path-svg, .sky-line, .firefly { display: none; }
+        .signal-row, .proof-grid, .case-grid, .service-grid, .evidence-list, .impact-grid { grid-template-columns: 1fr; }
+        .moment { grid-template-columns: 1fr; gap: 4px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress" id="progress"></div>
+    <header class="nav">
+      <div class="nav-inner">
+        <a class="mark" href="./">HK</a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#fit">Fit</a>
+          <a href="#proof">Proof</a>
+          <a href="#story">Story</a>
+          <a href="#clients">Clients</a>
+          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:haomingkoo@gmail.com">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <div class="eyebrow">AI engineer, product builder, systems operator</div>
+          <h1>
+            I build the bridge
+            <span>between models and reality.</span>
+          </h1>
+          <p class="hero-copy">
+            I am <strong>Haoming Koo</strong>, an AI engineer in Singapore who has lived on both sides of the work:
+            enterprise-scale transformation at Micron, production ML at AI Singapore, and independent products that are live on the web.
+            I am looking for frontier AI teams, high-agency engineering roles, and serious client projects where shipping matters.
+          </p>
+          <div class="cta-row">
+            <a class="button primary" href="mailto:haomingkoo@gmail.com?subject=Hiring%20or%20project%20conversation%20with%20Haoming">Start a conversation</a>
+            <a class="button" href="#fit">See role fit</a>
+            <a class="button" href="./about.html">Full background</a>
+          </div>
+          <div class="signal-row" aria-label="Career signals">
+            <div class="signal"><strong>$600M+</strong><span>business impact</span></div>
+            <div class="signal"><strong>8</strong><span>live products</span></div>
+            <div class="signal"><strong>3,000+</strong><span>engineers served</span></div>
+            <div class="signal"><strong>4</strong><span>global fabs</span></div>
+          </div>
+        </div>
+
+        <aside class="story-panel" aria-label="Career journey illustration">
+          <div class="sky-line"></div>
+          <div class="firefly"></div>
+          <div class="firefly"></div>
+          <div class="firefly"></div>
+          <div class="firefly"></div>
+          <svg class="path-svg" viewBox="0 0 500 620" aria-hidden="true">
+            <path d="M90 150 C 220 80, 350 150, 390 245 S 160 360, 112 450 S 335 510, 405 560" />
+          </svg>
+          <div class="chapter-dot d1"></div>
+          <div class="chapter-dot d2"></div>
+          <div class="chapter-dot d3"></div>
+          <div class="chapter-dot d4"></div>
+          <div class="chapter-card c1">
+            <h2>Chapter 1 - Chemistry to systems</h2>
+            <p>Trained to reason from first principles, experiments, constraints, and failure modes.</p>
+          </div>
+          <div class="chapter-card c2">
+            <h2>Chapter 2 - Semiconductor scale</h2>
+            <p>Built tools for fabs where small gains become millions and reliability is non-negotiable.</p>
+          </div>
+          <div class="chapter-card c3">
+            <h2>Chapter 3 - Production AI</h2>
+            <p>Moved from digital transformation into ML systems, RAG, CV, time series, and MLOps.</p>
+          </div>
+          <div class="chapter-card c4">
+            <h2>Chapter 4 - Product studio</h2>
+            <p>Shipped public apps, scraped pipelines, maps, dashboards, agents, and daily refresh systems.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section reveal" id="fit">
+        <div class="section-head">
+          <div class="section-label">Role fit</div>
+          <div>
+            <h2>Choose the lens. The signal changes, but the builder is the same.</h2>
+            <p>
+              A generic portfolio says "I know Python and React." This page is designed to answer the real question:
+              where can I create leverage fastest?
+            </p>
+          </div>
+        </div>
+        <div class="lens">
+          <div class="lens-tabs" role="tablist" aria-label="Role fit selector">
+            <button class="lens-tab active" type="button" data-lens="frontier"><strong>Frontier AI team</strong>Applied AI, agents, evals, product engineering</button>
+            <button class="lens-tab" type="button" data-lens="startup"><strong>Startup or product team</strong>Full-stack AI systems from ambiguity to launch</button>
+            <button class="lens-tab" type="button" data-lens="client"><strong>Client project</strong>Scoped automation, analytics, ML, or AI workflow delivery</button>
+          </div>
+          <div class="lens-panel">
+            <h3 id="lens-title">Why I fit a frontier AI team</h3>
+            <p id="lens-copy">
+              I am strongest where model behavior, product surface, data plumbing, and user trust meet. I can build RAG and agent workflows,
+              evaluate outputs, ship usable interfaces, and stay close to users instead of treating AI as a demo layer.
+            </p>
+            <div class="evidence-list" id="lens-evidence">
+              <div class="evidence"><strong>RAG</strong><span>GenAI search assistant for engineers</span></div>
+              <div class="evidence"><strong>Agents</strong><span>Job Hunter SG resume tailoring pipeline</span></div>
+              <div class="evidence"><strong>Product</strong><span>Eight live apps, not screenshots</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal" id="proof">
+        <div class="section-head">
+          <div class="section-label">Proof, not adjectives</div>
+          <div>
+            <h2>What makes me unusually useful.</h2>
+            <p>
+              I am not trying to look like an AI influencer. I want the work to prove the range:
+              hard systems, messy data, real users, and shipped interfaces.
+            </p>
+          </div>
+        </div>
+        <div class="proof-grid">
+          <article class="proof">
+            <div class="kicker">Enterprise leverage</div>
+            <h3>I have operated where mistakes are expensive.</h3>
+            <p>Semiconductor manufacturing taught me to respect reliability, auditability, and the gap between an impressive model and a system people can trust.</p>
+          </article>
+          <article class="proof">
+            <div class="kicker">AI depth</div>
+            <h3>I can move from model to product.</h3>
+            <p>Computer vision, LSTM time-series models, RAG, LLM workflows, SHAP analysis, data pipelines, APIs, dashboards, and deployment are all part of the same delivery loop.</p>
+          </article>
+          <article class="proof">
+            <div class="kicker">Taste and shipping</div>
+            <h3>I build products people can inspect.</h3>
+            <p>The portfolio is not a gallery of mockups. It has live maps, trading dashboards, compliance tools, job search agents, weather ML, wine analytics, and alerting workflows.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="section-head">
+          <div class="section-label">Impact compass</div>
+          <div>
+            <h2>I want my work to leave people with more agency.</h2>
+            <p>
+              The next chapter is not just "get any job." It is to become the kind of builder who makes AI useful,
+              legible, and safe enough for real people to depend on.
+            </p>
+          </div>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-main">
+            <h3>The work I want to do.</h3>
+            <p>
+              I am drawn to AI systems that improve access, reduce operational waste, make expert knowledge searchable,
+              and help people make better decisions. My best work sits between human need and technical execution.
+            </p>
+            <div class="impact-list">
+              <div class="impact-item">
+                <div class="impact-icon">1</div>
+                <div><strong>Access to opportunity</strong><span>Job Hunter SG exists because job search is painful, noisy, and unfairly hard to navigate.</span></div>
+              </div>
+              <div class="impact-item">
+                <div class="impact-icon">2</div>
+                <div><strong>Trustworthy operational AI</strong><span>Factory systems taught me that AI must be inspectable, reliable, and tied to decisions people actually make.</span></div>
+              </div>
+              <div class="impact-item">
+                <div class="impact-icon">3</div>
+                <div><strong>Public usefulness</strong><span>Weather, travel, compliance, data quality, and benefit tools are small proofs of a larger instinct: make useful information easier to act on.</span></div>
+              </div>
+            </div>
+          </div>
+          <aside class="impact-side">
+            <div class="kicker">For frontier AI teams</div>
+            <h3>Reliability is not a slogan.</h3>
+            <p>
+              I want to work on systems that are powerful and careful: model behavior, evals, user interfaces,
+              deployment, observability, and feedback loops. The goal is not to make AI feel magical. The goal is
+              to make it dependable enough to improve lives.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section reveal" id="story">
+        <div class="section-head">
+          <div class="section-label">The story arc</div>
+          <div>
+            <h2>From lab bench to fabs to frontier AI.</h2>
+            <p>
+              The through-line is not a job title. It is a habit: find the system, understand the constraint, build the tool, measure the result.
+            </p>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="moment">
+            <time>2018-2025</time>
+            <div>
+              <h3>Micron Technology</h3>
+              <p>Led cross-site digital transformation work across Singapore, Boise, Hiroshima, and Taichung. Built AI-enabled tools with USD 600M+ business impact.</p>
+            </div>
+          </div>
+          <div class="moment">
+            <time>AI Singapore</time>
+            <div>
+              <h3>Production ML training ground</h3>
+              <p>Built ML systems from scratch: CNNs, LSTMs, RAG workflows, containerized inference, CI/CD, and full-stack applications.</p>
+            </div>
+          </div>
+          <div class="moment">
+            <time>Public products</time>
+            <div>
+              <h3>Eight live apps</h3>
+              <p>Shipped tools across jobs, weather, markets, travel, Amex benefits, passport photo compliance, automated EDA, and wine price intelligence.</p>
+            </div>
+          </div>
+          <div class="moment">
+            <time>Next</time>
+            <div>
+              <h3>High-agency AI engineering</h3>
+              <p>I want to work with teams building serious AI products: model-facing, user-facing, and operationally real.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="section-head">
+          <div class="section-label">Selected evidence</div>
+          <div>
+            <h2>Live work that shows range.</h2>
+            <p>These are not all the projects. They are the fastest way to understand my taste, execution, and technical spread.</p>
+          </div>
+        </div>
+        <div class="case-grid">
+          <article class="case">
+            <div class="kicker">LLM product</div>
+            <h3>Job Hunter SG</h3>
+            <p>Singapore job aggregator and resume tailoring platform with multi-source scraping, ATS scoring, semantic matching, and guarded LLM outputs.</p>
+            <a href="https://job.kooexperience.com" target="_blank" rel="noopener">Open live app</a>
+          </article>
+          <article class="case">
+            <div class="kicker">Computer vision</div>
+            <h3>Photo Compliance Studio</h3>
+            <p>Passport-style photo compliance checks with MediaPipe, OpenCV, quality diagnostics, and guided correction flows.</p>
+            <a href="https://studio.kooexperience.com" target="_blank" rel="noopener">Open live app</a>
+          </article>
+          <article class="case">
+            <div class="kicker">Data product</div>
+            <h3>Amex Explorer</h3>
+            <p>Source-backed benefit explorer with scraped official data, geocoding, maps, alert workflows, and manual review gates for stale source changes.</p>
+            <a href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener">Open live app</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal" id="clients">
+        <div class="section-head">
+          <div class="section-label">Client work</div>
+          <div>
+            <h2>Useful projects I can take on.</h2>
+            <p>
+              I am open to focused paid projects where the goal is a working system, not a deck. Clear scope, fast prototype,
+              measurable result, and clean handoff.
+            </p>
+          </div>
+        </div>
+        <div class="service-grid">
+          <article class="service">
+            <div class="kicker">AI workflow</div>
+            <h3>LLM tools for teams</h3>
+            <p>Internal assistants, retrieval workflows, evaluation loops, prompt systems, and guardrails around real business data.</p>
+          </article>
+          <article class="service">
+            <div class="kicker">Data product</div>
+            <h3>Dashboards that decide</h3>
+            <p>Data ingestion, analytics, forecasting, anomaly detection, and interfaces built for repeated operational use.</p>
+          </article>
+          <article class="service">
+            <div class="kicker">Automation</div>
+            <h3>Scraping and monitoring systems</h3>
+            <p>Source tracking, alerting, data quality checks, scheduled workflows, and review gates when source data changes.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="final-card">
+          <div class="section-label">Next conversation</div>
+          <h2>I am looking for serious AI engineering work, not another generic title.</h2>
+          <p>
+            If you are hiring for applied AI, ML engineering, forward deployed engineering, AI product engineering,
+            or a high-leverage client project, send me the problem. I will come back with how I would attack it.
+          </p>
+          <div class="cta-row">
+            <a class="button primary" href="mailto:haomingkoo@gmail.com?subject=Hiring%20or%20client%20project%20with%20Haoming">Email Haoming</a>
+            <a class="button" href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="button" href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell">
+      Haoming Koo - AI engineer in Singapore. Built for recruiters, AI teams, and serious client projects.
+    </footer>
+
+    <script>
+      const progress = document.getElementById("progress");
+      const tabs = Array.from(document.querySelectorAll(".lens-tab"));
+      const title = document.getElementById("lens-title");
+      const copy = document.getElementById("lens-copy");
+      const evidence = document.getElementById("lens-evidence");
+
+      const lens = {
+        frontier: {
+          title: "Why I fit a frontier AI team",
+          copy: "I am strongest where model behavior, product surface, data plumbing, and user trust meet. I can build RAG and agent workflows, evaluate outputs, ship usable interfaces, and stay close to users instead of treating AI as a demo layer.",
+          evidence: [
+            ["RAG", "GenAI search assistant for engineers"],
+            ["Agents", "Job Hunter SG resume tailoring pipeline"],
+            ["Product", "Eight live apps, not screenshots"]
+          ]
+        },
+        startup: {
+          title: "Why I fit a startup or product team",
+          copy: "I can turn a fuzzy idea into a working product slice: scrape or ingest the data, build the model or workflow, expose it through an API, design the frontend, deploy it, and watch where users struggle.",
+          evidence: [
+            ["0-to-1", "Multiple public products built end to end"],
+            ["Stack", "Python, FastAPI, React, ML, CI/CD"],
+            ["Taste", "Readable interfaces with real workflows"]
+          ]
+        },
+        client: {
+          title: "Why clients can trust me with scoped work",
+          copy: "I am practical about business value. A good client project should have a sharp problem, a measurable before-and-after, a maintainable handoff, and a clear decision on what not to build.",
+          evidence: [
+            ["Scope", "Discovery to prototype to handoff"],
+            ["Systems", "Dashboards, monitors, AI workflows"],
+            ["Impact", "Enterprise background with measurable outcomes"]
+          ]
+        }
+      };
+
+      function setLens(key) {
+        const data = lens[key];
+        tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.lens === key));
+        title.textContent = data.title;
+        copy.textContent = data.copy;
+        evidence.innerHTML = data.evidence.map(([big, small]) => (
+          `<div class="evidence"><strong>${big}</strong><span>${small}</span></div>`
+        )).join("");
+      }
+
+      tabs.forEach((tab) => tab.addEventListener("click", () => setLens(tab.dataset.lens)));
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+      function updateProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+        progress.style.width = `${pct}%`;
+      }
+
+      updateProgress();
+      window.addEventListener("scroll", updateProgress, { passive: true });
+    </script>
+  </body>
+</html>

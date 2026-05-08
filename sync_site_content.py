@@ -172,6 +172,12 @@ def render_sitemap(blog_posts: list[dict[str, Any]], travel_posts: list[dict[str
             "priority": "1.0",
         },
         {
+            "loc": "https://kooexperience.com/hire.html",
+            "lastmod": file_lastmod("hire.html"),
+            "changefreq": "weekly",
+            "priority": "1.0",
+        },
+        {
             "loc": "https://kooexperience.com/about.html",
             "lastmod": STATIC_LASTMODS["https://kooexperience.com/about.html"],
             "changefreq": "monthly",
