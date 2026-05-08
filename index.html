@@ -432,7 +432,7 @@
       .container {
         position: relative;
         z-index: 1;
-        max-width: 960px;
+        max-width: 1160px;
         margin: 0 auto;
         padding: 0 32px;
       }
@@ -448,7 +448,7 @@
         border-bottom: 1px solid rgba(28, 28, 36, 0.6);
       }
       nav {
-        max-width: 960px;
+        max-width: 1160px;
         margin: 0 auto;
         padding: 0 32px;
         display: flex;
@@ -485,11 +485,11 @@
 
       /* ── Hero ───────────────────────────────────────────────────────────── */
       .hero {
-        padding: 84px 0 52px;
+        padding: 76px 0 56px;
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+        grid-template-columns: minmax(0, 0.86fr) minmax(460px, 1.14fr);
         align-items: center;
-        gap: 72px;
+        gap: 44px;
       }
       .hero-inner { flex: 1; min-width: 0; }
 
@@ -578,28 +578,48 @@
       /* ── Personal hero visual ─────────────────────────────────────────── */
       .portrait-stage {
         position: relative;
-        min-height: 560px;
+        min-height: 600px;
         display: grid;
         place-items: center;
         isolation: isolate;
+        perspective: 1400px;
       }
       .portrait-stage::before {
         content: "";
         position: absolute;
-        width: min(460px, 82vw);
+        width: min(620px, 92vw);
         aspect-ratio: 1;
         border-radius: 50%;
         background:
-          radial-gradient(circle, rgba(110, 231, 183, 0.18), transparent 58%),
-          radial-gradient(circle at 70% 20%, rgba(233, 212, 138, 0.16), transparent 45%);
-        filter: blur(8px);
+          radial-gradient(circle at 32% 18%, rgba(110, 231, 183, 0.20), transparent 30%),
+          radial-gradient(circle at 72% 34%, rgba(59, 130, 246, 0.22), transparent 36%),
+          radial-gradient(circle at 58% 72%, rgba(233, 212, 138, 0.15), transparent 34%);
+        filter: blur(10px);
         z-index: -1;
+      }
+      .product-orbit {
+        position: relative;
+        width: min(640px, 100%);
+        height: 590px;
+      }
+      .product-orbit::before {
+        content: "";
+        position: absolute;
+        inset: 72px 68px;
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 40px;
+        transform: rotate(-8deg);
+        background:
+          linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+        background-size: 36px 36px;
+        mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
       }
       .portrait-frame {
         position: relative;
-        width: min(340px, 78vw);
+        width: min(300px, 58vw);
         aspect-ratio: 3 / 4;
-        border-radius: 28px;
+        border-radius: 26px;
         border: 1px solid rgba(255,255,255,0.12);
         background:
           linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)),
@@ -607,6 +627,13 @@
           linear-gradient(145deg, #101820, #08090d 70%);
         box-shadow: 0 34px 90px rgba(0,0,0,0.45);
         overflow: visible;
+      }
+      .identity-card {
+        position: absolute;
+        left: 50%;
+        top: 48%;
+        transform: translate(-50%, -50%);
+        z-index: 5;
       }
       .portrait-frame::after {
         content: "";
@@ -650,6 +677,76 @@
         font-size: 12px;
         letter-spacing: 0.12em;
         text-transform: uppercase;
+      }
+      .orbit-card {
+        position: absolute;
+        display: block;
+        width: 250px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.13);
+        border-radius: 18px;
+        background: rgba(13, 17, 24, 0.82);
+        color: inherit;
+        text-decoration: none;
+        box-shadow: 0 24px 70px rgba(0,0,0,0.38);
+        backdrop-filter: blur(16px);
+        animation: cardFloat 7s ease-in-out infinite;
+        transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+        z-index: 2;
+      }
+      .orbit-card img {
+        display: block;
+        width: 100%;
+        height: 132px;
+        object-fit: cover;
+        border-bottom: 1px solid rgba(255,255,255,0.09);
+        filter: saturate(1.08) contrast(1.05);
+      }
+      .orbit-card span,
+      .orbit-card strong {
+        display: block;
+        padding: 0 13px;
+      }
+      .orbit-card span {
+        padding-top: 11px;
+        color: var(--mint);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .orbit-card strong {
+        padding-bottom: 12px;
+        color: var(--text);
+        font-size: 14px;
+        letter-spacing: 0;
+      }
+      .orbit-job { top: 4px; left: 20px; transform: rotate(-5deg); }
+      .orbit-trader { top: 42px; right: 8px; transform: rotate(4deg); animation-delay: -1.7s; }
+      .orbit-seasons { left: 6px; bottom: 48px; transform: rotate(4deg); animation-delay: -3.2s; }
+      .orbit-amex { right: 34px; bottom: 2px; transform: rotate(-5deg); animation-delay: -4.6s; }
+      .orbit-card:hover {
+        transform: translateY(-8px) rotate(0deg) scale(1.03);
+        animation-play-state: paused;
+        border-color: rgba(110,231,183,0.36);
+        box-shadow: 0 30px 90px rgba(59,130,246,0.18);
+        z-index: 8;
+      }
+      .orbit-chip {
+        position: absolute;
+        left: 50%;
+        bottom: 138px;
+        z-index: 7;
+        transform: translateX(-50%);
+        padding: 9px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(233,212,138,0.26);
+        background: rgba(8, 10, 14, 0.82);
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+        box-shadow: 0 14px 38px rgba(0,0,0,0.34);
       }
       .skill-badge {
         position: absolute;
@@ -747,7 +844,7 @@
         background: rgba(12, 20, 28, 0.72);
         border-radius: 8px;
         padding: 18px;
-        margin: 18px 0 96px;
+        margin: 18px 0 22px;
       }
       .search-signal-title {
         font-size: 12px;
@@ -766,6 +863,103 @@
       .search-signal strong {
         color: var(--text);
         font-weight: 700;
+      }
+      .search-signal a {
+        color: var(--accent);
+      }
+      .launch-board {
+        margin: 0 0 96px;
+      }
+      .launch-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 20px;
+        margin-bottom: 14px;
+      }
+      .launch-head span {
+        color: var(--mint);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .launch-head strong {
+        color: var(--text);
+        font-size: clamp(22px, 3vw, 34px);
+        line-height: 1.05;
+        letter-spacing: 0;
+        max-width: 560px;
+      }
+      .launch-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 0.9fr 0.9fr;
+        gap: 16px;
+      }
+      .launch-card {
+        position: relative;
+        min-height: 260px;
+        overflow: hidden;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: #0b0f16;
+        color: inherit;
+        text-decoration: none;
+        display: flex;
+        align-items: flex-end;
+        padding: 22px;
+        isolation: isolate;
+        box-shadow: 0 24px 70px rgba(0,0,0,0.28);
+        transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+      }
+      .launch-card img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.58;
+        filter: saturate(1.06) contrast(1.06);
+        transition: transform 0.38s ease, opacity 0.38s ease;
+        z-index: -2;
+      }
+      .launch-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(5,6,9,0.14), rgba(5,6,9,0.88)),
+          radial-gradient(circle at 20% 20%, rgba(110,231,183,0.24), transparent 34%);
+        z-index: -1;
+      }
+      .launch-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(110,231,183,0.36);
+        box-shadow: 0 30px 90px rgba(59,130,246,0.16);
+      }
+      .launch-card:hover img {
+        transform: scale(1.05);
+        opacity: 0.72;
+      }
+      .launch-card span {
+        color: var(--gold);
+        font-size: 11px;
+        font-weight: 850;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .launch-card h2 {
+        margin: 6px 0 6px;
+        color: var(--text);
+        font-size: clamp(24px, 3vw, 36px);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+      .launch-card p {
+        max-width: 420px;
+        color: rgba(238,238,240,0.78);
+        font-size: 13px;
+        line-height: 1.55;
       }
 
       /* ── About ────────────────────────────────────────────────────────── */
@@ -882,15 +1076,26 @@
       }
 
       /* ── Cards grid ─────────────────────────────────────────────────────── */
+      .project-intro {
+        max-width: 640px;
+        margin: -22px 0 22px;
+        color: var(--text-secondary);
+        font-size: 15px;
+      }
       .cards {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 18px;
       }
       .card {
-        background: var(--surface);
+        grid-column: span 4;
+        position: relative;
+        overflow: hidden;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)),
+          var(--surface);
         border: 1px solid var(--border);
-        border-radius: 14px;
+        border-radius: 18px;
         padding: 24px 24px 20px;
         text-decoration: none;
         color: inherit;
@@ -899,15 +1104,42 @@
         gap: 10px;
         transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s, background 0.22s;
       }
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(circle at 20% 0%, rgba(59,130,246,0.14), transparent 32%);
+        opacity: 0;
+        transition: opacity 0.24s;
+      }
+      .card:nth-child(1),
+      .card:nth-child(2),
+      .card:nth-child(3),
+      .card:nth-child(4) {
+        grid-column: span 6;
+      }
+      .card:hover::before { opacity: 1; }
       .card-cover {
         width: calc(100% + 48px);
         aspect-ratio: 16 / 9;
         object-fit: cover;
         display: block;
         margin: -24px -24px 12px;
-        border-radius: 14px 14px 8px 8px;
+        border-radius: 18px 18px 10px 10px;
         border-bottom: 1px solid var(--border);
         background: #09090d;
+        transition: transform 0.34s ease, filter 0.34s ease;
+      }
+      .card:nth-child(1) .card-cover,
+      .card:nth-child(2) .card-cover,
+      .card:nth-child(3) .card-cover,
+      .card:nth-child(4) .card-cover {
+        aspect-ratio: 2.2 / 1;
+      }
+      .card:hover .card-cover {
+        transform: scale(1.035);
+        filter: saturate(1.12) contrast(1.04);
       }
       .case-visual {
         width: calc(100% + 48px);
@@ -1237,6 +1469,20 @@
         0%, 100% { opacity: 1; transform: scale(1); }
         50% { opacity: 0.4; transform: scale(1.5); }
       }
+      @keyframes cardFloat {
+        0%, 100% { translate: 0 0; }
+        50% { translate: 0 -8px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
 
       /* ── Responsive ─────────────────────────────────────────────────────── */
       @media (max-width: 768px) {
@@ -1246,17 +1492,49 @@
           padding: 56px 0 40px;
         }
         .portrait-stage {
-          min-height: 440px;
+          min-height: 560px;
         }
-        .skill-badge:nth-of-type(1) { top: 54px; left: 4px; }
-        .skill-badge:nth-of-type(2) { top: 114px; right: 0; }
-        .skill-badge:nth-of-type(3) { top: 244px; left: 0; }
-        .skill-badge:nth-of-type(4) { bottom: 88px; right: 4px; }
-        .skill-badge:nth-of-type(5) { bottom: 34px; left: 22px; }
+        .product-orbit {
+          height: 540px;
+        }
+        .portrait-frame {
+          width: min(250px, 62vw);
+        }
+        .orbit-card {
+          width: 220px;
+        }
+        .orbit-card img {
+          height: 112px;
+        }
+        .orbit-job { top: 0; left: 0; }
+        .orbit-trader { top: 42px; right: 0; }
+        .orbit-seasons { left: 0; bottom: 50px; }
+        .orbit-amex { right: 0; bottom: 0; }
+        .orbit-chip { bottom: 128px; }
         .stats { flex-direction: column; border-radius: 14px; }
         .stat { border-radius: 0 !important; }
         .stat:first-child { border-radius: 14px 14px 0 0 !important; }
         .stat:last-child { border-radius: 0 0 14px 14px !important; }
+        .card,
+        .card:nth-child(1),
+        .card:nth-child(2),
+        .card:nth-child(3),
+        .card:nth-child(4) {
+          grid-column: 1 / -1;
+        }
+        .launch-head {
+          display: block;
+        }
+        .launch-head strong {
+          display: block;
+          margin-top: 8px;
+        }
+        .launch-grid {
+          grid-template-columns: 1fr;
+        }
+        .launch-card {
+          min-height: 230px;
+        }
       }
       @media (max-width: 520px) {
         .container { padding: 0 18px; }
@@ -1277,7 +1555,25 @@
         .btn { justify-content: center; }
         .hero-title { font-size: 48px; }
         .hero-subtitle { font-size: 26px; }
-        .portrait-stage { min-height: 410px; }
+        .portrait-stage { min-height: 520px; }
+        .product-orbit { height: 500px; }
+        .product-orbit::before { inset: 88px 36px; }
+        .portrait-frame { width: min(218px, 66vw); }
+        .orbit-card {
+          width: 188px;
+          border-radius: 15px;
+        }
+        .orbit-card img { height: 92px; }
+        .orbit-card span { font-size: 9px; padding-top: 8px; }
+        .orbit-card strong { font-size: 12px; padding-bottom: 9px; }
+        .orbit-job { top: 0; left: -4px; }
+        .orbit-trader { top: 46px; right: -4px; }
+        .orbit-seasons { left: -4px; bottom: 44px; }
+        .orbit-amex { right: -4px; bottom: 0; }
+        .orbit-chip {
+          bottom: 116px;
+          font-size: 11px;
+        }
         .skill-badge {
           font-size: 11px;
           padding: 7px 10px;
@@ -1346,25 +1642,43 @@
         </div>
 
         <div class="portrait-stage hero-reveal hero-reveal-5" aria-label="Haoming Koo profile visual">
-          <div class="portrait-frame">
-            <div class="portrait-fallback" aria-hidden="true">
-              <div>
-                <div class="portrait-monogram">HK</div>
-                <div class="portrait-caption">AI Engineer · Builder</div>
+          <div class="product-orbit">
+            <a class="orbit-card orbit-job" href="https://job.kooexperience.com" target="_blank" rel="noopener">
+              <img src="./assets/projects/job-hunter.png" alt="Job Hunter SG product preview" />
+              <span>LLM product</span>
+              <strong>Job Hunter SG</strong>
+            </a>
+            <a class="orbit-card orbit-trader" href="https://trader.kooexperience.com" target="_blank" rel="noopener">
+              <img src="./assets/projects/trader-koo.png" alt="Trader Koo product preview" />
+              <span>Market workflow</span>
+              <strong>Trader Koo</strong>
+            </a>
+            <a class="orbit-card orbit-seasons" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">
+              <img src="./assets/projects/japan-in-seasons.png" alt="Japan in Seasons product preview" />
+              <span>MCP + map</span>
+              <strong>Japan in Seasons</strong>
+            </a>
+            <a class="orbit-card orbit-amex" href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener">
+              <img src="./assets/projects/amex-explorer.png" alt="Amex Explorer product preview" />
+              <span>Source trust</span>
+              <strong>Amex Explorer</strong>
+            </a>
+            <div class="portrait-frame identity-card">
+              <div class="portrait-fallback" aria-hidden="true">
+                <div>
+                  <div class="portrait-monogram">HK</div>
+                  <div class="portrait-caption">AI Engineer · Builder</div>
+                </div>
               </div>
+              <img
+                class="portrait-cutout"
+                src="./assets/haoming-portrait.jpg"
+                alt="Haoming Koo"
+                onerror="this.hidden=true"
+              />
             </div>
-            <img
-              class="portrait-cutout"
-              src="./assets/haoming-portrait.jpg"
-              alt="Haoming Koo"
-              onerror="this.hidden=true"
-            />
+            <div class="orbit-chip">8 live apps · real URLs</div>
           </div>
-          <span class="skill-badge">Production ML</span>
-          <span class="skill-badge">LLM systems</span>
-          <span class="skill-badge">Vision pipelines</span>
-          <span class="skill-badge">MLOps</span>
-          <span class="skill-badge">Concept to launch</span>
         </div>
       </section>
 
@@ -1419,6 +1733,39 @@
           Find him on <a href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
           and <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>.
         </p>
+      </section>
+
+      <section class="launch-board reveal" aria-label="Open live systems">
+        <div class="launch-head">
+          <span>Open the systems</span>
+          <strong>Start with the apps that show the range.</strong>
+        </div>
+        <div class="launch-grid">
+          <a class="launch-card" href="https://job.kooexperience.com" target="_blank" rel="noopener">
+            <img src="./assets/projects/job-hunter.png" alt="Job Hunter SG live preview" />
+            <div>
+              <span>Top project</span>
+              <h2>Job Hunter SG</h2>
+              <p>RAG matching, ATS scoring, and fact-checked resume edits for Singapore roles.</p>
+            </div>
+          </a>
+          <a class="launch-card" href="https://trader.kooexperience.com" target="_blank" rel="noopener">
+            <img src="./assets/projects/trader-koo.png" alt="Trader Koo live preview" />
+            <div>
+              <span>Signal workflow</span>
+              <h2>Trader Koo</h2>
+              <p>Market scans, chart signals, source freshness, and review queues.</p>
+            </div>
+          </a>
+          <a class="launch-card" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">
+            <img src="./assets/projects/japan-in-seasons.png" alt="Japan in Seasons live preview" />
+            <div>
+              <span>MCP + travel</span>
+              <h2>Japan in Seasons</h2>
+              <p>1,700+ places, seasonal forecasts, and agent-readable travel tools.</p>
+            </div>
+          </a>
+        </div>
       </section>
 
       <!-- About -->
@@ -1517,6 +1864,9 @@
       <!-- Projects -->
       <section id="projects" class="section">
         <p class="section-label reveal">Projects</p>
+        <p class="project-intro reveal">
+          Click into the work. These are live products, not pitch-deck screenshots.
+        </p>
         <div class="cards">
           <a class="card reveal reveal-delay-2" href="https://job.kooexperience.com" target="_blank" rel="noopener">
             <img class="card-cover" src="./assets/projects/job-hunter.png" alt="Job Hunter SG live product screenshot" loading="lazy" />
@@ -1899,6 +2249,17 @@
 
       /* ── Blog & Travel post renderer ────────────────────────────────── */
       (function () {
+        function compactExcerpt(post) {
+          var overrides = {
+            "create-mcp": "MCP quality fixes: tool names, annotations, caching, Smithery config, and a reusable create-mcp skill.",
+            "pdf-parsing-comparison": "Seven PDF parsers tested on scanned, handwritten, AcroForm, and degraded complaint forms.",
+            "minmax-wine": "Wine price comparison for Singapore, with scraping, Vivino matching, and guarded daily refreshes.",
+            "netherlands": "Tulips, windmills, Dutch masters, Delft tiles, and Indonesian food across the Netherlands.",
+            "japan": "Hokkaido snow festivals, early sakura, Mount Fuji views, and Izu coastal drives.",
+            "italy": "Milan, Florence, Pisa, Rome, and Venice with a full winter family trip breakdown."
+          };
+          return overrides[post.slug] || post.excerpt || "";
+        }
         function renderPosts(containerId, manifestUrl, type, limit) {
           fetch(manifestUrl)
             .then(function (r) { return r.ok ? r.json() : []; })
@@ -1926,7 +2287,7 @@
                     '<span>' + dateStr + '</span>' +
                   '</div>' +
                   '<p class="post-title">' + p.title + '</p>' +
-                  '<p class="post-excerpt">' + p.excerpt + '</p>' +
+                  '<p class="post-excerpt">' + compactExcerpt(p) + '</p>' +
                   '<span class="post-read">Read &rsaquo;</span>';
                 container.appendChild(a);
               });
