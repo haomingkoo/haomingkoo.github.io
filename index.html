@@ -307,6 +307,9 @@
         --accent: #3b82f6;
         --accent-dim: rgba(59, 130, 246, 0.10);
         --accent-glow: rgba(59, 130, 246, 0.06);
+        --mint: #6ee7b7;
+        --gold: #e9d48a;
+        --coral: #fb7185;
         --text: #eeeef0;
         --text-secondary: #b0b0b8;
         --muted: #64647a;
@@ -395,10 +398,11 @@
 
       /* ── Hero ───────────────────────────────────────────────────────────── */
       .hero {
-        padding: 80px 0 56px;
-        display: flex;
+        padding: 84px 0 52px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
         align-items: center;
-        gap: 56px;
+        gap: 72px;
       }
       .hero-inner { flex: 1; min-width: 0; }
 
@@ -410,36 +414,46 @@
         font-weight: 600;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: var(--accent);
+        color: var(--mint);
         margin-bottom: 20px;
-        padding: 5px 14px;
-        background: var(--accent-dim);
-        border: 1px solid rgba(59,130,246,0.15);
+        padding: 6px 14px;
+        background: rgba(110, 231, 183, 0.08);
+        border: 1px solid rgba(110, 231, 183, 0.18);
         border-radius: 99px;
       }
       .hero-label::before {
         content: "";
         width: 6px; height: 6px;
         border-radius: 50%;
-        background: var(--accent);
+        background: var(--mint);
         animation: pulse 2.5s infinite;
       }
       .hero-title {
-        font-size: clamp(38px, 6.5vw, 60px);
+        font-size: clamp(54px, 8vw, 92px);
         font-weight: 800;
-        line-height: 1.08;
-        letter-spacing: -0.035em;
-        margin-bottom: 20px;
+        line-height: 0.92;
+        letter-spacing: -0.055em;
+        margin-bottom: 18px;
         color: var(--text);
       }
       .hero-title span {
-        color: var(--accent);
+        display: block;
+        color: var(--gold);
+      }
+      .hero-subtitle {
+        font-size: clamp(24px, 3.4vw, 42px);
+        line-height: 1.08;
+        letter-spacing: -0.04em;
+        color: var(--text);
+        font-weight: 750;
+        max-width: 680px;
+        margin-bottom: 18px;
       }
       .hero-bio {
         font-size: 16px;
         line-height: 1.7;
         color: var(--text-secondary);
-        max-width: 480px;
+        max-width: 620px;
         margin-bottom: 28px;
       }
       .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -474,12 +488,115 @@
         border-color: var(--border-hover);
       }
 
-      /* ── Hero visual ────────────────────────────────────────────────────── */
-      .hero-visual {
-        width: 300px;
-        flex-shrink: 0;
+      /* ── Personal hero visual ─────────────────────────────────────────── */
+      .portrait-stage {
+        position: relative;
+        min-height: 560px;
+        display: grid;
+        place-items: center;
+        isolation: isolate;
       }
-      .hero-visual svg { width: 100%; height: auto; display: block; }
+      .portrait-stage::before {
+        content: "";
+        position: absolute;
+        width: min(460px, 82vw);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, rgba(110, 231, 183, 0.18), transparent 58%),
+          radial-gradient(circle at 70% 20%, rgba(233, 212, 138, 0.16), transparent 45%);
+        filter: blur(8px);
+        z-index: -1;
+      }
+      .portrait-frame {
+        position: relative;
+        width: min(340px, 78vw);
+        aspect-ratio: 3 / 4;
+        border-radius: 28px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)),
+          radial-gradient(circle at 50% 18%, rgba(110,231,183,0.20), transparent 34%),
+          linear-gradient(145deg, #101820, #08090d 70%);
+        box-shadow: 0 34px 90px rgba(0,0,0,0.45);
+        overflow: visible;
+      }
+      .portrait-frame::after {
+        content: "";
+        position: absolute;
+        inset: auto 28px 26px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(233,212,138,0.6), transparent);
+      }
+      .portrait-cutout {
+        position: absolute;
+        inset: -32px 0 0;
+        width: 100%;
+        height: calc(100% + 32px);
+        object-fit: cover;
+        object-position: center bottom;
+        border-radius: 26px;
+        filter: drop-shadow(0 22px 36px rgba(0,0,0,0.42));
+      }
+      .portrait-fallback {
+        position: absolute;
+        inset: 24px;
+        display: grid;
+        place-items: center;
+        border-radius: 24px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background:
+          linear-gradient(160deg, rgba(110,231,183,0.12), transparent 44%),
+          repeating-linear-gradient(135deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 12px);
+        color: rgba(238,238,240,0.9);
+        text-align: center;
+      }
+      .portrait-monogram {
+        font-size: 86px;
+        line-height: 1;
+        font-weight: 850;
+        letter-spacing: -0.08em;
+      }
+      .portrait-caption {
+        margin-top: 14px;
+        color: var(--text-secondary);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .skill-badge {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 8px 12px;
+        border: 1px solid rgba(255,255,255,0.13);
+        background: rgba(8, 10, 14, 0.84);
+        backdrop-filter: blur(12px);
+        border-radius: 999px;
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 700;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+        white-space: nowrap;
+      }
+      .skill-badge::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .skill-badge:nth-of-type(1) { top: 86px; left: -14px; }
+      .skill-badge:nth-of-type(1)::before { background: var(--mint); }
+      .skill-badge:nth-of-type(2) { top: 146px; right: -30px; }
+      .skill-badge:nth-of-type(2)::before { background: var(--gold); }
+      .skill-badge:nth-of-type(3) { top: 290px; left: -34px; }
+      .skill-badge:nth-of-type(3)::before { background: var(--accent); }
+      .skill-badge:nth-of-type(4) { bottom: 114px; right: -18px; }
+      .skill-badge:nth-of-type(4)::before { background: var(--coral); }
+      .skill-badge:nth-of-type(5) { bottom: 54px; left: 24px; }
+      .skill-badge:nth-of-type(5)::before { background: #a78bfa; }
 
       /* ── Stats strip ────────────────────────────────────────────────────── */
       .stats {
@@ -670,6 +787,16 @@
         gap: 10px;
         transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s, background 0.22s;
       }
+      .card-cover {
+        width: calc(100% + 48px);
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+        margin: -24px -24px 12px;
+        border-radius: 14px 14px 8px 8px;
+        border-bottom: 1px solid var(--border);
+        background: #09090d;
+      }
       .card:hover {
         transform: translateY(-4px);
         background: var(--surface-hover);
@@ -794,6 +921,20 @@
         margin-bottom: 32px;
       }
       .section-header .section-label { margin-bottom: 0; }
+      .section-view-all {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 7px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.03);
+      }
+      .section-view-all:hover {
+        color: var(--text);
+        border-color: var(--border-hover);
+      }
       .empty-state {
         grid-column: 1 / -1;
         text-align: center;
@@ -852,8 +993,8 @@
 
       /* ── Scroll animations ──────────────────────────────────────────────── */
       .reveal {
-        opacity: 0;
-        transform: translateY(20px);
+        opacity: 1;
+        transform: none;
         transition: opacity 0.6s ease, transform 0.6s ease;
       }
       .reveal.visible {
@@ -866,12 +1007,13 @@
       .reveal-delay-4 { transition-delay: 0.32s; }
       .reveal-delay-5 { transition-delay: 0.40s; }
       .reveal-delay-6 { transition-delay: 0.48s; }
+      .reveal-delay-7 { transition-delay: 0.56s; }
+      .reveal-delay-8 { transition-delay: 0.64s; }
 
       /* Hero loads immediately */
       .hero-reveal {
-        opacity: 0;
-        transform: translateY(16px);
-        animation: fadeUp 0.65s ease forwards;
+        opacity: 1;
+        transform: none;
       }
       .hero-reveal-1 { animation-delay: 0s; }
       .hero-reveal-2 { animation-delay: 0.1s; }
@@ -892,11 +1034,18 @@
       /* ── Responsive ─────────────────────────────────────────────────────── */
       @media (max-width: 768px) {
         .hero {
-          flex-direction: column;
+          grid-template-columns: 1fr;
           gap: 40px;
-          padding: 60px 0 40px;
+          padding: 56px 0 40px;
         }
-        .hero-visual { width: 100%; }
+        .portrait-stage {
+          min-height: 440px;
+        }
+        .skill-badge:nth-of-type(1) { top: 54px; left: 4px; }
+        .skill-badge:nth-of-type(2) { top: 114px; right: 0; }
+        .skill-badge:nth-of-type(3) { top: 244px; left: 0; }
+        .skill-badge:nth-of-type(4) { bottom: 88px; right: 4px; }
+        .skill-badge:nth-of-type(5) { bottom: 34px; left: 22px; }
         .stats { flex-direction: column; border-radius: 14px; }
         .stat { border-radius: 0 !important; }
         .stat:first-child { border-radius: 14px 14px 0 0 !important; }
@@ -904,11 +1053,28 @@
       }
       @media (max-width: 520px) {
         .container { padding: 0 18px; }
-        nav { padding: 0 18px; }
-        .nav-links { gap: 2px; }
-        .nav-links a { padding: 6px 8px; font-size: 12px; }
+        nav {
+          height: auto;
+          min-height: 56px;
+          padding: 10px 18px;
+          align-items: flex-start;
+        }
+        .nav-links {
+          gap: 2px;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          max-width: calc(100vw - 72px);
+        }
+        .nav-links a { padding: 4px 7px; font-size: 12px; }
         .hero-actions { flex-direction: column; }
         .btn { justify-content: center; }
+        .hero-title { font-size: 48px; }
+        .hero-subtitle { font-size: 26px; }
+        .portrait-stage { min-height: 410px; }
+        .skill-badge {
+          font-size: 11px;
+          padding: 7px 10px;
+        }
         footer {
           flex-direction: column;
           gap: 28px;
@@ -942,14 +1108,17 @@
       <!-- Hero -->
       <section class="hero">
         <div class="hero-inner">
-          <div class="hero-label hero-reveal hero-reveal-1">Available for work</div>
+          <div class="hero-label hero-reveal hero-reveal-1">Available for AI roles &amp; projects</div>
           <h1 class="hero-title hero-reveal hero-reveal-2">
-            Haoming Koo builds <span>AI systems</span><br />that ship.
+            Haoming <span>Koo</span>
           </h1>
+          <p class="hero-subtitle hero-reveal hero-reveal-3">
+            Building AI systems that survive reality.
+          </p>
           <p class="hero-bio hero-reveal hero-reveal-3">
-            AI engineer in Singapore with production ML, LLM workflow, computer vision,
-            and full-stack delivery experience. I turn ambiguous business problems into
-            deployed systems with measurable impact.
+            Production ML, LLM workflows, computer vision, and full-stack products.
+            I turn ambiguous operational problems into shipped systems, from global
+            semiconductor fabs to live public tools.
           </p>
           <div class="hero-actions hero-reveal hero-reveal-4">
             <a class="btn btn-primary" href="./hire.html">
@@ -965,57 +1134,26 @@
           </div>
         </div>
 
-        <div class="hero-visual hero-reveal hero-reveal-5">
-          <svg
-            id="market-chart"
-            viewBox="0 0 380 260"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop id="mc-area-stop-top" offset="0%" stop-color="#3b82f6" stop-opacity=".18" />
-                <stop id="mc-area-stop-bot" offset="100%" stop-color="#3b82f6" stop-opacity="0" />
-              </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="2.5" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-            <rect width="380" height="260" rx="16" fill="#0a0a0e" stroke="#1c1c24" stroke-width="1" />
-            <!-- Grid -->
-            <line x1="56" y1="214" x2="356" y2="214" stroke="#1c1c24" stroke-width=".8" />
-            <line x1="56" y1="175" x2="356" y2="175" stroke="#1c1c24" stroke-width=".8" />
-            <line x1="56" y1="136" x2="356" y2="136" stroke="#1c1c24" stroke-width=".8" />
-            <line x1="56" y1="97" x2="356" y2="97" stroke="#1c1c24" stroke-width=".8" />
-            <!-- Y-axis -->
-            <text id="mc-y0" x="52" y="217" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
-            <text id="mc-y1" x="52" y="178" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
-            <text id="mc-y2" x="52" y="139" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
-            <text id="mc-y3" x="52" y="100" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
-            <!-- Header: live dot + ticker + price + change + period -->
-            <circle id="mc-live-dot" cx="62" cy="28" r="3.5" fill="#3b82f6">
-              <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
-            </circle>
-            <text x="72" y="32" fill="#eeeef0" font-size="10.5" font-family="Inter,sans-serif" font-weight="700">SPY</text>
-            <text id="mc-spy-price" x="98" y="32" fill="#eeeef0" font-size="10" font-family="Inter,sans-serif" font-weight="600">&ndash;</text>
-            <text id="mc-spy-chg" x="152" y="32" fill="#64647a" font-size="9.5" font-family="Inter,sans-serif" font-weight="600">&ndash;</text>
-            <text id="mc-spy-period" x="200" y="32" fill="#64647a" font-size="9" font-family="Inter,sans-serif">&ndash;</text>
-            <text id="mc-asof" x="356" y="32" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">loading&#8230;</text>
-            <!-- Chart data -->
-            <polygon id="mc-spy-area" points="56,214 356,214" fill="url(#areaGrad)" />
-            <polyline id="mc-spy-line" points="56,175 356,175" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round" filter="url(#glow)" />
-            <circle id="mc-end-dot" cx="356" cy="175" r="4" fill="#3b82f6" filter="url(#glow)">
-              <animate attributeName="r" values="4;5.5;4" dur="3s" repeatCount="indefinite" />
-            </circle>
-            <!-- X-axis dates -->
-            <text id="mc-date-0" x="56" y="242" fill="#44445a" font-size="8" font-family="Inter,sans-serif">&ndash;</text>
-            <text id="mc-date-mid" x="206" y="242" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">&ndash;</text>
-            <text id="mc-date-end" x="356" y="242" fill="#44445a" font-size="8" font-family="Inter,sans-serif" text-anchor="end">&ndash;</text>
-          </svg>
+        <div class="portrait-stage hero-reveal hero-reveal-5" aria-label="Haoming Koo profile visual">
+          <div class="portrait-frame">
+            <div class="portrait-fallback" aria-hidden="true">
+              <div>
+                <div class="portrait-monogram">HK</div>
+                <div class="portrait-caption">AI Engineer · Builder</div>
+              </div>
+            </div>
+            <img
+              class="portrait-cutout"
+              src="./assets/haoming-portrait.svg"
+              alt="Haoming Koo"
+              onerror="this.hidden=true"
+            />
+          </div>
+          <span class="skill-badge">Production ML</span>
+          <span class="skill-badge">LLM systems</span>
+          <span class="skill-badge">Computer vision</span>
+          <span class="skill-badge">MLOps</span>
+          <span class="skill-badge">Full-stack</span>
         </div>
       </section>
 
@@ -1147,6 +1285,7 @@
         <p class="section-label reveal">Projects</p>
         <div class="cards">
           <a class="card reveal reveal-delay-1" href="https://job.kooexperience.com" target="_blank" rel="noopener">
+            <img class="card-cover" src="./assets/og/job-hunter.png" alt="Job Hunter SG screenshot" loading="lazy" />
             <div class="card-top">
               <span class="card-icon">🏢</span>
               <span class="badge badge-live">Live</span>
@@ -1169,6 +1308,7 @@
           </a>
 
           <a class="card reveal reveal-delay-2" href="https://trader.kooexperience.com" target="_blank" rel="noopener">
+            <img class="card-cover" src="./assets/og/trader-koo.png" alt="Trader Koo screenshot" loading="lazy" />
             <div class="card-top">
               <span class="card-icon">📈</span>
               <span class="badge badge-live">Live</span>
@@ -1211,6 +1351,7 @@
           </a>
 
           <a class="card reveal reveal-delay-4" href="https://lionweather.kooexperience.com/" target="_blank" rel="noopener">
+            <img class="card-cover" src="./assets/og/lionweather.png" alt="LionWeather screenshot" loading="lazy" />
             <div class="card-top">
               <span class="card-icon">🦁</span>
               <span class="badge badge-live">Live</span>
@@ -1233,6 +1374,7 @@
           </a>
 
           <a class="card reveal reveal-delay-5" href="https://studio.kooexperience.com/" target="_blank" rel="noopener">
+            <img class="card-cover" src="./assets/og/photo-id-studio.png" alt="Photo Compliance Studio screenshot" loading="lazy" />
             <div class="card-top">
               <span class="card-icon">🪪</span>
               <span class="badge badge-live">Live</span>
@@ -1296,6 +1438,7 @@
           </a>
 
           <a class="card reveal reveal-delay-8" href="https://wine.kooexperience.com" target="_blank" rel="noopener">
+            <img class="card-cover" src="./assets/wine-og.png" alt="MinMax Wine screenshot" loading="lazy" />
             <div class="card-top">
               <span class="card-icon">🍷</span>
               <span class="badge badge-live">Live</span>
@@ -1421,103 +1564,6 @@
 
     <!-- ── Scripts ──────────────────────────────────────────────────────── -->
     <script>
-      /* ── SPY chart (auto-refresh every 60s) ─────────────────────────── */
-      (function () {
-        var API = "https://trader.kooexperience.com/api/market-summary?days=90";
-        var CX0 = 56, CX1 = 356, CY0 = 56, CY1 = 214;
-        var GRID_YS = [214, 175, 136, 97];
-        var REFRESH_MS = 60000;
-
-        function fmtMon(d) {
-          return new Date(d + "T00:00:00").toLocaleString("en-US", { month: "short" });
-        }
-        function fmtChg(v) {
-          return (v >= 0 ? "+" : "") + v.toFixed(2) + "%";
-        }
-        function fmtTime() {
-          return new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
-        }
-
-        var lo, fullRange;
-        function toY(price) {
-          return (CY1 - ((price - lo) / fullRange) * (CY1 - CY0)).toFixed(1);
-        }
-        function makePoints(closes, n) {
-          return closes.map(function (p, i) {
-            var x = (CX0 + (i / (n - 1)) * (CX1 - CX0)).toFixed(1);
-            return x + "," + toY(p);
-          }).join(" ");
-        }
-
-        function refreshChart() {
-          fetch(API, { signal: AbortSignal.timeout(8000) })
-            .then(function (r) { return r.ok ? r.json() : Promise.reject("api error"); })
-            .then(function (data) {
-              var spy = data.tickers && data.tickers.SPY;
-              if (!spy) throw new Error("missing");
-
-              var closes = spy.history.map(function (h) { return h.close; });
-              var priceMin = Math.min.apply(null, closes);
-              var priceMax = Math.max.apply(null, closes);
-              var range = priceMax - priceMin || 1;
-              var pad = range * 0.1;
-              lo = priceMin - pad;
-              fullRange = range + 2 * pad;
-
-              var N = closes.length;
-              var pts = makePoints(closes, N);
-              var lastX = CX1.toFixed(1);
-              var lastY = toY(closes[N - 1]);
-
-              var line = document.getElementById("mc-spy-line");
-              var area = document.getElementById("mc-spy-area");
-              var dot = document.getElementById("mc-end-dot");
-
-              line.setAttribute("points", pts);
-              area.setAttribute("points", pts + " " + lastX + "," + CY1 + " " + CX0 + "," + CY1);
-              dot.setAttribute("cx", lastX);
-              dot.setAttribute("cy", lastY);
-
-              /* Colour based on daily change */
-              var isUp = spy.change_pct_1d >= 0;
-              var colour = isUp ? "#22c55e" : "#ef4444";
-              line.setAttribute("stroke", colour);
-              dot.setAttribute("fill", colour);
-              document.getElementById("mc-area-stop-top").setAttribute("stop-color", colour);
-              document.getElementById("mc-area-stop-bot").setAttribute("stop-color", colour);
-
-              GRID_YS.forEach(function (gy, i) {
-                var price = lo + ((CY1 - gy) / (CY1 - CY0)) * fullRange;
-                document.getElementById("mc-y" + i).textContent = "$" + Math.round(price);
-              });
-
-              /* Price + change badge */
-              var chgEl = document.getElementById("mc-spy-chg");
-              chgEl.textContent = fmtChg(spy.change_pct_1d);
-              chgEl.setAttribute("fill", colour);
-
-              document.getElementById("mc-spy-price").textContent = "$" + spy.price.toFixed(2);
-              document.getElementById("mc-spy-period").textContent = fmtChg(spy.change_pct_period) + " (90d)";
-              document.getElementById("mc-asof").textContent = "refreshed " + fmtTime();
-
-              /* Live dot pulse */
-              document.getElementById("mc-live-dot").setAttribute("fill", colour);
-
-              var dates = spy.history.map(function (h) { return h.date; });
-              document.getElementById("mc-date-0").textContent = fmtMon(dates[0]);
-              document.getElementById("mc-date-mid").textContent = fmtMon(dates[Math.floor(N / 2)]);
-              document.getElementById("mc-date-end").textContent = fmtMon(dates[N - 1]);
-            })
-            .catch(function () {
-              document.getElementById("mc-asof").textContent = "data unavailable";
-            });
-        }
-
-        /* Initial load + 60s auto-refresh */
-        refreshChart();
-        setInterval(refreshChart, REFRESH_MS);
-      })();
-
       /* ── Scroll reveal ──────────────────────────────────────────────── */
       (function () {
         var observer = new IntersectionObserver(function (entries) {
