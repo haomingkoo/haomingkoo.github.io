@@ -777,7 +777,10 @@
         background: #0b1119;
       }
 
-      .case-visual img {
+      .case-visual img,
+      .case-visual video {
+        position: absolute;
+        inset: 0;
         width: 100%;
         height: 100%;
         display: block;
@@ -787,7 +790,18 @@
         transition: transform 0.5s ease;
       }
 
-      .case-card:hover .case-visual img {
+      .case-visual video {
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.24s ease, transform 0.5s ease;
+      }
+
+      .case-visual.is-playing video {
+        opacity: 1;
+      }
+
+      .case-card:hover .case-visual img,
+      .case-card:hover .case-visual video {
         transform: scale(1.06);
       }
 
@@ -796,6 +810,7 @@
         position: absolute;
         inset: 0;
         background: linear-gradient(180deg, transparent 48%, rgba(5,7,10,0.58));
+        z-index: 2;
       }
 
       .case-body {
@@ -1640,6 +1655,48 @@
           }
         });
       });
+
+      function setupProofLoops() {
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const mediaBlocks = Array.from(document.querySelectorAll(".case-visual[data-webm], .case-visual[data-mp4]"));
+
+        mediaBlocks.forEach((block) => {
+          const video = document.createElement("video");
+          video.muted = true;
+          video.loop = true;
+          video.playsInline = true;
+          video.preload = "metadata";
+          video.setAttribute("aria-hidden", "true");
+
+          [["webm", "video/webm"], ["mp4", "video/mp4"]].forEach(([key, type]) => {
+            if (!block.dataset[key]) return;
+            const source = document.createElement("source");
+            source.src = block.dataset[key];
+            source.type = type;
+            video.appendChild(source);
+          });
+
+          block.appendChild(video);
+          const card = block.closest(".case-card") || block;
+          const play = () => {
+            if (reduceMotion) return;
+            block.classList.add("is-playing");
+            video.play().catch(() => block.classList.remove("is-playing"));
+          };
+          const pause = () => {
+            video.pause();
+            video.currentTime = 0;
+            block.classList.remove("is-playing");
+          };
+
+          card.addEventListener("pointerenter", play);
+          card.addEventListener("pointerleave", pause);
+          card.addEventListener("focusin", play);
+          card.addEventListener("focusout", pause);
+        });
+      }
+
+      setupProofLoops();
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {

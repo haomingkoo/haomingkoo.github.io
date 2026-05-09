@@ -11,14 +11,14 @@
     <link rel="me" href="https://github.com/haomingkoo" />
     <link rel="alternate" type="application/json" title="Haoming Koo structured profile" href="https://kooexperience.com/profile.json" />
     <title>Haoming Koo | AI Engineer in Singapore</title>
-    <meta name="description" content="AI engineer in Singapore. 8 live apps shipping. AI Singapore AIAP. 7+ years scaling production ML across global semiconductor fabs. Open to frontier AI roles." />
+    <meta name="description" content="Haoming Koo is a Singapore AI engineer building production ML systems, RAG workflows, agent tools, evals, and 8 live AI products. Open to frontier AI roles." />
     <meta name="keywords" content="Haoming Koo, AI engineer, forward deployed AI engineer, applied AI engineer, machine learning, LangGraph, Langfuse, Arize Phoenix, RAG, LLM observability, evals, agent workflows, tool-using agents, spec-driven development, AI Singapore, AIAP, Python, PyTorch, FastAPI, React, vision pipelines, MLOps, Singapore" />
     <meta name="author" content="Haoming Koo" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <link rel="canonical" href="https://kooexperience.com/" />
     <!-- Open Graph -->
     <meta property="og:title" content="Haoming Koo | AI Engineer in Singapore" />
-    <meta property="og:description" content="Production ML systems, agent workflows, RAG, evals, observability, vision pipelines, and full-stack AI apps by Haoming Koo." />
+    <meta property="og:description" content="Production ML systems, RAG workflows, agent tools, evals, observability, vision pipelines, and 8 live AI products by Haoming Koo." />
     <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
     <meta property="og:locale" content="en_SG" />
     <meta property="og:url" content="https://kooexperience.com/" />
@@ -26,7 +26,7 @@
     <meta property="og:site_name" content="Haoming Koo" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Haoming Koo | AI Engineer in Singapore" />
-    <meta name="twitter:description" content="Production ML systems, agent workflows, RAG, evals, observability, vision pipelines, and full-stack AI apps." />
+    <meta name="twitter:description" content="Production ML systems, RAG workflows, agent tools, evals, observability, vision pipelines, and 8 live AI products." />
     <!-- JSON-LD: WebSite + Person -->
     <script type="application/ld+json">
     {
@@ -382,6 +382,9 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=optional"
       rel="stylesheet"
     />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -549,6 +552,55 @@
         margin-bottom: 28px;
       }
       .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+      .hero-proof-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+        max-width: 620px;
+      }
+      .hero-proof-chip {
+        position: relative;
+        overflow: hidden;
+        min-height: 92px;
+        padding: 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)),
+          rgba(13, 17, 24, 0.74);
+        color: inherit;
+        text-decoration: none;
+      }
+      .hero-proof-chip::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg, transparent 0%, rgba(56,189,248,0.13) 42%, transparent 72%);
+        transform: translateX(-120%);
+        animation: chipSweep 5.8s ease-in-out infinite;
+      }
+      .hero-proof-chip:nth-child(2)::after { animation-delay: 0.8s; }
+      .hero-proof-chip:nth-child(3)::after { animation-delay: 1.6s; }
+      .hero-proof-chip span,
+      .hero-proof-chip strong {
+        position: relative;
+        z-index: 1;
+        display: block;
+      }
+      .hero-proof-chip span {
+        color: var(--mint);
+        font-size: 10px;
+        font-weight: 850;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .hero-proof-chip strong {
+        margin-top: 8px;
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.35;
+      }
       .btn {
         display: inline-flex;
         align-items: center;
@@ -623,6 +675,18 @@
         mask-image: linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent);
         z-index: -1;
       }
+      .product-orbit::after {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: 28px;
+        background: linear-gradient(100deg, transparent 0%, rgba(80,227,194,0.11) 45%, transparent 72%);
+        transform: translateX(-115%);
+        animation: orbitScan 7s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 9;
+        mix-blend-mode: screen;
+      }
       .portrait-frame {
         position: relative;
         width: 104px;
@@ -695,10 +759,13 @@
         text-decoration: none;
         box-shadow: 0 24px 70px rgba(0,0,0,0.38);
         backdrop-filter: blur(16px);
-        animation: none;
+        animation: cardFloat 7.5s ease-in-out infinite;
         transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
         z-index: 2;
       }
+      .orbit-trader { animation-delay: 0.8s; }
+      .orbit-seasons { animation-delay: 1.45s; }
+      .orbit-amex { animation-delay: 2.1s; }
       .orbit-card::after {
         content: "";
         position: absolute;
@@ -1181,24 +1248,82 @@
         grid-column: span 6;
       }
       .card:hover::before { opacity: 1; }
-      .card-cover {
+      .proof-media {
+        position: relative;
         width: calc(100% + 48px);
         aspect-ratio: 16 / 9;
-        object-fit: cover;
         display: block;
+        overflow: hidden;
         margin: -24px -24px 12px;
         border-radius: 18px 18px 10px 10px;
         border-bottom: 1px solid var(--border);
         background: #09090d;
+      }
+      .proof-media::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background:
+          linear-gradient(90deg, transparent 0%, rgba(56,189,248,0.11) 45%, transparent 70%),
+          linear-gradient(180deg, transparent, rgba(5,7,10,0.16));
+        transform: translateX(-110%);
+        opacity: 0;
+        pointer-events: none;
+      }
+      .card:hover .proof-media::before,
+      .card:focus-within .proof-media::before {
+        opacity: 1;
+        animation: mediaScan 1.35s ease-out;
+      }
+      .proof-media::after {
+        content: "Real product";
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        z-index: 3;
+        padding: 5px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(80, 227, 194, 0.24);
+        background: rgba(5, 7, 10, 0.68);
+        color: var(--mint);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .proof-media video,
+      .card-cover {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
         transition: transform 0.34s ease, filter 0.34s ease;
+      }
+      .proof-media video {
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.24s ease, transform 0.34s ease;
+      }
+      .proof-media.is-playing video {
+        opacity: 1;
       }
       .card:nth-child(1) .card-cover,
       .card:nth-child(2) .card-cover,
       .card:nth-child(3) .card-cover,
       .card:nth-child(4) .card-cover {
+        aspect-ratio: auto;
+      }
+      .card:nth-child(1) .proof-media,
+      .card:nth-child(2) .proof-media,
+      .card:nth-child(3) .proof-media,
+      .card:nth-child(4) .proof-media {
         aspect-ratio: 2.2 / 1;
       }
-      .card:hover .card-cover {
+      .card:hover .card-cover,
+      .card:hover .proof-media video {
         transform: scale(1.035);
         filter: saturate(1.12) contrast(1.04);
       }
@@ -1497,6 +1622,10 @@
         transform: none;
         transition: opacity 0.6s ease, transform 0.6s ease;
       }
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+      }
       .reveal.visible {
         opacity: 1;
         transform: translateY(0);
@@ -1514,6 +1643,11 @@
       .hero-reveal {
         opacity: 1;
         transform: none;
+      }
+      .js .hero-reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.66s cubic-bezier(.2,.7,.2,1) forwards;
       }
       .hero-reveal-1 { animation-delay: 0s; }
       .hero-reveal-2 { animation-delay: 0.1s; }
@@ -1533,6 +1667,19 @@
       @keyframes cardFloat {
         0%, 100% { translate: 0 0; }
         50% { translate: 0 -8px; }
+      }
+      @keyframes chipSweep {
+        0%, 36% { transform: translateX(-120%); }
+        52%, 100% { transform: translateX(120%); }
+      }
+      @keyframes orbitScan {
+        0%, 42% { transform: translateX(-115%); opacity: 0; }
+        52% { opacity: 1; }
+        68%, 100% { transform: translateX(115%); opacity: 0; }
+      }
+      @keyframes mediaScan {
+        from { transform: translateX(-110%); }
+        to { transform: translateX(110%); }
       }
       @media (prefers-reduced-motion: reduce) {
         *,
@@ -1613,6 +1760,8 @@
         }
         .nav-links a { padding: 4px 7px; font-size: 12px; }
         .hero-actions { flex-direction: column; }
+        .hero-proof-row { grid-template-columns: 1fr; }
+        .hero-proof-chip { min-height: 74px; }
         .btn { justify-content: center; }
         .hero-label { font-size: 10.5px; letter-spacing: 0.08em; }
         .hero-title { font-size: 48px; }
@@ -1686,11 +1835,11 @@
             Haoming <span>Koo</span>
           </h1>
           <p class="hero-subtitle hero-reveal hero-reveal-3">
-            AI products for messy real-world work.
+            Production AI systems, shipped as real products.
           </p>
           <p class="hero-bio hero-reveal hero-reveal-3">
-            Job search. Market signals. Seasonal travel. Source-backed maps.
-            I build the data pipes, AI workflow, interface, and review loop.
+            I build the data pipes, AI workflow, interface, and review loop:
+            RAG, agent tools, evals, observability, and user-facing product UX.
           </p>
           <div class="hero-actions hero-reveal hero-reveal-4">
             <a class="btn btn-primary" href="./hire.html">
@@ -1698,6 +1847,20 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
             </a>
             <a class="btn btn-ghost" href="#projects">View projects</a>
+          </div>
+          <div class="hero-proof-row hero-reveal hero-reveal-5" aria-label="Recruiter quick proof">
+            <a class="hero-proof-chip" href="https://job.kooexperience.com" target="_blank" rel="noopener">
+              <span>Open first</span>
+              <strong>Job Hunter SG shows RAG, scoring, validation gates, and a real workflow.</strong>
+            </a>
+            <a class="hero-proof-chip" href="https://trader.kooexperience.com" target="_blank" rel="noopener">
+              <span>System proof</span>
+              <strong>Trader Koo shows source freshness, market signals, and paper-trade audit trails.</strong>
+            </a>
+            <a class="hero-proof-chip" href="./hire.html#loop">
+              <span>How I build</span>
+              <strong>Specs, tools, traces, evals, review gates, and clean handoff.</strong>
+            </a>
           </div>
         </div>
 
@@ -1764,8 +1927,8 @@
 
       <section class="launch-board reveal" aria-label="Open live systems">
         <div class="launch-head">
-          <span>Open the systems</span>
-          <strong>Start with the apps that show the range.</strong>
+          <span>Recruiter path</span>
+          <strong>Three live systems explain the range fastest.</strong>
         </div>
         <div class="launch-grid">
           <a class="launch-card" href="https://job.kooexperience.com" target="_blank" rel="noopener">
@@ -1858,11 +2021,13 @@
       <section id="projects" class="section">
         <p class="section-label reveal">Projects</p>
         <p class="project-intro reveal">
-          Click into the work. These are live products, not pitch-deck screenshots.
+          Click into the work. The screenshots link to live products with real URLs, source checks, and review loops.
         </p>
         <div class="cards">
           <a class="card reveal reveal-delay-2" href="https://job.kooexperience.com" target="_blank" rel="noopener">
-            <img class="card-cover" src="./assets/projects/job-hunter.png" alt="Job Hunter SG live product screenshot" loading="lazy" />
+            <span class="proof-media">
+              <img class="card-cover" src="./assets/projects/job-hunter.png" alt="Job Hunter SG live product screenshot" loading="lazy" />
+            </span>
             <div class="card-top">
               <span class="card-icon">🏢</span>
               <span class="badge badge-live">Live</span>
@@ -1891,7 +2056,9 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-3" href="https://trader.kooexperience.com" target="_blank" rel="noopener">
-            <img class="card-cover" src="./assets/projects/trader-koo.png" alt="Trader Koo live product screenshot" loading="lazy" />
+            <span class="proof-media">
+              <img class="card-cover" src="./assets/projects/trader-koo.png" alt="Trader Koo live product screenshot" loading="lazy" />
+            </span>
             <div class="card-top">
               <span class="card-icon">📈</span>
               <span class="badge badge-live">Live</span>
@@ -1919,7 +2086,9 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-4" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">
-            <img class="card-cover" src="./assets/projects/japan-in-seasons.png" alt="Japan in Seasons live map screenshot" loading="lazy" />
+            <span class="proof-media">
+              <img class="card-cover" src="./assets/projects/japan-in-seasons.png" alt="Japan in Seasons live map screenshot" loading="lazy" />
+            </span>
             <div class="card-top">
               <span class="card-icon">🌸</span>
               <span class="badge badge-live">Live</span>
@@ -1948,7 +2117,9 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-7" href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener">
-            <img class="card-cover" src="./assets/projects/amex-explorer.png" alt="Amex Explorer live product screenshot" loading="lazy" />
+            <span class="proof-media">
+              <img class="card-cover" src="./assets/projects/amex-explorer.png" alt="Amex Explorer live product screenshot" loading="lazy" />
+            </span>
             <div class="card-top">
               <span class="card-icon">💳</span>
               <span class="badge badge-live">Live</span>
@@ -2008,7 +2179,9 @@
             </div>
           </article>
           <a class="card reveal reveal-delay-5" href="https://lionweather.kooexperience.com/" target="_blank" rel="noopener">
-            <img class="card-cover" src="./assets/projects/lionweather.png" alt="LionWeather live product screenshot" loading="lazy" />
+            <span class="proof-media">
+              <img class="card-cover" src="./assets/projects/lionweather.png" alt="LionWeather live product screenshot" loading="lazy" />
+            </span>
             <div class="card-top">
               <span class="card-icon">🦁</span>
               <span class="badge badge-live">Live</span>
@@ -2036,7 +2209,9 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-6" href="https://studio.kooexperience.com/" target="_blank" rel="noopener">
-            <img class="card-cover" src="./assets/projects/photo-compliance-studio.png" alt="Photo Compliance Studio live product screenshot" loading="lazy" />
+            <span class="proof-media">
+              <img class="card-cover" src="./assets/projects/photo-compliance-studio.png" alt="Photo Compliance Studio live product screenshot" loading="lazy" />
+            </span>
             <div class="card-top">
               <span class="card-icon">🪪</span>
               <span class="badge badge-live">Live</span>
@@ -2063,7 +2238,9 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-8" href="https://preflight.kooexperience.com/" target="_blank" rel="noopener">
-            <img class="card-cover" src="./assets/projects/preflight.png" alt="Preflight live product screenshot" loading="lazy" />
+            <span class="proof-media">
+              <img class="card-cover" src="./assets/projects/preflight.png" alt="Preflight live product screenshot" loading="lazy" />
+            </span>
             <div class="card-top">
               <span class="card-icon">🔬</span>
               <span class="badge badge-live">Live</span>
@@ -2090,7 +2267,9 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-8" href="https://wine.kooexperience.com" target="_blank" rel="noopener">
-            <img class="card-cover" src="./assets/projects/minmax-wine.png" alt="MinMax Wine live product screenshot" loading="lazy" />
+            <span class="proof-media">
+              <img class="card-cover" src="./assets/projects/minmax-wine.png" alt="MinMax Wine live product screenshot" loading="lazy" />
+            </span>
             <div class="card-top">
               <span class="card-icon">🍷</span>
               <span class="badge badge-live">Live</span>
@@ -2236,6 +2415,53 @@
         document.querySelectorAll(".reveal").forEach(function (el) {
           observer.observe(el);
         });
+      })();
+
+      /* ── Real product proof loops ───────────────────────────────────── */
+      (function () {
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var mediaBlocks = Array.prototype.slice.call(document.querySelectorAll(".proof-media[data-webm], .proof-media[data-mp4]"));
+
+        function addSource(video, src, type) {
+          if (!src) return;
+          var source = document.createElement("source");
+          source.src = src;
+          source.type = type;
+          video.appendChild(source);
+        }
+
+        function setup(block) {
+          var video = document.createElement("video");
+          video.muted = true;
+          video.loop = true;
+          video.playsInline = true;
+          video.preload = "metadata";
+          video.setAttribute("aria-hidden", "true");
+          addSource(video, block.dataset.webm, "video/webm");
+          addSource(video, block.dataset.mp4, "video/mp4");
+          block.appendChild(video);
+
+          var card = block.closest(".card") || block;
+          function play() {
+            if (reduceMotion) return;
+            block.classList.add("is-playing");
+            video.play().catch(function () {
+              block.classList.remove("is-playing");
+            });
+          }
+          function pause() {
+            video.pause();
+            video.currentTime = 0;
+            block.classList.remove("is-playing");
+          }
+
+          card.addEventListener("pointerenter", play);
+          card.addEventListener("pointerleave", pause);
+          card.addEventListener("focusin", play);
+          card.addEventListener("focusout", pause);
+        }
+
+        mediaBlocks.forEach(setup);
       })();
 
       /* ── Blog & Travel post renderer ────────────────────────────────── */
