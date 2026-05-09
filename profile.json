@@ -1,6 +1,6 @@
 {
   "name": "Haoming Koo",
-  "headline": "Forward Deployed AI Engineer | Production LLM Systems | LangGraph, RAG & Evals | $600M+ Business Impact | Ex-Micron | MSc (NUS)",
+  "headline": "Applied AI Engineer | Production LLM Systems | LangGraph, RAG & Evals | $600M+ Business Impact | Ex-Micron | MSc (NUS)",
   "location": "Singapore",
   "email": "haomingkoo@gmail.com",
   "linkedin": "https://linkedin.com/in/haomingkoo",
@@ -12,11 +12,12 @@
     "Haoming Koo LinkedIn",
     "Haoming Koo portfolio",
     "Haoming Koo AI Engineer Singapore",
-    "Haoming Koo Forward Deployed AI Engineer",
+    "Haoming Koo Applied AI Engineer",
+    "Haoming Koo AI Product Engineer",
     "Haoming Koo Production LLM Systems"
   ],
 
-  "summary": "Forward deployed AI engineer in Singapore. 7+ years across semiconductor manufacturing, cloud, and data platforms. Led cross-site transformation at Micron across four fabs. Aligned 3,000+ engineers on shared data workflows. Delivered USD 600M+ impact through yield, risk, cycle-time, and platform work. Now building production ML systems at AI Singapore. Focus areas: RAG, agent workflows, evals, observability, vision, sequence modelling, deployment, and usable interfaces.",
+  "summary": "Applied AI engineer in Singapore. 7+ years across semiconductor manufacturing, cloud, and data platforms. Led cross-site transformation at Micron across four fabs. Aligned 3,000+ engineers on shared data workflows. Delivered USD 600M+ impact through yield, risk, cycle-time, and platform work. Now building production ML systems at AI Singapore. Focus areas: RAG, agent workflows, evals, observability, vision, sequence modelling, deployment, and usable interfaces.",
 
   "topSkills": [
     "AI Engineering & MLOps",
@@ -80,11 +81,11 @@
           "bullets": [
             "Designed and executed a 5-year autonomous conversion roadmap using 3M strategy (Method, Metrics, Mindset) — $832M in opportunities surfaced, $50M+ realised savings, projected 9-figure impact",
             "Unified fragmented process platforms (C3, iConS, PIP) into a single AI-integrated ecosystem — standardised 80% of workflows across 4 countries while preserving 20% site flexibility",
-            "Co-led LPDDR5X yield ramp (Apple iPhone 16 Pro Max) — maturity pulled in by 7 months, unlocking 9-figure USD revenue",
-            "Co-led HBM3E yield program (NVIDIA H200/Blackwell) — Micron's first HBM market entry, driving $500M+ above business plan",
+            "Co-led a flagship low-power DRAM yield ramp — maturity pulled in by 7 months on a multi-quarter mobile-DRAM program",
+            "Co-led a high-bandwidth-memory yield program supporting Micron's first HBM market entry",
             "Modernised infrastructure from Hadoop to Google Cloud Platform (GCP), improving model deployment speed, traceability, and cost efficiency",
             "Developed ML risk-scoring dashboards using anomaly detection for yield and reliability — preventing USD 100M+ potential losses",
-            "Built and deployed GenAI SOP Assistant: prompt packs + retrieval on audited SOPs; 80-90% answer relevance, ~15 min/query deflection, ~2 weeks faster onboarding, scaled to ~3,000 users",
+            "Built and deployed GenAI SOP Assistant: prompt packs + retrieval on audited SOPs; 80-90% answer relevance, ~15 min/query deflection, ~2 weeks faster onboarding, scaled to ~3,000 engineers",
             "Designed planning workflow patterns with specs, retrieval, tool orchestration, validation gates, traceability, human review, and auditable recommendations",
             "Scaled RPA (UiPath/Power Automate) for targeting-lot workflow — 100% adoption; mentored ~30 engineers",
             "Built reliability/observability infrastructure: pipeline health dashboards, canary/shadow runs, rollback runbooks — near-zero ML-pipeline outages",
@@ -352,6 +353,7 @@
 
   "keyMetrics": {
     "businessImpact": "USD 600M+",
+    "businessImpactContext": "Aggregate value of programs I led, co-led, or contributed to as tracked in Micron internal program reviews.",
     "engineersAligned": "3,000+",
     "liveApps": 8,
     "mlModels": 4,

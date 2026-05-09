@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent
 DEFAULT_GITHUB_PROFILE_README = ROOT.parent / "haomingkoo" / "README.md"
 PORTFOLIO_README = ROOT / "github-profile-readme.md"
 
-GITHUB_BIO = "Forward Deployed AI Engineer | Production LLM Systems | RAG & Agent Workflows | Evals | Ex-Micron"
+GITHUB_BIO = "Applied AI Engineer | Production LLM Systems | RAG & Agent Workflows | Evals | Ex-Micron"
 
 
 def load_json(path: Path) -> Any:
@@ -101,7 +101,7 @@ def render_readme(profile: dict[str, Any], posts: list[dict[str, Any]]) -> str:
 
 # {profile["name"]}
 
-**Forward Deployed AI Engineer**
+**Applied AI Engineer**
 
 Production LLM systems, RAG, agent workflows, and enterprise AI delivery | AI Singapore | Ex-Micron ({metrics["businessImpact"]} impact) | MSc NUS
 
@@ -169,7 +169,7 @@ Previously led global AI-enabled transformation at **Micron Technology** for {me
 
 ## Connect
 
-Open to conversations about forward deployed AI, production LLM systems, RAG, agent workflows, evals, and practical AI product delivery.
+Open to conversations about applied AI, production LLM systems, RAG, agent workflows, evals, and practical AI product delivery.
 
 - Website: [{profile["website"].replace("https://", "")}]({profile["website"]})
 - LinkedIn: [{profile["linkedin"].replace("https://", "")}]({profile["linkedin"]})
