@@ -4,7 +4,7 @@ This file gives AI search and assistant systems a concise, accurate summary of k
 
 ## Identity
 
-Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He builds production ML systems, LLM workflows, RAG, agent workflows, eval loops, vision pipelines, automation pipelines, dashboards, and full-stack AI products.
+Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He builds production ML systems, RAG workflows, agent tools, eval loops, vision pipelines, automation pipelines, dashboards, and full-stack AI products.
 
 Primary site: https://kooexperience.com
 Hiring page: https://kooexperience.com/hire.html
@@ -50,10 +50,14 @@ Haoming is open to:
 - Infrastructure: Docker, GitHub Actions, Railway, GCP, AWS, CI/CD, scheduled data refreshes.
 - Product habits: user discovery, concept development, spec-driven development, data ingestion, API design, frontend implementation, monitoring, source review, and handoff.
 
+## Recruiter Quick Path
+
+Start with Job Hunter SG to inspect RAG matching, ATS scoring, validation gates, and fact-preserving resume edits. Then open Trader Koo to inspect source freshness, market signals, paper-trade records, and clear research/execution boundaries. The hiring page gives the shortest story; the about page gives the full timeline and awards.
+
 ## Live Products
 
 1. Job Hunter SG - https://job.kooexperience.com
-   Singapore job search and resume workflow with multi-source scraping, RAG semantic matching, ATS scoring, role-fit keyword checks, fact preservation, hallucination detection, and five validation gates.
+   Singapore job search and resume workflow with multi-source scraping, RAG semantic matching, ATS scoring, role-fit keyword checks, fact preservation, hallucination checks, and five validation gates.
 
 2. Trader Koo - https://trader.kooexperience.com
    Evidence-first market research workflow with source freshness, ranked setups, chart-pattern detection, paper-trade audit trails, Telegram alerts, model versioning, and clear research/execution boundaries.

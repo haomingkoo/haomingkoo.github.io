@@ -1,6 +1,6 @@
 {
   "name": "Haoming Koo",
-  "headline": "Applied AI Engineer | Production LLM Systems | LangGraph, RAG & Evals | $600M+ Business Impact | Ex-Micron | MSc (NUS)",
+  "headline": "Applied AI Engineer | Production ML Systems | RAG, Agents & Evals | $600M+ Business Impact | Ex-Micron | MSc (NUS)",
   "location": "Singapore",
   "email": "haomingkoo@gmail.com",
   "linkedin": "https://linkedin.com/in/haomingkoo",
@@ -17,7 +17,7 @@
     "Haoming Koo Production LLM Systems"
   ],
 
-  "summary": "Applied AI engineer in Singapore. 7+ years across semiconductor manufacturing, cloud, and data platforms. Led cross-site transformation at Micron across four fabs. Aligned 3,000+ engineers on shared data workflows. Delivered USD 600M+ impact through yield, risk, cycle-time, and platform work. Now building production ML systems at AI Singapore. Focus areas: RAG, agent workflows, evals, observability, vision, sequence modelling, deployment, and usable interfaces.",
+  "summary": "Applied AI engineer in Singapore. I build production ML systems, RAG workflows, agent tools, evals, observability, and product interfaces. I spent 7+ calendar years at Micron across semiconductor manufacturing, cloud, and data platforms, aligning 3,000+ engineers across four fabs and contributing to USD 600M+ in business impact. I now build production ML systems at AI Singapore.",
 
   "topSkills": [
     "AI Engineering & MLOps",
@@ -298,7 +298,7 @@
     {
       "name": "Job Hunter SG",
       "url": "https://job.kooexperience.com",
-      "description": "AI-powered job aggregator and resume tailoring for Singapore. Multi-source scraping, RAG semantic matching, ATS scoring, role-fit keyword checks, and five validation gates.",
+      "description": "Singapore job search product with multi-source scraping, RAG semantic matching, ATS scoring, role-fit keyword checks, fact preservation, and five validation gates.",
       "tech": ["SEA-LION", "RAG", "ATS Scoring", "Validation Gates", "FastAPI", "React"]
     },
     {

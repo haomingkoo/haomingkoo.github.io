@@ -1,6 +1,6 @@
 # Haoming Koo
 
-> AI engineer in Singapore building production ML systems, LLM workflows, RAG, agent workflows, evals, vision pipelines, and full-stack AI products.
+> AI engineer in Singapore building production ML systems, RAG workflows, agent tools, evals, vision pipelines, and full-stack AI products.
 
 Search aliases: Haoming Koo, Haoming Koo LinkedIn, Haoming Koo portfolio, Haoming Koo AI Engineer Singapore, Haoming Koo Applied AI Engineer, Haoming Koo Production LLM Systems.
 
@@ -13,9 +13,13 @@ Search aliases: Haoming Koo, Haoming Koo LinkedIn, Haoming Koo portfolio, Haomin
 
 ## Professional Positioning
 
-Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He has 7+ years of experience at Micron Technology, where his work contributed to USD 600M+ in business impact across semiconductor manufacturing, cloud infrastructure, and data platforms. He currently builds production ML systems at AI Singapore's AIAP programme.
+Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He builds production ML systems, RAG workflows, agent tools, evals, observability, and product interfaces. He has 7+ calendar years of experience at Micron Technology, where his work contributed to USD 600M+ in business impact across semiconductor manufacturing, cloud infrastructure, and data platforms. He currently builds production ML systems at AI Singapore's AIAP programme.
 
 He is open to AI engineering roles, applied AI/product engineering roles, forward deployed engineering roles, and focused client projects involving LLM workflows, RAG, evals, LLM observability, vision pipelines, data products, automation, dashboards, and production ML.
+
+## Recruiter Quick Path
+
+Open Job Hunter SG first for RAG, scoring, validation gates, and a complete user workflow. Open Trader Koo next for source freshness, market signals, paper-trade records, and research boundaries. Use hire.html for the short hiring story and about.html for the full timeline.
 
 ## Role Fit Keywords
 
@@ -23,7 +27,7 @@ Applied AI engineering, forward deployed engineering, AI deployment engineering,
 
 ## Selected Live Products
 
-- [Job Hunter SG](https://job.kooexperience.com): Singapore job search and resume workflow with RAG semantic matching, ATS scoring, role-fit keyword checks, and validation gates.
+- [Job Hunter SG](https://job.kooexperience.com): Singapore job search and resume workflow with RAG semantic matching, ATS scoring, role-fit keyword checks, fact preservation, and validation gates.
 - [Trader Koo](https://trader.kooexperience.com): evidence-first market research workflow with source freshness, ranked setups, paper-trade audit trails, and alerts.
 - [Japan in Seasons](https://seasons.kooexperience.com): live Japan seasonal travel map and 100/100 Smithery-scored MCP server with 12 tools and 1,700+ places.
 - [LionWeather](https://lionweather.kooexperience.com): Singapore weather intelligence with LightGBM rainfall forecasting and SHAP analysis.
