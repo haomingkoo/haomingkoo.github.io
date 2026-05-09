@@ -12,7 +12,6 @@
     <link rel="alternate" type="application/json" title="Haoming Koo structured profile" href="https://kooexperience.com/profile.json" />
     <title>Haoming Koo | AI Engineer in Singapore</title>
     <meta name="description" content="Haoming Koo is a Singapore AI engineer building production ML systems, RAG workflows, agent tools, evals, and 8 live AI products. Open to frontier AI roles." />
-    <meta name="keywords" content="Haoming Koo, AI engineer, forward deployed AI engineer, applied AI engineer, machine learning, LangGraph, Langfuse, Arize Phoenix, RAG, LLM observability, evals, agent workflows, tool-using agents, spec-driven development, AI Singapore, AIAP, Python, PyTorch, FastAPI, React, vision pipelines, MLOps, Singapore" />
     <meta name="author" content="Haoming Koo" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <link rel="canonical" href="https://kooexperience.com/" />
@@ -49,7 +48,7 @@
           "givenName": "Haoming",
           "familyName": "Koo",
           "jobTitle": "Applied AI Engineer",
-          "description": "AI engineer and digital transformation leader with 7+ years of experience delivering AI-enabled programs across semiconductor manufacturing, cloud infrastructure, and data platforms. Drove USD 600M+ in business impact at Micron and currently builds production ML systems at AI Singapore.",
+          "description": "AI engineer and digital transformation leader with 7+ years of systems experience across semiconductor manufacturing, cloud infrastructure, data platforms, and production ML. Drove USD 600M+ in business impact at Micron and currently builds production ML systems at AI Singapore.",
           "url": "https://kooexperience.com",
           "image": "https://kooexperience.com/assets/haoming-portrait.jpg",
           "email": "haomingkoo@gmail.com",
@@ -336,7 +335,7 @@
           "name": "Who is Haoming Koo?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Haoming Koo is an applied AI engineer based in Singapore, currently at AI Singapore (AIAP). He has 7+ years of experience at Micron Technology with $600M+ aggregate business impact across semiconductor manufacturing. He holds an MSc from NUS (GPA 4.85/5.00) and has built 8 live AI portfolio applications."
+            "text": "Haoming Koo is an applied AI engineer based in Singapore, currently at AI Singapore (AIAP). He has 7+ calendar years at Micron Technology with $600M+ aggregate business impact across semiconductor manufacturing. He holds an MSc from NUS (GPA 4.85/5.00) and has built 8 live AI portfolio applications."
           }
         },
         {
@@ -353,6 +352,14 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Primarily Python with FastAPI for backends, PyTorch/TensorFlow/scikit-learn for ML, React or vanilla JS for frontends, and Docker/Railway for deployment. He has experience with GCP, AWS, MLflow, LangGraph, Langfuse, Arize Phoenix, YOLOv8, OpenCV, MediaPipe, RAG, LLM observability, and agentic workflow libraries."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Haoming Koo open to AI engineering roles?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Haoming Koo is open to applied AI engineering, AI deployment, LLM product engineering, and production ML roles. He is Singapore-based and open to remote teams globally."
           }
         },
         {
@@ -530,9 +537,10 @@
         letter-spacing: 0;
         margin-bottom: 18px;
         color: var(--text);
+        text-wrap: balance;
       }
       .hero-title span {
-        display: block;
+        display: inline;
         color: var(--accent);
       }
       .hero-subtitle {
@@ -549,7 +557,27 @@
         line-height: 1.7;
         color: var(--text-secondary);
         max-width: 620px;
-        margin-bottom: 28px;
+        margin-bottom: 14px;
+      }
+      .hero-availability {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        max-width: 640px;
+        margin: 0 0 22px;
+      }
+      .availability-pill {
+        border: 1px solid rgba(80, 227, 194, 0.18);
+        background: rgba(80, 227, 194, 0.08);
+        color: var(--text-secondary);
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .availability-pill strong {
+        color: var(--text);
+        font-weight: 800;
       }
       .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
       .hero-proof-row {
@@ -893,6 +921,7 @@
         color: var(--text);
         letter-spacing: 0;
         line-height: 1.2;
+        font-variant-numeric: tabular-nums;
       }
       .stat-value .stat-accent { color: var(--accent); }
       .stat-label {
@@ -1183,7 +1212,8 @@
       #projects { order: 4; }
       #about { order: 5; }
       #blog { order: 6; }
-      #travel { order: 7; }
+      .closing-cta { order: 7; }
+      #travel { order: 8; }
       footer { order: 10; }
       .section-label {
         font-size: 11px;
@@ -1277,7 +1307,7 @@
         animation: mediaScan 1.35s ease-out;
       }
       .proof-media::after {
-        content: "Real product";
+        content: attr(data-proof);
         position: absolute;
         right: 12px;
         top: 12px;
@@ -1541,6 +1571,35 @@
         width: 100%; height: 140px; object-fit: cover;
         border-radius: 8px; margin-bottom: 4px; background: #1a1a1a;
       }
+      .closing-cta {
+        border: 1px solid rgba(56,189,248,0.18);
+        border-radius: 18px;
+        background:
+          radial-gradient(circle at 18% 18%, rgba(56,189,248,0.14), transparent 34%),
+          linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015)),
+          var(--surface);
+        padding: 26px;
+        margin: 28px 0 48px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 22px;
+        align-items: center;
+      }
+      .closing-cta h2 {
+        margin: 0 0 8px;
+        color: var(--text);
+        font-size: clamp(24px, 3vw, 34px);
+        line-height: 1.05;
+        letter-spacing: 0;
+        text-wrap: balance;
+      }
+      .closing-cta p {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.65;
+        max-width: 720px;
+      }
       .section-header {
         display: flex; align-items: center; justify-content: space-between;
         margin-bottom: 32px;
@@ -1623,7 +1682,7 @@
         transition: opacity 0.6s ease, transform 0.6s ease;
       }
       .js .reveal {
-        opacity: 0;
+        opacity: 1;
         transform: translateY(18px);
       }
       .reveal.visible {
@@ -1645,9 +1704,9 @@
         transform: none;
       }
       .js .hero-reveal {
-        opacity: 0;
-        transform: translateY(16px);
-        animation: fadeUp 0.66s cubic-bezier(.2,.7,.2,1) forwards;
+        opacity: 1;
+        transform: none;
+        animation: none;
       }
       .hero-reveal-1 { animation-delay: 0s; }
       .hero-reveal-2 { animation-delay: 0.1s; }
@@ -1739,6 +1798,9 @@
         .launch-card {
           min-height: 230px;
         }
+        .closing-cta {
+          grid-template-columns: 1fr;
+        }
       }
       @media (max-width: 520px) {
         .container { padding: 0 18px; }
@@ -1762,6 +1824,7 @@
         .hero-actions { flex-direction: column; }
         .hero-proof-row { grid-template-columns: 1fr; }
         .hero-proof-chip { min-height: 74px; }
+        .hero-availability { margin-bottom: 18px; }
         .btn { justify-content: center; }
         .hero-label { font-size: 10.5px; letter-spacing: 0.08em; }
         .hero-title { font-size: 48px; }
@@ -1830,23 +1893,29 @@
       <!-- Hero -->
       <section class="hero">
         <div class="hero-inner">
-          <div class="hero-label hero-reveal hero-reveal-1">AI Engineer · Singapore</div>
+          <div class="hero-label hero-reveal hero-reveal-1">Applied AI Engineer · Singapore · Open to roles</div>
           <h1 class="hero-title hero-reveal hero-reveal-2">
             Haoming <span>Koo</span>
           </h1>
           <p class="hero-subtitle hero-reveal hero-reveal-3">
-            Production AI systems, shipped as real products.
+            7+ years of systems experience. Now building ML at AI Singapore.
           </p>
           <p class="hero-bio hero-reveal hero-reveal-3">
-            I build the data pipes, AI workflow, interface, and review loop:
-            RAG, agent tools, evals, observability, and user-facing product UX.
+            Micron: USD 600M+ aggregate program impact across 4 fabs.
+            Current focus: RAG, agent tools, evals, observability, vision pipelines, and product UX.
+            8 live apps you can open.
           </p>
+          <div class="hero-availability hero-reveal hero-reveal-4" aria-label="Hiring preferences">
+            <span class="availability-pill"><strong>Open to</strong> Applied AI</span>
+            <span class="availability-pill"><strong>Open to</strong> AI Deployment</span>
+            <span class="availability-pill"><strong>Open to</strong> LLM Product Engineering</span>
+          </div>
           <div class="hero-actions hero-reveal hero-reveal-4">
             <a class="btn btn-primary" href="./hire.html">
-              Hire or collaborate
+              Hire me
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
             </a>
-            <a class="btn btn-ghost" href="#projects">View projects</a>
+            <a class="btn btn-ghost" href="#projects">View 8 live apps</a>
           </div>
           <div class="hero-proof-row hero-reveal hero-reveal-5" aria-label="Recruiter quick proof">
             <a class="hero-proof-chip" href="https://job.kooexperience.com" target="_blank" rel="noopener">
@@ -1916,7 +1985,7 @@
           <div class="stat-label">Business Impact</div>
         </div>
         <div class="stat">
-          <div class="stat-value">3,000<span class="stat-accent">+</span></div>
+          <div class="stat-value">12</div>
           <div class="stat-label">Engineers Aligned</div>
         </div>
         <div class="stat">
@@ -1964,15 +2033,11 @@
         <div class="about-grid">
           <div class="about-text reveal">
             <p>
-              I build production AI systems for real operations.
-              My work spans <span class="about-highlight">LLM workflows, agent orchestration, and vision pipelines</span>.
-              I ship the API, UI, evals, and observability.
-            </p>
-            <p>
-              At <span class="about-highlight">Micron Technology</span>, I built systems across four fabs.
-              The work covered search, risk, vision, and simulation.
-              These contributed to <span class="about-highlight">$600M+ in business impact</span>.
-              That figure is the aggregate value of programs I led, co-led, or contributed to.
+              <span class="about-highlight">Nearly 7 years at Micron Technology</span>,
+              working across Singapore, Boise, Hiroshima, and Taichung.
+              The work covered search, risk, vision, simulation, and shared data workflows.
+              It contributed to <span class="about-highlight">$600M+ in aggregate program impact</span>
+              across programs I led, co-led, or contributed to.
             </p>
             <p>
               At <span class="about-highlight">AI Singapore</span>, I build ML systems end to end.
@@ -1981,7 +2046,8 @@
               It uses RAG matching and fact-checked resume guidance.
             </p>
             <p>
-              I like messy, useful problems.
+              I build production AI systems for messy, useful problems.
+              That means API, UI, evals, observability, and a review loop users can understand.
               First clarify the constraint. Then build the system.
               After launch, measure failures and fix them.
             </p>
@@ -2021,15 +2087,16 @@
       <section id="projects" class="section">
         <p class="section-label reveal">Projects</p>
         <p class="project-intro reveal">
-          Click into the work. The screenshots link to live products with real URLs, source checks, and review loops.
+          Click into the work. This grid shows 8 live products plus one public-safe architecture pattern.
+          The screenshots link to real URLs with source checks and review loops.
         </p>
         <div class="cards">
           <a class="card reveal reveal-delay-2" href="https://job.kooexperience.com" target="_blank" rel="noopener">
-            <span class="proof-media">
+            <span class="proof-media" data-proof="RAG + validation">
               <img class="card-cover" src="./assets/projects/job-hunter.png" alt="Job Hunter SG live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon">🏢</span>
+              <span class="card-icon" aria-hidden="true">🏢</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Job Hunter SG</p>
@@ -2056,18 +2123,18 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-3" href="https://trader.kooexperience.com" target="_blank" rel="noopener">
-            <span class="proof-media">
+            <span class="proof-media" data-proof="Signals + audit">
               <img class="card-cover" src="./assets/projects/trader-koo.png" alt="Trader Koo live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon">📈</span>
+              <span class="card-icon" aria-hidden="true">📈</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Trader Koo</p>
             <p class="card-desc">
               Market research workflow for the S&amp;P 500.
-              It overlays patterns, support levels, and risk flags.
-              Nothing is treated as financial advice.
+              It shows source freshness, ranked signals, paper-trade records, and risk flags.
+              Research only; no execution advice.
             </p>
             <div class="card-flow" aria-label="How it works">
               <span class="flow-step">Refresh market and macro data</span>
@@ -2086,19 +2153,17 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-4" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">
-            <span class="proof-media">
+            <span class="proof-media" data-proof="12 MCP tools">
               <img class="card-cover" src="./assets/projects/japan-in-seasons.png" alt="Japan in Seasons live map screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon">🌸</span>
+              <span class="card-icon" aria-hidden="true">🌸</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Japan in Seasons</p>
             <p class="card-desc">
-              Seasonal travel intelligence for Japan.
-              It exposes 12 MCP tools.
-              It scored 100/100 on Smithery.
-              It covers 1,700+ places.
+              Seasonal travel intelligence for Japan:
+              12 MCP tools, 1,700+ places, and a 100/100 Smithery score.
             </p>
             <div class="card-flow" aria-label="How it works">
               <span class="flow-step">Normalize forecast and place data</span>
@@ -2117,11 +2182,11 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-7" href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener">
-            <span class="proof-media">
+            <span class="proof-media" data-proof="Source hashes">
               <img class="card-cover" src="./assets/projects/amex-explorer.png" alt="Amex Explorer live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon">💳</span>
+              <span class="card-icon" aria-hidden="true">💳</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Amex Explorer</p>
@@ -2156,7 +2221,7 @@
               <div class="case-node n4">Reviewer<span>approval</span></div>
             </div>
             <div class="card-top">
-              <span class="card-icon">⚙️</span>
+              <span class="card-icon" aria-hidden="true">⚙️</span>
               <span class="badge badge-building">Architecture</span>
             </div>
             <p class="card-name">Enterprise Planning Workflow</p>
@@ -2179,11 +2244,11 @@
             </div>
           </article>
           <a class="card reveal reveal-delay-5" href="https://lionweather.kooexperience.com/" target="_blank" rel="noopener">
-            <span class="proof-media">
+            <span class="proof-media" data-proof="ML + SHAP">
               <img class="card-cover" src="./assets/projects/lionweather.png" alt="LionWeather live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon">🦁</span>
+              <span class="card-icon" aria-hidden="true">🦁</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">LionWeather</p>
@@ -2209,11 +2274,11 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-6" href="https://studio.kooexperience.com/" target="_blank" rel="noopener">
-            <span class="proof-media">
+            <span class="proof-media" data-proof="Face geometry">
               <img class="card-cover" src="./assets/projects/photo-compliance-studio.png" alt="Photo Compliance Studio live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon">🪪</span>
+              <span class="card-icon" aria-hidden="true">🪪</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Photo Compliance Studio</p>
@@ -2238,11 +2303,11 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-8" href="https://preflight.kooexperience.com/" target="_blank" rel="noopener">
-            <span class="proof-media">
+            <span class="proof-media" data-proof="EDA baseline">
               <img class="card-cover" src="./assets/projects/preflight.png" alt="Preflight live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon">🔬</span>
+              <span class="card-icon" aria-hidden="true">🔬</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Preflight</p>
@@ -2267,11 +2332,11 @@
             </span>
           </a>
           <a class="card reveal reveal-delay-8" href="https://wine.kooexperience.com" target="_blank" rel="noopener">
-            <span class="proof-media">
+            <span class="proof-media" data-proof="Deal scoring">
               <img class="card-cover" src="./assets/projects/minmax-wine.png" alt="MinMax Wine live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon">🍷</span>
+              <span class="card-icon" aria-hidden="true">🍷</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">MinMax Wine</p>
@@ -2337,6 +2402,20 @@
         </div>
       </section>
 
+      <section class="closing-cta reveal" aria-label="Hiring call to action">
+        <div>
+          <h2>Reviewing AI engineering candidates?</h2>
+          <p>
+            Start with the 8 live apps, then use the hiring page for the short version of my background.
+            I am Singapore-based and open to applied AI, AI deployment, and LLM product engineering roles.
+          </p>
+        </div>
+        <a class="btn btn-primary" href="mailto:haomingkoo@gmail.com?subject=AI%20engineering%20role%20with%20Haoming%20Koo">
+          Email Haoming
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+        </a>
+      </section>
+
       <!-- Travel -->
       <section id="travel" class="section">
         <div class="section-header">
@@ -2380,7 +2459,7 @@
       <footer class="reveal">
         <div class="footer-brand">
           <span class="footer-brand-name">Haoming Koo</span>
-          <span class="footer-copy">&copy; 2026 &middot; Built with curiosity.</span>
+          <span class="footer-copy">&copy; 2026 &middot; Built in Singapore.</span>
         </div>
         <div class="footer-cols">
           <div class="footer-col">
