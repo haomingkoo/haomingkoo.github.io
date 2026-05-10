@@ -47,7 +47,7 @@
           "givenName": "Haoming",
           "familyName": "Koo",
           "jobTitle": "Applied AI Engineer",
-          "description": "AI engineer and digital transformation leader with 7 years of systems experience across semiconductor manufacturing, cloud infrastructure, data platforms, and production ML. Drove USD 600M+ in business impact at Micron and currently builds production ML systems at AI Singapore.",
+          "description": "AI engineer and digital transformation leader with 7 years of systems experience across semiconductor manufacturing, cloud infrastructure, data platforms, and production ML. Contributed to USD 600M+ in program outcomes at Micron and currently builds production ML systems at AI Singapore.",
           "url": "https://kooexperience.com",
           "image": "https://kooexperience.com/assets/haoming-portrait.jpg",
           "email": "haomingkoo@gmail.com",
@@ -334,7 +334,7 @@
           "name": "Who is Haoming Koo?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Haoming Koo is an applied AI engineer based in Singapore, currently at AI Singapore (AIAP). He has 7 years of systems experience, including 7 years at Micron Technology with $600M+ aggregate business impact across semiconductor manufacturing. He holds an MSc from NUS (GPA 4.85/5.00) and has built 8 live AI portfolio applications."
+            "text": "Haoming Koo is an applied AI engineer based in Singapore, currently at AI Singapore (AIAP). He has 7 years of systems experience, including 7 years at Micron Technology contributing to $600M+ in aggregate program outcomes across semiconductor manufacturing. He holds an MSc from NUS (GPA 4.85/5.00) and has built 8 live AI portfolio applications."
           }
         },
         {
@@ -393,7 +393,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=optional"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400..700&display=optional"
       rel="stylesheet"
     />
     <script>
@@ -403,20 +403,20 @@
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
-        --bg: #05070a;
-        --surface: #0d1117;
-        --surface-hover: #121923;
-        --border: #1b2532;
-        --border-hover: #334155;
-        --accent: #38bdf8;
-        --accent-dim: rgba(56, 189, 248, 0.11);
-        --accent-glow: rgba(56, 189, 248, 0.07);
-        --mint: #38bdf8;
-        --gold: #f5c451;
+        --bg: #090806;
+        --surface: #11100d;
+        --surface-hover: #181511;
+        --border: rgba(215, 199, 166, 0.12);
+        --border-hover: rgba(215, 199, 166, 0.25);
+        --accent: #d7b98c;
+        --accent-dim: rgba(215, 185, 140, 0.12);
+        --accent-glow: rgba(215, 185, 140, 0.08);
+        --mint: #d7b98c;
+        --gold: #c8956d;
         --coral: #fb7185;
-        --text: #f8fafc;
-        --text-secondary: #b4c2d1;
-        --muted: #718096;
+        --text: #f7f2ea;
+        --text-secondary: #c9beb0;
+        --muted: #8f8377;
         --live: #22c55e;
         --purple: #8b9cff;
         --amber: #f59e0b;
@@ -441,10 +441,22 @@
         position: fixed;
         inset: 0;
         background:
-          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(56,189,248,0.08) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 40% at 86% 18%, rgba(245,196,81,0.045) 0%, transparent 52%);
+          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(215,185,140,0.07) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 40% at 86% 18%, rgba(183,85,61,0.055) 0%, transparent 52%);
         pointer-events: none;
         z-index: 0;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.035;
+        background-image:
+          radial-gradient(circle at 1px 1px, rgba(255,255,255,0.72) 1px, transparent 0);
+        background-size: 4px 4px;
+        mix-blend-mode: screen;
       }
       .container {
         position: relative;
@@ -530,7 +542,7 @@
         right: -22vw;
         top: -20vw;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(56,189,248,0.12), transparent 62%);
+        background: radial-gradient(circle, rgba(215,185,140,0.16), transparent 62%);
         filter: blur(4px);
       }
       .hero::after {
@@ -569,9 +581,10 @@
         animation: pulse 2.5s infinite;
       }
       .hero-title {
-        font-size: clamp(64px, 10vw, 132px);
-        font-weight: 820;
-        line-height: 0.88;
+        font-family: "Newsreader", Georgia, serif;
+        font-size: clamp(70px, 10vw, 136px);
+        font-weight: 580;
+        line-height: 0.9;
         letter-spacing: 0;
         margin-bottom: 22px;
         color: var(--text);
@@ -579,14 +592,15 @@
       }
       .hero-title span {
         display: inline;
-        color: var(--accent);
+        color: var(--text);
       }
       .hero-subtitle {
-        font-size: clamp(30px, 4.2vw, 60px);
-        line-height: 1.02;
+        font-family: "Newsreader", Georgia, serif;
+        font-size: clamp(30px, 4.2vw, 58px);
+        line-height: 1.04;
         letter-spacing: 0;
         color: var(--text);
-        font-weight: 760;
+        font-weight: 520;
         max-width: 760px;
         margin-bottom: 20px;
         text-wrap: balance;
@@ -629,7 +643,7 @@
         width: 5px;
         height: 5px;
         border-radius: 50%;
-        background: rgba(56,189,248,0.76);
+        background: rgba(215,185,140,0.76);
       }
       .hero-profile-card {
         position: relative;
@@ -666,7 +680,7 @@
         inset: 0;
         background:
           linear-gradient(180deg, rgba(5,7,10,0.05) 0%, rgba(5,7,10,0.28) 48%, rgba(5,7,10,0.86) 100%),
-          radial-gradient(circle at 26% 18%, rgba(56,189,248,0.16), transparent 32%);
+          radial-gradient(circle at 26% 18%, rgba(215,185,140,0.16), transparent 32%);
         pointer-events: none;
       }
       .profile-card-copy {
@@ -689,36 +703,6 @@
         font-size: 13px;
         line-height: 1.55;
       }
-      .profile-proof {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
-      }
-      .profile-proof div {
-        min-height: 68px;
-        padding: 12px;
-        border-radius: 15px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(4, 8, 14, 0.64);
-        backdrop-filter: blur(12px);
-      }
-      .profile-proof b,
-      .profile-proof small {
-        display: block;
-      }
-      .profile-proof b {
-        color: var(--text);
-        font-size: 19px;
-        line-height: 1;
-      }
-      .profile-proof small {
-        margin-top: 7px;
-        color: var(--muted);
-        font-size: 9.5px;
-        font-weight: 780;
-        letter-spacing: 0.11em;
-        text-transform: uppercase;
-      }
       .btn {
         display: inline-flex;
         align-items: center;
@@ -733,11 +717,11 @@
       .btn:hover { transform: translateY(-1px); }
       .btn-primary {
         background: var(--accent);
-        color: #041016;
-        box-shadow: 0 4px 16px rgba(56,189,248,0.22);
+        color: #130f0a;
+        box-shadow: 0 4px 16px rgba(215,185,140,0.18);
       }
       .btn-primary:hover {
-        box-shadow: 0 6px 24px rgba(56,189,248,0.30);
+        box-shadow: 0 6px 24px rgba(215,185,140,0.26);
       }
       .btn-ghost {
         background: rgba(255,255,255,0.04);
@@ -771,10 +755,12 @@
         text-transform: uppercase;
       }
       .launch-head strong {
+        font-family: "Newsreader", Georgia, serif;
         color: var(--text);
         font-size: clamp(22px, 3vw, 34px);
         line-height: 1.05;
         letter-spacing: 0;
+        font-weight: 540;
         max-width: 560px;
       }
       .launch-grid {
@@ -815,13 +801,13 @@
         inset: 0;
         background:
           linear-gradient(180deg, rgba(5,6,9,0.14), rgba(5,6,9,0.88)),
-          radial-gradient(circle at 20% 20%, rgba(56,189,248,0.22), transparent 34%);
+          radial-gradient(circle at 20% 20%, rgba(215,185,140,0.18), transparent 34%);
         z-index: -1;
       }
       .launch-card:hover {
         transform: translateY(-5px);
-        border-color: rgba(56,189,248,0.34);
-        box-shadow: 0 30px 90px rgba(56,189,248,0.14);
+        border-color: rgba(215,185,140,0.30);
+        box-shadow: 0 30px 90px rgba(215,185,140,0.10);
       }
       .launch-card:hover img {
         transform: scale(1.05);
@@ -835,11 +821,13 @@
         text-transform: uppercase;
       }
       .launch-card h2 {
+        font-family: "Newsreader", Georgia, serif;
         margin: 6px 0 6px;
         color: var(--text);
-        font-size: clamp(24px, 3vw, 36px);
-        line-height: 1;
+        font-size: clamp(24px, 2.4vw, 31px);
+        line-height: 1.03;
         letter-spacing: 0;
+        font-weight: 560;
       }
       .launch-card p {
         max-width: 420px;
@@ -856,9 +844,9 @@
         border-radius: 28px;
         border: 1px solid rgba(255,255,255,0.10);
         background:
-          linear-gradient(135deg, rgba(14, 21, 32, 0.86), rgba(5, 7, 10, 0.96)),
-          radial-gradient(circle at 16% 0%, rgba(56,189,248,0.16), transparent 36%),
-          radial-gradient(circle at 88% 8%, rgba(245,196,81,0.11), transparent 34%);
+          linear-gradient(135deg, rgba(22, 18, 14, 0.86), rgba(9, 8, 6, 0.96)),
+          radial-gradient(circle at 16% 0%, rgba(215,185,140,0.16), transparent 36%),
+          radial-gradient(circle at 88% 8%, rgba(183,85,61,0.10), transparent 34%);
         box-shadow: 0 30px 90px rgba(0,0,0,0.30);
         overflow: hidden;
         position: relative;
@@ -892,10 +880,12 @@
         margin-bottom: 12px;
       }
       .enterprise-copy h2 {
+        font-family: "Newsreader", Georgia, serif;
         max-width: 560px;
         font-size: clamp(30px, 4.4vw, 56px);
         line-height: 0.98;
         letter-spacing: 0;
+        font-weight: 540;
         text-wrap: balance;
         margin-bottom: 16px;
       }
@@ -980,10 +970,10 @@
         border-radius: 999px;
         background: rgba(148,163,184,0.20);
       }
-      .sql-lines i:nth-child(1) { width: 74%; background: rgba(56,189,248,0.26); }
+      .sql-lines i:nth-child(1) { width: 74%; background: rgba(215,185,140,0.26); }
       .sql-lines i:nth-child(2) { width: 92%; }
       .sql-lines i:nth-child(3) { width: 62%; }
-      .sql-lines i:nth-child(4) { width: 84%; background: rgba(245,196,81,0.22); }
+      .sql-lines i:nth-child(4) { width: 84%; background: rgba(200,149,109,0.22); }
       .rca-lines i:nth-child(1) { width: 84%; background: rgba(34,197,94,0.22); }
       .rca-lines i:nth-child(2) { width: 68%; }
       .rca-lines i:nth-child(3) { width: 78%; }
@@ -1012,7 +1002,7 @@
       /* ── About ────────────────────────────────────────────────────────── */
       .about-grid {
         display: grid;
-        grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.7fr);
+        grid-template-columns: minmax(0, 780px);
         gap: 40px;
         margin-top: 8px;
       }
@@ -1120,12 +1110,12 @@
         padding: 6px 14px;
         border-radius: 8px;
         background: var(--accent-dim);
-        border: 1px solid rgba(56,189,248,0.14);
+        border: 1px solid rgba(215,185,140,0.14);
         transition: background 0.2s, border-color 0.2s;
       }
       .about-link:hover {
-        background: rgba(56,189,248,0.15);
-        border-color: rgba(56,189,248,0.25);
+        background: rgba(215,185,140,0.15);
+        border-color: rgba(215,185,140,0.25);
       }
       @media (max-width: 768px) {
         .about-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -1160,12 +1150,6 @@
       }
 
       /* ── Cards grid ─────────────────────────────────────────────────────── */
-      .project-intro {
-        max-width: 640px;
-        margin: -22px 0 22px;
-        color: var(--text-secondary);
-        font-size: 15px;
-      }
       .cards {
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -1193,7 +1177,7 @@
         position: absolute;
         inset: 0;
         pointer-events: none;
-        background: radial-gradient(circle at 20% 0%, rgba(56,189,248,0.14), transparent 32%);
+        background: radial-gradient(circle at 20% 0%, rgba(215,185,140,0.14), transparent 32%);
         opacity: 0;
         transition: opacity 0.24s;
       }
@@ -1221,7 +1205,7 @@
         inset: 0;
         z-index: 2;
         background:
-          linear-gradient(90deg, transparent 0%, rgba(56,189,248,0.11) 45%, transparent 70%),
+          linear-gradient(90deg, transparent 0%, rgba(215,185,140,0.11) 45%, transparent 70%),
           linear-gradient(180deg, transparent, rgba(5,7,10,0.16));
         transform: translateX(-110%);
         opacity: 0;
@@ -1233,20 +1217,7 @@
         animation: mediaScan 1.35s ease-out;
       }
       .proof-media::after {
-        content: attr(data-proof);
-        position: absolute;
-        right: 12px;
-        top: 12px;
-        z-index: 3;
-        padding: 5px 8px;
-        border-radius: 999px;
-        border: 1px solid rgba(80, 227, 194, 0.24);
-        background: rgba(5, 7, 10, 0.68);
-        color: var(--mint);
-        font-size: 10px;
-        font-weight: 800;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
+        display: none;
       }
       .proof-media video,
       .card-cover {
@@ -1290,9 +1261,9 @@
         border-radius: 14px 14px 8px 8px;
         border-bottom: 1px solid var(--border);
         background:
-          radial-gradient(circle at 18% 20%, rgba(56,189,248,0.18), transparent 24%),
-          radial-gradient(circle at 78% 25%, rgba(245,196,81,0.15), transparent 26%),
-          linear-gradient(145deg, rgba(12,24,30,0.96), rgba(8,9,13,0.98));
+          radial-gradient(circle at 18% 20%, rgba(215,185,140,0.16), transparent 24%),
+          radial-gradient(circle at 78% 25%, rgba(183,85,61,0.12), transparent 26%),
+          linear-gradient(145deg, rgba(22,18,14,0.96), rgba(9,8,6,0.98));
         position: relative;
         overflow: hidden;
         padding: 18px;
@@ -1347,8 +1318,8 @@
         border-radius: 50%;
         display: grid;
         place-items: center;
-        border: 1px solid rgba(56,189,248,0.35);
-        background: rgba(56,189,248,0.10);
+        border: 1px solid rgba(215,185,140,0.35);
+        background: rgba(215,185,140,0.10);
         color: var(--mint);
         font-weight: 850;
         font-size: 13px;
@@ -1357,8 +1328,8 @@
       .card:hover {
         transform: translateY(-4px);
         background: var(--surface-hover);
-        border-color: rgba(56, 189, 248, 0.28);
-        box-shadow: 0 12px 40px rgba(56, 189, 248, 0.08), 0 0 0 1px rgba(56,189,248,0.05);
+        border-color: rgba(215,185,140,0.26);
+        box-shadow: 0 12px 40px rgba(215,185,140,0.08), 0 0 0 1px rgba(215,185,140,0.05);
       }
       .card[aria-disabled="true"] { cursor: default; }
       .card[aria-disabled="true"]:hover {
@@ -1380,22 +1351,24 @@
         border-radius: 99px;
       }
       .badge-live {
-        background: rgba(34, 197, 94, 0.10);
-        color: var(--live);
+        background: rgba(215,185,140,0.10);
+        color: var(--accent);
         display: flex; align-items: center; gap: 6px;
       }
       .badge-live::before {
         content: "";
         width: 5px; height: 5px;
         border-radius: 50%;
-        background: var(--live);
+        background: var(--accent);
         animation: pulse 2s infinite;
       }
       .badge-building { background: rgba(251,191,36,0.08); color: var(--amber); }
       .badge-soon { background: rgba(100,100,122,0.1); color: var(--muted); }
-      .card-icon { font-size: 22px; line-height: 1; }
       .card-name {
-        font-size: 17px; font-weight: 600; color: var(--text);
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 24px;
+        font-weight: 560;
+        color: var(--text);
         letter-spacing: 0;
       }
       .card-desc {
@@ -1421,10 +1394,10 @@
         flex: 0 0 6px;
         border-radius: 50%;
         background: var(--accent);
-        box-shadow: 0 0 0 3px rgba(56,189,248,0.10);
+        box-shadow: 0 0 0 3px rgba(215,185,140,0.10);
       }
-      .flow-step:nth-child(2)::before { background: var(--mint); box-shadow: 0 0 0 3px rgba(56,189,248,0.10); }
-      .flow-step:nth-child(3)::before { background: var(--gold); box-shadow: 0 0 0 3px rgba(245,196,81,0.10); }
+      .flow-step:nth-child(2)::before { background: var(--mint); box-shadow: 0 0 0 3px rgba(215,185,140,0.10); }
+      .flow-step:nth-child(3)::before { background: var(--gold); box-shadow: 0 0 0 3px rgba(200,149,109,0.10); }
       .card-tags {
         display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px;
       }
@@ -1434,6 +1407,10 @@
         background: rgba(255,255,255,0.04);
         color: var(--muted);
         border: 1px solid rgba(255,255,255,0.05);
+      }
+      .card .card-flow,
+      .card .card-tags {
+        display: none;
       }
       .card-link-hint {
         font-size: 12px; color: var(--accent);
@@ -1498,10 +1475,10 @@
         border-radius: 8px; margin-bottom: 4px; background: #1a1a1a;
       }
       .closing-cta {
-        border: 1px solid rgba(56,189,248,0.18);
+        border: 1px solid rgba(215,185,140,0.18);
         border-radius: 18px;
         background:
-          radial-gradient(circle at 18% 18%, rgba(56,189,248,0.14), transparent 34%),
+          radial-gradient(circle at 18% 18%, rgba(215,185,140,0.14), transparent 34%),
           linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015)),
           var(--surface);
         padding: 26px;
@@ -1779,9 +1756,6 @@
         .profile-card-copy span {
           font-size: 12px;
         }
-        .profile-proof {
-          grid-template-columns: 1fr;
-        }
         footer {
           flex-direction: column;
           gap: 28px;
@@ -1811,28 +1785,29 @@
       <!-- Hero -->
       <section class="hero">
         <div class="hero-inner">
-          <div class="hero-label hero-reveal hero-reveal-1">Applied AI Engineer · Singapore · Open to roles</div>
+          <div class="hero-label hero-reveal hero-reveal-1">Applied AI · Singapore · Available Q2 2026</div>
           <h1 class="hero-title hero-reveal hero-reveal-2">
-            Haoming <span>Koo</span>
+            Haoming <span>Koo.</span>
           </h1>
           <p class="hero-subtitle hero-reveal hero-reveal-3">
             I turn messy workflows into shipped AI products.
           </p>
           <p class="hero-bio hero-reveal hero-reveal-3">
-            Applied AI engineer in Singapore. 7 years at Micron, now building ML at AI Singapore.
-            I build RAG, agent tools, evals, observability, vision pipelines, and product UX.
+            Seven years building production systems at Micron: search, vision, risk, and simulation.
+            Now at AI Singapore, shipping evaluation-grade RAG and agent workflows.
+            Eight live products sit under this domain.
           </p>
           <div class="hero-actions hero-reveal hero-reveal-4">
-            <a class="btn btn-primary" href="./hire.html">
-              Hire me
+            <a class="btn btn-primary" href="mailto:haomingkoo@gmail.com?subject=AI%20engineering%20role%20with%20Haoming%20Koo">
+              Start a conversation
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
             </a>
-            <a class="btn btn-ghost" href="#projects">View 8 live apps</a>
+            <a class="btn btn-ghost" href="#projects">See the work</a>
           </div>
           <div class="hero-cred-line hero-reveal hero-reveal-5" aria-label="Fast proof">
-            <span><strong>$600M+</strong> aggregate Micron impact</span>
+            <span><strong>$600M+</strong> contributed program outcomes</span>
             <span><strong>8</strong> live apps</span>
-            <span><strong>NUS MSc</strong> 4.85/5.00</span>
+            <span><strong>NUS MSc</strong> Smart Industries</span>
           </div>
         </div>
 
@@ -1840,12 +1815,7 @@
           <img src="./assets/haoming-portrait.jpg" alt="Haoming Koo portrait" />
           <div class="profile-card-copy">
             <strong>Applied AI, shipped.</strong>
-            <span>Production systems, public apps, and public-safe enterprise patterns.</span>
-            <div class="profile-proof" aria-label="Proof points">
-              <div><b>8</b><small>live apps</small></div>
-              <div><b>$600M+</b><small>impact</small></div>
-              <div><b>7 years</b><small>systems</small></div>
-            </div>
+            <span>Production ML, RAG, evals, and product UX end to end.</span>
           </div>
         </aside>
       </section>
@@ -1919,7 +1889,7 @@
       <section class="launch-board reveal" aria-label="Open live systems">
         <div class="launch-head">
           <span>Selected work</span>
-          <strong>Three live systems explain the range.</strong>
+          <strong>Three systems. Three problems.</strong>
         </div>
         <div class="launch-grid">
           <a class="launch-card" href="https://job.kooexperience.com" target="_blank" rel="noopener">
@@ -1955,7 +1925,7 @@
               <span class="about-highlight">7 years at Micron Technology</span>,
               working across Singapore, Boise, Hiroshima, and Taichung.
               The work covered search, risk, vision, simulation, and shared data workflows.
-              It contributed to <span class="about-highlight">$600M+ in aggregate program impact</span>
+              It contributed to <span class="about-highlight">$600M+ in aggregate program outcomes</span>
               across programs I led, co-led, or contributed to.
             </p>
             <p>
@@ -1976,46 +1946,18 @@
               </a>
             </p>
           </div>
-          <div class="about-sidebar compact-proof reveal">
-            <div class="proof-tile">
-              <strong>7 years</strong>
-              <span>systems in real operations</span>
-            </div>
-            <div class="proof-tile">
-              <strong>$600M+</strong>
-              <span>business impact at Micron</span>
-            </div>
-            <div class="proof-tile">
-              <strong>8 apps</strong>
-              <span>live public products</span>
-            </div>
-            <div class="proof-tile">
-              <strong>4 fabs</strong>
-              <span>cross-site delivery</span>
-            </div>
-            <div class="about-links">
-              <a class="about-link" href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
-              <a class="about-link" href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
-              <a class="about-link" href="mailto:haomingkoo@gmail.com">Email</a>
-            </div>
-          </div>
         </div>
       </section>
 
       <!-- Projects -->
       <section id="projects" class="section">
         <p class="section-label reveal">Projects</p>
-        <p class="project-intro reveal">
-          These are live products, not pitch-deck screenshots.
-          Each one opens to a real URL.
-        </p>
         <div class="cards">
           <a class="card reveal reveal-delay-2" href="https://job.kooexperience.com" target="_blank" rel="noopener">
             <span class="proof-media" data-proof="RAG + validation">
               <img class="card-cover" src="./assets/projects/job-hunter.png" alt="Job Hunter SG live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon" aria-hidden="true">🏢</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Job Hunter SG</p>
@@ -2046,7 +1988,6 @@
               <img class="card-cover" src="./assets/projects/trader-koo.png" alt="Trader Koo live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon" aria-hidden="true">📈</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Trader Koo</p>
@@ -2076,7 +2017,6 @@
               <img class="card-cover" src="./assets/projects/japan-in-seasons.png" alt="Japan in Seasons live map screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon" aria-hidden="true">🌸</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Japan in Seasons</p>
@@ -2105,7 +2045,6 @@
               <img class="card-cover" src="./assets/projects/amex-explorer.png" alt="Amex Explorer live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon" aria-hidden="true">💳</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Amex Explorer</p>
@@ -2140,7 +2079,6 @@
               <div class="case-node n4">Reviewer<span>approval</span></div>
             </div>
             <div class="card-top">
-              <span class="card-icon" aria-hidden="true">⚙️</span>
               <span class="badge badge-building">Architecture</span>
             </div>
             <p class="card-name">Enterprise Planning Workflow</p>
@@ -2167,7 +2105,6 @@
               <img class="card-cover" src="./assets/projects/lionweather.png" alt="LionWeather live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon" aria-hidden="true">🦁</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">LionWeather</p>
@@ -2197,7 +2134,6 @@
               <img class="card-cover" src="./assets/projects/photo-compliance-studio.png" alt="Photo Compliance Studio live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon" aria-hidden="true">🪪</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Photo Compliance Studio</p>
@@ -2226,7 +2162,6 @@
               <img class="card-cover" src="./assets/projects/preflight.png" alt="Preflight live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon" aria-hidden="true">🔬</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">Preflight</p>
@@ -2255,7 +2190,6 @@
               <img class="card-cover" src="./assets/projects/minmax-wine.png" alt="MinMax Wine live product screenshot" loading="lazy" />
             </span>
             <div class="card-top">
-              <span class="card-icon" aria-hidden="true">🍷</span>
               <span class="badge badge-live">Live</span>
             </div>
             <p class="card-name">MinMax Wine</p>
@@ -2323,14 +2257,14 @@
 
       <section class="closing-cta reveal" aria-label="Hiring call to action">
         <div>
-          <h2>Reviewing AI engineering candidates?</h2>
+          <h2>Hiring an applied AI engineer?</h2>
           <p>
-            Start with the 8 live apps, then use the hiring page for the short version of my background.
-            I am Singapore-based and open to applied AI, AI deployment, and LLM product engineering roles.
+            Eight live products, seven years of production systems, one Singapore-based engineer.
+            Start with the work, then email.
           </p>
         </div>
         <a class="btn btn-primary" href="mailto:haomingkoo@gmail.com?subject=AI%20engineering%20role%20with%20Haoming%20Koo">
-          Email Haoming
+          Start a conversation
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
         </a>
       </section>

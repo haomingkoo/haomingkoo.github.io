@@ -13,7 +13,7 @@ Search aliases: Haoming Koo, Haoming Koo LinkedIn, Haoming Koo portfolio, Haomin
 
 ## Professional Positioning
 
-Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He has 7 years of systems experience and builds production ML systems, RAG workflows, agent tools, evals, observability, and product interfaces. He spent 7 years at Micron Technology, where his work contributed to USD 600M+ in business impact across semiconductor manufacturing, cloud infrastructure, and data platforms. He currently builds production ML systems at AI Singapore's AIAP programme.
+Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He has 7 years of systems experience and builds production ML systems, RAG workflows, agent tools, evals, observability, and product interfaces. He spent 7 years at Micron Technology, where his work contributed to USD 600M+ in program outcomes across semiconductor manufacturing, cloud infrastructure, and data platforms. He currently builds production ML systems at AI Singapore's AIAP programme.
 
 He is open to AI engineering roles, applied AI/product engineering roles, forward deployed engineering roles, and focused client projects involving LLM workflows, RAG, evals, LLM observability, vision pipelines, data products, automation, dashboards, and production ML.
 
