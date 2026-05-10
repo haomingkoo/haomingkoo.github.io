@@ -10,7 +10,7 @@
     <link rel="me" href="https://github.com/haomingkoo" />
     <link rel="alternate" type="application/json" title="Haoming Koo structured profile" href="https://kooexperience.com/profile.json" />
     <title>Haoming Koo | AI Engineer in Singapore</title>
-    <meta name="description" content="Haoming Koo is a Singapore AI engineer building production ML systems, RAG workflows, agent tools, evals, and 8 live AI products. Open to frontier AI roles." />
+    <meta name="description" content="Haoming Koo is a Singapore applied AI engineer building production ML systems, RAG workflows, agent tools, evals, and 8 live AI products." />
     <meta name="author" content="Haoming Koo" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <link rel="canonical" href="https://kooexperience.com/" />
@@ -47,7 +47,7 @@
           "givenName": "Haoming",
           "familyName": "Koo",
           "jobTitle": "Applied AI Engineer",
-          "description": "AI engineer and digital transformation leader with 7 years of systems experience across semiconductor manufacturing, cloud infrastructure, data platforms, and production ML. Contributed to USD 600M+ in program outcomes at Micron and currently builds production ML systems at AI Singapore.",
+          "description": "AI engineer and digital transformation leader with 7 years of systems experience across semiconductor manufacturing, cloud infrastructure, data platforms, and production ML. Contributed to USD 600M+ in program outcomes at Micron and currently builds production ML systems at AI Singapore, including an industry AI solution with AMD through the 100E programme.",
           "url": "https://kooexperience.com",
           "image": "https://kooexperience.com/assets/haoming-portrait.jpg",
           "email": "haomingkoo@gmail.com",
@@ -403,23 +403,22 @@
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
-        --bg: #060607;
-        --surface: #101012;
-        --surface-hover: #171719;
-        --border: rgba(220, 225, 230, 0.12);
-        --border-hover: rgba(220, 225, 230, 0.25);
-        --accent: #d8dde2;
-        --accent-dim: rgba(216, 221, 226, 0.11);
-        --accent-glow: rgba(216, 221, 226, 0.07);
-        --mint: #cfd7de;
-        --gold: #aab4bd;
-        --coral: #fb7185;
-        --text: #f5f5f2;
-        --text-secondary: #c8c8c2;
-        --muted: #838681;
+        --bg: #080a09;
+        --surface: #101311;
+        --surface-hover: #171b18;
+        --border: rgba(143, 174, 162, 0.14);
+        --border-hover: rgba(143, 174, 162, 0.30);
+        --accent: #8faea2;
+        --accent-dim: rgba(143, 174, 162, 0.12);
+        --accent-glow: rgba(143, 174, 162, 0.08);
+        --mint: #8faea2;
+        --accent-soft: #a6b8b1;
+        --text: #f0ece4;
+        --text-secondary: #c4bfb5;
+        --muted: #888278;
         --live: #22c55e;
-        --purple: #8b9cff;
-        --amber: #f59e0b;
+        --purple: #9ca3c7;
+        --slate-blue: #8fa6bd;
       }
 
       html { scroll-behavior: smooth; }
@@ -441,8 +440,8 @@
         position: fixed;
         inset: 0;
         background:
-          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(216,221,226,0.055) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 40% at 86% 18%, rgba(120,132,146,0.05) 0%, transparent 52%);
+          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(143,174,162,0.075) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 40% at 86% 18%, rgba(86,112,101,0.07) 0%, transparent 52%);
         pointer-events: none;
         z-index: 0;
       }
@@ -542,7 +541,7 @@
         right: -22vw;
         top: -20vw;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(216,221,226,0.12), transparent 62%);
+        background: radial-gradient(circle, rgba(143,174,162,0.14), transparent 62%);
         filter: blur(4px);
       }
       .hero::after {
@@ -582,7 +581,7 @@
       }
       .hero-title {
         font-family: "Newsreader", Georgia, serif;
-        font-size: clamp(56px, 7vw, 104px);
+        font-size: clamp(52px, 6.25vw, 92px);
         font-weight: 580;
         line-height: 0.9;
         letter-spacing: 0;
@@ -596,7 +595,7 @@
       }
       .hero-subtitle {
         font-family: "Newsreader", Georgia, serif;
-        font-size: clamp(24px, 3.1vw, 42px);
+        font-size: clamp(23px, 2.75vw, 36px);
         line-height: 1.04;
         letter-spacing: 0;
         color: var(--text);
@@ -643,7 +642,7 @@
         width: 5px;
         height: 5px;
         border-radius: 50%;
-        background: rgba(216,221,226,0.74);
+        background: rgba(143,174,162,0.86);
       }
       .hero-profile-card {
         position: relative;
@@ -680,7 +679,7 @@
         inset: 0;
         background:
           linear-gradient(180deg, rgba(5,7,10,0.05) 0%, rgba(5,7,10,0.28) 48%, rgba(5,7,10,0.86) 100%),
-          radial-gradient(circle at 26% 18%, rgba(216,221,226,0.12), transparent 32%);
+          radial-gradient(circle at 26% 18%, rgba(143,174,162,0.14), transparent 32%);
         pointer-events: none;
       }
       .profile-card-copy {
@@ -717,11 +716,11 @@
       .btn:hover { transform: translateY(-1px); }
       .btn-primary {
         background: var(--accent);
-        color: #0b0c0d;
-        box-shadow: 0 4px 16px rgba(216,221,226,0.14);
+        color: #06100c;
+        box-shadow: 0 4px 18px rgba(143,174,162,0.16);
       }
       .btn-primary:hover {
-        box-shadow: 0 6px 24px rgba(216,221,226,0.20);
+        box-shadow: 0 6px 24px rgba(143,174,162,0.22);
       }
       .btn-ghost {
         background: rgba(255,255,255,0.04);
@@ -765,7 +764,7 @@
       }
       .launch-grid {
         display: grid;
-        grid-template-columns: 1.25fr 0.9fr 0.9fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 16px;
       }
       .launch-card {
@@ -801,20 +800,20 @@
         inset: 0;
         background:
           linear-gradient(180deg, rgba(5,6,9,0.14), rgba(5,6,9,0.88)),
-          radial-gradient(circle at 20% 20%, rgba(216,221,226,0.12), transparent 34%);
+          radial-gradient(circle at 20% 20%, rgba(143,174,162,0.12), transparent 34%);
         z-index: -1;
       }
       .launch-card:hover {
         transform: translateY(-5px);
-        border-color: rgba(216,221,226,0.24);
-        box-shadow: 0 30px 90px rgba(216,221,226,0.08);
+        border-color: rgba(143,174,162,0.24);
+        box-shadow: 0 30px 90px rgba(143,174,162,0.08);
       }
       .launch-card:hover img {
         transform: scale(1.05);
         opacity: 0.72;
       }
       .launch-card span {
-        color: var(--gold);
+        color: var(--accent-soft);
         font-size: 11px;
         font-weight: 850;
         letter-spacing: 0.12em;
@@ -836,183 +835,32 @@
         line-height: 1.55;
       }
 
-      .enterprise-proof {
-        order: 3;
-        scroll-margin-top: 84px;
-        margin: 0 0 56px;
-        padding: 28px;
-        border-radius: 28px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background:
-          linear-gradient(135deg, rgba(15, 16, 18, 0.88), rgba(6, 6, 7, 0.96)),
-          radial-gradient(circle at 16% 0%, rgba(216,221,226,0.11), transparent 36%),
-          radial-gradient(circle at 88% 8%, rgba(120,132,146,0.09), transparent 34%);
-        box-shadow: 0 30px 90px rgba(0,0,0,0.30);
-        overflow: hidden;
-        position: relative;
-      }
-      .enterprise-proof::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background:
-          linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-        background-size: 36px 36px;
-        mask-image: linear-gradient(90deg, #000, transparent 70%);
-        pointer-events: none;
-      }
-      .enterprise-proof-inner {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(480px, 1.1fr);
-        gap: 28px;
-        align-items: center;
-      }
-      .enterprise-copy span {
-        display: inline-flex;
-        color: var(--mint);
-        font-size: 12px;
-        font-weight: 850;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        margin-bottom: 12px;
-      }
-      .enterprise-copy h2 {
-        font-family: "Newsreader", Georgia, serif;
-        max-width: 560px;
-        font-size: clamp(30px, 4.4vw, 56px);
-        line-height: 0.98;
-        letter-spacing: 0;
-        font-weight: 540;
-        text-wrap: balance;
-        margin-bottom: 16px;
-      }
-      .enterprise-copy p {
-        max-width: 520px;
-        color: var(--text-secondary);
-        font-size: 15px;
-        line-height: 1.72;
-      }
-      .enterprise-copy strong {
-        color: var(--text);
-        font-weight: 750;
-      }
-      .enterprise-visual {
-        position: relative;
-        display: grid;
-        gap: 12px;
-      }
-      .enterprise-pipeline {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 8px;
-      }
-      .enterprise-step {
-        min-height: 104px;
-        padding: 14px;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.11);
-        background: rgba(2,6,23,0.54);
-      }
-      .enterprise-step small {
-        display: block;
-        color: var(--gold);
-        font-size: 10px;
-        font-weight: 850;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        margin-bottom: 9px;
-      }
-      .enterprise-step strong {
-        display: block;
-        color: var(--text);
-        font-size: 14px;
-        line-height: 1.25;
-      }
-      .enterprise-step span {
-        display: block;
-        margin-top: 8px;
-        color: var(--muted);
-        font-size: 11px;
-        line-height: 1.4;
-      }
-      .enterprise-evidence {
-        display: grid;
-        grid-template-columns: 1.05fr 0.95fr;
-        gap: 12px;
-      }
-      .evidence-card {
-        min-height: 160px;
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background:
-          linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.014)),
-          rgba(7,11,18,0.72);
-        padding: 16px;
-      }
-      .evidence-card h3 {
-        color: var(--text);
-        font-size: 14px;
-        letter-spacing: 0;
-        margin-bottom: 12px;
-      }
-      .sql-lines,
-      .rca-lines {
-        display: grid;
-        gap: 8px;
-      }
-      .sql-lines i,
-      .rca-lines i {
-        display: block;
-        height: 9px;
-        border-radius: 999px;
-        background: rgba(148,163,184,0.20);
-      }
-      .sql-lines i:nth-child(1) { width: 74%; background: rgba(216,221,226,0.24); }
-      .sql-lines i:nth-child(2) { width: 92%; }
-      .sql-lines i:nth-child(3) { width: 62%; }
-      .sql-lines i:nth-child(4) { width: 84%; background: rgba(170,180,189,0.20); }
-      .rca-lines i:nth-child(1) { width: 84%; background: rgba(34,197,94,0.22); }
-      .rca-lines i:nth-child(2) { width: 68%; }
-      .rca-lines i:nth-child(3) { width: 78%; }
-      .evidence-pill-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 7px;
-        margin-top: 16px;
-      }
-      .enterprise-copy-pills {
-        max-width: 520px;
-      }
-      .evidence-pill-row span {
-        display: inline-flex;
-        padding: 6px 9px;
-        border-radius: 999px;
-        color: var(--text-secondary);
-        background: rgba(255,255,255,0.055);
-        border: 1px solid rgba(255,255,255,0.08);
-        font-size: 10px;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
       /* ── About ────────────────────────────────────────────────────────── */
       .about-grid {
         display: grid;
-        grid-template-columns: minmax(0, 780px);
+        grid-template-columns: minmax(0, 1fr);
         gap: 40px;
         margin-top: 8px;
       }
       .about-text {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
         font-size: 15px;
-        line-height: 1.75;
+        line-height: 1.72;
         color: var(--text-secondary);
       }
-      .about-text p { margin-bottom: 16px; }
+      .about-text p {
+        margin-bottom: 0;
+        padding-top: 18px;
+        border-top: 1px solid var(--border);
+      }
       .about-text p:last-child { margin-bottom: 0; }
+      .about-text .about-link-row {
+        grid-column: 1 / -1;
+        padding-top: 0;
+        border-top: 0;
+      }
       .about-highlight {
         color: var(--text);
         font-weight: 500;
@@ -1110,12 +958,12 @@
         padding: 6px 14px;
         border-radius: 8px;
         background: var(--accent-dim);
-        border: 1px solid rgba(216,221,226,0.13);
+        border: 1px solid rgba(143,174,162,0.13);
         transition: background 0.2s, border-color 0.2s;
       }
       .about-link:hover {
-        background: rgba(216,221,226,0.12);
-        border-color: rgba(216,221,226,0.22);
+        background: rgba(143,174,162,0.12);
+        border-color: rgba(143,174,162,0.22);
       }
       @media (max-width: 768px) {
         .about-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -1177,7 +1025,7 @@
         position: absolute;
         inset: 0;
         pointer-events: none;
-        background: radial-gradient(circle at 20% 0%, rgba(216,221,226,0.10), transparent 32%);
+        background: radial-gradient(circle at 20% 0%, rgba(143,174,162,0.10), transparent 32%);
         opacity: 0;
         transition: opacity 0.24s;
       }
@@ -1205,7 +1053,7 @@
         inset: 0;
         z-index: 2;
         background:
-          linear-gradient(90deg, transparent 0%, rgba(216,221,226,0.09) 45%, transparent 70%),
+          linear-gradient(90deg, transparent 0%, rgba(143,174,162,0.09) 45%, transparent 70%),
           linear-gradient(180deg, transparent, rgba(5,7,10,0.16));
         transform: translateX(-110%);
         opacity: 0;
@@ -1261,7 +1109,7 @@
         border-radius: 14px 14px 8px 8px;
         border-bottom: 1px solid var(--border);
         background:
-          radial-gradient(circle at 18% 20%, rgba(216,221,226,0.11), transparent 24%),
+          radial-gradient(circle at 18% 20%, rgba(143,174,162,0.11), transparent 24%),
           radial-gradient(circle at 78% 25%, rgba(120,132,146,0.10), transparent 26%),
           linear-gradient(145deg, rgba(15,16,18,0.96), rgba(6,6,7,0.98));
         position: relative;
@@ -1318,8 +1166,8 @@
         border-radius: 50%;
         display: grid;
         place-items: center;
-        border: 1px solid rgba(216,221,226,0.28);
-        background: rgba(216,221,226,0.08);
+        border: 1px solid rgba(143,174,162,0.28);
+        background: rgba(143,174,162,0.08);
         color: var(--mint);
         font-weight: 850;
         font-size: 13px;
@@ -1328,8 +1176,8 @@
       .card:hover {
         transform: translateY(-4px);
         background: var(--surface-hover);
-        border-color: rgba(216,221,226,0.22);
-        box-shadow: 0 12px 40px rgba(216,221,226,0.07), 0 0 0 1px rgba(216,221,226,0.04);
+        border-color: rgba(143,174,162,0.22);
+        box-shadow: 0 12px 40px rgba(143,174,162,0.07), 0 0 0 1px rgba(143,174,162,0.04);
       }
       .card[aria-disabled="true"] { cursor: default; }
       .card[aria-disabled="true"]:hover {
@@ -1351,7 +1199,7 @@
         border-radius: 99px;
       }
       .badge-live {
-        background: rgba(216,221,226,0.08);
+        background: rgba(143,174,162,0.08);
         color: var(--accent);
         display: flex; align-items: center; gap: 6px;
       }
@@ -1362,7 +1210,7 @@
         background: var(--accent);
         animation: pulse 2s infinite;
       }
-      .badge-building { background: rgba(251,191,36,0.08); color: var(--amber); }
+      .badge-building { background: rgba(143,166,189,0.10); color: var(--slate-blue); }
       .badge-soon { background: rgba(100,100,122,0.1); color: var(--muted); }
       .card-name {
         font-family: "Newsreader", Georgia, serif;
@@ -1394,10 +1242,10 @@
         flex: 0 0 6px;
         border-radius: 50%;
         background: var(--accent);
-        box-shadow: 0 0 0 3px rgba(216,221,226,0.08);
+        box-shadow: 0 0 0 3px rgba(143,174,162,0.08);
       }
-      .flow-step:nth-child(2)::before { background: var(--mint); box-shadow: 0 0 0 3px rgba(216,221,226,0.08); }
-      .flow-step:nth-child(3)::before { background: var(--gold); box-shadow: 0 0 0 3px rgba(170,180,189,0.08); }
+      .flow-step:nth-child(2)::before { background: var(--mint); box-shadow: 0 0 0 3px rgba(143,174,162,0.08); }
+      .flow-step:nth-child(3)::before { background: var(--accent-soft); box-shadow: 0 0 0 3px rgba(166,184,177,0.08); }
       .card-tags {
         display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px;
       }
@@ -1446,8 +1294,8 @@
       .post-card:hover {
         transform: translateY(-4px);
         background: var(--surface-hover);
-        border-color: rgba(59, 130, 246, 0.3);
-        box-shadow: 0 12px 40px rgba(59, 130, 246, 0.08);
+        border-color: rgba(143, 174, 162, 0.26);
+        box-shadow: 0 12px 40px rgba(143, 174, 162, 0.07);
       }
       .post-meta {
         display: flex; align-items: center; gap: 10px;
@@ -1475,10 +1323,10 @@
         border-radius: 8px; margin-bottom: 4px; background: #1a1a1a;
       }
       .closing-cta {
-        border: 1px solid rgba(216,221,226,0.14);
+        border: 1px solid rgba(143,174,162,0.14);
         border-radius: 18px;
         background:
-          radial-gradient(circle at 18% 18%, rgba(216,221,226,0.09), transparent 34%),
+          radial-gradient(circle at 18% 18%, rgba(143,174,162,0.09), transparent 34%),
           linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015)),
           var(--surface);
         padding: 26px;
@@ -1675,20 +1523,7 @@
         .closing-cta {
           grid-template-columns: 1fr;
         }
-        .enterprise-proof {
-          padding: 22px;
-          border-radius: 24px;
-        }
-        .enterprise-proof-inner {
-          grid-template-columns: 1fr;
-        }
-        .enterprise-pipeline {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-        .enterprise-step:last-child {
-          grid-column: 1 / -1;
-        }
-        .enterprise-evidence {
+        .about-text {
           grid-template-columns: 1fr;
         }
       }
@@ -1785,17 +1620,18 @@
       <!-- Hero -->
       <section class="hero">
         <div class="hero-inner">
-          <div class="hero-label hero-reveal hero-reveal-1">Applied AI · Singapore · Q4 2026</div>
+          <div class="hero-label hero-reveal hero-reveal-1">Applied AI Engineer · Singapore</div>
           <h1 class="hero-title hero-reveal hero-reveal-2">
-            Haoming <span>Koo.</span>
+            Haoming <span>Koo</span>
           </h1>
           <p class="hero-subtitle hero-reveal hero-reveal-3">
             I turn messy workflows into shipped AI products.
           </p>
           <p class="hero-bio hero-reveal hero-reveal-3">
             Seven years building production systems at Micron: search, vision, risk, and simulation.
-            Now at AI Singapore, shipping evaluation-grade RAG and agent workflows.
-            Eight live products sit under this domain.
+            Now at AI Singapore, building an industry AI solution with AMD through the 100E programme.
+            I also ship and maintain eight public products across job search, market research, travel,
+            and source-backed tools.
           </p>
           <div class="hero-actions hero-reveal hero-reveal-4">
             <a class="btn btn-primary" href="mailto:haomingkoo@gmail.com?subject=AI%20engineering%20role%20with%20Haoming%20Koo">
@@ -1815,75 +1651,9 @@
           <img src="./assets/haoming-portrait.jpg" alt="Haoming Koo portrait" />
           <div class="profile-card-copy">
             <strong>Applied AI Engineer</strong>
-            <span>RAG, evals, agent workflows, and production ML.</span>
+            <span>LangGraph, RAG, evals, and production ML.</span>
           </div>
         </aside>
-      </section>
-
-      <section id="enterprise-proof" class="enterprise-proof reveal" aria-label="Public-safe enterprise AI workflow pattern">
-        <div class="enterprise-proof-inner">
-          <div class="enterprise-copy">
-            <span>Enterprise AI pattern</span>
-            <h2>Enterprise AI, shown safely.</h2>
-            <p>
-              Some enterprise systems cannot be shown as screenshots. I show the engineering pattern instead:
-              checked data access, evidence, a root-cause summary, and human review.
-            </p>
-          </div>
-          <div class="enterprise-visual" aria-label="Enterprise planning workflow">
-            <div class="enterprise-pipeline">
-              <div class="enterprise-step">
-                <small>01</small>
-                <strong>Ask</strong>
-                <span>A planning question arrives.</span>
-              </div>
-              <div class="enterprise-step">
-                <small>02</small>
-                <strong>Context</strong>
-                <span>Find the relevant notes and metrics.</span>
-              </div>
-              <div class="enterprise-step">
-                <small>03</small>
-                <strong>Data</strong>
-                <span>Run read-only queries with checks.</span>
-              </div>
-              <div class="enterprise-step">
-                <small>04</small>
-                <strong>Explain</strong>
-                <span>Summarise likely causes with evidence.</span>
-              </div>
-              <div class="enterprise-step">
-                <small>05</small>
-                <strong>Review</strong>
-                <span>A person approves the handoff.</span>
-              </div>
-            </div>
-            <div class="enterprise-evidence">
-              <div class="evidence-card">
-                <h3>Read-only data access</h3>
-                <div class="sql-lines" aria-hidden="true">
-                  <i></i><i></i><i></i><i></i>
-                </div>
-                <div class="evidence-pill-row">
-                  <span>read-only</span>
-                  <span>scoped tables</span>
-                  <span>audited</span>
-                </div>
-              </div>
-              <div class="evidence-card">
-                <h3>Review packet</h3>
-                <div class="rca-lines" aria-hidden="true">
-                  <i></i><i></i><i></i>
-                </div>
-                <div class="evidence-pill-row">
-                  <span>citations</span>
-                  <span>confidence</span>
-                  <span>next owner</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section class="launch-board reveal" aria-label="Open live systems">
@@ -1930,15 +1700,17 @@
             </p>
             <p>
               At <span class="about-highlight">AI Singapore</span>, I build ML systems end to end:
-              vision, sequence modelling, RAG, and MLOps. I also built
+              vision, sequence modelling, RAG, and MLOps. My current work includes a
+              100E industry AI solution with AMD, described here only at programme level.
+              Separately, I built
               <a href="https://job.kooexperience.com" style="color:var(--accent)">Job Hunter SG</a>,
-              a Singapore job search product with RAG matching and fact-checked resume guidance.
+              a personal product for Singapore job search with RAG matching and fact-checked resume guidance.
             </p>
             <p>
               I like practical AI work: define the constraint, build the API and UI, add evals and
               observability, then keep tightening the system after real users touch it.
             </p>
-            <p style="margin-top: 8px;">
+            <p class="about-link-row">
               <a class="about-link" href="./about.html">
                 Full background, experience &amp; skills &rarr;
               </a>

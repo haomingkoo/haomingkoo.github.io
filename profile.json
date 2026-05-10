@@ -17,7 +17,7 @@
     "Haoming Koo Production LLM Systems"
   ],
 
-  "summary": "Applied AI engineer in Singapore with 7 years of systems experience. I build production ML systems, RAG workflows, agent tools, evals, observability, and product interfaces. I spent 7 years at Micron across semiconductor manufacturing, cloud, and data platforms. The work supported cross-site programs across four fabs and contributed to USD 600M+ in program outcomes. I now build production ML systems at AI Singapore.",
+  "summary": "Applied AI engineer in Singapore with 7 years of systems experience. I build production ML systems, RAG workflows, agent tools, evals, observability, and product interfaces. I spent 7 years at Micron across semiconductor manufacturing, cloud, and data platforms. The work supported cross-site programs across four fabs and contributed to USD 600M+ in program outcomes. I now build production ML systems at AI Singapore, including an industry AI solution with AMD through the 100E programme.",
 
   "topSkills": [
     "AI Engineering & MLOps",
@@ -56,9 +56,10 @@
           "startDate": "2026-01",
           "endDate": null,
           "location": "Singapore",
-          "description": "Full-time AI engineering apprenticeship under AI Singapore's national AI programme. Building and deploying end-to-end ML systems across structured data, vision, and sequence modelling domains.",
+          "description": "Full-time AI engineering apprenticeship under AI Singapore's national AI programme. Building and deploying end-to-end ML systems across structured data, vision, and sequence modelling domains, including an industry AI solution with AMD through the 100E programme.",
           "bullets": [
             "Delivered production-ready pipelines using GitLab CI/CD, Docker, and Google Cloud — including backend inference services and frontend UIs",
+            "Contributing to an industry AI solution with AMD through AI Singapore's 100E programme",
             "Built vision models for image classification, object detection, and quality checks",
             "Developed sequence modelling systems for time-series prediction",
             "Implemented containerised deployment, model lifecycle management, and MLOps automation",

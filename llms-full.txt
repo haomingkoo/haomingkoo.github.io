@@ -16,7 +16,7 @@ Search aliases: Haoming Koo, Haoming Koo LinkedIn, Haoming Koo portfolio, Haomin
 
 ## Career Summary
 
-- Current focus: production ML systems at AI Singapore's AI Apprenticeship Programme (AIAP).
+- Current focus: production ML systems at AI Singapore's AI Apprenticeship Programme (AIAP), including an industry AI solution with AMD through the 100E programme.
 - Previous role: 7 years at Micron Technology in Singapore.
 - Program outcomes: contributed to USD 600M+ across semiconductor manufacturing, risk analytics, yield optimisation, cloud infrastructure, and platform unification.
 - Scale: cross-site work across Singapore, Boise, Hiroshima, and Taichung; tools and workflows supporting thousands of engineers.
@@ -52,7 +52,7 @@ Haoming is open to:
 
 ## Recruiter Quick Path
 
-Start with Job Hunter SG to inspect RAG matching, ATS scoring, validation gates, and fact-preserving resume edits. Then open Trader Koo to inspect source freshness, market signals, paper-trade records, and clear research/execution boundaries. The homepage shows 8 live applications plus one public-safe enterprise architecture pattern: governed text-to-SQL, evidence packs, root-cause notes, validation gates, and human review for a large multinational semiconductor environment. The hiring page gives the shortest story; the about page gives the full timeline and awards.
+Start with Job Hunter SG to inspect RAG matching, ATS scoring, validation gates, and fact-preserving resume edits. Then open Trader Koo to inspect source freshness, market signals, paper-trade records, and clear research/execution boundaries. The homepage highlights 8 live applications. The hiring page gives the shortest story; the about page gives the full timeline and awards.
 
 ## Live Products
 

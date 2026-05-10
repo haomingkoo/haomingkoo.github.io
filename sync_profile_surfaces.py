@@ -115,7 +115,7 @@ Production LLM systems, RAG, agent workflows, and enterprise AI delivery | AI Si
 
 ## What I'm Working On
 
-- Building production ML systems at **AI Singapore (AIAP)** across vision, sequence modelling, NLP, and MLOps
+- Building production ML systems at **AI Singapore (AIAP)** across vision, sequence modelling, NLP, and MLOps, including an industry AI solution with AMD through the 100E programme
 - Building **RAG, agent workflows, evals, and LLM observability** into practical AI products
 - Shipping [{metrics["liveApps"]} live applications]({profile["website"]}) that solve real problems, from job search to travel intelligence and source-backed data tools
 - Building open-source tools: [japan-seasons-mcp](https://github.com/haomingkoo/japan-seasons-mcp) - MCP server giving AI assistants live Japan travel data
