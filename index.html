@@ -668,12 +668,14 @@
       }
       .stage-copy {
         position: absolute;
-        left: 34px;
-        right: calc(44% + 48px);
-        bottom: 32px;
+        left: 28px;
+        right: 28px;
+        bottom: 28px;
         z-index: 5;
-        display: grid;
-        gap: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
       }
       .stage-photo-frame {
         position: absolute;
@@ -706,51 +708,33 @@
       }
       .stage-kicker {
         display: inline-flex;
-        width: max-content;
+        width: auto;
         color: var(--accent);
         font-size: 11px;
         font-weight: 800;
         letter-spacing: 0.16em;
         text-transform: uppercase;
-      }
-      .stage-copy strong {
-        color: var(--text);
-        max-width: 260px;
-        font-family: "Inter", system-ui, -apple-system, sans-serif;
-        font-size: clamp(22px, 2vw, 28px);
-        font-weight: 760;
-        line-height: 1.05;
-        letter-spacing: 0;
+        padding: 9px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(25,31,38,0.10);
+        background: rgba(255,255,255,0.72);
+        box-shadow: 0 12px 28px rgba(25,31,38,0.07);
       }
       .stage-flow {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 8px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
       }
       .stage-flow span {
-        min-height: 42px;
-        border-radius: 12px;
+        min-height: 0;
+        border-radius: 999px;
         border: 1px solid rgba(25,31,38,0.11);
         background: rgba(255,255,255,0.72);
         color: rgba(17,20,23,0.78);
-        font-size: 12.5px;
+        font-size: 11px;
         font-weight: 650;
-        display: grid;
-        place-items: center;
+        padding: 7px 9px;
         box-shadow: 0 10px 24px rgba(25,31,38,0.055);
-      }
-      .stage-proof {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .stage-proof span {
-        border-radius: 999px;
-        border: 1px solid rgba(25,31,38,0.10);
-        background: rgba(255,255,255,0.70);
-        color: var(--text-secondary);
-        font-size: 12px;
-        padding: 5px 10px;
       }
       .stage-orbit {
         position: absolute;
@@ -1513,10 +1497,6 @@
           right: 20px;
           bottom: 20px;
         }
-        .stage-copy strong {
-          max-width: none;
-          font-size: 27px;
-        }
         .stage-photo-frame {
           top: 18px;
           right: 18px;
@@ -1530,7 +1510,7 @@
           object-position: center 16%;
         }
         .stage-flow {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+          display: none;
         }
         .stage-ring {
           width: 78%;
@@ -1620,17 +1600,11 @@
           </div>
           <div class="stage-copy">
             <span class="stage-kicker">AI workflow</span>
-            <strong>Loose inputs become trusted systems.</strong>
             <div class="stage-flow" aria-label="Build pattern">
               <span>Inputs</span>
               <span>Tools</span>
               <span>Evals</span>
               <span>Review</span>
-            </div>
-            <div class="stage-proof" aria-label="Portfolio proof">
-              <span>8 live apps</span>
-              <span>RAG</span>
-              <span>LangGraph</span>
             </div>
           </div>
         </aside>
