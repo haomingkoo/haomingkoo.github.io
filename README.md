@@ -2,13 +2,12 @@
 
 Source for [kooexperience.com](https://kooexperience.com), a recruiter-facing AI engineering portfolio.
 
-The site is built to make the proof easy to inspect: live apps, project screenshots, structured profile data, `llms.txt`, and public-safe architecture notes for enterprise work that cannot be shown as a private screenshot.
+The site is built to make the proof easy to inspect: live apps, project screenshots, structured profile data, `llms.txt`, and a clear hiring path.
 
 ## What this site shows
 
 - 8 live AI applications across job search, market research, travel intelligence, data quality, and source-backed search.
-- A cinematic landing page that turns messy inputs into shipped systems: retrieval, tools, evals, guardrails, human review, and product UX.
-- A public-safe enterprise planning workflow pattern from semiconductor operations: governed text-to-SQL, evidence packs, root-cause notes, validation gates, and review handoff.
+- A premium landing page that shows the working pattern behind the projects: inputs, tools, evals, review, and usable product UX.
 - Search and AI-discovery surfaces: JSON-LD, `profile.json`, `llms.txt`, `llms-full.txt`, `sitemap.xml`, and RSS.
 
 ## Local preview

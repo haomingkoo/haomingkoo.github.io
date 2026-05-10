@@ -321,12 +321,6 @@
       "tech": ["TypeScript", "Leaflet", "Playwright", "GitHub Actions", "Source Monitoring"]
     },
     {
-      "name": "Enterprise Planning Workflow",
-      "url": "https://kooexperience.com/#projects",
-      "description": "Public-safe architecture pattern from a large multinational semiconductor environment: governed text-to-SQL, evidence packs, root-cause notes, validation gates, human review, LLM observability, and auditable handoff.",
-      "tech": ["LangGraph", "Langfuse", "Arize Phoenix", "RAG", "Evaluation Frameworks", "Human-in-the-Loop", "Spec-Driven Development"]
-    },
-    {
       "name": "LionWeather",
       "url": "https://lionweather.kooexperience.com",
       "description": "Singapore weather intelligence with NEA real-time data, ML-powered rainfall forecasting (LightGBM), and SHAP analysis",
@@ -355,7 +349,6 @@
   "keyMetrics": {
     "businessImpact": "USD 600M+",
     "businessImpactContext": "Aggregate value of programs I led, co-led, or contributed to as tracked in Micron internal program reviews.",
-    "engineersAligned": "3,000+",
     "liveApps": 8,
     "mlModels": 4,
     "yearsExperience": "7",

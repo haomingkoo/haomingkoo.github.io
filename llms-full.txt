@@ -19,8 +19,8 @@ Search aliases: Haoming Koo, Haoming Koo LinkedIn, Haoming Koo portfolio, Haomin
 - Current focus: production ML systems at AI Singapore's AI Apprenticeship Programme (AIAP), including an industry AI solution with AMD through the 100E programme.
 - Previous role: 7 years at Micron Technology in Singapore.
 - Program outcomes: contributed to USD 600M+ across semiconductor manufacturing, risk analytics, yield optimisation, cloud infrastructure, and platform unification.
-- Scale: cross-site work across Singapore, Boise, Hiroshima, and Taichung; tools and workflows supporting thousands of engineers.
-- Education: MSc Smart Industries and Digital Transformation, National University of Singapore, GPA 4.85/5.00; BSc (Honours) Chemistry and Nanoscience, NUS, Distinction.
+- Scale: cross-site work across Singapore, Boise, Hiroshima, and Taichung.
+- Education: MSc Smart Industries and Digital Transformation, National University of Singapore; BSc (Honours) Chemistry and Nanoscience, NUS.
 
 ## Target Opportunities
 

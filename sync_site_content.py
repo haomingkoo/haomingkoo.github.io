@@ -94,6 +94,10 @@ def replace_generated_block(path: Path, block_name: str, content: str) -> None:
     path.write_text(text[: match.start()] + replacement + text[match.end() :])
 
 
+def generated_block_exists(path: Path, block_name: str) -> bool:
+    return f"<!-- GENERATED:{block_name} START -->" in path.read_text()
+
+
 def render_home_cards(posts: list[dict[str, Any]], content_type: str) -> str:
     if not posts:
         empty = "No posts yet — check back soon." if content_type == "blog" else "No travel stories yet — check back soon."
@@ -334,8 +338,10 @@ def main() -> None:
     blog_posts = load_posts("blog/posts.json")
     travel_posts = load_posts("travel/posts.json")
 
-    replace_generated_block(ROOT / "index.html", "home-blog", render_home_cards(blog_posts, "blog"))
-    replace_generated_block(ROOT / "index.html", "home-travel", render_home_cards(travel_posts, "travel"))
+    index_path = ROOT / "index.html"
+    replace_generated_block(index_path, "home-blog", render_home_cards(blog_posts, "blog"))
+    if generated_block_exists(index_path, "home-travel"):
+        replace_generated_block(index_path, "home-travel", render_home_cards(travel_posts, "travel"))
     replace_generated_block(ROOT / "blog/index.html", "blog-count", f"        {len(blog_posts)} posts")
     replace_generated_block(ROOT / "blog/index.html", "blog-list", render_blog_archive(blog_posts))
     replace_generated_block(
