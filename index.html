@@ -48,7 +48,7 @@
           "givenName": "Haoming",
           "familyName": "Koo",
           "jobTitle": "Applied AI Engineer",
-          "description": "AI engineer and digital transformation leader with 7+ years of systems experience across semiconductor manufacturing, cloud infrastructure, data platforms, and production ML. Drove USD 600M+ in business impact at Micron and currently builds production ML systems at AI Singapore.",
+          "description": "AI engineer and digital transformation leader with 7 years of systems experience across semiconductor manufacturing, cloud infrastructure, data platforms, and production ML. Drove USD 600M+ in business impact at Micron and currently builds production ML systems at AI Singapore.",
           "url": "https://kooexperience.com",
           "image": "https://kooexperience.com/assets/haoming-portrait.jpg",
           "email": "haomingkoo@gmail.com",
@@ -215,7 +215,7 @@
                   "item": {
                         "@type": "CreativeWork",
                         "name": "Enterprise Planning Workflow",
-                        "description": "Enterprise planning workflow pattern for complex operations, using stateful agent orchestration, retrieval, validation gates, human review, LLM observability, auditable handoff, and future agent-run scoring.",
+                        "description": "Public-safe enterprise planning workflow pattern for a large multinational semiconductor environment: governed text-to-SQL, evidence packs, root-cause notes, validation gates, human review, LLM observability, and auditable handoff.",
                         "author": {
                               "@id": "https://kooexperience.com/#person"
                         },
@@ -335,7 +335,7 @@
           "name": "Who is Haoming Koo?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Haoming Koo is an applied AI engineer based in Singapore, currently at AI Singapore (AIAP). He has 7+ calendar years at Micron Technology with $600M+ aggregate business impact across semiconductor manufacturing. He holds an MSc from NUS (GPA 4.85/5.00) and has built 8 live AI portfolio applications."
+            "text": "Haoming Koo is an applied AI engineer based in Singapore, currently at AI Singapore (AIAP). He has 7 years of systems experience, including 7 years at Micron Technology with $600M+ aggregate business impact across semiconductor manufacturing. He holds an MSc from NUS (GPA 4.85/5.00) and has built 8 live AI portfolio applications."
           }
         },
         {
@@ -360,6 +360,14 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes. Haoming Koo is open to applied AI engineering, AI deployment, LLM product engineering, and production ML roles. He is Singapore-based and open to remote teams globally."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What enterprise AI pattern does Haoming Koo show publicly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Haoming Koo's portfolio includes a public-safe enterprise planning workflow pattern from a large multinational semiconductor environment. It shows how an operational planning question can move through retrieval, governed text-to-SQL, evidence packs, root-cause notes, validation gates, human review, and auditable handoff without exposing private data."
           }
         },
         {
@@ -474,6 +482,7 @@
         letter-spacing: 0.04em;
         color: var(--text);
         text-decoration: none;
+        flex: 0 0 auto;
         background: linear-gradient(135deg, var(--text) 40%, var(--accent));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -498,11 +507,12 @@
       /* ── Hero ───────────────────────────────────────────────────────────── */
       .hero {
         order: 1;
-        padding: 72px 0 48px;
+        min-height: calc(100vh - 56px);
+        padding: 34px 0 40px;
         display: grid;
-        grid-template-columns: minmax(0, 0.78fr) minmax(520px, 1.22fr);
+        grid-template-columns: minmax(0, 0.82fr) minmax(500px, 1.18fr);
         align-items: center;
-        gap: 52px;
+        gap: 46px;
       }
       .hero-inner { flex: 1; min-width: 0; }
 
@@ -515,7 +525,7 @@
         letter-spacing: 0.10em;
         text-transform: uppercase;
         color: var(--mint);
-        margin-bottom: 20px;
+        margin-bottom: 18px;
         padding: 6px 12px;
         max-width: 100%;
         line-height: 1.25;
@@ -531,7 +541,7 @@
         animation: pulse 2.5s infinite;
       }
       .hero-title {
-        font-size: clamp(54px, 8vw, 92px);
+        font-size: clamp(58px, 8.4vw, 104px);
         font-weight: 800;
         line-height: 0.92;
         letter-spacing: 0;
@@ -544,27 +554,45 @@
         color: var(--accent);
       }
       .hero-subtitle {
-        font-size: clamp(24px, 3.4vw, 42px);
+        font-size: clamp(25px, 3.35vw, 44px);
         line-height: 1.08;
         letter-spacing: 0;
         color: var(--text);
         font-weight: 750;
         max-width: 680px;
-        margin-bottom: 18px;
+        margin-bottom: 16px;
       }
       .hero-bio {
         font-size: 16px;
-        line-height: 1.7;
+        line-height: 1.72;
         color: var(--text-secondary);
-        max-width: 620px;
-        margin-bottom: 14px;
+        max-width: 600px;
+        margin-bottom: 18px;
       }
       .hero-availability {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         max-width: 640px;
-        margin: 0 0 22px;
+        margin: 0 0 24px;
+      }
+      .hero-focus-line {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 12px;
+        max-width: 640px;
+        margin: 0 0 24px;
+        color: var(--text-secondary);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .hero-focus-line strong {
+        color: var(--text);
+        font-weight: 750;
+      }
+      .hero-focus-line span {
+        color: var(--muted);
       }
       .availability-pill {
         border: 1px solid rgba(80, 227, 194, 0.18);
@@ -580,8 +608,36 @@
         font-weight: 800;
       }
       .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+      .hero-cred-line {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+        align-items: center;
+        max-width: 620px;
+        margin-top: 20px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .hero-cred-line strong {
+        color: var(--text);
+        font-weight: 800;
+      }
+      .hero-cred-line span {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        white-space: nowrap;
+      }
+      .hero-cred-line span::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba(56,189,248,0.72);
+      }
       .hero-proof-row {
-        display: grid;
+        display: none;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 10px;
         margin-top: 18px;
@@ -628,6 +684,202 @@
         color: var(--text);
         font-size: 13px;
         line-height: 1.35;
+      }
+
+      .hero-cinema-stage {
+        position: relative;
+        min-height: 500px;
+        display: grid;
+        align-items: center;
+        isolation: isolate;
+      }
+      .hero-cinema-stage::before {
+        content: "";
+        position: absolute;
+        inset: 6% -3% auto auto;
+        width: min(580px, 90vw);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 28% 22%, rgba(56,189,248,0.22), transparent 34%),
+          radial-gradient(circle at 78% 38%, rgba(245,196,81,0.16), transparent 35%);
+        filter: blur(18px);
+        opacity: 0.9;
+        z-index: -2;
+      }
+      .hero-cinema-card {
+        position: relative;
+        border-radius: 28px;
+        border: 1px solid rgba(255,255,255,0.13);
+        background:
+          linear-gradient(145deg, rgba(16,24,39,0.92), rgba(2,6,23,0.95)),
+          radial-gradient(circle at 16% 12%, rgba(56,189,248,0.20), transparent 32%),
+          radial-gradient(circle at 92% 8%, rgba(245,196,81,0.14), transparent 30%);
+        box-shadow: 0 36px 110px rgba(0,0,0,0.46);
+        padding: 16px;
+        overflow: hidden;
+      }
+      .hero-cinema-card::before {
+        content: "";
+        position: absolute;
+        inset: -40% -22%;
+        background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.08), transparent 62%);
+        transform: translateX(-48%);
+        animation: theatreSweep 8s ease-in-out infinite;
+        pointer-events: none;
+      }
+      .hero-cinema-topbar {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 2px 12px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .hero-cinema-topbar span:not(.cinema-dot) {
+        margin-left: auto;
+        color: var(--text-secondary);
+        font-weight: 700;
+      }
+      .cinema-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.22);
+      }
+      .cinema-dot:nth-child(1) { background: #fb7185; }
+      .cinema-dot:nth-child(2) { background: #f5c451; }
+      .cinema-dot:nth-child(3) { background: #22c55e; }
+      .hero-cinema-screen {
+        position: relative;
+        aspect-ratio: 16 / 8.4;
+        border-radius: 22px;
+        overflow: hidden;
+        background: #020617;
+        border: 1px solid rgba(255,255,255,0.12);
+      }
+      .hero-cinema-screen video,
+      .hero-cinema-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: saturate(1.04) contrast(1.04);
+      }
+      .hero-cinema-screen video {
+        transform: scale(1.035);
+        filter: saturate(1.02) contrast(1.04) brightness(0.68) blur(0.34px);
+      }
+      .hero-cinema-screen img {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .hero-cinema-screen::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(2,6,23,0.18) 0%, rgba(2,6,23,0.10) 45%, rgba(2,6,23,0.82) 100%),
+          linear-gradient(90deg, rgba(2,6,23,0.56) 0%, transparent 36%, rgba(2,6,23,0.28) 100%);
+        pointer-events: none;
+      }
+      .cinema-chip {
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.16);
+        background: rgba(2,6,23,0.76);
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 850;
+        backdrop-filter: blur(12px);
+      }
+      .cinema-chip::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--live);
+        box-shadow: 0 0 16px rgba(34,197,94,0.65);
+      }
+      .hero-cinema-caption {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+        padding: 16px 4px 2px;
+      }
+      .hero-cinema-caption p {
+        color: var(--text-secondary);
+        font-size: 13.5px;
+        line-height: 1.55;
+        max-width: 640px;
+      }
+      .hero-cinema-caption strong {
+        display: block;
+        color: var(--text);
+        font-size: clamp(22px, 2.6vw, 30px);
+        line-height: 1.08;
+        letter-spacing: 0;
+        max-width: 640px;
+      }
+      .cinema-flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .cinema-flow span {
+        min-height: 44px;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.045);
+        color: var(--text-secondary);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .hero-cinema-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 8px;
+      }
+      .hero-cinema-metric {
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 16px;
+        background: rgba(13,17,24,0.76);
+        padding: 11px 12px;
+      }
+      .hero-cinema-metric strong {
+        display: block;
+        color: var(--text);
+        font-size: 22px;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+      .hero-cinema-metric span {
+        display: block;
+        margin-top: 7px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
       .btn {
         display: inline-flex;
@@ -899,7 +1151,7 @@
 
       /* ── Stats strip ────────────────────────────────────────────────────── */
       .stats {
-        order: 3;
+        order: 4;
         display: flex;
         gap: 1px;
         background: var(--border);
@@ -931,6 +1183,320 @@
         letter-spacing: 0.1em;
         font-weight: 500;
         margin-top: 4px;
+      }
+
+      /* ── Scroll theatre ───────────────────────────────────────────────── */
+      .scroll-theatre {
+        order: 5;
+        padding: 24px 0 96px;
+      }
+      .theatre-heading {
+        max-width: 720px;
+        margin-bottom: 28px;
+      }
+      .theatre-heading span {
+        display: inline-flex;
+        color: var(--mint);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .theatre-heading h2 {
+        font-size: clamp(34px, 6vw, 72px);
+        line-height: 0.96;
+        letter-spacing: 0;
+        margin-bottom: 18px;
+        text-wrap: balance;
+      }
+      .theatre-heading p {
+        color: var(--text-secondary);
+        font-size: clamp(16px, 2vw, 19px);
+        line-height: 1.65;
+      }
+      .theatre-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.72fr);
+        gap: 30px;
+        align-items: start;
+      }
+      .theatre-stage {
+        position: sticky;
+        top: 84px;
+        min-height: 620px;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 28px;
+        padding: 16px;
+        background:
+          linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(3, 7, 18, 0.94)),
+          radial-gradient(circle at 18% 12%, rgba(56,189,248,0.18), transparent 34%),
+          radial-gradient(circle at 88% 0%, rgba(245,196,81,0.12), transparent 32%);
+        box-shadow: 0 34px 100px rgba(0,0,0,0.42);
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .theatre-stage::before {
+        content: "";
+        position: absolute;
+        inset: -42% -20%;
+        background: linear-gradient(100deg, transparent 36%, rgba(255,255,255,0.06), transparent 64%);
+        transform: translateX(-30%);
+        animation: theatreSweep 8s ease-in-out infinite;
+        pointer-events: none;
+        z-index: -1;
+      }
+      .theatre-browser {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .theatre-topbar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .theatre-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.24);
+      }
+      .theatre-dot:nth-child(1) { background: #fb7185; }
+      .theatre-dot:nth-child(2) { background: #f5c451; }
+      .theatre-dot:nth-child(3) { background: #22c55e; }
+      .theatre-topbar strong {
+        margin-left: auto;
+        color: var(--text-secondary);
+        letter-spacing: 0.02em;
+      }
+      .theatre-screen {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        border-radius: 22px;
+        overflow: hidden;
+        background: #020617;
+        border: 1px solid rgba(255,255,255,0.12);
+      }
+      .theatre-video,
+      .theatre-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: saturate(1.04) contrast(1.04);
+        transform: scale(1.012);
+        transition: opacity 0.22s ease, transform 0.45s ease;
+      }
+      .theatre-video {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        z-index: 1;
+        filter: saturate(1.02) contrast(1.04) brightness(0.72) blur(0.30px);
+        transform: scale(1.035);
+      }
+      .theatre-stage.has-video .theatre-video {
+        opacity: 1;
+      }
+      .theatre-stage.has-video .theatre-screen img {
+        opacity: 0;
+      }
+      .theatre-stage.is-switching .theatre-screen img {
+        opacity: 0.42;
+        transform: scale(0.992);
+      }
+      .cinema-fallback {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 18px;
+        opacity: 0;
+        transform: scale(1.02);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        pointer-events: none;
+      }
+      .cinema-fallback.is-visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .cinema-shot {
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(2,6,23,0.72);
+      }
+      .cinema-shot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.74;
+        transform: scale(1.04);
+        filter: saturate(1.08) contrast(1.04);
+      }
+      .cinema-shot span {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        z-index: 2;
+        padding: 6px 9px;
+        border-radius: 999px;
+        color: var(--text);
+        background: rgba(2,6,23,0.74);
+        border: 1px solid rgba(255,255,255,0.12);
+        font-size: 11px;
+        font-weight: 800;
+        backdrop-filter: blur(10px);
+      }
+      .theatre-screen::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 62%, rgba(2,6,23,0.78));
+        pointer-events: none;
+        z-index: 2;
+      }
+      .theatre-kicker {
+        position: absolute;
+        left: 18px;
+        bottom: 18px;
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(2, 6, 23, 0.74);
+        border: 1px solid rgba(255,255,255,0.14);
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 800;
+        backdrop-filter: blur(12px);
+      }
+      .theatre-kicker::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--live);
+        box-shadow: 0 0 16px rgba(34,197,94,0.65);
+      }
+      .theatre-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+        padding: 18px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.045);
+      }
+      .theatre-panel h3 {
+        font-size: clamp(26px, 3.2vw, 40px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+      .theatre-panel p {
+        color: var(--text-secondary);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+      .theatre-proof-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .theatre-proof {
+        min-height: 76px;
+        padding: 12px;
+        border-radius: 16px;
+        background: rgba(2,6,23,0.58);
+        border: 1px solid rgba(255,255,255,0.10);
+      }
+      .theatre-proof strong {
+        display: block;
+        color: var(--text);
+        font-size: 18px;
+        line-height: 1.1;
+      }
+      .theatre-proof span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .theatre-steps {
+        display: grid;
+        gap: 18px;
+      }
+      .theatre-step {
+        min-height: 42vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 24px 0 24px 24px;
+        border-left: 2px solid rgba(255,255,255,0.12);
+        opacity: 0.56;
+        transition: opacity 0.24s ease, border-color 0.24s ease, transform 0.24s ease;
+      }
+      .theatre-step.is-active {
+        opacity: 1;
+        border-color: var(--accent);
+        transform: translateX(2px);
+      }
+      .theatre-step span {
+        color: var(--mint);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .theatre-step h3 {
+        font-size: clamp(22px, 3vw, 32px);
+        line-height: 1.08;
+        letter-spacing: 0;
+        margin-bottom: 10px;
+      }
+      .theatre-step p {
+        color: var(--text-secondary);
+        font-size: 15px;
+        line-height: 1.7;
+        max-width: 380px;
+      }
+      .theatre-step a {
+        width: fit-content;
+        margin-top: 14px;
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .theatre-step a:hover { color: var(--text); }
+      .cinema-note {
+        margin-top: 16px;
+        padding: 14px 16px;
+        border-radius: 16px;
+        border: 1px solid rgba(56,189,248,0.16);
+        background: rgba(56,189,248,0.07);
+        color: var(--text-secondary);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      .cinema-note strong {
+        color: var(--text);
+      }
+      .cinema-note code {
+        color: var(--gold);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
       }
 
       /* ── Tech strip ─────────────────────────────────────────────────────── */
@@ -988,7 +1554,8 @@
       }
       .launch-board {
         order: 2;
-        margin: 0 0 96px;
+        scroll-margin-top: 84px;
+        margin: 8px 0 58px;
       }
       .launch-head {
         display: flex;
@@ -1080,6 +1647,167 @@
         color: rgba(238,238,240,0.78);
         font-size: 13px;
         line-height: 1.55;
+      }
+
+      .enterprise-proof {
+        order: 3;
+        scroll-margin-top: 84px;
+        margin: 0 0 56px;
+        padding: 28px;
+        border-radius: 28px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background:
+          linear-gradient(135deg, rgba(14, 21, 32, 0.86), rgba(5, 7, 10, 0.96)),
+          radial-gradient(circle at 16% 0%, rgba(56,189,248,0.16), transparent 36%),
+          radial-gradient(circle at 88% 8%, rgba(245,196,81,0.11), transparent 34%);
+        box-shadow: 0 30px 90px rgba(0,0,0,0.30);
+        overflow: hidden;
+        position: relative;
+      }
+      .enterprise-proof::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+        background-size: 36px 36px;
+        mask-image: linear-gradient(90deg, #000, transparent 70%);
+        pointer-events: none;
+      }
+      .enterprise-proof-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(480px, 1.1fr);
+        gap: 28px;
+        align-items: center;
+      }
+      .enterprise-copy span {
+        display: inline-flex;
+        color: var(--mint);
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .enterprise-copy h2 {
+        max-width: 560px;
+        font-size: clamp(30px, 4.4vw, 56px);
+        line-height: 0.98;
+        letter-spacing: 0;
+        text-wrap: balance;
+        margin-bottom: 16px;
+      }
+      .enterprise-copy p {
+        max-width: 520px;
+        color: var(--text-secondary);
+        font-size: 15px;
+        line-height: 1.72;
+      }
+      .enterprise-copy strong {
+        color: var(--text);
+        font-weight: 750;
+      }
+      .enterprise-visual {
+        position: relative;
+        display: grid;
+        gap: 12px;
+      }
+      .enterprise-pipeline {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .enterprise-step {
+        min-height: 104px;
+        padding: 14px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.11);
+        background: rgba(2,6,23,0.54);
+      }
+      .enterprise-step small {
+        display: block;
+        color: var(--gold);
+        font-size: 10px;
+        font-weight: 850;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 9px;
+      }
+      .enterprise-step strong {
+        display: block;
+        color: var(--text);
+        font-size: 14px;
+        line-height: 1.25;
+      }
+      .enterprise-step span {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.4;
+      }
+      .enterprise-evidence {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 12px;
+      }
+      .evidence-card {
+        min-height: 160px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.014)),
+          rgba(7,11,18,0.72);
+        padding: 16px;
+      }
+      .evidence-card h3 {
+        color: var(--text);
+        font-size: 14px;
+        letter-spacing: 0;
+        margin-bottom: 12px;
+      }
+      .sql-lines,
+      .rca-lines {
+        display: grid;
+        gap: 8px;
+      }
+      .sql-lines i,
+      .rca-lines i {
+        display: block;
+        height: 9px;
+        border-radius: 999px;
+        background: rgba(148,163,184,0.20);
+      }
+      .sql-lines i:nth-child(1) { width: 74%; background: rgba(56,189,248,0.26); }
+      .sql-lines i:nth-child(2) { width: 92%; }
+      .sql-lines i:nth-child(3) { width: 62%; }
+      .sql-lines i:nth-child(4) { width: 84%; background: rgba(245,196,81,0.22); }
+      .rca-lines i:nth-child(1) { width: 84%; background: rgba(34,197,94,0.22); }
+      .rca-lines i:nth-child(2) { width: 68%; }
+      .rca-lines i:nth-child(3) { width: 78%; }
+      .evidence-pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 16px;
+      }
+      .enterprise-copy-pills {
+        max-width: 520px;
+      }
+      .evidence-pill-row span {
+        display: inline-flex;
+        padding: 6px 9px;
+        border-radius: 999px;
+        color: var(--text-secondary);
+        background: rgba(255,255,255,0.055);
+        border: 1px solid rgba(255,255,255,0.08);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
       /* ── About ────────────────────────────────────────────────────────── */
@@ -1209,11 +1937,11 @@
         padding: 48px 0;
         scroll-margin-top: 76px;
       }
-      #projects { order: 4; }
-      #about { order: 5; }
-      #blog { order: 6; }
-      .closing-cta { order: 7; }
-      #travel { order: 8; }
+      #projects { order: 6; }
+      #about { order: 6; }
+      #blog { order: 7; }
+      .closing-cta { order: 8; }
+      #travel { order: 9; }
       footer { order: 10; }
       .section-label {
         font-size: 11px;
@@ -1740,6 +2468,11 @@
         from { transform: translateX(-110%); }
         to { transform: translateX(110%); }
       }
+      @keyframes theatreSweep {
+        0%, 45% { transform: translateX(-42%) rotate(0deg); opacity: 0; }
+        56% { opacity: 1; }
+        78%, 100% { transform: translateX(42%) rotate(0deg); opacity: 0; }
+      }
       @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -1756,7 +2489,19 @@
         .hero {
           grid-template-columns: 1fr;
           gap: 40px;
-          padding: 56px 0 40px;
+          min-height: auto;
+          padding: 56px 0 48px;
+        }
+        .hero-cinema-stage {
+          min-height: 0;
+        }
+        .cinema-flow {
+          grid-template-columns: repeat(5, minmax(84px, 1fr));
+          overflow-x: auto;
+          padding-bottom: 2px;
+        }
+        .hero-cinema-metrics {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
         }
         .portrait-stage {
           min-height: auto;
@@ -1798,7 +2543,48 @@
         .launch-card {
           min-height: 230px;
         }
+        .scroll-theatre {
+          padding: 32px 0 64px;
+        }
+        .theatre-layout {
+          grid-template-columns: 1fr;
+        }
+        .theatre-stage {
+          position: relative;
+          top: auto;
+          min-height: 0;
+          border-radius: 22px;
+        }
+        .theatre-screen {
+          aspect-ratio: 16 / 11;
+        }
+        .theatre-proof-grid {
+          grid-template-columns: 1fr;
+        }
+        .theatre-steps {
+          gap: 10px;
+        }
+        .theatre-step {
+          min-height: auto;
+          padding: 18px 0 18px 18px;
+        }
         .closing-cta {
+          grid-template-columns: 1fr;
+        }
+        .enterprise-proof {
+          padding: 22px;
+          border-radius: 24px;
+        }
+        .enterprise-proof-inner {
+          grid-template-columns: 1fr;
+        }
+        .enterprise-pipeline {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .enterprise-step:last-child {
+          grid-column: 1 / -1;
+        }
+        .enterprise-evidence {
           grid-template-columns: 1fr;
         }
       }
@@ -1811,24 +2597,60 @@
           align-items: flex-start;
         }
         .nav-links {
-          gap: 2px;
+          gap: 4px;
           flex-wrap: nowrap;
           justify-content: flex-end;
-          max-width: calc(100vw - 72px);
+          max-width: calc(100vw - 92px);
         }
-        .nav-links a[href="#blog"],
-        .nav-links a[href="#travel"] {
+        .nav-links a[href="#about"],
+        .nav-links a[href="https://github.com/haomingkoo"] {
           display: none;
         }
-        .nav-links a { padding: 4px 7px; font-size: 12px; }
+        .nav-links a {
+          padding: 5px 6px;
+          font-size: 11.5px;
+          white-space: nowrap;
+        }
         .hero-actions { flex-direction: column; }
-        .hero-proof-row { grid-template-columns: 1fr; }
+        .hero-proof-row { display: none; }
         .hero-proof-chip { min-height: 74px; }
         .hero-availability { margin-bottom: 18px; }
         .btn { justify-content: center; }
         .hero-label { font-size: 10.5px; letter-spacing: 0.08em; }
         .hero-title { font-size: 48px; }
         .hero-subtitle { font-size: 26px; }
+        .hero-cinema-card {
+          border-radius: 22px;
+          padding: 10px;
+        }
+        .hero-cinema-screen {
+          border-radius: 16px;
+          aspect-ratio: 16 / 10;
+        }
+        .hero-cinema-topbar span:not(.cinema-dot) {
+          display: none;
+        }
+        .cinema-chip {
+          left: 10px;
+          bottom: 10px;
+          font-size: 11px;
+        }
+        .hero-cinema-caption {
+          padding: 14px 2px 2px;
+        }
+        .hero-cinema-caption strong {
+          font-size: 21px;
+        }
+        .cinema-flow {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          overflow-x: visible;
+        }
+        .cinema-flow span:last-child {
+          grid-column: 1 / -1;
+        }
+        .hero-cinema-metrics {
+          grid-template-columns: 1fr;
+        }
         .portrait-stage { min-height: auto; }
         .product-orbit {
           height: auto;
@@ -1879,10 +2701,9 @@
         <a class="nav-logo" href="#">HK</a>
         <div class="nav-links">
           <a href="./hire.html">Hire</a>
-          <a href="#projects">Projects</a>
+          <a href="#projects">Live Apps</a>
+          <a href="#enterprise-proof">Enterprise</a>
           <a href="#about">About</a>
-          <a href="#blog">Blog</a>
-          <a href="#travel">Travel</a>
           <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
           <a href="mailto:haomingkoo@gmail.com">Contact</a>
         </div>
@@ -1898,17 +2719,17 @@
             Haoming <span>Koo</span>
           </h1>
           <p class="hero-subtitle hero-reveal hero-reveal-3">
-            7+ years of systems experience. Now building ML at AI Singapore.
+            I turn messy workflows into shipped AI products.
           </p>
           <p class="hero-bio hero-reveal hero-reveal-3">
-            Micron: USD 600M+ aggregate program impact across 4 fabs.
-            Current focus: RAG, agent tools, evals, observability, vision pipelines, and product UX.
-            8 live apps you can open.
+            Applied AI engineer in Singapore. 7 years at Micron, now building ML at AI Singapore.
+            I build RAG, agents, evals, observability, vision pipelines, and product UX end to end.
           </p>
-          <div class="hero-availability hero-reveal hero-reveal-4" aria-label="Hiring preferences">
-            <span class="availability-pill"><strong>Open to</strong> Applied AI</span>
-            <span class="availability-pill"><strong>Open to</strong> AI Deployment</span>
-            <span class="availability-pill"><strong>Open to</strong> LLM Product Engineering</span>
+          <div class="hero-focus-line hero-reveal hero-reveal-4" aria-label="Hiring preferences">
+            <strong>Open to</strong>
+            <span>Applied AI roles</span>
+            <span>AI deployment teams</span>
+            <span>LLM product work</span>
           </div>
           <div class="hero-actions hero-reveal hero-reveal-4">
             <a class="btn btn-primary" href="./hire.html">
@@ -1916,6 +2737,11 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
             </a>
             <a class="btn btn-ghost" href="#projects">View 8 live apps</a>
+          </div>
+          <div class="hero-cred-line hero-reveal hero-reveal-5" aria-label="Fast proof">
+            <span><strong>$600M+</strong> aggregate Micron impact</span>
+            <span><strong>8</strong> live apps</span>
+            <span><strong>NUS MSc</strong> 4.85/5.00</span>
           </div>
           <div class="hero-proof-row hero-reveal hero-reveal-5" aria-label="Recruiter quick proof">
             <a class="hero-proof-chip" href="https://job.kooexperience.com" target="_blank" rel="noopener">
@@ -1933,43 +2759,287 @@
           </div>
         </div>
 
-        <div class="portrait-stage hero-reveal hero-reveal-5" aria-label="Haoming Koo profile visual">
-          <div class="product-orbit">
-            <a class="orbit-card orbit-job" href="https://job.kooexperience.com" target="_blank" rel="noopener">
-              <img src="./assets/projects/job-hunter.png" alt="Job Hunter SG product preview" />
-              <span>LLM product</span>
-              <strong>Job Hunter SG</strong>
-            </a>
-            <a class="orbit-card orbit-trader" href="https://trader.kooexperience.com" target="_blank" rel="noopener">
-              <img src="./assets/projects/trader-koo.png" alt="Trader Koo product preview" />
-              <span>Market workflow</span>
-              <strong>Trader Koo</strong>
-            </a>
-            <a class="orbit-card orbit-seasons" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">
-              <img src="./assets/projects/japan-in-seasons.png" alt="Japan in Seasons product preview" />
-              <span>MCP + map</span>
-              <strong>Japan in Seasons</strong>
-            </a>
-            <a class="orbit-card orbit-amex" href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener">
-              <img src="./assets/projects/amex-explorer.png" alt="Amex Explorer product preview" />
-              <span>Source trust</span>
-              <strong>Amex Explorer</strong>
-            </a>
-            <div class="portrait-frame identity-card">
-              <div class="portrait-fallback" aria-hidden="true">
-                <div>
-                  <div class="portrait-monogram">HK</div>
-                  <div class="portrait-caption">AI Engineer · Builder</div>
+        <div class="hero-cinema-stage hero-reveal hero-reveal-5" aria-label="Cinematic proof of Haoming Koo's AI engineering portfolio">
+          <div class="hero-cinema-card">
+            <div class="hero-cinema-topbar" aria-hidden="true">
+              <span class="cinema-dot"></span>
+              <span class="cinema-dot"></span>
+              <span class="cinema-dot"></span>
+              <span>kooexperience.com/proof</span>
+            </div>
+            <div class="hero-cinema-screen">
+              <video
+                muted
+                autoplay
+                loop
+                playsinline
+                preload="metadata"
+                poster="./assets/cinematic/keyframe-01-ai-alchemist.png"
+              >
+                <source src="./assets/cinematic/kooexperience-scroll-reel.mp4" type="video/mp4" />
+              </video>
+              <img src="./assets/cinematic/keyframe-01-ai-alchemist.png" alt="" aria-hidden="true" />
+              <div class="cinema-chip">Portfolio reel · live systems</div>
+            </div>
+            <div class="hero-cinema-caption">
+              <strong>Watch the story, then open the systems.</strong>
+              <p>
+                Job search, market research, seasonal maps, and enterprise planning share the same pattern:
+                tools, evidence, evals, human review, and a usable interface.
+              </p>
+              <div class="cinema-flow" aria-label="How the systems are built">
+                <span>Inputs</span>
+                <span>Retrieval</span>
+                <span>Tools</span>
+                <span>Evals</span>
+                <span>Review</span>
+              </div>
+              <div class="hero-cinema-metrics" aria-label="Portfolio proof metrics">
+                <div class="hero-cinema-metric">
+                  <strong>8</strong>
+                  <span>Live apps</span>
+                </div>
+                <div class="hero-cinema-metric">
+                  <strong>$600M+</strong>
+                  <span>Micron impact</span>
+                </div>
+                <div class="hero-cinema-metric">
+                  <strong>7 yrs</strong>
+                  <span>Micron systems</span>
                 </div>
               </div>
-              <img
-                class="portrait-cutout"
-                src="./assets/haoming-portrait.jpg"
-                alt="Haoming Koo"
-                onerror="this.hidden=true"
-              />
             </div>
-            <div class="orbit-chip">8 live apps · real URLs</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scroll-theatre reveal" aria-label="Animated product walkthrough">
+        <div class="theatre-heading">
+          <span>How to read the work</span>
+          <h2>The same build pattern shows up across the products.</h2>
+          <p>
+            The animation gives the quick version: raw inputs go through retrieval,
+            tools, evals, guardrails, and human review before they become something users can open.
+          </p>
+        </div>
+        <div class="theatre-layout">
+          <div class="theatre-stage" aria-live="polite">
+            <div class="theatre-browser">
+              <div class="theatre-topbar" aria-hidden="true">
+                <span class="theatre-dot"></span>
+                <span class="theatre-dot"></span>
+                <span class="theatre-dot"></span>
+                <strong id="theatre-source">job.kooexperience.com</strong>
+              </div>
+              <div class="theatre-screen">
+                <video
+                  id="theatre-video"
+                  class="theatre-video"
+                  muted
+                  playsinline
+                  preload="metadata"
+                  data-src="./assets/cinematic/kooexperience-scroll-reel.mp4"
+                ></video>
+                <img id="theatre-image" src="./assets/cinematic/keyframe-01-ai-alchemist.png" alt="Animated-film AI alchemist portfolio keyframe" />
+                <div class="cinema-fallback" id="cinema-fallback" aria-hidden="true">
+                  <div class="cinema-shot">
+                    <img src="./assets/projects/job-hunter.png" alt="" loading="lazy" />
+                    <span>RAG workflow</span>
+                  </div>
+                  <div class="cinema-shot">
+                    <img src="./assets/projects/trader-koo.png" alt="" loading="lazy" />
+                    <span>Market guardrails</span>
+                  </div>
+                  <div class="cinema-shot">
+                    <img src="./assets/projects/japan-in-seasons.png" alt="" loading="lazy" />
+                    <span>MCP tools</span>
+                  </div>
+                  <div class="cinema-shot">
+                    <img src="./assets/projects/amex-explorer.png" alt="" loading="lazy" />
+                    <span>Source trust</span>
+                  </div>
+                </div>
+                <div class="theatre-kicker" id="theatre-kicker">Live app · Job Hunter SG</div>
+              </div>
+              <div class="theatre-panel">
+                <div>
+                  <h3 id="theatre-title">Useful AI has a visible workflow.</h3>
+                  <p id="theatre-copy">
+                    A recruiter should not need to guess what is real. The page points to live apps, source-aware workflows, and the checks behind them.
+                  </p>
+                </div>
+                <div class="theatre-proof-grid" aria-label="Current product proof points">
+                  <div class="theatre-proof">
+                    <strong id="theatre-proof-a">8</strong>
+                    <span id="theatre-proof-a-copy">Live products, not screenshots only.</span>
+                  </div>
+                  <div class="theatre-proof">
+                    <strong id="theatre-proof-b">RAG</strong>
+                    <span id="theatre-proof-b-copy">Agents, tools, evals, and review gates.</span>
+                  </div>
+                  <div class="theatre-proof">
+                    <strong id="theatre-proof-c">UX</strong>
+                    <span id="theatre-proof-c-copy">Product polish over demo clutter.</span>
+                  </div>
+                </div>
+              </div>
+              <p class="cinema-note">
+                <strong>Visual story:</strong> chaotic inputs become agent tools, evals, guardrails, and shipped product interfaces.
+              </p>
+            </div>
+          </div>
+
+          <div class="theatre-steps">
+            <article class="theatre-step is-active"
+              data-image="./assets/cinematic/keyframe-01-ai-alchemist.png"
+              data-alt="Cinematic portfolio opening frame"
+              data-kicker="Scene 01 · Chaos into signal"
+              data-source="kooexperience.com"
+              data-title="First 10 seconds: applied AI builder."
+              data-copy="The opening screen says the role, the proof, and the live product count without making the visitor hunt for it."
+              data-proof-a="7"
+              data-proof-a-copy="Years of systems experience."
+              data-proof-b="8"
+              data-proof-b-copy="Live products to open."
+              data-proof-c="$600M+"
+              data-proof-c-copy="Aggregate program impact.">
+              <span>01 · Opening frame</span>
+              <h3>Make the first screen unmistakable.</h3>
+              <p>Lead with applied AI, real products, and production credibility. Keep the visual bold and the copy plain.</p>
+              <a href="./docs/cinematic-landing-prompts.md">View storyboard prompts</a>
+            </article>
+
+            <article class="theatre-step"
+              data-image="./assets/cinematic/keyframe-01-ai-alchemist.png"
+              data-alt="Trader Koo product preview"
+              data-kicker="Scene 02 · Systems in motion"
+              data-source="job.kooexperience.com · trader.kooexperience.com"
+              data-title="Show the apps as working systems."
+              data-copy="The reel moves through product screens as if they are one cockpit: RAG matching, chart review, source freshness, and paper-trade audit trails."
+              data-proof-a="RAG"
+              data-proof-a-copy="Job reasoning and factual edits."
+              data-proof-b="Market"
+              data-proof-b-copy="Research, risk, and source freshness."
+              data-proof-c="Review"
+              data-proof-c-copy="Human checkpoints stay visible.">
+              <span>02 · Product motion</span>
+              <h3>Show systems, not feature lists.</h3>
+              <p>The viewer should understand the systems before they read the project cards.</p>
+              <a href="https://job.kooexperience.com" target="_blank" rel="noopener">Open a live product</a>
+            </article>
+
+            <article class="theatre-step"
+              data-image="./assets/cinematic/keyframe-02-live-products.png"
+              data-alt="Japan in Seasons product preview"
+              data-kicker="Scene 03 · Tool layer"
+              data-source="seasons.kooexperience.com"
+              data-title="Make the architecture visible."
+              data-copy="Cards and map points become tool calls, evidence nodes, eval checks, and human review gates. This makes the engineering depth legible."
+              data-proof-a="12"
+              data-proof-a-copy="MCP tools in one product."
+              data-proof-b="1,700+"
+              data-proof-b-copy="Places normalized."
+              data-proof-c="Evals"
+              data-proof-c-copy="Quality signals are explicit.">
+              <span>03 · Architecture layer</span>
+              <h3>Turn the hidden engineering into a visual story.</h3>
+              <p>Hiring managers should see tools, data, guardrails, and review loops, not just polished UI.</p>
+              <a href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Open Japan in Seasons</a>
+            </article>
+
+            <article class="theatre-step"
+              data-image="./assets/cinematic/keyframe-02-live-products.png"
+              data-alt="Amex Explorer product preview"
+              data-kicker="Scene 04 · Recruiter handoff"
+              data-source="kooexperience.com/projects"
+              data-title="End with click targets."
+              data-copy="The final frame resolves into live apps, GitHub, LinkedIn, and email. The motion earns attention; the links make the next step easy."
+              data-proof-a="Open"
+              data-proof-a-copy="Every major project has a URL."
+              data-proof-b="Trust"
+              data-proof-b-copy="Claims stay source-backed."
+              data-proof-c="Contact"
+              data-proof-c-copy="Recruiter path is obvious.">
+              <span>04 · Handoff</span>
+              <h3>Convert interest while the page still feels alive.</h3>
+              <p>The reel should end by making the next click easy: open a product, read the build notes, or contact you.</p>
+              <a href="mailto:haomingkoo@gmail.com">Contact Haoming</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="enterprise-proof" class="enterprise-proof reveal" aria-label="Public-safe enterprise AI workflow pattern">
+        <div class="enterprise-proof-inner">
+          <div class="enterprise-copy">
+            <span>Enterprise AI pattern</span>
+            <h2>Planning work that explains itself.</h2>
+            <p>
+              Some of the strongest work came from a large multinational semiconductor environment,
+              so it should not be shown as a private screenshot. The pattern can:
+              <strong>turn an operational planning question into governed SQL,
+              evidence, root-cause notes, and a reviewable action plan</strong>.
+              No private data is needed to understand the engineering.
+            </p>
+            <div class="evidence-pill-row enterprise-copy-pills" aria-label="Architecture proof points">
+              <span>read-only SQL</span>
+              <span>tool traces</span>
+              <span>source evidence</span>
+              <span>approval gate</span>
+            </div>
+          </div>
+          <div class="enterprise-visual" aria-label="Enterprise planning workflow">
+            <div class="enterprise-pipeline">
+              <div class="enterprise-step">
+                <small>01</small>
+                <strong>Planning request</strong>
+                <span>Messy ask, missing context, unclear owner.</span>
+              </div>
+              <div class="enterprise-step">
+                <small>02</small>
+                <strong>Retrieve context</strong>
+                <span>Policies, tickets, notes, metrics, prior cases.</span>
+              </div>
+              <div class="enterprise-step">
+                <small>03</small>
+                <strong>Text-to-SQL</strong>
+                <span>Read-only queries with scoped tables and checks.</span>
+              </div>
+              <div class="enterprise-step">
+                <small>04</small>
+                <strong>Root cause</strong>
+                <span>Evidence-backed hypotheses, not loose guesses.</span>
+              </div>
+              <div class="enterprise-step">
+                <small>05</small>
+                <strong>Human review</strong>
+                <span>Approver sees evidence before any handoff.</span>
+              </div>
+            </div>
+            <div class="enterprise-evidence">
+              <div class="evidence-card">
+                <h3>Governed SQL path</h3>
+                <div class="sql-lines" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i>
+                </div>
+                <div class="evidence-pill-row">
+                  <span>read-only</span>
+                  <span>schema scoped</span>
+                  <span>audited</span>
+                </div>
+              </div>
+              <div class="evidence-card">
+                <h3>Investigation pack</h3>
+                <div class="rca-lines" aria-hidden="true">
+                  <i></i><i></i><i></i>
+                </div>
+                <div class="evidence-pill-row">
+                  <span>citations</span>
+                  <span>confidence</span>
+                  <span>handoff</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1986,7 +3056,7 @@
         </div>
         <div class="stat">
           <div class="stat-value">12</div>
-          <div class="stat-label">Engineers Aligned</div>
+          <div class="stat-label">MCP Tools Live</div>
         </div>
         <div class="stat">
           <div class="stat-value">4</div>
@@ -2033,7 +3103,7 @@
         <div class="about-grid">
           <div class="about-text reveal">
             <p>
-              <span class="about-highlight">Nearly 7 years at Micron Technology</span>,
+              <span class="about-highlight">7 years at Micron Technology</span>,
               working across Singapore, Boise, Hiroshima, and Taichung.
               The work covered search, risk, vision, simulation, and shared data workflows.
               It contributed to <span class="about-highlight">$600M+ in aggregate program impact</span>
@@ -2059,7 +3129,7 @@
           </div>
           <div class="about-sidebar compact-proof reveal">
             <div class="proof-tile">
-              <strong>7+ years</strong>
+              <strong>7 years</strong>
               <span>systems in real operations</span>
             </div>
             <div class="proof-tile">
@@ -2226,13 +3296,13 @@
             </div>
             <p class="card-name">Enterprise Planning Workflow</p>
             <p class="card-desc">
-              Planning workflow for complex operations.
-              It turns fuzzy requests into reviewable steps.
-              It validates context, tool calls, and human checkpoints.
+              Public-safe architecture pattern from a large multinational semiconductor environment.
+              It turns planning questions into governed SQL, evidence packs,
+              root-cause notes, and human-reviewed handoffs.
             </p>
             <div class="card-flow" aria-label="How it works">
-              <span class="flow-step">Write specs and acceptance checks</span>
-              <span class="flow-step">Retrieve context and call tools</span>
+              <span class="flow-step">Translate planning questions into scoped queries</span>
+              <span class="flow-step">Attach evidence and root-cause hypotheses</span>
               <span class="flow-step">Validate, trace, and request review</span>
             </div>
             <div class="card-tags">
@@ -2494,6 +3564,109 @@
         document.querySelectorAll(".reveal").forEach(function (el) {
           observer.observe(el);
         });
+      })();
+
+      /* ── Cinematic scroll reel ──────────────────────────────────────── */
+      (function () {
+        var theatre = document.querySelector(".scroll-theatre");
+        var stage = document.querySelector(".theatre-stage");
+        var video = document.getElementById("theatre-video");
+        var fallback = document.getElementById("cinema-fallback");
+        var image = document.getElementById("theatre-image");
+        var kicker = document.getElementById("theatre-kicker");
+        var source = document.getElementById("theatre-source");
+        var title = document.getElementById("theatre-title");
+        var copy = document.getElementById("theatre-copy");
+        var proofA = document.getElementById("theatre-proof-a");
+        var proofACopy = document.getElementById("theatre-proof-a-copy");
+        var proofB = document.getElementById("theatre-proof-b");
+        var proofBCopy = document.getElementById("theatre-proof-b-copy");
+        var proofC = document.getElementById("theatre-proof-c");
+        var proofCCopy = document.getElementById("theatre-proof-c-copy");
+        var steps = Array.prototype.slice.call(document.querySelectorAll(".theatre-step"));
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var hasVideo = false;
+        var ticking = false;
+
+        if (!theatre || !stage || !steps.length) return;
+
+        function updateText(target, value) {
+          if (target && value) target.textContent = value;
+        }
+
+        function activate(step) {
+          steps.forEach(function (item) {
+            item.classList.toggle("is-active", item === step);
+          });
+
+          stage.classList.add("is-switching");
+          window.setTimeout(function () {
+            if (image && step.dataset.image && !hasVideo) {
+              image.src = step.dataset.image;
+              image.alt = step.dataset.alt || "";
+            }
+            updateText(kicker, step.dataset.kicker);
+            updateText(source, step.dataset.source);
+            updateText(title, step.dataset.title);
+            updateText(copy, step.dataset.copy);
+            updateText(proofA, step.dataset.proofA);
+            updateText(proofACopy, step.dataset.proofACopy);
+            updateText(proofB, step.dataset.proofB);
+            updateText(proofBCopy, step.dataset.proofBCopy);
+            updateText(proofC, step.dataset.proofC);
+            updateText(proofCCopy, step.dataset.proofCCopy);
+            stage.classList.remove("is-switching");
+          }, 120);
+        }
+
+        var stepObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) activate(entry.target);
+          });
+        }, { threshold: 0.54, rootMargin: "-12% 0px -32% 0px" });
+
+        steps.forEach(function (step) {
+          stepObserver.observe(step);
+        });
+
+        function scrubVideo() {
+          ticking = false;
+          if (!hasVideo || !video.duration || reduceMotion) return;
+          var rect = theatre.getBoundingClientRect();
+          var range = Math.max(1, rect.height - window.innerHeight);
+          var progress = Math.min(1, Math.max(0, (window.innerHeight * 0.18 - rect.top) / range));
+          var nextTime = video.duration * progress;
+          if (Math.abs(video.currentTime - nextTime) > 0.04) {
+            video.currentTime = nextTime;
+          }
+        }
+
+        function requestScrub() {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(scrubVideo);
+        }
+
+        function enableVideo() {
+          hasVideo = true;
+          stage.classList.add("has-video");
+          if (fallback) fallback.classList.remove("is-visible");
+          video.pause();
+          video.currentTime = 0;
+          scrubVideo();
+          window.addEventListener("scroll", requestScrub, { passive: true });
+          window.addEventListener("resize", requestScrub);
+        }
+
+        if (video && video.dataset.src && !reduceMotion) {
+          fetch(video.dataset.src, { method: "HEAD" })
+            .then(function (response) {
+              if (!response.ok) return;
+              video.src = video.dataset.src;
+              video.addEventListener("loadedmetadata", enableVideo, { once: true });
+            })
+            .catch(function () {});
+        }
       })();
 
       /* ── Real product proof loops ───────────────────────────────────── */

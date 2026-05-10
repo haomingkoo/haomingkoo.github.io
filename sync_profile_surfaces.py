@@ -120,7 +120,7 @@ Production LLM systems, RAG, agent workflows, and enterprise AI delivery | AI Si
 - Shipping [{metrics["liveApps"]} live applications]({profile["website"]}) that solve real problems, from job search to travel intelligence and source-backed data tools
 - Building open-source tools: [japan-seasons-mcp](https://github.com/haomingkoo/japan-seasons-mcp) - MCP server giving AI assistants live Japan travel data
 
-Previously led global AI-enabled transformation at **Micron Technology** for {metrics["yearsExperience"]} calendar years, aligning {metrics["engineersAligned"]} engineers across four fabs and driving {metrics["businessImpact"]} in business impact.
+Previously led global AI-enabled transformation at **Micron Technology** for 7 years, supporting cross-site programs across four fabs and driving {metrics["businessImpact"]} in business impact.
 
 ## Tech Stack
 

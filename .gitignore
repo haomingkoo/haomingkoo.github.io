@@ -3,10 +3,32 @@ __pycache__/
 *.pyc
 .env
 .env.*
+!.env.example
 
-# Local design drafts and agent notes
+# Local design drafts, recordings, exports, and agent notes
 previews/
 .claude/
+.cursor/
+.kiro/
+.mcp/
+.stitch/
+.gemini/
+.vscode/
+*.local.json
+*.local.md
+*.tmp
+*.bak
+*.orig
+tmp/
+scratch/
+exports/
+recordings/
+demo-clips/
+raw-clips/
+frames/
+contact-sheets/
+design-artifacts/
+stitch-artifacts/
 claude-review-prompt.md
 portfolio-v2-animation-plan.md
 portfolio-video-prompts.md

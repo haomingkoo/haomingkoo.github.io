@@ -17,7 +17,7 @@
     "Haoming Koo Production LLM Systems"
   ],
 
-  "summary": "Applied AI engineer in Singapore. I build production ML systems, RAG workflows, agent tools, evals, observability, and product interfaces. I spent 7+ calendar years at Micron across semiconductor manufacturing, cloud, and data platforms. The work aligned 3,000+ engineers across four fabs and contributed to USD 600M+ in business impact. I now build production ML systems at AI Singapore.",
+  "summary": "Applied AI engineer in Singapore with 7 years of systems experience. I build production ML systems, RAG workflows, agent tools, evals, observability, and product interfaces. I spent 7 years at Micron across semiconductor manufacturing, cloud, and data platforms. The work supported cross-site programs across four fabs and contributed to USD 600M+ in business impact. I now build production ML systems at AI Singapore.",
 
   "topSkills": [
     "AI Engineering & MLOps",
@@ -70,14 +70,14 @@
     },
     {
       "company": "Micron Technology",
-      "totalDuration": "7+ calendar years",
+      "totalDuration": "7 years",
       "roles": [
         {
           "title": "Manager, Front End Central Process Integration Engineering",
           "startDate": "2022-08",
           "endDate": "2025-01",
           "location": "Singapore",
-          "description": "Led global AI-enabled transformation and cross-site program delivery, aligning 3,000+ engineers across four fabs (Singapore, Boise, Hiroshima, Taichung). Managed a team of 6 direct and up to 9 indirect engineers with a USD 9M operational portfolio.",
+          "description": "Led global AI-enabled transformation and cross-site program delivery across four fabs (Singapore, Boise, Hiroshima, Taichung). Managed a team of 6 direct and up to 9 indirect engineers with a USD 9M operational portfolio.",
           "bullets": [
             "Designed and executed a 5-year autonomous conversion roadmap using 3M strategy (Method, Metrics, Mindset) — $832M in opportunities surfaced, $50M+ realised savings, projected 9-figure impact",
             "Unified fragmented process platforms (C3, iConS, PIP) into a single AI-integrated ecosystem — standardised 80% of workflows across 4 countries while preserving 20% site flexibility",
@@ -86,7 +86,7 @@
             "Modernised infrastructure from Hadoop to Google Cloud Platform (GCP), improving model deployment speed, traceability, and cost efficiency",
             "Developed ML risk-scoring dashboards using anomaly detection for yield and reliability — preventing USD 100M+ potential losses",
             "Built and deployed GenAI SOP Assistant: prompt packs + retrieval on audited SOPs; 80-90% answer relevance, ~15 min/query deflection, ~2 weeks faster onboarding, scaled to ~3,000 engineers",
-            "Designed planning workflow patterns with specs, retrieval, tool orchestration, validation gates, traceability, human review, and auditable recommendations",
+            "Designed public-safe enterprise planning workflow patterns with retrieval, governed text-to-SQL, root-cause investigation, validation gates, traceability, human review, and auditable recommendations",
             "Scaled RPA (UiPath/Power Automate) for targeting-lot workflow — 100% adoption; mentored ~30 engineers",
             "Built reliability/observability infrastructure: pipeline health dashboards, canary/shadow runs, rollback runbooks — near-zero ML-pipeline outages",
             "Embedded ESG-linked metrics (GHG, water, energy, waste) and SPC analytics into dashboards for compliance and sustainability governance",
@@ -322,7 +322,7 @@
     {
       "name": "Enterprise Planning Workflow",
       "url": "https://kooexperience.com/#projects",
-      "description": "Public-safe architecture pattern for enterprise planning workflows: specs, RAG, stateful orchestration, validators, traces, human review, auditable handoff, and future agent-run scoring.",
+      "description": "Public-safe architecture pattern from a large multinational semiconductor environment: governed text-to-SQL, evidence packs, root-cause notes, validation gates, human review, LLM observability, and auditable handoff.",
       "tech": ["LangGraph", "Langfuse", "Arize Phoenix", "RAG", "Evaluation Frameworks", "Human-in-the-Loop", "Spec-Driven Development"]
     },
     {
@@ -357,7 +357,7 @@
     "engineersAligned": "3,000+",
     "liveApps": 8,
     "mlModels": 4,
-    "yearsExperience": "7+",
+    "yearsExperience": "7",
     "globalSites": "4 fabs (Singapore, Boise, Hiroshima, Taichung)",
     "teamManaged": "6 direct + 9 indirect engineers",
     "budgetManaged": "USD 9M operational portfolio",
