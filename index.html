@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -348,6 +348,7 @@
     pointer-events: none;
   }
   [data-theme="dark"] .hero-video { opacity: 0.42; mix-blend-mode: screen; }
+  [data-theme="light"] .hero-video { display: none; }
   .hero-video-mask {
     position: absolute; inset: 0; pointer-events: none;
     background:
@@ -1352,9 +1353,9 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
 
-  /* THEME */
+  /* THEME — default to dark unless user has explicitly toggled to light */
   const saved = localStorage.getItem('hk-theme');
-  root.dataset.theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  root.dataset.theme = saved || 'dark';
   document.getElementById('themeToggle').addEventListener('click', () => {
     const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
     root.dataset.theme = next;
