@@ -509,6 +509,11 @@
   .sig-node-label .step { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 6px; text-transform: uppercase; }
   .sig-node-label .name { font-family: var(--display); font-variation-settings: "opsz" 24, "SOFT" 0; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
   .sig-node-label .desc { font-size: 12px; color: var(--ink-soft); line-height: 1.4; }
+  .sig-node-label .stack {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent); opacity: 0.78;
+    margin-top: 10px; display: block;
+  }
 
   /* generic section */
   .sec-wrap {
@@ -677,6 +682,36 @@
   .about-text strong { color: var(--ink); font-weight: 460; }
   .about-text em { font-style: italic; color: var(--accent); }
   .about-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+
+  /* Timeline-style about: scannable, not a wall of text */
+  .about-timeline { display: flex; flex-direction: column; gap: 40px; margin-bottom: 48px; }
+  .about-row {
+    display: grid; grid-template-columns: 200px 1fr; gap: 40px;
+    align-items: baseline; padding-bottom: 32px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .about-row:last-of-type { border-bottom: none; padding-bottom: 0; }
+  .about-when { display: flex; flex-direction: column; gap: 8px; }
+  .about-years {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+    color: var(--accent); text-transform: uppercase;
+  }
+  .about-where {
+    font-family: var(--display); font-variation-settings: "opsz" 28, "SOFT" 0;
+    font-style: italic; font-size: 22px; line-height: 1.2; color: var(--ink);
+  }
+  .about-what {
+    font-size: 16px; line-height: 1.6; color: var(--ink-soft);
+    max-width: 56ch;
+  }
+  .about-what strong { color: var(--ink); font-weight: 500; }
+  .about-what em { font-style: italic; color: var(--accent); }
+  @media (max-width: 760px) {
+    .about-row { grid-template-columns: 1fr; gap: 12px; padding-bottom: 28px; }
+    .about-timeline { gap: 28px; }
+    .about-where { font-size: 20px; }
+    .about-what { font-size: 15px; }
+  }
   .about-link {
     display: inline-block; margin-top: 32px;
     font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
@@ -915,11 +950,11 @@
     <div class="sig-eyebrow">How I build</div>
     <h2 class="sig-headline">Five <em>steps</em>.</h2>
     <div class="sig-stage" id="sigStage">
-      <div class="sig-node-label" data-i="0"><div class="step">01</div><div class="name">Start with a real problem</div><div class="desc">Not synthetic. Someone actually needs this.</div></div>
-      <div class="sig-node-label" data-i="1"><div class="step">02</div><div class="name">Use real data</div><div class="desc">From real sources, with provenance.</div></div>
-      <div class="sig-node-label" data-i="2"><div class="step">03</div><div class="name">Apply AI</div><div class="desc">RAG, vision, classifier &mdash; whatever fits.</div></div>
-      <div class="sig-node-label" data-i="3"><div class="step">04</div><div class="name">Show the work</div><div class="desc">Evidence over vibes.</div></div>
-      <div class="sig-node-label" data-i="4"><div class="step">05</div><div class="name">Hand to a human</div><div class="desc">They review. They decide.</div></div>
+      <div class="sig-node-label" data-i="0"><div class="step">01</div><div class="name">Start with a real problem</div><div class="desc">Not synthetic. Someone actually needs this.</div><div class="stack">Intent &middot; Constraint scoping</div></div>
+      <div class="sig-node-label" data-i="1"><div class="step">02</div><div class="name">Use real data</div><div class="desc">From real sources, with provenance.</div><div class="stack">Multi-source &middot; Provenance</div></div>
+      <div class="sig-node-label" data-i="2"><div class="step">03</div><div class="name">Apply AI</div><div class="desc">RAG, vision, classifier &mdash; whatever fits.</div><div class="stack">RAG &middot; MCP &middot; Guardrails</div></div>
+      <div class="sig-node-label" data-i="3"><div class="step">04</div><div class="name">Show the work</div><div class="desc">Evidence over vibes.</div><div class="stack">Evals &middot; SHAP &middot; Traces</div></div>
+      <div class="sig-node-label" data-i="4"><div class="step">05</div><div class="name">Hand to a human</div><div class="desc">They review. They decide.</div><div class="stack">Human-in-loop &middot; Audit trail</div></div>
     </div>
   </div>
 </section>
@@ -1034,12 +1069,34 @@
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="about-eyebrow">About</div>
-  <div class="about-text">
-    <p>Seven years at <strong>Micron</strong> &mdash; four fabs, four cities: Singapore, Boise, Hiroshima, Taichung. Search, vision, risk, simulation. Work that contributed to <em>$600M+ in aggregate program outcomes</em>.</p>
-    <p>Now at <strong>AI Singapore</strong> on an industry AI build with <strong>AMD</strong> through the 100E programme &mdash; vision, sequence modelling, RAG, evals, MLOps.</p>
-    <p>On the side: <em>eight free public tools</em>. The next one's always half-built.</p>
-    <a class="about-link" href="./about.html">Full background, experience &amp; skills &rarr;</a>
+
+  <div class="about-timeline">
+    <div class="about-row">
+      <div class="about-when">
+        <span class="about-years">2017 — 2024</span>
+        <span class="about-where">Micron Technology</span>
+      </div>
+      <p class="about-what">Production systems across four fabs &mdash; <strong>Singapore, Boise, Hiroshima, Taichung</strong>. Search, vision, risk, simulation. Work that contributed to <em>$600M+ in aggregate program outcomes</em>.</p>
+    </div>
+
+    <div class="about-row">
+      <div class="about-when">
+        <span class="about-years">2024 — Now</span>
+        <span class="about-where">AI Singapore · AMD 100E</span>
+      </div>
+      <p class="about-what">Industry AI build. <strong>Vision, sequence modelling, RAG, evals, MLOps.</strong></p>
+    </div>
+
+    <div class="about-row">
+      <div class="about-when">
+        <span class="about-years">Always</span>
+        <span class="about-where">Free public tools</span>
+      </div>
+      <p class="about-what"><em>Eight live so far.</em> The next one's always half-built.</p>
+    </div>
   </div>
+
+  <a class="about-link" href="./about.html">Full background, experience &amp; skills &rarr;</a>
 </section>
 
 <!-- BLOG -->
