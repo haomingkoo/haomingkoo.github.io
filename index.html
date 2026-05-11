@@ -227,13 +227,50 @@
     position: fixed; inset: 0; background: var(--bg); z-index: 1000;
     display: flex; align-items: center; justify-content: center;
     transition: transform 900ms var(--ease) 200ms, opacity 600ms var(--ease) 500ms;
+    overflow: hidden;
   }
   .loader.out { transform: translateY(-100%); opacity: 0; pointer-events: none; }
-  .loader-mark {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--ink-mute); display: flex; align-items: center; gap: 14px;
+  .loader-content {
+    display: flex; flex-direction: column; align-items: center; gap: 28px;
+    position: relative;
   }
-  .loader-mark .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulseSoft 1s var(--ease) infinite; }
+  .loader-name {
+    font-family: var(--display);
+    font-variation-settings: "opsz" 96, "SOFT" 0;
+    font-weight: 380;
+    font-size: clamp(56px, 8vw, 112px);
+    line-height: 1; letter-spacing: -0.035em;
+    color: var(--ink);
+    opacity: 0;
+    animation: fadeRise 900ms 100ms var(--ease) forwards;
+    text-align: center;
+  }
+  .loader-name em {
+    font-style: italic;
+    font-variation-settings: "opsz" 96, "SOFT" 15;
+    color: var(--accent);
+  }
+  .loader-meta {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-mute);
+    opacity: 0;
+    animation: fadeRise 800ms 600ms var(--ease) forwards;
+  }
+  .loader-meta .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulseSoft 1.2s var(--ease) infinite;
+  }
+  .loader-bar {
+    position: absolute; left: 50%; bottom: -36px;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transform: translateX(-50%);
+    animation: loadBar 1.2s 1100ms var(--ease) forwards;
+  }
+  @keyframes loadBar { from { width: 0; } to { width: 140px; opacity: 0.6; } }
   @keyframes pulseSoft { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
 
   /* nav */
@@ -410,8 +447,8 @@
     font-size: 0.62em; margin-left: 0.06em;
   }
   .proof-row .lbl {
-    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--ink-mute);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-soft);
   }
   .creds-ribbon {
     margin-top: 24px;
@@ -439,19 +476,30 @@
     position: relative; height: 76vh; min-height: 540px;
     overflow: hidden; opacity: 0;
     animation: fadeIn 1400ms 1800ms var(--ease) forwards;
-    border: 1px solid var(--rule); background: var(--paper);
+    border: 1px solid var(--rule);
+    background:
+      radial-gradient(ellipse at 25% 25%, rgba(91,142,251,0.20), transparent 55%),
+      radial-gradient(ellipse at 80% 90%, rgba(37,99,235,0.18), transparent 60%),
+      linear-gradient(160deg, #08101e 0%, #11203d 100%);
+  }
+  [data-theme="dark"] .portrait-col {
+    background:
+      radial-gradient(ellipse at 25% 25%, rgba(91,142,251,0.18), transparent 55%),
+      radial-gradient(ellipse at 80% 90%, rgba(37,99,235,0.14), transparent 60%),
+      linear-gradient(160deg, #050811 0%, #0c1628 100%);
   }
   .portrait-col::before {
     content: ""; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0) 65%, rgba(6,7,13,0.10) 100%);
+    background: linear-gradient(180deg, rgba(6,7,13,0) 65%, rgba(6,7,13,0.35) 100%);
     z-index: 2; pointer-events: none;
   }
   .portrait-col img {
-    width: 100%; height: 100%; object-fit: cover; object-position: center 18%;
-    filter: contrast(1.03) saturate(0.95) brightness(1.0);
+    width: 100%; height: 100%; object-fit: cover; object-position: center 12%;
+    filter: contrast(1.04) saturate(0.96) brightness(1.0)
+            drop-shadow(0 30px 50px rgba(0,0,0,0.4));
     transform: scale(1.0); transition: transform 1200ms var(--ease);
   }
-  .portrait-col:hover img { transform: scale(1.03); }
+  .portrait-col:hover img { transform: scale(1.02); }
   .portrait-meta {
     position: absolute; left: 22px; right: 22px; bottom: 22px; z-index: 3;
     color: var(--ink-soft);
@@ -544,10 +592,11 @@
     min-height: 34px; /* reserves space for 2 lines */
   }
   .sig-node-label .stack {
-    font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--accent); opacity: 0.78;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); opacity: 0.95;
     margin-top: 12px; display: block; line-height: 1.4;
     white-space: nowrap; /* keep mono caption on a single line */
+    font-weight: 500;
   }
 
   /* generic section */
@@ -653,9 +702,9 @@
   }
   .work-card .meta { color: #fafafc; }
   .work-card .lbl {
-    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--accent-2);
-    margin-bottom: 14px;
+    margin-bottom: 14px; font-weight: 500;
   }
   .work-card .title {
     font-family: var(--display); font-variation-settings: "opsz" 48, "SOFT" 0;
@@ -908,9 +957,13 @@
 <div class="scroll-progress" id="scrollProgress"></div>
 
 <div class="loader" id="loader">
-  <div class="loader-mark">
-    <span class="dot"></span>
-    <span>Haoming Koo · Singapore · Q4 2026</span>
+  <div class="loader-content">
+    <div class="loader-name">Haoming <em>Koo</em>.</div>
+    <div class="loader-meta">
+      <span class="dot"></span>
+      <span>Applied AI &middot; Singapore &middot; Q4 2026</span>
+    </div>
+    <div class="loader-bar"></div>
   </div>
 </div>
 
@@ -950,7 +1003,7 @@
     <p class="hero-sub">
       Seven years at <strong>Micron</strong> on production systems: search, vision, risk, simulation.
       Now at <strong>AI Singapore (AIAP)</strong>, building an <em>agentic AI solution</em> with <strong>AMD</strong> through the 100E programme.
-      Public tools under this domain. <strong>All free, all open.</strong>
+      Plus public tools, built to help real people.
     </p>
     <div class="cta-row">
       <a class="cta-primary" href="mailto:haomingkoo@gmail.com" data-magnetic>
@@ -963,20 +1016,11 @@
       <div><span class="num">$<span data-countup="600">0</span>M<em>+</em></span><span class="lbl">Contributed</span></div>
       <div><span class="num"><span data-countup="8">0</span></span><span class="lbl">Live products</span></div>
     </div>
-    <div class="creds-ribbon">
-      <span>NUS MSc</span>
-      <span class="sep">·</span>
-      <span>AIAP @ AI Singapore</span>
-      <span class="sep">·</span>
-      <span>AMD 100E</span>
-      <span class="sep">·</span>
-      <span>100/100 Smithery</span>
-    </div>
   </div>
   <div class="portrait-col">
     <span class="crosshair tl"></span><span class="crosshair tr"></span>
     <span class="crosshair bl"></span><span class="crosshair br"></span>
-    <img src="./assets/haoming-portrait.jpg" alt="Haoming Koo, applied AI engineer based in Singapore" />
+    <img src="./assets/haoming-portrait-cutout.png" alt="Haoming Koo, applied AI engineer based in Singapore" />
     <div class="portrait-meta"><div>Singapore &middot; 1&deg; 17&prime; N</div><div class="right">2026 / Open</div></div>
   </div>
   <div class="scroll-hint">Scroll</div>
