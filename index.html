@@ -670,7 +670,7 @@
   .about-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 32px; }
   .about-text {
     font-family: var(--display); font-variation-settings: "opsz" 28, "SOFT" 0;
-    font-weight: 380; font-size: clamp(22px, 2.4vw, 32px); line-height: 1.4;
+    font-weight: 380; font-size: clamp(18px, 2vw, 26px); line-height: 1.5;
     color: var(--ink-soft); letter-spacing: -0.01em;
   }
   .about-text p { margin-bottom: 24px; }
@@ -772,7 +772,8 @@
   }
   @media (max-width: 760px) {
     section.hero { grid-template-columns: 1fr; padding: 110px 24px 60px; gap: 32px; }
-    .portrait-col { height: 56vh; min-height: 360px; order: -1; }
+    .portrait-col { height: 52vh; min-height: 340px; }
+    .portrait-col .crosshair, .portrait-col .portrait-meta { display: none; }
     nav.top { padding: 16px 22px; }
     nav.top .clock { display: none; }
     nav.top ul { gap: 14px; font-size: 10px; }
@@ -788,6 +789,35 @@
     body { cursor: auto; }
     .scroll-hint { left: 24px; bottom: 24px; }
     section.hire { padding: 100px 24px 60px; }
+    /* signature workflow — stack labels vertically instead of canvas-aligned positions */
+    section.signature { height: auto; }
+    .sig-pin { position: relative; height: auto; padding: 80px 24px; }
+    .sig-headline { margin-bottom: 56px; }
+    .sig-stage {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 360px;
+    }
+    .sig-node-label {
+      position: relative !important;
+      transform: none !important;
+      left: auto !important;
+      top: auto !important;
+      opacity: 1 !important;
+      width: 100% !important;
+      padding: 16px 18px;
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      text-align: left;
+      background: color-mix(in srgb, var(--paper) 80%, transparent);
+      backdrop-filter: blur(6px);
+    }
+    .sig-video-bg { display: none; }
+    /* hide canvas crystallisation on mobile — replaced by the stacked cards above */
+    canvas#nodes { opacity: 0.35; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -849,7 +879,7 @@
     <p class="hero-sub">
       Seven years at <strong>Micron</strong> on production systems &mdash; search, vision, risk, simulation.
       Now at <strong>AI Singapore</strong> on an industry AI build with <strong>AMD</strong> through the 100E programme.
-      Eight live products under this domain.
+      Public tools under this domain. <strong>All free, all open.</strong>
     </p>
     <div class="cta-row">
       <a class="cta-primary" href="mailto:haomingkoo@gmail.com" data-magnetic>
@@ -883,7 +913,7 @@
       <div class="sig-video-mask"></div>
     </div>
     <div class="sig-eyebrow">How I build</div>
-    <h2 class="sig-headline">Five things I do, every <em>system</em>.</h2>
+    <h2 class="sig-headline">Five <em>steps</em>.</h2>
     <div class="sig-stage" id="sigStage">
       <div class="sig-node-label" data-i="0"><div class="step">01</div><div class="name">Start with a real problem</div><div class="desc">Not synthetic. Someone actually needs this.</div></div>
       <div class="sig-node-label" data-i="1"><div class="step">02</div><div class="name">Use real data</div><div class="desc">From real sources, with provenance.</div></div>
@@ -897,8 +927,8 @@
 <!-- WORK (8 cards) -->
 <section class="work" id="work">
   <div class="inner">
-    <div class="sec-eyebrow">Selected work &middot; Eight live systems</div>
-    <h2 class="sec-h2">Eight systems. All <em>live</em>.</h2>
+    <div class="sec-eyebrow">The work</div>
+    <h2 class="sec-h2">Eight apps shipped. When do we start on <em>yours</em>?</h2>
     <div class="work-grid">
 
       <a class="work-card" href="https://job.kooexperience.com" target="_blank" rel="noopener">
@@ -1005,9 +1035,9 @@
 <section class="about" id="about">
   <div class="about-eyebrow">About</div>
   <div class="about-text">
-    <p>Seven years at <strong>Micron Technology</strong>, building systems for semiconductor operations across Singapore, Boise, Hiroshima, and Taichung. Search, risk, vision, simulation, shared data workflows. Across programs I led, co-led, or supported, the work contributed to <em>$600M+ in aggregate program outcomes</em>.</p>
-    <p>Now at <strong>AI Singapore</strong>, on an industry AI build with <strong>AMD</strong> through the 100E programme. Vision, sequence modelling, RAG, evals, MLOps.</p>
-    <p>Outside that, I ship and maintain <em>eight public products</em> &mdash; job search, market research, travel intelligence, source-backed tools.</p>
+    <p>Seven years at <strong>Micron</strong> &mdash; four fabs, four cities: Singapore, Boise, Hiroshima, Taichung. Search, vision, risk, simulation. Work that contributed to <em>$600M+ in aggregate program outcomes</em>.</p>
+    <p>Now at <strong>AI Singapore</strong> on an industry AI build with <strong>AMD</strong> through the 100E programme &mdash; vision, sequence modelling, RAG, evals, MLOps.</p>
+    <p>On the side: <em>eight free public tools</em>. The next one's always half-built.</p>
     <a class="about-link" href="./about.html">Full background, experience &amp; skills &rarr;</a>
   </div>
 </section>
