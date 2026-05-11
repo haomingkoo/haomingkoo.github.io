@@ -474,28 +474,28 @@
 
   .portrait-col {
     position: relative; height: 76vh; min-height: 540px;
-    overflow: hidden; opacity: 0;
+    overflow: visible; opacity: 0;
     animation: fadeIn 1400ms 1800ms var(--ease) forwards;
-    border: 1px solid var(--rule);
-    background:
-      radial-gradient(ellipse at 25% 25%, rgba(91,142,251,0.20), transparent 55%),
-      radial-gradient(ellipse at 80% 90%, rgba(37,99,235,0.18), transparent 60%),
-      linear-gradient(160deg, #08101e 0%, #11203d 100%);
+    border: none;
+    background: transparent;
   }
-  [data-theme="dark"] .portrait-col {
-    background:
-      radial-gradient(ellipse at 25% 25%, rgba(91,142,251,0.18), transparent 55%),
-      radial-gradient(ellipse at 80% 90%, rgba(37,99,235,0.14), transparent 60%),
-      linear-gradient(160deg, #050811 0%, #0c1628 100%);
-  }
+  /* soft radial halo behind the subject — no hard rectangle */
   .portrait-col::before {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(6,7,13,0) 65%, rgba(6,7,13,0.35) 100%);
-    z-index: 2; pointer-events: none;
+    content: ""; position: absolute; inset: -4% -8%;
+    background:
+      radial-gradient(ellipse 60% 70% at center, rgba(91,142,251,0.30) 0%, rgba(37,99,235,0.18) 35%, transparent 75%);
+    pointer-events: none; z-index: 0;
+    filter: blur(8px);
+  }
+  [data-theme="dark"] .portrait-col::before {
+    background:
+      radial-gradient(ellipse 60% 70% at center, rgba(91,142,251,0.22) 0%, rgba(37,99,235,0.12) 35%, transparent 75%);
   }
   .portrait-col img {
-    width: 100%; height: 100%; object-fit: cover; object-position: center 18%;
-    filter: contrast(1.04) saturate(0.96) brightness(1.0);
+    position: relative; z-index: 1;
+    width: 100%; height: 100%; object-fit: contain; object-position: center bottom;
+    filter: contrast(1.04) saturate(0.96) brightness(1.0)
+            drop-shadow(0 30px 50px rgba(0,0,0,0.4));
     transform: scale(1.0); transition: transform 1200ms var(--ease);
   }
   .portrait-col:hover img { transform: scale(1.02); }
@@ -506,7 +506,9 @@
     font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
   }
   .portrait-meta .right { text-align: right; opacity: 0.72; }
-  .portrait-col .crosshair {
+  .portrait-col .crosshair { display: none; }
+  .portrait-col .portrait-meta { display: none; }
+  .portrait-col .crosshair-old {
     position: absolute; width: 12px; height: 12px;
     border: 1px solid rgba(11,12,16,0.32); z-index: 3;
   }
@@ -1160,15 +1162,15 @@
   <div class="about-timeline">
     <div class="about-row">
       <div class="about-when">
-        <span class="about-years">2017 — 2024</span>
+        <span class="about-years">2018 — 2025</span>
         <span class="about-where">Micron Technology</span>
       </div>
-      <p class="about-what">Production systems across four fabs: <strong>Singapore, Boise, Hiroshima, Taichung</strong>. Search, vision, risk, simulation. Built a <strong>ResNet-50 wafer-defect classifier</strong> (Innovation Award) and a <strong>digital twin that cut chemical use 60%</strong> (Idea of the Quarter, ~$7M savings). Work contributed to <em>$600M+ in aggregate program outcomes</em>.</p>
+      <p class="about-what">Led AI-enabled transformation across four fabs (<strong>Singapore, Boise, Hiroshima, Taichung</strong>) &mdash; 6 direct + 9 indirect engineers, $9M portfolio. Built a 5-year autonomous roadmap surfacing <strong>$832M in opportunities</strong>; shipped <strong>ML risk-scoring that prevented $100M+ in losses</strong>, a <strong>GenAI SOP workflow scaled to ~3,000 engineers</strong>, and a <strong>digital twin that cut chemical use 60%</strong>. Co-led flagship low-power DRAM and HBM yield programs. ResNet-50 wafer-defect classifier (Innovation Award). Work contributed to <em>$600M+ in aggregate program outcomes</em>.</p>
     </div>
 
     <div class="about-row">
       <div class="about-when">
-        <span class="about-years">2024 — Now</span>
+        <span class="about-years">2026 — Now</span>
         <span class="about-where">AI Singapore (AIAP) · AMD 100E</span>
       </div>
       <p class="about-what"><em>Agentic AI solution</em> for industry deployment, powered by <strong>SEA-LION</strong> (AI Singapore's regional LLM). <strong>Agents, vision, sequence modelling, RAG, evals, MLOps.</strong></p>
