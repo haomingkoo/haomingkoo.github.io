@@ -116,21 +116,21 @@
 
 <style>
   :root {
-    --bg: #f4f4f2;
-    --bg-warm: #fafaf8;
+    --bg: #fafafc;
+    --bg-warm: #ffffff;
     --paper: #ffffff;
-    --ink: #0b0c10;
-    --ink-soft: rgba(11,12,16,0.62);
-    --ink-mute: rgba(11,12,16,0.40);
-    --rule: rgba(11,12,16,0.10);
-    --rule-soft: rgba(11,12,16,0.05);
-    --accent: #3d6f8c;
-    --accent-2: #6ea2c4;
-    --glow: rgba(110,162,196,0.28);
-    --glow-2: rgba(61,111,140,0.12);
-    --node: 11,12,16;
-    --node-on: 61,111,140;
-    --grain-op: 0.22;
+    --ink: #06070d;
+    --ink-soft: rgba(6,7,13,0.62);
+    --ink-mute: rgba(6,7,13,0.40);
+    --rule: rgba(6,7,13,0.10);
+    --rule-soft: rgba(6,7,13,0.05);
+    --accent: #2563eb;
+    --accent-2: #5b8efb;
+    --glow: rgba(91,142,251,0.22);
+    --glow-2: rgba(37,99,235,0.10);
+    --node: 6,7,13;
+    --node-on: 37,99,235;
+    --grain-op: 0.16;
     --grain-blend: multiply;
     --display: "Fraunces","Times New Roman",serif;
     --body: "Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
@@ -139,21 +139,21 @@
     --max: 1280px;
   }
   [data-theme="dark"] {
-    --bg: #0a0a0c;
-    --bg-warm: #111114;
-    --paper: #16171b;
+    --bg: #04050a;
+    --bg-warm: #0a0c14;
+    --paper: #0e1018;
     --ink: #f4f4f6;
     --ink-soft: rgba(244,244,246,0.66);
     --ink-mute: rgba(244,244,246,0.42);
     --rule: rgba(244,244,246,0.10);
     --rule-soft: rgba(244,244,246,0.05);
-    --accent: #8eb6d3;
-    --accent-2: #b8d0e6;
-    --glow: rgba(142,182,211,0.18);
-    --glow-2: rgba(61,111,140,0.10);
-    --node: 244,244,246,;
-    --node-on: 142,182,211;
-    --grain-op: 0.18;
+    --accent: #5b8efb;
+    --accent-2: #8eb6f8;
+    --glow: rgba(91,142,251,0.18);
+    --glow-2: rgba(37,99,235,0.10);
+    --node: 244,244,246;
+    --node-on: 91,142,251;
+    --grain-op: 0.14;
     --grain-blend: screen;
   }
 
@@ -286,11 +286,13 @@
     width: 100%; height: 100%;
     object-fit: cover;
     object-position: center 30%;
-    opacity: 0.26;
+    opacity: 0.18;
     mix-blend-mode: multiply;
     pointer-events: none;
+    /* cool the warm paper-grid video into sapphire register until regenerated */
+    filter: saturate(0.35) hue-rotate(180deg) brightness(0.95) contrast(1.08);
   }
-  [data-theme="dark"] .hero-video { opacity: 0.18; mix-blend-mode: screen; }
+  [data-theme="dark"] .hero-video { opacity: 0.14; mix-blend-mode: screen; }
   .hero-video-mask {
     position: absolute; inset: 0; pointer-events: none;
     background:
@@ -570,81 +572,73 @@
     overflow: hidden;
   }
   .work-card .img {
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 60%;
-    background-size: cover; background-position: center top;
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
     transition: transform 1200ms var(--ease), filter 800ms var(--ease);
-    filter: saturate(0.85) brightness(0.96) contrast(1.04);
+    filter: saturate(1.05) brightness(0.96) contrast(1.06);
   }
   .work-card:hover .img {
     transform: scale(1.04);
-    filter: saturate(1) brightness(1.0) contrast(1.04);
+    filter: saturate(1.15) brightness(1.02) contrast(1.06);
   }
-  /* duotone tint overlay so 8 different UIs share one palette */
-  .work-card .tint {
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 60%;
-    background:
-      linear-gradient(180deg, rgba(74,107,130,0.18) 0%, rgba(251,246,234,0.06) 100%);
-    mix-blend-mode: multiply;
-    transition: opacity 600ms var(--ease);
+  /* dark gradient at the bottom for meta text legibility over key-art */
+  .work-card .gradient {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(6,7,13,0) 35%, rgba(6,7,13,0.55) 65%, rgba(6,7,13,0.92) 100%);
   }
-  [data-theme="dark"] .work-card .tint {
-    background: linear-gradient(180deg, rgba(142,177,204,0.20) 0%, rgba(20,17,13,0.4) 100%);
+  /* iridescent shimmer on hover */
+  .work-card::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(115deg, transparent 30%, rgba(91,142,251,0.18) 50%, transparent 70%);
+    opacity: 0; transition: opacity 600ms var(--ease);
     mix-blend-mode: screen;
   }
-  .work-card:hover .tint { opacity: 0.45; }
-  /* fade the bottom of the image into the meta block */
-  .work-card .image-fade {
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 60%;
-    background: linear-gradient(180deg, transparent 60%, var(--bg-warm) 100%);
-    pointer-events: none;
-  }
+  .work-card:hover::after { opacity: 1; }
 
   .work-card .meta {
     position: absolute; left: 26px; right: 26px; bottom: 26px; z-index: 2;
   }
+  .work-card .meta { color: #fafafc; }
   .work-card .lbl {
     font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--accent);
+    text-transform: uppercase; color: var(--accent-2);
     margin-bottom: 14px;
   }
   .work-card .title {
     font-family: var(--display); font-variation-settings: "opsz" 48, "SOFT" 0;
     font-style: italic; font-size: 30px; line-height: 1;
-    margin-bottom: 10px; color: var(--ink);
+    margin-bottom: 10px; color: #fafafc;
   }
   .work-card .desc {
     font-size: 13px; line-height: 1.45;
-    color: var(--ink-soft);
+    color: rgba(250,250,252,0.78);
     max-width: 96%;
   }
   .work-card .arrow {
-    position: absolute; top: 44px; right: 16px;
+    position: absolute; top: 20px; right: 20px;
     width: 32px; height: 32px; border-radius: 50%;
-    border: 1px solid var(--rule);
-    background: color-mix(in srgb, var(--bg) 80%, transparent);
-    backdrop-filter: blur(6px);
+    border: 1px solid rgba(250,250,252,0.32);
+    background: rgba(6,7,13,0.45);
+    backdrop-filter: blur(8px);
     display: flex; align-items: center; justify-content: center;
     z-index: 4;
     transition: background 240ms var(--ease), border-color 240ms, transform 240ms;
-    color: var(--ink);
+    color: #fafafc;
   }
   .work-card:hover .arrow {
-    background: var(--accent); border-color: var(--accent); color: var(--bg);
+    background: var(--accent); border-color: var(--accent); color: #fafafc;
     transform: scale(1.08);
   }
   .work-card .arrow svg { width: 11px; height: 11px; transition: transform 240ms; }
   .work-card:hover .arrow svg { transform: translate(2px,-2px); }
   .work-card .badge {
-    position: absolute; top: 44px; left: 16px; z-index: 4;
+    position: absolute; top: 20px; left: 20px; z-index: 4;
     font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
     padding: 5px 10px; border-radius: 999px;
-    background: color-mix(in srgb, var(--bg) 80%, transparent);
-    backdrop-filter: blur(6px);
-    color: var(--ink-soft);
-    border: 1px solid var(--rule);
+    background: rgba(6,7,13,0.45);
+    backdrop-filter: blur(8px);
+    color: rgba(250,250,252,0.86);
+    border: 1px solid rgba(250,250,252,0.18);
   }
   /* live-dot on the badge */
   .work-card .badge::before {
@@ -895,7 +889,7 @@
     <div class="work-grid">
 
       <a class="work-card" href="https://job.kooexperience.com" target="_blank" rel="noopener">
-        <div class="img" style="background-image:url('./assets/projects/job-hunter.png')"></div>
+        <div class="img" style="background-image:url('./assets/cards/job-hunter.jpg')"></div>
         <div class="gradient"></div>
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
@@ -907,7 +901,7 @@
       </a>
 
       <a class="work-card" href="https://trader.kooexperience.com" target="_blank" rel="noopener">
-        <div class="img" style="background-image:url('./assets/projects/trader-koo.png')"></div>
+        <div class="img" style="background-image:url('./assets/cards/trader-koo.jpg')"></div>
         <div class="gradient"></div>
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
@@ -919,7 +913,7 @@
       </a>
 
       <a class="work-card" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">
-        <div class="img" style="background-image:url('./assets/projects/japan-in-seasons.png')"></div>
+        <div class="img" style="background-image:url('./assets/cards/japan-in-seasons.jpg')"></div>
         <div class="gradient"></div>
         <span class="badge">100/100 Smithery</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
@@ -931,7 +925,7 @@
       </a>
 
       <a class="work-card" href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener">
-        <div class="img" style="background-image:url('./assets/projects/amex-explorer.png')"></div>
+        <div class="img" style="background-image:url('./assets/cards/amex-explorer.jpg')"></div>
         <div class="gradient"></div>
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
@@ -943,7 +937,7 @@
       </a>
 
       <a class="work-card" href="https://lionweather.kooexperience.com/" target="_blank" rel="noopener">
-        <div class="img" style="background-image:url('./assets/projects/lionweather.png')"></div>
+        <div class="img" style="background-image:url('./assets/cards/lionweather.jpg')"></div>
         <div class="gradient"></div>
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
@@ -955,7 +949,7 @@
       </a>
 
       <a class="work-card" href="https://studio.kooexperience.com/" target="_blank" rel="noopener">
-        <div class="img" style="background-image:url('./assets/projects/photo-compliance-studio.png')"></div>
+        <div class="img" style="background-image:url('./assets/cards/photo-compliance-studio.jpg')"></div>
         <div class="gradient"></div>
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
@@ -967,7 +961,7 @@
       </a>
 
       <a class="work-card" href="https://preflight.kooexperience.com/" target="_blank" rel="noopener">
-        <div class="img" style="background-image:url('./assets/projects/preflight.png')"></div>
+        <div class="img" style="background-image:url('./assets/cards/preflight.jpg')"></div>
         <div class="gradient"></div>
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
@@ -979,7 +973,7 @@
       </a>
 
       <a class="work-card" href="https://wine.kooexperience.com" target="_blank" rel="noopener">
-        <div class="img" style="background-image:url('./assets/projects/minmax-wine.png')"></div>
+        <div class="img" style="background-image:url('./assets/cards/minmax-wine.jpg')"></div>
         <div class="gradient"></div>
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
