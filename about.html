@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -148,6 +148,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/system/tokens.css" />
     <link rel="stylesheet" href="/system/base.css" />
+    <link rel="stylesheet" href="/system/atmosphere.css" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -188,10 +189,20 @@
         position: fixed;
         inset: 0;
         background:
-          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,0.07) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 40% at 85% 20%, rgba(168,85,247,0.04) 0%, transparent 50%);
+          radial-gradient(ellipse 95% 70% at 50% -5%, rgba(91,142,251,0.18) 0%, transparent 55%),
+          radial-gradient(ellipse 60% 50% at 92% 18%, rgba(91,142,251,0.10) 0%, transparent 50%),
+          radial-gradient(ellipse 55% 45% at 8% 78%, rgba(91,142,251,0.08) 0%, transparent 60%);
         pointer-events: none;
         z-index: 0;
+      }
+      canvas#bg-nodes {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.55;
       }
 
       .container {
@@ -787,6 +798,8 @@
     </style>
   </head>
   <body>
+    <canvas id="bg-nodes"></canvas>
+    <div class="grain"></div>
     <!-- Nav -->
     <div class="nav-wrap">
       <nav>
@@ -1357,6 +1370,85 @@
         }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
         document.querySelectorAll(".reveal").forEach(function (el) {
           observer.observe(el);
+        });
+      })();
+    </script>
+
+    <script>
+      /* ambient constellation -- subtle dot network behind the content */
+      (function () {
+        var canvas = document.getElementById("bg-nodes");
+        if (!canvas) return;
+        var ctx = canvas.getContext("2d");
+        var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var dpr = Math.min(devicePixelRatio || 1, 2);
+        var w = 0, h = 0;
+        var COUNT = 70;
+        var LINK_DIST = 130;
+        var nodes = [];
+
+        function resize() {
+          w = innerWidth * dpr;
+          h = innerHeight * dpr;
+          canvas.width = w;
+          canvas.height = h;
+          canvas.style.width = innerWidth + "px";
+          canvas.style.height = innerHeight + "px";
+        }
+        function seed() {
+          nodes = [];
+          for (var i = 0; i < COUNT; i++) {
+            nodes.push({
+              x: Math.random() * w,
+              y: Math.random() * h,
+              vx: (Math.random() - 0.5) * 0.25 * dpr,
+              vy: (Math.random() - 0.5) * 0.25 * dpr,
+              r: (1 + Math.random() * 1.6) * dpr,
+            });
+          }
+        }
+        function step() {
+          ctx.clearRect(0, 0, w, h);
+          var maxLink = LINK_DIST * dpr;
+          for (var i = 0; i < nodes.length; i++) {
+            var n = nodes[i];
+            n.x += n.vx;
+            n.y += n.vy;
+            if (n.x < 0 || n.x > w) n.vx *= -1;
+            if (n.y < 0 || n.y > h) n.vy *= -1;
+          }
+          ctx.strokeStyle = "rgba(91,142,251,0.55)";
+          ctx.lineWidth = 1;
+          for (var a = 0; a < nodes.length; a++) {
+            for (var b = a + 1; b < nodes.length; b++) {
+              var dx = nodes[a].x - nodes[b].x;
+              var dy = nodes[a].y - nodes[b].y;
+              var d = Math.sqrt(dx * dx + dy * dy);
+              if (d < maxLink) {
+                ctx.globalAlpha = (1 - d / maxLink) * 0.35;
+                ctx.beginPath();
+                ctx.moveTo(nodes[a].x, nodes[a].y);
+                ctx.lineTo(nodes[b].x, nodes[b].y);
+                ctx.stroke();
+              }
+            }
+          }
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = "rgba(91,142,251,0.85)";
+          for (var k = 0; k < nodes.length; k++) {
+            var nn = nodes[k];
+            ctx.beginPath();
+            ctx.arc(nn.x, nn.y, nn.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          requestAnimationFrame(step);
+        }
+        resize();
+        seed();
+        if (!reduced) requestAnimationFrame(step);
+        addEventListener("resize", function () {
+          resize();
+          seed();
         });
       })();
     </script>
