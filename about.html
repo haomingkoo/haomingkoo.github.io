@@ -146,6 +146,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/system/tokens.css" />
+    <link rel="stylesheet" href="/system/base.css" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -561,6 +563,37 @@
         line-height: 1.5;
       }
 
+      /* ── Forward-deployed pattern ────────────────────────────── */
+      .fde-grid {
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid var(--border);
+        margin-bottom: 8px;
+      }
+      .fde-row {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 28px;
+        padding: 18px 4px;
+        border-bottom: 1px solid var(--border);
+        align-items: baseline;
+      }
+      .fde-pillar {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .fde-evidence {
+        font-size: 15px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+      @media (max-width: 720px) {
+        .fde-row { grid-template-columns: 1fr; gap: 6px; padding: 16px 4px; }
+      }
+
       /* ── Awards ──────────────────────────────────────────────── */
       .awards-list {
         display: flex;
@@ -576,9 +609,14 @@
         align-items: baseline;
         gap: 12px;
       }
-      .award-icon {
-        font-size: 18px;
+      .award-marker {
+        width: 6px;
+        height: 6px;
+        background: var(--accent);
+        border-radius: 50%;
         flex-shrink: 0;
+        align-self: center;
+        margin-top: 2px;
       }
       .award-text {
         font-size: 14px;
@@ -771,10 +809,11 @@
         <div class="page-status">Open to opportunities</div>
         <h1 class="page-title">Haoming <span>Koo</span>.</h1>
         <p class="page-subtitle">
-          Applied AI Engineer. I build production AI systems that solve real operational
-          problems: LLM workflows, agent systems, vision pipelines, and sequence modelling.
-          7 years at Micron contributing to $600M+ in program outcomes across four global fabs. Currently
-          shipping full-stack ML systems at AI Singapore, including an industry AI solution with AMD through the 100E programme.
+          Applied AI Engineer. I build customer-facing production AI &mdash; LLM workflows,
+          agent systems with guardrails, vision pipelines, and sequence modelling.
+          7 years at Micron contributing to $600M+ in program outcomes across four global fabs.
+          Currently at AI Singapore (AIAP), forward-deployed on an agentic AI solution with AMD
+          through the 100E programme.
         </p>
         <div class="page-meta">
           <span>Singapore</span>
@@ -793,11 +832,11 @@
         </div>
         <div class="metric-item">
           <div class="metric-value">3,000<span class="accent">+</span></div>
-          <div class="metric-label">SOP Assistant Reach</div>
+          <div class="metric-label">Engineers on GenAI SOP</div>
         </div>
         <div class="metric-item">
           <div class="metric-value">7</div>
-          <div class="metric-label">Systems Experience</div>
+          <div class="metric-label">Years (Systems)</div>
         </div>
         <div class="metric-item">
           <div class="metric-value">4 Fabs</div>
@@ -811,6 +850,37 @@
       <p class="metric-note reveal">
         $600M+ is the aggregate value of programs I led, co-led, or contributed to as tracked in Micron internal program reviews.
       </p>
+
+      <!-- Forward-deployed pattern -->
+      <section class="section">
+        <p class="section-label reveal">Forward-deployed pattern</p>
+        <div class="fde-grid reveal">
+          <div class="fde-row">
+            <div class="fde-pillar">Discovery</div>
+            <div class="fde-evidence">5-year autonomous conversion roadmap at Micron delivering $50M+ in realised savings.</div>
+          </div>
+          <div class="fde-row">
+            <div class="fde-pillar">Scoping &amp; delivery</div>
+            <div class="fde-evidence">$9M operational portfolio &middot; 6 direct + 9 indirect engineers &middot; building an agentic AI solution end-to-end with AMD through AIAP 100E.</div>
+          </div>
+          <div class="fde-row">
+            <div class="fde-pillar">Production rollout</div>
+            <div class="fde-evidence">GenAI SOP workflow scaled to ~3,000 engineers &mdash; 80&ndash;90% answer relevance, ~15 min/query deflection, ~2 weeks faster onboarding.</div>
+          </div>
+          <div class="fde-row">
+            <div class="fde-pillar">Eval-driven feedback</div>
+            <div class="fde-evidence">Production ML risk-scoring delivering 1&ndash;2% yield improvement at scale. Eval-tested guardrails on every deployed app (Trader Koo VIX hard blocks, daily loss breaker; Job Hunter SG hallucination gates).</div>
+          </div>
+          <div class="fde-row">
+            <div class="fde-pillar">Customer embedding</div>
+            <div class="fde-evidence">7 years embedded across Singapore, Boise, Hiroshima, Taichung fabs. Co-led flagship DRAM and HBM yield programs.</div>
+          </div>
+          <div class="fde-row">
+            <div class="fde-pillar">Codified playbooks</div>
+            <div class="fde-evidence">Digital twin patterns, MAXout onboarding framework, observability runbooks &mdash; reused by 30+ engineers across sites.</div>
+          </div>
+        </div>
+      </section>
 
       <!-- Experience -->
       <section class="section">
@@ -857,13 +927,13 @@
                   <span class="timeline-role-title">AI &amp; Software Engineering (Self-Directed)</span>
                   <span class="timeline-role-dates">Jan 2025 &ndash; Dec 2025</span>
                 </div>
-                <p class="timeline-role-desc">Structured upskilling period focused on AI engineering, full-stack development, and applied transformation &ndash; bridging 7 years of systems leadership into production AI roles.</p>
+                <p class="timeline-role-desc">A year to transition from systems leadership at Micron into hands-on production AI &mdash; shipped end-to-end, customer-facing applications using frontier models and full-stack tooling.</p>
                 <ul class="timeline-bullets">
                   <li>Completed <strong>Full Stack Development with AI</strong> (NUS x Emeritus, 24 weeks) &ndash; React, Flask, MongoDB, SQL, Node.js, REST APIs, AI integration</li>
                   <li>Completed <strong>GA100 Generative AI</strong> (Heicoders Academy, WSQ) &ndash; prompt engineering, RAG, AI agents, workflow automation (n8n), MCP</li>
-                  <li>Built 8 live portfolio applications deployed at kooexperience.com</li>
-                  <li>PMP certification preparation</li>
-                  <li>Exposure to innovation ecosystems across Europe and Asia &ndash; digital platforms, sustainability, and cross-cultural leadership</li>
+                  <li>Built 8 live portfolio applications deployed at kooexperience.com &mdash; LLM workflows, agent systems, vision pipelines, RAG</li>
+                  <li>Shipped a production <strong>MCP server</strong> (Japan in Seasons) scoring 100/100 on Smithery &mdash; 12 tools, 1,700+ data points</li>
+                  <li>PMP certification</li>
                 </ul>
               </div>
             </div>
@@ -885,12 +955,12 @@
                 </div>
                 <p class="timeline-role-desc">Led global AI-enabled transformation and cross-site program delivery across four fabs (Singapore, Boise, Hiroshima, Taichung). Managed 6 direct and up to 9 indirect engineers with a USD 9M operational portfolio.</p>
                 <ul class="timeline-bullets">
-                  <li>Designed and executed a 5-year autonomous conversion roadmap using 3M strategy &ndash; <strong>$832M in opportunities</strong> surfaced, $50M+ realised savings</li>
+                  <li>Designed and executed a 5-year autonomous conversion roadmap using 3M strategy &ndash; <strong>$50M+ in realised savings</strong></li>
                   <li>Unified fragmented process platforms into a single AI-integrated ecosystem &ndash; <strong>standardised 80% of workflows across 4 countries</strong></li>
-                  <li>Co-led a <strong>flagship low-power DRAM yield ramp</strong> &ndash; maturity pulled in by 7 months on a multi-quarter mobile-DRAM program</li>
-                  <li>Co-led a <strong>high-bandwidth-memory yield program</strong> supporting Micron's first HBM market entry</li>
+                  <li>Co-led the <strong>low-power DRAM yield ramp shipping in Apple's iPhone 16 Pro Max</strong> &ndash; maturity pulled in by 7 months on a multi-quarter mobile-DRAM program</li>
+                  <li>Co-led the <strong>HBM yield program supporting NVIDIA Blackwell</strong> &ndash; Micron's first HBM market entry</li>
                   <li>Modernised infrastructure from <strong>Hadoop to Google Cloud Platform</strong> (GCP)</li>
-                  <li>Built and deployed a production <strong>ML risk-scoring system</strong> with real-time pipeline orchestration &ndash; preventing $100M+ in potential losses</li>
+                  <li>Built and deployed a production <strong>ML risk-scoring system</strong> with real-time pipeline orchestration &ndash; <strong>1&ndash;2% yield improvement at production scale</strong></li>
                   <li>Designed and deployed a production <strong>GenAI SOP workflow</strong> with retrieval, prompt orchestration, and validation layers &ndash; 80&ndash;90% answer relevance, ~15 min/query deflection, ~2 weeks faster onboarding, scaled to ~3,000 engineers</li>
                   <li>Scaled <strong>RPA</strong> (UiPath/Power Automate) for targeting-lot workflow &ndash; 100% adoption; mentored ~30 engineers</li>
                   <li>Built reliability/observability: pipeline health dashboards, canary/shadow runs, rollback runbooks &ndash; near-zero ML-pipeline outages</li>
@@ -910,7 +980,7 @@
                   <li>Scaled AI-based OCR defect detection system fab-wide &ndash; <strong>4&ndash;5% yield improvement</strong></li>
                   <li>Reduced scanner wafer rejection to &lt;0.5% and MA excursion impact to &lt;0.1%</li>
                   <li>Developed anomaly detection and OOF monitoring with automated MES-integrated alerting</li>
-                  <li>Pioneered novel bevel etch detection using peak colour analysis &ndash; became permanent defence strategy</li>
+                  <li>Built a new bevel-etch detection method using peak colour analysis &ndash; became permanent defence strategy</li>
                 </ul>
               </div>
 
@@ -923,7 +993,7 @@
                 <ul class="timeline-bullets">
                   <li>Built a <strong>digital twin of TEL Celesta</strong> &ndash; ML-guided DoE optimisation reduced chemical usage by 60% and saved USD 7M+</li>
                   <li>Saved 40+ hours/week of manual validation through simulation-based process qualification</li>
-                  <li>Qualified &gt;10 alternate chemistries during COVID disruptions &ndash; <strong>zero production downtime</strong>, mitigating &gt;USD 100M potential losses</li>
+                  <li>Qualified &gt;10 alternate chemistries during COVID disruptions &ndash; <strong>zero production downtime</strong> across affected lines</li>
                   <li>Co-authored 7 technical whitepapers on yield analytics, process automation, and cross-site harmonisation</li>
                 </ul>
               </div>
@@ -1056,21 +1126,26 @@
           <div class="skill-category reveal">
             <div class="skill-category-title">GenAI &amp; LLM</div>
             <div class="skill-tags">
+              <span class="skill-tag">Claude</span>
+              <span class="skill-tag">Frontier Models</span>
               <span class="skill-tag">Prompt Engineering</span>
               <span class="skill-tag">RAG</span>
+              <span class="skill-tag">Tool Use / Function Calling</span>
+              <span class="skill-tag">Sub-agents</span>
+              <span class="skill-tag">Agent Skills</span>
+              <span class="skill-tag">MCP Servers</span>
+              <span class="skill-tag">Guardrails</span>
+              <span class="skill-tag">LLM Evals</span>
               <span class="skill-tag">LangGraph</span>
               <span class="skill-tag">Langfuse</span>
               <span class="skill-tag">Arize Phoenix</span>
-              <span class="skill-tag">LLM Evals</span>
-              <span class="skill-tag">AI Agents</span>
-              <span class="skill-tag">n8n</span>
-              <span class="skill-tag">MCP</span>
               <span class="skill-tag">OpenAI APIs</span>
               <span class="skill-tag">Hugging Face</span>
+              <span class="skill-tag">n8n</span>
             </div>
           </div>
           <div class="skill-category reveal">
-            <div class="skill-category-title">MLOps &amp; DevOps</div>
+            <div class="skill-category-title">MLOps &amp; LLMOps</div>
             <div class="skill-tags">
               <span class="skill-tag">Docker</span>
               <span class="skill-tag">GitLab CI/CD</span>
@@ -1166,19 +1241,19 @@
         <p class="section-label reveal">Awards</p>
         <div class="awards-list">
           <div class="award-item reveal">
-            <span class="award-icon">&#127942;</span>
+            <span class="award-marker" aria-hidden="true"></span>
             <div class="award-text"><strong>Micron Innovation Award</strong> (2022) &ndash; Built ResNet-50 computer vision model for inline wafer defect detection via shadow-ring analysis</div>
           </div>
           <div class="award-item reveal">
-            <span class="award-icon">&#128161;</span>
+            <span class="award-marker" aria-hidden="true"></span>
             <div class="award-text"><strong>Micron Idea of the Quarter</strong> &ndash; Digital twin of TEL Celesta achieving 60% chemical reduction and $7M+ savings</div>
           </div>
           <div class="award-item reveal">
-            <span class="award-icon">&#127775;</span>
+            <span class="award-marker" aria-hidden="true"></span>
             <div class="award-text"><strong>Micron Culture Champion</strong> &ndash; Cross-site collaboration, scanner wafer rejection &lt;0.5%, MA excursion impact &lt;0.1%</div>
           </div>
           <div class="award-item reveal">
-            <span class="award-icon">&#9992;&#65039;</span>
+            <span class="award-marker" aria-hidden="true"></span>
             <div class="award-text"><strong>NUS Awards for Study Abroad (NASA)</strong> &ndash; Received twice</div>
           </div>
         </div>
@@ -1194,7 +1269,7 @@
             <div class="testimonial-role">Distinguished Member of Technical Staff, Micron Technology</div>
           </div>
           <div class="testimonial-card reveal">
-            <p class="testimonial-quote">Approaches problems with structure, curiosity, and a commitment to long-term improvement. Energy, analytical rigour, and a collaborative spirit &ndash; thrives in complex environments that require cross-functional coordination and innovation.</p>
+            <p class="testimonial-quote">Approaches problems with structure, curiosity, and a commitment to long-term improvement.</p>
             <div class="testimonial-author">Vimal Kumar Ramanathan</div>
             <div class="testimonial-role">Senior Manager, Micron Technology</div>
           </div>
@@ -1227,27 +1302,20 @@
         </div>
       </section>
 
-      <!-- Beyond the Code -->
+      <!-- Outside work -->
       <section class="section">
-        <p class="section-label reveal">Beyond the Code</p>
-        <p class="reveal" style="color: var(--text-secondary); font-size: 14px; line-height: 1.7; margin-bottom: 24px;">
-          Outside work, I keep a few habits that make me a better builder:
-          music, travel, and cooking.
-        </p>
+        <p class="section-label reveal">Outside work</p>
         <div class="beyond-grid">
           <div class="beyond-card reveal">
-            <span class="beyond-icon">&#127911;</span>
             <div class="beyond-title">Music</div>
-            <div class="beyond-desc">Playlist curator and careful listener. It helps me notice rhythm, pacing, and mood.</div>
+            <div class="beyond-desc">Playlist curator and careful listener. It teaches me rhythm, pacing, and mood.</div>
           </div>
           <div class="beyond-card reveal">
-            <span class="beyond-icon">&#9992;&#65039;</span>
             <div class="beyond-title">Travel</div>
-            <div class="beyond-desc">Explored cities across Europe and Asia. I like planning the route, then leaving room to learn.</div>
+            <div class="beyond-desc">Cities across Europe and Asia. I like planning the route, then leaving room to learn.</div>
           </div>
           <div class="beyond-card reveal">
-            <span class="beyond-icon">&#127859;</span>
-            <div class="beyond-title">Cooking & Baking</div>
+            <div class="beyond-title">Cooking &amp; Baking</div>
             <div class="beyond-desc">WSQ-certified pastry baker. Recipes taught me to respect process, timing, and small tolerances.</div>
           </div>
         </div>

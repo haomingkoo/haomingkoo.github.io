@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+
+    <title>Japan in Seasons &mdash; Production MCP server for Claude &middot; Haoming Koo</title>
+    <meta name="description" content="Case study: Japan in Seasons, a production MCP server with 12 tools, 1,700+ data points, and a 100/100 Smithery score. End-to-end deployed seasonal travel agent for Claude." />
+    <link rel="canonical" href="https://kooexperience.com/projects/japan-in-seasons.html" />
+
+    <meta property="og:title" content="Japan in Seasons &mdash; Production MCP server for Claude" />
+    <meta property="og:description" content="12 tools, 1,700+ data points, 100/100 Smithery score. End-to-end deployed seasonal travel agent." />
+    <meta property="og:url" content="https://kooexperience.com/projects/japan-in-seasons.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://kooexperience.com/assets/cards/japan-in-seasons.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/system/tokens.css" />
+    <link rel="stylesheet" href="/system/base.css" />
+    <link rel="stylesheet" href="/system/projects.css" />
+  </head>
+  <body>
+    <nav class="project-nav">
+      <a href="/">&larr; Back</a>
+      <a class="nav-brand" href="/">Haoming <em>Koo</em></a>
+      <a href="https://seasons.kooexperience.com" target="_blank" rel="noopener" class="nav-cta">Open live &rarr;</a>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-bg" style="background-image: url('/assets/cards/japan-in-seasons.jpg')"></div>
+      <div class="hero-gradient"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Project &middot; MCP Server</div>
+        <h1 class="hero-title">Japan in <em>Seasons</em></h1>
+        <p class="hero-sub">A production MCP server for Claude &mdash; 12 tools, 1,700+ data points, 100/100 on Smithery. The agent answers seasonal travel questions in real time.</p>
+        <div class="hero-pills">
+          <span class="pill">MCP Server</span>
+          <span class="pill">Tool Use</span>
+          <span class="pill">Claude</span>
+          <span class="pill">100/100 Smithery</span>
+        </div>
+      </div>
+    </section>
+
+    <main class="page-body">
+
+      <section class="block">
+        <h2>Why <em>MCP</em></h2>
+        <p>Anthropic's Model Context Protocol turns Claude into a tool-using agent. The catch: most MCP servers are toys &mdash; one tool, no caching, no annotations, undocumented inputs. They pass the spec but they don't pass the bar for production.</p>
+        <p>I built Japan in Seasons to find out how far the bar actually goes. The result: a server that scores 100/100 on Smithery's quality audit and answers questions like &ldquo;where should I see cherry blossoms next week?&rdquo; with current forecast data &mdash; not training-time guesses.</p>
+      </section>
+
+      <section class="block">
+        <h2>The 12 tools</h2>
+        <div class="arch-grid">
+          <div class="arch-item">
+            <div class="arch-label">Sakura</div>
+            <div class="arch-desc"><code>sakura_now</code>, <code>sakura_forecast</code>, <code>sakura_best_dates</code>, <code>sakura_spots</code>, <code>kawazu_forecast</code> &mdash; cherry blossom timing by city + best viewing spots, including the early-January Izu Kawazu-zakura.</div>
+          </div>
+          <div class="arch-item">
+            <div class="arch-label">Koyo</div>
+            <div class="arch-desc"><code>koyo_now</code>, <code>koyo_forecast</code>, <code>koyo_best_dates</code>, <code>koyo_spots</code> &mdash; autumn-leaves timing and spots.</div>
+          </div>
+          <div class="arch-item">
+            <div class="arch-label">Flowers</div>
+            <div class="arch-desc"><code>flowers_spots</code> &mdash; non-sakura seasonal flowers: plum, wisteria, hydrangea, lavender, sunflower, cosmos.</div>
+          </div>
+          <div class="arch-item">
+            <div class="arch-label">Festivals</div>
+            <div class="arch-desc"><code>festivals_list</code> &mdash; recurring fireworks, matsuri, and winter events with official links.</div>
+          </div>
+          <div class="arch-item">
+            <div class="arch-label">Fruit</div>
+            <div class="arch-desc"><code>fruit_seasons</code>, <code>fruit_farms</code> &mdash; what's in season and where to pick it.</div>
+          </div>
+          <div class="arch-item">
+            <div class="arch-label">Weather</div>
+            <div class="arch-desc"><code>weather_forecast</code> &mdash; short-range weather for trip-planning.</div>
+          </div>
+          <div class="arch-item">
+            <div class="arch-label">Routing</div>
+            <div class="arch-desc"><code>japan_seasonal_answer</code> &mdash; the meta-tool that picks the right specific tool given a broad question.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>How I went from 64/100 to <em>100/100</em></h2>
+        <p>The first Smithery audit scored 64. Every gap turned into a fix, and every fix taught me something about how the protocol expects you to behave:</p>
+        <ul class="bullets">
+          <li><strong>Tool descriptions</strong> need to read like API docs, not blog posts. Action verb first, scope second, side-effects third.</li>
+          <li><strong>Dot-notation naming</strong> (<code>sakura.now</code> not <code>get_sakura_now</code>) reads cleanly in tool-use traces and helps Claude pick the right tool.</li>
+          <li><strong>Annotations</strong> (<code>readOnlyHint</code>, <code>idempotentHint</code>) let the client decide whether retries are safe.</li>
+          <li><strong>Caching</strong> on heavy endpoints &mdash; forecasts don't change every minute; 24-hour TTLs survive token budgets and reduce origin load.</li>
+          <li><strong>Smithery YAML</strong> with full metadata, license, and a clean install path. Quality bar items, not afterthoughts.</li>
+        </ul>
+        <p>The full walkthrough is the most-read post on my blog &mdash; it's reusable as a skill template for any MCP server.</p>
+      </section>
+
+      <section class="block">
+        <h2>What gets shipped</h2>
+        <div class="proj-metrics">
+          <div class="proj-metric">
+            <div class="proj-metric-val">100<span class="accent">/100</span></div>
+            <div class="proj-metric-lbl">Smithery score</div>
+          </div>
+          <div class="proj-metric">
+            <div class="proj-metric-val">12</div>
+            <div class="proj-metric-lbl">Tools exposed</div>
+          </div>
+          <div class="proj-metric">
+            <div class="proj-metric-val">1,700<span class="accent">+</span></div>
+            <div class="proj-metric-lbl">Places indexed</div>
+          </div>
+          <div class="proj-metric">
+            <div class="proj-metric-val">24h</div>
+            <div class="proj-metric-lbl">Forecast cache TTL</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Tech stack</h2>
+        <div class="tech-stack">
+          <span class="tech-pill">TypeScript</span>
+          <span class="tech-pill">MCP SDK</span>
+          <span class="tech-pill">Smithery</span>
+          <span class="tech-pill">Claude</span>
+          <span class="tech-pill">Node.js</span>
+          <span class="tech-pill">FastAPI</span>
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">SQLite</span>
+          <span class="tech-pill">Vercel</span>
+          <span class="tech-pill">Railway</span>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="cta-block">
+          <a class="cta-primary" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Open Japan in Seasons &rarr;</a>
+          <a class="cta-secondary" href="/blog/posts/create-mcp.html">Read the 100/100 walkthrough &rarr;</a>
+          <a class="cta-secondary" href="https://smithery.ai" target="_blank" rel="noopener">View on Smithery &rarr;</a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="project-footer">
+      Built in Singapore &middot; <a href="/">Back to portfolio</a> &middot; <a href="/about.html">About Haoming</a>
+    </footer>
+  </body>
+</html>

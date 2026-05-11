@@ -1,0 +1,41 @@
+:root {
+  --bg: #fafafc;
+  --bg-warm: #ffffff;
+  --paper: #ffffff;
+  --ink: #06070d;
+  --ink-soft: rgba(6,7,13,0.62);
+  --ink-mute: rgba(6,7,13,0.40);
+  --rule: rgba(6,7,13,0.10);
+  --rule-soft: rgba(6,7,13,0.05);
+  --accent: #2563eb;
+  --accent-2: #5b8efb;
+  --glow: rgba(91,142,251,0.22);
+  --glow-2: rgba(37,99,235,0.10);
+  --node: 6,7,13;
+  --node-on: 37,99,235;
+  --grain-op: 0.16;
+  --grain-blend: multiply;
+  --display: "Fraunces","Times New Roman",serif;
+  --body: "Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono: "JetBrains Mono",ui-monospace,Menlo,monospace;
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --max: 1280px;
+}
+[data-theme="dark"] {
+  --bg: #04050a;
+  --bg-warm: #0a0c14;
+  --paper: #0e1018;
+  --ink: #f4f4f6;
+  --ink-soft: rgba(244,244,246,0.66);
+  --ink-mute: rgba(244,244,246,0.42);
+  --rule: rgba(244,244,246,0.10);
+  --rule-soft: rgba(244,244,246,0.05);
+  --accent: #5b8efb;
+  --accent-2: #8eb6f8;
+  --glow: rgba(91,142,251,0.18);
+  --glow-2: rgba(37,99,235,0.10);
+  --node: 244,244,246;
+  --node-on: 91,142,251;
+  --grain-op: 0.14;
+  --grain-blend: screen;
+}
