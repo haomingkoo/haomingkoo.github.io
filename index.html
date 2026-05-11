@@ -506,13 +506,27 @@
     width: 130px;
   }
   .sig-node-label.in { opacity: 1; }
-  .sig-node-label .step { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 6px; text-transform: uppercase; }
-  .sig-node-label .name { font-family: var(--display); font-variation-settings: "opsz" 24, "SOFT" 0; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
-  .sig-node-label .desc { font-size: 12px; color: var(--ink-soft); line-height: 1.4; }
+  .sig-node-label .step {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    color: var(--accent); margin-bottom: 10px; text-transform: uppercase;
+    line-height: 1; min-height: 10px;
+  }
+  .sig-node-label .name {
+    font-family: var(--display); font-variation-settings: "opsz" 24, "SOFT" 0;
+    font-style: italic; font-size: 18px; color: var(--ink);
+    line-height: 1.2; margin-bottom: 8px;
+    min-height: 44px; /* reserves space for 2 lines so 1-line names still align */
+    display: flex; align-items: flex-start; justify-content: center;
+  }
+  .sig-node-label .desc {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.4;
+    min-height: 34px; /* reserves space for 2 lines */
+  }
   .sig-node-label .stack {
-    font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--accent); opacity: 0.78;
-    margin-top: 10px; display: block;
+    margin-top: 12px; display: block; line-height: 1.4;
+    white-space: nowrap; /* keep mono caption on a single line */
   }
 
   /* generic section */
@@ -631,6 +645,7 @@
     font-size: 13px; line-height: 1.45;
     color: rgba(250,250,252,0.78);
     max-width: 96%;
+    min-height: 38px; /* 2-line reserve so all cards align */
   }
   .work-card .arrow {
     position: absolute; top: 20px; right: 20px;
@@ -912,7 +927,7 @@
     </h1>
     <p class="hero-tagline">I turn messy workflows into <em>shipped AI products</em>.</p>
     <p class="hero-sub">
-      Seven years at <strong>Micron</strong> on production systems &mdash; search, vision, risk, simulation.
+      Seven years at <strong>Micron</strong> on production systems: search, vision, risk, simulation.
       Now at <strong>AI Singapore</strong> on an industry AI build with <strong>AMD</strong> through the 100E programme.
       Public tools under this domain. <strong>All free, all open.</strong>
     </p>
@@ -950,11 +965,11 @@
     <div class="sig-eyebrow">How I build</div>
     <h2 class="sig-headline">Five <em>steps</em>.</h2>
     <div class="sig-stage" id="sigStage">
-      <div class="sig-node-label" data-i="0"><div class="step">01</div><div class="name">Start with a real problem</div><div class="desc">Not synthetic. Someone actually needs this.</div><div class="stack">Intent &middot; Constraint scoping</div></div>
-      <div class="sig-node-label" data-i="1"><div class="step">02</div><div class="name">Use real data</div><div class="desc">From real sources, with provenance.</div><div class="stack">Multi-source &middot; Provenance</div></div>
-      <div class="sig-node-label" data-i="2"><div class="step">03</div><div class="name">Apply AI</div><div class="desc">RAG, vision, classifier &mdash; whatever fits.</div><div class="stack">RAG &middot; MCP &middot; Guardrails</div></div>
-      <div class="sig-node-label" data-i="3"><div class="step">04</div><div class="name">Show the work</div><div class="desc">Evidence over vibes.</div><div class="stack">Evals &middot; SHAP &middot; Traces</div></div>
-      <div class="sig-node-label" data-i="4"><div class="step">05</div><div class="name">Hand to a human</div><div class="desc">They review. They decide.</div><div class="stack">Human-in-loop &middot; Audit trail</div></div>
+      <div class="sig-node-label" data-i="0"><div class="step">01</div><div class="name">Start with a real problem</div><div class="desc">Yours. Not a synthetic one.</div><div class="stack">Intent &middot; Scoping</div></div>
+      <div class="sig-node-label" data-i="1"><div class="step">02</div><div class="name">Use real data</div><div class="desc">Real sources. Traceable.</div><div class="stack">Data &middot; Provenance</div></div>
+      <div class="sig-node-label" data-i="2"><div class="step">03</div><div class="name">Apply AI</div><div class="desc">RAG, vision, classifier. Whatever fits.</div><div class="stack">RAG &middot; Guardrails</div></div>
+      <div class="sig-node-label" data-i="3"><div class="step">04</div><div class="name">Show the work</div><div class="desc">Evidence, not vibes.</div><div class="stack">Evals &middot; Traces</div></div>
+      <div class="sig-node-label" data-i="4"><div class="step">05</div><div class="name">Hand it back</div><div class="desc">You see it. You decide.</div><div class="stack">Human-in-loop</div></div>
     </div>
   </div>
 </section>
@@ -1076,7 +1091,7 @@
         <span class="about-years">2017 — 2024</span>
         <span class="about-where">Micron Technology</span>
       </div>
-      <p class="about-what">Production systems across four fabs &mdash; <strong>Singapore, Boise, Hiroshima, Taichung</strong>. Search, vision, risk, simulation. Work that contributed to <em>$600M+ in aggregate program outcomes</em>.</p>
+      <p class="about-what">Production systems across four fabs: <strong>Singapore, Boise, Hiroshima, Taichung</strong>. Search, vision, risk, simulation. Work that contributed to <em>$600M+ in aggregate program outcomes</em>.</p>
     </div>
 
     <div class="about-row">
@@ -1092,7 +1107,7 @@
         <span class="about-years">Always</span>
         <span class="about-where">Free public tools</span>
       </div>
-      <p class="about-what"><em>Eight live so far.</em> The next one's always half-built.</p>
+      <p class="about-what"><em>Eight live so far.</em> The next one could be yours.</p>
     </div>
   </div>
 
