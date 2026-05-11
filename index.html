@@ -274,6 +274,33 @@
     gap: 56px; align-items: center;
     max-width: var(--max); margin: 0 auto; z-index: 2;
   }
+  .hero-stage-bg {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 100vw; height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .hero-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    opacity: 0.26;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  [data-theme="dark"] .hero-video { opacity: 0.18; mix-blend-mode: screen; }
+  .hero-video-mask {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      linear-gradient(180deg, var(--bg) 0%, transparent 16%, transparent 72%, var(--bg) 100%),
+      linear-gradient(90deg, transparent 78%, var(--bg) 100%);
+    transition: background 600ms var(--ease);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video { display: none; }
+  }
   .hero-eyebrow {
     font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--ink-mute); display: flex; align-items: center; gap: 12px; margin-bottom: 36px;
@@ -421,6 +448,29 @@
     position: sticky; top: 0; height: 100vh;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     padding: 0 40px; overflow: hidden;
+  }
+  .sig-video-bg {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+    z-index: -1;
+  }
+  .sig-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center center;
+    opacity: 0.32; mix-blend-mode: multiply;
+    pointer-events: none;
+    transform: scale(1.05);
+  }
+  [data-theme="dark"] .sig-video { opacity: 0.40; mix-blend-mode: screen; }
+  .sig-video-mask {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 60% at center, transparent 0%, var(--bg) 95%),
+      linear-gradient(180deg, var(--bg) 0%, transparent 12%, transparent 88%, var(--bg) 100%);
+    transition: background 600ms var(--ease);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sig-video { display: none; }
   }
   .sig-eyebrow {
     font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
@@ -682,6 +732,13 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-stage-bg" aria-hidden="true">
+    <video class="hero-video" autoplay loop muted playsinline preload="metadata" poster="./assets/cinematic/hero-ambient-poster.jpg">
+      <source src="./assets/cinematic/hero-ambient.webm" type="video/webm" />
+      <source src="./assets/cinematic/hero-ambient.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-video-mask"></div>
+  </div>
   <div class="hero-text">
     <div class="hero-eyebrow">Applied AI · Singapore · Available Q4 2026</div>
     <h1 class="display">
@@ -718,6 +775,13 @@
 <!-- SIGNATURE -->
 <section class="signature" id="signature">
   <div class="sig-pin">
+    <div class="sig-video-bg" aria-hidden="true">
+      <video class="sig-video" autoplay loop muted playsinline preload="metadata" poster="./assets/cinematic/signature-ink-poster.jpg">
+        <source src="./assets/cinematic/signature-ink.webm" type="video/webm" />
+        <source src="./assets/cinematic/signature-ink.mp4" type="video/mp4" />
+      </video>
+      <div class="sig-video-mask"></div>
+    </div>
     <div class="sig-eyebrow">A pattern, not a product</div>
     <h2 class="sig-headline">From planning question to <em>governed handoff</em>.</h2>
     <div class="sig-stage" id="sigStage">
