@@ -193,12 +193,27 @@
   canvas#nodes { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
   .cursor-ring {
-    position: fixed; width: 22px; height: 22px; border-radius: 50%;
-    border: 1px solid var(--ink); transform: translate(-50%,-50%);
-    pointer-events: none; z-index: 999; mix-blend-mode: difference;
+    position: fixed; width: 28px; height: 28px; border-radius: 50%;
+    border: 1.5px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 38%, transparent);
+    transform: translate(-50%,-50%);
+    pointer-events: none; z-index: 999;
     transition: width 220ms var(--ease), height 220ms var(--ease), background 220ms var(--ease), border-color 220ms var(--ease), opacity 220ms;
   }
-  .cursor-ring.hot { width: 44px; height: 44px; background: var(--ink); border-color: var(--ink); }
+  .cursor-ring::after {
+    content: ""; position: absolute; top: 50%; left: 50%;
+    width: 4px; height: 4px; margin: -2px;
+    background: var(--accent); border-radius: 50%;
+    transition: opacity 200ms;
+  }
+  .cursor-ring.hot {
+    width: 52px; height: 52px;
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+    border-color: var(--accent-2);
+    box-shadow: 0 0 28px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  .cursor-ring.hot::after { opacity: 0; }
   .cursor-ring.hidden { opacity: 0; }
   @media (pointer: coarse) { .cursor-ring { display: none; } }
 
@@ -883,7 +898,7 @@
 <section class="work" id="work">
   <div class="inner">
     <div class="sec-eyebrow">Selected work &middot; Eight live systems</div>
-    <h2 class="sec-h2">Real products. Real <em>URLs</em>.</h2>
+    <h2 class="sec-h2">Eight systems. All <em>live</em>.</h2>
     <div class="work-grid">
 
       <a class="work-card" href="https://job.kooexperience.com" target="_blank" rel="noopener">
