@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+
+    <title>Photo Compliance Studio &mdash; Passport-photo pipeline &middot; Haoming Koo</title>
+    <meta name="description" content="Case study: Photo Compliance Studio, a passport-photo compliance pipeline with MediaPipe face mesh, rembg segmentation, 25+ checks, and country-specific rules for 6 countries." />
+    <link rel="canonical" href="https://kooexperience.com/projects/photo-compliance-studio.html" />
+
+    <meta property="og:title" content="Photo Compliance Studio &mdash; Passport-photo pipeline" />
+    <meta property="og:description" content="MediaPipe face mesh, rembg segmentation, 25+ compliance checks across 6 countries." />
+    <meta property="og:url" content="https://kooexperience.com/projects/photo-compliance-studio.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://kooexperience.com/assets/cards/photo-compliance-studio.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/system/tokens.css" />
+    <link rel="stylesheet" href="/system/base.css" />
+    <link rel="stylesheet" href="/system/projects.css" />
+  </head>
+  <body>
+    <nav class="project-nav">
+      <a href="/">&larr; Back</a>
+      <a class="nav-brand" href="/">Haoming <em>Koo</em></a>
+      <a href="https://studio.kooexperience.com" target="_blank" rel="noopener" class="nav-cta">Open live &rarr;</a>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-bg" style="background-image: url('/assets/cards/photo-compliance-studio.jpg')"></div>
+      <div class="hero-gradient"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Project &middot; Computer Vision</div>
+        <h1 class="hero-title">Photo <em>Studio</em></h1>
+        <p class="hero-sub">A passport-photo compliance pipeline. 468 facial landmarks, 25+ rule checks, and country-specific spec sheets for six destinations.</p>
+        <div class="hero-pills">
+          <span class="pill">Computer Vision</span>
+          <span class="pill">Multi-Country</span>
+          <span class="pill">Production</span>
+          <span class="pill">MediaPipe</span>
+        </div>
+      </div>
+    </section>
+
+    <main class="page-body">
+
+      <section class="block">
+        <h2>The <em>problem</em></h2>
+        <p>Passport-photo specifications are tighter than most users realise. Singapore wants 35&times;45mm with a specific head-to-frame ratio. The US wants 2&times;2in with a different ratio. Each country has its own list of forbidden things: glasses, smiles, shadows on the face, neutral backgrounds within a specific RGB band.</p>
+        <p>Most online photo tools either reject silently or accept things they shouldn't. I wanted one that explains what's wrong, in plain language, in real time, and links the user back to the section of the rule that failed.</p>
+      </section>
+
+      <section class="block">
+        <h2>Architecture</h2>
+        <div class="arch-grid">
+          <div class="arch-item">
+            <div class="arch-label">Face mesh</div>
+            <div class="arch-desc"><strong>MediaPipe 468-point face mesh</strong> runs in the browser. Detects head pose, eye-line, mouth opening, ear visibility, frame coverage. Local-first &mdash; the user's photo never leaves the device unless they hit submit.</div>
+          </div>
+          <div class="arch-item">
+            <div class="arch-label">Segmentation</div>
+            <div class="arch-desc"><strong>rembg</strong> with u2net model produces a clean person cutout server-side for background analysis &mdash; checks the wall behind the subject for compliance (off-white range for SG, plain white for US, no shadows).</div>
+          </div>
+          <div class="arch-item">
+            <div class="arch-label">Rule engine</div>
+            <div class="arch-desc">25+ named compliance rules, each with a pass/fail result and a human-readable explanation. Country-specific rule packs override defaults.</div>
+          </div>
+          <div class="arch-item">
+            <div class="arch-label">UX feedback</div>
+            <div class="arch-desc">Each failed check renders as a card with the rule name, what was detected, and the official source link. The user knows exactly what to fix.</div>
+          </div>
+          <div class="arch-item">
+            <div class="arch-label">Output</div>
+            <div class="arch-desc">Cropped, recoloured, correctly-sized JPEG ready for upload. Dimensions match the destination's spec sheet exactly.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Country support</h2>
+        <ul class="bullets">
+          <li><strong>Singapore</strong> &mdash; 35&times;45mm, off-white background, head height 32-36mm.</li>
+          <li><strong>United States</strong> &mdash; 2&times;2in, plain white, head height 1-1&frac38;in.</li>
+          <li><strong>United Kingdom</strong> &mdash; 35&times;45mm, light grey/cream, no glasses, neutral expression.</li>
+          <li><strong>Japan</strong> &mdash; 35&times;45mm, plain background, head height 32-36mm.</li>
+          <li><strong>Schengen (EU)</strong> &mdash; 35&times;45mm, light grey, ICAO compliance.</li>
+          <li><strong>Canada</strong> &mdash; 50&times;70mm, plain white or light, specific head ratios.</li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>What gets shipped</h2>
+        <div class="proj-metrics">
+          <div class="proj-metric">
+            <div class="proj-metric-val">468</div>
+            <div class="proj-metric-lbl">Facial landmarks</div>
+          </div>
+          <div class="proj-metric">
+            <div class="proj-metric-val">25<span class="accent">+</span></div>
+            <div class="proj-metric-lbl">Compliance rules</div>
+          </div>
+          <div class="proj-metric">
+            <div class="proj-metric-val">6</div>
+            <div class="proj-metric-lbl">Countries supported</div>
+          </div>
+          <div class="proj-metric">
+            <div class="proj-metric-val">100%</div>
+            <div class="proj-metric-lbl">Local face detection</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Tech stack</h2>
+        <div class="tech-stack">
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">FastAPI</span>
+          <span class="tech-pill">MediaPipe</span>
+          <span class="tech-pill">OpenCV</span>
+          <span class="tech-pill">rembg</span>
+          <span class="tech-pill">u2net</span>
+          <span class="tech-pill">Pillow</span>
+          <span class="tech-pill">Vue</span>
+          <span class="tech-pill">TypeScript</span>
+          <span class="tech-pill">Railway</span>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="cta-block">
+          <a class="cta-primary" href="https://studio.kooexperience.com" target="_blank" rel="noopener">Open Photo Studio &rarr;</a>
+          <a class="cta-secondary" href="/blog/posts/photo-id-studio.html">Read the build log &rarr;</a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="project-footer">
+      Built in Singapore &middot; <a href="/">Back to portfolio</a> &middot; <a href="/about.html">About Haoming</a>
+    </footer>
+  </body>
+</html>
