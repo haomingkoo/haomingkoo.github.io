@@ -1,0 +1,45 @@
+nav.top {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding: 22px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
+  background-color: color-mix(in srgb, var(--bg) 64%, transparent);
+}
+nav.top .mark {
+  font-family: var(--display); font-weight: 400; font-size: 18px;
+  letter-spacing: -0.01em; font-variation-settings: "opsz" 14, "SOFT" 0;
+  color: var(--ink); text-decoration: none;
+}
+nav.top .mark em { font-style: italic; color: var(--accent); }
+nav.top .right { display: flex; align-items: center; gap: 26px; }
+nav.top ul {
+  list-style: none; display: flex; gap: 26px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+nav.top a { color: var(--ink-soft); text-decoration: none; transition: color 200ms; }
+nav.top a:hover { color: var(--accent); }
+
+.clock {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+  color: var(--ink-mute); display: flex; align-items: center; gap: 8px;
+}
+.clock::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent); animation: pulseSoft 2.4s var(--ease) infinite;
+}
+
+.theme-toggle {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--rule); background: transparent; color: var(--ink);
+  cursor: none; display: flex; align-items: center; justify-content: center;
+  transition: border-color 200ms, background 200ms; padding: 0;
+}
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle svg { width: 14px; height: 14px; }
+[data-theme="light"] .theme-toggle .moon { display: block; }
+[data-theme="light"] .theme-toggle .sun  { display: none; }
+[data-theme="dark"]  .theme-toggle .moon { display: none; }
+[data-theme="dark"]  .theme-toggle .sun  { display: block; }
+@media (pointer: coarse) { .theme-toggle { cursor: pointer; } }

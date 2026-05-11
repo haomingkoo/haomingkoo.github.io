@@ -1,0 +1,15 @@
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+html, body {
+  background: var(--bg); color: var(--ink);
+  transition: background-color 600ms var(--ease), color 600ms var(--ease);
+}
+body {
+  font-family: var(--body);
+  font-size: 16px; line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--accent); color: var(--bg); }
+a { color: inherit; }

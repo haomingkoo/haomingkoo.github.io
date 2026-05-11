@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,7 +23,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=optional" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/system/tokens.css" />
+    <link rel="stylesheet" href="/system/base.css" />
     <!-- JSON-LD -->
     <script type="application/ld+json">
     {
@@ -43,45 +45,50 @@
     }
     </script>
     <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       :root {
-        --bg: #060608; --surface: #0e0e12; --surface-hover: #141418;
-        --border: #1c1c24; --border-hover: #2a2a36;
-        --accent: #3b82f6; --accent-dim: rgba(59,130,246,.10);
-        --text: #eeeef0; --text-secondary: #b0b0b8; --muted: #64647a;
+        --surface: var(--paper);
+        --surface-hover: color-mix(in srgb, var(--paper) 88%, var(--accent) 12%);
+        --border: var(--rule);
+        --border-hover: color-mix(in srgb, var(--rule) 60%, var(--accent) 40%);
+        --accent-dim: color-mix(in srgb, var(--accent) 10%, transparent);
+        --text: var(--ink);
+        --text-secondary: var(--ink-soft);
+        --muted: var(--ink-mute);
       }
-      html { scroll-behavior: smooth; }
       body {
-        background: var(--bg); color: var(--text);
-        font-family: "Inter", system-ui, sans-serif;
         font-size: 15px; line-height: 1.6; min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
       }
       body::before {
         content: ""; position: fixed; inset: 0;
-        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,.06) 0%, transparent 60%);
+        background:
+          radial-gradient(ellipse 80% 60% at 50% -10%, color-mix(in srgb, var(--accent) 8%, transparent) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 40% at 85% 20%, rgba(168,85,247,0.04) 0%, transparent 50%);
         pointer-events: none; z-index: 0;
       }
 
       .nav-wrap {
         position: sticky; top: 0; z-index: 100;
-        background: rgba(6,6,8,.72);
+        background: color-mix(in srgb, var(--bg) 72%, transparent);
         backdrop-filter: blur(16px) saturate(1.6);
         -webkit-backdrop-filter: blur(16px) saturate(1.6);
-        border-bottom: 1px solid rgba(28,28,36,.6);
+        border-bottom: 1px solid var(--rule);
       }
       nav {
         max-width: 960px; margin: 0 auto; padding: 0 32px;
         display: flex; align-items: center; justify-content: space-between; height: 56px;
       }
       .nav-logo {
-        font-size: 18px; font-weight: 800; letter-spacing: .04em; text-decoration: none;
-        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        font-family: var(--display);
+        font-variation-settings: "opsz" 14, "SOFT" 0;
+        font-size: 18px; font-weight: 400; letter-spacing: -0.01em;
+        color: var(--text); text-decoration: none;
       }
+      .nav-logo em { font-style: italic; color: var(--accent); }
       .nav-links { display: flex; gap: 8px; }
       .nav-links a {
-        color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500;
+        color: var(--muted); text-decoration: none;
+        font-family: var(--mono); font-size: 11px; font-weight: 500;
+        letter-spacing: 0.16em; text-transform: uppercase;
         padding: 6px 12px; border-radius: 8px; transition: color .2s, background .2s;
       }
       .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(255,255,255,.04); }
@@ -89,9 +96,15 @@
       .container { max-width: 960px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
 
       /* Page header */
-      .page-header { padding: 56px 0 40px; }
-      .page-title { font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: -.025em; margin-bottom: 8px; }
-      .page-desc { font-size: 15px; color: var(--text-secondary); max-width: 520px; }
+      .page-header { padding: 64px 0 40px; }
+      .page-title {
+        font-family: var(--display);
+        font-variation-settings: "opsz" 144, "SOFT" 0;
+        font-size: clamp(40px, 7vw, 72px); font-weight: 380;
+        line-height: 0.95; letter-spacing: -0.035em;
+        margin-bottom: 12px; color: var(--text);
+      }
+      .page-desc { font-size: 16px; color: var(--text-secondary); max-width: 520px; line-height: 1.55; }
 
       /* Tag filters */
       .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
@@ -152,7 +165,7 @@
   <body>
     <div class="nav-wrap">
       <nav>
-        <a class="nav-logo" href="../">HK</a>
+        <a class="nav-logo" href="../">H<em>K</em></a>
         <div class="nav-links">
           <a href="../hire.html">Hire</a>
           <a href="../#projects">Projects</a>
