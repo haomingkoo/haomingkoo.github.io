@@ -145,24 +145,27 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=optional" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
-        --bg: #060608;
-        --surface: #0e0e12;
-        --surface-hover: #141418;
-        --border: #1c1c24;
-        --border-hover: #2a2a36;
-        --accent: #3b82f6;
-        --accent-dim: rgba(59, 130, 246, 0.10);
-        --text: #eeeef0;
-        --text-secondary: #b0b0b8;
-        --muted: #64647a;
+        --bg: #04050a;
+        --surface: #0c1018;
+        --surface-hover: #141a26;
+        --border: rgba(244,244,246,0.12);
+        --border-hover: rgba(244,244,246,0.22);
+        --accent: #5b8efb;
+        --accent-dim: rgba(91,142,251,0.10);
+        --text: #f4f4f6;
+        --text-secondary: rgba(244,244,246,0.66);
+        --muted: rgba(244,244,246,0.42);
         --live: #22c55e;
         --purple: #a855f7;
         --amber: #f59e0b;
+        --display: "Fraunces","Times New Roman",serif;
+        --body-font: "Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
+        --mono: "JetBrains Mono",ui-monospace,Menlo,monospace;
       }
 
       html { scroll-behavior: smooth; }
@@ -170,7 +173,7 @@
       body {
         background: var(--bg);
         color: var(--text);
-        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        font-family: var(--body-font);
         font-size: 15px;
         line-height: 1.6;
         min-height: 100vh;
@@ -217,15 +220,20 @@
         height: 56px;
       }
       .nav-logo {
+        font-family: var(--display);
+        font-variation-settings: "opsz" 14, "SOFT" 30;
         font-size: 18px;
-        font-weight: 800;
-        letter-spacing: 0.04em;
+        font-weight: 400;
+        letter-spacing: -0.01em;
         color: var(--text);
         text-decoration: none;
-        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+      }
+      .nav-logo em { font-style: italic; color: var(--accent); }
+      .nav-links a {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
       }
       .nav-links { display: flex; gap: 8px; }
       .nav-links a {
@@ -271,13 +279,17 @@
         animation: pulse 2.5s infinite;
       }
       .page-title {
-        font-size: clamp(32px, 5vw, 48px);
-        font-weight: 800;
-        line-height: 1.1;
-        letter-spacing: 0;
-        margin-bottom: 16px;
+        font-family: var(--display);
+        font-variation-settings: "opsz" 144, "SOFT" 0;
+        font-size: clamp(48px, 8vw, 96px);
+        font-weight: 380;
+        line-height: 0.95;
+        letter-spacing: -0.035em;
+        margin-bottom: 24px;
       }
       .page-title span {
+        font-style: italic;
+        font-variation-settings: "opsz" 144, "SOFT" 15;
         color: var(--accent);
       }
       .page-subtitle {
@@ -325,20 +337,27 @@
       .metric-item:first-child { border-radius: 14px 0 0 14px; }
       .metric-item:last-child { border-radius: 0 14px 14px 0; }
       .metric-value {
-        font-size: 24px;
-        font-weight: 700;
+        font-family: var(--display);
+        font-variation-settings: "opsz" 36, "SOFT" 0;
+        font-size: 30px;
+        font-weight: 360;
         color: var(--text);
-        letter-spacing: 0;
-        line-height: 1.2;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
       }
-      .metric-value .accent { color: var(--accent); }
+      .metric-value .accent {
+        font-style: italic;
+        font-variation-settings: "opsz" 36, "SOFT" 15;
+        color: var(--accent);
+      }
       .metric-label {
-        font-size: 11px;
-        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--text-secondary);
         text-transform: uppercase;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.16em;
         font-weight: 500;
-        margin-top: 4px;
+        margin-top: 6px;
       }
       .metric-note {
         color: var(--muted);
@@ -350,11 +369,12 @@
       /* ── Section Shared ──────────────────────────────────────── */
       .section { padding: 48px 0; }
       .section-label {
+        font-family: var(--mono);
         font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.18em;
+        font-weight: 500;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: var(--muted);
+        color: var(--text-secondary);
         margin-bottom: 32px;
         display: flex;
         align-items: center;
@@ -749,7 +769,7 @@
       <!-- Header -->
       <header class="page-header reveal">
         <div class="page-status">Open to opportunities</div>
-        <h1 class="page-title">Haoming <span>Koo</span></h1>
+        <h1 class="page-title">Haoming <span>Koo</span>.</h1>
         <p class="page-subtitle">
           Applied AI Engineer. I build production AI systems that solve real operational
           problems: LLM workflows, agent systems, vision pipelines, and sequence modelling.
