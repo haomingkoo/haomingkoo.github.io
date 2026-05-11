@@ -692,7 +692,7 @@
   /* dark gradient at the bottom for meta text legibility over key-art */
   .work-card .gradient {
     position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(180deg, rgba(6,7,13,0) 35%, rgba(6,7,13,0.55) 65%, rgba(6,7,13,0.92) 100%);
+    background: linear-gradient(180deg, rgba(6,7,13,0) 22%, rgba(6,7,13,0.55) 50%, rgba(6,7,13,0.95) 100%);
   }
   /* iridescent shimmer on hover */
   .work-card::after {
@@ -704,24 +704,42 @@
   .work-card:hover::after { opacity: 1; }
 
   .work-card .meta {
-    position: absolute; left: 26px; right: 26px; bottom: 26px; z-index: 2;
+    position: absolute; left: 22px; right: 22px; bottom: 22px; z-index: 2;
+    color: #fafafc;
   }
-  .work-card .meta { color: #fafafc; }
-  .work-card .lbl {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--accent-2);
-    margin-bottom: 14px; font-weight: 500;
+  .work-card .pills {
+    display: flex; flex-wrap: wrap; gap: 5px;
+    margin-bottom: 12px;
+  }
+  .work-card .pill {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em;
+    text-transform: uppercase; font-weight: 500;
+    padding: 4px 9px; border-radius: 99px;
+    background: rgba(91,142,251,0.20);
+    border: 1px solid rgba(91,142,251,0.36);
+    color: #d8e3ff;
   }
   .work-card .title {
     font-family: var(--display); font-variation-settings: "opsz" 48, "SOFT" 0;
-    font-style: italic; font-size: 30px; line-height: 1;
-    margin-bottom: 10px; color: #fafafc;
+    font-style: italic; font-size: 26px; line-height: 1.05;
+    margin-bottom: 8px; color: #fafafc;
   }
   .work-card .desc {
-    font-size: 13px; line-height: 1.45;
-    color: rgba(250,250,252,0.78);
-    max-width: 96%;
-    min-height: 38px; /* 2-line reserve so all cards align */
+    font-size: 12.5px; line-height: 1.5;
+    color: rgba(250,250,252,0.84);
+    margin-bottom: 12px;
+  }
+  .work-card .tech {
+    display: flex; flex-wrap: wrap; gap: 4px;
+  }
+  .work-card .tech-pill {
+    font-family: var(--mono); font-size: 10px;
+    padding: 3px 8px; border-radius: 4px;
+    background: rgba(250,250,252,0.09);
+    color: rgba(250,250,252,0.82);
+    border: 1px solid rgba(250,250,252,0.14);
+    font-weight: 500;
+    letter-spacing: 0.02em;
   }
   .work-card .arrow {
     position: absolute; top: 20px; right: 20px;
@@ -1066,9 +1084,21 @@
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
-          <div class="lbl">SEA-LION &middot; RAG &middot; Validation</div>
+          <div class="pills">
+            <span class="pill">RAG</span>
+            <span class="pill">Guardrails</span>
+            <span class="pill">SEA-LION</span>
+          </div>
           <div class="title">Job Hunter SG</div>
-          <div class="desc">Resume scoring, inline fixes, RAG matching, guarded edits for Singapore roles.</div>
+          <div class="desc">Singapore job aggregator with RAG resume tailoring. 5-stage validation gates prevent hallucination on edits and scoring.</div>
+          <div class="tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">Claude</span>
+            <span class="tech-pill">SEA-LION</span>
+            <span class="tech-pill">LangGraph</span>
+            <span class="tech-pill">Postgres</span>
+          </div>
         </div>
       </a>
 
@@ -1078,9 +1108,21 @@
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
-          <div class="lbl">YOLOv8 &middot; LightGBM &middot; Audit</div>
+          <div class="pills">
+            <span class="pill">Financial AI</span>
+            <span class="pill">Safety-Critical</span>
+            <span class="pill">Multi-Agent</span>
+          </div>
           <div class="title">Trader Koo</div>
-          <div class="desc">Source freshness, ranked signals, paper-trade records, risk flags.</div>
+          <div class="desc">Production financial-markets AI. Multi-agent critic + LightGBM walk-forward classifier. Safe-by-design: VIX hard blocks, daily loss breaker, paper-trade only.</div>
+          <div class="tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Claude</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">LightGBM</span>
+            <span class="tech-pill">YOLOv8</span>
+            <span class="tech-pill">Plotly</span>
+          </div>
         </div>
       </a>
 
@@ -1090,9 +1132,20 @@
         <span class="badge">100/100 Smithery</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
-          <div class="lbl">MCP &middot; 12 tools</div>
+          <div class="pills">
+            <span class="pill">MCP Server</span>
+            <span class="pill">Tool Use</span>
+            <span class="pill">Claude</span>
+          </div>
           <div class="title">Japan in Seasons</div>
-          <div class="desc">1,700+ places, agent-readable seasonal travel intelligence.</div>
+          <div class="desc">Production MCP server for Claude &mdash; 12 tools, 1,700+ data points, 100/100 Smithery score. End-to-end deployed seasonal travel agent.</div>
+          <div class="tech">
+            <span class="tech-pill">TypeScript</span>
+            <span class="tech-pill">MCP SDK</span>
+            <span class="tech-pill">Smithery</span>
+            <span class="tech-pill">Claude</span>
+            <span class="tech-pill">FastAPI</span>
+          </div>
         </div>
       </a>
 
@@ -1102,9 +1155,20 @@
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
-          <div class="lbl">Source hashes &middot; Review gates</div>
+          <div class="pills">
+            <span class="pill">RAG</span>
+            <span class="pill">Source Hashing</span>
+            <span class="pill">Review Gates</span>
+          </div>
           <div class="title">Amex Explorer</div>
-          <div class="desc">Benefit explorer with hashed sources and Table-for-Two slot checks.</div>
+          <div class="desc">Source-backed Amex Platinum benefit explorer. Hashed sources + review gates prevent hallucination on financial details. Live Table-for-Two slot checks.</div>
+          <div class="tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">Claude</span>
+            <span class="tech-pill">Postgres</span>
+            <span class="tech-pill">BeautifulSoup</span>
+          </div>
         </div>
       </a>
 
@@ -1114,9 +1178,20 @@
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
-          <div class="lbl">LightGBM &middot; SHAP</div>
+          <div class="pills">
+            <span class="pill">ML Forecasting</span>
+            <span class="pill">SHAP</span>
+            <span class="pill">Explainability</span>
+          </div>
           <div class="title">LionWeather</div>
-          <div class="desc">Singapore weather decisions: NEA data, ML forecasts, explanations.</div>
+          <div class="desc">Singapore weather intelligence. LightGBM rainfall forecasting on 8 years of NEA data, SHAP explanations, animated radar.</div>
+          <div class="tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">LightGBM</span>
+            <span class="tech-pill">SHAP</span>
+            <span class="tech-pill">Plotly</span>
+          </div>
         </div>
       </a>
 
@@ -1126,9 +1201,20 @@
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
-          <div class="lbl">MediaPipe &middot; OpenCV</div>
+          <div class="pills">
+            <span class="pill">Computer Vision</span>
+            <span class="pill">Multi-Country</span>
+            <span class="pill">Production</span>
+          </div>
           <div class="title">Photo Studio</div>
-          <div class="desc">Photo rules engine for official documents. Specific feedback.</div>
+          <div class="desc">Passport-photo compliance pipeline. MediaPipe face mesh, rembg segmentation, 25+ checks, country-specific rules for 6 countries.</div>
+          <div class="tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">MediaPipe</span>
+            <span class="tech-pill">OpenCV</span>
+            <span class="tech-pill">rembg</span>
+            <span class="tech-pill">FastAPI</span>
+          </div>
         </div>
       </a>
 
@@ -1138,9 +1224,20 @@
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
-          <div class="lbl">EDA &middot; Baseline</div>
+          <div class="pills">
+            <span class="pill">Automated EDA</span>
+            <span class="pill">Baseline ML</span>
+            <span class="pill">Data Triage</span>
+          </div>
           <div class="title">Preflight</div>
-          <div class="desc">Quality checks, EDA, and baseline ML for messy datasets.</div>
+          <div class="desc">Dataset triage workbench. Automated EDA, missingness audits, baseline ML, CV metrics &mdash; drop a CSV, get a notebook-quality report.</div>
+          <div class="tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">scikit-learn</span>
+            <span class="tech-pill">Pandas</span>
+            <span class="tech-pill">Plotly</span>
+          </div>
         </div>
       </a>
 
@@ -1150,9 +1247,20 @@
         <span class="badge">Live</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
-          <div class="lbl">Deal scoring</div>
+          <div class="pills">
+            <span class="pill">Scraping</span>
+            <span class="pill">Vivino Matching</span>
+            <span class="pill">Deal Scoring</span>
+          </div>
           <div class="title">MinMax Wine</div>
-          <div class="desc">Singapore wine deal intelligence with Vivino resolution and 0-100 scoring.</div>
+          <div class="desc">Singapore wine deal intelligence. Selenium scraping + Brave-assisted Vivino resolution + bundle-aware comparison + 0-100 scoring.</div>
+          <div class="tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Selenium</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">Postgres</span>
+            <span class="tech-pill">Plotly</span>
+          </div>
         </div>
       </a>
 
