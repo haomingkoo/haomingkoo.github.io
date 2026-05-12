@@ -63,7 +63,7 @@
             "Built vision models for image classification, object detection, and quality checks",
             "Developed sequence modelling systems for time-series prediction",
             "Implemented containerised deployment, model lifecycle management, and MLOps automation",
-            "Built 8 live portfolio applications integrating ML models with cloud-hosted dashboards (kooexperience.com)",
+            "Separately build and maintain 8 public portfolio applications at kooexperience.com, including RAG workflows, market research tools, MCP travel intelligence, and ML demos",
             "Expanding into NLP, LLM architectures, LangGraph-style orchestration, observability, and agentic AI workflows"
           ]
         }
