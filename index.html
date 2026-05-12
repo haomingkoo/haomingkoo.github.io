@@ -1392,11 +1392,17 @@
   if (reduced) loader.style.display = 'none';
   else addEventListener('load', () => setTimeout(() => loader.classList.add('out'), 1400));
 
-  /* SCROLL PROGRESS */
+  /* SCROLL PROGRESS — rAF-throttled */
   const progress = document.getElementById('scrollProgress');
+  let progressScheduled = false;
   addEventListener('scroll', () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    progress.style.transform = `scaleX(${Math.min(1, scrollY / Math.max(1, max))})`;
+    if (progressScheduled) return;
+    progressScheduled = true;
+    requestAnimationFrame(() => {
+      progressScheduled = false;
+      const max = document.documentElement.scrollHeight - innerHeight;
+      progress.style.transform = `scaleX(${Math.min(1, scrollY / Math.max(1, max))})`;
+    });
   }, { passive: true });
 
   /* CLOCK */
@@ -1601,25 +1607,33 @@
       lbl.style.top = `${t.y - rect.top + 38}px`;
     });
   }
+  let sigScrollScheduled = false;
   function onScroll() {
-    if (!sig) return;
-    const rect = sig.getBoundingClientRect();
-    const total = sig.offsetHeight - innerHeight;
-    if (total <= 0) return;
-    let p = (-rect.top) / total;
-    p = Math.max(0, Math.min(1, p));
-    let c, e;
-    if (p < 0.10) { c = 0; e = 0; }
-    else if (p < 0.45) { c = (p - 0.10)/0.35; e = 0; }
-    else if (p < 0.80) { c = 1; e = (p - 0.45)/0.35; }
-    else { c = 1 - (p - 0.80)/0.20; e = 1; }
-    crystal = Math.max(0, Math.min(1, c));
-    edgeProgress = Math.max(0, Math.min(1, e));
-    labels.forEach((lbl, i) => {
-      const arrive = 0.50 + i*0.05;
-      lbl.classList.toggle('in', p > arrive - 0.03 && crystal > 0.6);
+    if (sigScrollScheduled) return;
+    sigScrollScheduled = true;
+    requestAnimationFrame(() => {
+      sigScrollScheduled = false;
+      if (!sig) return;
+      const rect = sig.getBoundingClientRect();
+      const total = sig.offsetHeight - innerHeight;
+      if (total <= 0) return;
+      let p = (-rect.top) / total;
+      p = Math.max(0, Math.min(1, p));
+      let c, e;
+      if (p < 0.10) { c = 0; e = 0; }
+      else if (p < 0.45) { c = (p - 0.10)/0.35; e = 0; }
+      else if (p < 0.80) { c = 1; e = (p - 0.45)/0.35; }
+      else { c = 1 - (p - 0.80)/0.20; e = 1; }
+      crystal = Math.max(0, Math.min(1, c));
+      edgeProgress = Math.max(0, Math.min(1, e));
+      labels.forEach((lbl, i) => {
+        const arrive = 0.50 + i*0.05;
+        lbl.classList.toggle('in', p > arrive - 0.03 && crystal > 0.6);
+      });
+      /* positionLabels() removed -- absolute labels live inside the
+         positioned sigStage, so their offsets don't change during
+         vertical scroll. Only resize needs to recompute them. */
     });
-    positionLabels();
   }
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', positionLabels);
