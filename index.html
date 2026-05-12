@@ -347,8 +347,13 @@
     mix-blend-mode: screen;
     pointer-events: none;
   }
-  [data-theme="dark"] .hero-video { opacity: 0.42; mix-blend-mode: screen; }
-  [data-theme="light"] .hero-video { display: none; }
+  /* dark theme: aurora video on screen blend */
+  .hero-video-dark { opacity: 0.42; mix-blend-mode: screen; }
+  /* light theme: cobalt-ink-on-cream video on multiply blend */
+  .hero-video-light { opacity: 0.55; mix-blend-mode: multiply; }
+  /* swap based on theme */
+  [data-theme="dark"]  .hero-video-light { display: none; }
+  [data-theme="light"] .hero-video-dark  { display: none; }
   .hero-video-mask {
     position: absolute; inset: 0; pointer-events: none;
     background:
@@ -1028,9 +1033,13 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-stage-bg" aria-hidden="true">
-    <video class="hero-video" autoplay loop muted playsinline preload="metadata" poster="./assets/cinematic/hero-ambient-v2-poster.jpg">
+    <video class="hero-video hero-video-dark" autoplay loop muted playsinline preload="metadata" poster="./assets/cinematic/hero-ambient-v2-poster.jpg">
       <source src="./assets/cinematic/hero-ambient-v2.webm" type="video/webm" />
       <source src="./assets/cinematic/hero-ambient-v2.mp4" type="video/mp4" />
+    </video>
+    <video class="hero-video hero-video-light" autoplay loop muted playsinline preload="metadata" poster="./assets/cinematic/hero-ambient-light.jpg">
+      <source src="./assets/cinematic/hero-ambient-light.webm" type="video/webm" />
+      <source src="./assets/cinematic/hero-ambient-light.mp4" type="video/mp4" />
     </video>
     <div class="hero-video-mask"></div>
   </div>
