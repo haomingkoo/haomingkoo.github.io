@@ -26,6 +26,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/system/tokens.css" />
     <link rel="stylesheet" href="/system/base.css" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('hk-theme') || localStorage.getItem('theme');
+          if (saved) document.documentElement.dataset.theme = saved;
+        } catch (e) {}
+      })();
+    </script>
     <!-- JSON-LD -->
     <script type="application/ld+json">
     {
@@ -92,6 +100,13 @@
         padding: 6px 12px; border-radius: 8px; transition: color .2s, background .2s;
       }
       .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(255,255,255,.04); }
+      .theme-toggle {
+        width: 34px; height: 34px; border-radius: 50%;
+        border: 1px solid var(--border); background: transparent; color: var(--text-secondary);
+        display: inline-flex; align-items: center; justify-content: center;
+        font-size: 15px; cursor: pointer; transition: border-color .2s, color .2s, background .2s;
+      }
+      .theme-toggle:hover { border-color: var(--border-hover); color: var(--text); background: var(--surface); }
 
       .container { max-width: 960px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
 
@@ -156,6 +171,9 @@
       @media (max-width: 600px) {
         .container { padding: 0 18px; }
         nav { padding: 0 18px; }
+        .nav-links a:nth-child(2),
+        .nav-links a:nth-child(4),
+        .nav-links a:nth-child(5) { display: none; }
         .post-item { flex-direction: column; gap: 4px; }
         .post-date { min-width: unset; }
         .filters { gap: 6px; }
@@ -172,6 +190,7 @@
           <a href="./" class="active">Blog</a>
           <a href="../travel/">Travel</a>
           <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" type="button">☾</button>
         </div>
       </nav>
     </div>
@@ -366,6 +385,26 @@
 
     <script>
     (function () {
+      var html = document.documentElement;
+      var themeToggle = document.getElementById("themeToggle");
+      function applyTheme(theme) {
+        html.dataset.theme = theme;
+        if (themeToggle) themeToggle.textContent = theme === "dark" ? "☾" : "☀";
+      }
+      try {
+        applyTheme(localStorage.getItem("hk-theme") || localStorage.getItem("theme") || html.dataset.theme || "dark");
+      } catch (e) {}
+      if (themeToggle) {
+        themeToggle.addEventListener("click", function () {
+          var next = html.dataset.theme === "dark" ? "light" : "dark";
+          applyTheme(next);
+          try {
+            localStorage.setItem("hk-theme", next);
+            localStorage.setItem("theme", next);
+          } catch (e) {}
+        });
+      }
+
       var activeTag = null;
 
       fetch("./posts.json")

@@ -370,6 +370,7 @@
     color: var(--ink-mute); display: flex; align-items: center; gap: 12px; margin-bottom: 36px;
     opacity: 0; animation: fadeRise 900ms 1200ms var(--ease) forwards;
   }
+  .eyebrow-mobile { display: none; }
   .hero-eyebrow::before {
     content: ""; width: 32px; height: 1px; background: var(--accent);
     transform: scaleX(0); transform-origin: left;
@@ -928,6 +929,21 @@
     .post-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 760px) {
+    .loader { display: none; }
+    .hero-eyebrow,
+    h1.display .ch,
+    .hero-tagline,
+    .hero-sub,
+    .cta-row,
+    .portrait-col,
+    .proof-row {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    h1.display .ch {
+      transform: none !important;
+    }
     section.hero { grid-template-columns: 1fr; padding: 110px 24px 60px; gap: 32px; }
     .portrait-col { height: 52vh; min-height: 340px; }
     .portrait-col .crosshair, .portrait-col .portrait-meta { display: none; }
@@ -937,6 +953,15 @@
     nav.top ul li:nth-child(3) { display: none; }
     .proof-row { gap: 18px; flex-wrap: wrap; }
     .proof-row > div { flex: 1 1 40%; }
+    .hero-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      white-space: nowrap;
+      gap: 10px;
+    }
+    .hero-eyebrow::before { width: 24px; flex: 0 0 24px; }
+    .eyebrow-full { display: none; }
+    .eyebrow-mobile { display: inline; }
     section.work, section.about, section.writing, section.hire, footer.site { padding-left: 24px; padding-right: 24px; }
     section.work { padding-top: 80px; padding-bottom: 80px; }
     .work-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -1051,7 +1076,7 @@
     <div class="hero-video-mask"></div>
   </div>
   <div class="hero-text">
-    <div class="hero-eyebrow">Applied AI · Singapore · Available from Q4 2026</div>
+    <div class="hero-eyebrow"><span class="eyebrow-full">Applied AI · Singapore · Available from Q4 2026</span><span class="eyebrow-mobile">Applied AI · Singapore</span></div>
     <h1 class="display">
       <span class="row r1"><span class="ch">H</span><span class="ch">a</span><span class="ch">o</span><span class="ch">m</span><span class="ch">i</span><span class="ch">n</span><span class="ch">g</span></span>
       <span class="row r2"><span class="ch">K</span><span class="ch">o</span><span class="ch">o</span></span>
@@ -1092,14 +1117,14 @@
       </video>
       <div class="sig-video-mask"></div>
     </div>
-    <div class="sig-eyebrow">How I build</div>
-    <h2 class="sig-headline">Five <em>steps</em>.</h2>
+    <div class="sig-eyebrow">Build pattern</div>
+    <h2 class="sig-headline">Messy work, made <em>reviewable</em>.</h2>
     <div class="sig-stage" id="sigStage">
-      <div class="sig-node-label" data-i="0"><div class="step">01</div><div class="name">Solve real</div><div class="desc">A real problem. Yours, not synthetic.</div></div>
-      <div class="sig-node-label" data-i="1"><div class="step">02</div><div class="name">Source real</div><div class="desc">Real data. Traceable.</div></div>
-      <div class="sig-node-label" data-i="2"><div class="step">03</div><div class="name">Apply smart</div><div class="desc">RAG, vision, classifier. Whatever fits.</div></div>
-      <div class="sig-node-label" data-i="3"><div class="step">04</div><div class="name">Show proof</div><div class="desc">Evidence, not vibes.</div></div>
-      <div class="sig-node-label" data-i="4"><div class="step">05</div><div class="name">Keep control</div><div class="desc">You see it. You decide.</div></div>
+      <div class="sig-node-label" data-i="0"><div class="step">01</div><div class="name">Find the constraint</div><div class="desc">Clarify the decision, owner, and failure case.</div></div>
+      <div class="sig-node-label" data-i="1"><div class="step">02</div><div class="name">Ground the sources</div><div class="desc">Use live APIs, docs, schemas, tickets, or records.</div></div>
+      <div class="sig-node-label" data-i="2"><div class="step">03</div><div class="name">Build the tool path</div><div class="desc">RAG, SQL, vision, agents, or plain code where it fits.</div></div>
+      <div class="sig-node-label" data-i="3"><div class="step">04</div><div class="name">Test the edges</div><div class="desc">Add evals, traces, guardrails, and review gates.</div></div>
+      <div class="sig-node-label" data-i="4"><div class="step">05</div><div class="name">Ship the interface</div><div class="desc">Make the result usable, inspectable, and easy to trust.</div></div>
     </div>
   </div>
 </section>
