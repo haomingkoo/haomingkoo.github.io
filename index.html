@@ -584,9 +584,17 @@
     font-family: var(--display); font-variation-settings: "opsz" 72, "SOFT" 0;
     font-weight: 360; font-size: clamp(28px, 4.2vw, 60px);
     line-height: 1.05; letter-spacing: -0.02em;
-    text-align: center; max-width: 24ch; margin: 0 auto 100px;
+    text-align: center; max-width: 24ch; margin: 0 auto 22px;
   }
   .sig-headline em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 72, "SOFT" 15; }
+  .sig-subcopy {
+    max-width: 640px;
+    margin: 0 auto 92px;
+    color: var(--ink-soft);
+    text-align: center;
+    font-size: clamp(15px, 1.35vw, 18px);
+    line-height: 1.65;
+  }
   .sig-stage { width: min(900px, 92%); height: 200px; position: relative; margin: 0 auto; }
   .sig-node-label {
     position: absolute; transform: translateX(-50%);
@@ -975,6 +983,12 @@
     section.signature { height: auto; }
     .sig-pin { position: relative; height: auto; padding: 80px 24px; }
     .sig-headline { margin-bottom: 56px; }
+    .sig-subcopy {
+      text-align: left;
+      margin: -28px 0 42px;
+      max-width: 360px;
+      font-size: 15px;
+    }
     .sig-stage {
       height: auto;
       display: flex;
@@ -1117,14 +1131,15 @@
       </video>
       <div class="sig-video-mask"></div>
     </div>
-    <div class="sig-eyebrow">Build pattern</div>
-    <h2 class="sig-headline">Messy work, made <em>reviewable</em>.</h2>
+    <div class="sig-eyebrow">Human-in-the-loop AI</div>
+    <h2 class="sig-headline">AI is not <em>replacing us</em>.</h2>
+    <p class="sig-subcopy">Useful AI systems help people make better calls. They bring the right context forward, show the evidence, and keep the final decision in human hands.</p>
     <div class="sig-stage" id="sigStage">
-      <div class="sig-node-label" data-i="0"><div class="step">01</div><div class="name">Find the constraint</div><div class="desc">Clarify the decision, owner, and failure case.</div></div>
-      <div class="sig-node-label" data-i="1"><div class="step">02</div><div class="name">Ground the sources</div><div class="desc">Use live APIs, docs, schemas, tickets, or records.</div></div>
-      <div class="sig-node-label" data-i="2"><div class="step">03</div><div class="name">Build the tool path</div><div class="desc">RAG, SQL, vision, agents, or plain code where it fits.</div></div>
-      <div class="sig-node-label" data-i="3"><div class="step">04</div><div class="name">Test the edges</div><div class="desc">Add evals, traces, guardrails, and review gates.</div></div>
-      <div class="sig-node-label" data-i="4"><div class="step">05</div><div class="name">Ship the interface</div><div class="desc">Make the result usable, inspectable, and easy to trust.</div></div>
+      <div class="sig-node-label" data-i="0"><div class="step">01</div><div class="name">Start with the person</div><div class="desc">What decision needs better support?</div></div>
+      <div class="sig-node-label" data-i="1"><div class="step">02</div><div class="name">Ground the answer</div><div class="desc">Bring in the records, APIs, docs, and traces.</div></div>
+      <div class="sig-node-label" data-i="2"><div class="step">03</div><div class="name">Use the right tool</div><div class="desc">SQL, RAG, vision, agents, or plain code.</div></div>
+      <div class="sig-node-label" data-i="3"><div class="step">04</div><div class="name">Check the risk</div><div class="desc">Stale data, bad inputs, and unsafe actions.</div></div>
+      <div class="sig-node-label" data-i="4"><div class="step">05</div><div class="name">Keep control visible</div><div class="desc">Evidence first, then a human decision.</div></div>
     </div>
   </div>
 </section>
