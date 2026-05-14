@@ -10,7 +10,7 @@
       "TypeScript",
       "Open Source"
     ],
-    "excerpt": "A full walkthrough of every quality dimension that separates a working MCP server from a well-built one — tool descriptions, dot notation naming, annotations, caching, smithery.yaml, and the skill that automates all of it.",
+    "excerpt": "The quality fixes that took a working MCP server from 64 to 100/100 on Smithery: tool descriptions, dot notation naming, annotations, caching, smithery.yaml, and the skill that automates the checks.",
     "cover": "",
     "readingTime": "15 min"
   },
@@ -24,7 +24,7 @@
       "OCR",
       "Open Source"
     ],
-    "excerpt": "A head-to-head ablation of 7 open-source PDF parsers on customer complaint forms — scanned, handwritten, AcroForm, and degraded fax. How each parser internally detects words, where they break, and which to pick for production.",
+    "excerpt": "Seven open-source PDF parsers tested on complaint forms: scanned pages, handwriting, AcroForm fields, and degraded fax. Where each parser breaks, and which one I would use in production.",
     "cover": "",
     "readingTime": "14 min"
   },
@@ -44,7 +44,7 @@
   },
   {
     "slug": "job-hunter",
-    "title": "Building Job Hunter SG - AI Resume Coaching for Singapore",
+    "title": "Building Job Hunter SG: AI Resume Coaching for Singapore",
     "date": "2026-03-26",
     "tags": [
       "Building",
@@ -52,7 +52,7 @@
       "Full-Stack",
       "Singapore"
     ],
-    "excerpt": "How I built an AI-powered job aggregator and resume coaching platform for the Singapore job market. Nightly crawls from MyCareersFuture and Careers@Gov, a 7-stage resume tailoring pipeline, and 5 validation gates to prevent AI hallucination. Born from a real job search frustration and revived by a friend's conversation about resume building.",
+    "excerpt": "How I built a Singapore job search and resume product with nightly crawls, RAG matching, a 7-stage tailoring pipeline, and 5 validation gates to keep edits factual.",
     "cover": "",
     "readingTime": "10 min"
   },
@@ -72,7 +72,7 @@
   },
   {
     "slug": "dpo-demo",
-    "title": "DPO Interactive Demo - Your Language Model is Secretly a Reward Model",
+    "title": "DPO Interactive Demo: Your Language Model is Secretly a Reward Model",
     "date": "2026-03-21",
     "tags": [
       "Research",
@@ -80,7 +80,7 @@
       "Alignment",
       "Visualization"
     ],
-    "excerpt": "Interactive walkthrough of Direct Preference Optimization - how to align LLMs with human preferences using just a classification loss. No reward model, no RL, no PPO. Play with the DPO loss calculator and watch training step by step.",
+    "excerpt": "An interactive walkthrough of Direct Preference Optimization: how to align LLMs with human preferences using a classification loss. No reward model, no RL, no PPO.",
     "cover": "",
     "readingTime": "12 min"
   },
@@ -119,7 +119,7 @@
       "ML",
       "Visualization"
     ],
-    "excerpt": "Interactive walkthrough of the WMSS paper — from SFT saturation to logit mixing and gradient amplification. Play with lambda sliders, watch training curves, and understand how weak agents make strong agents stronger.",
+    "excerpt": "An interactive walkthrough of the WMSS paper, from SFT saturation to logit mixing and gradient amplification. Use the sliders to see how weak agents can improve stronger agents.",
     "cover": "",
     "readingTime": "10 min"
   },

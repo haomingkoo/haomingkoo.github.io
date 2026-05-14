@@ -163,7 +163,6 @@
         --text: #f4f4f6;
         --text-secondary: rgba(244,244,246,0.66);
         --muted: rgba(244,244,246,0.42);
-        --live: #22c55e;
         --purple: #a855f7;
         --amber: #f59e0b;
         --display: "Fraunces","Times New Roman",serif;
@@ -277,18 +276,18 @@
         font-weight: 600;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: var(--live);
+        color: var(--accent-2);
         margin-bottom: 20px;
         padding: 5px 14px;
-        background: rgba(34, 197, 94, 0.08);
-        border: 1px solid rgba(34, 197, 94, 0.15);
+        background: var(--accent-dim);
+        border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
         border-radius: 99px;
       }
       .page-status::before {
         content: "";
         width: 6px; height: 6px;
         border-radius: 50%;
-        background: var(--live);
+        background: var(--accent);
         animation: pulse 2.5s infinite;
       }
       .page-title {
@@ -791,6 +790,11 @@
         nav { padding: 0 18px; }
         .nav-links { gap: 2px; }
         .nav-links a { padding: 6px 8px; font-size: 12px; }
+        .nav-links a:nth-child(3),
+        .nav-links a:nth-child(5),
+        .nav-links a:nth-child(6) { display: none; }
+        .page-meta { gap: 10px 14px; }
+        .page-meta-sep { display: none; }
         .timeline-company { padding-left: 28px; }
         footer { flex-direction: column; gap: 28px; }
         .footer-cols { gap: 32px; }
@@ -819,11 +823,11 @@
     <div class="container">
       <!-- Header -->
       <header class="page-header reveal">
-        <div class="page-status">Open to opportunities</div>
+        <div class="page-status">Available from Q4 2026</div>
         <h1 class="page-title">Haoming <span>Koo</span>.</h1>
         <p class="page-subtitle">
-          Applied AI Engineer. I build customer-facing production AI &mdash; LLM workflows,
-          agent systems with guardrails, vision pipelines, and sequence modelling.
+          Applied AI Engineer in Singapore. I build production AI systems for work with complex context:
+          RAG, tool use, evals, observability, vision pipelines, and sequence modelling.
           7 years at Micron contributing to $600M+ in program outcomes across four global fabs.
           Currently at AI Singapore (AIAP), forward-deployed on an industry AI solution with AMD
           through the 100E programme.
@@ -841,7 +845,7 @@
       <div class="metrics-bar reveal">
         <div class="metric-item">
           <div class="metric-value">$600M<span class="accent">+</span></div>
-          <div class="metric-label">Business Impact</div>
+          <div class="metric-label">Program Outcomes</div>
         </div>
         <div class="metric-item">
           <div class="metric-value">3,000<span class="accent">+</span></div>
@@ -866,31 +870,31 @@
 
       <!-- Forward-deployed pattern -->
       <section class="section">
-        <p class="section-label reveal">Forward-deployed pattern</p>
+        <p class="section-label reveal">How I work</p>
         <div class="fde-grid reveal">
           <div class="fde-row">
-            <div class="fde-pillar">Discovery</div>
-            <div class="fde-evidence">5-year autonomous conversion roadmap at Micron delivering $50M+ in realised savings.</div>
+            <div class="fde-pillar">Understand the workflow</div>
+            <div class="fde-evidence">Mapped cross-site semiconductor workflows before building. The 5-year autonomous conversion roadmap at Micron delivered $50M+ in realised savings.</div>
           </div>
           <div class="fde-row">
-            <div class="fde-pillar">Scoping &amp; delivery</div>
-            <div class="fde-evidence">$9M operational portfolio &middot; 6 direct + 9 indirect engineers &middot; building an industry AI solution with AMD through AIAP 100E.</div>
+            <div class="fde-pillar">Shape the system</div>
+            <div class="fde-evidence">$9M operational portfolio, 6 direct + 9 indirect engineers, and current AMD 100E industry AI work through AI Singapore's AIAP programme.</div>
           </div>
           <div class="fde-row">
-            <div class="fde-pillar">Production rollout</div>
-            <div class="fde-evidence">GenAI SOP workflow scaled to ~3,000 engineers &mdash; 80&ndash;90% answer relevance, ~15 min/query deflection, ~2 weeks faster onboarding.</div>
+            <div class="fde-pillar">Ship with evidence</div>
+            <div class="fde-evidence">GenAI SOP workflow scaled to ~3,000 engineers, with 80&ndash;90% answer relevance, ~15 min/query deflection, and ~2 weeks faster onboarding.</div>
           </div>
           <div class="fde-row">
-            <div class="fde-pillar">Eval-driven feedback</div>
+            <div class="fde-pillar">Measure quality</div>
             <div class="fde-evidence">Production ML risk-scoring delivering 1&ndash;2% yield improvement at scale. Eval-tested guardrails on every deployed app (Trader Koo VIX hard blocks, daily loss breaker; Job Hunter SG hallucination gates).</div>
           </div>
           <div class="fde-row">
-            <div class="fde-pillar">Customer embedding</div>
+            <div class="fde-pillar">Work with domain experts</div>
             <div class="fde-evidence">7 years embedded across Singapore, Boise, Hiroshima, Taichung fabs. Co-led flagship DRAM and HBM yield programs.</div>
           </div>
           <div class="fde-row">
-            <div class="fde-pillar">Codified playbooks</div>
-            <div class="fde-evidence">Digital twin patterns, MAXout onboarding framework, observability runbooks &mdash; reused by 30+ engineers across sites.</div>
+            <div class="fde-pillar">Leave a playbook</div>
+            <div class="fde-evidence">Digital twin patterns, MAXout onboarding framework, and observability runbooks reused by 30+ engineers across sites.</div>
           </div>
         </div>
       </section>
@@ -940,12 +944,12 @@
                   <span class="timeline-role-title">AI &amp; Software Engineering (Self-Directed)</span>
                   <span class="timeline-role-dates">Jan 2025 &ndash; Dec 2025</span>
                 </div>
-                <p class="timeline-role-desc">A year to transition from systems leadership at Micron into hands-on production AI &mdash; shipped end-to-end, customer-facing applications using frontier models and full-stack tooling.</p>
+                <p class="timeline-role-desc">A year focused on hands-on AI product building after Micron: public applications that combine models, APIs, UI, validation, and deployment.</p>
                 <ul class="timeline-bullets">
                   <li>Completed <strong>Full Stack Development with AI</strong> (NUS x Emeritus, 24 weeks) &ndash; React, Flask, MongoDB, SQL, Node.js, REST APIs, AI integration</li>
                   <li>Completed <strong>GA100 Generative AI</strong> (Heicoders Academy, WSQ) &ndash; prompt engineering, RAG, AI agents, workflow automation (n8n), MCP</li>
-                  <li>Built 8 live portfolio applications deployed at kooexperience.com &mdash; LLM workflows, agent systems, vision pipelines, RAG</li>
-                  <li>Shipped a production <strong>MCP server</strong> (Japan in Seasons) scoring 100/100 on Smithery &mdash; 12 tools, 1,700+ data points</li>
+                  <li>Built 8 live portfolio applications deployed at kooexperience.com: LLM workflows, agent systems, vision pipelines, and RAG</li>
+                  <li>Shipped a production <strong>MCP server</strong> (Japan in Seasons) scoring 100/100 on Smithery, with 12 tools and 1,700+ data points</li>
                   <li>PMP certification</li>
                 </ul>
               </div>

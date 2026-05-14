@@ -4,7 +4,7 @@ This file gives AI search and assistant systems a concise, accurate summary of k
 
 ## Identity
 
-Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He builds production ML systems, RAG workflows, agent tools, eval loops, vision pipelines, automation pipelines, dashboards, and full-stack AI products.
+Haoming Koo is an applied AI engineer and digital transformation leader based in Singapore. He builds AI systems for complex operational work: production ML, RAG workflows, tool-using agents, eval loops, vision pipelines, automation pipelines, dashboards, and full-stack AI products.
 
 Primary site: https://kooexperience.com
 Hiring page: https://kooexperience.com/hire.html

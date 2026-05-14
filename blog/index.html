@@ -7,15 +7,15 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-    <title>Blog — Haoming Koo</title>
-    <meta name="description" content="Articles on building AI systems, full-stack development, ML pipelines, and software engineering by Haoming Koo." />
+    <title>Writing by Haoming Koo | Applied AI systems and product builds</title>
+    <meta name="description" content="Technical writing by Haoming Koo on applied AI systems, RAG, evals, agent workflows, production ML, and product builds from Singapore." />
     <link rel="canonical" href="https://kooexperience.com/blog/" />
     <!-- OG -->
-    <meta property="og:title" content="Blog — Haoming Koo" />
-    <meta property="og:description" content="Articles on building AI systems, full-stack development, and ML pipelines." />
+    <meta property="og:title" content="Writing by Haoming Koo | Applied AI systems and product builds" />
+    <meta property="og:description" content="Build notes from shipped AI products: RAG, evals, agent workflows, production ML, and product decisions." />
     <meta property="og:url" content="https://kooexperience.com/blog/" />
     <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
     <meta property="og:site_name" content="Haoming Koo" />
     <meta property="og:locale" content="en_SG" />
@@ -26,6 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/system/tokens.css" />
     <link rel="stylesheet" href="/system/base.css" />
+    <link rel="stylesheet" href="/system/atmosphere.css" />
     <script>
       (function () {
         try {
@@ -39,10 +40,12 @@
     {
       "@context": "https://schema.org",
       "@type": "Blog",
-      "name": "Haoming Koo's Blog",
+      "name": "Writing by Haoming Koo",
       "url": "https://kooexperience.com/blog/",
+      "description": "Technical writing on applied AI systems, RAG, evals, agent workflows, production ML, and product builds.",
       "author": {
         "@type": "Person",
+        "@id": "https://kooexperience.com/#person",
         "name": "Haoming Koo",
         "url": "https://kooexperience.com",
         "sameAs": [
@@ -69,8 +72,8 @@
       body::before {
         content: ""; position: fixed; inset: 0;
         background:
-          radial-gradient(ellipse 80% 60% at 50% -10%, color-mix(in srgb, var(--accent) 8%, transparent) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 40% at 85% 20%, rgba(168,85,247,0.04) 0%, transparent 50%);
+          radial-gradient(ellipse 85% 60% at 50% -10%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 62%),
+          radial-gradient(ellipse 50% 40% at 86% 22%, color-mix(in srgb, var(--accent-2) 8%, transparent) 0%, transparent 54%);
         pointer-events: none; z-index: 0;
       }
 
@@ -99,7 +102,7 @@
         letter-spacing: 0.16em; text-transform: uppercase;
         padding: 6px 12px; border-radius: 8px; transition: color .2s, background .2s;
       }
-      .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(255,255,255,.04); }
+      .nav-links a:hover, .nav-links a.active { color: var(--text); background: color-mix(in srgb, var(--paper) 72%, transparent); }
       .theme-toggle {
         width: 34px; height: 34px; border-radius: 50%;
         border: 1px solid var(--border); background: transparent; color: var(--text-secondary);
@@ -107,6 +110,7 @@
         font-size: 15px; cursor: pointer; transition: border-color .2s, color .2s, background .2s;
       }
       .theme-toggle:hover { border-color: var(--border-hover); color: var(--text); background: var(--surface); }
+      .theme-toggle:active { transform: scale(0.97); }
 
       .container { max-width: 960px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
 
@@ -118,6 +122,7 @@
         font-size: clamp(40px, 7vw, 72px); font-weight: 380;
         line-height: 0.95; letter-spacing: -0.035em;
         margin-bottom: 12px; color: var(--text);
+        text-wrap: balance;
       }
       .page-desc { font-size: 16px; color: var(--text-secondary); max-width: 520px; line-height: 1.55; }
 
@@ -126,23 +131,29 @@
       .filter-btn {
         font-size: 12px; font-weight: 500; padding: 6px 16px; border-radius: 99px;
         background: var(--surface); border: 1px solid var(--border);
-        color: var(--muted); cursor: pointer; transition: all .2s; font-family: inherit;
+        color: var(--muted); cursor: pointer;
+        transition: background .2s, border-color .2s, color .2s, transform .2s;
+        font-family: inherit;
       }
       .filter-btn:hover { border-color: var(--border-hover); color: var(--text-secondary); }
-      .filter-btn.active { background: var(--accent-dim); border-color: rgba(59,130,246,.3); color: var(--accent); }
+      .filter-btn:active { transform: scale(0.98); }
+      .filter-btn.active {
+        background: var(--accent-dim);
+        border-color: color-mix(in srgb, var(--accent) 36%, transparent);
+        color: var(--accent);
+      }
 
       /* Post list */
-      .post-list { display: flex; flex-direction: column; gap: 1px; margin-bottom: 64px; }
+      .post-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 64px; }
       .post-item {
         display: flex; align-items: flex-start; gap: 20px; padding: 24px 20px;
         background: var(--surface); text-decoration: none; color: inherit;
-        transition: background .2s, transform .15s;
-        border-left: 3px solid transparent;
+        transition: background .2s, border-color .2s, transform .15s;
+        border: 1px solid var(--border);
+        border-radius: 14px;
       }
-      .post-item:first-child { border-radius: 14px 14px 0 0; }
-      .post-item:last-child { border-radius: 0 0 14px 14px; }
-      .post-item:only-child { border-radius: 14px; }
-      .post-item:hover { background: var(--surface-hover); border-left-color: var(--accent); }
+      .post-item:hover { background: var(--surface-hover); border-color: var(--border-hover); transform: translateY(-1px); }
+      .post-item:active { transform: scale(0.995); }
       .post-date {
         font-size: 12px; color: var(--muted); white-space: nowrap; min-width: 80px;
         padding-top: 3px; font-variant-numeric: tabular-nums;
@@ -153,7 +164,9 @@
       .post-tags { display: flex; flex-wrap: wrap; gap: 5px; }
       .post-tag {
         font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 6px;
-        background: rgba(255,255,255,.04); color: var(--muted); border: 1px solid rgba(255,255,255,.05);
+        background: color-mix(in srgb, var(--paper) 74%, transparent);
+        color: var(--muted);
+        border: 1px solid var(--rule-soft);
       }
       .post-reading { font-size: 12px; color: var(--muted); white-space: nowrap; padding-top: 3px; }
 
@@ -176,11 +189,21 @@
         .nav-links a:nth-child(5) { display: none; }
         .post-item { flex-direction: column; gap: 4px; }
         .post-date { min-width: unset; }
-        .filters { gap: 6px; }
+        .filters {
+          flex-wrap: nowrap;
+          gap: 6px;
+          overflow-x: auto;
+          padding-bottom: 8px;
+          margin-right: -18px;
+          scrollbar-width: none;
+        }
+        .filters::-webkit-scrollbar { display: none; }
+        .filter-btn { flex: 0 0 auto; }
       }
     </style>
   </head>
   <body>
+    <div class="grain"></div>
     <div class="nav-wrap">
       <nav>
         <a class="nav-logo" href="../">H<em>K</em></a>
@@ -197,9 +220,9 @@
 
     <div class="container">
       <div class="page-header">
-        <h1 class="page-title">Blog</h1>
+        <h1 class="page-title">Writing</h1>
         <p class="page-desc">
-          Notes on building AI systems, full-stack engineering, and lessons from shipping real products.
+          Build notes from shipped AI systems: RAG, evals, product decisions, and the parts that broke before they worked.
         </p>
       </div>
 
@@ -215,7 +238,7 @@
           <span class="post-date">Apr 12, 2026</span>
           <div class="post-body">
             <div class="post-title">I Went from 64 to 100/100 on Smithery. Here's Every Fix.</div>
-            <div class="post-excerpt">A full walkthrough of every quality dimension that separates a working MCP server from a well-built one — tool descriptions, dot notation naming, annotations, caching, smithery.yaml, and the skill that automates all of it.</div>
+            <div class="post-excerpt">The quality fixes that took a working MCP server from 64 to 100/100 on Smithery: tool descriptions, dot notation naming, annotations, caching, smithery.yaml, and the skill that automates the checks.</div>
             <div class="post-tags">
               <span class="post-tag">Building</span>
               <span class="post-tag">AI</span>
@@ -230,7 +253,7 @@
           <span class="post-date">Apr 10, 2026</span>
           <div class="post-body">
             <div class="post-title">PDF Parsing for Complaint Forms — Docling vs PyMuPDF vs PaddleOCR</div>
-            <div class="post-excerpt">A head-to-head ablation of 7 open-source PDF parsers on customer complaint forms — scanned, handwritten, AcroForm, and degraded fax. How each parser internally detects words, where they break, and which to pick for production.</div>
+            <div class="post-excerpt">Seven open-source PDF parsers tested on complaint forms: scanned pages, handwriting, AcroForm fields, and degraded fax. Where each parser breaks, and which one I would use in production.</div>
             <div class="post-tags">
               <span class="post-tag">Building</span>
               <span class="post-tag">ML</span>
@@ -257,8 +280,8 @@
         <a class="post-item" href="./posts/job-hunter.html">
           <span class="post-date">Mar 26, 2026</span>
           <div class="post-body">
-            <div class="post-title">Building Job Hunter SG - AI Resume Coaching for Singapore</div>
-            <div class="post-excerpt">How I built an AI-powered job aggregator and resume coaching platform for the Singapore job market. Nightly crawls from MyCareersFuture and Careers@Gov, a 7-stage resume tailoring pipeline, and 5 validation gates to prevent AI hallucination. Born from a real job search frustration and revived by a friend's conversation about resume building.</div>
+            <div class="post-title">Building Job Hunter SG: AI Resume Coaching for Singapore</div>
+            <div class="post-excerpt">How I built a Singapore job search and resume product with nightly crawls, RAG matching, a 7-stage tailoring pipeline, and 5 validation gates to keep edits factual.</div>
             <div class="post-tags">
               <span class="post-tag">Building</span>
               <span class="post-tag">AI</span>
@@ -285,8 +308,8 @@
         <a class="post-item" href="./posts/dpo-demo.html">
           <span class="post-date">Mar 21, 2026</span>
           <div class="post-body">
-            <div class="post-title">DPO Interactive Demo - Your Language Model is Secretly a Reward Model</div>
-            <div class="post-excerpt">Interactive walkthrough of Direct Preference Optimization - how to align LLMs with human preferences using just a classification loss. No reward model, no RL, no PPO. Play with the DPO loss calculator and watch training step by step.</div>
+            <div class="post-title">DPO Interactive Demo: Your Language Model is Secretly a Reward Model</div>
+            <div class="post-excerpt">An interactive walkthrough of Direct Preference Optimization: how to align LLMs with human preferences using a classification loss. No reward model, no RL, no PPO.</div>
             <div class="post-tags">
               <span class="post-tag">Research</span>
               <span class="post-tag">ML</span>
@@ -326,7 +349,7 @@
           <span class="post-date">Mar 13, 2026</span>
           <div class="post-body">
             <div class="post-title">Visualizing Weak-Driven Learning: An Interactive WMSS Demo</div>
-            <div class="post-excerpt">Interactive walkthrough of the WMSS paper — from SFT saturation to logit mixing and gradient amplification. Play with lambda sliders, watch training curves, and understand how weak agents make strong agents stronger.</div>
+            <div class="post-excerpt">An interactive walkthrough of the WMSS paper, from SFT saturation to logit mixing and gradient amplification. Use the sliders to see how weak agents can improve stronger agents.</div>
             <div class="post-tags">
               <span class="post-tag">Research</span>
               <span class="post-tag">ML</span>

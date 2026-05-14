@@ -8,7 +8,7 @@ The first screen has one job: make a recruiter understand the person, the role, 
 
 - Name: Haoming Koo
 - Role: Applied AI engineer in Singapore
-- Story: turns messy workflows into shipped AI products
+- Story: turns complex operational work into AI systems people can trust and use
 - Proof: 7 years at Micron, AI Singapore, $600M+ aggregate program impact, 8 live apps
 - Next step: hire, open live apps, inspect enterprise pattern
 
@@ -18,7 +18,7 @@ Use the cinematic reel as proof of taste and range. The video should not carry i
 
 Storyline:
 
-1. Messy inputs: job posts, market data, maps, tickets, documents.
+1. Unstructured inputs: job posts, market data, maps, tickets, documents.
 2. System layer: retrieval, tools, evals, guardrails, traces, human review.
 3. Product layer: live apps someone can open and test.
 4. Enterprise layer: planning work becomes governed SQL, evidence, root-cause notes, and reviewable handoff.

@@ -1,6 +1,6 @@
 # Haoming Koo
 
-> AI engineer in Singapore building production ML systems, RAG workflows, agent tools, evals, vision pipelines, and full-stack AI products.
+> Applied AI engineer in Singapore building AI systems for complex operational work: RAG, tool use, evals, vision pipelines, and full-stack products.
 
 Search aliases: Haoming Koo, Haoming Koo LinkedIn, Haoming Koo portfolio, Haoming Koo AI Engineer Singapore, Haoming Koo Applied AI Engineer, Haoming Koo Production LLM Systems.
 
@@ -13,7 +13,7 @@ Search aliases: Haoming Koo, Haoming Koo LinkedIn, Haoming Koo portfolio, Haomin
 
 ## Professional Positioning
 
-Haoming Koo is an AI engineer and digital transformation leader based in Singapore. He has 7 years of systems experience and builds production ML systems, RAG workflows, agent tools, evals, observability, and product interfaces. He spent 7 years at Micron Technology, where his work contributed to USD 600M+ in program outcomes across semiconductor manufacturing, cloud infrastructure, and data platforms. He currently builds production ML systems at AI Singapore's AIAP programme, including an industry AI solution with AMD through the 100E programme.
+Haoming Koo is an applied AI engineer and digital transformation leader based in Singapore. He has 7 years of systems experience and builds AI systems for complex operational work: RAG workflows, tool-using agents, evals, observability, vision pipelines, and product interfaces. He spent 7 years at Micron Technology, where his work contributed to USD 600M+ in program outcomes across semiconductor manufacturing, cloud infrastructure, and data platforms. He currently builds production ML systems at AI Singapore's AIAP programme, including an industry AI solution with AMD through the 100E programme.
 
 He is available from Q4 2026 and open to AI engineering roles, applied AI/product engineering roles, forward deployed engineering roles, and focused client projects involving LLM workflows, RAG, evals, LLM observability, vision pipelines, data products, automation, dashboards, and production ML.
 
