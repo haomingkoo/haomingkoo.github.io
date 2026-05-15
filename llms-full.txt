@@ -57,20 +57,20 @@ Availability: from Q4 2026.
 - LLM systems: production LLM systems, RAG, retrieval workflows, tool-using agents, agent workflows, LangGraph, MCP, prompt systems.
 - Reliability: evaluation frameworks, evals, LLM observability, Langfuse, Arize Phoenix, traces, validation gates, human-in-the-loop review.
 - Product delivery: customer discovery, user discovery, spec-driven development, API design, full-stack AI products, deployment at scale.
-- Core stack: Python, TypeScript, FastAPI, React, Docker, GCP, AWS, CI/CD, MLflow, PyTorch, scikit-learn.
+- Core stack: Python, TypeScript, FastAPI, React, Dash, Docker, Railway, GitHub Actions, Playwright, GCP, AWS, CI/CD, MLflow, PyTorch, scikit-learn.
 - Applied ML: vision pipelines, object detection, quality checks, sequence modelling, forecasting, SHAP, data products.
 
 ## Technical Strengths
 
-- Languages and product stack: Python, TypeScript, JavaScript, SQL, HTML/CSS, FastAPI, React, Dash, Plotly.
-- ML/AI: PyTorch, TensorFlow, scikit-learn, LightGBM, YOLOv8, OpenCV, MediaPipe, SHAP, MLflow.
-- LLM systems: RAG, prompt systems, LangGraph-style agent workflows, tool use, evaluation loops, Langfuse, Arize Phoenix, LLM observability, MCP.
-- Infrastructure: Docker, GitHub Actions, Railway, GCP, AWS, CI/CD, scheduled data refreshes.
-- Product habits: user discovery, concept development, spec-driven development, data ingestion, API design, frontend implementation, monitoring, source review, and handoff.
+- Languages and product stack: Python, TypeScript, JavaScript, SQL, HTML/CSS, FastAPI, React, Dash, Plotly, SQLAlchemy, PostgreSQL, SQLite.
+- ML/AI: PyTorch, TensorFlow, scikit-learn, LightGBM, YOLOv8, OpenCV, MediaPipe, SHAP, MLflow, feature engineering.
+- LLM systems: RAG, LangGraph, LangChain, prompt systems, tool use, evaluation loops, Langfuse, Arize Phoenix, LLM observability, MCP, source grounding, human-in-the-loop workflows.
+- Infrastructure: Docker, GitHub Actions, Railway, Playwright, APScheduler, GCP, AWS, CI/CD, scheduled data refreshes.
+- Product habits: user discovery, concept development, spec-driven development, data ingestion, API design, frontend implementation, monitoring, source review, root-cause investigation, and handoff.
 
 ## Recruiter Quick Path
 
-Start with Job Hunter SG to inspect RAG matching, ATS scoring, validation gates, and fact-preserving resume edits. Then open Trader Koo to inspect source freshness, market signals, paper-trade records, and clear research/execution boundaries. The homepage highlights 8 live applications. The hiring page gives the shortest story; the about page gives the full timeline and awards.
+Start with Job Hunter SG to inspect RAG matching, ATS scoring, validation gates, and fact-preserving resume edits. Then open Trader Koo to inspect source freshness, market signals, paper-trade records, and clear research/execution boundaries. The homepage includes a core stack map for ATS and AI retrieval. The hiring page gives the shortest story; the about page gives the full timeline and awards.
 
 ## Live Products
 
