@@ -70,13 +70,13 @@ def app_stack(app: dict[str, Any]) -> str:
 def app_description(app: dict[str, Any]) -> str:
     overrides = {
         "Job Hunter SG": "Singapore job search product with RAG matching, ATS scoring, role-fit keyword checks, and fact-checked resume edits",
-        "Trader Koo": "Market review workflow with signals, paper-trade records, reports, and source freshness",
-        "Japan in Seasons": "Japan travel intelligence with 12 MCP tools, 1,700+ places, and seasonal signals",
+        "Trader Koo": "Market research dashboard with source-fresh data, evidence charts, paper-trade records, and Telegram alerts",
+        "Japan in Seasons": "Japan seasonal travel map, REST API, and MCP server with 17 read-only tools and 1,700+ places",
         "Amex Explorer": "Source-backed benefit explorer with maps, official data tracking, and stale-source alerts",
-        "LionWeather": "Singapore weather intelligence with ML rainfall forecasting and SHAP analysis",
-        "Photo Compliance Studio": "Passport-photo compliance checks with country rules and guided corrections",
-        "Preflight": "CSV and Parquet profiling with data health checks, automated EDA, and baseline ML",
-        "MinMax Wine": "Wine price comparison with bundle-aware pricing, Vivino context, and daily refreshes",
+        "LionWeather": "Singapore weather app with live NEA ingestion, radar cache, saved locations, and LightGBM rainfall forecasts",
+        "Photo Compliance Studio": "Passport/ID photo rules engine with face landmarks, segmentation, crop assistance, and country-profile checks",
+        "Preflight": "Dash workbench for CSV/Parquet uploads, EDA charts, baseline classifiers, and CV metrics",
+        "MinMax Wine": "Wine deal engine with retailer scraping, bundle normalization, Vivino matching, and confidence-aware scoring",
     }
     return overrides.get(app["name"], app["description"])
 

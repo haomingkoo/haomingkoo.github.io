@@ -81,7 +81,7 @@
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "item": { "@type": "SoftwareApplication", "name": "Job Hunter SG", "url": "https://job.kooexperience.com", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "author": { "@id": "https://kooexperience.com/#person" }, "description": "Singapore job aggregator with RAG matching, ATS scoring, and guarded LLM output.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
     { "@type": "ListItem", "position": 2, "item": { "@type": "SoftwareApplication", "name": "Trader Koo", "url": "https://trader.kooexperience.com", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "author": { "@id": "https://kooexperience.com/#person" }, "description": "Evidence-first market research with source freshness, paper-trade audit, and ranked setups.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
-    { "@type": "ListItem", "position": 3, "item": { "@type": "SoftwareApplication", "name": "Japan in Seasons", "url": "https://seasons.kooexperience.com", "applicationCategory": "TravelApplication", "operatingSystem": "Web", "author": { "@id": "https://kooexperience.com/#person" }, "description": "MCP server with 12 tools, 1,700+ places, 100/100 Smithery score.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
+    { "@type": "ListItem", "position": 3, "item": { "@type": "SoftwareApplication", "name": "Japan in Seasons", "url": "https://seasons.kooexperience.com", "applicationCategory": "TravelApplication", "operatingSystem": "Web", "author": { "@id": "https://kooexperience.com/#person" }, "description": "Japan seasonal travel map, REST API, and MCP server with 17 read-only tools and live seasonal data.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
     { "@type": "ListItem", "position": 4, "item": { "@type": "SoftwareApplication", "name": "Amex Explorer", "url": "https://amex-explorer.kooexperience.com", "applicationCategory": "TravelApplication", "operatingSystem": "Web", "author": { "@id": "https://kooexperience.com/#person" }, "description": "Source-backed Amex Platinum benefit explorer with hashes and review gates.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
     { "@type": "ListItem", "position": 5, "item": { "@type": "SoftwareApplication", "name": "LionWeather", "url": "https://lionweather.kooexperience.com", "applicationCategory": "WeatherApplication", "operatingSystem": "Web", "author": { "@id": "https://kooexperience.com/#person" }, "description": "Singapore weather intelligence with LightGBM forecasting and SHAP explanations.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
     { "@type": "ListItem", "position": 6, "item": { "@type": "SoftwareApplication", "name": "Photo Compliance Studio", "url": "https://studio.kooexperience.com", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "author": { "@id": "https://kooexperience.com/#person" }, "description": "Passport-style photo compliance checks with MediaPipe and OpenCV.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
@@ -101,7 +101,7 @@
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Who is Haoming Koo?", "acceptedAnswer": { "@type": "Answer", "text": "Haoming Koo is an applied AI engineer based in Singapore, currently at AI Singapore (AIAP) building an industry AI solution with AMD through the 100E programme. He has 7 years of systems experience at Micron Technology, contributing to $600M+ in aggregate program outcomes. He holds an MSc from NUS and ships 8 live AI portfolio applications." } },
-    { "@type": "Question", "name": "What projects has Haoming Koo built?", "acceptedAnswer": { "@type": "Answer", "text": "Eight live applications: Job Hunter SG (RAG resume tailoring), Trader Koo (market research with YOLOv8), Japan in Seasons (MCP travel server, 100/100 Smithery), LionWeather (LightGBM rainfall + SHAP), Photo Compliance Studio (MediaPipe), Amex Explorer (source-hashed benefit explorer), Preflight (automated EDA), and MinMax Wine (deal scoring)." } },
+    { "@type": "Question", "name": "What projects has Haoming Koo built?", "acceptedAnswer": { "@type": "Answer", "text": "Current public applications include Job Hunter SG (RAG resume tailoring), Trader Koo (market research with YOLOv8 and paper-trade audit), Japan in Seasons (17-tool MCP travel server), LionWeather (LightGBM rainfall forecasting), Photo Compliance Studio (MediaPipe and rembg), Amex Explorer (source-hashed benefit explorer), Preflight (Dash EDA and baseline ML), and MinMax Wine (wine deal scoring)." } },
     { "@type": "Question", "name": "What is Haoming Koo's tech stack?", "acceptedAnswer": { "@type": "Answer", "text": "Python with FastAPI, PyTorch/TensorFlow/scikit-learn, React or vanilla JS, Docker/Railway. Experience with GCP, AWS, MLflow, LangGraph, Langfuse, Arize Phoenix, YOLOv8, OpenCV, MediaPipe, RAG, LLM observability, and agent workflows." } },
     { "@type": "Question", "name": "Is Haoming Koo open to AI engineering roles?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Available from Q4 2026 for applied AI engineering, AI deployment, LLM product engineering, and production ML roles. Singapore-based, open to remote teams globally." } },
     { "@type": "Question", "name": "Where did Haoming Koo study?", "acceptedAnswer": { "@type": "Answer", "text": "National University of Singapore — MSc in Smart Industries & Digital Transformation and BSc (Honours) in Chemistry & Nanoscience. Also completed Full Stack Development with AI (NUS x Emeritus) and PMP certification." } },
@@ -1148,8 +1148,8 @@
 <!-- WORK (8 cards) -->
 <section class="work" id="work">
   <div class="inner">
-    <div class="sec-eyebrow">The work</div>
-    <h2 class="sec-h2">Eight live products. Start with the one <em>closest to your problem</em>.</h2>
+    <div class="sec-eyebrow">Current projects</div>
+    <h2 class="sec-h2">Systems I’m building and maintaining. Start with the one <em>closest to your problem</em>.</h2>
     <div class="work-grid">
 
       <a class="work-card" href="https://job.kooexperience.com" target="_blank" rel="noopener">
@@ -1159,19 +1159,16 @@
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
           <div class="pills">
-            <span class="pill">RAG</span>
-            <span class="pill">Guardrails</span>
+            <span class="pill">React</span>
+            <span class="pill">FastAPI</span>
             <span class="pill">SEA-LION</span>
           </div>
           <div class="title">Job Hunter SG</div>
-          <div class="desc">Singapore job aggregator with RAG resume tailoring. 5-stage validation gates prevent hallucination on edits and scoring.</div>
+          <div class="desc">Singapore job-search product with resume parsing, semantic job matching, SEA-LION rewrites, and validation-gated scoring/export.</div>
           <div class="tech">
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">FastAPI</span>
-            <span class="tech-pill">Claude</span>
-            <span class="tech-pill">SEA-LION</span>
+            <span class="tech-pill">RAG matching</span>
+            <span class="tech-pill">SQLAlchemy</span>
             <span class="tech-pill">LangGraph</span>
-            <span class="tech-pill">Postgres</span>
           </div>
         </div>
       </a>
@@ -1183,19 +1180,18 @@
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
           <div class="pills">
-            <span class="pill">Financial AI</span>
-            <span class="pill">Safety-Critical</span>
-            <span class="pill">Multi-Agent</span>
+            <span class="pill">FastAPI</span>
+            <span class="pill">React</span>
+            <span class="pill">Plotly</span>
           </div>
           <div class="title">Trader Koo</div>
-          <div class="desc">Production financial-markets AI. Multi-agent critic + LightGBM walk-forward classifier. Safe-by-design: VIX hard blocks, daily loss breaker, paper-trade only.</div>
+          <div class="desc">Market research dashboard for equities, crypto, macro, options, and Polymarket. It stores source-fresh data, plots evidence, records paper trades, and sends Telegram alerts.</div>
           <div class="tech">
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">Claude</span>
-            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">TypeScript</span>
+            <span class="tech-pill">SQLite</span>
+            <span class="tech-pill">APScheduler</span>
             <span class="tech-pill">LightGBM</span>
             <span class="tech-pill">YOLOv8</span>
-            <span class="tech-pill">Plotly</span>
           </div>
         </div>
       </a>
@@ -1203,22 +1199,20 @@
       <a class="work-card" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">
         <div class="img" style="background-image:url('./assets/cards/japan-in-seasons.jpg')"></div>
         <div class="gradient"></div>
-        <span class="badge">100/100 Smithery</span>
+        <span class="badge">MCP server</span>
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
           <div class="pills">
-            <span class="pill">MCP Server</span>
-            <span class="pill">Tool Use</span>
-            <span class="pill">Claude</span>
+            <span class="pill">TypeScript</span>
+            <span class="pill">MCP SDK</span>
+            <span class="pill">Leaflet</span>
           </div>
           <div class="title">Japan in Seasons</div>
-          <div class="desc">Production MCP server for Claude: 12 tools, 1,700+ data points, 100/100 Smithery score. End-to-end deployed seasonal travel agent.</div>
+          <div class="desc">Japan seasonal travel map, REST API, and MCP server with 17 read-only tools, live JMC/JMA data, Open-Meteo spot weather, and crawlable seasonal pages.</div>
           <div class="tech">
-            <span class="tech-pill">TypeScript</span>
-            <span class="tech-pill">MCP SDK</span>
-            <span class="tech-pill">Smithery</span>
-            <span class="tech-pill">Claude</span>
-            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">Zod</span>
+            <span class="tech-pill">MCP HTTP</span>
+            <span class="tech-pill">Railway</span>
           </div>
         </div>
       </a>
@@ -1230,18 +1224,18 @@
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
           <div class="pills">
-            <span class="pill">RAG</span>
-            <span class="pill">Source Hashing</span>
-            <span class="pill">Review Gates</span>
+            <span class="pill">Leaflet</span>
+            <span class="pill">Playwright</span>
+            <span class="pill">GitHub Actions</span>
           </div>
           <div class="title">Amex Explorer</div>
-          <div class="desc">Source-backed Amex Platinum benefit explorer. Hashed sources + review gates prevent hallucination on financial details. Live Table-for-Two slot checks.</div>
+          <div class="desc">Map-first explorer for Singapore Amex dining and hotel benefits. Python refresh scripts track official sources, source hashes, and cached Table-for-Two availability.</div>
           <div class="tech">
+            <span class="tech-pill">Static JS</span>
             <span class="tech-pill">Python</span>
-            <span class="tech-pill">FastAPI</span>
-            <span class="tech-pill">Claude</span>
-            <span class="tech-pill">Postgres</span>
-            <span class="tech-pill">BeautifulSoup</span>
+            <span class="tech-pill">MarkerCluster</span>
+            <span class="tech-pill">Source hashes</span>
+            <span class="tech-pill">GitHub Pages</span>
           </div>
         </div>
       </a>
@@ -1253,18 +1247,17 @@
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
           <div class="pills">
-            <span class="pill">ML Forecasting</span>
-            <span class="pill">SHAP</span>
-            <span class="pill">Explainability</span>
+            <span class="pill">React</span>
+            <span class="pill">FastAPI</span>
+            <span class="pill">LightGBM</span>
           </div>
           <div class="title">LionWeather</div>
-          <div class="desc">Singapore weather intelligence. LightGBM rainfall forecasting on 8 years of NEA data, SHAP explanations, animated radar.</div>
+          <div class="desc">Singapore weather app with live NEA ingestion, radar cache, saved locations, and LightGBM rainfall forecasts trained with temporal validation.</div>
           <div class="tech">
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">FastAPI</span>
-            <span class="tech-pill">LightGBM</span>
-            <span class="tech-pill">SHAP</span>
-            <span class="tech-pill">Plotly</span>
+            <span class="tech-pill">Leaflet</span>
+            <span class="tech-pill">Recharts</span>
+            <span class="tech-pill">SQLAlchemy</span>
+            <span class="tech-pill">NEA data</span>
           </div>
         </div>
       </a>
@@ -1276,18 +1269,16 @@
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
           <div class="pills">
-            <span class="pill">Computer Vision</span>
-            <span class="pill">Multi-Country</span>
-            <span class="pill">Production</span>
+            <span class="pill">FastAPI</span>
+            <span class="pill">MediaPipe</span>
+            <span class="pill">OpenCV</span>
           </div>
           <div class="title">Photo Studio</div>
-          <div class="desc">Passport-photo compliance pipeline. MediaPipe face mesh, rembg segmentation, 25+ checks, country-specific rules for 6 countries.</div>
+          <div class="desc">Passport/ID photo rules engine with face landmarks, segmentation, crop/background assist, and country-profile checks.</div>
           <div class="tech">
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">MediaPipe</span>
-            <span class="tech-pill">OpenCV</span>
             <span class="tech-pill">rembg</span>
-            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">ONNX Runtime</span>
+            <span class="tech-pill">YAML profiles</span>
           </div>
         </div>
       </a>
@@ -1299,18 +1290,16 @@
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
           <div class="pills">
-            <span class="pill">Automated EDA</span>
-            <span class="pill">Baseline ML</span>
-            <span class="pill">Data Triage</span>
+            <span class="pill">Dash</span>
+            <span class="pill">Plotly</span>
+            <span class="pill">scikit-learn</span>
           </div>
           <div class="title">Preflight</div>
-          <div class="desc">Dataset triage workbench. Drop a CSV to get automated EDA, missingness audits, baseline ML, and CV metrics.</div>
+          <div class="desc">Dataset triage workbench for CSV/Parquet uploads: type inference, missingness checks, EDA charts, baseline classifiers, and CV metrics.</div>
           <div class="tech">
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">FastAPI</span>
-            <span class="tech-pill">scikit-learn</span>
             <span class="tech-pill">Pandas</span>
-            <span class="tech-pill">Plotly</span>
+            <span class="tech-pill">CSV/Parquet</span>
+            <span class="tech-pill">Basic Auth</span>
           </div>
         </div>
       </a>
@@ -1322,18 +1311,16 @@
         <div class="arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 L10 2 M5 2 L10 2 L10 7"/></svg></div>
         <div class="meta">
           <div class="pills">
-            <span class="pill">Scraping</span>
-            <span class="pill">Vivino Matching</span>
-            <span class="pill">Deal Scoring</span>
+            <span class="pill">FastAPI</span>
+            <span class="pill">Selenium</span>
+            <span class="pill">SQLAlchemy</span>
           </div>
           <div class="title">MinMax Wine</div>
-          <div class="desc">Singapore wine deal intelligence. Selenium scraping + Brave-assisted Vivino resolution + bundle-aware comparison + 0-100 scoring.</div>
+          <div class="desc">Singapore wine deal engine with retailer scraping, bundle normalization, Vivino matching, LLM-assisted enrichment, and confidence-aware scoring.</div>
           <div class="tech">
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">Selenium</span>
-            <span class="tech-pill">FastAPI</span>
-            <span class="tech-pill">Postgres</span>
-            <span class="tech-pill">Plotly</span>
+            <span class="tech-pill">PostgreSQL</span>
+            <span class="tech-pill">Brave Search</span>
+            <span class="tech-pill">Gemini</span>
           </div>
         </div>
       </a>

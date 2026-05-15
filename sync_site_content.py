@@ -339,7 +339,8 @@ def main() -> None:
     travel_posts = load_posts("travel/posts.json")
 
     index_path = ROOT / "index.html"
-    replace_generated_block(index_path, "home-blog", render_home_cards(blog_posts, "blog"))
+    if generated_block_exists(index_path, "home-blog"):
+        replace_generated_block(index_path, "home-blog", render_home_cards(blog_posts, "blog"))
     if generated_block_exists(index_path, "home-travel"):
         replace_generated_block(index_path, "home-travel", render_home_cards(travel_posts, "travel"))
     replace_generated_block(ROOT / "blog/index.html", "blog-count", f"        {len(blog_posts)} posts")

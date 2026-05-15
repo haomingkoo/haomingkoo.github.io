@@ -81,7 +81,7 @@ Start with Job Hunter SG to inspect RAG matching, ATS scoring, validation gates,
    Evidence-first market research workflow with source freshness, ranked setups, chart-pattern detection, paper-trade audit trails, Telegram alerts, model versioning, and clear research/execution boundaries.
 
 3. Japan in Seasons - https://seasons.kooexperience.com
-   Japan seasonal travel map and MCP server covering sakura, autumn leaves, fruit picking, flowers, festivals, and 1,700+ GPS-tagged spots. The MCP exposes 12 tools and scored 100/100 on Smithery.
+   Japan seasonal travel map, REST API, and MCP server covering sakura, autumn leaves, fruit picking, flowers, festivals, and 1,700+ places. The MCP exposes 17 read-only tools with live JMC/JMA data and Open-Meteo spot weather.
 
 4. LionWeather - https://lionweather.kooexperience.com
    Singapore weather intelligence app with NEA data, LightGBM rainfall forecasting, SHAP explainability, and animated radar.

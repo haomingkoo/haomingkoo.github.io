@@ -9,14 +9,14 @@
     <item>
       <title>I Went from 64 to 100/100 on Smithery. Here's Every Fix.</title>
       <link>https://kooexperience.com/blog/posts/create-mcp.html</link>
-      <description>A full walkthrough of every quality dimension that separates a working MCP server from a well-built one — tool descriptions, dot notation naming, annotations, caching, smithery.yaml, and the skill that automates all of it.</description>
+      <description>The quality fixes that took a working MCP server from 64 to 100/100 on Smithery: tool descriptions, dot notation naming, annotations, caching, smithery.yaml, and the skill that automates the checks.</description>
       <pubDate>Sun, 12 Apr 2026 00:00:00 +0800</pubDate>
       <guid>https://kooexperience.com/blog/posts/create-mcp.html</guid>
     </item>
     <item>
       <title>PDF Parsing for Complaint Forms — Docling vs PyMuPDF vs PaddleOCR</title>
       <link>https://kooexperience.com/blog/posts/pdf-parsing-comparison.html</link>
-      <description>A head-to-head ablation of 7 open-source PDF parsers on customer complaint forms — scanned, handwritten, AcroForm, and degraded fax. How each parser internally detects words, where they break, and which to pick for production.</description>
+      <description>Seven open-source PDF parsers tested on complaint forms: scanned pages, handwriting, AcroForm fields, and degraded fax. Where each parser breaks, and which one I would use in production.</description>
       <pubDate>Fri, 10 Apr 2026 00:00:00 +0800</pubDate>
       <guid>https://kooexperience.com/blog/posts/pdf-parsing-comparison.html</guid>
     </item>
@@ -28,9 +28,9 @@
       <guid>https://kooexperience.com/blog/posts/minmax-wine.html</guid>
     </item>
     <item>
-      <title>Building Job Hunter SG - AI Resume Coaching for Singapore</title>
+      <title>Building Job Hunter SG: AI Resume Coaching for Singapore</title>
       <link>https://kooexperience.com/blog/posts/job-hunter.html</link>
-      <description>How I built an AI-powered job aggregator and resume coaching platform for the Singapore job market. Nightly crawls from MyCareersFuture and Careers@Gov, a 7-stage resume tailoring pipeline, and 5 validation gates to prevent AI hallucination. Born from a real job search frustration and revived by a friend's conversation about resume building.</description>
+      <description>How I built a Singapore job search and resume product with nightly crawls, RAG matching, a 7-stage tailoring pipeline, and 5 validation gates to keep edits factual.</description>
       <pubDate>Thu, 26 Mar 2026 00:00:00 +0800</pubDate>
       <guid>https://kooexperience.com/blog/posts/job-hunter.html</guid>
     </item>
@@ -42,9 +42,9 @@
       <guid>https://kooexperience.com/blog/posts/hmm-regime.html</guid>
     </item>
     <item>
-      <title>DPO Interactive Demo - Your Language Model is Secretly a Reward Model</title>
+      <title>DPO Interactive Demo: Your Language Model is Secretly a Reward Model</title>
       <link>https://kooexperience.com/blog/posts/dpo-demo.html</link>
-      <description>Interactive walkthrough of Direct Preference Optimization - how to align LLMs with human preferences using just a classification loss. No reward model, no RL, no PPO. Play with the DPO loss calculator and watch training step by step.</description>
+      <description>An interactive walkthrough of Direct Preference Optimization: how to align LLMs with human preferences using a classification loss. No reward model, no RL, no PPO.</description>
       <pubDate>Sat, 21 Mar 2026 00:00:00 +0800</pubDate>
       <guid>https://kooexperience.com/blog/posts/dpo-demo.html</guid>
     </item>
@@ -65,7 +65,7 @@
     <item>
       <title>Visualizing Weak-Driven Learning: An Interactive WMSS Demo</title>
       <link>https://kooexperience.com/blog/posts/wmss-demo.html</link>
-      <description>Interactive walkthrough of the WMSS paper — from SFT saturation to logit mixing and gradient amplification. Play with lambda sliders, watch training curves, and understand how weak agents make strong agents stronger.</description>
+      <description>An interactive walkthrough of the WMSS paper, from SFT saturation to logit mixing and gradient amplification. Use the sliders to see how weak agents can improve stronger agents.</description>
       <pubDate>Fri, 13 Mar 2026 00:00:00 +0800</pubDate>
       <guid>https://kooexperience.com/blog/posts/wmss-demo.html</guid>
     </item>

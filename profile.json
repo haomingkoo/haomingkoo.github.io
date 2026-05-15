@@ -300,49 +300,49 @@
       "name": "Job Hunter SG",
       "url": "https://job.kooexperience.com",
       "description": "Singapore job search product with multi-source scraping, RAG semantic matching, ATS scoring, role-fit keyword checks, fact preservation, and five validation gates.",
-      "tech": ["SEA-LION", "RAG", "ATS Scoring", "Validation Gates", "FastAPI", "React"]
+      "tech": ["React", "FastAPI", "SEA-LION", "SQLAlchemy", "LangGraph", "Railway"]
     },
     {
       "name": "Trader Koo",
       "url": "https://trader.kooexperience.com",
       "description": "Evidence-first market research workflow with source freshness, ranked setups, chart-pattern detection, paper-trade audit trails, Telegram alerts, and model versioning.",
-      "tech": ["FastAPI", "React", "YOLOv8", "LightGBM", "SHAP", "SQLite", "Telegram"]
+      "tech": ["FastAPI", "React", "Plotly", "SQLite", "LightGBM", "YOLOv8", "APScheduler"]
     },
     {
       "name": "Japan in Seasons",
       "url": "https://seasons.kooexperience.com",
-      "description": "Japan seasonal travel map and MCP server with 12 tools, 1,700+ GPS-tagged places, real forecast data, dot-notation tool design, and 100/100 Smithery score.",
-      "tech": ["TypeScript", "Leaflet", "MCP", "Smithery 100/100"]
+      "description": "Japan seasonal travel map, REST API, and MCP server with 17 read-only tools, live JMC/JMA data, Open-Meteo spot weather, and crawlable seasonal pages.",
+      "tech": ["TypeScript", "MCP SDK", "Leaflet", "Zod", "Railway"]
     },
     {
       "name": "Amex Explorer",
       "url": "https://amex-explorer.kooexperience.com",
       "description": "Source-backed Amex Platinum benefit explorer with official source hashes, cached metadata, map-first UX, source-change issues, Table for Two availability checks, and alert workflows.",
-      "tech": ["TypeScript", "Leaflet", "Playwright", "GitHub Actions", "Source Monitoring"]
+      "tech": ["Static JS", "Leaflet", "Playwright", "GitHub Actions", "Source Hashes"]
     },
     {
       "name": "LionWeather",
       "url": "https://lionweather.kooexperience.com",
-      "description": "Singapore weather intelligence with NEA real-time data, ML-powered rainfall forecasting (LightGBM), and SHAP analysis",
-      "tech": ["React", "LightGBM", "Leaflet", "SHAP"]
+      "description": "Singapore weather app with live NEA ingestion, radar cache, saved locations, and LightGBM rainfall forecasts trained with temporal validation.",
+      "tech": ["React", "FastAPI", "LightGBM", "Leaflet", "Recharts", "SQLAlchemy"]
     },
     {
       "name": "Photo Compliance Studio",
       "url": "https://studio.kooexperience.com",
-      "description": "Passport-style photo compliance checks with country rules, quality diagnostics, and guided corrections",
-      "tech": ["MediaPipe", "OpenCV", "FastAPI"]
+      "description": "Passport/ID photo rules engine with face landmarks, segmentation, crop/background assist, and country-profile checks.",
+      "tech": ["FastAPI", "MediaPipe", "OpenCV", "rembg", "ONNX Runtime"]
     },
     {
       "name": "Preflight",
       "url": "https://preflight.kooexperience.com",
       "description": "Dataset triage workbench for CSV/Parquet files. Checks missingness, duplicates, feature types, EDA, correlations, baseline models, CV metrics, and secured deployment defaults.",
-      "tech": ["Dash", "scikit-learn", "Plotly", "Docker", "Railway"]
+      "tech": ["Dash", "Plotly", "scikit-learn", "Pandas", "Flask"]
     },
     {
       "name": "MinMax Wine",
       "url": "https://wine.kooexperience.com",
       "description": "Wine deal intelligence pipeline with scraping, fuzzy matching, Brave/Vivino resolution, identity cache, quarantine checks, guarded review loop, and 0-100 deal scoring.",
-      "tech": ["Brave Search", "Selenium", "FastAPI", "SQLAlchemy", "PostgreSQL"]
+      "tech": ["FastAPI", "Selenium", "SQLAlchemy", "PostgreSQL", "Brave Search", "Gemini"]
     }
   ],
 
