@@ -9,15 +9,18 @@
   "nationality": "Singapore Citizen",
   "searchAliases": [
     "Haoming Koo",
+    "Haoming Koo GitHub",
     "Haoming Koo LinkedIn",
     "Haoming Koo portfolio",
     "Haoming Koo AI Engineer Singapore",
     "Haoming Koo Applied AI Engineer",
     "Haoming Koo AI Product Engineer",
-    "Haoming Koo Production LLM Systems"
+    "Haoming Koo Production LLM Systems",
+    "haomingkoo",
+    "github.com/haomingkoo"
   ],
 
-  "summary": "Applied AI engineer in Singapore with 7 years of systems experience. I build AI systems for complex operational work: RAG workflows, tool-using agents, evals, observability, vision pipelines, and product interfaces. I spent 7 years at Micron across semiconductor manufacturing, cloud, and data platforms. The work supported cross-site programs across four fabs and contributed to USD 600M+ in program outcomes. I now build production ML systems at AI Singapore, including an industry AI solution with AMD through the 100E programme.",
+  "summary": "Applied AI engineer in Singapore with 7 years of systems experience. I build AI systems for complex operational work: RAG workflows, tool-using agents, evals, observability, vision pipelines, and product interfaces. I spent 7 years at Micron across semiconductor manufacturing, cloud, and data platforms. The work supported cross-site programs across four fabs and contributed to USD 600M+ in program outcomes. I now build production ML systems at AI Singapore, including a 100E industry AI solution for complex operational planning.",
 
   "topSkills": [
     "AI Engineering & MLOps",
@@ -56,10 +59,10 @@
           "startDate": "2026-01",
           "endDate": null,
           "location": "Singapore",
-          "description": "Full-time AI engineering apprenticeship under AI Singapore's national AI programme. Building and deploying end-to-end ML systems across structured data, vision, and sequence modelling domains, including an industry AI solution with AMD through the 100E programme.",
+          "description": "Full-time AI engineering apprenticeship under AI Singapore's national AI programme. Building and deploying end-to-end ML systems across structured data, vision, and sequence modelling domains, including a 100E industry AI solution for complex operational planning.",
           "bullets": [
             "Delivered production-ready pipelines using GitLab CI/CD, Docker, and Google Cloud — including backend inference services and frontend UIs",
-            "Contributing to an industry AI solution with AMD through AI Singapore's 100E programme",
+            "Contributing to a 100E industry AI solution for complex operational planning",
             "Built vision models for image classification, object detection, and quality checks",
             "Developed sequence modelling systems for time-series prediction",
             "Implemented containerised deployment, model lifecycle management, and MLOps automation",
