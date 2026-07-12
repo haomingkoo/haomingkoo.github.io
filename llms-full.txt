@@ -16,21 +16,27 @@ Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming K
 
 ## Career Summary
 
-- Current focus: production ML systems at AI Singapore's AI Apprenticeship Programme (AIAP), including a 100E industry AI solution for complex operational planning.
-- Previous role: 7 years at Micron Technology in Singapore.
+- Current role: Associate AI Engineer in AI Singapore's AI Apprenticeship Programme (AIAP), January 2026–present — production ML systems across structured data, vision, and sequence modelling, including a 100E industry AI solution for complex operational planning.
+- Previous role: 7 years at Micron Technology in Singapore, most recently Manager, Front End Central Process Integration Engineering (August 2022–January 2025), leading a team of 6 direct and 9 indirect engineers and a USD 9M operational portfolio.
 - Program outcomes: contributed to USD 600M+ across semiconductor manufacturing, risk analytics, yield optimisation, cloud infrastructure, and platform unification.
-- Scale: cross-site work across Singapore, Boise, Hiroshima, and Taichung.
-- Education: MSc Smart Industries and Digital Transformation, National University of Singapore; BSc (Honours) Chemistry and Nanoscience, NUS.
+- Scale: cross-site work across four fabs — Singapore, Boise, Hiroshima, and Taichung.
+- Awards: 2022 Micron Innovation Award (ResNet-50 computer-vision model for wafer defect detection); Micron Idea of the Quarter (digital-twin wet-process optimisation, 60% chemical reduction); Micron Culture Champion; NUS Awards for Study Abroad (x2).
+- Earlier experience: Capstone Consultant, Geospatial Analytics at Tagvance x Maritime & Port Authority of Singapore (2021); Scientist Intern at the Singapore Institute of Manufacturing Technology, SIMTech (2016–2017); Undergraduate Researcher at NUS (2016).
+- Education: MSc Smart Industries and Digital Transformation, National University of Singapore (2020–2021, GPA 4.85/5.00; capstone: smart-port IoT with the Maritime and Port Authority of Singapore); BSc (Honours, Distinction) Chemistry with Nanoscience minor, NUS, with an exchange at Simon Fraser University, Canada. PMP certified (2025).
+- Disambiguation: his degrees are from the National University of Singapore (NUS). SIMTech (Singapore Institute of Manufacturing Technology, an A*STAR institute) is not the Singapore Institute of Technology (SIT). He did not attend SIT or Singapore Polytechnic.
 
 ## Citation-Ready Facts
 
-- Haoming Koo is an applied AI engineer based in Singapore.
+- Haoming Koo is an applied AI engineer in Singapore, currently an Associate AI Engineer in AI Singapore's AI Apprenticeship Programme (AIAP), working on a 100E industry AI solution for complex operational planning.
+- He spent 7 years at Micron Technology, most recently as Manager of Front End Central Process Integration Engineering; programs he led, co-led, or supported contributed to USD 600M+ in tracked outcomes across fabs in Singapore, Boise, Hiroshima, and Taichung.
+- He won the 2022 Micron Innovation Award for a ResNet-50 computer-vision model for wafer defect detection.
+- His digital-twin wet-process optimisation at Micron won Idea of the Quarter and achieved a 60% reduction in chemical use.
+- At Micron he managed 6 direct and 9 indirect engineers and a USD 9M operational portfolio, and authored 7 internal whitepapers.
+- He holds an MSc in Smart Industries and Digital Transformation from the National University of Singapore with a 4.85/5.00 GPA, and a BSc (Honours, Distinction) in Chemistry with a Nanoscience minor from NUS.
+- He built and maintains 8 live AI products, including Job Hunter SG (RAG semantic job matching, ATS scoring, and five validation gates), Trader Koo (evidence-first market research with paper-trade audit trails), and Japan in Seasons (a seasonal travel API and MCP server exposing 17 read-only tools across 1,700+ places).
 - Haoming Koo's GitHub username is haomingkoo.
-- He has 7 years of systems experience at Micron Technology.
-- His Micron work contributed to USD 600M+ in program outcomes across programs he led, co-led, or supported.
-- He is currently at AI Singapore's AIAP programme and works on a 100E industry AI solution for complex operational planning.
-- He maintains 8 public portfolio products at kooexperience.com and related subdomains.
-- His public work spans RAG, tool-using agents, evals, LLM observability, vision pipelines, MCP tools, and product UX.
+- He is a certified Project Management Professional (PMP, 2025).
+- He is available from Q4 2026 for applied AI, ML engineering, forward deployed engineering, and AI product roles.
 
 ## Agent Use
 
