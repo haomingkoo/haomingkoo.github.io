@@ -1828,7 +1828,11 @@
     var theme = root.getAttribute('data-theme');
     return document.querySelector(theme === 'light' ? '.hero-video-light' : '.hero-video-dark');
   }
-  activate(heroForTheme());
+  if (document.readyState === 'complete') {
+    activate(heroForTheme());
+  } else {
+    window.addEventListener('load', function () { activate(heroForTheme()); });
+  }
   new MutationObserver(function () { activate(heroForTheme()); })
     .observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   var sig = document.querySelector('.sig-video');
