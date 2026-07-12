@@ -1290,6 +1290,8 @@
 <script>
 (function(){try{var saved=localStorage.getItem("hk-theme")||localStorage.getItem("theme");if(saved)document.documentElement.setAttribute("data-theme",saved);}catch(e){}document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[aria-label=\"Toggle theme\"], .theme-btn, .theme-toggle, #themeToggle");if(!b)return;requestAnimationFrame(function(){try{var theme=document.documentElement.getAttribute("data-theme")||document.documentElement.dataset.theme||"dark";localStorage.setItem("hk-theme",theme);localStorage.setItem("theme",theme);}catch(e){}});},true);})();
 </script>
+  <meta property="og:image" content="https://kooexperience.com/assets/og/pdf-parsing-comparison.png" />
+  <meta name="twitter:image" content="https://kooexperience.com/assets/og/pdf-parsing-comparison.png" />
 </head>
 <body>
 
@@ -1298,7 +1300,7 @@
   <div class="nav-inner">
     <span class="nav-logo">HK</span>
     <span class="nav-title">PDF Parsing for Complaint Forms</span>
-    <a href="/blog" class="nav-blog">← Blog</a>
+    <a href="/blog/" class="nav-blog">← Blog</a>
     <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☀︎</button>
   </div>
 </nav>
@@ -3203,7 +3205,7 @@ flowchart TD
     <div class="footer-inner">
       <span>Haoming Koo · 2026 · <a href="https://kooexperience.com">kooexperience.com</a></span>
       <span style="color:var(--muted)">This page mixes local measurements with cited external benchmarks. Measure on your own corpus before tool selection.</span>
-      <a href="/blog">← Back to Blog</a>
+      <a href="/blog/">← Back to Blog</a>
     </div>
   </div>
 </footer>
@@ -3560,6 +3562,7 @@ function initExplainers() {
     const playing = !!demo._stepTimer;
     btn.textContent = playing ? '⏸' : '▶';
     btn.title = playing ? 'Pause auto-advance' : 'Play auto-advance';
+    btn.setAttribute('aria-label', btn.title);
     btn.classList.toggle('is-paused', !playing);
   };
 

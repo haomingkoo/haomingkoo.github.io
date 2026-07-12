@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page not found — Haoming Koo</title>
+    <meta name="description" content="This page doesn't exist. Head back to kooexperience.com." />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/system/tokens.css" />
+    <link rel="stylesheet" href="/system/base.css" />
+    <style>
+      .nf-wrap {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+        background: var(--bg, #04050a);
+        color: var(--ink, #f4f4f6);
+        font-family: var(--body, system-ui, sans-serif);
+      }
+      .nf-code {
+        font-family: var(--mono, monospace);
+        font-size: 13px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--ink-soft, rgba(244, 244, 246, 0.66));
+        margin: 0 0 16px;
+      }
+      .nf-title {
+        font-size: clamp(28px, 5vw, 44px);
+        margin: 0 0 12px;
+      }
+      .nf-text {
+        color: var(--ink-soft, rgba(244, 244, 246, 0.66));
+        max-width: 46ch;
+        margin: 0 0 32px;
+        line-height: 1.6;
+      }
+      .nf-links {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .nf-links a {
+        color: var(--ink, #f4f4f6);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="nf-wrap">
+      <p class="nf-code">404 — Not found</p>
+      <h1 class="nf-title">This page doesn't exist.</h1>
+      <p class="nf-text">
+        The link may be old, or the page may have moved. Everything worth
+        finding is one hop away.
+      </p>
+      <nav class="nf-links">
+        <a href="/">Home</a>
+        <a href="/hire.html">Hire</a>
+        <a href="/about.html">About</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+    </main>
+  </body>
+</html>

@@ -276,12 +276,15 @@ def render_sitemap(blog_posts: list[dict[str, Any]], travel_posts: list[dict[str
             }
         )
 
-    wmss_path = ROOT / "wmss.html"
-    if wmss_path.exists():
+    # wmss.html is canonicaled to blog/posts/wmss-demo.html, so it is
+    # deliberately excluded from the sitemap (sitemaps should list canonical
+    # URLs only).
+
+    for page in sorted((ROOT / "projects").glob("*.html")):
         entries.append(
             {
-                "loc": "https://kooexperience.com/wmss.html",
-                "lastmod": STATIC_LASTMODS["https://kooexperience.com/wmss.html"],
+                "loc": f"https://kooexperience.com/projects/{page.name}",
+                "lastmod": file_lastmod(f"projects/{page.name}"),
                 "changefreq": "monthly",
                 "priority": "0.7",
             }

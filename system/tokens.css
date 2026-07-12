@@ -4,7 +4,7 @@
   --paper: #ffffff;
   --ink: #06070d;
   --ink-soft: rgba(6,7,13,0.62);
-  --ink-mute: rgba(6,7,13,0.40);
+  --ink-mute: rgba(6,7,13,0.58);
   --rule: rgba(6,7,13,0.10);
   --rule-soft: rgba(6,7,13,0.05);
   --accent: #2563eb;
@@ -27,7 +27,7 @@
   --paper: #0e1018;
   --ink: #f4f4f6;
   --ink-soft: rgba(244,244,246,0.66);
-  --ink-mute: rgba(244,244,246,0.42);
+  --ink-mute: rgba(244,244,246,0.58);
   --rule: rgba(244,244,246,0.10);
   --rule-soft: rgba(244,244,246,0.05);
   --accent: #5b8efb;
