@@ -19,9 +19,7 @@
     "haomingkoo",
     "github.com/haomingkoo"
   ],
-
-  "summary": "Applied AI engineer in Singapore with 7 years of systems experience. I build AI systems for complex operational work: RAG workflows, tool-using agents, evals, observability, vision pipelines, and product interfaces. I spent 7 years at Micron across semiconductor manufacturing, cloud, and data platforms. The work supported cross-site programs across four fabs and contributed to USD 600M+ in program outcomes. I now build production ML systems at AI Singapore, including a 100E industry AI solution for complex operational planning.",
-
+  "summary": "Applied AI engineer in Singapore with 8 years of systems experience. I build AI systems for complex operational work: RAG workflows, tool-using agents, evals, observability, vision pipelines, and product interfaces. I spent 7 years at Micron across semiconductor manufacturing, cloud, and data platforms. The work supported cross-site programs across four fabs, identifying USD 600M+ in opportunities with USD 50M+ realized. I now build production ML systems at AI Singapore, including a 100E industry AI solution for complex operational planning.",
   "topSkills": [
     "AI Engineering & MLOps",
     "Production ML Systems",
@@ -30,26 +28,119 @@
     "GenAI, RAG, LangGraph, Evals & LLM Observability",
     "Global Program Leadership"
   ],
-
   "technicalSkills": {
-    "languages": ["Python", "SQL", "JavaScript", "R", "MATLAB"],
-    "mlAndAI": ["PyTorch", "TensorFlow", "scikit-learn", "OpenCV", "YOLOv8", "LightGBM", "ResNet-50", "Vision Pipelines", "Sequence Modelling", "Transfer Learning", "SHAP"],
-    "genAI": ["LLM Workflow Automation", "RAG (Retrieval-Augmented Generation)", "LangGraph", "Langfuse", "Arize Phoenix", "LLM Observability", "Evaluation Frameworks", "Agentic Workflow Orchestration", "Tool-Using Agents", "Human-in-the-Loop Workflows", "Prompt Engineering", "n8n", "MCP", "OpenAI APIs", "Hugging Face"],
-    "mlOps": ["Docker", "GitLab CI/CD", "Git", "MLflow", "Airflow", "Kedro", "PySpark", "Model Lifecycle Management", "Traceability", "Monitoring"],
-    "cloud": ["Google Cloud Platform (GCP)", "AWS (S3, Lambda, SageMaker)", "Snowflake"],
-    "fullStack": ["React", "FastAPI", "Flask", "Node.js", "HTML/CSS/JS", "REST APIs", "MongoDB", "PostgreSQL", "SQLite"],
-    "dataAndViz": ["Tableau", "Power BI", "Plotly", "Jupyter", "Pandas", "NumPy"],
-    "automation": ["UiPath", "Power Automate", "RPA"],
-    "semiconductor": ["SPC", "MES", "EQMS", "Digital Twins", "SEMulator3D", "KLA CIRCL/Surfscan/Voyager", "JMP", "SAP"],
-    "methodologies": ["Spec-Driven Development", "Agile/Scrum", "Lean Six Sigma", "ISO 9001", "Design Thinking", "Red-Team UAT Testing", "Secure-by-Design"]
+    "languages": [
+      "Python",
+      "SQL",
+      "JavaScript",
+      "R",
+      "MATLAB"
+    ],
+    "mlAndAI": [
+      "PyTorch",
+      "TensorFlow",
+      "scikit-learn",
+      "OpenCV",
+      "YOLOv8",
+      "LightGBM",
+      "ResNet-50",
+      "Vision Pipelines",
+      "Sequence Modelling",
+      "Transfer Learning",
+      "SHAP"
+    ],
+    "genAI": [
+      "LLM Workflow Automation",
+      "RAG (Retrieval-Augmented Generation)",
+      "LangGraph",
+      "Langfuse",
+      "Arize Phoenix",
+      "LLM Observability",
+      "Evaluation Frameworks",
+      "Agentic Workflow Orchestration",
+      "Tool-Using Agents",
+      "Human-in-the-Loop Workflows",
+      "Prompt Engineering",
+      "n8n",
+      "MCP",
+      "OpenAI APIs",
+      "Hugging Face"
+    ],
+    "mlOps": [
+      "Docker",
+      "GitLab CI/CD",
+      "Git",
+      "MLflow",
+      "Airflow",
+      "Kedro",
+      "PySpark",
+      "Model Lifecycle Management",
+      "Traceability",
+      "Monitoring"
+    ],
+    "cloud": [
+      "Google Cloud Platform (GCP)",
+      "AWS (S3, Lambda, SageMaker)",
+      "Snowflake"
+    ],
+    "fullStack": [
+      "React",
+      "FastAPI",
+      "Flask",
+      "Node.js",
+      "HTML/CSS/JS",
+      "REST APIs",
+      "MongoDB",
+      "PostgreSQL",
+      "SQLite"
+    ],
+    "dataAndViz": [
+      "Tableau",
+      "Power BI",
+      "Plotly",
+      "Jupyter",
+      "Pandas",
+      "NumPy"
+    ],
+    "automation": [
+      "UiPath",
+      "Power Automate",
+      "RPA"
+    ],
+    "semiconductor": [
+      "SPC",
+      "MES",
+      "EQMS",
+      "Digital Twins",
+      "SEMulator3D",
+      "KLA CIRCL/Surfscan/Voyager",
+      "JMP",
+      "SAP"
+    ],
+    "methodologies": [
+      "Spec-Driven Development",
+      "Agile/Scrum",
+      "Lean Six Sigma",
+      "ISO 9001",
+      "Design Thinking",
+      "Red-Team UAT Testing",
+      "Secure-by-Design"
+    ]
   },
-
   "spokenLanguages": [
-    { "language": "English", "proficiency": "Native" },
-    { "language": "Chinese (Mandarin)", "proficiency": "Native" },
-    { "language": "Japanese", "proficiency": "Elementary" }
+    {
+      "language": "English",
+      "proficiency": "Native"
+    },
+    {
+      "language": "Chinese (Mandarin)",
+      "proficiency": "Native"
+    },
+    {
+      "language": "Japanese",
+      "proficiency": "Elementary"
+    }
   ],
-
   "experience": [
     {
       "company": "AI Singapore",
@@ -200,14 +291,17 @@
       ]
     }
   ],
-
   "education": [
     {
       "institution": "National University of Singapore",
       "degree": "Master of Science (MSc)",
       "field": "Smart Industries and Digital Transformation",
       "gpa": "4.85/5.00",
-      "graduateCertificates": ["IoT Systems", "Intelligent Sensing", "Data Analytics"],
+      "graduateCertificates": [
+        "IoT Systems",
+        "Intelligent Sensing",
+        "Data Analytics"
+      ],
       "capstone": "Smart port IoT and sensor-based logistics with Maritime Port Authority",
       "startDate": "2020-01",
       "endDate": "2021-12"
@@ -238,10 +332,10 @@
     },
     {
       "institution": "Project Management Institute",
-      "degree": "Project Management Professional (PMP)",
+      "degree": "Project Management Professional (PMP) — in progress, targeted end 2026",
       "field": null,
       "startDate": "2025",
-      "endDate": "2025"
+      "endDate": null
     },
     {
       "institution": "At-Sunrice GlobalChef Academy",
@@ -251,11 +345,10 @@
       "endDate": "2018"
     }
   ],
-
   "certifications": [
     "GA100 — Generative AI (Heicoders Academy, WSQ Accredited, 2025)",
     "Full Stack Development with AI (NUS x Emeritus, 2025)",
-    "Project Management Professional — PMP (2025)",
+    "Project Management Professional — PMP (in progress, targeted end 2026)",
     "ISO 9001 Internal Audit & Risk Practices (Micron-led)",
     "Lean Six Sigma (Green Belt Equivalent)",
     "Data Analytics & Machine Learning (LinkedIn/NUS)",
@@ -264,19 +357,16 @@
     "Leading a Cross-functional Team",
     "Machine Learning for Data Analytics (Competence)"
   ],
-
   "awards": [
     "Micron Innovation Award (2022) — ResNet-50 computer vision model for wafer defect detection",
     "Micron Idea of the Quarter — Digital twin / wet process optimisation achieving 60% chemical reduction",
     "Micron Culture Champion — Cross-site collaboration, scanner rejects <0.5%, MA impact <0.1%",
     "NUS Awards for Study Abroad (NASA) — x2"
   ],
-
   "publications": [
     "Modeling the Lasing Threshold of a Two-Photon Pumped Vitamin Solution",
     "7 internal technical whitepapers on yield analytics, process automation, and cross-site harmonisation (Micron)"
   ],
-
   "testimonials": [
     {
       "author": "Dr. Zhang Linmiao",
@@ -297,64 +387,119 @@
       ]
     }
   ],
-
   "portfolioApps": [
     {
       "name": "Job Hunter SG",
       "url": "https://job.kooexperience.com",
       "description": "Singapore job search product with multi-source scraping, RAG semantic matching, ATS scoring, role-fit keyword checks, fact preservation, and five validation gates.",
-      "tech": ["React", "FastAPI", "SEA-LION", "sentence-transformers", "SQLAlchemy", "LangGraph", "Railway"]
+      "tech": [
+        "React",
+        "FastAPI",
+        "SEA-LION",
+        "sentence-transformers",
+        "SQLAlchemy",
+        "LangGraph",
+        "Railway"
+      ]
     },
     {
       "name": "Trader Koo",
       "url": "https://trader.kooexperience.com",
       "description": "Evidence-first market research workflow with source freshness, ranked setups, chart-pattern detection, paper-trade audit trails, Telegram alerts, and model versioning.",
-      "tech": ["FastAPI", "React", "LightGBM", "YOLOv8", "SQLite", "APScheduler", "Telegram"]
+      "tech": [
+        "FastAPI",
+        "React",
+        "LightGBM",
+        "YOLOv8",
+        "SQLite",
+        "APScheduler",
+        "Telegram"
+      ]
     },
     {
       "name": "Japan in Seasons",
       "url": "https://seasons.kooexperience.com",
       "description": "Japan seasonal travel map, REST API, and MCP server with 17 read-only tools, live JMC/JMA data, Open-Meteo spot weather, and crawlable seasonal pages.",
-      "tech": ["TypeScript", "MCP SDK", "Node HTTP", "Zod", "Railway"]
+      "tech": [
+        "TypeScript",
+        "MCP SDK",
+        "Node HTTP",
+        "Zod",
+        "Railway"
+      ]
     },
     {
       "name": "Amex Explorer",
       "url": "https://amex-explorer.kooexperience.com",
       "description": "Source-backed Amex Platinum benefit explorer with official source hashes, cached metadata, map-first UX, source-change issues, Table for Two availability checks, and alert workflows.",
-      "tech": ["Python", "Playwright", "GitHub Actions", "Source Hashes", "GitHub Pages"]
+      "tech": [
+        "Python",
+        "Playwright",
+        "GitHub Actions",
+        "Source Hashes",
+        "GitHub Pages"
+      ]
     },
     {
       "name": "LionWeather",
       "url": "https://lionweather.kooexperience.com",
       "description": "Singapore weather app with live NEA ingestion, radar cache, saved locations, and LightGBM rainfall forecasts trained with temporal validation.",
-      "tech": ["React", "FastAPI", "LightGBM", "NEA API", "SQLAlchemy", "APScheduler"]
+      "tech": [
+        "React",
+        "FastAPI",
+        "LightGBM",
+        "NEA API",
+        "SQLAlchemy",
+        "APScheduler"
+      ]
     },
     {
       "name": "Photo Compliance Studio",
       "url": "https://studio.kooexperience.com",
       "description": "Passport/ID photo rules engine with face landmarks, segmentation, crop/background assist, and country-profile checks.",
-      "tech": ["FastAPI", "MediaPipe", "OpenCV", "rembg", "ONNX Runtime", "Docker"]
+      "tech": [
+        "FastAPI",
+        "MediaPipe",
+        "OpenCV",
+        "rembg",
+        "ONNX Runtime",
+        "Docker"
+      ]
     },
     {
       "name": "Preflight",
       "url": "https://preflight.kooexperience.com",
       "description": "Dataset triage workbench for CSV/Parquet files. Checks missingness, duplicates, feature types, EDA, correlations, baseline models, CV metrics, and secured deployment defaults.",
-      "tech": ["Dash", "Plotly", "scikit-learn", "Pandas", "Gunicorn", "Docker"]
+      "tech": [
+        "Dash",
+        "Plotly",
+        "scikit-learn",
+        "Pandas",
+        "Gunicorn",
+        "Docker"
+      ]
     },
     {
       "name": "MinMax Wine",
       "url": "https://wine.kooexperience.com",
       "description": "Wine deal intelligence pipeline with scraping, fuzzy matching, Brave/Vivino resolution, identity cache, quarantine checks, guarded review loop, and 0-100 deal scoring.",
-      "tech": ["FastAPI", "Selenium", "SQLAlchemy", "PostgreSQL", "Brave Search", "Gemini", "Railway"]
+      "tech": [
+        "FastAPI",
+        "Selenium",
+        "SQLAlchemy",
+        "PostgreSQL",
+        "Brave Search",
+        "Gemini",
+        "Railway"
+      ]
     }
   ],
-
   "keyMetrics": {
     "businessImpact": "USD 600M+",
-    "businessImpactContext": "Aggregate value of programs I led, co-led, or contributed to as tracked in Micron internal program reviews.",
+    "businessImpactContext": "USD 600M+ in opportunities identified and USD 50M+ realized across programs I led, co-led, or contributed to, as tracked in Micron internal program reviews.",
     "liveApps": 8,
     "mlModels": 4,
-    "yearsExperience": "7",
+    "yearsExperience": "8",
     "globalSites": "4 fabs (Singapore, Boise, Hiroshima, Taichung)",
     "teamManaged": "6 direct + 9 indirect engineers",
     "budgetManaged": "USD 9M operational portfolio",
