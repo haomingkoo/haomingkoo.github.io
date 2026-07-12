@@ -544,7 +544,7 @@ price = ylim[0] + frac_y * (ylim[1] - ylim[0])</code></pre>
             <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies" target="_blank" rel="noopener">S&amp;P 500 table</a>,
             plus market context tickers (SPY, QQQ, VIX).</li>
           <li><strong>Pull prices</strong> via <a href="https://github.com/ranaroussi/yfinance" target="_blank" rel="noopener">yfinance</a>
-            with rate limiting (0.5 to 1.2 second random delay between requests, because getting IP-banned by Yahoo Finance is not on my bucket list).
+            with rate limiting (0.5 to 1.2 second random delay between requests, because getting IP-banned by Yahoo Finance is not on my bucket list).</li>
           <li><strong>Scrape fundamentals</strong> from Finviz for P/E, PEG, EPS growth, analyst targets.
             Cached with a 20-hour minimum interval to avoid redundant fetches.</li>
           <li><strong>Run incremental YOLO</strong> only on tickers that have new candles since their last detection run.</li>

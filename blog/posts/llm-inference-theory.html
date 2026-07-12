@@ -395,7 +395,8 @@ tr:hover td{background:rgba(255,255,255,.02)}
   .nav-inner{padding:0 18px}
   .nav-title{display:none}
 }
-  </style>
+    input[type="range"]:focus-visible { outline: 2px solid #7aa2ff; outline-offset: 2px; }
+</style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -775,21 +776,21 @@ Example (Llama-2 7B: 32 layers, 32 heads, 128 head_dim, 2048 seq_len, FP16):
       <div class="calc-grid">
         <div class="calc-inputs">
           <div class="slider-group">
-            <label>Model Parameters</label>
+            <label for="calc-params">Model Parameters</label>
             <div class="slider-row">
               <input type="range" min="1" max="70" step="1" value="7" id="calc-params" oninput="updateVRAMCalc()">
               <span class="slider-val" id="calc-params-val">7B</span>
             </div>
           </div>
           <div class="slider-group">
-            <label>Precision</label>
+            <label for="calc-precision">Precision</label>
             <div class="slider-row">
               <input type="range" min="0" max="3" step="1" value="1" id="calc-precision" oninput="updateVRAMCalc()">
               <span class="slider-val" id="calc-precision-val">FP16</span>
             </div>
           </div>
           <div class="slider-group">
-            <label>GPU VRAM</label>
+            <label for="calc-vram">GPU VRAM</label>
             <div class="slider-row">
               <input type="range" min="0" max="2" step="1" value="2" id="calc-vram" oninput="updateVRAMCalc()">
               <span class="slider-val" id="calc-vram-val">80 GB</span>
