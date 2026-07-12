@@ -1171,13 +1171,13 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-stage-bg" aria-hidden="true">
-    <video class="hero-video hero-video-dark" autoplay loop muted playsinline preload="metadata" poster="./assets/cinematic/hero-ambient-v2-poster.jpg">
-      <source src="./assets/cinematic/hero-ambient-v2.webm" type="video/webm" />
-      <source src="./assets/cinematic/hero-ambient-v2.mp4" type="video/mp4" />
+    <video class="hero-video hero-video-dark" loop muted playsinline preload="none" poster="./assets/cinematic/hero-ambient-v2-poster.jpg">
+      <source data-src="./assets/cinematic/hero-ambient-v2.webm" type="video/webm" />
+      <source data-src="./assets/cinematic/hero-ambient-v2.mp4" type="video/mp4" />
     </video>
-    <video class="hero-video hero-video-light" autoplay loop muted playsinline preload="metadata" poster="./assets/cinematic/hero-ambient-light.jpg">
-      <source src="./assets/cinematic/hero-ambient-light.webm" type="video/webm" />
-      <source src="./assets/cinematic/hero-ambient-light.mp4" type="video/mp4" />
+    <video class="hero-video hero-video-light" loop muted playsinline preload="none" poster="./assets/cinematic/hero-ambient-light.jpg">
+      <source data-src="./assets/cinematic/hero-ambient-light.webm" type="video/webm" />
+      <source data-src="./assets/cinematic/hero-ambient-light.mp4" type="video/mp4" />
     </video>
     <div class="hero-video-mask"></div>
   </div>
@@ -1208,7 +1208,7 @@
   <div class="portrait-col">
     <span class="crosshair tl"></span><span class="crosshair tr"></span>
     <span class="crosshair bl"></span><span class="crosshair br"></span>
-    <img src="./assets/haoming-portrait-cutout.png" alt="Haoming Koo, applied AI engineer based in Singapore" />
+    <img src="./assets/haoming-portrait-cutout.webp" width="1200" height="1800" alt="Haoming Koo, applied AI engineer based in Singapore" />
     <div class="portrait-meta"><div>Singapore &middot; 1&deg; 17&prime; N</div><div class="right">2026 / Open</div></div>
   </div>
   <div class="scroll-hint">Scroll</div>
@@ -1218,9 +1218,9 @@
 <section class="signature" id="signature">
   <div class="sig-pin">
     <div class="sig-video-bg" aria-hidden="true">
-      <video class="sig-video" autoplay loop muted playsinline preload="metadata" poster="./assets/cinematic/signature-ink-poster.jpg">
-        <source src="./assets/cinematic/signature-ink.webm" type="video/webm" />
-        <source src="./assets/cinematic/signature-ink.mp4" type="video/mp4" />
+      <video class="sig-video" loop muted playsinline preload="none" poster="./assets/cinematic/signature-ink-poster.jpg">
+        <source data-src="./assets/cinematic/signature-ink.webm" type="video/webm" />
+        <source data-src="./assets/cinematic/signature-ink.mp4" type="video/mp4" />
       </video>
       <div class="sig-video-mask"></div>
     </div>
@@ -1811,6 +1811,39 @@
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', positionLabels);
   positionLabels(); onScroll();
+})();
+</script>
+<script>
+(function () {
+  function activate(video) {
+    if (!video || video.dataset.loaded) return;
+    video.querySelectorAll('source[data-src]').forEach(function (el) { el.src = el.dataset.src; });
+    video.dataset.loaded = '1';
+    video.load();
+    var p = video.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  var root = document.documentElement;
+  function heroForTheme() {
+    var theme = root.getAttribute('data-theme');
+    return document.querySelector(theme === 'light' ? '.hero-video-light' : '.hero-video-dark');
+  }
+  activate(heroForTheme());
+  new MutationObserver(function () { activate(heroForTheme()); })
+    .observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  var sig = document.querySelector('.sig-video');
+  function watchSig() {
+    if (!sig) return;
+    if (!('IntersectionObserver' in window)) { activate(sig); return; }
+    new IntersectionObserver(function (entries, obs) {
+      if (entries.some(function (e) { return e.isIntersecting; })) { activate(sig); obs.disconnect(); }
+    }, { rootMargin: '400px' }).observe(sig);
+  }
+  if (document.readyState === 'complete') {
+    requestAnimationFrame(watchSig);
+  } else {
+    window.addEventListener('load', function () { requestAnimationFrame(watchSig); });
+  }
 })();
 </script>
 </body>
