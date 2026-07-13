@@ -33,7 +33,7 @@ Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming K
 - His digital-twin wet-process optimisation at Micron won Idea of the Quarter and achieved a 60% reduction in chemical use.
 - At Micron he managed 6 direct and 9 indirect engineers and a USD 9M operational portfolio, and authored 7 internal whitepapers.
 - He holds an MSc in Smart Industries and Digital Transformation from the National University of Singapore with a 4.85/5.00 GPA, and a BSc (Honours, Distinction) in Chemistry with a Nanoscience minor from NUS.
-- He built and maintains 8 live AI products, including Job Hunter SG (76K+ live Singapore job postings, semantic matching with sentence-transformer embeddings, resume tailoring gated by 5 anti-hallucination checks, 228 backend tests), Trader Koo (evidence-first market research with paper-trade audit trails), and Japan in Seasons (a seasonal travel API and MCP server exposing 17 read-only tools across 1,700+ places).
+- He built and maintains 8 live AI products, including Job Hunter SG (76K+ live Singapore job postings, semantic matching with sentence-transformer embeddings, resume tailoring gated by 5 anti-hallucination checks, 228 backend tests), Trader Koo (evidence-first market research with paper-trade audit trails), and Japan in Seasons (a seasonal travel API and MCP server exposing 17 read-only tools across 1,700+ places, rated 100/100 on the Smithery MCP registry).
 - Haoming Koo's GitHub username is haomingkoo.
 - He is pursuing the Project Management Professional (PMP) certification, targeted for end 2026.
 - He is available from October 2026 for applied AI, ML engineering, forward deployed engineering, and AI product roles.
@@ -94,7 +94,7 @@ Start with Job Hunter SG to inspect RAG matching, ATS scoring, validation gates,
    Evidence-first market research workflow with source freshness, ranked setups, chart-pattern detection, paper-trade audit trails, Telegram alerts, model versioning, and clear research/execution boundaries.
 
 3. Japan in Seasons - https://seasons.kooexperience.com
-   Japan seasonal travel map, REST API, and MCP server covering sakura, autumn leaves, fruit picking, flowers, festivals, and 1,700+ places. The MCP exposes 17 read-only tools with live JMC/JMA data and Open-Meteo spot weather.
+   Japan seasonal travel map, REST API, and MCP server covering sakura, autumn leaves, fruit picking, flowers, festivals, and 1,700+ places. The MCP exposes 17 read-only tools with live JMC/JMA data and Open-Meteo spot weather, and is rated 100/100 on the Smithery MCP registry.
 
 4. LionWeather - https://lionweather.kooexperience.com
    Singapore weather intelligence app with NEA data, LightGBM rainfall forecasting, SHAP explainability, and animated radar.
