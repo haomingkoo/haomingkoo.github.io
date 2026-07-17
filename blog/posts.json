@@ -1,5 +1,19 @@
 [
   {
+    "slug": "tsv-process-simulation",
+    "title": "A Visual Guide to Simulating a TSV from Etch to Polish",
+    "date": "2026-07-17",
+    "tags": [
+      "Building",
+      "Semiconductor",
+      "Simulation",
+      "Visualization"
+    ],
+    "excerpt": "A beginner-friendly guide to building a TSV process simulation with ViennaPS: process handoffs, tunable inputs, failure modes, measurements, and model limits.",
+    "cover": "",
+    "readingTime": "6 min"
+  },
+  {
     "slug": "claude-certified-architect",
     "title": "I Am Now a Claude Certified Architect. Here's What I Wish I Knew First.",
     "date": "2026-07-17",

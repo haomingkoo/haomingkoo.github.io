@@ -221,6 +221,12 @@ def render_sitemap(blog_posts: list[dict[str, Any]], travel_posts: list[dict[str
             "priority": "0.8",
         },
         {
+            "loc": "https://kooexperience.com/ViennaPS-HBM/explainer.html",
+            "lastmod": file_lastmod("ViennaPS-HBM/explainer.html"),
+            "changefreq": "monthly",
+            "priority": "0.8",
+        },
+        {
             "loc": "https://kooexperience.com/travel/",
             "lastmod": file_lastmod("travel/index.html"),
             "changefreq": "weekly",
