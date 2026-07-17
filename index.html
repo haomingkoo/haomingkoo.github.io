@@ -379,6 +379,18 @@
   }
   @keyframes drawLine { to { transform: scaleX(1); } }
 
+  .hero-credential {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none;
+    padding: 7px 14px; border: 1px solid var(--rule); border-radius: 999px;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeRise 900ms 1350ms var(--ease) forwards;
+    transition: border-color 200ms var(--ease), color 200ms var(--ease);
+  }
+  .hero-credential:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-credential .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
   h1.display {
     font-family: var(--display);
     font-variation-settings: "opsz" 144, "SOFT" 0;
@@ -1027,6 +1039,7 @@
   @media (max-width: 760px) {
     .loader { display: none; }
     .hero-eyebrow,
+    .hero-credential,
     h1.display .ch,
     .hero-tagline,
     .hero-sub,
@@ -1183,6 +1196,9 @@
   </div>
   <div class="hero-text">
     <div class="hero-eyebrow"><span class="eyebrow-full">Applied AI · Singapore · Available from October 2026</span><span class="eyebrow-mobile">Applied AI · Singapore</span></div>
+    <a class="hero-credential" href="https://www.credly.com/badges/72faeea1-bb8f-4194-80d8-e9b1daee769e/public_url" target="_blank" rel="noopener">
+      <span class="dot"></span>Claude Certified Architect &mdash; Anthropic, 2026
+    </a>
     <h1 class="display">
       <span class="row r1"><span class="ch">H</span><span class="ch">a</span><span class="ch">o</span><span class="ch">m</span><span class="ch">i</span><span class="ch">n</span><span class="ch">g</span></span>
       <span class="row r2"><span class="ch">K</span><span class="ch">o</span><span class="ch">o</span></span>
