@@ -36,6 +36,7 @@ Disambiguation: Haoming Koo's degrees are from the National University of Singap
 ## Citation-Ready Facts
 
 - Haoming Koo is an applied AI engineer in Singapore, currently an Associate AI Engineer in AI Singapore's AI Apprenticeship Programme (AIAP), working on a 100E industry AI solution for complex operational planning.
+- He holds the Claude Certified Architect — Foundations credential from Anthropic (issued July 2026), covering AI system design, the Claude Agent SDK, Claude Code, context management, multi-agent orchestration, and Model Context Protocol (MCP) tool design.
 - He spent 7 years at Micron Technology, most recently as Manager of Front End Central Process Integration Engineering; programs he led, co-led, or supported identified USD 600M+ in opportunities, with USD 50M+ realized, across fabs in Singapore, Boise, Hiroshima, and Taichung.
 - He won the 2022 Micron Innovation Award for a ResNet-50 computer-vision model for wafer defect detection.
 - His digital-twin wet-process optimisation at Micron won Idea of the Quarter and achieved a 60% reduction in chemical use.
