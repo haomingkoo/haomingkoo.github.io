@@ -7,6 +7,13 @@
     <language>en-sg</language>
     <atom:link href="https://kooexperience.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>I Am Now a Claude Certified Architect. Here's What I Wish I Knew First.</title>
+      <link>https://kooexperience.com/blog/posts/claude-certified-architect.html</link>
+      <description>How I earned the Claude Certified Architect – Foundations credential: what the Anthropic certification family covers, why I chose this track, what to actually prepare, and the paced game plan that got me there.</description>
+      <pubDate>Fri, 17 Jul 2026 00:00:00 +0800</pubDate>
+      <guid>https://kooexperience.com/blog/posts/claude-certified-architect.html</guid>
+    </item>
+    <item>
       <title>I Went from 64 to 100/100 on Smithery. Here's Every Fix.</title>
       <link>https://kooexperience.com/blog/posts/create-mcp.html</link>
       <description>The quality fixes that took a working MCP server from 64 to 100/100 on Smithery: tool descriptions, dot notation naming, annotations, caching, smithery.yaml, and the skill that automates the checks.</description>
