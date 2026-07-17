@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <title>I Am Now a Claude Certified Architect. Here Is the Game Plan I Would Give You. - Haoming Koo</title>
+    <meta name="description" content="How I earned the Claude Certified Architect – Foundations credential: what the Anthropic certification family covers, why I chose this track, what to actually prepare, and the paced game plan that got me there." />
+    <meta name="keywords" content="Claude Certified Architect, Anthropic certification, Claude Partner Network, Claude Code, Claude Agent SDK, Model Context Protocol, MCP, exam prep" />
+    <meta name="author" content="Haoming Koo" />
+    <link rel="canonical" href="https://kooexperience.com/blog/posts/claude-certified-architect.html" />
+    <meta property="og:title" content="I Am Now a Claude Certified Architect. Here Is the Game Plan I Would Give You." />
+    <meta property="og:description" content="What the Anthropic certification family covers, why I chose Architect Foundations, what to actually prepare, and the paced game plan that got me there." />
+    <meta property="og:url" content="https://kooexperience.com/blog/posts/claude-certified-architect.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://kooexperience.com/assets/og/claude-certified-architect.png" />
+    <meta property="og:site_name" content="Haoming Koo" />
+    <meta property="og:locale" content="en_SG" />
+    <meta property="article:published_time" content="2026-07-17T00:00:00+08:00" />
+    <meta property="article:author" content="Haoming Koo" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://kooexperience.com/assets/og/claude-certified-architect.png">
+    <meta name="twitter:title" content="I Am Now a Claude Certified Architect. Here Is the Game Plan I Would Give You.">
+    <meta name="twitter:description" content="What the Anthropic certification family covers, why I chose Architect Foundations, what to prepare, and the paced game plan that got me there.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=optional" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      [data-theme="dark"] {
+        --bg: #060608;
+        --surface: #0e0e12;
+        --border: #1c1c24;
+        --accent: #3b82f6;
+        --accent-dim: rgba(59,130,246,.10);
+        --text: #eeeef0;
+        --text-secondary: #b0b0b8;
+        --muted: #64647a;
+        --nav-bg: rgba(6,6,8,0.72);
+      }
+      [data-theme="light"] {
+        --bg: #f8f9fb;
+        --surface: #ffffff;
+        --border: #dde1e6;
+        --accent: #2563eb;
+        --accent-dim: rgba(37,99,235,0.08);
+        --text: #111318;
+        --text-secondary: #3d4250;
+        --muted: #6b7280;
+        --nav-bg: rgba(248,249,251,0.85);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 15px; line-height: 1.7; min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        transition: background .35s, color .35s;
+      }
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+      }
+      [data-theme="light"] body::before { opacity: 0.3; }
+
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 100;
+        background: var(--nav-bg);
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        border-bottom: 1px solid rgba(28,28,36,.6);
+        transition: background .35s, border-color .35s;
+      }
+      nav {
+        max-width: 780px; margin: 0 auto; padding: 0 32px;
+        display: flex; align-items: center; justify-content: space-between;
+        height: 56px;
+      }
+      .nav-logo {
+        font-size: 18px; font-weight: 800; letter-spacing: .04em;
+        color: var(--text); text-decoration: none;
+        background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      nav a:not(.nav-logo) {
+        color: var(--muted); text-decoration: none; font-size: 13px;
+        font-weight: 500; padding: 6px 12px; border-radius: 8px;
+        transition: color .2s, background .2s;
+      }
+      nav a:not(.nav-logo):hover { color: var(--text); background: rgba(255,255,255,.04); }
+      .nav-right { display: flex; align-items: center; gap: 12px; }
+      .theme-btn {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 8px; padding: 6px 10px; cursor: pointer;
+        color: var(--text); display: flex; align-items: center; gap: 6px;
+        font-size: 12px; font-family: inherit; transition: all .2s;
+      }
+      .theme-btn:hover { border-color: #2a2a36; }
+      .theme-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+      .container { max-width: 780px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--accent); text-decoration: none; font-size: 13px;
+        font-weight: 500; margin-bottom: 24px;
+        transition: color .2s;
+      }
+      .back-link:hover { color: var(--text); }
+
+      .article { padding: 40px 0 80px; }
+      .article-meta {
+        display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        font-size: 12px; color: var(--muted); margin-bottom: 16px;
+      }
+      .article-tag {
+        font-size: 10px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; padding: 3px 10px; border-radius: 99px;
+        background: var(--accent-dim); color: var(--accent);
+      }
+      .reading-time { color: var(--muted); }
+      .article h1 {
+        font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+        line-height: 1.12; letter-spacing: -.025em; margin-bottom: 16px;
+      }
+      .article .subtitle {
+        font-size: 17px; color: var(--text-secondary); line-height: 1.6;
+        margin-bottom: 32px;
+      }
+      .article h2 {
+        font-size: 22px; font-weight: 700; margin: 48px 0 16px;
+        letter-spacing: -.01em; color: var(--text);
+      }
+      .article h3 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+      .article p { margin-bottom: 18px; color: var(--text-secondary); }
+      .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+      .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
+      .article li { margin-bottom: 6px; }
+      .article li > ul { margin-top: 6px; margin-bottom: 6px; }
+      .article code {
+        background: rgba(59,130,246,.08); padding: 2px 7px; border-radius: 5px;
+        font-size: 13px; font-family: "SF Mono", "Fira Code", monospace;
+        color: var(--accent);
+      }
+      .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+      .toc {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      }
+      .toc-title {
+        font-size: 11px; font-weight: 600; letter-spacing: .14em;
+        text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+      }
+      .toc a {
+        display: block; font-size: 13.5px; color: var(--text-secondary);
+        text-decoration: none; padding: 4px 0; transition: color .2s;
+      }
+      .toc a:hover { color: var(--accent); }
+
+      /* ── Credly badge card ────────────────────────────────────────────── */
+      .badge-card {
+        display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; padding: 20px 24px; margin-bottom: 32px;
+      }
+      .badge-card-text { flex: 1; min-width: 200px; }
+      .badge-card-label {
+        font-size: 11px; font-weight: 600; letter-spacing: .1em;
+        text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+      }
+      .badge-card-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+      .badge-card a { font-size: 13px; }
+
+      /* ── Domain weight bars ───────────────────────────────────────────── */
+      .domain-bars { margin: 8px 0 32px; }
+      .domain-bar-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+      .domain-bar-row:last-child { margin-bottom: 0; }
+      .domain-bar-label { width: 230px; flex-shrink: 0; font-size: 13px; color: var(--text); font-weight: 500; }
+      .domain-bar-track {
+        flex: 1; height: 10px; border-radius: 5px; overflow: hidden;
+        background: rgba(255,255,255,.06);
+      }
+      [data-theme="light"] .domain-bar-track { background: rgba(0,0,0,.06); }
+      .domain-bar-fill { height: 100%; border-radius: 5px; background: var(--accent); }
+      .domain-bar-value {
+        width: 38px; flex-shrink: 0; text-align: right; font-size: 13px;
+        font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums;
+      }
+
+      /* ── Tables ───────────────────────────────────────────────────────── */
+      .table-wrap { overflow-x: auto; margin: 8px 0 28px; }
+      .article table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+      .article th, .article td {
+        text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border);
+        color: var(--text-secondary); vertical-align: top;
+      }
+      .article th {
+        color: var(--muted); font-weight: 600; font-size: 11px;
+        text-transform: uppercase; letter-spacing: .06em; white-space: nowrap;
+      }
+      .article tr:last-child td { border-bottom: none; }
+      .article td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
+
+      footer {
+        border-top: 1px solid var(--border); padding: 32px 0 40px;
+        font-size: 13px; color: var(--muted); text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        .container { padding: 0 18px; }
+        nav { padding: 0 18px; }
+        .domain-bar-label { width: 130px; font-size: 12px; }
+      }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "I Am Now a Claude Certified Architect. Here Is the Game Plan I Would Give You.",
+      "description": "How I earned the Claude Certified Architect – Foundations credential: what the Anthropic certification family covers, why I chose this track, what to actually prepare, and the paced game plan that got me there.",
+      "url": "https://kooexperience.com/blog/posts/claude-certified-architect.html",
+      "datePublished": "2026-07-17",
+      "dateModified": "2026-07-17",
+      "author": {"@type": "Person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
+      "publisher": {"@type": "Person", "name": "Haoming Koo"},
+      "image": "https://kooexperience.com/assets/og/claude-certified-architect.png",
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/claude-certified-architect.html"}
+    }
+    </script>
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://kooexperience.com/blog/"},{"@type":"ListItem","position":3,"name":"Claude Certified Architect"}]}
+</script>
+  <script>
+(function(){try{var saved=localStorage.getItem("hk-theme")||localStorage.getItem("theme");if(saved)document.documentElement.setAttribute("data-theme",saved);}catch(e){}document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[aria-label=\"Toggle theme\"], .theme-btn, .theme-toggle, #themeToggle");if(!b)return;requestAnimationFrame(function(){try{var theme=document.documentElement.getAttribute("data-theme")||document.documentElement.dataset.theme||"dark";localStorage.setItem("hk-theme",theme);localStorage.setItem("theme",theme);}catch(e){}});},true);})();
+</script>
+</head>
+  <body>
+    <div class="nav-wrap">
+      <nav>
+        <a class="nav-logo" href="../">HK</a>
+        <div class="nav-right">
+          <a href="../#blog">Blog</a>
+          <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <span class="theme-label">Dark</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <article class="article">
+        <a class="back-link" href="../#blog">&larr; Back to blog</a>
+        <div class="article-meta">
+          <span class="article-tag">AI</span>
+          <span class="article-tag">Claude</span>
+          <span class="article-tag">Career</span>
+          <span>July 17, 2026</span>
+          <span class="reading-time">9 min read</span>
+        </div>
+        <h1>I Am Now a Claude Certified Architect. Here Is the Game Plan I Would Give You.</h1>
+        <p class="subtitle">
+          I sat the Claude Certified Architect &ndash; Foundations exam earlier this month and passed comfortably above the bar (720 out of 1,000). I want to write down what the certification actually is and why I went for this one. Then what to prepare, and the game plan that got me there in three weekends. If you are building with Claude and wondering whether this is worth your time, this is the post I wish I had before I started.
+        </p>
+
+        <div class="badge-card">
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="72faeea1-bb8f-4194-80d8-e9b1daee769e" data-share-badge-host="https://www.credly.com"></div>
+          <div class="badge-card-text">
+            <div class="badge-card-label">Credential</div>
+            <div class="badge-card-title">Claude Certified Architect &ndash; Foundations</div>
+            <a href="https://www.credly.com/badges/72faeea1-bb8f-4194-80d8-e9b1daee769e/public_url" target="_blank" rel="noopener">Verify on Credly &rarr;</a>
+          </div>
+        </div>
+        <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+
+        <div class="toc">
+          <div class="toc-title">Contents</div>
+          <a href="#family">What these certifications from Anthropic are about</a>
+          <a href="#foundations">Claude Certified Architect &ndash; Foundations</a>
+          <a href="#prepare">What is recommended, and what to actually prepare</a>
+          <a href="#gameplan">My game plan, and how to pace it</a>
+          <a href="#tips">A few tips from me</a>
+        </div>
+
+        <h2 id="family">What these certifications from Anthropic are about</h2>
+
+        <p>In March 2026, Anthropic launched the Claude Partner Network with a $100 million commitment to training and enablement. Alongside it came its first technical credential: Claude Certified Architect &ndash; Foundations. By July, that had grown into a four-exam family covering three roles.</p>
+
+        <ul>
+          <li><strong>Claude Certified Associate &ndash; Foundations</strong> ($99): for people who use Claude as a productivity tool. Ops, marketing, PM, education, comms. No coding involved.</li>
+          <li><strong>Claude Certified Developer &ndash; Foundations</strong> ($125): for engineers shipping production code, agents, and evals with Claude. Heavy on applications and integration work.</li>
+          <li><strong>Claude Certified Architect &ndash; Foundations</strong> ($125): the one I took. For people who design Claude solutions end to end. Agent orchestration, tool and MCP design, Claude Code configuration, context management.</li>
+          <li><strong>Claude Certified Architect &ndash; Professional</strong> ($175): the enterprise tier above Architect Foundations, and a genuinely new one. It only opened for registration in July 2026, alongside Associate and Developer. Same technical foundation, plus governance, compliance, and stakeholder management for solutions operating at scale. It is not gated behind Foundations either. If your job already involves enterprise governance, compliance, or stakeholder management, you can just go straight for Professional. I will probably be going for it myself, if the opportunity comes up.</li>
+        </ul>
+
+        <p>Every exam in the family shares the same shape:</p>
+
+        <ul>
+          <li>Multiple-choice and multiple-response questions</li>
+          <li>120 minutes</li>
+          <li>Proctored through Pearson VUE</li>
+          <li>Scored on a 100&ndash;1,000 scale, 720 to pass</li>
+          <li>Valid for 12 months. Renew on time with a free, non-proctored assessment. The technology moves fast enough that Anthropic wants certified people staying current, not just certified once.</li>
+        </ul>
+
+        <p>To note: access currently runs through the Claude Partner Network. You need to be with a partner organization to register. I got in because the 100E industry partner I am placed with, through AI Singapore's AIAP programme, happens to be an Anthropic partner. If you are not sure whether your company qualifies, that is worth checking before you plan around this.</p>
+
+        <h2 id="foundations">Claude Certified Architect &ndash; Foundations</h2>
+
+        <p>Everything from here on is about this one specifically, the one I actually took. I build with Claude every day already. This was not about learning the platform from zero. It was about the Architect track specifically, because that is the closest match to what I actually do. Designing agentic systems end to end. Deciding how tools and MCP servers get exposed. Configuring Claude Code for real project work. It is also where the judgment calls live, the ones around context and reliability that do not show up until a system has to survive contact with real users.</p>
+
+        <p>I will be honest, when I started looking into it I was a little lost. Where do you even begin? What does passing this actually prove? It clicked once I read the exam guide properly. The domains map almost exactly onto decisions I make every week: agent orchestration, tool design, context management. So the prep was not really about learning new material. It was more like pressure-testing habits I had already built, and a few of those habits had room to improve.</p>
+
+        <h2 id="prepare">What is recommended, and what to actually prepare</h2>
+
+        <p>The exam covers five domains, weighted like this:</p>
+
+        <div class="domain-bars">
+          <div class="domain-bar-row">
+            <div class="domain-bar-label">Agentic Architecture &amp; Orchestration</div>
+            <div class="domain-bar-track"><div class="domain-bar-fill" style="width:100%"></div></div>
+            <div class="domain-bar-value">27%</div>
+          </div>
+          <div class="domain-bar-row">
+            <div class="domain-bar-label">Claude Code Configuration &amp; Workflows</div>
+            <div class="domain-bar-track"><div class="domain-bar-fill" style="width:74%"></div></div>
+            <div class="domain-bar-value">20%</div>
+          </div>
+          <div class="domain-bar-row">
+            <div class="domain-bar-label">Prompt Engineering &amp; Structured Output</div>
+            <div class="domain-bar-track"><div class="domain-bar-fill" style="width:74%"></div></div>
+            <div class="domain-bar-value">20%</div>
+          </div>
+          <div class="domain-bar-row">
+            <div class="domain-bar-label">Tool Design &amp; MCP Integration</div>
+            <div class="domain-bar-track"><div class="domain-bar-fill" style="width:67%"></div></div>
+            <div class="domain-bar-value">18%</div>
+          </div>
+          <div class="domain-bar-row">
+            <div class="domain-bar-label">Context Management &amp; Reliability</div>
+            <div class="domain-bar-track"><div class="domain-bar-fill" style="width:56%"></div></div>
+            <div class="domain-bar-value">15%</div>
+          </div>
+        </div>
+
+        <p>Anthropic offers a set of free prep courses under the Architect track. Here is what I took, and how I would rank them for someone in my position, a daily Claude user rather than someone starting from zero.</p>
+
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Course</th><th>Why it is worth your time</th></tr></thead>
+          <tbody>
+            <tr><td>Building with the Claude API</td><td>The one that mattered most. Full spectrum of working with Anthropic's models through the API. Even as a daily user, this is where I picked up the most: some new material, plus a few corrections to habits I did not know needed fixing.</td></tr>
+            <tr><td>Introduction to Agent Skills</td><td>Genuinely useful. Covers building and configuring Skills in Claude Code, which maps directly onto real exam-relevant ground.</td></tr>
+            <tr><td>Claude Code in Action</td><td>Covered hooks and Claude Code configuration better than I expected. Worth doing properly, not just skimming.</td></tr>
+            <tr><td>Introduction to MCP</td><td>Skippable, honestly. It is a near-complete repeat of what Building with the Claude API already covers.</td></tr>
+            <tr><td>AI Fluency: Framework &amp; Foundations</td><td>Not really useful for the exam itself.</td></tr>
+            <tr><td>Claude with Vertex AI</td><td>Not really needed for the exam itself.</td></tr>
+            <tr><td>Claude with Amazon Bedrock</td><td>Not really needed for the exam itself.</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>A heads-up from my own run: the CI/CD integration content caught me a little off guard. Not because it is complicated. It is genuinely basic, things like Claude Code inside CI pipelines or the <code>-p</code>/<code>--print</code> flag for non-interactive automation. It caught me off guard because there were so few examples to actually practice with, and what little there was leaned heavily on GitHub. If your own CI setup looks different, building a small example yourself is worth the hour it takes.</p>
+
+        <p>For hands-on drilling, I used claudecertificationguide.com. The drill mode is genuinely good, it targets your weak points instead of throwing random questions at you. One thing worth knowing: the mock exam mode draws on similar, sometimes identical questions to the drill mode. A high mock score partly reflects familiarity with that same question pool rather than pure readiness. They are still useful for getting comfortable with the question style, just be aware they run noticeably easier than the real exam. I scored full marks on the mocks myself, and the actual exam still felt noticeably harder. Treat a high mock score as a green light to keep going, not as a sign you are already done.</p>
+
+        <h2 id="gameplan">My game plan, and how to pace it</h2>
+
+        <p>I spread prep across three weekends instead of cramming. Looking back, that pacing mattered more than the total hours did. If three weekends is more than you have, two weekends (roughly four days) is a reasonable minimum. Much less than that and you are cramming, not preparing. Roughly:</p>
+
+        <ol>
+          <li>Skim the exam guide first, just enough to know the five domains, their weights, and what is explicitly out of scope (fine-tuning, model internals, and cloud-provider-specific config are not tested). This is a first pass, not a deep read, just enough to know where you are headed.</li>
+          <li>Take Building with the Claude API in full. Do not skim it just because you already use the API daily. This is where the real refinement happens.</li>
+          <li>Round out the gaps with Introduction to Agent Skills and Claude Code in Action, those two cover the rest of the exam-relevant ground. You can skip AI Fluency, Introduction to MCP, Vertex AI, and Bedrock. None of them add much for this specific exam.</li>
+          <li>Go back to the exam guide and read it properly this time, as a knowledge check against everything you just covered. Actually work through the guide's own preparation exercises here, not just re-read them, and give yourself real time for it. For me, building through these exercises properly is what got me most of the way ready. CI/CD still did not fully click for me, even after doing the exercises. If I did it again, I would spend more time there specifically.</li>
+          <li>Build something small against each domain beyond the guide's own exercises too, if you have time. Wire up an agent with tool calling and error handling. Configure a CLAUDE.md hierarchy for a real project. Design an MCP tool interface. Run a structured-extraction pipeline with JSON schemas.</li>
+          <li>Save the mock questions for once you feel ready, not before, so they test what you have retained instead of replacing the learning itself. They are easier than the real thing, so do not calibrate your confidence off them alone.</li>
+          <li>Schedule the exam with a buffer, not on the day you first feel &ldquo;done.&rdquo; Leave yourself a spare weekend in case one domain needs another pass.</li>
+          <li>On exam day, it runs through Pearson VUE's OnVUE online proctoring, accessed through a website link. A few things to have ready:
+            <ul>
+              <li>Check in at least 15 minutes early</li>
+              <li>A completely clear tabletop</li>
+              <li>Your government ID or passport within reach</li>
+              <li>Your phone nearby, you will need it to photograph all four corners of your seating area for the proctor</li>
+            </ul>
+            None of it is hard. It just goes faster if you are not figuring it out live.
+          </li>
+          <li>Pace yourself through the questions too, not just the weeks before. I used about 100 of the 120 minutes and still had roughly 20 minutes left to go back over anything I was unsure of.</li>
+          <li>Once you finish, if you took it online proctored, you get your score right away. It comes broken down by domain, so you can roughly tell where you scored well and where you did not. Do not bother trying to screenshot it, OnVUE blocks that. In my experience, the actual credential followed a few minutes after that.</li>
+        </ol>
+
+        <h2 id="tips">A few tips from me</h2>
+
+        <h3>On preparing</h3>
+
+        <ul>
+          <li>If you already use Claude daily, do not assume that exempts you from the prep courses. Building with the Claude API is exactly where I found things I had been doing wrong without realizing it.</li>
+          <li>Skim the exam guide before you start, then go back for a proper read after the courses. It tells you precisely what is tested and, just as usefully, what is not.</li>
+          <li>Practice CI/CD integration hands-on, even briefly. There is not much example material for it, and what exists leans heavily on GitHub. Build something yourself if your own setup looks different.</li>
+          <li>Use the mock exams to build familiarity, not to predict your score.</li>
+          <li>Give yourself more time than feels necessary. A rushed week is worse than a properly paced few weekends.</li>
+        </ul>
+
+        <h3>A few concepts worth knowing cold</h3>
+
+        <p>(To be clear, none of this is exam content, Anthropic's terms do not allow sharing that. These are just the underlying concepts and best practices I would make sure I actually understood, not memorized.)</p>
+
+        <ul>
+          <li>When you are torn between a few plausible options, go with the simplest implementation. YAGNI beats the elaborate-sounding choice almost every time.</li>
+          <li>Agents do not share memory automatically. Pass context between them on purpose, structured state, not assumptions, and plan for crash recovery with something like a manifest.</li>
+          <li>If an answer pulls from multiple agents or sources, keep track of where each piece came from and flag what you are unsure about. A confident-sounding answer that has lost that trail is worse, not better.</li>
+          <li>Learn the CLAUDE.md hierarchy properly: user, project, and directory-level scoping, plus <code>.claude/rules/</code> files that load conditionally based on path. Team workflows fall apart fast if this scoping is wrong.</li>
+          <li>Reach for Grep or Glob before reading a whole file. The narrowest tool for the job is usually the right one.</li>
+          <li>Tool descriptions matter more than people think. Clear, non-overlapping descriptions across four or five well-scoped tools beat a large sprawling set.</li>
+          <li>Learn MCP's three primitives cold: tools, resources, prompts. Get comfortable telling which one a given situation actually calls for.</li>
+          <li>Reuse an existing MCP server before building a custom one. It is rarely worth reinventing.</li>
+          <li>Watch out for the &ldquo;lost in the middle&rdquo; effect, models handle the start and end of a long input better than the middle. Design around it rather than hoping it will not matter.</li>
+          <li>Get comfortable with session resumption and forking, <code>--resume &lt;session-name&gt;</code> to pick a session back up, <code>fork_session</code> to branch off for a separate investigation. It comes up more than you would expect.</li>
+          <li>Learn the four error categories: transient, validation, business, and permission. Retry transient errors. Do not bother retrying the other three.</li>
+          <li>Hooks are definitely more reliable than prompts for enforcing behavior or normalizing output. Hooks are deterministic. Prompts are not.</li>
+        </ul>
+
+        <p>If you are building with Claude and considering this, go for it. Good luck out there, and I hope to see you on the other side as a certified builder too.</p>
+      </article>
+
+      <footer>&copy; 2026 Haoming Koo</footer>
+    </div>
+
+    <script>
+function toggleTheme() {
+  var html = document.documentElement;
+  var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.querySelector('.theme-label').textContent = next === 'dark' ? 'Dark' : 'Light';
+}
+</script>
+  </body>
+</html>

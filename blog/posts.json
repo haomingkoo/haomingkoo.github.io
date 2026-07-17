@@ -1,5 +1,18 @@
 [
   {
+    "slug": "claude-certified-architect",
+    "title": "I Am Now a Claude Certified Architect. Here Is the Game Plan I Would Give You.",
+    "date": "2026-07-17",
+    "tags": [
+      "AI",
+      "Claude",
+      "Career"
+    ],
+    "excerpt": "How I earned the Claude Certified Architect \u2013 Foundations credential: what the Anthropic certification family covers, why I chose this track, what to actually prepare, and the paced game plan that got me there.",
+    "cover": "",
+    "readingTime": "9 min"
+  },
+  {
     "slug": "create-mcp",
     "title": "I Went from 64 to 100/100 on Smithery. Here's Every Fix.",
     "date": "2026-04-12",
@@ -16,7 +29,7 @@
   },
   {
     "slug": "pdf-parsing-comparison",
-    "title": "PDF Parsing for Complaint Forms — Docling vs PyMuPDF vs PaddleOCR",
+    "title": "PDF Parsing for Complaint Forms \u2014 Docling vs PyMuPDF vs PaddleOCR",
     "date": "2026-04-10",
     "tags": [
       "Building",
@@ -30,7 +43,7 @@
   },
   {
     "slug": "minmax-wine",
-    "title": "I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me",
+    "title": "I Built an AI Wine Deal Finder \u2014 Here's What 50 Bottles Taught Me",
     "date": "2026-03-27",
     "tags": [
       "Building",
