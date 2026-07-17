@@ -195,6 +195,25 @@
         font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums;
       }
 
+      /* ── Timeline ─────────────────────────────────────────────────────── */
+      .timeline { margin: 8px 0 32px; position: relative; padding-left: 26px; }
+      .timeline::before {
+        content: ""; position: absolute; left: 4px; top: 6px; bottom: 6px;
+        width: 2px; background: var(--border);
+      }
+      .timeline-item { position: relative; margin-bottom: 20px; }
+      .timeline-item:last-child { margin-bottom: 0; }
+      .timeline-item::before {
+        content: ""; position: absolute; left: -26px; top: 4px;
+        width: 10px; height: 10px; border-radius: 50%;
+        background: var(--accent); box-shadow: 0 0 0 3px var(--bg);
+      }
+      .timeline-label {
+        font-size: 11px; font-weight: 700; letter-spacing: .08em;
+        text-transform: uppercase; color: var(--accent); margin-bottom: 3px;
+      }
+      .timeline-text { font-size: 14px; color: var(--text-secondary); }
+
       /* ── Tables ───────────────────────────────────────────────────────── */
       .table-wrap { overflow-x: auto; margin: 8px 0 28px; }
       .article table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
@@ -301,7 +320,7 @@
           <li><strong>Claude Certified Architect &ndash; Professional</strong> ($175): the enterprise tier above Architect Foundations, and a genuinely new one. It only opened for registration in July 2026, alongside Associate and Developer. Same technical foundation, plus governance, compliance, and stakeholder management for solutions operating at scale. It is not gated behind Foundations either. If your job already involves enterprise governance, compliance, or stakeholder management, you can just go straight for Professional. I will probably be going for it myself, if the opportunity comes up.</li>
         </ul>
 
-        <p>Every exam in the family shares the same shape:</p>
+        <p>Every exam in the family uses the same format:</p>
 
         <ul>
           <li>Multiple-choice and multiple-response questions</li>
@@ -315,7 +334,7 @@
 
         <h2 id="foundations">Claude Certified Architect &ndash; Foundations</h2>
 
-        <p>Everything from here on is about this one specifically, the one I actually took. I build with Claude every day already. This was not about learning the platform from zero. It was about the Architect track specifically, because that is the closest match to what I actually do. Designing agentic systems end to end. Deciding how tools and MCP servers get exposed. Configuring Claude Code for real project work. It is also where the judgment calls live, the ones around context and reliability that do not show up until a system has to survive contact with real users.</p>
+        <p>Everything from here on is about this one. I build with Claude daily. This was not about learning the platform from scratch. It was about the Architect track, because that is the closest match to what I actually do. Designing agentic systems end to end. Deciding how tools and MCP servers get exposed. Configuring Claude Code for real project work. It also covers the judgment calls around context and reliability, the ones that do not show up until real users are actually using the system.</p>
 
         <p>I will be honest, when I started looking into it I was a little lost. Where do you even begin? What does passing this actually prove? It clicked once I read the exam guide properly. The domains map almost exactly onto decisions I make every week: agent orchestration, tool design, context management. So the prep was not really about learning new material. It was more like pressure-testing habits I had already built, and a few of those habits had room to improve. It also gave me a more formal grounding in practices I had mostly picked up ad hoc, which turned out to be worth just as much as the fixes.</p>
 
@@ -357,10 +376,10 @@
         <table>
           <thead><tr><th>Course</th><th>Why it is worth your time</th></tr></thead>
           <tbody>
-            <tr><td>Building with the Claude API</td><td>The one that mattered most. Full spectrum of working with Anthropic's models through the API. Even as a daily user, this is where I picked up the most: some new material, plus a few corrections to habits I did not know needed fixing.</td></tr>
+            <tr><td>Building with the Claude API</td><td>The one that is most important for the exam. Full spectrum of working with Anthropic's models through the API. Even as a daily user, this is where I picked up the most: some new material, plus a few corrections to habits I did not know needed fixing.</td></tr>
             <tr><td>Introduction to Agent Skills</td><td>Genuinely useful. Covers building and configuring Skills in Claude Code, which maps directly onto real exam-relevant ground.</td></tr>
             <tr><td>Claude Code in Action</td><td>Covered hooks and Claude Code configuration better than I expected. Worth doing properly, not just skimming.</td></tr>
-            <tr><td>Introduction to MCP</td><td>Skippable, honestly. It is a near-complete repeat of what Building with the Claude API already covers.</td></tr>
+            <tr><td>Introduction to MCP</td><td>Skippable. It is a near-complete repeat of what Building with the Claude API already covers.</td></tr>
             <tr><td>AI Fluency: Framework &amp; Foundations</td><td>Not really useful for the exam itself.</td></tr>
             <tr><td>Claude with Vertex AI</td><td>Not really needed for the exam itself.</td></tr>
             <tr><td>Claude with Amazon Bedrock</td><td>Not really needed for the exam itself.</td></tr>
@@ -370,20 +389,41 @@
 
         <p>A heads-up from my own run: the CI/CD integration content caught me a little off guard. Not because it is complicated. It is genuinely basic, things like Claude Code inside CI pipelines or the <code>-p</code>/<code>--print</code> flag for non-interactive automation. It caught me off guard because there were so few examples to actually practice with, and what little there was leaned heavily on GitHub. If your own CI setup looks different, building a small example yourself is worth the hour it takes.</p>
 
-        <p>For hands-on drilling, I used claudecertificationguide.com. The drill mode is genuinely good, it targets your weak points instead of throwing random questions at you. One thing worth knowing: the mock exam mode draws on similar, sometimes identical questions to the drill mode. A high mock score partly reflects familiarity with that same question pool rather than pure readiness. They are still useful for getting comfortable with the question style, just be aware they run noticeably easier than the real exam. I scored full marks on the mocks myself, and the actual exam still felt noticeably harder. Treat a high mock score as a green light to keep going, not as a sign you are already done.</p>
+        <p>For hands-on drilling, I used <a href="https://claudecertificationguide.com" target="_blank" rel="noopener">claudecertificationguide.com</a>. The drill mode is good. It targets your weak points instead of throwing random questions at you. One thing worth knowing: the mock exam mode draws on similar, sometimes identical questions to the drill mode. A high mock score partly reflects familiarity with that same question pool rather than pure readiness. They are still useful for getting comfortable with the question style, just be aware they run noticeably easier than the real exam. I scored full marks on the mocks myself, and the actual exam still felt noticeably harder. A high mock score is a green light to keep going. It does not mean you are already done.</p>
 
         <h2 id="gameplan">My game plan, and how to pace it</h2>
 
-        <p>I spread prep across three weekends instead of cramming. Looking back, that pacing mattered more than the total hours did. If three weekends is more than you have, two weekends (roughly four days) is a reasonable minimum. Much less than that and you are cramming, not preparing. Roughly:</p>
+        <p>I spread prep across three weekends instead of cramming. Looking back, that pacing mattered more than the total hours did. If three weekends is more than you have, two weekends (roughly four days) is a reasonable minimum. Much less than that turns into a cram session.</p>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-label">Weekend 1</div>
+            <div class="timeline-text">Skim the exam guide for the lay of the land, then take Building with the Claude API in full.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-label">Weekend 2</div>
+            <div class="timeline-text">Round out the gaps with the other courses, then go back and read the exam guide properly, working through its own exercises this time.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-label">Weekend 3</div>
+            <div class="timeline-text">Build a few small projects against each domain, drill mock questions once you feel ready, then schedule the exam with a buffer.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-label">Exam day</div>
+            <div class="timeline-text">OnVUE logistics, pacing yourself through the questions, and your score the moment you finish.</div>
+          </div>
+        </div>
+
+        <p>The detail behind each step:</p>
 
         <ol>
-          <li>Skim the exam guide first, just enough to know the five domains, their weights, and what is explicitly out of scope (fine-tuning, model internals, and cloud-provider-specific config are not tested). This is a first pass, not a deep read, just enough to know where you are headed.</li>
+          <li>Skim the exam guide first. Just enough to know the five domains, their weights, and what is explicitly out of scope (fine-tuning, model internals, cloud-provider-specific config). Quick pass, just enough to know where you are headed.</li>
           <li>Take Building with the Claude API in full. Do not skim it just because you already use the API daily. This is where the real refinement happens.</li>
           <li>Round out the gaps with Introduction to Agent Skills and Claude Code in Action, those two cover the rest of the exam-relevant ground. You can skip AI Fluency, Introduction to MCP, Vertex AI, and Bedrock. None of them add much for this specific exam.</li>
-          <li>Go back to the exam guide and read it properly this time, as a knowledge check against everything you just covered. Actually work through the guide's own preparation exercises here, not just re-read them, and give yourself real time for it. For me, building through these exercises properly is what got me most of the way ready. CI/CD still did not fully click for me, even after doing the exercises. If I did it again, I would spend more time there specifically.</li>
+          <li>Go back to the exam guide and read it properly this time, as a knowledge check against everything you just covered. Work through the guide's own preparation exercises here rather than just re-reading them, and give yourself real time for it. For me, building through these exercises properly is what got me most of the way ready. CI/CD still did not fully click for me even after doing the exercises. If I did it again, I would spend more time there specifically.</li>
           <li>Build something small against each domain beyond the guide's own exercises too, if you have time. Wire up an agent with tool calling and error handling. Configure a CLAUDE.md hierarchy for a real project. Design an MCP tool interface. Run a structured-extraction pipeline with JSON schemas.</li>
-          <li>Save the mock questions for once you feel ready, not before, so they test what you have retained instead of replacing the learning itself. They are easier than the real thing, so do not calibrate your confidence off them alone.</li>
-          <li>Schedule the exam with a buffer, not on the day you first feel &ldquo;done.&rdquo; Leave yourself a spare weekend in case one domain needs another pass.</li>
+          <li>Save the mock questions until you feel ready, so they test what you have retained instead of replacing the learning itself. They are easier than the real thing, so calibrate your confidence carefully.</li>
+          <li>Schedule the exam with a buffer. Leave yourself a spare weekend in case one domain needs another pass, rather than booking it for the day you first feel &ldquo;done.&rdquo;</li>
           <li>On exam day, it runs through Pearson VUE's OnVUE online proctoring, accessed through a website link. A few things to have ready:
             <ul>
               <li>Check in at least 15 minutes early</li>
@@ -393,7 +433,7 @@
             </ul>
             None of it is hard. It just goes faster if you are not figuring it out live.
           </li>
-          <li>Pace yourself through the questions too, not just the weeks before. I used about 100 of the 120 minutes and still had roughly 20 minutes left to go back over anything I was unsure of.</li>
+          <li>Pace yourself through the questions on exam day too, the same way you paced the weeks before it. I used about 100 of the 120 minutes and still had roughly 20 minutes left to go back over anything I was unsure of.</li>
           <li>Once you finish, if you took it online proctored, you get your score right away. It comes broken down by domain, so you can roughly tell where you scored well and where you did not. Do not bother trying to screenshot it, OnVUE blocks that. In my experience, the actual credential followed a few minutes after that.</li>
         </ol>
 
@@ -402,25 +442,25 @@
         <h3>On preparing</h3>
 
         <ul>
-          <li>If you already use Claude daily, do not assume that exempts you from the prep courses. Building with the Claude API is exactly where I found things I had been doing wrong without realizing it.</li>
+          <li>If you already use Claude daily, do not assume that exempts you from the prep courses. <strong>Building with the Claude API</strong> is exactly where I found things I had been doing wrong without realizing it.</li>
           <li>Skim the exam guide before you start, then go back for a proper read after the courses. It tells you precisely what is tested and, just as usefully, what is not.</li>
-          <li>Practice CI/CD integration hands-on, even briefly. There is not much example material for it, and what exists leans heavily on GitHub. Build something yourself if your own setup looks different.</li>
-          <li>Use the mock exams to build familiarity, not to predict your score.</li>
+          <li>Practice CI/CD integration hands-on. There is not much example material for it, and what exists leans heavily on GitHub. Build something yourself if your own setup looks different.</li>
+          <li>Use the mock exams to build familiarity with the question style. They will not predict your actual score.</li>
           <li>Give yourself more time than feels necessary. A rushed week is worse than a properly paced few weekends.</li>
         </ul>
 
-        <h3>A few concepts worth knowing cold</h3>
+        <h3>Concepts to know</h3>
 
         <p>(To be clear, none of this is exam content, Anthropic's terms do not allow sharing that. These are just the underlying concepts and best practices I would make sure I actually understood, not memorized.)</p>
 
         <ul>
           <li>When you are torn between a few plausible options, go with the simplest implementation. YAGNI beats the elaborate-sounding choice almost every time.</li>
-          <li>Agents do not share memory automatically. Pass context between them on purpose, structured state, not assumptions, and plan for crash recovery with something like a manifest.</li>
+          <li>Agents do not share memory automatically. Pass structured state between them on purpose, and plan for crash recovery with something like a manifest.</li>
           <li>If an answer pulls from multiple agents or sources, keep track of where each piece came from and flag what you are unsure about. A confident-sounding answer that has lost that trail is worse, not better.</li>
           <li>Learn the CLAUDE.md hierarchy properly: user, project, and directory-level scoping, plus <code>.claude/rules/</code> files that load conditionally based on path. Team workflows fall apart fast if this scoping is wrong.</li>
           <li>Reach for Grep or Glob before reading a whole file. The narrowest tool for the job is usually the right one.</li>
           <li>Tool descriptions matter more than people think. Clear, non-overlapping descriptions across four or five well-scoped tools beat a large sprawling set.</li>
-          <li>Learn MCP's three primitives cold: tools, resources, prompts. Get comfortable telling which one a given situation actually calls for.</li>
+          <li>Learn MCP's three primitives: tools, resources, prompts. Get comfortable telling which one a given situation calls for.</li>
           <li>Reuse an existing MCP server before building a custom one. It is rarely worth reinventing.</li>
           <li>Watch out for the &ldquo;lost in the middle&rdquo; effect, models handle the start and end of a long input better than the middle. Design around it rather than hoping it will not matter.</li>
           <li>Get comfortable with session resumption and forking, <code>--resume &lt;session-name&gt;</code> to pick a session back up, <code>fork_session</code> to branch off for a separate investigation. It comes up more than you would expect.</li>
@@ -428,7 +468,7 @@
           <li>Hooks are definitely more reliable than prompts for enforcing behavior or normalizing output. Hooks are deterministic. Prompts are not.</li>
         </ul>
 
-        <p>I think this certification is genuinely worth it if you want an official endorsement of skills you already have, not just a learning exercise. If you are building with Claude and considering this, go for it. Good luck out there, and I hope to see you on the other side as a certified builder too. If you want to see what that actually looks like in production, <a href="../../#work">my other projects</a> are built the same way.</p>
+        <p>I think this certification is genuinely worth it for the official endorsement of skills you already have. It goes beyond a learning exercise. If you are building with Claude and considering this, go for it. Good luck out there, and I hope to see you on the other side as a certified builder too. If you want to see what that actually looks like in production, <a href="../../#work">my other projects</a> are built the same way.</p>
       </article>
 
       <!-- Related Posts -->
