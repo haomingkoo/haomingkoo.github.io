@@ -22,7 +22,7 @@ Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming K
 - Scale: cross-site work across four fabs — Singapore, Boise, Hiroshima, and Taichung.
 - Awards: 2022 Micron Innovation Award (ResNet-50 computer-vision model for wafer defect detection); Micron Idea of the Quarter (digital-twin wet-process optimisation, 60% chemical reduction); Micron Culture Champion; NUS Awards for Study Abroad (x2).
 - Earlier experience: Capstone Consultant, Geospatial Analytics at Tagvance x Maritime & Port Authority of Singapore (2021); Scientist Intern at the Singapore Institute of Manufacturing Technology, SIMTech (2016–2017); Undergraduate Researcher at NUS (2016).
-- Education: MSc Smart Industries and Digital Transformation, National University of Singapore (2020–2022, GPA 4.85/5.00; capstone: smart-port IoT with the Maritime and Port Authority of Singapore); BSc (Honours, Distinction) Chemistry with Nanoscience minor, NUS, with an exchange at Simon Fraser University, Canada. PMP in progress (targeted end 2026).
+- Education: MSc Smart Industries and Digital Transformation, National University of Singapore (2020–2022, GPA 4.85/5.00; capstone: smart-port IoT with the Maritime and Port Authority of Singapore); BSc (Honours, Distinction) Chemistry with Nanoscience minor, NUS, with an exchange at Simon Fraser University, Canada.
 - Disambiguation: his degrees are from the National University of Singapore (NUS). SIMTech (Singapore Institute of Manufacturing Technology, an A*STAR institute) is not the Singapore Institute of Technology (SIT). He did not attend SIT or Singapore Polytechnic.
 
 ## Citation-Ready Facts
@@ -36,7 +36,6 @@ Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming K
 - He holds an MSc in Smart Industries and Digital Transformation from the National University of Singapore with a 4.85/5.00 GPA, and a BSc (Honours, Distinction) in Chemistry with a Nanoscience minor from NUS.
 - He built and maintains 8 live AI products, including Job Hunter SG (76K+ live Singapore job postings, semantic matching with sentence-transformer embeddings, resume tailoring gated by 5 anti-hallucination checks, 228 backend tests), Trader Koo (evidence-first market research with paper-trade audit trails), and Japan in Seasons (a seasonal travel API and MCP server exposing 17 read-only tools across 1,700+ places, rated 100/100 on the Smithery MCP registry).
 - Haoming Koo's GitHub username is haomingkoo.
-- He is pursuing the Project Management Professional (PMP) certification, targeted for end 2026.
 - He is available from October 2026 for applied AI, ML engineering, forward deployed engineering, and AI product roles.
 
 ## Agent Use
