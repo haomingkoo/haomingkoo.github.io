@@ -113,7 +113,11 @@ Start with Job Hunter SG to inspect RAG matching, ATS scoring, validation gates,
 
 ## Blog Topics
 
-Technical posts cover LLM serving, Direct Preference Optimization, OCR/PDF parsing, market regime detection, computer vision, weather forecasting, product builds, and MCP server quality.
+Technical posts cover evidence engineering, LLM serving, Direct Preference Optimization, OCR/PDF parsing, market regime detection, computer vision, weather forecasting, product builds, and MCP server quality.
+
+Selected research note: https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html
+
+The Long COVID note explains an auditable PubMed pipeline and one interim treatment lane: supervised rehabilitation and breathing-focused programmes. Its checkpoint covers a frozen 73,857-record corpus, 11,753 ranked full-text candidates, 6,475 papers read, and 144,859 exact evidence spans. The patient-readable synthesis compares six selected randomized trials with 985 total participants and uses REGAIN as the clearest whole-programme anchor. It states that the review is incomplete, does not provide medical advice, and does not generalize one positive programme to all rehabilitation or all patients.
 
 Blog index: https://kooexperience.com/blog/
 

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Long COVID Rehabilitation Evidence: Pipeline Interim | Haoming Koo</title>
+  <meta name="description" content="How I built an auditable Long COVID evidence pipeline, then traced one plausible lane: supervised rehabilitation, six randomized trials, and the REGAIN result.">
+  <meta name="keywords" content="Long COVID research, supervised rehabilitation, REGAIN trial, pulmonary rehabilitation, breathing exercises, evidence pipeline, PubMed, clinical trials, PROPr quality of life">
+  <meta name="author" content="Haoming Koo">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html">
+  <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
+  <meta property="og:title" content="From 73,857 Long COVID records to one plausible treatment lane">
+  <meta property="og:description" content="An auditable research pipeline, six selected rehabilitation trials, and a careful deep dive into what REGAIN did—and how large its benefit was.">
+  <meta property="og:url" content="https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://kooexperience.com/assets/og/long-covid-evidence-pipeline.png">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="900">
+  <meta property="og:site_name" content="Haoming Koo">
+  <meta property="og:locale" content="en_SG">
+  <meta property="article:published_time" content="2026-08-03T00:00:00+08:00">
+  <meta property="article:modified_time" content="2026-08-03T00:00:00+08:00">
+  <meta property="article:author" content="Haoming Koo">
+  <meta property="article:section" content="Evidence engineering">
+  <meta property="article:tag" content="Long COVID">
+  <meta property="article:tag" content="Clinical research">
+  <meta property="article:tag" content="Rehabilitation">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="From 73,857 Long COVID records to one plausible treatment lane">
+  <meta name="twitter:description" content="The pipeline, the evidence boundary, six rehabilitation RCTs, and a patient-readable REGAIN deep dive.">
+  <meta name="twitter:image" content="https://kooexperience.com/assets/og/long-covid-evidence-pipeline.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": "https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html#article",
+        "headline": "From 73,857 Long COVID records to one plausible treatment lane",
+        "alternativeHeadline": "How an auditable evidence pipeline surfaced supervised rehabilitation—and what the REGAIN trial really showed",
+        "description": "How Haoming Koo built an auditable Long COVID evidence pipeline, then traced one plausible lane through six selected randomized rehabilitation trials and the REGAIN study.",
+        "url": "https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html",
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html"},
+        "datePublished": "2026-08-03",
+        "dateModified": "2026-08-03",
+        "author": {"@type": "Person", "@id": "https://kooexperience.com/#person", "name": "Haoming Koo", "url": "https://kooexperience.com"},
+        "publisher": {"@type": "Person", "@id": "https://kooexperience.com/#person", "name": "Haoming Koo"},
+        "image": "https://kooexperience.com/assets/og/long-covid-evidence-pipeline.png",
+        "about": [
+          {"@type": "MedicalCondition", "name": "Post-COVID-19 condition", "alternateName": "Long COVID"},
+          {"@type": "MedicalTherapy", "name": "Supervised rehabilitation"}
+        ],
+        "keywords": ["Long COVID", "post-COVID-19 condition", "supervised rehabilitation", "REGAIN trial", "pulmonary rehabilitation", "evidence pipeline", "randomized controlled trial"],
+        "citation": [
+          "https://pubmed.ncbi.nlm.nih.gov/38325873/",
+          "https://pubmed.ncbi.nlm.nih.gov/35489367/",
+          "https://pubmed.ncbi.nlm.nih.gov/36191860/",
+          "https://pubmed.ncbi.nlm.nih.gov/41253410/",
+          "https://pubmed.ncbi.nlm.nih.gov/39425012/",
+          "https://pubmed.ncbi.nlm.nih.gov/41906071/"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://kooexperience.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://kooexperience.com/blog/"},
+          {"@type": "ListItem", "position": 3, "name": "Long COVID evidence pipeline"}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What did the REGAIN Long COVID trial find?",
+            "acceptedAnswer": {"@type": "Answer", "text": "REGAIN found a statistically significant but small average improvement in health-related quality of life compared with active usual care: an adjusted PROPr difference of 0.03 at three months, with a 95% confidence interval from 0.01 to 0.05. The trial tested the full eight-week package, not one exercise in isolation."}
+          },
+          {
+            "@type": "Question",
+            "name": "Does rehabilitation cure Long COVID?",
+            "acceptedAnswer": {"@type": "Answer", "text": "No. The selected trials studied symptom management, function, breathing, fatigue, and quality of life. They do not establish a cure, and their results should not be generalized to every rehabilitation programme or every patient."}
+          },
+          {
+            "@type": "Question",
+            "name": "Is exercise safe for every person with Long COVID?",
+            "acceptedAnswer": {"@type": "Answer", "text": "The evidence does not establish that. REGAIN used individualized, supervised activity and monitored post-exertional symptom exacerbation, but its participants were previously hospitalized adults and the trial does not establish safety for people who are severe, housebound, or have substantial PEM or PESE."}
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/system/tokens.css">
+  <link rel="stylesheet" href="/system/base.css">
+  <style>
+    :root{--page:#f5f5f1;--panel:#fff;--ink:#141715;--soft:#5d665f;--line:#d9ddd8;--accent:#087b73;--accent2:#d96b42;--pale:#e7f2ef;--warn:#fff4e8;--shadow:0 16px 50px rgba(18,30,24,.09)}
+    [data-theme="dark"]{--page:#08100f;--panel:#101a18;--ink:#f1f5f3;--soft:#a4b1ab;--line:#263431;--accent:#59c7ba;--accent2:#ff9670;--pale:#122724;--warn:#2a1d15;--shadow:0 18px 60px rgba(0,0,0,.28)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;overflow-x:hidden;background:var(--page);color:var(--ink);font:16px/1.72 Inter,system-ui,sans-serif}a{color:var(--accent)}
+    nav{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--page) 88%,transparent);backdrop-filter:blur(14px)}
+    .nav-inner{max-width:1120px;margin:auto;padding:12px 24px;display:flex;justify-content:space-between;align-items:center}.nav-inner a{text-decoration:none;font-size:14px}.nav-links{display:flex;gap:18px}.brand{font-weight:800;color:var(--ink)!important}
+    main{max-width:1040px;margin:auto;padding:72px 24px 96px}.eyebrow{font:600 12px JetBrains Mono,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+    h1{max-width:950px;font-size:clamp(40px,7vw,76px);line-height:1.01;letter-spacing:-.055em;margin:18px 0 24px}h2{font-size:clamp(26px,4vw,40px);line-height:1.15;letter-spacing:-.035em;margin:84px 0 18px}h3{font-size:19px;margin:0 0 8px}p{margin:0 0 19px}.lede{max-width:800px;font-size:21px;line-height:1.55;color:var(--soft)}.meta{color:var(--soft);font-size:13px;margin-top:24px}.meta a{text-underline-offset:3px}
+    .boundary{margin:32px 0;padding:18px 22px;border:1px solid color-mix(in srgb,var(--accent2) 35%,var(--line));border-left:4px solid var(--accent2);background:var(--warn);border-radius:12px;color:var(--soft)}.boundary strong{color:var(--ink)}
+    .hero{margin:42px 0 0;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow)}.hero img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}.hero figcaption{padding:10px 16px;color:var(--soft);font-size:12px}
+    .answer{font-size:20px;line-height:1.55;padding:27px 30px;border-radius:18px;background:var(--pale);border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));margin:30px 0}.answer strong{color:var(--ink)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}.stat{padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}.stat b{display:block;font-size:clamp(24px,4vw,38px);line-height:1;color:var(--accent);letter-spacing:-.04em}.stat span{display:block;margin-top:10px;color:var(--soft);font-size:13px}
+    .pipeline{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:30px 0}.stage{position:relative;padding:18px 12px;border:1px solid var(--line);border-radius:13px;background:var(--panel);min-height:140px}.stage::after{content:'→';position:absolute;right:-9px;top:50%;z-index:2;color:var(--soft)}.stage:last-child::after{content:''}.stage i{font:600 11px JetBrains Mono,monospace;color:var(--accent);font-style:normal}.stage b{display:block;margin:9px 0 5px;font-size:14px}.stage span{display:block;color:var(--soft);font-size:12px;line-height:1.45}
+    .lane{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin:28px 0}.card{padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}.card ul{margin:12px 0 0;padding-left:20px;color:var(--soft)}.card li{margin:6px 0}.confidence{display:inline-flex;margin-bottom:13px;padding:5px 10px;border-radius:99px;background:var(--pale);font:600 11px JetBrains Mono,monospace;letter-spacing:.05em;color:var(--accent)}
+    .table-scroll{width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;margin:24px 0;border:1px solid var(--line);border-radius:16px;background:var(--panel)}table{width:100%;min-width:760px;border-collapse:separate;border-spacing:0;font-size:14px}th,td{text-align:left;padding:14px;border-bottom:1px solid var(--line);vertical-align:top}th{font:600 11px JetBrains Mono,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);background:color-mix(in srgb,var(--panel) 90%,var(--accent) 10%)}tr:last-child td{border-bottom:0}td:first-child{font-weight:700;white-space:nowrap}.paper-link{font-size:12px;white-space:nowrap}
+    .regain-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0}.arm{padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}.arm.primary{border-top:4px solid var(--accent)}.arm.control{border-top:4px solid var(--soft)}.arm .n{font:600 11px JetBrains Mono,monospace;color:var(--soft)}.arm ul{padding-left:20px;color:var(--soft)}
+    .chart{margin:30px 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--panel)}.chart-title{font-weight:700}.chart-sub{color:var(--soft);font-size:13px}.plot{position:relative;height:300px;margin:24px 18px 44px 54px;border-left:1px solid var(--line);border-bottom:1px solid var(--line)}.gridline{position:absolute;left:0;right:0;border-top:1px dashed var(--line)}.ylabel{position:absolute;right:calc(100% + 10px);transform:translateY(-50%);font:500 11px JetBrains Mono,monospace;color:var(--soft)}.series{position:absolute;inset:0}.point{position:absolute;width:15px;height:15px;border-radius:50%;transform:translate(-50%,50%);background:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 16%,transparent)}.point.control{background:var(--soft);box-shadow:0 0 0 5px color-mix(in srgb,var(--soft) 16%,transparent)}.segment{position:absolute;height:4px;transform-origin:left center;background:var(--accent)}.segment.control{background:var(--soft)}.xlab{position:absolute;bottom:-31px;transform:translateX(-50%);font-size:12px;color:var(--soft)}.annotation{position:absolute;transform:translate(10px,50%);font-size:12px;font-weight:700;white-space:nowrap}.legend{display:flex;gap:18px;flex-wrap:wrap;color:var(--soft);font-size:12px}.key{display:inline-flex;align-items:center;gap:7px}.dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}.dot.gray{background:var(--soft)}
+    .meaning{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.meaning .card b{display:block;font-size:22px;color:var(--accent);margin-bottom:8px}.meaning .card span{color:var(--soft);font-size:13px}.callout{padding:22px;border-left:4px solid var(--accent);background:var(--pale);border-radius:0 14px 14px 0;margin:28px 0;color:var(--soft)}.callout strong{color:var(--ink)}
+    .deck-shell{margin:28px 0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#ebe9df;box-shadow:var(--shadow)}.deck-shell iframe{display:block;width:100%;aspect-ratio:16/9;border:0}.deck-actions{display:flex;gap:10px;flex-wrap:wrap;padding:15px;background:var(--panel)}.button{display:inline-block;padding:11px 15px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:13px}.button.secondary{background:transparent;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line))}
+    .sources{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:24px 0}.source{display:block;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);text-decoration:none}.source b{display:block;color:var(--ink)}.source span{font-size:12px;color:var(--soft)}
+    footer{max-width:1040px;margin:auto;padding:0 24px 50px;color:var(--soft);font-size:13px}
+    @media(max-width:800px){main{padding-top:48px}.stats{grid-template-columns:repeat(2,1fr)}.pipeline{grid-template-columns:repeat(2,1fr)}.stage::after{display:none}.lane,.regain-grid{grid-template-columns:1fr}.meaning{grid-template-columns:1fr}.sources{grid-template-columns:1fr}.nav-links a:nth-child(2){display:none}.deck-shell iframe{min-height:58vw}}
+    @media(max-width:520px){main{padding-inline:18px}.stats{grid-template-columns:1fr 1fr}.stat{padding:18px}.pipeline{grid-template-columns:1fr}.plot{margin-left:48px}.annotation{width:88px;white-space:normal;font-size:10px;line-height:1.15}.deck-shell iframe{min-height:66vw}}
+  </style>
+</head>
+<body>
+  <nav><div class="nav-inner"><a class="brand" href="/">HK</a><div class="nav-links"><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="#deck">Open deck</a></div></div></nav>
+  <main>
+    <header>
+      <div class="eyebrow">Evidence engineering · interim research note</div>
+      <h1>From 73,857 Long COVID records to one plausible treatment lane</h1>
+      <p class="lede">I built a pipeline that keeps every claim connected to its source. This is the interim output from one lane it surfaced: supervised rehabilitation and breathing-focused programmes.</p>
+      <p class="meta">Haoming Koo · 3 August 2026 · 11 min read · evidence snapshot frozen at 06:08 SGT</p>
+    </header>
+
+    <div class="boundary"><strong>Evidence boundary.</strong> This is a live, incomplete map—not medical advice, a clinical guideline, or a completed systematic review. The six trials below were selected to explain one recurring signal; they are not a pooled estimate of “rehabilitation.”</div>
+
+    <figure class="hero">
+      <img src="../decks/long-covid-rehabilitation/assets/long-covid-rehab-hero.png" alt="A patient practising controlled breathing at home with guidance from a physiotherapist" width="1672" height="941">
+      <figcaption>Generated illustration. The programme details and outcome data below come from linked primary papers.</figcaption>
+    </figure>
+
+    <div class="answer"><strong>The short answer:</strong> supervised, targeted rehabilitation is a plausible symptom-management lane—not a cure. Across selected randomized trials, some programmes improved walking, breathlessness, fatigue, respiratory performance, or quality of life. The results were programme- and outcome-specific. REGAIN carries the most weight as a whole-programme trial, but its average quality-of-life advantage was small.</div>
+
+    <h2 id="pipeline">How the evidence pipeline worked</h2>
+    <p>The project was designed around a simple rule: a summary is only useful if the reader can travel back to the paper, the exact supporting span, and the processing version that produced it.</p>
+    <div class="stats" aria-label="Pipeline snapshot statistics">
+      <div class="stat"><b>73,857</b><span>PubMed records screened in the frozen universe</span></div>
+      <div class="stat"><b>11,753</b><span>ranked full-text candidates after lawful acquisition</span></div>
+      <div class="stat"><b>6,475</b><span>full papers read at this interim checkpoint</span></div>
+      <div class="stat"><b>144,859</b><span>exact evidence spans stored and traceable</span></div>
+    </div>
+    <div class="pipeline" aria-label="Evidence pipeline stages">
+      <div class="stage"><i>01</i><b>Screen</b><span>Title and abstract decisions over a frozen PubMed corpus.</span></div>
+      <div class="stage"><i>02</i><b>Acquire</b><span>Resolve lawful open full text without bypassing access controls.</span></div>
+      <div class="stage"><i>03</i><b>Extract</b><span>Read the complete paper into a fixed clinical-evidence schema.</span></div>
+      <div class="stage"><i>04</i><b>Appraise</b><span>Check each extracted entry against the exact source span it cites.</span></div>
+      <div class="stage"><i>05</i><b>Repair</b><span>Split or remove unsupported clauses, then verify again.</span></div>
+      <div class="stage"><i>06</i><b>Publish</b><span>Admit supported records into an atlas and patient-readable synthesis.</span></div>
+    </div>
+    <p>At the checkpoint used here, 1,105 papers had passed the exact-span support gate, including 81 PubMed-indexed randomized controlled trials. That gate checks whether an extracted statement is supported. It is <em>not</em> a formal risk-of-bias or GRADE judgment.</p>
+
+    <h2 id="lane">Why rehabilitation became a plausible lane</h2>
+    <p>The interim map repeatedly found positive controlled results around supervised rehabilitation and breathing-focused programmes. The common target was not viral clearance or cure. It was the downstream burden patients feel: reduced capacity, breathlessness, fatigue, pain, fear of activity, disrupted routines, and lower quality of life.</p>
+    <div class="lane">
+      <div class="card"><span class="confidence">WORKING HYPOTHESIS</span><h3>Why a programme might help</h3><ul><li>rebuild cardiovascular and peripheral-muscle capacity after illness and inactivity;</li><li>train inspiratory muscles and breathing control where respiratory limitations are present;</li><li>use pacing, supervision, and feedback to find a tolerable activity dose;</li><li>support sleep, fatigue, fear avoidance, setbacks, and confidence in daily activities; and</li><li>provide repeated practitioner and peer contact instead of one-off advice.</li></ul></div>
+      <div class="card"><span class="confidence">BIOLOGICAL CAUTION</span><h3>What this theory does not explain away</h3><ul><li>Long COVID is heterogeneous and can involve autonomic, vascular, immune, metabolic, or oxygen-extraction abnormalities;</li><li>muscle symptoms are not necessarily simple deconditioning;</li><li>post-exertional malaise or symptom exacerbation can make generic progression unsafe; and</li><li>a positive programme does not prove which component caused the benefit.</li></ul></div>
+    </div>
+
+    <h2 id="six-trials">What the six selected trials actually did</h2>
+    <p>Together, these six randomized trials enrolled 985 people. That total is descriptive only: the populations, controls, outcomes, and scales differ, so the results should not be pooled by eye.</p>
+    <div class="table-scroll" role="region" aria-label="Six selected rehabilitation trials" tabindex="0">
+    <table>
+      <thead><tr><th>Trial</th><th>People</th><th>Intervention versus control</th><th>Main reading</th><th>Paper</th></tr></thead>
+      <tbody>
+        <tr><td>REGAIN</td><td>585</td><td>8-week online supervised exercise + behavioural support versus a consultation, booklet, and general advice</td><td>Small quality-of-life advantage; strongest whole-programme test</td><td><a class="paper-link" href="https://pubmed.ncbi.nlm.nih.gov/38325873/">PMID 38325873</a></td></tr>
+        <tr><td>ENO Breathe</td><td>150</td><td>6-week online breathing, singing, and wellbeing programme versus usual care</td><td>Mental HRQoL and some breathlessness signals; physical HRQoL inconclusive</td><td><a class="paper-link" href="https://pubmed.ncbi.nlm.nih.gov/35489367/">PMID 35489367</a></td></tr>
+        <tr><td>Respiratory muscle training</td><td>88</td><td>Inspiratory or combined respiratory training versus matched sham arms</td><td>Some respiratory strength and quality-of-life effects; exercise tolerance not consistently improved</td><td><a class="paper-link" href="https://pubmed.ncbi.nlm.nih.gov/36191860/">PMID 36191860</a></td></tr>
+        <tr><td>PuRe-COVID</td><td>76</td><td>36 individualized primary-care pulmonary-rehabilitation sessions over 12 weeks versus no rehabilitation</td><td>+39 m adjusted 6-minute walk change; fatigue and dyspnoea also favoured rehabilitation</td><td><a class="paper-link" href="https://pubmed.ncbi.nlm.nih.gov/41253410/">PMID 41253410</a></td></tr>
+        <tr><td>Breathing + mobility</td><td>46</td><td>4-week home breathing and chest-mobility exercise versus active lifestyle advice</td><td>Improved cardiopulmonary exercise measures; quality-of-life difference not established</td><td><a class="paper-link" href="https://pubmed.ncbi.nlm.nih.gov/39425012/">PMID 39425012</a></td></tr>
+        <tr><td>Inspiratory strength</td><td>40</td><td>8-week inspiratory-muscle strength training versus breathing control</td><td>Function, dyspnoea, fatigue, and respiratory-performance signals in a narrow pulmonary subgroup</td><td><a class="paper-link" href="https://pubmed.ncbi.nlm.nih.gov/41906071/">PMID 41906071</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2 id="regain">Why REGAIN is the clearest anchor</h2>
+    <p>REGAIN is not proof of the “best” rehabilitation. It is the most decision-informative trial in this selected set because it was large, multicentre, randomized, compared the programme with active usual care, used a prespecified patient-reported primary outcome, and followed people to 12 months.</p>
+    <div class="regain-grid">
+      <div class="arm primary"><div class="n">REGAIN · n=298</div><h3>The added 8-week package</h3><ul><li>one-hour individual online assessment;</li><li>eight weekly live supervised group exercise sessions;</li><li>six one-hour group behavioural-support sessions;</li><li>equipment-free activities tailored for fitness, strength, balance, fatigue, and daily function;</li><li>workbook and recorded exercise, breathing, yoga, Pilates, and mindfulness resources.</li></ul></div>
+      <div class="arm control"><div class="n">USUAL CARE · n=287</div><h3>An active comparison—not nothing</h3><ul><li>one 30-minute individual online consultation;</li><li>the NHS “Your COVID Recovery” style booklet;</li><li>discussion of symptoms and recovery;</li><li>general advice for self-directed physical activity;</li><li>no structured activity plan or specific psychological technique.</li></ul></div>
+    </div>
+    <p>The psychological sessions covered motivation, fear avoidance, pacing, emotions and setbacks, sleep and fatigue, and stress and anxiety. Participants could share experiences in groups of up to 12. Mindfulness was available in the resource library, but the trial did not isolate meditation—or any other component—as the active ingredient.</p>
+
+    <div class="chart" role="img" aria-label="Observed mean PROPr quality-of-life scores at baseline and three months: both groups started near 0.20; REGAIN reached 0.27 and usual care reached 0.23. Higher is better.">
+      <div class="chart-title">Observed group means · PROMIS-PROPr quality of life</div>
+      <div class="chart-sub">Higher is better · plotted on the local 0.15–0.30 range to make the change readable · not the full −0.022 to 1.0 scale</div>
+      <div class="plot">
+        <div class="gridline" style="bottom:0%"><span class="ylabel">0.15</span></div>
+        <div class="gridline" style="bottom:33.33%"><span class="ylabel">0.20</span></div>
+        <div class="gridline" style="bottom:66.67%"><span class="ylabel">0.25</span></div>
+        <div class="gridline" style="bottom:100%"><span class="ylabel">0.30</span></div>
+        <div class="segment" style="left:16%;bottom:33.33%;width:65.6%;transform:rotate(-16.5deg)"></div>
+        <div class="segment control" style="left:16%;bottom:33.33%;width:64.4%;transform:rotate(-7.2deg)"></div>
+        <div class="point" style="left:16%;bottom:33.33%"></div>
+        <div class="point control" style="left:16%;bottom:33.33%"></div>
+        <div class="point" style="left:80%;bottom:80%"></div>
+        <div class="point control" style="left:80%;bottom:53.33%"></div>
+        <div class="annotation" style="left:80%;bottom:80%;color:var(--accent)">REGAIN 0.27 · n=237</div>
+        <div class="annotation" style="left:80%;bottom:53.33%;color:var(--soft)">Usual care 0.23 · n=248</div>
+        <div class="xlab" style="left:16%">Baseline · both ≈0.20</div>
+        <div class="xlab" style="left:80%">3 months</div>
+      </div>
+      <div class="legend"><span class="key"><span class="dot"></span>REGAIN</span><span class="key"><span class="dot gray"></span>Usual care</span><span>Source: REGAIN trial, PMID 38325873</span></div>
+    </div>
+
+    <h2 id="meaning">How large is +0.03?</h2>
+    <div class="meaning">
+      <div class="card"><b>+0.03</b><span>Model-adjusted average difference between groups at 3 months—not “3% cured” and not the raw 0.04 gap between plotted means.</span></div>
+      <div class="card"><b>0.01 to 0.05</b><span>95% confidence interval. It excludes zero, so the result is statistically significant under the study model.</span></div>
+      <div class="card"><b>Small</b><span>The paper discussed 0.03–0.05 as the clinically important range; its observed estimate sits at the lower edge and below a later suggested 0.04 threshold.</span></div>
+    </div>
+    <p>That is the relativity: both groups improved, from roughly 0.20 at baseline to 0.27 with REGAIN and 0.23 with usual care. The adjusted estimate says the complete programme added about 0.03 points on average beyond active usual care and natural recovery. Statistically, the signal is credible. Clinically, it is modest and borderline rather than dramatic.</p>
+    <div class="callout"><strong>A more patient-readable result:</strong> at three months, 51% of REGAIN respondents said they were “much better” or “somewhat better,” compared with 32% of usual-care respondents. This post hoc contrast corresponds to a number needed to treat of about 5.4, but it was not the prespecified primary outcome.</div>
+
+    <h2 id="confidence">How confident should a patient be?</h2>
+    <p><strong>Moderately confident that this exact package helped this selected population a little on average.</strong> Less confident about the best activity, the mechanism, or whether the result transfers to someone with a very different Long COVID phenotype.</p>
+    <ul>
+      <li><strong>Who was studied:</strong> previously hospitalized adults, on average 323 days after discharge; 88% were White and the mean age was 56.</li>
+      <li><strong>Adherence:</strong> 47% fully adhered, 39% partially adhered, and 13% received none of the intervention.</li>
+      <li><strong>Safety:</strong> one serious adverse event was considered possibly related. No post-exertional symptom exacerbation was detected during weekly monitoring.</li>
+      <li><strong>Boundary:</strong> that does not establish safety for severe, housebound, or substantial PEM/PESE populations. It also does not support herbs, acupuncture, or Traditional Chinese Medicine theory; REGAIN did not test them.</li>
+    </ul>
+
+    <h2 id="deck">Open the patient-readable evidence deck</h2>
+    <p>The deck turns the six-study comparison into labelled charts, control-versus-intervention cards, a REGAIN programme map, a mechanism hypothesis, and direct links to every primary paper.</p>
+    <div class="deck-shell">
+      <iframe src="../decks/long-covid-rehabilitation/" title="Long COVID supervised rehabilitation evidence slide deck" loading="lazy"></iframe>
+      <div class="deck-actions"><a class="button" href="../decks/long-covid-rehabilitation/">Open deck full screen</a><a class="button secondary" href="../decks/long-covid-rehabilitation/long-covid-supervised-rehabilitation.pptx" download>Download PowerPoint</a></div>
+    </div>
+
+    <h2 id="bottom-line">Bottom line</h2>
+    <p>The pipeline did what I wanted it to do: it did not produce one sweeping answer. It surfaced a recurring lane, kept the control groups and uncertainty attached, and made it possible to inspect the strongest whole-programme trial in context.</p>
+    <p>For rehabilitation, the interim story is: <strong>targeted supervision may improve selected symptoms and daily function, but effects are intervention-specific, the average REGAIN benefit was small, and the evidence does not justify generic “exercise more” advice.</strong></p>
+    <p>The broader review remains open. Extraction, appraisal, study-family linkage, formal bias assessment, and human validation still need to finish before this becomes a completed systematic review.</p>
+
+    <h2 id="sources">Primary papers</h2>
+    <div class="sources">
+      <a class="source" href="https://pubmed.ncbi.nlm.nih.gov/38325873/"><b>REGAIN</b><span>BMJ 2024 · PMID 38325873</span></a>
+      <a class="source" href="https://pubmed.ncbi.nlm.nih.gov/35489367/"><b>ENO Breathe</b><span>Lancet Respiratory Medicine 2022 · PMID 35489367</span></a>
+      <a class="source" href="https://pubmed.ncbi.nlm.nih.gov/36191860/"><b>Home respiratory muscle training</b><span>Annals of Physical and Rehabilitation Medicine 2023 · PMID 36191860</span></a>
+      <a class="source" href="https://pubmed.ncbi.nlm.nih.gov/41253410/"><b>PuRe-COVID</b><span>BMJ Open Respiratory Research 2025 · PMID 41253410</span></a>
+      <a class="source" href="https://pubmed.ncbi.nlm.nih.gov/39425012/"><b>Breathing and chest mobility</b><span>BMC Cardiovascular Disorders 2024 · PMID 39425012</span></a>
+      <a class="source" href="https://pubmed.ncbi.nlm.nih.gov/41906071/"><b>Inspiratory muscle strength training</b><span>BMC Pulmonary Medicine 2026 · PMID 41906071</span></a>
+    </div>
+  </main>
+  <footer>© 2026 Haoming Koo · Interim evidence map, not medical advice.</footer>
+</body>
+</html>

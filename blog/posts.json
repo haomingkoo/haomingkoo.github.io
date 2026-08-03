@@ -1,5 +1,19 @@
 [
   {
+    "slug": "what-i-learned-building-a-deep-research-pipeline-for-long-covid",
+    "title": "From 73,857 Long COVID Records to One Plausible Treatment Lane",
+    "date": "2026-08-03",
+    "tags": [
+      "Building",
+      "Evidence Engineering",
+      "Long COVID",
+      "Clinical Research"
+    ],
+    "excerpt": "How an auditable PubMed pipeline surfaced supervised rehabilitation—and what six randomized trials, including REGAIN, actually support.",
+    "cover": "/assets/og/long-covid-evidence-pipeline.png",
+    "readingTime": "11 min"
+  },
+  {
     "slug": "tsv-process-simulation",
     "title": "A Visual Guide to Simulating a TSV from Etch to Polish",
     "date": "2026-07-17",

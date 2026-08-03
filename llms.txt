@@ -9,7 +9,7 @@ Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming K
 - [Hire / Work with Haoming Koo](https://kooexperience.com/hire.html): story-driven page for recruiters, frontier AI teams, and client projects.
 - [Portfolio Home](https://kooexperience.com/): overview of experience, live projects, blog posts, and travel writing.
 - [About](https://kooexperience.com/about.html): full professional background, education, awards, and experience.
-- [Blog](https://kooexperience.com/blog/): technical posts about AI systems, LLM serving, OCR, ML, and product builds.
+- [Blog](https://kooexperience.com/blog/): technical posts about AI systems, evidence engineering, LLM serving, OCR, ML, and product builds.
 
 ## Professional Positioning
 
@@ -77,6 +77,10 @@ Applied AI engineering, forward deployed engineering, AI deployment engineering,
 - [Amex Explorer](https://amex-explorer.kooexperience.com): source-backed Amex Platinum benefit explorer with maps, source hashes, review alerts, and Table for Two availability checks.
 - [Preflight](https://preflight.kooexperience.com): automated EDA and baseline ML for CSV/Parquet files.
 - [MinMax Wine](https://wine.kooexperience.com): Singapore wine price comparison and deal scoring.
+
+## Selected Research Note
+
+- [Long COVID evidence pipeline and supervised rehabilitation](https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html): interim, source-linked research note explaining a 73,857-record PubMed pipeline and one plausible treatment lane through six selected randomized rehabilitation trials. The article distinguishes statistical significance from clinical importance, links every primary paper, and explicitly states that it is not medical advice or a completed systematic review.
 
 ## Contact
 
