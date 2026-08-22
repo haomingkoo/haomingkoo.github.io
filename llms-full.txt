@@ -130,6 +130,10 @@ Selected research note: https://kooexperience.com/blog/posts/what-i-learned-buil
 
 The Long COVID note explains an auditable PubMed pipeline and one interim treatment lane: supervised rehabilitation and breathing-focused programmes. Its checkpoint covers a frozen 73,857-record corpus, 11,753 ranked full-text candidates, 6,475 papers read, and 144,859 exact evidence spans. The patient-readable synthesis compares six selected randomized trials with 985 total participants and uses REGAIN as the clearest whole-programme anchor. It states that the review is incomplete, does not provide medical advice, and does not generalize one positive programme to all rehabilitation or all patients.
 
+## Portfolio Guide
+
+The website's public chat guide runs through a narrowly scoped Cloudflare Worker and the SEA-LION API. It grounds answers on the public `llms.txt` file, limits input and conversation history, rate-limits requests, and links answers back to public portfolio or project sources. The website itself remains hosted on GitHub Pages; no private employer or client data is included in the guide.
+
 Blog index: https://kooexperience.com/blog/
 
 ## Site Notes

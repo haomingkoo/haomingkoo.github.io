@@ -1,5 +1,5 @@
 const API_URL = "https://api.sea-lion.ai/v1/chat/completions";
-const KNOWLEDGE_URL = "https://kooexperience.com/llms.txt?release=2026-08-23";
+const KNOWLEDGE_URL = "https://kooexperience.com/llms.txt?release=2026-08-23b";
 const ALLOWED_ORIGINS = new Set([
   "https://kooexperience.com",
   "https://www.kooexperience.com",

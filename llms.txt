@@ -82,6 +82,10 @@ Applied AI engineering, forward deployed engineering, AI deployment engineering,
 
 - [Long COVID evidence pipeline and supervised rehabilitation](https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html): interim, source-linked research note explaining a 73,857-record PubMed pipeline and one plausible treatment lane through six selected randomized rehabilitation trials. The article distinguishes statistical significance from clinical importance, links every primary paper, and explicitly states that it is not medical advice or a completed systematic review.
 
+## Portfolio Guide
+
+The website's public chat guide runs through a narrowly scoped Cloudflare Worker and the SEA-LION API. It grounds answers on this public `llms.txt` file, limits input and conversation history, rate-limits requests, and links answers back to public portfolio or project sources. The website itself remains hosted on GitHub Pages; no private employer or client data is included in the guide.
+
 ## Contact
 
 - Email: haomingkoo@gmail.com
