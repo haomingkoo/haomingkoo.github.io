@@ -221,16 +221,69 @@
   }
   .portrait-col {
     position: relative; height: 76vh; min-height: 540px;
-    overflow: hidden;
+    overflow: visible;
     border: none;
     background: transparent;
+    isolation: isolate;
   }
-  .portrait-col img {
-    position: relative; z-index: 1;
+  .portrait-col > img {
+    position: relative; z-index: 3;
     width: 100%; height: 100%; object-fit: contain; object-position: center bottom;
     filter: contrast(1.04) saturate(0.96) brightness(1.0)
             drop-shadow(0 30px 50px rgba(0,0,0,0.4));
     transform: scale(1);
+    pointer-events: none;
+  }
+  .work-reel {
+    position: absolute; left: -15%; bottom: 3%; z-index: 2;
+    width: min(82%, 430px); aspect-ratio: 16 / 10;
+  }
+  .reel-track { position: absolute; inset: 0; }
+  .reel-slide {
+    position: absolute; inset: 0; overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); border-radius: 12px;
+    background: #0a0c10; color: #fff; text-decoration: none;
+    box-shadow: 0 24px 70px rgba(0,0,0,.42);
+    opacity: 0; visibility: hidden;
+    transform: translate3d(40px, -12px, 0) scale(.9);
+    transition: transform 850ms cubic-bezier(.16,1,.3,1), opacity 500ms ease, visibility 500ms;
+    will-change: transform, opacity;
+  }
+  .reel-slide.is-active { z-index: 3; opacity: 1; visibility: visible; transform: translate3d(0, 0, 0) scale(1); }
+  .reel-slide.is-next { z-index: 2; opacity: .62; visibility: visible; transform: translate3d(26px, -22px, 0) scale(.94); }
+  .reel-slide.is-after { z-index: 1; opacity: .28; visibility: visible; transform: translate3d(46px, -38px, 0) scale(.88); }
+  .work-reel:not(.is-ready) .reel-slide:first-child { z-index: 3; opacity: 1; visibility: visible; transform: none; }
+  .reel-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform 5.5s linear; }
+  .reel-slide.is-active img { transform: scale(1.035); }
+  .reel-caption {
+    position: absolute; inset: auto 0 0;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
+    padding: 42px 16px 14px; background: linear-gradient(transparent, rgba(0,0,0,.88));
+    font-family: var(--body); font-size: 13px; font-weight: 600;
+  }
+  .reel-caption span:last-child { font: 400 9px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.72); }
+  .reel-controls {
+    position: absolute; left: 14px; top: 14px; z-index: 5;
+    display: flex; gap: 7px; padding: 7px 9px;
+    border: 1px solid rgba(255,255,255,.18); border-radius: 999px;
+    background: rgba(0,0,0,.56); backdrop-filter: blur(10px);
+  }
+  .reel-dot {
+    position: relative; width: 26px; height: 24px; padding: 0; border: 0; background: transparent; cursor: pointer;
+    transition: width 350ms var(--ease), background 350ms var(--ease);
+  }
+  .reel-dot::before {
+    content: ""; position: absolute; inset: 10px 4px; border-radius: 99px;
+    background: rgba(255,255,255,.28); transition: background 350ms var(--ease);
+  }
+  .reel-dot[aria-current="true"] { width: 40px; }
+  .reel-dot[aria-current="true"]::before { background: #fff; }
+  .reel-dot:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 4px; }
+  .reel-kicker {
+    position: absolute; right: 12px; top: 14px; z-index: 5;
+    padding: 7px 10px; border-radius: 999px;
+    background: rgba(0,0,0,.62); color: rgba(255,255,255,.82);
+    font: 500 9px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase;
   }
   /* signature */
   section.signature { position: relative; z-index: 2; padding: 140px 40px; }
@@ -256,10 +309,34 @@
     font-size: clamp(15px, 1.35vw, 18px);
     line-height: 1.65;
   }
-  .sig-stage { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--rule); }
-  .sig-node-label {
-    padding: 24px 18px; border-bottom: 1px solid var(--rule);
+  .sig-stage { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--rule); overflow: hidden; }
+  .sig-stage::before {
+    content: ""; position: absolute; left: 0; top: -1px; z-index: 2;
+    width: 100%; height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
   }
+  .sig-stage.is-visible::before { animation: sig-line 1.6s cubic-bezier(.16,1,.3,1) forwards; }
+  .sig-node-label {
+    position: relative; padding: 24px 18px; border-bottom: 1px solid var(--rule);
+    opacity: 1; transform: none;
+  }
+  .sig-node-label::before {
+    content: ""; position: absolute; top: -5px; left: 18px; z-index: 3;
+    width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent);
+    transform: scale(1);
+  }
+  .sig-stage.motion-ready .sig-node-label { opacity: 0; transform: translateY(18px); }
+  .sig-stage.motion-ready .sig-node-label::before { transform: scale(0); }
+  .sig-stage.is-visible .sig-node-label { animation: sig-node 700ms cubic-bezier(.16,1,.3,1) forwards; animation-delay: calc(260ms + var(--i) * 180ms); }
+  .sig-stage.is-visible .sig-node-label::before { animation: sig-dot 450ms cubic-bezier(.16,1,.3,1) forwards; animation-delay: calc(240ms + var(--i) * 250ms); }
+  .sig-node-label:nth-child(1) { --i: 0; }
+  .sig-node-label:nth-child(2) { --i: 1; }
+  .sig-node-label:nth-child(3) { --i: 2; }
+  .sig-node-label:nth-child(4) { --i: 3; }
+  .sig-node-label:nth-child(5) { --i: 4; }
+  @keyframes sig-line { to { transform: scaleX(1); } }
+  @keyframes sig-node { to { opacity: 1; transform: translateY(0); } }
+  @keyframes sig-dot { 60% { transform: scale(1.35); } to { transform: scale(1); } }
   .sig-node-label .step {
     font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
     color: var(--accent); margin-bottom: 10px; text-transform: uppercase;
@@ -551,7 +628,11 @@
   }
   @media (max-width: 760px) {
     section.hero { grid-template-columns: 1fr; padding: 110px 24px 60px; gap: 32px; }
-    .portrait-col { height: 52vh; min-height: 340px; }
+    .portrait-col { display: flex; flex-direction: column; height: auto; min-height: 0; }
+    .portrait-col > img { order: 1; height: 52vh; min-height: 390px; }
+    .work-reel { position: relative; left: auto; bottom: auto; order: 2; width: 100%; margin-top: -24px; }
+    .reel-slide.is-next { transform: translate3d(20px, -22px, 0) scale(.94); }
+    .reel-slide.is-after { transform: translate3d(38px, -38px, 0) scale(.88); }
     nav.top { padding: 16px 22px; }
     nav.top .clock { display: none; }
     nav.top ul { gap: 14px; font-size: 12px; }
@@ -593,10 +674,16 @@
     .sig-stage {
       grid-template-columns: 1fr;
       width: 100%;
+      border-top: 0;
+      border-left: 1px solid var(--rule);
+      overflow: visible;
     }
+    .sig-stage::before { top: 0; width: 2px; height: 100%; transform: scaleY(0); transform-origin: top; }
+    .sig-stage.is-visible::before { animation-name: sig-line-mobile; }
     .sig-node-label {
-      padding: 18px 0;
+      padding: 18px 0 18px 24px;
     }
+    .sig-node-label::before { top: 24px; left: -5px; }
     .sig-node-label .step {
       font-size: 12px;
       letter-spacing: 0.16em;
@@ -614,7 +701,10 @@
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .reel-slide img { transform: none !important; }
+    .sig-stage::before, .sig-node-label, .sig-node-label::before { opacity: 1; transform: none; }
   }
+  @keyframes sig-line-mobile { to { transform: scaleY(1); } }
 </style>
 </head>
 <body>
@@ -659,6 +749,7 @@
         <span class="dot"></span><span>haomingkoo@gmail.com</span>
       </a>
       <a class="cta-quiet" href="#work">See the work &rarr;</a>
+      <button class="chat-launcher" id="chatLauncher" type="button" aria-controls="portfolioChat" aria-expanded="false">Ask the guide</button>
     </div>
     <div class="proof-row">
       <div><span class="num"><span aria-hidden="true">7<em>yrs</em></span><span class="sr-only">7 years</span></span><span class="lbl">Micron Technology</span></div>
@@ -667,6 +758,17 @@
     </div>
   </div>
   <div class="portrait-col">
+    <div class="work-reel" id="workReel" aria-label="Selected live product screens">
+      <span class="reel-kicker">Live product reel</span>
+      <div class="reel-track">
+        <a class="reel-slide" href="https://job.kooexperience.com" target="_blank" rel="noopener" data-reel-title="Job Hunter SG"><img src="./assets/projects/job-hunter-sg/jobs-search.webp" width="1440" height="900" alt="Job Hunter SG search and matching interface" /><span class="reel-caption"><span>Job Hunter SG</span><span>RAG · Agent workflow</span></span></a>
+        <a class="reel-slide" href="https://trader.kooexperience.com" target="_blank" rel="noopener" data-reel-title="Trader Koo"><img src="./assets/projects/trader-koo/chart-analysis.webp" width="1440" height="900" alt="Trader Koo evidence-backed chart analysis" loading="lazy" /><span class="reel-caption"><span>Trader Koo</span><span>Research · Vision</span></span></a>
+        <a class="reel-slide" href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener" data-reel-title="Amex Explorer"><img src="./assets/projects/amex-explorer/dining-map-dark.webp" width="1440" height="900" alt="Amex Explorer dining map" loading="lazy" /><span class="reel-caption"><span>Amex Explorer</span><span>Evidence · Maps</span></span></a>
+        <a class="reel-slide" href="https://lionweather.kooexperience.com" target="_blank" rel="noopener" data-reel-title="LionWeather"><img src="./assets/projects/lionweather/radar-cockpit.webp" width="1440" height="900" alt="LionWeather radar and forecast cockpit" loading="lazy" /><span class="reel-caption"><span>LionWeather</span><span>Forecasting · SHAP</span></span></a>
+        <a class="reel-slide" href="https://preflight.kooexperience.com" target="_blank" rel="noopener" data-reel-title="Preflight"><img src="./assets/projects/preflight/data-health.webp" width="1440" height="900" alt="Preflight dataset health dashboard" loading="lazy" /><span class="reel-caption"><span>Preflight</span><span>Data quality · ML</span></span></a>
+      </div>
+      <div class="reel-controls" aria-label="Choose product screen"></div>
+    </div>
     <img src="./assets/haoming-portrait-cutout.webp" width="1200" height="1800" alt="Haoming Koo, applied AI engineer based in Singapore" />
   </div>
 </section>
@@ -678,11 +780,11 @@
     <h2 class="sig-headline">I build AI systems the same way, from <em>problem to production</em>.</h2>
     <p class="sig-subcopy">A clear problem statement, a design that survives scale, a working baseline, rigorous evaluation, and a deployment that keeps running after launch.</p>
     <div class="sig-stage" id="sigStage">
-      <div class="sig-node-label" data-i="0"><div class="step">01</div><div class="name">Clarify the problem</div><div class="desc">What decision this needs to support, and what success actually looks like.</div></div>
-      <div class="sig-node-label" data-i="1"><div class="step">02</div><div class="name">Design for scale</div><div class="desc">Data flow, latency budget, and where the system has to bend as load grows.</div></div>
-      <div class="sig-node-label" data-i="2"><div class="step">03</div><div class="name">Build the baseline</div><div class="desc">The simplest version that could plausibly work, shipped first.</div></div>
-      <div class="sig-node-label" data-i="3"><div class="step">04</div><div class="name">Evaluate and optimize</div><div class="desc">Ground-truth sets, error analysis, and tuning against the metric that matters.</div></div>
-      <div class="sig-node-label" data-i="4"><div class="step">05</div><div class="name">Ship with CI/CD</div><div class="desc">Tests, staged rollout, and monitoring so it keeps working after launch.</div></div>
+      <div class="sig-node-label"><div class="step">01</div><div class="name">Clarify the problem</div><div class="desc">What decision this needs to support, and what success actually looks like.</div></div>
+      <div class="sig-node-label"><div class="step">02</div><div class="name">Design for scale</div><div class="desc">Data flow, latency budget, and where the system has to bend as load grows.</div></div>
+      <div class="sig-node-label"><div class="step">03</div><div class="name">Build the baseline</div><div class="desc">The simplest version that could plausibly work, shipped first.</div></div>
+      <div class="sig-node-label"><div class="step">04</div><div class="name">Evaluate and optimize</div><div class="desc">Ground-truth sets, error analysis, and tuning against the metric that matters.</div></div>
+      <div class="sig-node-label"><div class="step">05</div><div class="name">Ship with CI/CD</div><div class="desc">Tests, staged rollout, and monitoring so it keeps working after launch.</div></div>
     </div>
   </div>
 </section>
@@ -898,7 +1000,6 @@
 
 </main>
 
-<button class="chat-launcher" id="chatLauncher" type="button" aria-controls="portfolioChat" aria-expanded="false">Ask about my work</button>
 <dialog class="portfolio-chat" id="portfolioChat" aria-labelledby="chatTitle" aria-describedby="chatDescription">
   <div class="chat-shell">
     <header class="chat-head">
@@ -963,6 +1064,62 @@
   }
   tickClock();
   setInterval(tickClock, 30000);
+
+  const reel = document.getElementById('workReel');
+  const slides = [...reel.querySelectorAll('.reel-slide')];
+  const controls = reel.querySelector('.reel-controls');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let reelIndex = 0;
+  let reelTimer;
+  reel.classList.add('is-ready');
+
+  const dots = slides.map((slide, index) => {
+    const dot = document.createElement('button');
+    dot.className = 'reel-dot';
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `Show ${slide.dataset.reelTitle}`);
+    dot.addEventListener('click', () => showSlide(index, true));
+    controls.append(dot);
+    return dot;
+  });
+
+  function showSlide(index, restart = false) {
+    reelIndex = (index + slides.length) % slides.length;
+    slides.forEach((slide, slideIndex) => {
+      const distance = (slideIndex - reelIndex + slides.length) % slides.length;
+      slide.classList.toggle('is-active', distance === 0);
+      slide.classList.toggle('is-next', distance === 1);
+      slide.classList.toggle('is-after', distance === 2);
+      slide.tabIndex = distance === 0 ? 0 : -1;
+    });
+    dots.forEach((dot, dotIndex) => dot.setAttribute('aria-current', dotIndex === reelIndex ? 'true' : 'false'));
+    if (restart) startReel();
+  }
+
+  function startReel() {
+    clearInterval(reelTimer);
+    if (!reduceMotion && !document.hidden) reelTimer = setInterval(() => showSlide(reelIndex + 1), 4800);
+  }
+
+  reel.addEventListener('pointerenter', () => clearInterval(reelTimer));
+  reel.addEventListener('pointerleave', startReel);
+  reel.addEventListener('focusin', () => clearInterval(reelTimer));
+  reel.addEventListener('focusout', startReel);
+  document.addEventListener('visibilitychange', startReel);
+  showSlide(0);
+  startReel();
+
+  const sigStage = document.getElementById('sigStage');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    sigStage.classList.add('is-visible');
+  } else {
+    sigStage.classList.add('motion-ready');
+    new IntersectionObserver(([entry], observer) => {
+      if (!entry.isIntersecting) return;
+      sigStage.classList.add('is-visible');
+      observer.disconnect();
+    }, { threshold: 0.35 }).observe(sigStage);
+  }
 
 })();
 </script>
