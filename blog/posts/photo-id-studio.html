@@ -8,12 +8,12 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
     <title>How 468 Facial Landmarks Decide If You're Passport-Ready - Haoming Koo</title>
-    <meta name="description" content="Building Photo ID Studio: an AI-powered passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules for Singapore, US, UK, Canada, Australia, and India." />
+    <meta name="description" content="Building Photo Compliance Studio: a passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules." />
     <meta name="keywords" content="passport photo, photo compliance, MediaPipe, face detection, rembg, OpenCV, computer vision, FastAPI, photo ID, Singapore passport photo" />
     <meta name="author" content="Haoming Koo" />
     <link rel="canonical" href="https://kooexperience.com/blog/posts/photo-id-studio.html" />
     <meta property="og:title" content="How 468 Facial Landmarks Decide If You're Passport-Ready" />
-    <meta property="og:description" content="Building Photo ID Studio: an AI-powered passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules for Singapore, US, UK, Canada, Australia, and India." />
+    <meta property="og:description" content="Building Photo Compliance Studio: a passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules." />
     <meta property="og:url" content="https://kooexperience.com/blog/posts/photo-id-studio.html" />
     <meta property="og:type" content="article" />
     <meta property="og:image" content="https://kooexperience.com/assets/og/photo-id-studio.png" />
@@ -24,7 +24,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://kooexperience.com/assets/og/photo-id-studio.png">
     <meta name="twitter:title" content="How 468 Facial Landmarks Decide If You're Passport-Ready">
-    <meta name="twitter:description" content="Building Photo ID Studio: an AI-powered passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules.">
+    <meta name="twitter:description" content="Building Photo Compliance Studio: a passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -207,7 +207,7 @@
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "How 468 Facial Landmarks Decide If You're Passport-Ready - Haoming Koo",
-      "description": "Building Photo ID Studio: an AI-powered passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules for Singapore, US, UK, Canada, Australia, and India.",
+      "description": "Building Photo Compliance Studio: a passport photo compliance checker using MediaPipe face mesh, rembg segmentation, and country-specific rules.",
       "url": "https://kooexperience.com/blog/posts/photo-id-studio.html",
       "datePublished": "2026-03-12",
       "dateModified": "2026-03-12",
@@ -218,7 +218,7 @@
     }
     </script>
     <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://kooexperience.com/blog/"},{"@type":"ListItem","position":3,"name":"Photo ID Studio"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://kooexperience.com/blog/"},{"@type":"ListItem","position":3,"name":"Photo Compliance Studio"}]}
 </script>
   <script>
 (function(){try{var saved=localStorage.getItem("hk-theme")||localStorage.getItem("theme");if(saved)document.documentElement.setAttribute("data-theme",saved);}catch(e){}document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[aria-label=\"Toggle theme\"], .theme-btn, .theme-toggle, #themeToggle");if(!b)return;requestAnimationFrame(function(){try{var theme=document.documentElement.getAttribute("data-theme")||document.documentElement.dataset.theme||"dark";localStorage.setItem("hk-theme",theme);localStorage.setItem("theme",theme);}catch(e){}});},true);})();
@@ -301,7 +301,7 @@
         </p>
 
         <p>
-          So I built <a href="https://studio.kooexperience.com" target="_blank" rel="noopener">Photo ID Studio</a>
+          So I built <a href="https://studio.kooexperience.com" target="_blank" rel="noopener">Photo Compliance Studio</a> (originally Photo ID Studio)
           to automate the whole thing. Upload a photo, pick your country, and the system runs
           25+ compliance checks using computer vision, then tells you exactly what's wrong and
           how to fix it. If you're in "assist" mode, it also crops, straightens, and whitens
@@ -1199,7 +1199,7 @@
         </p>
 
         <p>
-          Photo ID Studio uses a dual-backend approach:
+          Photo Compliance Studio uses a dual-backend approach:
         </p>
 
         <ul>
@@ -1792,7 +1792,7 @@ SG:
         <h2 id="references">References</h2>
 
         <ul>
-          <li><a href="https://studio.kooexperience.com" target="_blank" rel="noopener">Photo ID Studio (live app)</a></li>
+          <li><a href="https://studio.kooexperience.com" target="_blank" rel="noopener">Photo Compliance Studio (live app)</a></li>
           <li><a href="https://github.com/haomingkoo/photo-id-studio" target="_blank" rel="noopener">Source code on GitHub</a></li>
           <li><a href="https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker" target="_blank" rel="noopener">MediaPipe Face Landmarker</a></li>
           <li><a href="https://github.com/danielgatis/rembg" target="_blank" rel="noopener">rembg</a> for background removal</li>

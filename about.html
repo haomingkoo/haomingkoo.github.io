@@ -50,7 +50,7 @@
       "jobTitle": "Applied AI Engineer",
       "description": "AI engineer and digital transformation leader with 7 years of systems experience at Micron Technology across semiconductor manufacturing, cloud infrastructure, data platforms, and production ML. Contributed to USD 600M+ in program outcomes through yield optimisation, risk analytics, and platform unification. Co-led flagship DRAM and high-bandwidth-memory yield programs. Currently building production ML systems at AI Singapore's AIAP programme, including a 100E industry AI solution for complex operational planning. Built 8 live portfolio applications spanning vision pipelines, ML forecasting, automated EDA, full-stack dashboards, and open-source MCP servers.",
       "url": "https://kooexperience.com",
-      "image": "https://kooexperience.com/assets/haoming-portrait.png",
+      "image": "https://kooexperience.com/assets/haoming-portrait.jpg",
       "email": "haomingkoo@gmail.com",
       "homeLocation": {
         "@type": "Place",
@@ -204,16 +204,6 @@
         pointer-events: none;
         z-index: 0;
       }
-      canvas#bg-nodes {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        pointer-events: none;
-        opacity: 0.55;
-      }
-
       .container {
         position: relative;
         z-index: 1;
@@ -812,7 +802,6 @@
     </style>
   </head>
   <body>
-    <canvas id="bg-nodes"></canvas>
     <div class="grain"></div>
     <!-- Nav -->
     <div class="nav-wrap">
@@ -1381,83 +1370,5 @@
       })();
     </script>
 
-    <script>
-      /* ambient constellation -- subtle dot network behind the content */
-      (function () {
-        var canvas = document.getElementById("bg-nodes");
-        if (!canvas) return;
-        var ctx = canvas.getContext("2d");
-        var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-        var dpr = Math.min(devicePixelRatio || 1, 2);
-        var w = 0, h = 0;
-        var COUNT = 70;
-        var LINK_DIST = 130;
-        var nodes = [];
-
-        function resize() {
-          w = innerWidth * dpr;
-          h = innerHeight * dpr;
-          canvas.width = w;
-          canvas.height = h;
-          canvas.style.width = innerWidth + "px";
-          canvas.style.height = innerHeight + "px";
-        }
-        function seed() {
-          nodes = [];
-          for (var i = 0; i < COUNT; i++) {
-            nodes.push({
-              x: Math.random() * w,
-              y: Math.random() * h,
-              vx: (Math.random() - 0.5) * 0.25 * dpr,
-              vy: (Math.random() - 0.5) * 0.25 * dpr,
-              r: (1 + Math.random() * 1.6) * dpr,
-            });
-          }
-        }
-        function step() {
-          ctx.clearRect(0, 0, w, h);
-          var maxLink = LINK_DIST * dpr;
-          for (var i = 0; i < nodes.length; i++) {
-            var n = nodes[i];
-            n.x += n.vx;
-            n.y += n.vy;
-            if (n.x < 0 || n.x > w) n.vx *= -1;
-            if (n.y < 0 || n.y > h) n.vy *= -1;
-          }
-          ctx.strokeStyle = "rgba(91,142,251,0.55)";
-          ctx.lineWidth = 1;
-          for (var a = 0; a < nodes.length; a++) {
-            for (var b = a + 1; b < nodes.length; b++) {
-              var dx = nodes[a].x - nodes[b].x;
-              var dy = nodes[a].y - nodes[b].y;
-              var d = Math.sqrt(dx * dx + dy * dy);
-              if (d < maxLink) {
-                ctx.globalAlpha = (1 - d / maxLink) * 0.35;
-                ctx.beginPath();
-                ctx.moveTo(nodes[a].x, nodes[a].y);
-                ctx.lineTo(nodes[b].x, nodes[b].y);
-                ctx.stroke();
-              }
-            }
-          }
-          ctx.globalAlpha = 1;
-          ctx.fillStyle = "rgba(91,142,251,0.85)";
-          for (var k = 0; k < nodes.length; k++) {
-            var nn = nodes[k];
-            ctx.beginPath();
-            ctx.arc(nn.x, nn.y, nn.r, 0, Math.PI * 2);
-            ctx.fill();
-          }
-          requestAnimationFrame(step);
-        }
-        resize();
-        seed();
-        if (!reduced) requestAnimationFrame(step);
-        addEventListener("resize", function () {
-          resize();
-          seed();
-        });
-      })();
-    </script>
   </body>
 </html>

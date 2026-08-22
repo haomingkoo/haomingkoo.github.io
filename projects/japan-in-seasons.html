@@ -8,14 +8,14 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 
     <title>Japan in Seasons &mdash; Production MCP server for Claude &middot; Haoming Koo</title>
-    <meta name="description" content="Case study: Japan in Seasons, a production MCP server with 12 tools, 1,700+ data points, and a 100/100 Smithery score. End-to-end deployed seasonal travel agent for Claude." />
+    <meta name="description" content="Case study: Japan in Seasons, a production MCP server with 17 read-only tools, 1,700+ places, and a 100/100 Smithery score." />
     <link rel="canonical" href="https://kooexperience.com/projects/japan-in-seasons.html" />
 
     <meta property="og:title" content="Japan in Seasons &mdash; Production MCP server for Claude" />
-    <meta property="og:description" content="12 tools, 1,700+ data points, 100/100 Smithery score. End-to-end deployed seasonal travel agent." />
+    <meta property="og:description" content="17 read-only tools, 1,700+ places, and a 100/100 Smithery score." />
     <meta property="og:url" content="https://kooexperience.com/projects/japan-in-seasons.html" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://kooexperience.com/assets/cards/japan-in-seasons.jpg" />
+    <meta property="og:image" content="https://kooexperience.com/assets/projects/japan-in-seasons/sakura-map.webp" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,8 +26,8 @@
     <link rel="stylesheet" href="/system/projects.css" />
       <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Japan in Seasons &mdash; Production MCP server for Claude" />
-    <meta name="twitter:description" content="12 tools, 1,700+ data points, 100/100 Smithery score. End-to-end deployed seasonal travel agent." />
-    <meta name="twitter:image" content="https://kooexperience.com/assets/cards/japan-in-seasons.jpg" />
+    <meta name="twitter:description" content="17 read-only tools, 1,700+ places, and a 100/100 Smithery score." />
+    <meta name="twitter:image" content="https://kooexperience.com/assets/projects/japan-in-seasons/sakura-map.webp" />
 </head>
   <body>
     <nav class="project-nav">
@@ -37,12 +37,12 @@
     </nav>
 
     <section class="hero">
-      <div class="hero-bg" style="background-image: url('/assets/cards/japan-in-seasons.jpg')"></div>
+      <div class="hero-bg" style="background-image: url('/assets/projects/japan-in-seasons/sakura-map.webp')"></div>
       <div class="hero-gradient"></div>
       <div class="hero-content">
         <div class="hero-eyebrow">Project &middot; MCP Server</div>
         <h1 class="hero-title">Japan in <em>Seasons</em></h1>
-        <p class="hero-sub">A production MCP server for Claude &mdash; 12 tools, 1,700+ data points, 100/100 on Smithery. The agent answers seasonal travel questions in real time.</p>
+        <p class="hero-sub">A production MCP server for Claude &mdash; 17 read-only tools, 1,700+ places, 100/100 on Smithery. The agent answers seasonal travel questions with current sources.</p>
         <div class="hero-pills">
           <span class="pill">MCP Server</span>
           <span class="pill">Tool Use</span>
@@ -61,7 +61,7 @@
       </section>
 
       <section class="block">
-        <h2>The 12 tools</h2>
+        <h2>The 17 tools</h2>
         <div class="arch-grid">
           <div class="arch-item">
             <div class="arch-label">Sakura</div>
@@ -91,6 +91,10 @@
             <div class="arch-label">Routing</div>
             <div class="arch-desc"><code>japan_seasonal_answer</code> &mdash; the meta-tool that picks the right specific tool given a broad question.</div>
           </div>
+          <div class="arch-item">
+            <div class="arch-label">Discovery</div>
+            <div class="arch-desc"><code>search</code>, <code>fetch</code> &mdash; find seasonal pages and retrieve crawlable source-backed content.</div>
+          </div>
         </div>
       </section>
 
@@ -115,7 +119,7 @@
             <div class="proj-metric-lbl">Smithery score</div>
           </div>
           <div class="proj-metric">
-            <div class="proj-metric-val">12</div>
+            <div class="proj-metric-val">17</div>
             <div class="proj-metric-lbl">Tools exposed</div>
           </div>
           <div class="proj-metric">
@@ -149,7 +153,6 @@
         <div class="cta-block">
           <a class="cta-primary" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Open Japan in Seasons &rarr;</a>
           <a class="cta-secondary" href="/blog/posts/create-mcp.html">Read the 100/100 walkthrough &rarr;</a>
-          <a class="cta-secondary" href="https://smithery.ai" target="_blank" rel="noopener">View on Smithery &rarr;</a>
         </div>
       </section>
 

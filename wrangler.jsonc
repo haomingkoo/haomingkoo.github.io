@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "haoming-portfolio-chat",
+  "main": "worker/portfolio-chat.js",
+  "compatibility_date": "2026-08-22",
+  "preview_urls": false,
+  "workers_dev": true,
+  "vars": {
+    "SEALION_MODEL": "aisingapore/Qwen-SEA-LION-v4-32B-IT"
+  },
+  "ratelimits": [
+    {
+      "name": "CHAT_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 10, "period": 60 }
+    }
+  ]
+}

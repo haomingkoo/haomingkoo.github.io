@@ -38,6 +38,19 @@ python3 sync_profile_surfaces.py
 python3 sync_profile_surfaces.py --check
 ```
 
+## Portfolio chat
+
+The chat widget calls a small Cloudflare Worker, which grounds SEA-LION on the public `llms.txt` file.
+
+```bash
+npx wrangler secret put SEALION_API_KEY
+npx wrangler deploy
+```
+
+Set the deployed URL in the `portfolio-chat-endpoint` meta tag in `index.html`. Query `/v1/models` with the SEA-LION key before changing `SEALION_MODEL` in `wrangler.jsonc`.
+
+Production chat is served at `https://chat.kooexperience.com`; the portfolio itself remains on GitHub Pages.
+
 ## Safety notes
 
 - Do not commit `.env`, local MCP configs, raw recordings, generated frames, or private design exports.

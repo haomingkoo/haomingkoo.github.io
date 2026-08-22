@@ -9,10 +9,6 @@
   --rule-soft: rgba(6,7,13,0.05);
   --accent: #2563eb;
   --accent-2: #5b8efb;
-  --glow: rgba(91,142,251,0.22);
-  --glow-2: rgba(37,99,235,0.10);
-  --node: 6,7,13;
-  --node-on: 37,99,235;
   --grain-op: 0.16;
   --grain-blend: multiply;
   --display: "Fraunces","Times New Roman",serif;
@@ -32,10 +28,6 @@
   --rule-soft: rgba(244,244,246,0.05);
   --accent: #5b8efb;
   --accent-2: #8eb6f8;
-  --glow: rgba(91,142,251,0.18);
-  --glow-2: rgba(37,99,235,0.10);
-  --node: 244,244,246;
-  --node-on: 91,142,251;
   --grain-op: 0.14;
   --grain-blend: screen;
 }

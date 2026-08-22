@@ -174,7 +174,7 @@
       "FastAPI",
       "OpenCV"
     ],
-    "excerpt": "MediaPipe face mesh, rembg segmentation, 25+ compliance checks, and country-specific rules for 6 countries. Here's how Photo ID Studio decides if your face is passport-worthy.",
+    "excerpt": "MediaPipe face mesh, rembg segmentation, 25+ compliance checks, and country-specific rules for 6 countries. Here's how Photo Compliance Studio reviews a passport photo.",
     "cover": "",
     "readingTime": "16 min"
   },

@@ -14,7 +14,7 @@ The first screen has one job: make a recruiter understand the person, the role, 
 
 ## Visual story
 
-Use the cinematic reel as proof of taste and range. The video should not carry important text because generated text can drift. HTML carries the real message.
+Use verified product captures as proof of taste and range. Each image should show a populated, public-safe workflow; HTML carries the detailed claim.
 
 Storyline:
 
@@ -27,7 +27,7 @@ Storyline:
 
 Homepage order:
 
-1. Hero with cinematic reel and hiring proof.
+1. Hero with hiring proof and a direct path to live work.
 2. Three fastest live products: Job Hunter SG, Trader Koo, Japan in Seasons.
 3. Public-safe enterprise AI pattern.
 4. Stats strip.
@@ -39,7 +39,7 @@ Homepage order:
 
 Motion should explain the work, not decorate the page.
 
-- Use the reel as the big emotional moment.
+- Let product screenshots carry the visual proof.
 - Keep scroll animation calm and tied to the architecture story.
 - Avoid cursor trails, particles, excessive parallax, or text flying in.
 - Respect `prefers-reduced-motion`.

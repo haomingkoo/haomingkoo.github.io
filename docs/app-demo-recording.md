@@ -4,7 +4,7 @@ Short product clips will make the portfolio feel more real than static screensho
 
 ## What to record
 
-- `portfolio`: cinematic landing page scroll.
+- `portfolio`: homepage product-proof scroll.
 - `job`: Job Hunter SG onboarding and resume/job workflow.
 - `trader`: Trader Koo chart and market workflow.
 - `trader-paper`: Trader Koo paper-trade review workflow.
@@ -39,7 +39,7 @@ Use recorded clips as proof, not decoration:
 
 ## Suggested final reel
 
-1. Hero animation: messy workflows become AI products.
+1. Homepage: role, evidence, and live-product entry points.
 2. Job Hunter SG: search roles, score/resume workflow.
 3. Trader Koo: chart signal flow.
 4. Trader Koo paper: simulated trade review flow.

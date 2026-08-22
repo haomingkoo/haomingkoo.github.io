@@ -14,28 +14,9 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent
 SGT = timezone(timedelta(hours=8))
-STATIC_LASTMODS = {
-    "https://wine.kooexperience.com": "2026-03-20",
-    "https://kooexperience.com/wmss.html": "2026-03-14",
-}
-
-
 def load_posts(relative_path: str) -> list[dict[str, Any]]:
     posts = json.loads((ROOT / relative_path).read_text())
     return sorted(posts, key=lambda post: post["date"], reverse=True)
-
-
-def read_existing_lastmods() -> dict[str, str]:
-    sitemap = ROOT / "sitemap.xml"
-    if not sitemap.exists():
-        return {}
-
-    matches = re.findall(
-        r"<loc>([^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>",
-        sitemap.read_text(),
-        flags=re.S,
-    )
-    return {loc: lastmod for loc, lastmod in matches}
 
 
 def escape_text(value: str) -> str:
@@ -56,28 +37,6 @@ def format_month_year(date_str: str) -> str:
     return dt.strftime("%b %Y")
 
 
-def compact_excerpt(post: dict[str, Any], content_type: str) -> str:
-    title = post.get("title", "")
-    slug = post.get("slug", "")
-    tags = [tag for tag in (post.get("tags") or []) if tag not in {"Building", "Research", "LLMOps", "Travel"}]
-
-    overrides = {
-        "create-mcp": "MCP quality fixes: tool names, annotations, caching, Smithery config, and a reusable create-mcp skill.",
-        "pdf-parsing-comparison": "Seven PDF parsers tested on scanned, handwritten, AcroForm, and degraded complaint forms.",
-        "minmax-wine": "Wine price comparison for Singapore, with scraping, Vivino matching, and guarded daily refreshes.",
-        "job-hunter": "Singapore job search, RAG matching, ATS scoring, and guarded resume edits.",
-        "hmm-regime": "A visual guide to reading market regimes with Hidden Markov Models.",
-        "netherlands": "Tulips, windmills, Dutch masters, Delft tiles, and Indonesian food across the Netherlands.",
-        "japan": "Hokkaido snow festivals, early sakura, Mount Fuji views, and Izu coastal drives.",
-        "italy": "Milan, Florence, Pisa, Rome, and Venice with a full winter family trip breakdown.",
-    }
-    if slug in overrides:
-        return overrides[slug]
-    if content_type == "blog" and tags:
-        return ", ".join(tags[:4])
-    return post.get("excerpt", "")
-
-
 def replace_generated_block(path: Path, block_name: str, content: str) -> None:
     text = path.read_text()
     pattern = re.compile(
@@ -92,37 +51,6 @@ def replace_generated_block(path: Path, block_name: str, content: str) -> None:
 
     replacement = f"{match.group('start')}{content.rstrip()}\n{match.group('end')}"
     path.write_text(text[: match.start()] + replacement + text[match.end() :])
-
-
-def generated_block_exists(path: Path, block_name: str) -> bool:
-    return f"<!-- GENERATED:{block_name} START -->" in path.read_text()
-
-
-def render_home_cards(posts: list[dict[str, Any]], content_type: str) -> str:
-    if not posts:
-        empty = "No posts yet — check back soon." if content_type == "blog" else "No travel stories yet — check back soon."
-        return f"          <div class=\"empty-state reveal\">{escape_text(empty)}</div>"
-
-    cards: list[str] = []
-    for post in posts[:3]:
-        first_tag = escape_text((post.get("tags") or [content_type])[0])
-        tag_class = "post-tag post-tag-travel" if content_type == "travel" else "post-tag"
-        href = f"./{content_type}/posts/{post['slug']}.html"
-        cards.append(f'          <a class="post-card reveal visible" href="{escape_attr(href)}">')
-        if post.get("cover"):
-            cards.append(
-                f'            <img class="post-cover" src="{escape_attr(post["cover"])}" '
-                f'alt="{escape_attr(post["title"])}" loading="lazy" />'
-            )
-        cards.append("            <div class=\"post-meta\">")
-        cards.append(f'              <span class="{tag_class}">{first_tag}</span>')
-        cards.append(f'              <span>{escape_text(format_month_day_year(post["date"]))}</span>')
-        cards.append("            </div>")
-        cards.append(f'            <p class="post-title">{escape_text(post["title"])}</p>')
-        cards.append(f'            <p class="post-excerpt">{escape_text(compact_excerpt(post, content_type))}</p>')
-        cards.append("            <span class=\"post-read\">Read &rsaquo;</span>")
-        cards.append("          </a>")
-    return "\n".join(cards)
 
 
 def render_blog_archive(posts: list[dict[str, Any]]) -> str:
@@ -206,12 +134,6 @@ def render_sitemap(blog_posts: list[dict[str, Any]], travel_posts: list[dict[str
             "loc": "https://kooexperience.com/about.html",
             "lastmod": file_lastmod("about.html"),
             "changefreq": "monthly",
-            "priority": "0.9",
-        },
-        {
-            "loc": "https://wine.kooexperience.com",
-            "lastmod": STATIC_LASTMODS["https://wine.kooexperience.com"],
-            "changefreq": "daily",
             "priority": "0.9",
         },
         {
@@ -347,11 +269,6 @@ def main() -> None:
     blog_posts = load_posts("blog/posts.json")
     travel_posts = load_posts("travel/posts.json")
 
-    index_path = ROOT / "index.html"
-    if generated_block_exists(index_path, "home-blog"):
-        replace_generated_block(index_path, "home-blog", render_home_cards(blog_posts, "blog"))
-    if generated_block_exists(index_path, "home-travel"):
-        replace_generated_block(index_path, "home-travel", render_home_cards(travel_posts, "travel"))
     replace_generated_block(ROOT / "blog/index.html", "blog-count", f"        {len(blog_posts)} posts")
     replace_generated_block(ROOT / "blog/index.html", "blog-list", render_blog_archive(blog_posts))
     replace_generated_block(

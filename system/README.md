@@ -9,7 +9,7 @@ Page-specific styles stay inline in each HTML file.
 |------|---------|
 | `tokens.css` | Light + dark CSS custom properties (colors, fonts, easing, max-width) |
 | `base.css` | Reset, base body styles, `::selection`, anchor inheritance |
-| `atmosphere.css` | Grain overlay, cursor ring, cursor light, scroll progress bar, shared keyframes |
+| `atmosphere.css` | Grain overlay and scroll progress bar |
 | `nav.css` | Top navigation bar, clock pill, theme toggle |
 
 ## Required font imports (in `<head>`)
@@ -37,7 +37,4 @@ Page-specific styles stay inline in each HTML file.
 - `/about.html` — about + experience
 - `/blog/index.html` — blog index
 
-## Pages pending migration
-
-- `/hire.html` — separate visual language; migrate in a follow-up
-- `/travel/` — separate visual language; migrate in a follow-up
+`/travel/` keeps a separate visual language.

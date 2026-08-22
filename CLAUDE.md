@@ -18,7 +18,7 @@ Static HTML/CSS/JS site for **kooexperience.com** (Haoming Koo's recruiter-facin
 - `blog/` — `index.html` + `posts/*.html` + `posts.json` (post index).
 - `travel/` — `index.html` + `posts/*.html` (+ `.kml` route files) + `posts.json`; uses `_template.html` for new posts.
 - `system/` — shared CSS bundle (`tokens.css`, `base.css`, `atmosphere.css`, `nav.css`); import order matters, `tokens.css` first. See `system/README.md`. `hire.html` and `travel/` haven't migrated to this system yet.
-- `assets/` — images, OG images, cinematic clips, demo clips.
+- `assets/` — images, OG images, and verified product captures.
 - `wmss.html`, `wine.html` — standalone one-off pages (`wine.html` is a redirect stub to MinMax Wine).
 
 ## Content sync (source of truth: `profile.json`)

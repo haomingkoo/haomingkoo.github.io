@@ -1,4 +1,4 @@
-/* /system/projects.css — shared styles for project detail pages */
+/* Shared styles for project detail pages. */
 
 .project-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
@@ -84,7 +84,7 @@
   display: flex; flex-wrap: wrap; gap: 6px;
 }
 .hero-pills .pill {
-  font-family: var(--mono); font-size: 10px;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.18em; text-transform: uppercase;
   padding: 5px 11px; border-radius: 99px;
   background: rgba(91,142,251,0.20);
@@ -183,7 +183,7 @@
 }
 .proj-metric-val .accent { color: var(--accent); }
 .proj-metric-lbl {
-  font-family: var(--mono); font-size: 10px;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--ink-mute);
 }
