@@ -11,21 +11,6 @@
   const session = crypto.randomUUID();
   const maxHistoryItems = 6;
 
-  const portrait = document.querySelector('.portrait-col > img');
-  if (portrait) {
-    let dockScheduled = false;
-    const syncDock = () => {
-      dockScheduled = false;
-      launcher.classList.toggle('is-docked', portrait.getBoundingClientRect().bottom <= 0);
-    };
-    addEventListener('scroll', () => {
-      if (dockScheduled) return;
-      dockScheduled = true;
-      requestAnimationFrame(syncDock);
-    }, { passive: true });
-    syncDock();
-  }
-
   function message(text, role, sources = []) {
     const item = document.createElement('div');
     item.className = `chat-message ${role}`;
