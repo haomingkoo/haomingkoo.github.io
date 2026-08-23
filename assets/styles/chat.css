@@ -22,7 +22,7 @@
 }
 .portfolio-chat:not([open]) { display: none; }
 .portfolio-chat.avoid-portrait {
-  inset: auto auto 88px 24px;
+  inset: auto 24px 88px auto;
   height: min(420px, calc(100vh - 120px));
 }
 .chat-shell { height: 100%; display: grid; grid-template-rows: auto 1fr auto; }

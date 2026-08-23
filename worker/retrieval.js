@@ -28,7 +28,7 @@ const INTENT_EXPANSIONS = [
   [["skill", "skills", "stack", "technology", "technologies"], ["professional", "keywords"]],
   [["study", "studied", "degree", "degrees", "education", "university"], ["education", "nus"]],
   [["available", "availability", "hire", "hiring", "role"], ["professional", "positioning", "recruiter"]],
-  [["amd", "aiap", "employer", "still"], ["career", "history", "professional", "positioning"]],
+  [["amd", "aiap", "current", "currently", "employed", "employer", "now", "still", "work", "working"], ["career", "history", "professional", "positioning"]],
   [["chat", "guide", "grounded", "rag", "retrieval"], ["portfolio", "guide", "public", "safety"]],
   [["email", "contact", "linkedin", "github"], ["contact"]],
 ];
