@@ -1,13 +1,12 @@
 {
   "name": "Haoming Koo",
-  "headline": "Applied AI Engineer | Production ML Systems | RAG, Agents & Evals | 8 Live Apps | Ex-Micron | MSc (NUS)",
+  "headline": "Senior Software Development Engineer (AI Agentic) at AMD | Production AI Systems | RAG, Agents & Evals | 8 Live Apps | MSc (NUS)",
   "location": "Singapore",
   "email": "haomingkoo@gmail.com",
   "linkedin": "https://linkedin.com/in/haomingkoo",
   "github": "https://github.com/haomingkoo",
   "website": "https://kooexperience.com",
   "nationality": "Singapore Citizen",
-  "availableFrom": "2026-10",
   "searchAliases": [
     "Haoming Koo",
     "Haoming Koo GitHub",
@@ -15,12 +14,15 @@
     "Haoming Koo portfolio",
     "Haoming Koo AI Engineer Singapore",
     "Haoming Koo Applied AI Engineer",
+    "Haoming Koo AMD",
+    "Haoming Koo Senior Software Development Engineer",
+    "Haoming Koo AI Agentic",
     "Haoming Koo AI Product Engineer",
     "Haoming Koo Production LLM Systems",
     "haomingkoo",
     "github.com/haomingkoo"
   ],
-  "summary": "Applied AI engineer in Singapore with 8 years of systems experience. I build AI systems for complex operational work: RAG workflows, tool-using agents, evals, observability, vision pipelines, and product interfaces. I spent 7 years at Micron across semiconductor manufacturing, cloud, and data platforms. The work supported cross-site programs across four fabs, identifying USD 600M+ in opportunities with USD 50M+ realized. I now build production ML systems at AI Singapore, including a 100E industry AI solution for complex operational planning.",
+  "summary": "Senior Software Development Engineer (AI Agentic) at AMD in Singapore. I build AI systems for complex operational work: RAG workflows, tool-using agents, evals, observability, vision pipelines, and product interfaces. I graduated from AI Singapore's AI Apprenticeship Programme as a Certified AI Engineer in July 2026 and spent 7 years at Micron across semiconductor manufacturing, cloud, and data platforms. The Micron work supported cross-site programs across four fabs, identifying USD 600M+ in opportunities with USD 50M+ realized.",
   "topSkills": [
     "AI Engineering & MLOps",
     "Production ML Systems",
@@ -144,22 +146,41 @@
   ],
   "experience": [
     {
+      "company": "AMD",
+      "roles": [
+        {
+          "title": "Senior Software Development Engineer (AI Agentic)",
+          "startDate": "2026-08",
+          "endDate": null,
+          "location": "Singapore",
+          "description": "Build and deploy agentic AI systems end to end, from prompt and context engineering through production integration and evaluation.",
+          "bullets": [
+            "Design AI agents with multi-step workflows, tool use, memory, function calling, and structured outputs",
+            "Build RAG pipelines and context-management strategies to improve reliability and reduce hallucinations",
+            "Develop evaluation and testing frameworks for response quality, consistency, and latency",
+            "Integrate AI solutions with enterprise APIs, databases, and business systems",
+            "Deploy into live workflows and work directly with stakeholders to monitor, debug, and improve production systems"
+          ]
+        }
+      ]
+    },
+    {
       "company": "AI Singapore",
       "roles": [
         {
           "title": "Associate AI Engineer | AI Apprenticeship Programme (AIAP)",
           "startDate": "2026-01",
-          "endDate": null,
+          "endDate": "2026-07",
           "location": "Singapore",
-          "description": "Full-time AI engineering apprenticeship under AI Singapore's national AI programme. Building and deploying end-to-end ML systems across structured data, vision, and sequence modelling domains, including a 100E industry AI solution for complex operational planning.",
+          "description": "Completed AI Singapore's full-time national AI apprenticeship and graduated as a Certified AI Engineer. Built and deployed end-to-end ML systems across structured data, vision, and sequence modelling domains, including a 100E industry AI solution for complex operational planning.",
           "bullets": [
             "Delivered production-ready pipelines using GitLab CI/CD, Docker, and Google Cloud — including backend inference services and frontend UIs",
-            "Contributing to a 100E industry AI solution for complex operational planning",
+            "Contributed to a 100E industry AI solution for complex operational planning",
             "Built vision models for image classification, object detection, and quality checks",
             "Developed sequence modelling systems for time-series prediction",
             "Implemented containerised deployment, model lifecycle management, and MLOps automation",
-            "Separately build and maintain 8 public portfolio applications at kooexperience.com, including RAG workflows, market research tools, MCP travel intelligence, and ML demos",
-            "Expanding into NLP, LLM architectures, LangGraph-style orchestration, observability, and agentic AI workflows"
+            "Separately built and maintained 8 public portfolio applications at kooexperience.com, including RAG workflows, market research tools, MCP travel intelligence, and ML demos",
+            "Developed skills in NLP, LLM architectures, LangGraph-style orchestration, observability, and agentic AI workflows"
           ]
         }
       ]
@@ -340,6 +361,7 @@
     }
   ],
   "certifications": [
+    "Certified AI Engineer (AI Singapore, 2026)",
     "Claude Certified Architect — Foundations (Anthropic, 2026)",
     "GA100 — Generative AI (Heicoders Academy, WSQ Accredited, 2025)",
     "Full Stack Development with AI (NUS x Emeritus, 2025)",

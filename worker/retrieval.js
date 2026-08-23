@@ -12,6 +12,8 @@ const SECTION_SOURCES = {
   "citation-ready-facts": "https://kooexperience.com/about.html",
   "agent-use": "https://kooexperience.com/llms-full.txt",
   "public-safety-boundaries": "https://kooexperience.com/llms.txt",
+  "professional-focus": "https://kooexperience.com/hire.html",
+  "professional-keywords": "https://kooexperience.com/hire.html",
   "recruiter-quick-path": "https://kooexperience.com/hire.html",
   "role-fit-keywords": "https://kooexperience.com/hire.html",
   "selected-live-products": "https://kooexperience.com/#work",
@@ -23,9 +25,10 @@ const SECTION_SOURCES = {
 const INTENT_EXPANSIONS = [
   [["background", "career", "experience", "micron"], ["career", "history", "professional", "positioning"]],
   [["project", "projects", "product", "products", "built", "portfolio"], ["selected", "live", "products"]],
-  [["skill", "skills", "stack", "technology", "technologies"], ["role", "fit", "keywords"]],
+  [["skill", "skills", "stack", "technology", "technologies"], ["professional", "keywords"]],
   [["study", "studied", "degree", "degrees", "education", "university"], ["education", "nus"]],
   [["available", "availability", "hire", "hiring", "role"], ["professional", "positioning", "recruiter"]],
+  [["amd", "aiap", "employer", "still"], ["career", "history", "professional", "positioning"]],
   [["chat", "guide", "grounded", "rag", "retrieval"], ["portfolio", "guide", "public", "safety"]],
   [["email", "contact", "linkedin", "github"], ["contact"]],
 ];

@@ -26,6 +26,8 @@ const cases = [
   ["Where did Haoming study?", "education"],
   ["How does this portfolio guide work?", "portfolio-guide"],
   ["How can I contact Haoming?", "contact"],
+  ["What is Haoming's current role?", "professional-positioning"],
+  ["Does Haoming still work at AI Singapore?", "career-history"],
 ];
 
 for (const [question, expected] of cases) {

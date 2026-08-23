@@ -1,15 +1,15 @@
 # Portfolio design direction
 
-This homepage should feel like a premium product launch page for an applied AI engineer, not a decorated resume.
+This homepage should feel like a premium product launch page for a senior agentic AI engineer, not a decorated resume.
 
 ## First impression
 
 The first screen has one job: make a recruiter understand the person, the role, and the proof in a few seconds.
 
 - Name: Haoming Koo
-- Role: Applied AI engineer in Singapore
+- Role: Senior Software Development Engineer (AI Agentic) at AMD
 - Story: turns complex operational work into AI systems people can trust and use
-- Proof: 7 years at Micron, AI Singapore, $600M+ aggregate program impact, 8 live apps
+- Proof: current senior AMD role, Certified AI Engineer by AI Singapore, 7 years at Micron, $600M+ aggregate program impact, 8 live apps
 - Next step: hire, open live apps, inspect enterprise pattern
 
 ## Visual story

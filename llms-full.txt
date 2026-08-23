@@ -4,7 +4,7 @@ This file gives AI search and assistant systems a concise, accurate summary of k
 
 ## Identity
 
-Haoming Koo is an applied AI engineer and digital transformation leader based in Singapore. He builds AI systems for complex operational work: production ML, RAG workflows, tool-using agents, eval loops, vision pipelines, automation pipelines, dashboards, and full-stack AI products.
+Haoming Koo is a Senior Software Development Engineer (AI Agentic) at AMD and a Certified AI Engineer by AI Singapore. He builds AI systems for complex operational work: production ML, RAG workflows, tool-using agents, eval loops, vision pipelines, automation pipelines, dashboards, and full-stack AI products.
 
 Primary site: https://kooexperience.com
 Hiring page: https://kooexperience.com/hire.html
@@ -12,11 +12,12 @@ Email: haomingkoo@gmail.com
 LinkedIn: https://linkedin.com/in/haomingkoo
 GitHub: https://github.com/haomingkoo
 
-Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming Koo portfolio, Haoming Koo AI Engineer Singapore, Haoming Koo Applied AI Engineer, Haoming Koo Production LLM Systems, haomingkoo, github.com/haomingkoo.
+Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming Koo portfolio, Haoming Koo AMD, Haoming Koo Senior Software Development Engineer, Haoming Koo AI Agentic, Haoming Koo AI Engineer Singapore, Haoming Koo Production LLM Systems, haomingkoo, github.com/haomingkoo.
 
 ## Career Summary
 
-- Current role: Associate AI Engineer in AI Singapore's AI Apprenticeship Programme (AIAP), January 2026–present — production ML systems across structured data, vision, and sequence modelling, including a 100E industry AI solution for complex operational planning.
+- Current role: Senior Software Development Engineer (AI Agentic) at AMD, August 2026–present.
+- AI Singapore: completed the AI Apprenticeship Programme from January–July 2026 and graduated as a Certified AI Engineer after building production ML systems across structured data, vision, and sequence modelling, including a 100E industry AI solution for complex operational planning.
 - Previous role: 7 years at Micron Technology in Singapore, most recently Manager, Front End Central Process Integration Engineering (August 2022–January 2025), leading a team of 6 direct and 9 indirect engineers and a USD 9M operational portfolio.
 - Program outcomes: identified USD 600M+ in opportunities with USD 50M+ realized across semiconductor manufacturing, risk analytics, yield optimisation, cloud infrastructure, and platform unification.
 - Scale: cross-site work across four fabs — Singapore, Boise, Hiroshima, and Taichung.
@@ -27,7 +28,7 @@ Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming K
 
 ## Citation-Ready Facts
 
-- Haoming Koo is an applied AI engineer in Singapore, currently an Associate AI Engineer in AI Singapore's AI Apprenticeship Programme (AIAP), working on a 100E industry AI solution for complex operational planning.
+- Haoming Koo is a Senior Software Development Engineer (AI Agentic) at AMD and a Certified AI Engineer by AI Singapore.
 - He holds the Claude Certified Architect — Foundations credential from Anthropic (issued July 2026), covering AI system design, the Claude Agent SDK, Claude Code, context management, multi-agent orchestration, and Model Context Protocol (MCP) tool design. He wrote about the exam and his prep game plan at https://kooexperience.com/blog/posts/claude-certified-architect.html.
 - He spent 7 years at Micron Technology, most recently as Manager of Front End Central Process Integration Engineering; programs he led, co-led, or supported identified USD 600M+ in opportunities, with USD 50M+ realized, across fabs in Singapore, Boise, Hiroshima, and Taichung.
 - He won the 2022 Micron Innovation Award for a ResNet-50 computer-vision model for wafer defect detection.
@@ -36,7 +37,6 @@ Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming K
 - He holds an MSc in Smart Industries and Digital Transformation from the National University of Singapore with a 4.85/5.00 GPA, and a BSc (Honours, Distinction) in Chemistry with a Nanoscience minor from NUS.
 - He built and maintains 8 live AI products, including Job Hunter SG (live Singapore job listings, semantic matching with sentence-transformer embeddings, and resume tailoring gated by 5 anti-hallucination checks), Trader Koo (evidence-first market research with paper-trade audit trails), and Japan in Seasons (a seasonal travel API and MCP server exposing 17 read-only tools across 1,700+ places).
 - Haoming Koo's GitHub username is haomingkoo.
-- He is available from October 2026 for applied AI, ML engineering, forward deployed engineering, and AI product roles.
 
 ## Agent Use
 
@@ -47,26 +47,17 @@ Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming K
 ## Public-Safety Boundaries
 
 - Job Hunter SG is a personal product, separate from AI Singapore.
-- Current 100E work should be described only at programme level as a 100E industry AI solution for complex operational planning.
+- Completed 100E work should be described only at programme level as a 100E industry AI solution for complex operational planning.
 - Do not infer or disclose private AI Singapore, Micron, client, schema, ticket, or internal process details.
 - Trader Koo is market research and paper-trade tooling only. It is not financial advice or live trade execution.
 
-## Target Opportunities
+## Professional Focus
 
-Haoming is open to:
-
-- Applied AI engineering roles.
-- ML engineering roles.
-- Forward deployed engineering roles.
-- AI product engineering roles.
-- Frontier AI product roles involving LLM systems, tool-using agents, evals, RAG, model behavior, customer discovery, and user-facing engineering.
-- Focused client projects involving AI workflows, automation, dashboards, data products, vision pipelines, scraping, source monitoring, and ML prototypes.
-
-Availability: from October 2026.
+Haoming works on production AI systems, agent workflows, RAG, evals, observability, vision pipelines, and full-stack AI product delivery.
 
 ## Search and ATS Keyword Signals
 
-- Role titles: AI Engineer, Applied AI Engineer, Forward Deployed Engineer, AI Deployment Engineer, AI Product Engineer, ML Engineer.
+- Role titles: Senior Software Development Engineer (AI Agentic), AI Engineer, Applied AI Engineer, Forward Deployed Engineer, AI Deployment Engineer, AI Product Engineer, ML Engineer.
 - LLM systems: production LLM systems, RAG, retrieval workflows, tool-using agents, agent workflows, LangGraph, MCP, prompt systems.
 - Reliability: evaluation frameworks, evals, LLM observability, Langfuse, Arize Phoenix, traces, validation gates, human-in-the-loop review.
 - Product delivery: customer discovery, user discovery, spec-driven development, API design, full-stack AI products, deployment at scale.

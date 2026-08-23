@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent
 DEFAULT_GITHUB_PROFILE_README = ROOT.parent / "haomingkoo" / "README.md"
 PORTFOLIO_README = ROOT / "github-profile-readme.md"
 
-GITHUB_BIO = "Applied AI Engineer | Production LLM Systems | RAG & Agent Workflows | Evals | Ex-Micron"
+GITHUB_BIO = "Senior Software Development Engineer (AI Agentic) at AMD | RAG | Agent Workflows | Evals"
 
 
 def load_json(path: Path) -> Any:
@@ -101,9 +101,9 @@ def render_readme(profile: dict[str, Any], posts: list[dict[str, Any]]) -> str:
 
 # {profile["name"]}
 
-**Applied AI Engineer**
+**Senior Software Development Engineer (AI Agentic) at AMD**
 
-Production LLM systems, RAG, agent workflows, and enterprise AI delivery | AI Singapore | Ex-Micron (contributed to {metrics["businessImpact"]} in program outcomes) | MSc NUS
+Production AI systems, RAG, agent workflows, and evals | AMD | Certified AI Engineer by AI Singapore | Ex-Micron (contributed to {metrics["businessImpact"]} in program outcomes) | MSc NUS
 
 GitHub username: [`haomingkoo`](https://github.com/haomingkoo)
 
@@ -117,7 +117,7 @@ GitHub username: [`haomingkoo`](https://github.com/haomingkoo)
 
 ## What I'm Working On
 
-- Building production ML systems at **AI Singapore (AIAP)** across vision, sequence modelling, NLP, and MLOps, including a 100E industry AI solution for complex operational planning
+- Working as a **Senior Software Development Engineer (AI Agentic) at AMD**, building end-to-end agents, RAG and context strategies, evaluation frameworks, and production integrations
 - Building **RAG, agent workflows, evals, and LLM observability** into practical AI products
 - Maintaining [{metrics["liveApps"]} deployed public systems]({profile["website"]}) across job search, travel intelligence, market research, weather, data triage, and source-backed tools
 - Building open-source tools: [japan-seasons-mcp](https://github.com/haomingkoo/japan-seasons-mcp) - MCP server giving AI assistants live Japan travel data
