@@ -13,6 +13,13 @@
   const requestTimeoutMs = 25_000;
   let scrollScheduled = false;
 
+  function positionChat() {
+    const portrait = document.querySelector('.portrait-col');
+    const bounds = portrait?.getBoundingClientRect();
+    const portraitVisible = bounds && bounds.bottom > 96 && bounds.top < innerHeight - 96;
+    dialog.classList.toggle('avoid-portrait', Boolean(portraitVisible) && innerWidth > 520);
+  }
+
   function syncLauncherSize() {
     launcher.classList.toggle('is-compact', scrollY > innerHeight * .6);
   }
@@ -39,6 +46,7 @@
   }
 
   function openChat() {
+    positionChat();
     if (!dialog.open) dialog.show();
     launcher.setAttribute('aria-expanded', 'true');
     input.focus();
@@ -51,6 +59,7 @@
   }
 
   launcher.addEventListener('click', openChat);
+  addEventListener('resize', () => { if (dialog.open) positionChat(); }, { passive: true });
   addEventListener('scroll', () => {
     if (scrollScheduled) return;
     scrollScheduled = true;
