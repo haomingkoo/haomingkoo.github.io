@@ -7,6 +7,11 @@
   box-shadow: 0 12px 36px rgba(0,0,0,.22);
 }
 .chat-launcher:hover { background: var(--accent); }
+.chat-launcher.is-compact {
+  width: 52px; min-width: 52px; padding: 0;
+  font-size: 0;
+}
+.chat-launcher.is-compact::after { content: "Ask"; font-size: 12px; }
 .portfolio-chat {
   position: fixed; inset: auto 24px 88px auto; z-index: 90;
   width: min(390px, calc(100vw - 32px)); height: min(620px, calc(100vh - 120px));

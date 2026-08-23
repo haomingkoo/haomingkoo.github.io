@@ -10,6 +10,11 @@
   const history = [];
   const session = crypto.randomUUID();
   const maxHistoryItems = 6;
+  let scrollScheduled = false;
+
+  function syncLauncherSize() {
+    launcher.classList.toggle('is-compact', scrollY > innerHeight * .6);
+  }
 
   function message(text, role, sources = []) {
     const item = document.createElement('div');
@@ -45,6 +50,15 @@
   }
 
   launcher.addEventListener('click', openChat);
+  addEventListener('scroll', () => {
+    if (scrollScheduled) return;
+    scrollScheduled = true;
+    requestAnimationFrame(() => {
+      scrollScheduled = false;
+      syncLauncherSize();
+    });
+  }, { passive: true });
+  syncLauncherSize();
   close.addEventListener('click', closeChat);
   dialog.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeChat();
