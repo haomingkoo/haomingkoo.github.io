@@ -60,8 +60,8 @@ function approvedSource(url) {
 
 function sourceLinks(results) {
   const links = [
-    ...results.map((result) => ({ label: result.title, url: result.sources[0] })),
-    ...(results[0]?.sources.slice(1).map((url) => ({ label: results[0].title, url })) || []),
+    ...(results[0]?.sources.map((url) => ({ label: results[0].title, url })) || []),
+    ...results.slice(1).map((result) => ({ label: result.title, url: result.sources[0] })),
   ].filter((link) => approvedSource(link.url));
   const unique = [];
   const seen = new Set();

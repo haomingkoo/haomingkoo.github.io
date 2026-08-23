@@ -1,6 +1,7 @@
 module.exports = (_output, context) => {
   const expected = context.config.url;
-  const sources = context.metadata?.sources || [];
+  const metadata = context.metadata || context.providerResponse?.metadata || context.result?.response?.metadata || {};
+  const sources = metadata.sources || [];
   const pass = sources.some(({ url }) => url === expected || url.startsWith(expected));
   return {
     pass,
