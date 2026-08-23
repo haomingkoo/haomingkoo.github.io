@@ -1,9 +1,17 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { buildEvidenceIndex, evidenceContext, retrieveEvidence } from "./retrieval.js";
 
 const knowledge = await readFile(new URL("../llms.txt", import.meta.url), "utf8");
+const workerSource = await readFile(new URL("./portfolio-chat.js", import.meta.url), "utf8");
+
+test("pins the bundled knowledge digest", () => {
+  const expected = workerSource.match(/KNOWLEDGE_DIGEST = "sha256:([a-f0-9]{64})"/)?.[1];
+  const actual = createHash("sha256").update(knowledge).digest("hex");
+  assert.equal(expected, actual);
+});
 
 test("builds named evidence chunks with public sources", () => {
   const chunks = buildEvidenceIndex(knowledge);
@@ -14,6 +22,7 @@ test("builds named evidence chunks with public sources", () => {
 const cases = [
   ["What did Haoming do at Micron?", "career-history"],
   ["Tell me about Job Hunter SG", "selected-live-products-job-hunter-sg"],
+  ["How does Trader Koo keep its paper trading auditable?", "selected-live-products-trader-koo"],
   ["Where did Haoming study?", "education"],
   ["How does this portfolio guide work?", "portfolio-guide"],
   ["How can I contact Haoming?", "contact"],

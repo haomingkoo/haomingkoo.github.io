@@ -115,511 +115,22 @@
   <meta name="portfolio-chat-endpoint" content="https://chat.kooexperience.com" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&amp;family=Inter+Tight:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&amp;family=Inter+Tight:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&amp;family=Inter+Tight:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" /></noscript>
 
 <link rel="stylesheet" href="/system/tokens.css" />
 <link rel="stylesheet" href="/system/base.css" />
 <link rel="stylesheet" href="/system/atmosphere.css" />
 <link rel="stylesheet" href="/system/nav.css" />
-<link rel="stylesheet" href="/assets/chat.css?v=20260823a" />
-<link rel="stylesheet" href="/assets/project-gallery.css" />
-<script src="/assets/chat.js?v=20260823a" defer></script>
-<script src="/assets/project-gallery.js" defer></script>
+<link rel="stylesheet" href="/assets/styles/chat.css?v=20260823a" media="print" onload="this.media='all'" />
+<link rel="stylesheet" href="/assets/styles/project-gallery.css" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="/assets/styles/chat.css?v=20260823a" /><link rel="stylesheet" href="/assets/styles/project-gallery.css" /></noscript>
+<link rel="stylesheet" href="/assets/styles/hero-atmosphere.css" />
+<script src="/assets/scripts/chat.js?v=20260823a" defer></script>
+<script src="/assets/scripts/project-gallery.js" defer></script>
+<script src="/assets/scripts/hero-atmosphere.js" defer></script>
 
-<style>
-  /* hero */
-  section.hero {
-    position: relative; min-height: 92vh;
-    padding: 110px 40px 50px;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(380px, 540px);
-    gap: 56px; align-items: center;
-    max-width: var(--max); margin: 0 auto; z-index: 2;
-  }
-  .hero-eyebrow {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;
-    color: var(--ink-mute); display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
-  }
-  .eyebrow-mobile { display: none; }
-  .hero-eyebrow::before {
-    content: ""; width: 32px; height: 1px; background: var(--accent);
-    transform-origin: left;
-  }
-
-  .hero-credential-inline {
-    color: var(--ink-mute); text-decoration: underline; text-underline-offset: 3px;
-    text-decoration-color: var(--rule);
-    transition: color 200ms var(--ease), text-decoration-color 200ms var(--ease);
-  }
-  .hero-credential-inline:hover { color: var(--accent); text-decoration-color: var(--accent); }
-
-  h1.display {
-    font-family: var(--display);
-    font-variation-settings: "opsz" 144, "SOFT" 0;
-    font-weight: 380;
-    font-size: clamp(64px, 8.4vw, 136px);
-    line-height: 0.96;
-    letter-spacing: -0.035em;
-    color: var(--ink);
-    margin-bottom: 36px;
-  }
-  h1.display .row { display: block; }
-  h1.display .r2 { font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 15; color: var(--accent); }
-
-  .hero-tagline {
-    font-family: var(--display); font-variation-settings: "opsz" 36, "SOFT" 0;
-    font-weight: 360; font-style: italic;
-    font-size: clamp(20px, 1.9vw, 28px); line-height: 1.3;
-    color: var(--ink-soft); max-width: 480px; margin-bottom: 20px;
-  }
-  .hero-tagline em { font-style: normal; color: var(--ink); font-weight: 500; }
-
-  .hero-sub {
-    max-width: 480px; color: var(--ink-soft);
-    font-size: 15px; line-height: 1.6; margin-bottom: 24px;
-  }
-  .hero-sub strong { color: var(--ink); font-weight: 500; }
-
-  .cta-row {
-    display: flex; align-items: center; gap: 28px; margin-bottom: 36px;
-  }
-  .cta-primary {
-    font-family: var(--body); font-size: 14px; letter-spacing: 0.02em;
-    color: var(--ink); text-decoration: none;
-    padding: 14px 24px; border: 1px solid var(--ink); border-radius: 999px; background: transparent;
-    display: inline-flex; align-items: center; gap: 10px;
-    transition: background 200ms var(--ease), color 200ms var(--ease);
-  }
-  .cta-primary:hover { background: var(--ink); color: var(--bg); }
-  .cta-primary .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-  .cta-quiet {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink-soft); text-decoration: none;
-    border-bottom: 1px solid var(--rule); padding-bottom: 4px;
-    transition: color 200ms, border-color 200ms;
-  }
-  .cta-quiet:hover { color: var(--accent); border-color: var(--accent); }
-
-  .proof-row {
-    display: flex; gap: 48px; padding-top: 20px;
-    border-top: 1px solid var(--rule); max-width: 600px;
-  }
-  .proof-row > div { flex: 1; }
-  .proof-row .num {
-    font-family: var(--display); font-variation-settings: "opsz" 60, "SOFT" 0;
-    font-weight: 360; font-size: 38px; line-height: 1;
-    letter-spacing: -0.02em; color: var(--ink);
-    display: block; margin-bottom: 8px;
-    font-feature-settings: "tnum" 1;
-  }
-  .proof-row .num em {
-    font-style: italic; color: var(--accent);
-    font-variation-settings: "opsz" 60, "SOFT" 15;
-    font-size: 0.62em; margin-left: 0.06em;
-  }
-  .proof-row .lbl {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--ink-soft);
-  }
-  .portrait-col {
-    position: relative; height: 76vh; min-height: 540px;
-    overflow: hidden;
-    border: none;
-    background: transparent;
-  }
-  .portrait-col img {
-    position: relative; z-index: 1;
-    width: 100%; height: 100%; object-fit: contain; object-position: center bottom;
-    filter: contrast(1.04) saturate(0.96) brightness(1.0)
-            drop-shadow(0 30px 50px rgba(0,0,0,0.4));
-    transform: scale(1);
-  }
-  /* signature */
-  section.signature { position: relative; z-index: 2; padding: 140px 40px; }
-  .sig-pin {
-    max-width: var(--max); margin: 0 auto;
-  }
-  .sig-eyebrow {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ink-mute); margin-bottom: 28px;
-  }
-  .sig-headline {
-    font-family: var(--display); font-variation-settings: "opsz" 72, "SOFT" 0;
-    font-weight: 360; font-size: clamp(28px, 4.2vw, 60px);
-    line-height: 1.05; letter-spacing: -0.02em;
-    text-align: center; max-width: 24ch; margin: 0 auto 22px;
-  }
-  .sig-headline em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 72, "SOFT" 15; }
-  .sig-subcopy {
-    max-width: 640px;
-    margin: 0 auto 64px;
-    color: var(--ink-soft);
-    text-align: center;
-    font-size: clamp(15px, 1.35vw, 18px);
-    line-height: 1.65;
-  }
-  .sig-stage { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--rule); }
-  .sig-node-label {
-    padding: 24px 18px; border-bottom: 1px solid var(--rule);
-  }
-  .sig-node-label .step {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
-    color: var(--accent); margin-bottom: 10px; text-transform: uppercase;
-    line-height: 1;
-  }
-  .sig-node-label .name {
-    font-family: var(--display); font-variation-settings: "opsz" 24, "SOFT" 0;
-    font-size: 18px; color: var(--ink);
-    line-height: 1.2; margin-bottom: 8px;
-  }
-  .sig-node-label .desc {
-    font-size: 13px; color: var(--ink-soft); line-height: 1.5;
-  }
-
-  /* generic section */
-  .sec-eyebrow {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ink-mute); text-align: center; margin-bottom: 16px;
-  }
-  .align-left { text-align: left; }
-  .sec-h2 {
-    font-family: var(--display); font-variation-settings: "opsz" 96, "SOFT" 0;
-    font-weight: 360; font-size: clamp(34px, 5vw, 64px);
-    line-height: 1; letter-spacing: -0.02em;
-    text-align: center; margin-bottom: 80px;
-  }
-  .sec-h2 em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 96, "SOFT" 15; }
-
-  /* STACK MAP */
-  section.stack-map {
-    position: relative;
-    z-index: 2;
-    padding: 130px 40px;
-    background: var(--bg);
-    border-top: 1px solid var(--rule-soft);
-    border-bottom: 1px solid var(--rule-soft);
-  }
-  .stack-inner {
-    max-width: var(--max);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.4fr);
-    gap: clamp(48px, 7vw, 96px);
-    align-items: start;
-  }
-  .stack-title {
-    font-family: var(--display);
-    font-variation-settings: "opsz" 72, "SOFT" 0;
-    font-weight: 360;
-    font-size: clamp(38px, 5vw, 76px);
-    line-height: 0.96;
-    letter-spacing: -0.025em;
-    max-width: 9ch;
-  }
-  .stack-title em {
-    color: var(--accent);
-    font-style: italic;
-    font-variation-settings: "opsz" 72, "SOFT" 15;
-  }
-  .stack-copy {
-    margin-top: 28px;
-    max-width: 42ch;
-    color: var(--ink-soft);
-    font-size: 17px;
-    line-height: 1.65;
-  }
-  .stack-groups {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    border-top: 1px solid var(--rule);
-    border-left: 1px solid var(--rule);
-  }
-  .stack-group {
-    min-height: 190px;
-    padding: 28px;
-    border-right: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-    background:
-      linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent 42%),
-      var(--paper);
-    transition: transform 320ms var(--ease), background 320ms var(--ease), border-color 320ms var(--ease);
-  }
-  .stack-group:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in srgb, var(--accent) 44%, var(--rule));
-  }
-  .stack-index {
-    display: block;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    color: var(--accent);
-    margin-bottom: 22px;
-  }
-  .stack-group h3 {
-    font-family: var(--display);
-    font-variation-settings: "opsz" 40, "SOFT" 0;
-    font-weight: 390;
-    font-size: 25px;
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    margin-bottom: 14px;
-  }
-  .stack-group p {
-    color: var(--ink-soft);
-    font-size: 14px;
-    line-height: 1.55;
-  }
-  .stack-group strong {
-    color: var(--ink);
-    font-weight: 500;
-  }
-
-  /* work */
-  section.work { position: relative; z-index: 2; background: var(--paper); padding: 140px 40px; }
-  section.work .inner { max-width: var(--max); margin: 0 auto; }
-  .featured-projects { display: grid; gap: 96px; margin-bottom: 112px; }
-  .featured-project {
-    display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.7fr);
-    gap: clamp(32px, 6vw, 80px); align-items: center;
-  }
-  .featured-project:nth-child(even) { grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1.45fr); }
-  .featured-project:nth-child(even) .project-proof { order: 2; }
-  .project-proof {
-    display: block; overflow: hidden; background: var(--bg);
-    border: 1px solid var(--rule); border-radius: 10px;
-  }
-  .project-proof img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
-  .project-index {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
-  }
-  .project-copy h3 {
-    font-family: var(--display); font-size: clamp(34px, 4vw, 58px);
-    font-weight: 400; line-height: 1; letter-spacing: -0.025em; margin: 14px 0 20px;
-  }
-  .project-copy p { max-width: 52ch; color: var(--ink-soft); font-size: 17px; line-height: 1.65; }
-  .project-facts { list-style: none; margin: 24px 0; border-top: 1px solid var(--rule); }
-  .project-facts li { padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14px; color: var(--ink-soft); }
-  .project-facts strong { color: var(--ink); font-weight: 500; }
-  .project-actions { display: flex; flex-wrap: wrap; gap: 18px; }
-  .project-actions a {
-    min-height: 44px; display: inline-flex; align-items: center;
-    color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none;
-    border-bottom: 1px solid var(--rule);
-  }
-  .project-actions a:hover { color: var(--accent); border-color: var(--accent); }
-  .project-catalogue { border-top: 1px solid var(--rule); }
-  .catalogue-heading { margin-bottom: 24px; font-size: 18px; font-weight: 500; }
-  .project-row {
-    display: grid; grid-template-columns: minmax(170px, .55fr) minmax(180px, .5fr) minmax(0, 1.2fr) auto;
-    gap: 28px; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--rule);
-  }
-  .project-thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--rule); border-radius: 6px; }
-  .project-picture { display: block; }
-  .theme-dark { display: none; }
-  [data-theme="dark"] .theme-light { display: none; }
-  [data-theme="dark"] .theme-dark { display: block; }
-  .project-row h3 { font-family: var(--display); font-size: 24px; font-weight: 400; line-height: 1.1; }
-  .project-row p { color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
-  .row-actions { display: flex; gap: 14px; white-space: nowrap; }
-  .row-actions a { color: var(--ink-soft); font-size: 13px; text-decoration: none; }
-  .row-actions a:hover { color: var(--accent); }
-
-  /* ABOUT */
-  section.about { padding: 140px 40px; max-width: 980px; margin: 0 auto; position: relative; z-index: 2; }
-  .about-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 32px; }
-  /* Timeline-style about: scannable, not a wall of text */
-  .about-timeline { display: flex; flex-direction: column; gap: 40px; margin-bottom: 48px; }
-  .about-row {
-    display: grid; grid-template-columns: 200px 1fr; gap: 40px;
-    align-items: baseline; padding-bottom: 32px;
-    border-bottom: 1px solid var(--rule);
-  }
-  .about-row:last-of-type { border-bottom: none; padding-bottom: 0; }
-  .about-when { display: flex; flex-direction: column; gap: 8px; }
-  .about-years {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
-    color: var(--accent); text-transform: uppercase;
-  }
-  .about-where {
-    font-family: var(--display); font-variation-settings: "opsz" 28, "SOFT" 0;
-    font-style: italic; font-size: 22px; line-height: 1.2; color: var(--ink);
-  }
-  .about-what {
-    font-size: 16px; line-height: 1.6; color: var(--ink-soft);
-    max-width: 56ch;
-  }
-  .about-what strong { color: var(--ink); font-weight: 500; }
-  .about-what em { font-style: italic; color: var(--accent); }
-  @media (max-width: 760px) {
-    .about-row { grid-template-columns: 1fr; gap: 12px; padding-bottom: 28px; }
-    .about-timeline { gap: 28px; }
-    .about-where { font-size: 20px; }
-    .about-what { font-size: 15px; }
-  }
-  .about-link {
-    display: inline-block; margin-top: 32px;
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink); text-decoration: none;
-    border-bottom: 1px solid var(--ink); padding-bottom: 4px;
-    transition: color 200ms, border-color 200ms;
-  }
-  .about-link:hover { color: var(--accent); border-color: var(--accent); }
-
-  /* BLOG */
-  section.writing { padding: 120px 40px; max-width: var(--max); margin: 0 auto; position: relative; z-index: 2; }
-  .writing-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 56px; }
-  .writing-head h2 {
-    font-family: var(--display); font-variation-settings: "opsz" 60, "SOFT" 0;
-    font-weight: 360; font-size: clamp(28px, 3.6vw, 44px);
-    letter-spacing: -0.02em;
-  }
-  .writing-head h2 em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 60, "SOFT" 15; }
-  .writing-head a {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 4px;
-  }
-  .writing-head a:hover { color: var(--accent); border-color: var(--accent); }
-  .post-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  .post-card {
-    display: block; padding: 32px;
-    border: 1px solid var(--rule); border-radius: 0;
-    text-decoration: none; color: inherit;
-    background: var(--bg-warm);
-    transition: border-color 240ms var(--ease), background 240ms var(--ease), transform 360ms var(--ease);
-  }
-  .post-card:hover { border-color: var(--accent); background: var(--paper); transform: translateY(-4px); }
-  .post-card .post-meta {
-    display: flex; gap: 12px; align-items: center;
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--ink-mute); margin-bottom: 20px;
-  }
-  .post-tag { color: var(--accent); }
-  .post-title {
-    font-family: var(--display); font-variation-settings: "opsz" 36, "SOFT" 0;
-    font-weight: 380; font-size: 22px; line-height: 1.2;
-    letter-spacing: -0.01em; margin-bottom: 14px; color: var(--ink);
-  }
-  .post-excerpt { font-size: 14px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 24px; }
-  .post-read { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-
-  /* HIRE / FOOTER */
-  section.hire {
-    padding: 160px 40px 80px; text-align: center; position: relative; z-index: 2; background: var(--bg);
-  }
-  section.hire .big {
-    font-family: var(--display); font-variation-settings: "opsz" 96, "SOFT" 0;
-    font-weight: 360; font-size: clamp(40px, 7vw, 110px);
-    line-height: 0.92; letter-spacing: -0.025em;
-    margin: 0 auto 32px; max-width: 18ch;
-  }
-  section.hire .big em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 96, "SOFT" 15; }
-  section.hire .lede {
-    font-family: var(--display); font-variation-settings: "opsz" 24, "SOFT" 0;
-    font-style: italic; color: var(--ink-soft);
-    font-size: clamp(16px, 1.5vw, 20px); max-width: 540px; margin: 0 auto 56px;
-  }
-  section.hire .mail {
-    display: inline-block; font-family: var(--mono); font-size: 13px;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--ink); text-decoration: none;
-    border-bottom: 1px solid var(--ink); padding-bottom: 4px;
-    transition: color 200ms, border-color 200ms;
-  }
-  section.hire .mail:hover { color: var(--accent); border-color: var(--accent); }
-
-  footer.site {
-    padding: 80px 40px 40px; background: var(--bg); position: relative; z-index: 2;
-  }
-  footer.site .meta {
-    margin: 0 auto; max-width: var(--max);
-    border-top: 1px solid var(--rule); padding-top: 32px;
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;
-    color: var(--ink-mute);
-  }
-  footer.site .meta a { color: inherit; text-decoration: none; margin-left: 14px; min-height: 28px; display: inline-flex; align-items: center; }
-  footer.site .meta a:hover { color: var(--accent); }
-
-  /* responsive */
-  @media (max-width: 1100px) {
-    .featured-project { grid-template-columns: 1fr; }
-    .featured-project:nth-child(even) { grid-template-columns: 1fr; }
-    .featured-project:nth-child(even) .project-proof { order: initial; }
-    .project-row { grid-template-columns: minmax(160px, .6fr) minmax(180px, .6fr) minmax(0, 1fr); }
-    .row-actions { grid-column: 2 / -1; }
-    .post-grid { grid-template-columns: repeat(2, 1fr); }
-    .stack-inner { grid-template-columns: 1fr; gap: 44px; }
-    .stack-title { max-width: 12ch; }
-  }
-  @media (max-width: 760px) {
-    section.hero { grid-template-columns: 1fr; padding: 110px 24px 60px; gap: 32px; }
-    .portrait-col { height: 52vh; min-height: 340px; }
-    nav.top { padding: 16px 22px; }
-    nav.top .clock { display: none; }
-    nav.top ul { gap: 14px; font-size: 12px; }
-    nav.top ul li:nth-child(3) { display: none; }
-    .proof-row { gap: 18px; flex-wrap: wrap; }
-    .proof-row > div { flex: 1 1 40%; }
-    .hero-eyebrow {
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      gap: 10px;
-      align-items: flex-start;
-    }
-    .hero-eyebrow .eyebrow-mobile { white-space: normal; line-height: 1.6; }
-    .hero-eyebrow::before { width: 24px; flex: 0 0 24px; }
-    .eyebrow-full { display: none; }
-    .eyebrow-mobile { display: inline; }
-    section.work, section.stack-map, section.about, section.writing, section.hire, footer.site { padding-left: 24px; padding-right: 24px; }
-    section.stack-map { padding-top: 84px; padding-bottom: 84px; }
-    .stack-groups { grid-template-columns: 1fr; }
-    .stack-group { min-height: 0; padding: 24px; }
-    .stack-copy { font-size: 15px; }
-    section.work { padding-top: 80px; padding-bottom: 80px; }
-    .featured-projects { gap: 64px; margin-bottom: 80px; }
-    .project-copy p { font-size: 16px; }
-    .project-row { grid-template-columns: 1fr; gap: 14px; }
-    .project-thumb { max-width: none; }
-    .row-actions { grid-column: auto; }
-    .post-grid { grid-template-columns: 1fr; gap: 20px; }
-    .cta-row { flex-direction: column; align-items: flex-start; }
-    section.hire { padding: 100px 24px 60px; }
-    section.signature { padding: 80px 24px; }
-    .sig-headline { margin-bottom: 56px; }
-    .sig-subcopy {
-      text-align: left;
-      margin: -28px 0 42px;
-      max-width: 360px;
-      font-size: 15px;
-    }
-    .sig-stage {
-      grid-template-columns: 1fr;
-      width: 100%;
-    }
-    .sig-node-label {
-      padding: 18px 0;
-    }
-    .sig-node-label .step {
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      margin-bottom: 6px !important;
-      font-weight: 600;
-    }
-    .sig-node-label .name {
-      font-size: 22px;
-      margin-bottom: 6px;
-    }
-    .sig-node-label .desc {
-      font-size: 14px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-  }
-</style>
+<link rel="stylesheet" href="/assets/styles/home.css" />
 </head>
 <body>
 
@@ -647,6 +158,8 @@
 
 <!-- HERO -->
 <section class="hero">
+      <canvas class="hero-field" id="heroField" aria-hidden="true"></canvas>
+  <div class="hero-ambient-glow" aria-hidden="true"></div>
   <div class="hero-text">
     <div class="hero-eyebrow"><span class="eyebrow-full">AI Engineer · Singapore · <a class="hero-credential-inline" href="https://www.credly.com/badges/72faeea1-bb8f-4194-80d8-e9b1daee769e/public_url" target="_blank" rel="noopener">Claude Certified Architect</a></span><span class="eyebrow-mobile">AI Engineer · <a class="hero-credential-inline" href="https://www.credly.com/badges/72faeea1-bb8f-4194-80d8-e9b1daee769e/public_url" target="_blank" rel="noopener">Claude Certified Architect</a></span></div>
     <h1 class="display">
@@ -671,7 +184,13 @@
     </div>
   </div>
   <div class="portrait-col">
-    <img src="./assets/haoming-portrait-cutout.webp" width="1200" height="1800" alt="Haoming Koo, applied AI engineer based in Singapore" />
+    <div class="portrait-orbit" aria-hidden="true"><span></span></div>
+    <div class="hero-capability hero-capability-1" aria-hidden="true"><span></span>RAG + agents</div>
+    <div class="hero-capability hero-capability-2" aria-hidden="true"><span></span>Evaluation</div>
+    <div class="hero-capability hero-capability-3" aria-hidden="true"><span></span>MLOps</div>
+    <div class="hero-capability hero-capability-4" aria-hidden="true"><span></span>Full-stack</div>
+    <img class="portrait-base" src="./assets/images/portraits/haoming-portrait-cutout.webp" srcset="./assets/images/portraits/haoming-portrait-cutout-480.webp 480w, ./assets/images/portraits/haoming-portrait-cutout-720.webp 720w, ./assets/images/portraits/haoming-portrait-cutout.webp 1200w" sizes="(max-width: 760px) min(100vw - 48px, 430px), min(38vw, 540px)" width="1200" height="1800" fetchpriority="high" alt="Haoming Koo, applied AI engineer based in Singapore" />
+    <img class="portrait-alternate" src="./assets/images/portraits/haoming-systems-architect.webp" width="1024" height="1536" loading="lazy" alt="" aria-hidden="true" />
   </div>
 </section>
 
@@ -742,11 +261,11 @@
 
     <div class="featured-projects">
       <article class="featured-project">
-        <div class="project-proof project-gallery" data-project-gallery aria-label="Job Hunter SG feature gallery">
+        <div class="project-proof project-gallery" data-project-gallery role="region" aria-label="Job Hunter SG feature gallery">
           <div class="gallery-viewport">
-            <a class="gallery-slide is-active" data-gallery-label="Search 72,000+ Singapore roles" href="https://job.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/projects/job-hunter-sg/jobs-search.webp" width="2498" height="1620" loading="lazy" alt="Job Hunter SG job search interface showing Singapore listings, filters, skills, and resume-tailoring actions." /></a>
-            <a class="gallery-slide" data-gallery-label="Compare demand, salary, and skill signals" href="https://job.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/projects/job-hunter-sg/market-insights.webp" width="2498" height="1620" loading="lazy" alt="Job Hunter SG market insights showing role demand, salary ranges, and skills trends." /></a>
-            <a class="gallery-slide" data-gallery-label="Build a resume through a guided AI conversation" href="https://job.kooexperience.com/#resume" target="_blank" rel="noopener"><img src="./assets/projects/job-hunter-sg/resume-chat-builder.webp" width="1512" height="722" loading="lazy" alt="Job Hunter SG AI Resume Builder showing a privacy-safe guided conversation before any personal details are entered." /></a>
+            <a class="gallery-slide is-active" data-gallery-label="Search 72,000+ Singapore roles" href="https://job.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/job-hunter-sg/jobs-search.webp" width="2498" height="1620" loading="lazy" alt="Job Hunter SG job search interface showing Singapore listings, filters, skills, and resume-tailoring actions." /></a>
+            <a class="gallery-slide" data-gallery-label="Compare demand, salary, and skill signals" href="https://job.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/job-hunter-sg/market-insights.webp" width="2498" height="1620" loading="lazy" alt="Job Hunter SG market insights showing role demand, salary ranges, and skills trends." /></a>
+            <a class="gallery-slide" data-gallery-label="Build a resume through a guided AI conversation" href="https://job.kooexperience.com/#resume" target="_blank" rel="noopener"><img src="./assets/images/projects/job-hunter-sg/resume-chat-builder.webp" width="1512" height="722" loading="lazy" alt="Job Hunter SG AI Resume Builder showing a privacy-safe guided conversation before any personal details are entered." /></a>
             <div class="gallery-slide gallery-diagram" data-gallery-label="Authenticated agents keep evidence and approval gates visible">
               <svg class="architecture-diagram" viewBox="0 0 1000 600" role="img" aria-label="Job Hunter workflow from live listings and resume evidence through matching and validation to reviewed applications">
                 <path class="diagram-edge" d="M230 300H355M645 300H770" />
@@ -773,10 +292,10 @@
       </article>
 
       <article class="featured-project">
-        <div class="project-proof project-gallery" data-project-gallery aria-label="Japan in Seasons feature gallery">
+        <div class="project-proof project-gallery" data-project-gallery role="region" aria-label="Japan in Seasons feature gallery">
           <div class="gallery-viewport">
-            <a class="gallery-slide is-active" data-gallery-label="Explore seasonal conditions across Japan" href="https://seasons.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/projects/japan-in-seasons/sakura-map.webp" width="1280" height="800" loading="lazy" alt="Japan in Seasons cherry blossom forecast map with bloom stages across Japan and a searchable city panel." /></a>
-            <a class="gallery-slide" data-gallery-label="Move from country view to a place decision" href="https://seasons.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/projects/japan-in-seasons/sakura-city-detail.webp" width="1280" height="800" loading="lazy" alt="Japan in Seasons city detail view with seasonal timing, forecast, and nearby place information." /></a>
+            <a class="gallery-slide is-active" data-gallery-label="Explore seasonal conditions across Japan" href="https://seasons.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/japan-in-seasons/sakura-map.webp" width="1280" height="800" loading="lazy" alt="Japan in Seasons cherry blossom forecast map with bloom stages across Japan and a searchable city panel." /></a>
+            <a class="gallery-slide" data-gallery-label="Move from country view to a place decision" href="https://seasons.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/japan-in-seasons/sakura-city-detail.webp" width="1280" height="800" loading="lazy" alt="Japan in Seasons city detail view with seasonal timing, forecast, and nearby place information." /></a>
             <div class="gallery-slide gallery-diagram" data-gallery-label="One evidence layer serves people, APIs, and assistants">
               <svg class="architecture-diagram" viewBox="0 0 1000 600" role="img" aria-label="Japan in Seasons data flow from verified seasonal and weather sources through normalized places to the map, REST API, and read-only MCP tools">
                 <path class="diagram-edge" d="M245 300H355M645 300H755M645 300C700 300 700 145 755 145M645 300C700 300 700 455 755 455" />
@@ -804,39 +323,25 @@
       </article>
 
       <article class="featured-project">
-        <div class="project-proof project-gallery" data-project-gallery aria-label="LionWeather feature gallery">
+        <div class="project-proof project-gallery" data-project-gallery role="region" aria-label="Trader Koo feature gallery">
           <div class="gallery-viewport">
-            <a class="gallery-slide is-active" data-gallery-label="See current conditions, radar, and freshness together" href="https://lionweather.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/projects/lionweather/radar-cockpit.webp" width="1440" height="1153" loading="lazy" alt="LionWeather cockpit showing Singapore radar, forecast summary, signal board, and monitored-location controls." /></a>
-            <div class="gallery-slide gallery-diagram" data-gallery-label="Live public feeds become a source-aware operating view">
-              <svg class="architecture-diagram" viewBox="0 0 1000 600" role="img" aria-label="LionWeather live data flow from NEA feeds through freshness and quality checks to forecasts, radar, and saved locations">
-                <path class="diagram-edge" d="M250 300H365M635 300H750" />
-                <rect class="diagram-node" x="40" y="195" width="210" height="210" rx="18"/><text class="diagram-kicker" x="76" y="240">LIVE SOURCES</text><text class="diagram-title" x="76" y="287">NEA feeds</text><text class="diagram-copy" x="76" y="324">Observations · radar</text><text class="diagram-copy" x="76" y="353">Nowcast · forecasts</text>
-                <rect class="diagram-node diagram-node-emphasis" x="365" y="195" width="270" height="210" rx="22"/><text class="diagram-kicker" x="408" y="240">TRUST LAYER</text><text class="diagram-title" x="408" y="287">Freshness + quality</text><text class="diagram-copy" x="408" y="324">Timestamps visible</text><text class="diagram-copy" x="408" y="353">Missing data explicit</text>
-                <rect class="diagram-node" x="750" y="195" width="210" height="210" rx="18"/><text class="diagram-kicker" x="786" y="240">COCKPIT</text><text class="diagram-title" x="786" y="287">Decision view</text><text class="diagram-copy" x="786" y="324">Radar · locations</text><text class="diagram-copy" x="786" y="353">Forecast signals</text>
-              </svg>
-            </div>
-            <div class="gallery-slide gallery-diagram" data-gallery-label="Temporal validation comes before model claims">
-              <svg class="architecture-diagram" viewBox="0 0 1000 600" role="img" aria-label="LionWeather model validation flow from time-ordered observations through LightGBM and held-out validation to SHAP explanations">
-                <path class="diagram-edge" d="M230 300H320M545 300H635M840 300H900" />
-                <rect class="diagram-node" x="25" y="205" width="205" height="190" rx="18"/><text class="diagram-kicker" x="58" y="250">TIME ORDER</text><text class="diagram-title" x="58" y="297">Past observations</text><text class="diagram-copy" x="58" y="333">No future leakage</text>
-                <rect class="diagram-node diagram-node-emphasis" x="320" y="205" width="225" height="190" rx="22"/><text class="diagram-kicker" x="357" y="250">MODEL</text><text class="diagram-title" x="357" y="297">LightGBM</text><text class="diagram-copy" x="357" y="333">Rainfall probability</text>
-                <rect class="diagram-node" x="635" y="205" width="205" height="190" rx="18"/><text class="diagram-kicker" x="668" y="250">VALIDATE</text><text class="diagram-title" x="668" y="297">Held-out time</text><text class="diagram-copy" x="668" y="333">Metrics before claims</text>
-                <circle class="diagram-node" cx="930" cy="300" r="62"/><text class="diagram-kicker" x="905" y="290">SHAP</text><text class="diagram-copy" x="887" y="322">Explain</text>
-              </svg>
-            </div>
+            <a class="gallery-slide is-active" data-gallery-label="Interrogate price structure with visible evidence" href="https://trader.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/trader-koo/chart-analysis.webp" width="1226" height="790" loading="lazy" alt="Trader Koo chart analysis with candlesticks, indicators, evidence-backed commentary, support, and resistance levels." /></a>
+            <a class="gallery-slide" data-gallery-label="See source freshness and incomplete coverage before acting" href="https://trader.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/trader-koo/report-freshness.webp" width="1914" height="900" loading="lazy" alt="Trader Koo research report showing source timestamps, explicit incomplete-coverage warnings, and research-mode gates." /></a>
+            <a class="gallery-slide" data-gallery-label="Rank setups against archived calibration evidence" href="https://trader.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/trader-koo/setup-quality.webp" width="1914" height="900" loading="lazy" alt="Trader Koo setup ranking view showing model calibration history, evidence tiers, market bias, and critic agreement." /></a>
+            <a class="gallery-slide" data-gallery-label="Test decisions in a clearly simulated audit loop" href="https://trader.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/trader-koo/paper-trade-audit.webp" width="1914" height="900" loading="lazy" alt="Trader Koo simulated paper-trade audit showing candidate selection, critic review, risk budget, outcome memory, and a prominent simulated-trades-only notice." /></a>
           </div>
-          <div class="gallery-chrome"><span class="gallery-counter">01 / 03</span><span class="gallery-label">See current conditions, radar, and freshness together</span><span class="gallery-actions"><button class="gallery-arrow" data-gallery-previous type="button" aria-label="Previous view">←</button><button class="gallery-arrow" data-gallery-next type="button" aria-label="Next view">→</button></span></div>
+          <div class="gallery-chrome"><span class="gallery-counter">01 / 04</span><span class="gallery-label">Interrogate price structure with visible evidence</span><span class="gallery-actions"><button class="gallery-arrow" data-gallery-previous type="button" aria-label="Previous view">←</button><button class="gallery-arrow" data-gallery-next type="button" aria-label="Next view">→</button></span></div>
         </div>
         <div class="project-copy">
-          <span class="project-index">03 · Forecasting</span>
-          <h3>LionWeather</h3>
-          <p>Combines live Singapore weather feeds, radar, saved locations, and a temporally validated rainfall model in one operational view.</p>
+          <span class="project-index">03 · Market intelligence</span>
+          <h3>Trader Koo</h3>
+          <p>Turns market data into source-dated research, ranked setups, calibrated evidence, and explicitly simulated paper-trade learning.</p>
           <ul class="project-facts">
-            <li><strong>Role:</strong> Forecasting pipeline, API, and product interface</li>
-            <li><strong>Proof:</strong> Live NEA ingestion with explicit source freshness</li>
-            <li><strong>Stack:</strong> React, FastAPI, LightGBM, SQLAlchemy</li>
+            <li><strong>Role:</strong> Research pipeline, model evidence, risk controls, and product interface</li>
+            <li><strong>Proof:</strong> Source freshness, archived calibration, critic gates, and paper-only audit</li>
+            <li><strong>Stack:</strong> React 19, FastAPI, Python, SQLite</li>
           </ul>
-          <div class="project-actions"><a href="./blog/posts/lionweather.html">Read case study</a><a href="https://lionweather.kooexperience.com" target="_blank" rel="noopener">Open live app</a><a href="https://github.com/haomingkoo/lionweather" target="_blank" rel="noopener">View source</a></div>
+          <div class="project-actions"><a href="./projects/trader-koo.html">Read case study</a><a href="https://trader.kooexperience.com" target="_blank" rel="noopener">Open live app</a><a href="https://github.com/haomingkoo/trader-koo" target="_blank" rel="noopener">View source</a></div>
         </div>
       </article>
     </div>
@@ -844,34 +349,34 @@
     <h3 class="catalogue-heading">More live products</h3>
     <div class="project-catalogue">
       <article class="project-row">
-        <img class="project-thumb" src="./assets/projects/trader-koo/chart-analysis.webp" width="1226" height="790" loading="lazy" alt="Trader Koo AAPL chart analysis with candlesticks, technical indicators, evidence-backed commentary, support, and resistance levels." />
-        <h3>Trader Koo</h3>
-        <p>Evidence-first market research with source freshness, chart analysis, paper-trade records, and Telegram alerts.</p>
-        <div class="row-actions"><a href="./projects/trader-koo.html">Case study</a><a href="https://trader.kooexperience.com" target="_blank" rel="noopener">Live</a><a href="https://github.com/haomingkoo/trader-koo" target="_blank" rel="noopener">Source</a></div>
+        <img class="project-thumb" src="./assets/images/projects/lionweather/radar-cockpit.webp" width="1440" height="1153" loading="lazy" alt="LionWeather cockpit showing Singapore radar, forecast summary, signal board, and monitored-location controls." />
+        <h3>LionWeather</h3>
+        <p>Combines live Singapore weather feeds, radar, saved locations, and a temporally validated rainfall model in one operational view.</p>
+        <div class="row-actions"><a href="./blog/posts/lionweather.html">Case study</a><a href="https://lionweather.kooexperience.com" target="_blank" rel="noopener">Live</a><a href="https://github.com/haomingkoo/lionweather" target="_blank" rel="noopener">Source</a></div>
       </article>
       <article class="project-row">
         <div class="project-picture">
-          <img class="project-thumb theme-light" src="./assets/projects/amex-explorer/dining-map-light.webp" width="1512" height="722" loading="lazy" alt="Amex Explorer map showing current Singapore dining venues and selected venue details for Araya." />
-          <img class="project-thumb theme-dark" src="./assets/projects/amex-explorer/dining-map-dark.webp" width="1512" height="722" loading="lazy" alt="" />
+          <img class="project-thumb theme-light" src="./assets/images/projects/amex-explorer/dining-map-light.webp" width="1512" height="722" loading="lazy" alt="Amex Explorer map showing current Singapore dining venues and selected venue details for Araya." />
+          <img class="project-thumb theme-dark" src="./assets/images/projects/amex-explorer/dining-map-dark.webp" width="1512" height="722" loading="lazy" alt="" />
         </div>
         <h3>Amex Explorer</h3>
         <p>Map-first Singapore benefit explorer with official source hashes, scheduled refreshes, and stale-source alerts.</p>
         <div class="row-actions"><a href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener">Live</a><a href="https://github.com/haomingkoo/amex-dining-map" target="_blank" rel="noopener">Source</a></div>
       </article>
       <article class="project-row">
-        <img class="project-thumb" src="./assets/projects/photo-compliance-studio/compliance-result.webp" width="732" height="2017" loading="lazy" alt="Photo Compliance Studio processing a synthetic test portrait with original and corrected crops plus compliance results." />
+        <img class="project-thumb" src="./assets/images/projects/photo-compliance-studio/compliance-result.webp" width="732" height="2017" loading="lazy" alt="Photo Compliance Studio processing a synthetic test portrait with original and corrected crops plus compliance results." />
         <h3>Photo Compliance Studio</h3>
         <p>Checks passport and ID photos with face landmarks, segmentation, crop guidance, and country rules.</p>
         <div class="row-actions"><a href="./projects/photo-compliance-studio.html">Case study</a><a href="https://studio.kooexperience.com" target="_blank" rel="noopener">Live</a><a href="https://github.com/haomingkoo/photo-id-studio" target="_blank" rel="noopener">Source</a></div>
       </article>
       <article class="project-row">
-        <img class="project-thumb" src="./assets/projects/preflight/data-health.webp" width="1440" height="900" loading="lazy" alt="Preflight data-health view showing a synthetic 150-row dataset, schema summary, missingness, uniqueness, and target selection." />
+        <img class="project-thumb" src="./assets/images/projects/preflight/data-health.webp" width="1440" height="900" loading="lazy" alt="Preflight data-health view showing a synthetic 150-row dataset, schema summary, missingness, uniqueness, and target selection." />
         <h3>Preflight</h3>
         <p>Triages CSV and Parquet datasets through schema checks, EDA, baseline models, and validation metrics.</p>
         <div class="row-actions"><a href="https://preflight.kooexperience.com" target="_blank" rel="noopener">Live</a><a href="https://github.com/haomingkoo/preflight" target="_blank" rel="noopener">Source</a></div>
       </article>
       <article class="project-row">
-        <img class="project-thumb" src="./assets/projects/minmax-wine/offer-comparison-table.webp" width="1200" height="714" loading="lazy" alt="MinMax Wine comparison table showing bottle profiles, retailer and Vivino prices, ratings, value scores, and stock confidence." />
+        <img class="project-thumb" src="./assets/images/projects/minmax-wine/offer-comparison-table.webp" width="1200" height="714" loading="lazy" alt="MinMax Wine comparison table showing bottle profiles, retailer and Vivino prices, ratings, value scores, and stock confidence." />
         <h3>MinMax Wine</h3>
         <p>Compares Singapore wine offers using normalized bundle prices, identity matching, confidence checks, and deal scores.</p>
         <div class="row-actions"><a href="./blog/posts/minmax-wine.html">Case study</a><a href="https://wine.kooexperience.com" target="_blank" rel="noopener">Live</a><a href="https://github.com/haomingkoo/grandcru-value-api" target="_blank" rel="noopener">Source</a></div>
@@ -984,39 +489,6 @@
   </div>
 </footer>
 
-<script>
-(() => {
-  const root = document.documentElement;
-
-  const saved = localStorage.getItem('hk-theme');
-  root.dataset.theme = saved || 'dark';
-  document.getElementById('themeToggle').addEventListener('click', () => {
-    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    localStorage.setItem('hk-theme', next);
-  });
-
-  const progress = document.getElementById('scrollProgress');
-  let progressScheduled = false;
-  addEventListener('scroll', () => {
-    if (progressScheduled) return;
-    progressScheduled = true;
-    requestAnimationFrame(() => {
-      progressScheduled = false;
-      const max = document.documentElement.scrollHeight - innerHeight;
-      progress.style.transform = `scaleX(${Math.min(1, scrollY / Math.max(1, max))})`;
-    });
-  }, { passive: true });
-
-  const clock = document.getElementById('clock');
-  function tickClock() {
-    const t = new Date().toLocaleTimeString('en-SG', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Singapore' });
-    clock.textContent = `SGT · ${t}`;
-  }
-  tickClock();
-  setInterval(tickClock, 30000);
-
-})();
-</script>
+<script src="/assets/scripts/home.js" defer></script>
 </body>
 </html>

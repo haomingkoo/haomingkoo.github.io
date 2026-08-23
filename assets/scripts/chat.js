@@ -10,6 +10,7 @@
   const history = [];
   const session = crypto.randomUUID();
   const maxHistoryItems = 6;
+  const requestTimeoutMs = 25_000;
   let scrollScheduled = false;
 
   function syncLauncherSize() {
@@ -84,14 +85,24 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-Chat-Session': session },
         body: JSON.stringify({ question, history }),
+        signal: AbortSignal.timeout(requestTimeoutMs),
       });
-      const data = await result.json();
-      if (!result.ok) throw new Error(data.error || 'The guide is temporarily unavailable.');
+      const requestId = result.headers.get('X-Request-ID');
+      let data;
+      try {
+        data = await result.json();
+      } catch {
+        throw new Error(`The guide returned an unreadable response${requestId ? ` (reference ${requestId.slice(0, 8)})` : ''}.`);
+      }
+      if (!result.ok) throw new Error(`${data.error || 'The guide is temporarily unavailable.'}${requestId ? ` (reference ${requestId.slice(0, 8)})` : ''}`);
       message(data.answer, 'guide', data.sources);
       history.push({ role: 'user', content: question }, { role: 'assistant', content: data.answer });
       history.splice(0, Math.max(0, history.length - maxHistoryItems));
     } catch (error) {
-      message(error.message, 'guide');
+      const text = error.name === 'TimeoutError'
+        ? 'The guide took too long to respond. Its outcome is unavailable, so please try again.'
+        : error.message;
+      message(text, 'guide');
     } finally {
       submit.disabled = false;
       log.setAttribute('aria-busy', 'false');

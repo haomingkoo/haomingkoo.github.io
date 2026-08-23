@@ -16,6 +16,11 @@ The first screen has one job: make a recruiter understand the person, the role, 
 
 Use verified product captures as proof of taste and range. Each image should show a populated, public-safe workflow; HTML carries the detailed claim.
 
+The visual register is computational editorial: real portraiture and product
+photography, a restrained cobalt field, topographic data lines, and generous
+magazine-like pacing. Light mode is warm and alive. Dark mode is midnight blue,
+not funeral black.
+
 Storyline:
 
 1. Unstructured inputs: job posts, market data, maps, tickets, documents.
@@ -40,8 +45,11 @@ Homepage order:
 Motion should explain the work, not decorate the page.
 
 - Let product screenshots carry the visual proof.
-- Keep scroll animation calm and tied to the architecture story.
-- Avoid cursor trails, particles, excessive parallax, or text flying in.
+- Use the topographic field as the persistent motion motif.
+- The portrait hover may reveal the alternate systems-architect world, while the default portrait stays real and full color.
+- Let project galleries move through real product evidence; keep manual controls visible.
+- Keep scroll animation calm and tie the architecture signal to the delivery stages.
+- Avoid cursor trails, particle networks, excessive parallax, or text flying in.
 - Respect `prefers-reduced-motion`.
 
 ## Copy rules

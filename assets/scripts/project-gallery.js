@@ -3,7 +3,6 @@
 
   document.querySelectorAll('[data-project-gallery]').forEach((gallery) => {
     const slides = [...gallery.querySelectorAll('.gallery-slide')];
-    const tabs = [...gallery.querySelectorAll('.gallery-tab')];
     const counter = gallery.querySelector('.gallery-counter');
     const label = gallery.querySelector('.gallery-label');
     const previous = gallery.querySelector('[data-gallery-previous]');
@@ -20,7 +19,6 @@
         slide.setAttribute('aria-hidden', slideIndex === activeIndex ? 'false' : 'true');
         slide.querySelectorAll('a').forEach((link) => { link.tabIndex = slideIndex === activeIndex ? 0 : -1; });
       });
-      tabs.forEach((tab, tabIndex) => tab.setAttribute('aria-current', tabIndex === activeIndex ? 'true' : 'false'));
       counter.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
       label.textContent = slides[activeIndex].dataset.galleryLabel;
     };
@@ -34,7 +32,6 @@
 
     previous.addEventListener('click', () => choose(activeIndex - 1));
     next.addEventListener('click', () => choose(activeIndex + 1));
-    tabs.forEach((tab, index) => tab.addEventListener('click', () => choose(index)));
     gallery.addEventListener('pointerenter', stop);
     gallery.addEventListener('pointerleave', start);
     gallery.addEventListener('focusin', stop);

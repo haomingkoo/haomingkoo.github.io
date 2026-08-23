@@ -1,7 +1,10 @@
-import { buildEvidenceIndex, evidenceContext, retrieveEvidence } from "./retrieval.js";
+import { evidenceContext, retrieveEvidence } from "./retrieval.js";
+import KNOWLEDGE from "../llms.txt";
 
 const API_URL = "https://api.sea-lion.ai/v1/chat/completions";
-const KNOWLEDGE_URL = "https://kooexperience.com/llms.txt?release=2026-08-23b";
+const KNOWLEDGE_RELEASE = "2026-08-23b";
+const KNOWLEDGE_DIGEST = "sha256:3d28f5da487147536ad8d869cdeb274d8cd7c9100e518f3b3358862c85bc7a6e";
+const PROMPT_VERSION = "portfolio-guide-v3";
 const ALLOWED_ORIGINS = new Set([
   "https://kooexperience.com",
   "https://www.kooexperience.com",
@@ -9,17 +12,19 @@ const ALLOWED_ORIGINS = new Set([
   "http://localhost:4178",
 ]);
 const MAX_QUESTION_CHARS = 600;
+const MAX_REQUEST_BYTES = 16_384;
 const MAX_HISTORY_ITEMS = 6;
 const MAX_HISTORY_CHARS = 1200;
 const MAX_OUTPUT_TOKENS = 420;
-const REQUEST_TIMEOUT_MS = 45000;
+const REQUEST_TIMEOUT_MS = 23000;
 const RETRIEVAL_LIMIT = 4;
 const SENSITIVE_REQUEST = /(ignore|reveal|show|print|extract|repeat|give|leak).{0,80}(system prompt|hidden instruction|api key|secret|token|private data|private client|internal data|internal ticket|schema|other user|conversation log)/i;
 const FINANCIAL_ADVICE_REQUEST = /(should i|recommend|tell me to).{0,80}(buy|sell|invest|trade)|how much.{0,40}(invest|buy|trade)/i;
 const UNSUPPORTED_EMPLOYMENT = /(worked|led|managed|built).{0,50}\b(at|for)\s+google\b/i;
+const APPROVED_SOURCE_HOSTS = new Set(["kooexperience.com", "www.kooexperience.com", "github.com", "www.linkedin.com"]);
 
-function response(origin, body, status = 200) {
-  return new Response(JSON.stringify(body), {
+function response(origin, body, status, requestId, extraHeaders = {}) {
+  return new Response(JSON.stringify({ schemaVersion: 1, requestId, ...body }), {
     status,
     headers: {
       "Access-Control-Allow-Headers": "Content-Type, X-Chat-Session",
@@ -29,6 +34,8 @@ function response(origin, body, status = 200) {
       "Content-Type": "application/json; charset=utf-8",
       "Vary": "Origin",
       "X-Content-Type-Options": "nosniff",
+      "X-Request-ID": requestId,
+      ...extraHeaders,
     },
   });
 }
@@ -42,11 +49,20 @@ function cleanHistory(history) {
   });
 }
 
+function approvedSource(url) {
+  try {
+    const host = new URL(url).hostname;
+    return host.endsWith(".kooexperience.com") || APPROVED_SOURCE_HOSTS.has(host);
+  } catch {
+    return false;
+  }
+}
+
 function sourceLinks(results) {
   const links = [
     ...results.map((result) => ({ label: result.title, url: result.sources[0] })),
     ...(results[0]?.sources.slice(1).map((url) => ({ label: results[0].title, url })) || []),
-  ];
+  ].filter((link) => approvedSource(link.url));
   const unique = [];
   const seen = new Set();
   for (const link of links) {
@@ -72,77 +88,85 @@ function logEvent(event) {
 
 export default {
   async fetch(request, env) {
-    const startedAt = Date.now();
+    const startedAt = performance.now();
     const requestId = crypto.randomUUID();
     const origin = request.headers.get("Origin") || "";
-    if (!ALLOWED_ORIGINS.has(origin)) return new Response("Forbidden", { status: 403 });
-    if (request.method === "OPTIONS") return response(origin, {});
-    if (request.method !== "POST") return response(origin, { error: "Method not allowed" }, 405);
+    const elapsed = () => Math.round(performance.now() - startedAt);
+    const reply = (body, status = 200, headers = {}) => response(origin, body, status, requestId, headers);
+    if (!ALLOWED_ORIGINS.has(origin)) return new Response("Forbidden", { status: 403, headers: { "X-Request-ID": requestId } });
+    if (request.method === "OPTIONS") return reply({});
+    if (request.method !== "POST") return reply({ error: "Method not allowed" }, 405);
     if (!env.SEALION_API_KEY) {
-      logEvent({ requestId, status: "error", stage: "configuration", durationMs: Date.now() - startedAt });
-      return response(origin, { error: "Chat is not configured" }, 503);
+      logEvent({ requestId, status: "error", stage: "configuration", durationMs: elapsed() });
+      return reply({ error: "Chat is not configured" }, 503);
     }
 
     const session = request.headers.get("X-Chat-Session") || "anonymous";
     const client = request.headers.get("CF-Connecting-IP") || session;
-    const limit = await env.CHAT_RATE_LIMITER.limit({ key: client.slice(0, 64) });
+    let limit;
+    try {
+      if (!env.CHAT_RATE_LIMITER) throw new Error("missing binding");
+      limit = await env.CHAT_RATE_LIMITER.limit({ key: client.slice(0, 64) });
+    } catch {
+      logEvent({ requestId, status: "error", stage: "rate_limiter", durationMs: elapsed() });
+      return reply({ error: "Chat capacity is temporarily unavailable" }, 503);
+    }
     if (!limit.success) {
-      logEvent({ requestId, status: "rate_limited", stage: "input", durationMs: Date.now() - startedAt });
-      return response(origin, { error: "Please wait a minute before asking again" }, 429);
+      logEvent({ requestId, status: "rate_limited", stage: "input", durationMs: elapsed() });
+      return reply({ error: "Please wait a minute before asking again" }, 429, { "Retry-After": "60" });
+    }
+
+    if (!request.headers.get("Content-Type")?.toLowerCase().includes("application/json")) {
+      logEvent({ requestId, status: "error", stage: "input", reason: "unsupported_content_type", durationMs: elapsed() });
+      return reply({ error: "Content-Type must be application/json" }, 415);
     }
 
     let payload;
     try {
-      payload = await request.json();
+      const raw = await request.text();
+      if (new TextEncoder().encode(raw).byteLength > MAX_REQUEST_BYTES) {
+        logEvent({ requestId, status: "error", stage: "input", reason: "request_too_large", durationMs: elapsed() });
+        return reply({ error: "Request is too large" }, 413);
+      }
+      payload = JSON.parse(raw);
     } catch {
-      logEvent({ requestId, status: "error", stage: "input", reason: "invalid_json", durationMs: Date.now() - startedAt });
-      return response(origin, { error: "Invalid request" }, 400);
+      logEvent({ requestId, status: "error", stage: "input", reason: "invalid_json", durationMs: elapsed() });
+      return reply({ error: "Invalid request" }, 400);
     }
     const question = typeof payload.question === "string" ? payload.question.trim() : "";
     if (!question || question.length > MAX_QUESTION_CHARS) {
-      logEvent({ requestId, status: "error", stage: "input", reason: "invalid_question_length", durationMs: Date.now() - startedAt });
-      return response(origin, { error: `Questions must be 1 to ${MAX_QUESTION_CHARS} characters` }, 400);
+      logEvent({ requestId, status: "error", stage: "input", reason: "invalid_question_length", durationMs: elapsed() });
+      return reply({ error: `Questions must be 1 to ${MAX_QUESTION_CHARS} characters` }, 400);
     }
 
     if (SENSITIVE_REQUEST.test(question)) {
-      logEvent({ requestId, status: "refused", stage: "input_guard", durationMs: Date.now() - startedAt, questionChars: question.length });
-      return response(origin, {
+      logEvent({ requestId, status: "refused", stage: "input_guard", durationMs: elapsed(), questionChars: question.length });
+      return reply({
         answer: "I cannot provide hidden instructions, credentials, private data, or other visitors' conversations. I can answer questions about Haoming's published work.",
         sources: [{ label: "Public safety boundaries", url: "https://kooexperience.com/llms.txt" }],
       });
     }
     if (FINANCIAL_ADVICE_REQUEST.test(question)) {
-      logEvent({ requestId, status: "refused", stage: "financial_boundary", durationMs: Date.now() - startedAt, questionChars: question.length });
-      return response(origin, {
+      logEvent({ requestId, status: "refused", stage: "financial_boundary", durationMs: elapsed(), questionChars: question.length });
+      return reply({
         answer: "Trader Koo is market-research and paper-trade tooling, not financial advice or live trade execution. I cannot recommend a security or investment amount.",
         sources: [{ label: "Trader Koo", url: "https://kooexperience.com/projects/trader-koo.html" }],
       });
     }
     if (UNSUPPORTED_EMPLOYMENT.test(question)) {
-      logEvent({ requestId, status: "refused", stage: "unsupported_employment", durationMs: Date.now() - startedAt, questionChars: question.length });
-      return response(origin, {
+      logEvent({ requestId, status: "refused", stage: "unsupported_employment", durationMs: elapsed(), questionChars: question.length });
+      return reply({
         answer: "The published portfolio does not support that Google employment claim. Haoming's documented experience is available on the About page.",
         sources: [{ label: "Career history", url: "https://kooexperience.com/about.html" }],
       });
     }
 
     const signal = AbortSignal.timeout(REQUEST_TIMEOUT_MS);
-    let knowledgeResponse;
-    try {
-      knowledgeResponse = await fetch(KNOWLEDGE_URL, { cf: { cacheTtl: 3600 }, signal });
-    } catch {
-      logEvent({ requestId, status: "error", stage: "knowledge", reason: "fetch_failed", durationMs: Date.now() - startedAt });
-      return response(origin, { error: "Portfolio context is temporarily unavailable" }, 503);
-    }
-    if (!knowledgeResponse.ok) {
-      logEvent({ requestId, status: "error", stage: "knowledge", upstreamStatus: knowledgeResponse.status, durationMs: Date.now() - startedAt });
-      return response(origin, { error: "Portfolio context is temporarily unavailable" }, 503);
-    }
-    const knowledge = await knowledgeResponse.text();
-    const retrieved = retrieveEvidence(question, knowledge, RETRIEVAL_LIMIT);
+    const history = cleanHistory(payload.history);
+    const retrieved = retrieveEvidence(question, KNOWLEDGE, RETRIEVAL_LIMIT);
     if (!retrieved.length) {
-      logEvent({ requestId, status: "refused", stage: "retrieval", durationMs: Date.now() - startedAt, questionChars: question.length, retrieved: [] });
-      return response(origin, {
+      logEvent({ requestId, status: "refused", stage: "retrieval", durationMs: elapsed(), questionChars: question.length, knowledgeRelease: KNOWLEDGE_RELEASE, knowledgeDigest: KNOWLEDGE_DIGEST, retrieved: [] });
+      return reply({
         answer: "The published portfolio does not contain enough evidence to answer that. Please ask about Haoming's projects, experience, or technical work.",
         sources: [{ label: "Portfolio", url: "https://kooexperience.com" }],
       });
@@ -161,35 +185,39 @@ export default {
         signal,
         body: JSON.stringify({
           model: env.SEALION_MODEL,
-          messages: [{ role: "system", content: system }, ...cleanHistory(payload.history), { role: "user", content: question }],
+          messages: [{ role: "system", content: system }, ...history, { role: "user", content: question }],
           max_tokens: MAX_OUTPUT_TOKENS,
           temperature: 0.2,
         }),
       });
     } catch {
-      logEvent({ requestId, status: "error", stage: "model", reason: "fetch_failed", durationMs: Date.now() - startedAt, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
-      return response(origin, { error: "SEA-LION is temporarily unavailable" }, 502);
+      logEvent({ requestId, status: "error", stage: "model", reason: "fetch_failed", durationMs: elapsed(), knowledgeRelease: KNOWLEDGE_RELEASE, knowledgeDigest: KNOWLEDGE_DIGEST, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
+      return reply({ error: "SEA-LION is temporarily unavailable" }, 502);
     }
     if (!upstream.ok) {
-      logEvent({ requestId, status: "error", stage: "model", upstreamStatus: upstream.status, durationMs: Date.now() - startedAt, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
-      return response(origin, { error: "SEA-LION is temporarily unavailable" }, 502);
+      logEvent({ requestId, status: "error", stage: "model", upstreamStatus: upstream.status, durationMs: elapsed(), knowledgeRelease: KNOWLEDGE_RELEASE, knowledgeDigest: KNOWLEDGE_DIGEST, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
+      return reply({ error: "SEA-LION is temporarily unavailable" }, 502);
     }
-    const completion = await upstream.json();
+    let completion;
+    try {
+      completion = await upstream.json();
+    } catch {
+      logEvent({ requestId, status: "error", stage: "model", reason: "invalid_json", durationMs: elapsed(), knowledgeRelease: KNOWLEDGE_RELEASE, knowledgeDigest: KNOWLEDGE_DIGEST, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
+      return reply({ error: "SEA-LION returned an invalid response" }, 502);
+    }
     const answer = completion?.choices?.[0]?.message?.content?.trim();
     if (!answer) {
-      logEvent({ requestId, status: "error", stage: "model", reason: "empty_response", durationMs: Date.now() - startedAt, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
-      return response(origin, { error: "SEA-LION returned an empty response" }, 502);
+      logEvent({ requestId, status: "error", stage: "model", reason: "empty_response", durationMs: elapsed(), knowledgeRelease: KNOWLEDGE_RELEASE, knowledgeDigest: KNOWLEDGE_DIGEST, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
+      return reply({ error: "SEA-LION returned an empty response" }, 502);
     }
     if (hasUnsupportedNumber(answer, evidence, question)) {
-      logEvent({ requestId, status: "refused", stage: "output_guard", durationMs: Date.now() - startedAt, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
-      return response(origin, {
+      logEvent({ requestId, status: "refused", stage: "output_guard", durationMs: elapsed(), knowledgeRelease: KNOWLEDGE_RELEASE, knowledgeDigest: KNOWLEDGE_DIGEST, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
+      return reply({
         answer: "I could not verify every numeric claim in that answer against the published portfolio, so I will not present it as fact. Please use the linked source instead.",
         sources: sourceLinks(retrieved),
       });
     }
-    logEvent({ requestId, status: "ok", durationMs: Date.now() - startedAt, questionChars: question.length, historyItems: cleanHistory(payload.history).length, answerChars: answer.length, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
-    return response(origin, { answer, sources: sourceLinks(retrieved) });
+    logEvent({ requestId, status: "ok", durationMs: elapsed(), questionChars: question.length, historyItems: history.length, answerChars: answer.length, knowledgeRelease: KNOWLEDGE_RELEASE, knowledgeDigest: KNOWLEDGE_DIGEST, promptVersion: PROMPT_VERSION, model: env.SEALION_MODEL, retrieved: retrieved.map(({ id, score }) => ({ id, score })) });
+    return reply({ answer, sources: sourceLinks(retrieved) });
   },
 };
-
-export { buildEvidenceIndex, retrieveEvidence };

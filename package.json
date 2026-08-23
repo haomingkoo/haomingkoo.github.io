@@ -1,0 +1,11 @@
+{
+  "name": "haoming-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:js": "node --check assets/scripts/home.js && node --check assets/scripts/hero-atmosphere.js && node --check assets/scripts/project-gallery.js && node --check assets/scripts/chat.js && node --check worker/portfolio-chat.js",
+    "check:worker": "npx --yes wrangler deploy --dry-run --outdir .tmp/wrangler-dry-run",
+    "test": "node --test worker/retrieval.test.mjs",
+    "eval": "npx --yes promptfoo eval -c evals/promptfooconfig.yaml"
+  }
+}

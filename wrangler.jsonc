@@ -2,6 +2,13 @@
   "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
   "name": "haoming-portfolio-chat",
   "main": "worker/portfolio-chat.js",
+  "rules": [
+    {
+      "type": "Text",
+      "globs": ["**/*.txt"],
+      "fallthrough": true
+    }
+  ],
   "compatibility_date": "2026-08-22",
   "preview_urls": false,
   "workers_dev": true,
