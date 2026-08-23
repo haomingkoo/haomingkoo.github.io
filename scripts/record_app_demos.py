@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""Record short portfolio app demos with Playwright.
-
-The script records real browser interactions into previews/demo-clips/.
-Those clips are intentionally kept out of git until a final edit is chosen.
-"""
+"""Record real browser demos for portfolio review."""
 
 from __future__ import annotations
 
@@ -27,8 +23,6 @@ VIEWPORT = {"width": 1440, "height": 960}
 @dataclass(frozen=True)
 class Scenario:
     slug: str
-    title: str
-    url: str
     action: Callable[[Page], None]
 
 
@@ -42,15 +36,6 @@ def goto(page: Page, url: str) -> None:
 
 
 def click_text(page: Page, text: str, timeout: int = 4_000) -> bool:
-    try:
-        page.get_by_text(text, exact=False).first.click(timeout=timeout)
-        pause(page)
-        return True
-    except TimeoutError:
-        return False
-
-
-def click_first_text(page: Page, text: str, timeout: int = 4_000) -> bool:
     try:
         page.get_by_text(text, exact=False).first.click(timeout=timeout)
         pause(page)
@@ -112,11 +97,11 @@ def action_job_hunter(page: Page) -> None:
     goto(page, "https://job.kooexperience.com/")
     click_role(page, "button", "Start exploring")
     pause(page, 1800)
-    click_first_text(page, "Tailor Resume", timeout=6_000)
+    click_text(page, "Tailor Resume", timeout=6_000)
     pause(page, 1200)
     click_text(page, "Try Demo", timeout=5_000)
     pause(page, 1200)
-    click_first_text(page, "Replace", timeout=3_000)
+    click_text(page, "Replace", timeout=3_000)
     pause(page, 900)
 
 
@@ -161,17 +146,15 @@ def action_amex(page: Page) -> None:
 
 
 SCENARIOS: dict[str, Scenario] = {
-    "portfolio": Scenario("portfolio", "Portfolio cinematic landing", "https://kooexperience.com/", action_portfolio),
-    "job": Scenario("job", "Job Hunter SG", "https://job.kooexperience.com/", action_job_hunter),
-    "trader": Scenario("trader", "Trader Koo chart workflow", "https://trader.kooexperience.com/chart", action_trader),
+    "portfolio": Scenario("portfolio", action_portfolio),
+    "job": Scenario("job", action_job_hunter),
+    "trader": Scenario("trader", action_trader),
     "trader-paper": Scenario(
         "trader-paper",
-        "Trader Koo paper-trade workflow",
-        "https://trader.kooexperience.com/paper-trades",
         action_trader_paper,
     ),
-    "seasons": Scenario("seasons", "Japan in Seasons map workflow", "https://seasons.kooexperience.com/", action_seasons),
-    "amex": Scenario("amex", "Amex Explorer filter workflow", "https://amex-explorer.kooexperience.com/", action_amex),
+    "seasons": Scenario("seasons", action_seasons),
+    "amex": Scenario("amex", action_amex),
 }
 
 

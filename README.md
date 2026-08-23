@@ -40,7 +40,7 @@ python3 sync_profile_surfaces.py --check
 
 ## Portfolio chat
 
-The chat widget calls a small Cloudflare Worker, which grounds SEA-LION on the public `llms.txt` file.
+The chat widget calls a small Cloudflare Worker. It ranks sections from the public `llms.txt`, sends only the strongest source-linked evidence to SEA-LION, rejects unsupported questions, and derives citations from the retrieved chunks.
 
 ```bash
 npx wrangler secret put SEALION_API_KEY
@@ -50,6 +50,17 @@ npx wrangler deploy
 Set the deployed URL in the `portfolio-chat-endpoint` meta tag in `index.html`. Query `/v1/models` with the SEA-LION key before changing `SEALION_MODEL` in `wrangler.jsonc`.
 
 Production chat is served at `https://chat.kooexperience.com`; the portfolio itself remains on GitHub Pages.
+
+Worker Logs are enabled for private operational checks. Application events record status, latency, response length, and retrieved chunk IDs, but not the question or answer. Cloudflare's private request envelope still contains normal network metadata.
+
+Run the production grounding and abuse suite without caching:
+
+```bash
+node --test worker/retrieval.test.mjs
+PROMPTFOO_DISABLE_TELEMETRY=1 npx promptfoo@0.122.0 eval \
+  -c evals/promptfooconfig.yaml --no-cache \
+  --output .private/evals/latest.json
+```
 
 ## Safety notes
 

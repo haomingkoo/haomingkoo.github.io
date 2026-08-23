@@ -122,7 +122,9 @@
 <link rel="stylesheet" href="/system/atmosphere.css" />
 <link rel="stylesheet" href="/system/nav.css" />
 <link rel="stylesheet" href="/assets/chat.css" />
+<link rel="stylesheet" href="/assets/project-gallery.css" />
 <script src="/assets/chat.js" defer></script>
+<script src="/assets/project-gallery.js" defer></script>
 
 <style>
   /* hero */
@@ -381,6 +383,7 @@
     display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.7fr);
     gap: clamp(32px, 6vw, 80px); align-items: center;
   }
+  .featured-project:nth-child(even) { grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1.45fr); }
   .featured-project:nth-child(even) .project-proof { order: 2; }
   .project-proof {
     display: block; overflow: hidden; background: var(--bg);
@@ -542,6 +545,7 @@
   /* responsive */
   @media (max-width: 1100px) {
     .featured-project { grid-template-columns: 1fr; }
+    .featured-project:nth-child(even) { grid-template-columns: 1fr; }
     .featured-project:nth-child(even) .project-proof { order: initial; }
     .project-row { grid-template-columns: minmax(160px, .6fr) minmax(180px, .6fr) minmax(0, 1fr); }
     .row-actions { grid-column: 2 / -1; }
@@ -738,9 +742,22 @@
 
     <div class="featured-projects">
       <article class="featured-project">
-        <a class="project-proof" href="https://job.kooexperience.com" target="_blank" rel="noopener">
-          <img src="./assets/projects/job-hunter-sg/jobs-search.webp" width="2498" height="1620" loading="lazy" alt="Job Hunter SG job search interface showing Singapore listings, filters, skills, and resume-tailoring actions." />
-        </a>
+        <div class="project-proof project-gallery" data-project-gallery aria-label="Job Hunter SG feature gallery">
+          <div class="gallery-viewport">
+            <a class="gallery-slide is-active" data-gallery-label="Search 72,000+ Singapore roles" href="https://job.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/projects/job-hunter-sg/jobs-search.webp" width="2498" height="1620" loading="lazy" alt="Job Hunter SG job search interface showing Singapore listings, filters, skills, and resume-tailoring actions." /></a>
+            <a class="gallery-slide" data-gallery-label="Compare demand, salary, and skill signals" href="https://job.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/projects/job-hunter-sg/market-insights.webp" width="2498" height="1620" loading="lazy" alt="Job Hunter SG market insights showing role demand, salary ranges, and skills trends." /></a>
+            <div class="gallery-slide gallery-diagram" data-gallery-label="Evidence stays attached through five validation gates">
+              <svg class="architecture-diagram" viewBox="0 0 1000 600" role="img" aria-label="Job Hunter workflow from live listings and resume evidence through matching and validation to reviewed applications">
+                <path class="diagram-edge" d="M230 300H355M645 300H770" />
+                <rect class="diagram-node" x="30" y="145" width="200" height="130" rx="18"/><text class="diagram-kicker" x="62" y="184">INPUT 01</text><text class="diagram-title" x="62" y="224">Live roles</text><text class="diagram-copy" x="62" y="254">Nightly source refresh</text>
+                <rect class="diagram-node" x="30" y="325" width="200" height="130" rx="18"/><text class="diagram-kicker" x="62" y="364">INPUT 02</text><text class="diagram-title" x="62" y="404">Resume evidence</text><text class="diagram-copy" x="62" y="434">User-owned experience</text>
+                <rect class="diagram-node diagram-node-emphasis" x="355" y="205" width="290" height="190" rx="22"/><text class="diagram-kicker" x="398" y="250">RETRIEVE + CHECK</text><text class="diagram-title" x="398" y="297">Semantic match</text><text class="diagram-copy" x="398" y="332">ATS scoring · guarded edits</text><text class="diagram-copy" x="398" y="360">Five validation gates</text>
+                <rect class="diagram-node" x="770" y="205" width="200" height="190" rx="18"/><text class="diagram-kicker" x="805" y="250">HUMAN GATE</text><text class="diagram-title" x="805" y="297">Review</text><text class="diagram-copy" x="805" y="332">Accept or revise</text><text class="diagram-copy" x="805" y="360">before export</text>
+              </svg>
+            </div>
+          </div>
+          <div class="gallery-chrome"><span class="gallery-counter">01 / 03</span><span class="gallery-label">Search 72,000+ Singapore roles</span><span class="gallery-actions"><button class="gallery-arrow" data-gallery-previous type="button" aria-label="Previous view">←</button><button class="gallery-arrow" data-gallery-next type="button" aria-label="Next view">→</button></span></div>
+        </div>
         <div class="project-copy">
           <span class="project-index">01 · Job search</span>
           <h3>Job Hunter SG</h3>
@@ -755,9 +772,23 @@
       </article>
 
       <article class="featured-project">
-        <a class="project-proof" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">
-          <img src="./assets/projects/japan-in-seasons/sakura-map.webp" width="1280" height="800" loading="lazy" alt="Japan in Seasons cherry blossom forecast map with bloom stages across Japan and a searchable city panel." />
-        </a>
+        <div class="project-proof project-gallery" data-project-gallery aria-label="Japan in Seasons feature gallery">
+          <div class="gallery-viewport">
+            <a class="gallery-slide is-active" data-gallery-label="Explore seasonal conditions across Japan" href="https://seasons.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/projects/japan-in-seasons/sakura-map.webp" width="1280" height="800" loading="lazy" alt="Japan in Seasons cherry blossom forecast map with bloom stages across Japan and a searchable city panel." /></a>
+            <a class="gallery-slide" data-gallery-label="Move from country view to a place decision" href="https://seasons.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/projects/japan-in-seasons/sakura-city-detail.webp" width="1280" height="800" loading="lazy" alt="Japan in Seasons city detail view with seasonal timing, forecast, and nearby place information." /></a>
+            <div class="gallery-slide gallery-diagram" data-gallery-label="One evidence layer serves people, APIs, and assistants">
+              <svg class="architecture-diagram" viewBox="0 0 1000 600" role="img" aria-label="Japan in Seasons data flow from verified seasonal and weather sources through normalized places to the map, REST API, and read-only MCP tools">
+                <path class="diagram-edge" d="M245 300H355M645 300H755M645 300C700 300 700 145 755 145M645 300C700 300 700 455 755 455" />
+                <rect class="diagram-node" x="35" y="210" width="210" height="180" rx="18"/><text class="diagram-kicker" x="70" y="254">VERIFIED INPUTS</text><text class="diagram-title" x="70" y="301">Season + weather</text><text class="diagram-copy" x="70" y="338">Source timestamps</text><text class="diagram-copy" x="70" y="367">and place identity</text>
+                <rect class="diagram-node diagram-node-emphasis" x="355" y="205" width="290" height="190" rx="22"/><text class="diagram-kicker" x="398" y="250">NORMALIZED CORE</text><text class="diagram-title" x="398" y="297">1,700+ places</text><text class="diagram-copy" x="398" y="332">Shared schemas</text><text class="diagram-copy" x="398" y="360">Read-only access</text>
+                <rect class="diagram-node" x="755" y="70" width="210" height="145" rx="18"/><text class="diagram-kicker" x="790" y="112">WEB</text><text class="diagram-title" x="790" y="155">Interactive map</text><text class="diagram-copy" x="790" y="184">Human decisions</text>
+                <rect class="diagram-node" x="755" y="228" width="210" height="145" rx="18"/><text class="diagram-kicker" x="790" y="270">API</text><text class="diagram-title" x="790" y="313">REST endpoints</text><text class="diagram-copy" x="790" y="342">Product integration</text>
+                <rect class="diagram-node" x="755" y="385" width="210" height="145" rx="18"/><text class="diagram-kicker" x="790" y="427">MCP</text><text class="diagram-title" x="790" y="470">17 tools</text><text class="diagram-copy" x="790" y="499">Assistant access</text>
+              </svg>
+            </div>
+          </div>
+          <div class="gallery-chrome"><span class="gallery-counter">01 / 03</span><span class="gallery-label">Explore seasonal conditions across Japan</span><span class="gallery-actions"><button class="gallery-arrow" data-gallery-previous type="button" aria-label="Previous view">←</button><button class="gallery-arrow" data-gallery-next type="button" aria-label="Next view">→</button></span></div>
+        </div>
         <div class="project-copy">
           <span class="project-index">02 · Travel intelligence</span>
           <h3>Japan in Seasons</h3>
@@ -772,9 +803,29 @@
       </article>
 
       <article class="featured-project">
-        <a class="project-proof" href="https://lionweather.kooexperience.com" target="_blank" rel="noopener">
-          <img src="./assets/projects/lionweather/radar-cockpit.webp" width="1440" height="1153" loading="lazy" alt="LionWeather cockpit showing Singapore radar, forecast summary, signal board, and monitored-location controls." />
-        </a>
+        <div class="project-proof project-gallery" data-project-gallery aria-label="LionWeather feature gallery">
+          <div class="gallery-viewport">
+            <a class="gallery-slide is-active" data-gallery-label="See current conditions, radar, and freshness together" href="https://lionweather.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/projects/lionweather/radar-cockpit.webp" width="1440" height="1153" loading="lazy" alt="LionWeather cockpit showing Singapore radar, forecast summary, signal board, and monitored-location controls." /></a>
+            <div class="gallery-slide gallery-diagram" data-gallery-label="Live public feeds become a source-aware operating view">
+              <svg class="architecture-diagram" viewBox="0 0 1000 600" role="img" aria-label="LionWeather live data flow from NEA feeds through freshness and quality checks to forecasts, radar, and saved locations">
+                <path class="diagram-edge" d="M250 300H365M635 300H750" />
+                <rect class="diagram-node" x="40" y="195" width="210" height="210" rx="18"/><text class="diagram-kicker" x="76" y="240">LIVE SOURCES</text><text class="diagram-title" x="76" y="287">NEA feeds</text><text class="diagram-copy" x="76" y="324">Observations · radar</text><text class="diagram-copy" x="76" y="353">Nowcast · forecasts</text>
+                <rect class="diagram-node diagram-node-emphasis" x="365" y="195" width="270" height="210" rx="22"/><text class="diagram-kicker" x="408" y="240">TRUST LAYER</text><text class="diagram-title" x="408" y="287">Freshness + quality</text><text class="diagram-copy" x="408" y="324">Timestamps visible</text><text class="diagram-copy" x="408" y="353">Missing data explicit</text>
+                <rect class="diagram-node" x="750" y="195" width="210" height="210" rx="18"/><text class="diagram-kicker" x="786" y="240">COCKPIT</text><text class="diagram-title" x="786" y="287">Decision view</text><text class="diagram-copy" x="786" y="324">Radar · locations</text><text class="diagram-copy" x="786" y="353">Forecast signals</text>
+              </svg>
+            </div>
+            <div class="gallery-slide gallery-diagram" data-gallery-label="Temporal validation comes before model claims">
+              <svg class="architecture-diagram" viewBox="0 0 1000 600" role="img" aria-label="LionWeather model validation flow from time-ordered observations through LightGBM and held-out validation to SHAP explanations">
+                <path class="diagram-edge" d="M230 300H320M545 300H635M840 300H900" />
+                <rect class="diagram-node" x="25" y="205" width="205" height="190" rx="18"/><text class="diagram-kicker" x="58" y="250">TIME ORDER</text><text class="diagram-title" x="58" y="297">Past observations</text><text class="diagram-copy" x="58" y="333">No future leakage</text>
+                <rect class="diagram-node diagram-node-emphasis" x="320" y="205" width="225" height="190" rx="22"/><text class="diagram-kicker" x="357" y="250">MODEL</text><text class="diagram-title" x="357" y="297">LightGBM</text><text class="diagram-copy" x="357" y="333">Rainfall probability</text>
+                <rect class="diagram-node" x="635" y="205" width="205" height="190" rx="18"/><text class="diagram-kicker" x="668" y="250">VALIDATE</text><text class="diagram-title" x="668" y="297">Held-out time</text><text class="diagram-copy" x="668" y="333">Metrics before claims</text>
+                <circle class="diagram-node" cx="930" cy="300" r="62"/><text class="diagram-kicker" x="905" y="290">SHAP</text><text class="diagram-copy" x="887" y="322">Explain</text>
+              </svg>
+            </div>
+          </div>
+          <div class="gallery-chrome"><span class="gallery-counter">01 / 03</span><span class="gallery-label">See current conditions, radar, and freshness together</span><span class="gallery-actions"><button class="gallery-arrow" data-gallery-previous type="button" aria-label="Previous view">←</button><button class="gallery-arrow" data-gallery-next type="button" aria-label="Next view">→</button></span></div>
+        </div>
         <div class="project-copy">
           <span class="project-index">03 · Forecasting</span>
           <h3>LionWeather</h3>

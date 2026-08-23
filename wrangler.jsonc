@@ -5,6 +5,10 @@
   "compatibility_date": "2026-08-22",
   "preview_urls": false,
   "workers_dev": true,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
   "vars": {
     "SEALION_MODEL": "aisingapore/Qwen-SEA-LION-v4-32B-IT"
   },

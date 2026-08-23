@@ -28,6 +28,8 @@ raw-clips/
 frames/
 contact-sheets/
 design-artifacts/
+.private/
+.promptfoo/
 stitch-artifacts/
 claude-review-prompt.md
 portfolio-v2-animation-plan.md
