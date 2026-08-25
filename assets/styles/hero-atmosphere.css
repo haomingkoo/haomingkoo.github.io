@@ -2,6 +2,7 @@
   --hero-glow-core: rgba(37, 99, 235, .22);
   --hero-glow-soft: rgba(91, 142, 251, .11);
   --hero-line-rgb: 37, 99, 235;
+  --explorer-warm: rgba(224, 164, 94, .42);
 }
 
 @property --portal-radius {
@@ -37,6 +38,21 @@ section.hero::before {
     radial-gradient(46% 36% at 35% 24%, color-mix(in srgb, var(--hero-glow-soft) 54%, transparent), transparent 74%);
 }
 
+section.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(42% 55% at 78% 48%, var(--explorer-warm), transparent 68%),
+    radial-gradient(24% 28% at 70% 61%, color-mix(in srgb, var(--explorer-warm) 56%, transparent), transparent 72%);
+  transition: opacity 700ms cubic-bezier(.16, 1, .3, 1);
+}
+
+section.hero.is-transforming::after { opacity: 1; }
+
 .hero-field {
   position: absolute;
   inset: 0;
@@ -66,13 +82,14 @@ section.hero::before {
 }
 
 section.hero.is-transforming .hero-field {
-  opacity: .92;
-  filter: saturate(1.35) brightness(1.12);
+  opacity: .48;
+  filter: saturate(.88) brightness(1.04);
 }
 
 section.hero.is-transforming .hero-ambient-glow {
   opacity: 1;
-  filter: blur(10px) saturate(1.4);
+  filter: blur(10px) saturate(1.22);
+  background: radial-gradient(circle, var(--explorer-warm) 0%, var(--hero-glow-soft) 38%, transparent 70%);
 }
 
 .hero-text,
@@ -99,6 +116,43 @@ section.hero.is-transforming .hero-ambient-glow {
   background: radial-gradient(ellipse at 50% 48%, var(--hero-glow-core), var(--hero-glow-soft) 42%, transparent 70%);
   filter: blur(16px);
   animation: portrait-halo 6.5s cubic-bezier(.45, 0, .55, 1) infinite alternate;
+}
+
+.portrait-topography {
+  position: absolute;
+  inset: -8% -27% -8% -22%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(3%, 2%, 0) scale(.88);
+  background:
+    radial-gradient(circle at 62% 56%, color-mix(in srgb, var(--explorer-warm) 86%, transparent), transparent 46%),
+    url("../images/hero/explorer-topography.svg") 60% 45% / 112% no-repeat,
+    url("../images/hero/explorer-alpine-field.webp") 64% 50% / cover no-repeat;
+  background-blend-mode: screen, screen, normal;
+  filter: brightness(1.2) saturate(.9) drop-shadow(0 0 22px color-mix(in srgb, var(--explorer-warm) 42%, transparent));
+  mask-image: radial-gradient(ellipse at 58% 52%, #000 0 54%, rgba(0, 0, 0, .66) 67%, transparent 82%);
+  transition:
+    opacity 520ms cubic-bezier(.16, 1, .3, 1),
+    transform 1000ms cubic-bezier(.16, 1, .3, 1),
+    filter 700ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.portrait-topography > span {
+  position: absolute;
+  right: 20%;
+  bottom: 20%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #edb26d;
+  box-shadow: 0 0 0 7px rgba(224, 164, 94, .11), 0 0 24px rgba(224, 164, 94, .68);
+}
+
+.portrait-col.is-transforming .portrait-topography {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1.04);
+  filter: brightness(1.35) saturate(1) drop-shadow(0 0 30px color-mix(in srgb, var(--explorer-warm) 54%, transparent));
 }
 
 .portrait-portal {
@@ -153,9 +207,9 @@ section.hero.is-transforming .hero-ambient-glow {
 .portrait-portal > span:nth-child(3) { bottom: 10%; left: 24%; width: 5px; height: 5px; background: var(--accent-2); }
 
 .portrait-col.is-transforming .portrait-portal {
-  opacity: .82;
+  opacity: .34;
   transform: scale(1.08) rotate(0deg);
-  filter: saturate(1.25) drop-shadow(0 0 28px color-mix(in srgb, var(--accent) 24%, transparent));
+  filter: saturate(.9) sepia(.18) drop-shadow(0 0 24px color-mix(in srgb, var(--explorer-warm) 34%, transparent));
   animation: portal-turn 14s linear infinite;
 }
 
@@ -170,7 +224,6 @@ section.hero.is-transforming .hero-ambient-glow {
 }
 
 .portrait-col .portrait-alternate,
-.portrait-col .portrait-energy-edge,
 .portrait-col .portrait-identity-lock {
   position: absolute;
   inset: 0;
@@ -179,27 +232,6 @@ section.hero.is-transforming .hero-ambient-glow {
   object-fit: contain;
   object-position: center bottom;
   pointer-events: none;
-}
-
-.portrait-col .portrait-energy-edge {
-  z-index: 3;
-  opacity: 0;
-  clip-path: inset(31% 0 0);
-  filter:
-    brightness(1.8)
-    contrast(1.18)
-    saturate(1.5)
-    drop-shadow(0 0 9px var(--accent))
-    drop-shadow(0 0 22px color-mix(in srgb, var(--accent-2) 56%, transparent));
-  mask-image: radial-gradient(
-    circle var(--portal-radius) at var(--portal-x) var(--portal-y),
-    transparent 0 calc(100% - 24px),
-    rgba(0, 0, 0, .34) calc(100% - 18px),
-    #000 calc(100% - 10px),
-    transparent 100%
-  );
-  mix-blend-mode: screen;
-  transition: opacity 180ms ease;
 }
 
 .portrait-col .portrait-alternate {
@@ -224,7 +256,6 @@ section.hero.is-transforming .hero-ambient-glow {
 }
 
 .portrait-col.is-transforming .portrait-alternate,
-.portrait-col.is-transforming .portrait-energy-edge,
 .portrait-col.is-transforming .portrait-identity-lock {
   opacity: 1;
 }
@@ -258,8 +289,10 @@ section.hero.is-transforming .hero-ambient-glow {
 }
 
 .portrait-col.is-transforming::after {
-  opacity: .75;
+  opacity: .52;
   transform: translate(-50%, -50%) scale(1);
+  border-color: color-mix(in srgb, var(--explorer-warm) 70%, transparent);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--explorer-warm) 34%, transparent), inset 0 0 26px color-mix(in srgb, var(--explorer-warm) 16%, transparent);
 }
 
 .portrait-orbit {
@@ -271,6 +304,13 @@ section.hero.is-transforming .hero-ambient-glow {
   pointer-events: none;
   transform: rotate(-12deg);
   animation: orbit-turn 24s linear infinite;
+  transition: opacity 520ms cubic-bezier(.16, 1, .3, 1), filter 700ms cubic-bezier(.16, 1, .3, 1), border-color 520ms ease;
+}
+
+.portrait-col.is-transforming .portrait-orbit {
+  opacity: .38;
+  filter: sepia(.3) saturate(.8);
+  border-color: color-mix(in srgb, var(--explorer-warm) 44%, transparent);
 }
 
 .portrait-orbit::before,
@@ -427,6 +467,7 @@ section.hero.is-transforming .hero-ambient-glow {
   .hero-field { opacity: .5; }
   .hero-ambient-glow { top: 38%; right: -42%; width: 125vw; }
   .portrait-col::before { inset: 2% -24% -7%; }
+  .portrait-topography { inset: -2% -20% -7%; }
   .portrait-portal { inset: 7% -5% 2%; opacity: .14; }
   .portrait-orbit { inset: 8% 3% 2%; }
   .hero-capability { min-height: 30px; padding: 0 10px; font-size: 9px; }
@@ -454,7 +495,6 @@ section.hero.is-transforming .hero-ambient-glow {
   .portrait-col .portrait-base { filter: contrast(1.025) saturate(1.03) brightness(1.035) drop-shadow(0 30px 50px rgba(0, 0, 0, .3)); }
   .portrait-col::after { display: none; }
   .portrait-col .portrait-alternate,
-  .portrait-col .portrait-energy-edge,
   .portrait-col .portrait-identity-lock { display: none; }
 }
 
@@ -462,6 +502,7 @@ section.hero.is-transforming .hero-ambient-glow {
   .hero-field { display: none; }
   .hero-ambient-glow,
   .portrait-col::before,
+  .portrait-topography,
   .portrait-portal,
   .portrait-orbit,
   .hero-capability,
@@ -471,6 +512,5 @@ section.hero.is-transforming .hero-ambient-glow {
   .portrait-col::after { display: none; }
   .portrait-portal { opacity: .12; transform: none; }
   .portrait-col .portrait-alternate,
-  .portrait-col .portrait-energy-edge,
   .portrait-col .portrait-identity-lock { display: none; }
 }
