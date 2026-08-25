@@ -101,6 +101,64 @@ section.hero.is-transforming .hero-ambient-glow {
   animation: portrait-halo 6.5s cubic-bezier(.45, 0, .55, 1) infinite alternate;
 }
 
+.portrait-portal {
+  position: absolute;
+  inset: 8% -10% 1%;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  opacity: .08;
+  pointer-events: none;
+  transform: scale(.82) rotate(-8deg);
+  transition:
+    opacity 420ms cubic-bezier(.16, 1, .3, 1),
+    transform 900ms cubic-bezier(.16, 1, .3, 1),
+    filter 700ms cubic-bezier(.16, 1, .3, 1);
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 31%, color-mix(in srgb, var(--accent) 22%, transparent) 31.4% 31.8%, transparent 32.2% 45%, color-mix(in srgb, var(--accent) 18%, transparent) 45.4% 45.8%, transparent 46.2%),
+    conic-gradient(from 212deg, transparent 0 21%, color-mix(in srgb, var(--accent-2) 62%, transparent) 25%, transparent 31% 62%, color-mix(in srgb, var(--accent) 48%, transparent) 68%, transparent 74%);
+  filter: blur(.2px);
+  mask-image: radial-gradient(circle, #000 0 63%, transparent 76%);
+}
+
+.portrait-portal::before,
+.portrait-portal::after,
+.portrait-portal > span {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.portrait-portal::before {
+  inset: 7%;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  box-shadow: inset 0 0 44px color-mix(in srgb, var(--accent) 14%, transparent), 0 0 32px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.portrait-portal::after {
+  inset: 17%;
+  border: 1px dashed color-mix(in srgb, var(--accent-2) 36%, transparent);
+  animation: portal-counterspin 18s linear infinite;
+}
+
+.portrait-portal > span {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 12%, transparent), 0 0 24px var(--accent);
+}
+
+.portrait-portal > span:nth-child(1) { top: 14%; left: 31%; }
+.portrait-portal > span:nth-child(2) { top: 46%; right: 4%; width: 4px; height: 4px; }
+.portrait-portal > span:nth-child(3) { bottom: 10%; left: 24%; width: 5px; height: 5px; background: var(--accent-2); }
+
+.portrait-col.is-transforming .portrait-portal {
+  opacity: .82;
+  transform: scale(1.08) rotate(0deg);
+  filter: saturate(1.25) drop-shadow(0 0 28px color-mix(in srgb, var(--accent) 24%, transparent));
+  animation: portal-turn 14s linear infinite;
+}
+
 .portrait-col .portrait-base {
   filter:
     saturate(1.03)
@@ -113,10 +171,10 @@ section.hero.is-transforming .hero-ambient-glow {
 
 .portrait-col.is-transforming .portrait-base {
   filter:
-    saturate(1.05)
-    contrast(1.03)
-    brightness(1.04)
-    drop-shadow(0 0 14px color-mix(in srgb, var(--accent) 38%, transparent))
+    saturate(1.055)
+    contrast(1.035)
+    brightness(1.045)
+    drop-shadow(0 0 20px color-mix(in srgb, var(--accent) 48%, transparent))
     drop-shadow(0 32px 54px rgba(0, 0, 0, .34));
 }
 
@@ -127,7 +185,7 @@ section.hero.is-transforming .hero-ambient-glow {
   position: absolute;
   left: var(--portal-x);
   top: var(--portal-y);
-  z-index: 4;
+  z-index: 0;
   width: calc(var(--portal-radius) * 2);
   aspect-ratio: 1;
   border: 1px solid color-mix(in srgb, var(--accent) 62%, transparent);
@@ -279,6 +337,15 @@ section.hero.is-transforming .hero-ambient-glow {
   to { transform: rotate(348deg); }
 }
 
+@keyframes portal-turn {
+  from { transform: scale(1.08) rotate(0deg); }
+  to { transform: scale(1.08) rotate(360deg); }
+}
+
+@keyframes portal-counterspin {
+  to { transform: rotate(-360deg); }
+}
+
 @keyframes capability-drift {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(var(--float-x), var(--float-y), 0); }
@@ -300,6 +367,7 @@ section.hero.is-transforming .hero-ambient-glow {
   .hero-field { opacity: .5; }
   .hero-ambient-glow { top: 38%; right: -42%; width: 125vw; }
   .portrait-col::before { inset: 2% -24% -7%; }
+  .portrait-portal { inset: 7% -5% 2%; opacity: .14; }
   .portrait-orbit { inset: 8% 3% 2%; }
   .hero-capability { min-height: 30px; padding: 0 10px; font-size: 9px; }
   .hero-capability-1 { top: 22%; left: 1%; }
@@ -311,6 +379,17 @@ section.hero.is-transforming .hero-ambient-glow {
   .sig-node-label::before { top: 24px; left: -5px; }
 }
 
+@media (min-width: 761px) {
+  .sig-stage {
+    padding-top: 10px;
+    border-top: 0;
+    background: linear-gradient(var(--rule), var(--rule)) 0 8px / 100% 1px no-repeat;
+  }
+
+  .sig-stage::after { top: 7px; }
+  .sig-node-label::before { top: -6px; }
+}
+
 @media (pointer: coarse) {
   .portrait-col .portrait-base { filter: contrast(1.025) saturate(1.03) brightness(1.035) drop-shadow(0 30px 50px rgba(0, 0, 0, .3)); }
   .portrait-col::after { display: none; }
@@ -320,10 +399,12 @@ section.hero.is-transforming .hero-ambient-glow {
   .hero-field { display: none; }
   .hero-ambient-glow,
   .portrait-col::before,
+  .portrait-portal,
   .portrait-orbit,
   .hero-capability,
   .sig-stage::after,
   .sig-node-label::before { animation: none; }
   .portrait-col .portrait-base { filter: contrast(1.025) saturate(1.03) brightness(1.035) drop-shadow(0 30px 50px rgba(0, 0, 0, .3)); }
   .portrait-col::after { display: none; }
+  .portrait-portal { opacity: .12; transform: none; }
 }
