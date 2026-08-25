@@ -284,11 +284,12 @@
   .project-catalogue { border-top: 1px solid var(--rule); }
   .catalogue-heading { margin-bottom: 24px; font-size: 18px; font-weight: 500; }
   .project-row {
-    display: grid; grid-template-columns: minmax(170px, .55fr) minmax(180px, .5fr) minmax(0, 1.2fr) auto;
-    gap: 28px; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--rule);
+    display: grid; grid-template-columns: minmax(280px, .8fr) minmax(190px, .45fr) minmax(0, 1fr) auto;
+    gap: clamp(24px, 2vw, 40px); align-items: center; padding: 32px 0; border-bottom: 1px solid var(--rule);
   }
   .project-thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--rule); border-radius: 6px; }
   .project-picture { display: block; }
+  .project-picture--wide .project-thumb { aspect-ratio: 1512 / 722; object-fit: contain; object-position: center; background: var(--bg-warm); }
   .theme-dark { display: none; }
   [data-theme="dark"] .theme-light { display: none; }
   [data-theme="dark"] .theme-dark { display: block; }
