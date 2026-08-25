@@ -29,6 +29,20 @@
 .gallery-slide.is-active { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
 .gallery-slide > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
+.project-gallery--contain {
+  aspect-ratio: 16 / 11;
+  background: oklch(.14 .018 260);
+}
+
+.project-gallery--contain .gallery-viewport {
+  bottom: 64px;
+}
+
+.project-gallery--contain .gallery-slide > img {
+  object-fit: contain;
+  object-position: center;
+}
+
 .gallery-diagram {
   display: grid;
   place-items: center;
@@ -113,6 +127,7 @@
 @keyframes diagram-flow { to { stroke-dashoffset: -40; } }
 
 @media (max-width: 760px) {
+  .project-gallery--contain .gallery-viewport { bottom: 58px; }
   .gallery-diagram { padding: 32px 22px 72px; }
   .gallery-chrome { gap: 10px; min-height: 58px; padding: 10px 12px; }
   .gallery-label { font-size: 12px; }
