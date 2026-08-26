@@ -281,15 +281,25 @@
     border-bottom: 1px solid var(--rule);
   }
   .project-actions a:hover { color: var(--accent); border-color: var(--accent); }
-  .project-catalogue { border-top: 1px solid var(--rule); }
+  .project-catalogue {
+    display: grid;
+    grid-template-columns: minmax(320px, 1.05fr) minmax(210px, .5fr) minmax(360px, 1.35fr) max-content;
+    column-gap: clamp(28px, 3vw, 56px);
+    border-top: 1px solid var(--rule);
+  }
   .catalogue-heading { margin-bottom: 24px; font-size: 18px; font-weight: 500; }
   .project-row {
-    display: grid; grid-template-columns: minmax(280px, .8fr) minmax(190px, .45fr) minmax(0, 1fr) auto;
-    gap: clamp(24px, 2vw, 40px); align-items: center; padding: 32px 0; border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: center;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--rule);
   }
   .project-thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--rule); border-radius: 6px; }
-  .project-picture { display: block; }
-  .project-picture--wide .project-thumb { aspect-ratio: 1512 / 722; object-fit: contain; object-position: center; background: var(--bg-warm); }
+  .project-picture { display: block; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg-warm); }
+  .project-picture .project-thumb { height: 100%; border: 0; border-radius: 0; }
+  .project-picture--wide .project-thumb { aspect-ratio: auto; object-fit: contain; object-position: center; }
   .theme-dark { display: none; }
   [data-theme="dark"] .theme-light { display: none; }
   [data-theme="dark"] .theme-dark { display: block; }
@@ -420,7 +430,8 @@
     .featured-project { grid-template-columns: 1fr; }
     .featured-project:nth-child(even) { grid-template-columns: 1fr; }
     .featured-project:nth-child(even) .project-proof { order: initial; }
-    .project-row { grid-template-columns: minmax(160px, .6fr) minmax(180px, .6fr) minmax(0, 1fr); }
+    .project-catalogue { display: block; }
+    .project-row { grid-template-columns: minmax(160px, .6fr) minmax(180px, .6fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 40px); }
     .row-actions { grid-column: 2 / -1; }
     .post-grid { grid-template-columns: repeat(2, 1fr); }
     .stack-inner { grid-template-columns: 1fr; gap: 44px; }
