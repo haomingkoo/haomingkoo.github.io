@@ -1,0 +1,23 @@
+name: Uptime
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency: uptime
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check endpoints and sync the uptime issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 uptime/check.py --sync-issue

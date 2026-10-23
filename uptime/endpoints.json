@@ -1,0 +1,21 @@
+[
+  {"name": "Portfolio", "url": "https://kooexperience.com", "contains": "Haoming Koo"},
+  {"name": "Amex Explorer", "url": "https://amex-explorer.kooexperience.com", "contains": "Amex Platinum Benefits Explorer"},
+  {"name": "Amex Reminders", "url": "https://amex-reminders-production.up.railway.app/healthz", "json_ok": true},
+  {"name": "Preflight", "url": "https://preflight.kooexperience.com", "contains": "<title>Preflight</title>"},
+  {"name": "Trader Koo", "url": "https://trader.kooexperience.com", "contains": "Trader Koo"},
+  {"name": "Trader Koo API", "url": "https://trader.kooexperience.com/api/health", "json_ok": true},
+  {"name": "Photo Studio", "url": "https://studio.kooexperience.com", "contains": "Photo Compliance Studio"},
+  {"name": "Japan in Seasons", "url": "https://seasons.kooexperience.com", "contains": "Japan in Seasons"},
+  {"name": "Japan in Seasons MCP", "url": "https://seasons.kooexperience.com/mcp", "contains": "serverInfo",
+   "post": {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-03-26", "capabilities": {}, "clientInfo": {"name": "uptime-monitor", "version": "1.0"}}}},
+  {"name": "Handwriting Lab", "url": "https://handwriting.kooexperience.com", "contains": "Handwriting Lab"},
+  {"name": "LionWeather", "url": "https://lionweather.kooexperience.com", "contains": "LionWeather"},
+  {"name": "LionWeather API", "url": "https://lionweather-backend-production.up.railway.app/health", "contains": "healthy"},
+  {"name": "MinMax Wine", "url": "https://wine.kooexperience.com", "contains": "MinMax Wine"},
+  {"name": "Job Hunter", "url": "https://jobhunter.kooexperience.com", "contains": "Job Hunter"},
+  {"name": "TravelBetter", "url": "https://travelbetter.kooexperience.com", "contains": "travel planner"},
+  {"name": "Long COVID Atlas", "url": "https://longcovid-atlas-production.up.railway.app", "contains": "Long COVID Evidence Atlas"},
+  {"name": "SingLah API", "url": "https://singlah-production.up.railway.app/docs", "contains": "Swagger UI"},
+  {"name": "Admin (Cloudflare Access gate only)", "url": "https://admin.kooexperience.com", "contains": "Cloudflare Access"}
+]
