@@ -44,24 +44,14 @@
         --blue: #3b82f6;
         --amber: #f59e0b;
         --emerald: #10b981;
-        --red: #ef4444;
-        --purple: #a855f7;
         --nav-bg: rgba(6,6,8,0.72);
       }
       [data-theme="light"] {
         --bg: #f8f9fb;
         --surface: #ffffff;
         --border: #dde1e6;
-        --accent: #2563eb;
-        --accent-dim: rgba(37,99,235,0.08);
         --text: #111318;
         --text-secondary: #3d4250;
-        --muted: #6b7280;
-        --blue: #2563eb;
-        --amber: #d97706;
-        --emerald: #059669;
-        --red: #dc2626;
-        --purple: #9333ea;
         --nav-bg: rgba(248,249,251,0.85);
       }
       html { scroll-behavior: smooth; }
@@ -231,7 +221,7 @@
       }
       .toggle-pill.active {
         background: var(--accent); border-color: var(--accent);
-        color: #fff; font-weight: 600;
+        color: var(--on-accent); font-weight: 600;
       }
 
       /* ── Chart Container ──────────────────────────────────────────────── */
@@ -346,6 +336,7 @@
 (function(){try{var saved=localStorage.getItem("hk-theme")||localStorage.getItem("theme");if(saved)document.documentElement.setAttribute("data-theme",saved);}catch(e){}document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[aria-label=\"Toggle theme\"], .theme-btn, .theme-toggle, #themeToggle");if(!b)return;requestAnimationFrame(function(){try{var theme=document.documentElement.getAttribute("data-theme")||document.documentElement.dataset.theme||"dark";localStorage.setItem("hk-theme",theme);localStorage.setItem("theme",theme);}catch(e){}});},true);})();
 </script>
 <link rel="stylesheet" href="/system/chrome.css" />
+<link rel="stylesheet" href="/system/post-palette.css" />
 </head>
   <body>
     <div class="nav-wrap">
@@ -998,7 +989,7 @@ WIND_MAX = 60.0                       # km/h
         </div>
         <div class="chart-wrap">
           <div class="chart-title">Training Loss Curves</div>
-          <div class="chart-subtitle">Classification (multi_logloss) &mdash; train vs. validation</div>
+          <div class="chart-subtitle">Classification (multi_logloss): train vs. validation</div>
           <div id="chart-loss" class="chart-loading">Loading chart data...</div>
         </div>
 
@@ -1072,7 +1063,7 @@ params = {
 
         <div class="chart-wrap">
           <div class="chart-title">SHAP Feature Importance (1-Hour Regression)</div>
-          <div class="chart-subtitle">Top 15 features by mean |SHAP value| &mdash; higher means more influence</div>
+          <div class="chart-subtitle">Top 15 features by mean |SHAP value|. Higher means more influence</div>
           <div id="chart-shap" class="chart-loading">Loading chart data...</div>
         </div>
 
@@ -1353,6 +1344,7 @@ params = {
         </div>
       </section>
 
+      </div>
       <footer class="site-footer">
       <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
@@ -1360,7 +1352,7 @@ params = {
       <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/#work">More projects</a>
     </footer>
-    <script src="/assets/scripts/chrome.js" defer></script></div>
+    <script src="/assets/scripts/chrome.js" defer></script>
 
     <!-- ================================================================ -->
     <!-- JAVASCRIPT: Data fetching, chart rendering, interactivity        -->
@@ -1395,9 +1387,14 @@ params = {
       function chartThemeColors() {
         const dark = document.documentElement.getAttribute('data-theme') !== 'light';
         return {
+          dark: dark,
           bg: dark ? '#0e0e12' : '#ffffff',
           grid: dark ? '#1c1c24' : '#e5e7eb',
           text: dark ? '#b0b0b8' : '#4b5563',
+          // Annotation text needs darker hues on the white light-mode plot.
+          blue: dark ? COLORS.blue : '#1d4ed8',
+          amber: dark ? COLORS.amber : '#92400e',
+          emerald: dark ? COLORS.emerald : '#047857',
         };
       }
 
@@ -1648,8 +1645,8 @@ params = {
           },
           margin: { l: 50, r: 20, t: 10, b: 48 },
           annotations: [
-            { text: 'ACF', xref: 'paper', yref: 'paper', x: 0.23, y: 1.06, showarrow: false, font: { size: 13, color: COLORS.blue, weight: 600 } },
-            { text: 'PACF', xref: 'paper', yref: 'paper', x: 0.76, y: 1.06, showarrow: false, font: { size: 13, color: COLORS.amber, weight: 600 } }
+            { text: 'ACF', xref: 'paper', yref: 'paper', x: 0.23, y: 1.06, showarrow: false, font: { size: 13, color: chartThemeColors().blue, weight: 600 } },
+            { text: 'PACF', xref: 'paper', yref: 'paper', x: 0.76, y: 1.06, showarrow: false, font: { size: 13, color: chartThemeColors().amber, weight: 600 } }
           ]
         }), PLOTLY_CONFIG);
       }
@@ -1680,7 +1677,7 @@ params = {
               text: peak.period_h >= 24 ? (peak.period_h / 24).toFixed(0) + 'd' : peak.period_h.toFixed(0) + 'h',
               showarrow: true, arrowhead: 2, arrowsize: 0.8,
               arrowcolor: '#64647a', ax: 0, ay: -28 - i * 6,
-              font: { color: COLORS.amber, size: 11, weight: 600 },
+              font: { color: chartThemeColors().amber, size: 11, weight: 600 },
               bgcolor: chartThemeColors().bg, borderpad: 3
             });
           });
@@ -1843,7 +1840,7 @@ params = {
             [0.25, 'rgba(59,130,246,0.15)'],
             [0.5, 'rgba(59,130,246,0.35)'],
             [0.75, 'rgba(59,130,246,0.6)'],
-            [1, '#3b82f6']
+            [1, chartThemeColors().dark ? '#1d4ed8' : '#3b82f6']
           ],
           showscale: false,
           hovertemplate: 'Actual: %{y}<br>Predicted: %{x}<br>Count: %{text}<extra></extra>',
@@ -1858,7 +1855,7 @@ params = {
               x: cats[j], y: cats[i],
               text: String(cm[i][j]),
               showarrow: false,
-              font: { color: zNorm[i][j] > 0.5 ? '#fff' : chartThemeColors().text, size: 14, weight: 600 }
+              font: { color: chartThemeColors().dark ? '#ffffff' : '#111318', size: 14, weight: 600 }
             });
           }
         }
@@ -1874,7 +1871,7 @@ params = {
           annotations: annotations.concat([{
             text: accText, xref: 'paper', yref: 'paper',
             x: 1, y: 1.1, showarrow: false,
-            font: { color: COLORS.emerald, size: 13, weight: 600 }
+            font: { color: chartThemeColors().emerald, size: 13, weight: 600 }
           }]),
           margin: { l: 120, r: 20, t: 30, b: 60 }
         }), PLOTLY_CONFIG);

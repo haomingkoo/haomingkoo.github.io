@@ -42,9 +42,7 @@
   --text-secondary: #b0b0b8;
   --muted: #8a8aa0;
   --live: #22c55e;
-  --purple: #a855f7;
   --amber: #f59e0b;
-  --red: #ef4444;
   --nav-bg: rgba(6,6,8,0.85);
   --code-bg: rgba(255,255,255,0.04);
 }
@@ -54,16 +52,9 @@
   --surface-hover: #f1f3f5;
   --border: #dde1e6;
   --border-hover: #c1c7cf;
-  --accent: #2563eb;
-  --accent-dim: rgba(37,99,235,0.08);
   --accent-glow: rgba(37,99,235,0.18);
   --text: #111827;
   --text-secondary: #4b5563;
-  --muted: #6b7280;
-  --live: #16a34a;
-  --purple: #7c3aed;
-  --amber: #d97706;
-  --red: #dc2626;
   --nav-bg: rgba(248,249,251,0.88);
   --code-bg: rgba(0,0,0,0.04);
 }
@@ -224,7 +215,7 @@ code,.mono{font-family:"JetBrains Mono",monospace;font-size:0.88em}
   transition:all .4s;position:relative;
 }
 .pipe-node.active{border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow)}
-.pipe-node.done{border-color:var(--live);opacity:0.7}
+.pipe-node.done{border-color:var(--live)}
 .pipe-node-title{font-size:13px;font-weight:600;color:var(--text)}
 .pipe-node-sub{font-size:11px;color:var(--muted);margin-top:2px}
 .pipe-arrow{
@@ -306,13 +297,13 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 .batch-block{
   height:20px;border-radius:4px;transition:width .3s;
   display:flex;align-items:center;justify-content:center;
-  font-size:9px;font-family:"JetBrains Mono",monospace;color:rgba(255,255,255,.8);
+  font-size:9px;font-family:"JetBrains Mono",monospace;color:var(--on-accent);
   overflow:hidden;white-space:nowrap;
 }
 .batch-block.active{background:var(--accent)}
-.batch-block.waiting{background:var(--border);opacity:0.5}
+.batch-block.waiting{background:color-mix(in srgb,var(--border) 50%,transparent);color:var(--muted)}
 .batch-block.done{background:var(--live);opacity:0.6}
-.batch-block.idle{background:var(--border);opacity:0.3}
+.batch-block.idle{background:color-mix(in srgb,var(--border) 30%,transparent);color:var(--muted)}
 .batch-block.new{background:var(--purple)}
 .batch-block.prefill{background:var(--amber)}
 
@@ -418,6 +409,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
 (function(){try{var saved=localStorage.getItem("hk-theme")||localStorage.getItem("theme");if(saved)document.documentElement.setAttribute("data-theme",saved);}catch(e){}document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[aria-label=\"Toggle theme\"], .theme-btn, .theme-toggle, #themeToggle");if(!b)return;requestAnimationFrame(function(){try{var theme=document.documentElement.getAttribute("data-theme")||document.documentElement.dataset.theme||"dark";localStorage.setItem("hk-theme",theme);localStorage.setItem("theme",theme);}catch(e){}});},true);})();
 </script>
 <link rel="stylesheet" href="/system/chrome.css" />
+<link rel="stylesheet" href="/system/post-palette.css" />
 </head>
 <body>
 
@@ -1646,7 +1638,7 @@ function renderBatchViz() {
       block.className = 'batch-block ' + b.cls;
       block.style.width = ((b.e - b.s) / timeSlots * 100) + '%';
       if (b.c) block.style.background = b.c;
-      if (b.cls === 'idle') { block.style.background = 'var(--border)'; block.style.opacity = '0.3'; block.textContent = 'idle'; }
+      if (b.cls === 'idle') { block.textContent = 'idle'; }
       if (b.cls === 'waiting') { block.textContent = 'waiting'; }
       blocks.appendChild(block);
     });

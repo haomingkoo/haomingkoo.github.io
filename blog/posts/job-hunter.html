@@ -57,9 +57,7 @@
   --text-secondary: #b0b0b8;
   --muted: #8a8aa0;
   --live: #22c55e;
-  --purple: #a855f7;
   --amber: #f59e0b;
-  --red: #ef4444;
   --nav-bg: rgba(6,6,8,0.85);
   --code-bg: rgba(255,255,255,0.04);
 }
@@ -69,16 +67,9 @@
   --surface-hover: #f1f3f5;
   --border: #dde1e6;
   --border-hover: #c1c7cf;
-  --accent: #2563eb;
-  --accent-dim: rgba(37,99,235,0.08);
   --accent-glow: rgba(37,99,235,0.18);
   --text: #111827;
   --text-secondary: #4b5563;
-  --muted: #6b7280;
-  --live: #16a34a;
-  --purple: #7c3aed;
-  --amber: #d97706;
-  --red: #dc2626;
   --nav-bg: rgba(248,249,251,0.88);
   --code-bg: rgba(0,0,0,0.04);
 }
@@ -299,6 +290,7 @@ p{margin-bottom:16px}
 (function(){try{var saved=localStorage.getItem("hk-theme")||localStorage.getItem("theme");if(saved)document.documentElement.setAttribute("data-theme",saved);}catch(e){}document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[aria-label=\"Toggle theme\"], .theme-btn, .theme-toggle, #themeToggle");if(!b)return;requestAnimationFrame(function(){try{var theme=document.documentElement.getAttribute("data-theme")||document.documentElement.dataset.theme||"dark";localStorage.setItem("hk-theme",theme);localStorage.setItem("theme",theme);}catch(e){}});},true);})();
 </script>
 <link rel="stylesheet" href="/system/chrome.css" />
+<link rel="stylesheet" href="/system/post-palette.css" />
 </head>
 <body>
 
@@ -717,6 +709,7 @@ p{margin-bottom:16px}
 </section>
 
 <!-- ── Footer ─────────────────────────────────────────────────────── -->
+</div>
 <footer class="site-footer">
       <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
@@ -724,23 +717,9 @@ p{margin-bottom:16px}
       <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/#work">More projects</a>
     </footer>
-    <script src="/assets/scripts/chrome.js" defer></script></div>
+    <script src="/assets/scripts/chrome.js" defer></script>
 
 <script>
-// Theme toggle
-function toggleTheme(){
-  const html=document.documentElement;
-  const next=html.dataset.theme==="dark"?"light":"dark";
-  html.dataset.theme=next;
-  localStorage.setItem("theme",next);
-  document.getElementById("theme-icon").textContent=next==="dark"?"☾":"☀";
-}
-(function(){
-  const saved=localStorage.getItem("theme");
-  if(saved){document.documentElement.dataset.theme=saved;
-    document.getElementById("theme-icon").textContent=saved==="dark"?"☾":"☀";}
-})();
-
 // Scroll reveal
 const observer=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}})

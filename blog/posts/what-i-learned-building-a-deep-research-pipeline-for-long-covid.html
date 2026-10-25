@@ -12,7 +12,7 @@
   <link rel="canonical" href="https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html">
   <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
   <meta property="og:title" content="From 73,857 Long COVID records to one plausible treatment lane">
-  <meta property="og:description" content="An auditable research pipeline, six selected rehabilitation trials, and a careful deep dive into what REGAIN did—and how large its benefit was.">
+  <meta property="og:description" content="An auditable research pipeline, six selected rehabilitation trials, and a careful deep dive into what REGAIN did and how large its benefit was.">
   <meta property="og:url" content="https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html">
   <meta property="og:type" content="article">
   <meta property="og:image" content="https://kooexperience.com/assets/og/long-covid-evidence-pipeline.png">
@@ -48,7 +48,7 @@
         "@type": "BlogPosting",
         "@id": "https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html#article",
         "headline": "From 73,857 Long COVID records to one plausible treatment lane",
-        "alternativeHeadline": "How an auditable evidence pipeline surfaced supervised rehabilitation—and what the REGAIN trial really showed",
+        "alternativeHeadline": "How an auditable evidence pipeline surfaced supervised rehabilitation, and what the REGAIN trial really showed",
         "description": "How Haoming Koo built an auditable Long COVID evidence pipeline, then traced one plausible lane through six selected randomized rehabilitation trials and the REGAIN study.",
         "url": "https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html",
         "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/blog/posts/what-i-learned-building-a-deep-research-pipeline-for-long-covid.html"},
@@ -106,7 +106,7 @@
   <link rel="stylesheet" href="/system/tokens.css">
   <link rel="stylesheet" href="/system/base.css">
   <style>
-    :root{--page:#f5f5f1;--panel:#fff;--ink:#141715;--soft:#5d665f;--line:#d9ddd8;--accent:#087b73;--accent2:#d96b42;--pale:#e7f2ef;--warn:#fff4e8;--shadow:0 16px 50px rgba(18,30,24,.09)}
+    :root{--page:#f5f5f1;--panel:#fff;--ink:#141715;--soft:#5d665f;--line:#d9ddd8;--accent:#066f68;--accent2:#d96b42;--pale:#e7f2ef;--warn:#fff4e8;--shadow:0 16px 50px rgba(18,30,24,.09)}
     [data-theme="dark"]{--page:#08100f;--panel:#101a18;--ink:#f1f5f3;--soft:#a4b1ab;--line:#263431;--accent:#59c7ba;--accent2:#ff9670;--pale:#122724;--warn:#2a1d15;--shadow:0 18px 60px rgba(0,0,0,.28)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;overflow-x:hidden;background:var(--page);color:var(--ink);font:16px/1.72 Inter,system-ui,sans-serif}a{color:var(--accent)}
     nav{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--page) 88%,transparent);backdrop-filter:blur(14px)}
@@ -126,7 +126,7 @@
     .session-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0}.session-fact{padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}.session-fact b{display:block;color:var(--accent);font-size:20px}.session-fact span{display:block;margin-top:5px;color:var(--soft);font-size:12px}.session-path{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}.session-step{position:relative;padding:20px;border-radius:14px;background:var(--pale)}.session-step .step-no{font:700 11px JetBrains Mono,monospace;color:var(--accent)}.session-step h3{margin:8px 0;font-size:17px}.session-step p{margin:0;color:var(--soft);font-size:13px}.example-session{margin:24px 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--panel)}.example-session h3{margin-top:0}.exercise-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 24px;padding-left:22px}.exercise-list li{padding:4px 0}.adapt-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}.adapt{padding:18px;border-radius:14px;background:var(--pale)}.adapt h4{margin:0 0 8px}.adapt p{margin:0;color:var(--soft);font-size:13px}.action-box{margin:26px 0;padding:24px;border:2px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:18px;background:color-mix(in srgb,var(--panel) 92%,var(--accent) 8%)}.action-box h3{margin-top:0}.action-box ol{margin-bottom:0;padding-left:22px}.action-box li{margin:9px 0}.source-line{font-size:12px;color:var(--soft)}
     .chart{margin:30px 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--panel)}.chart-title{font-weight:700}.chart-sub{color:var(--soft);font-size:13px}.propr-scroll{width:100%;overflow-x:auto;margin:18px 0 8px}.propr-svg{display:block;width:100%;height:auto;min-width:620px}.propr-svg .axis{stroke:var(--line);stroke-width:2;vector-effect:non-scaling-stroke}.propr-svg .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:5 6;vector-effect:non-scaling-stroke}.propr-svg .regain-line{stroke:var(--accent);stroke-width:5;fill:none;vector-effect:non-scaling-stroke}.propr-svg .control-line{stroke:var(--soft);stroke-width:5;fill:none;vector-effect:non-scaling-stroke}.propr-svg .regain-point{fill:var(--accent);stroke:color-mix(in srgb,var(--accent) 25%,transparent);stroke-width:10;paint-order:stroke}.propr-svg .control-point{fill:var(--soft);stroke:color-mix(in srgb,var(--soft) 25%,transparent);stroke-width:10;paint-order:stroke}.propr-svg .shared-point{fill:var(--panel);stroke:var(--accent);stroke-width:5;paint-order:stroke}.propr-svg text{font-family:Inter,system-ui,sans-serif;fill:var(--soft)}.propr-svg .tick{font:500 15px JetBrains Mono,monospace}.propr-svg .axis-label{font-size:16px;font-weight:600}.propr-svg .regain-label{font-size:17px;font-weight:700;fill:var(--accent)}.propr-svg .control-label{font-size:16px;font-weight:700;fill:var(--soft)}.legend{display:flex;gap:18px;flex-wrap:wrap;color:var(--soft);font-size:12px}.key{display:inline-flex;align-items:center;gap:7px}.dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}.dot.gray{background:var(--soft)}
     .meaning{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.meaning .card b{display:block;font-size:22px;color:var(--accent);margin-bottom:8px}.meaning .card span{color:var(--soft);font-size:13px}.callout{padding:22px;border-left:4px solid var(--accent);background:var(--pale);border-radius:0 14px 14px 0;margin:28px 0;color:var(--soft)}.callout strong{color:var(--ink)}
-    .deck-shell{margin:28px 0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#ebe9df;box-shadow:var(--shadow)}.deck-shell iframe{display:block;width:100%;aspect-ratio:16/9;border:0}.deck-actions{display:flex;gap:10px;flex-wrap:wrap;padding:15px;background:var(--panel)}.button{display:inline-block;padding:11px 15px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:13px}.button.secondary{background:transparent;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line))}
+    .deck-shell{margin:28px 0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#ebe9df;box-shadow:var(--shadow)}.deck-shell iframe{display:block;width:100%;aspect-ratio:16/9;border:0}.deck-actions{display:flex;gap:10px;flex-wrap:wrap;padding:15px;background:var(--panel)}.button{display:inline-block;padding:11px 15px;border-radius:10px;background:var(--accent);color:var(--page);text-decoration:none;font-weight:700;font-size:13px}.button.secondary{background:transparent;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line))}
     .sources{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:24px 0}.source{display:block;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);text-decoration:none}.source b{display:block;color:var(--ink)}.source span{font-size:12px;color:var(--soft)}
     footer{max-width:1040px;margin:auto;padding:0 24px 50px;color:var(--soft);font-size:13px}
     @media(max-width:800px){main{padding-top:48px}.stats{grid-template-columns:repeat(2,1fr)}.definition-grid{grid-template-columns:1fr}.pipeline,.origin-flow,.research-grid{grid-template-columns:repeat(2,1fr)}.stage::after,.origin-step::after{display:none}.lane,.regain-grid,.adapt-grid{grid-template-columns:1fr}.session-facts,.session-path{grid-template-columns:repeat(2,1fr)}.meaning{grid-template-columns:1fr}.sources{grid-template-columns:1fr}.nav-links a:nth-child(2){display:none}.deck-shell iframe{min-height:58vw}}
@@ -245,7 +245,7 @@
     <p>REGAIN is not proof of the “best” rehabilitation. It is the most decision-informative trial in this selected set because it was large, multicentre, randomized, compared the programme with active usual care, used a prespecified patient-reported primary outcome, and followed people to 12 months.</p>
     <div class="regain-grid">
       <div class="arm primary"><div class="n">REGAIN · n=298</div><h3>The added 8-week package</h3><ul><li>one-hour individual online assessment;</li><li>eight weekly live supervised group exercise sessions;</li><li>six one-hour group behavioural-support sessions;</li><li>equipment-free activities tailored for fitness, strength, balance, fatigue, and daily function;</li><li>workbook and recorded exercise, breathing, yoga, Pilates, and mindfulness resources.</li></ul></div>
-      <div class="arm control"><div class="n">USUAL CARE · n=287</div><h3>An active comparison—not nothing</h3><ul><li>one 30-minute individual online consultation;</li><li>the NHS “Your COVID Recovery” style booklet;</li><li>discussion of symptoms and recovery;</li><li>general advice for self-directed physical activity;</li><li>no structured activity plan or specific psychological technique.</li></ul></div>
+      <div class="arm control"><div class="n">USUAL CARE · n=287</div><h3>An active comparison, not nothing</h3><ul><li>one 30-minute individual online consultation;</li><li>the NHS “Your COVID Recovery” style booklet;</li><li>discussion of symptoms and recovery;</li><li>general advice for self-directed physical activity;</li><li>no structured activity plan or specific psychological technique.</li></ul></div>
     </div>
     <p>The psychological sessions covered motivation, fear avoidance, pacing, emotions and setbacks, sleep and fatigue, and stress and anxiety. Participants could share experiences in groups of up to 12. Mindfulness was available in the resource library, but the trial did not isolate meditation—or any other component—as the active ingredient.</p>
 
@@ -387,31 +387,6 @@
       <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/#work">More projects</a>
     </footer>
-    <script src="/assets/scripts/chrome.js" defer></script><script>
-    (function () {
-      var root = document.documentElement;
-      var button = document.getElementById('themeToggle');
-      var label = document.getElementById('themeLabel');
-      var icon = button.querySelector('.theme-icon');
-
-      function render(theme) {
-        var next = theme === 'dark' ? 'light' : 'dark';
-        label.textContent = next === 'light' ? 'Light' : 'Dark';
-        icon.textContent = next === 'light' ? '☀' : '☾';
-        button.setAttribute('aria-label', 'Switch to ' + next + ' mode');
-      }
-
-      render(root.getAttribute('data-theme') || 'dark');
-      button.addEventListener('click', function () {
-        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        try {
-          localStorage.setItem('hk-theme', next);
-          localStorage.setItem('theme', next);
-        } catch (error) {}
-        render(next);
-      });
-    })();
-  </script>
+    <script src="/assets/scripts/chrome.js" defer></script>
 </body>
 </html>

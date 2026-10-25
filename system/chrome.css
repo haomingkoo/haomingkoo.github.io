@@ -21,6 +21,8 @@
   --chrome-on-accent: #04050a;
 }
 
+/* Legacy page wrapper around the header: drop its own sticky box, blur and rule. */
+.nav-wrap { display: contents; }
 .site-nav {
   position: sticky; top: 0; z-index: 100;
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
@@ -58,6 +60,7 @@
 .site-nav li::before { content: none; }
 .site-nav ul a {
   display: inline-flex; align-items: center; min-height: 44px;
+  padding: 0; border-radius: 0;
   font-size: 15px; font-weight: 400; color: var(--chrome-soft);
   transition: color 200ms;
 }

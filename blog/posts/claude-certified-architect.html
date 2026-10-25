@@ -46,11 +46,8 @@
         --bg: #f8f9fb;
         --surface: #ffffff;
         --border: #dde1e6;
-        --accent: #2563eb;
-        --accent-dim: rgba(37,99,235,0.08);
         --text: #111318;
         --text-secondary: #3d4250;
-        --muted: #6b7280;
         --nav-bg: rgba(248,249,251,0.85);
       }
       html { scroll-behavior: smooth; }
@@ -260,6 +257,7 @@
 (function(){try{var saved=localStorage.getItem("hk-theme")||localStorage.getItem("theme");if(saved)document.documentElement.setAttribute("data-theme",saved);}catch(e){}document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[aria-label=\"Toggle theme\"], .theme-btn, .theme-toggle, #themeToggle");if(!b)return;requestAnimationFrame(function(){try{var theme=document.documentElement.getAttribute("data-theme")||document.documentElement.dataset.theme||"dark";localStorage.setItem("hk-theme",theme);localStorage.setItem("theme",theme);}catch(e){}});},true);})();
 </script>
 <link rel="stylesheet" href="/system/chrome.css" />
+<link rel="stylesheet" href="/system/post-palette.css" />
 </head>
   <body>
     <div class="nav-wrap">
@@ -500,6 +498,7 @@
         </div>
       </section>
 
+      </div>
       <footer class="site-footer">
       <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
@@ -507,7 +506,7 @@
       <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/#work">More projects</a>
     </footer>
-    <script src="/assets/scripts/chrome.js" defer></script></div>
+    <script src="/assets/scripts/chrome.js" defer></script>
 
     <script>
 function toggleTheme() {

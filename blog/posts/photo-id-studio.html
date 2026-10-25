@@ -46,11 +46,8 @@
         --bg: #f8f9fb;
         --surface: #ffffff;
         --border: #dde1e6;
-        --accent: #2563eb;
-        --accent-dim: rgba(37,99,235,0.08);
         --text: #111318;
         --text-secondary: #3d4250;
-        --muted: #6b7280;
         --nav-bg: rgba(248,249,251,0.85);
       }
       html { scroll-behavior: smooth; }
@@ -223,6 +220,7 @@
 (function(){try{var saved=localStorage.getItem("hk-theme")||localStorage.getItem("theme");if(saved)document.documentElement.setAttribute("data-theme",saved);}catch(e){}document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[aria-label=\"Toggle theme\"], .theme-btn, .theme-toggle, #themeToggle");if(!b)return;requestAnimationFrame(function(){try{var theme=document.documentElement.getAttribute("data-theme")||document.documentElement.dataset.theme||"dark";localStorage.setItem("hk-theme",theme);localStorage.setItem("theme",theme);}catch(e){}});},true);})();
 </script>
 <link rel="stylesheet" href="/system/chrome.css" />
+<link rel="stylesheet" href="/system/post-palette.css" />
 </head>
   <body>
     <div class="nav-wrap">
@@ -405,7 +403,7 @@
       line-height: 1.4;
     }
     .demo-wrap .fm-btn:hover { border-color: var(--accent-dim); }
-    .demo-wrap .fm-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .demo-wrap .fm-btn.active { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
     .demo-wrap .fm-canvas-wrap { width: 100%; aspect-ratio: 3 / 4; max-height: 520px; position: relative; }
     .demo-wrap .fm-canvas { width: 100%; height: 100%; display: block; }
     .demo-wrap .fm-info {
@@ -1146,12 +1144,12 @@
           badge.style.background = 'rgba(16, 185, 129, 0.1)';
           badge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
           statusEl.textContent = 'Pass';
-          statusEl.style.color = '#10b981';
+          statusEl.style.color = 'var(--emerald, #10b981)';
         } else {
           badge.style.background = 'rgba(239, 68, 68, 0.1)';
           badge.style.borderColor = 'rgba(239, 68, 68, 0.3)';
           statusEl.textContent = 'Fail: ' + fails.join(', ');
-          statusEl.style.color = '#ef4444';
+          statusEl.style.color = 'var(--red, #ef4444)';
         }
       });
     }
@@ -1269,14 +1267,14 @@
   </div>
 
   <div id="bwp-buttons" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; align-items: center;">
-    <button data-bwp-stage="0" class="bwp-btn bwp-active" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--accent); color: #fff; cursor: pointer; transition: all 0.15s;">Original</button>
+    <button data-bwp-stage="0" class="bwp-btn bwp-active" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--accent); color: var(--on-accent); cursor: pointer; transition: all 0.15s;">Original</button>
     <button data-bwp-stage="1" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">1</button>
     <button data-bwp-stage="2" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">2</button>
     <button data-bwp-stage="3" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">3</button>
     <button data-bwp-stage="4" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">4</button>
     <button data-bwp-stage="5" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">5</button>
     <button data-bwp-stage="6" class="bwp-btn" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.15s;">6</button>
-    <button id="bwp-play" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; margin-left: 6px; transition: all 0.15s;">&#9654; Play All</button>
+    <button id="bwp-play" style="font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent); cursor: pointer; margin-left: 6px; transition: all 0.15s;">&#9654; Play All</button>
   </div>
 
   <canvas id="bwp-canvas" style="width: 100%; height: 350px; border-radius: 8px; display: block; background: #f0f0f0;"></canvas>
@@ -1591,7 +1589,7 @@
     descEl.textContent = stages[s].desc;
     allBtns.forEach((b, i) => {
       if (i === s) {
-        b.style.background = 'var(--accent)'; b.style.color = '#fff'; b.style.borderColor = 'var(--accent)';
+        b.style.background = 'var(--accent)'; b.style.color = 'var(--on-accent)'; b.style.borderColor = 'var(--accent)';
       } else {
         b.style.background = 'var(--surface)'; b.style.color = 'var(--text-secondary)'; b.style.borderColor = 'var(--border)';
       }
@@ -1835,6 +1833,7 @@ SG:
         </div>
       </section>
 
+      </div>
       <footer class="site-footer">
       <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
@@ -1842,7 +1841,7 @@ SG:
       <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/#work">More projects</a>
     </footer>
-    <script src="/assets/scripts/chrome.js" defer></script></div>
+    <script src="/assets/scripts/chrome.js" defer></script>
     <script>
 function toggleTheme() {
   const html = document.documentElement;

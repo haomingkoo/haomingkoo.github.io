@@ -1,0 +1,21 @@
+/* Status and accent colours for long-form posts, tuned to WCAG AA on the post
+   surfaces and their 8-12% tinted pills. Load after the post's inline <style>. */
+
+[data-theme="light"] {
+  --accent: #1d4ed8;
+  --accent-dim: rgba(29,78,216,0.08);
+  --blue: #1d4ed8;
+  --muted: #5b6270;
+  --live: #166534;
+  --green: #166534;
+  --emerald: #047857;
+  --amber: #92400e;
+  --red: #b91c1c;
+  --purple: #6d28d9;
+  --on-accent: #ffffff;
+}
+[data-theme="dark"] {
+  --red: #f87171;
+  --purple: #b47cf9;
+  --on-accent: #060608;
+}
