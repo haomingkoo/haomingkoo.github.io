@@ -91,8 +91,9 @@
         border: 1px solid var(--border); margin-bottom: 40px;
       }
       .world-map .leaflet-container { height: 100%; width: 100%; }
-      /* dark tiles via CartoDB — no filter needed */
       .leaflet-container { background: var(--bg); }
+      /* OSM tiles recoloured to match the old CARTO dark_all style */
+      .osm-dark-tiles { filter: invert(1) hue-rotate(180deg) grayscale(1) brightness(0.85) contrast(0.9); }
       .leaflet-popup-content-wrapper {
         background: var(--surface); color: var(--text);
         border: 1px solid var(--border); border-radius: 10px;
@@ -276,10 +277,10 @@
       var map = L.map("world-map-container", {
         zoomControl: true, scrollWheelZoom: false,
       }).setView([20, 100], 3);
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19,
-        subdomains: "abcd",
+        className: "osm-dark-tiles",
       }).addTo(map);
 
       var activeTag = null;
