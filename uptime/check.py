@@ -68,9 +68,9 @@ def render(failures: dict[str, str], first_seen: dict[str, str], urls: dict[str,
     return f"{table}\n\n{STATE_MARKER}{json.dumps(first_seen)} -->"
 
 
-def sync_issue(failures: dict[str, str], urls: dict[str, str]) -> None:
+def sync_issue(failures: dict[str, str], urls: dict[str, str], prefix: str = ISSUE_PREFIX) -> None:
     issues = json.loads(gh("issue", "list", "--state", "open", "--limit", "100", "--json", "number,title,body"))
-    issue = next((i for i in issues if i["title"].startswith(ISSUE_PREFIX)), None)
+    issue = next((i for i in issues if i["title"].startswith(prefix)), None)
     if not failures:
         if issue:
             gh("issue", "close", str(issue["number"]), "--comment", RECOVERED_MESSAGE)
@@ -80,7 +80,7 @@ def sync_issue(failures: dict[str, str], urls: dict[str, str]) -> None:
     if issue and STATE_MARKER in issue["body"]:
         previous = json.loads(issue["body"].split(STATE_MARKER, 1)[1].rsplit(" -->", 1)[0])
     first_seen = {n: previous.get(n, now) for n in failures}
-    title = f"{ISSUE_PREFIX} {len(failures)} service(s) down"
+    title = f"{prefix} {len(failures)} service(s) down"
     body = render(failures, first_seen, urls)
     if not issue:
         gh("issue", "create", "--title", title, "--body", body)
