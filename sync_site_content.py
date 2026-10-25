@@ -76,7 +76,7 @@ def render_blog_archive(posts: list[dict[str, Any]]) -> str:
 
 def render_travel_archive(posts: list[dict[str, Any]]) -> str:
     if not posts:
-        return '        <div class="empty-state">No travel stories yet — check back soon.</div>'
+        return '        <div class="empty-state">No travel stories yet.</div>'
 
     items: list[str] = []
     for post in posts:
@@ -86,13 +86,11 @@ def render_travel_archive(posts: list[dict[str, Any]]) -> str:
                 f'          <img class="post-cover" src="{escape_attr(post["cover"])}" '
                 f'alt="{escape_attr(post["title"])}" loading="lazy" />'
             )
-        else:
-            items.append('          <div class="post-cover"></div>')
         items.append('          <div class="post-content">')
         items.append('            <div class="post-meta">')
         for tag in (post.get("tags") or [])[:2]:
             items.append(f'              <span class="post-tag">{escape_text(tag)}</span>')
-        items.append(f'              <span>{escape_text(format_month_year(post["date"]))}</span>')
+        items.append(f'              <span>{escape_text(post.get("dateLabel") or format_month_year(post["date"]))}</span>')
         items.append('            </div>')
         items.append(f'            <div class="post-title">{escape_text(post["title"])}</div>')
         items.append(f'            <div class="post-excerpt">{escape_text(post["excerpt"])}</div>')

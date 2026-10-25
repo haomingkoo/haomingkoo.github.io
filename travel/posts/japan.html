@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-theme-lock>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,7 +29,6 @@
     </script>
     <link rel="stylesheet" href="/assets/fonts/fonts.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       :root {
@@ -40,7 +39,7 @@
         --accent-dim: rgba(168,85,247,.10);
         --text: #eeeef0;
         --text-secondary: #b0b0b8;
-        --muted: #64647a;
+        --muted: #8a8aa0;
         --green: #22c55e;
         --green-dim: rgba(34,197,94,.10);
         --pink: #f472b6;
@@ -166,17 +165,26 @@
       }
       .leaflet-popup-tip { background: var(--surface); }
       .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
-      .leaflet-control-attribution { font-size: 9px; opacity: .5; }
       .leaflet-control-zoom a {
         background: var(--surface) !important; color: var(--text) !important;
         border-color: var(--border) !important; text-decoration: none !important;
       }
       .city-label {
         background: none !important; border: none !important; box-shadow: none !important;
-        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600;
-        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
-        white-space: nowrap;
+        width: 0 !important; height: 0 !important;
       }
+      .city-label span {
+        position: absolute; left: 10px; top: -9px;
+        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600; line-height: 18px;
+        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
+        white-space: nowrap; pointer-events: none;
+      }
+      .city-label.is-left span { left: auto; right: 10px; }
+      .city-label.is-hidden { display: none; }
+      .leaflet-container .leaflet-control-attribution {
+        background: var(--surface); color: var(--text-secondary, var(--text)); font-size: 11px;
+      }
+      .leaflet-container .leaflet-control-attribution a { color: var(--text); }
 
       .itinerary { margin: 32px 0; }
       .city-section-header {
@@ -336,13 +344,28 @@
     <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Travel","item":"https://kooexperience.com/travel/"},{"@type":"ListItem","position":3,"name":"Japan"}]}
 </script>
-  </head>
+  <link rel="stylesheet" href="/system/chrome.css" />
+</head>
   <body>
     <div class="nav-wrap">
-      <nav>
-        <a class="nav-logo" href="../../">HK</a>
-        <a href="../../#travel">Travel</a>
+      <header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/travel/" aria-current="page">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
       </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
     </div>
 
     <div class="container">
@@ -380,7 +403,6 @@
           <a href="#planning-timeline">Planning Timeline</a>
           <a href="#seasons">When to Go: Seasons &amp; Weather</a>
           <a href="#other-places">Other Places to Consider</a>
-          <a href="#photos">Photos</a>
           <a href="#food">What to Eat</a>
           <a href="#tips">Quick Tips</a>
         </div>
@@ -1000,37 +1022,6 @@
         </div>
         <p>The cultural heart of Japan. Thousands of temples, geisha districts, and arguably the best food city in the world (Osaka). Easily its own week-long trip.</p>
 
-        <!-- ── Photos ────────────────────────────────────────────────────── -->
-        <h2 id="photos">Photos</h2>
-        <p>Click any photo to view full-size. (Photos coming soon!)</p>
-
-        <div class="gallery" id="travel-gallery">
-          <a class="gallery-item featured" href="#" data-pswp-src="https://placehold.co/1200x800/1c1c24/64647a?text=Snow+Festival" data-pswp-width="1200" data-pswp-height="800">
-            <img class="gallery-img" src="https://placehold.co/600x400/1c1c24/64647a?text=Snow+Festival" alt="Sapporo Snow Festival" loading="lazy" />
-            <div class="gallery-caption">Sapporo Snow Festival at Odori Park</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Penguins" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Penguins" alt="Penguin parade at Asahiyama Zoo" loading="lazy" />
-            <div class="gallery-caption">Penguin parade at Asahiyama Zoo</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Otaru" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Otaru" alt="Otaru Snow Light Path" loading="lazy" />
-            <div class="gallery-caption">Otaru Snow Light Path</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Capybara" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Capybara" alt="Capybara in onsen" loading="lazy" />
-            <div class="gallery-caption">Capybara onsen at Izu Shaboten Zoo</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Kawazu+Sakura" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Sakura" alt="Kawazu early sakura" loading="lazy" />
-            <div class="gallery-caption">Kawazu cherry blossoms in February</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Mt+Moiwa" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Mt+Moiwa" alt="Sapporo night view from Mt Moiwa" loading="lazy" />
-            <div class="gallery-caption">Sapporo from Mt. Moiwa at sunset</div>
-          </a>
-        </div>
-
         <!-- ── What to Eat ──────────────────────────────────────────────── -->
         <h2 id="food">What to Eat</h2>
 
@@ -1081,8 +1072,14 @@
           you have questions.
         </p>
       </article>
-      <footer>&copy; 2025 Haoming Koo</footer>
-    </div>
+      <footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
+    </footer>
+    <script src="/assets/scripts/chrome.js" defer></script></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script type="module">
@@ -1162,6 +1159,7 @@
         dashArray: "4, 12",
       }).addTo(map);
 
+      const cityLabels = [];
       cities.forEach((c, i) => {
         const marker = L.circleMarker([c.lat, c.lng], {
           radius: c.nights > 0 ? 9 : 6,
@@ -1178,29 +1176,36 @@
           `<span style="color:#b0b0b8;font-size:12px">${c.highlights}</span>`
         );
 
-        L.marker([c.lat, c.lng], {
-          icon: L.divIcon({
-            className: "city-label",
-            html: c.name,
-            iconSize: [80, 16],
-            iconAnchor: [-8, 8],
-          }),
-        }).addTo(map);
+        cityLabels.push({ nights: c.nights, marker: L.marker([c.lat, c.lng], {
+
+          icon: L.divIcon({ className: "city-label", html: `<span>${c.name}</span>`, iconSize: null }),
+
+          interactive: false, keyboard: false,
+
+        }).addTo(map) });
       });
+      // Hide or flip city labels that would collide with each other or the map controls.
+      function declutterLabels() {
+        const box = map.getContainer().getBoundingClientRect();
+        const placed = [...map.getContainer().querySelectorAll(".leaflet-control")].map((el) => el.getBoundingClientRect());
+        const clear = (r) => r.left >= box.left && r.right <= box.right && r.top >= box.top && r.bottom <= box.bottom &&
+          !placed.some((p) => r.left < p.right + 4 && r.right > p.left - 4 && r.top < p.bottom + 2 && r.bottom > p.top - 2);
+        [...cityLabels].sort((a, b) => b.nights - a.nights).forEach(({ marker }) => {
+          const el = marker.getElement();
+          if (!el) return;
+          el.classList.remove("is-left", "is-hidden");
+          let r = el.firstChild.getBoundingClientRect();
+          if (!clear(r)) { el.classList.add("is-left"); r = el.firstChild.getBoundingClientRect(); }
+          if (!clear(r)) { el.classList.add("is-hidden"); return; }
+          placed.push(r);
+        });
+      }
+      map.on("zoomend moveend resize", declutterLabels);
+      requestAnimationFrame(declutterLabels);
+
 
       const bounds = cities.map((c) => [c.lat, c.lng]);
       map.fitBounds(bounds, { padding: [50, 50] });
-
-      import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
-
-      const lightbox = new PhotoSwipeLightbox({
-        gallery: "#travel-gallery",
-        children: "a.gallery-item",
-        pswpModule: () => import("https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.esm.min.js"),
-        bgOpacity: 0.92,
-        padding: { top: 20, bottom: 20, left: 20, right: 20 },
-      });
-      lightbox.init();
     </script>
   </body>
 </html>

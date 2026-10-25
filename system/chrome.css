@@ -80,6 +80,7 @@
 }
 .theme-switch:hover { border-color: var(--chrome-soft); }
 .theme-switch svg { width: 16px; height: 16px; }
+[data-theme-lock] .theme-switch { display: none; }
 [data-theme="light"] .theme-switch .sun,
 [data-theme="dark"] .theme-switch .moon { display: none; }
 @media (min-width: 760px) {

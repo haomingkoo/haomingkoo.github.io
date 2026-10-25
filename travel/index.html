@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-theme-lock>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,7 +39,7 @@
         --bg: #060608; --surface: #0e0e12; --surface-hover: #141418;
         --border: #1c1c24; --border-hover: #2a2a36;
         --accent: #a855f7; --accent-dim: rgba(168,85,247,.10);
-        --text: #eeeef0; --text-secondary: #b0b0b8; --muted: #64647a;
+        --text: #eeeef0; --text-secondary: #b0b0b8; --muted: #8a8aa0;
       }
       html { scroll-behavior: smooth; }
       body {
@@ -99,7 +99,8 @@
       }
       .leaflet-popup-tip { background: var(--surface); }
       .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
-      .leaflet-control-attribution { font-size: 9px; opacity: .4; }
+      .leaflet-container .leaflet-control-attribution { font-size: 11px; background: var(--surface); color: var(--text-secondary); }
+      .leaflet-container .leaflet-control-attribution a { color: var(--text); }
       .leaflet-control-zoom a {
         background: var(--surface) !important; color: var(--text) !important;
         border-color: var(--border) !important;
@@ -139,7 +140,7 @@
       .post-meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
       .post-tag {
         font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-        padding: 2px 8px; border-radius: 99px; background: var(--accent-dim); color: var(--accent);
+        padding: 2px 8px; border-radius: 99px; background: var(--accent-dim); color: var(--text);
       }
       .post-title { font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.3; }
       .post-excerpt { font-size: 13px; color: var(--muted); line-height: 1.55; }
@@ -164,26 +165,35 @@
         .post-grid { grid-template-columns: 1fr; }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="/system/chrome.css" />
+</head>
   <body>
     <div class="nav-wrap">
-      <nav>
-        <a class="nav-logo" href="../">HK</a>
-        <div class="nav-links">
-          <a href="../hire.html">Hire</a>
-          <a href="../#projects">Projects</a>
-          <a href="../blog/">Blog</a>
-          <a href="./" class="active">Travel</a>
-          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
-        </div>
+      <header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/travel/" aria-current="page">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
       </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
     </div>
 
     <div class="container">
       <div class="page-header">
         <h1 class="page-title">Travel</h1>
         <p class="page-desc">
-          Stories, itineraries, and photos from places I've explored.
+          Stories and itineraries from places I've explored.
         </p>
       </div>
 
@@ -198,7 +208,6 @@
       <div class="post-grid" id="post-grid">
         <!-- GENERATED:travel-list START -->
         <a class="post-card" href="./posts/netherlands.html">
-          <div class="post-cover"></div>
           <div class="post-content">
             <div class="post-meta">
               <span class="post-tag">Netherlands</span>
@@ -211,7 +220,6 @@
           </div>
         </a>
         <a class="post-card" href="./posts/japan.html">
-          <div class="post-cover"></div>
           <div class="post-content">
             <div class="post-meta">
               <span class="post-tag">Japan</span>
@@ -224,12 +232,11 @@
           </div>
         </a>
         <a class="post-card" href="./posts/italy.html">
-          <div class="post-cover"></div>
           <div class="post-content">
             <div class="post-meta">
               <span class="post-tag">Italy</span>
               <span class="post-tag">Family</span>
-              <span>Jan 2025</span>
+              <span>Dec 2024 to Jan 2025</span>
             </div>
             <div class="post-title">13 Days Across Italy: A Winter Family Trip</div>
             <div class="post-excerpt">Milan → Florence → Pisa → Rome → Venice. Christmas in Milan, NYE at the Colosseum and a gondola through Venice. A comfortable family winter trip with full cost breakdown.</div>
@@ -237,7 +244,6 @@
           </div>
         </a>
         <a class="post-card" href="./posts/korea.html">
-          <div class="post-cover"></div>
           <div class="post-content">
             <div class="post-meta">
               <span class="post-tag">Korea</span>
@@ -250,7 +256,6 @@
           </div>
         </a>
         <a class="post-card" href="./posts/japan-sakura.html">
-          <div class="post-cover"></div>
           <div class="post-content">
             <div class="post-meta">
               <span class="post-tag">Japan</span>
@@ -265,8 +270,14 @@
         <!-- GENERATED:travel-list END -->
       </div>
 
-      <footer>&copy; 2026 Haoming Koo</footer>
-    </div>
+      <footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
+    </footer>
+    <script src="/assets/scripts/chrome.js" defer></script></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
@@ -362,14 +373,14 @@
           a.href = "./posts/" + p.slug + ".html";
           var coverHtml = p.cover
             ? '<img class="post-cover" src="' + p.cover + '" alt="' + (p.title || 'Travel post cover') + '" loading="lazy" />'
-            : '<div class="post-cover"></div>';
+            : '';
           var tagsHtml = (p.tags || []).slice(0, 2).map(function (t) {
             return '<span class="post-tag">' + t + '</span>';
           }).join("");
           a.innerHTML =
             coverHtml +
             '<div class="post-content">' +
-              '<div class="post-meta">' + tagsHtml + '<span>' + formatDate(p.date) + '</span></div>' +
+              '<div class="post-meta">' + tagsHtml + '<span>' + (p.dateLabel || formatDate(p.date)) + '</span></div>' +
               '<div class="post-title">' + p.title + '</div>' +
               '<div class="post-excerpt">' + p.excerpt + '</div>' +
               '<span class="post-read">Read &rsaquo;</span>' +

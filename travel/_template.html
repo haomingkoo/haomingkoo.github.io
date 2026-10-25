@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-theme-lock>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,7 +9,6 @@
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- PhotoSwipe lightbox -->
-    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       :root {
@@ -20,7 +19,7 @@
         --accent-dim: rgba(168,85,247,.10);
         --text: #eeeef0;
         --text-secondary: #b0b0b8;
-        --muted: #64647a;
+        --muted: #8a8aa0;
       }
       html { scroll-behavior: smooth; }
       body {
@@ -148,7 +147,6 @@
       }
       .leaflet-popup-tip { background: var(--surface); }
       .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
-      .leaflet-control-attribution { font-size: 9px; opacity: .5; }
       .leaflet-control-zoom a {
         background: var(--surface) !important; color: var(--text) !important;
         border-color: var(--border) !important;
@@ -273,13 +271,28 @@
         .day-card { padding-left: 36px; }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="/system/chrome.css" />
+</head>
   <body>
     <div class="nav-wrap">
-      <nav>
-        <a class="nav-logo" href="../">HK</a>
-        <a href="../#travel">Travel</a>
+      <header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/travel/" aria-current="page">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
       </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
     </div>
 
     <div class="container">
@@ -307,7 +320,6 @@
           <a href="#overview">Overview</a>
           <a href="#map">Route Map</a>
           <a href="#itinerary">Day-by-Day Itinerary</a>
-          <a href="#photos">Photos</a>
           <a href="#tips">Practical Tips</a>
         </div>
 
@@ -410,52 +422,6 @@
           </div>
         </div>
 
-        <!-- ── Photos ────────────────────────────────────────────────────── -->
-        <h2 id="photos">Photos</h2>
-        <p>Click any photo to view full-size.</p>
-
-        <!--
-          PHOTO GALLERY INSTRUCTIONS:
-          ─────────────────────────────
-          Replace the placeholder src with your image URLs.
-
-          Using Cloudinary (recommended):
-            src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/w_600,f_auto,q_auto/travel/tokyo/photo1.jpg"
-            And for the full-size link (data-pswp-src), use the original:
-            data-pswp-src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/f_auto,q_auto/travel/tokyo/photo1.jpg"
-
-          Using Cloudflare R2:
-            src="https://img.kooexperience.com/travel/tokyo/photo1-thumb.webp"
-            data-pswp-src="https://img.kooexperience.com/travel/tokyo/photo1.webp"
-
-          Using local images:
-            src="./img/photo1-thumb.jpg"
-            data-pswp-src="./img/photo1.jpg"
-
-          data-pswp-width / data-pswp-height = original image dimensions (for lightbox sizing)
-        -->
-        <div class="gallery" id="travel-gallery">
-          <a class="gallery-item featured" href="#" data-pswp-src="https://placehold.co/1200x800/1c1c24/64647a?text=Featured+Photo" data-pswp-width="1200" data-pswp-height="800">
-            <img class="gallery-img" src="https://placehold.co/600x400/1c1c24/64647a?text=Featured" alt="Featured photo" loading="lazy" />
-            <div class="gallery-caption">Shibuya crossing at dusk</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Photo+2" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=2" alt="" loading="lazy" />
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Photo+3" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=3" alt="" loading="lazy" />
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Photo+4" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=4" alt="" loading="lazy" />
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Photo+5" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=5" alt="" loading="lazy" />
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Photo+6" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=6" alt="" loading="lazy" />
-          </a>
-        </div>
-
         <!-- ── Tips ──────────────────────────────────────────────────────── -->
         <h2 id="tips">Practical Tips</h2>
         <ul>
@@ -467,8 +433,14 @@
         <hr class="divider" />
         <p>Thanks for reading. Questions? <a href="mailto:haomingkoo@gmail.com">Reach out</a>.</p>
       </article>
-      <footer>&copy; 2026 Haoming Koo</footer>
-    </div>
+      <footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
+    </footer>
+    <script src="/assets/scripts/chrome.js" defer></script></div>
 
     <!-- ── Scripts ──────────────────────────────────────────────────────── -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -522,16 +494,6 @@
       }
 
       /* ── PhotoSwipe lightbox ────────────────────────────────────────── */
-      import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
-
-      const lightbox = new PhotoSwipeLightbox({
-        gallery: "#travel-gallery",
-        children: "a.gallery-item",
-        pswpModule: () => import("https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.esm.min.js"),
-        bgOpacity: 0.92,
-        padding: { top: 20, bottom: 20, left: 20, right: 20 },
-      });
-      lightbox.init();
     </script>
   </body>
 </html>
