@@ -3,160 +3,130 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>try { var t = localStorage.getItem('hk-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 
-    <title>Trader Koo &mdash; Production financial-markets AI &middot; Haoming Koo</title>
-    <meta name="description" content="Case study: Trader Koo, a production S&amp;P 500 analysis system with multi-agent critic, LightGBM walk-forward classifier, YOLOv8 chart-pattern detection, and four hard safety guardrails. Paper-trade only by design." />
+    <title>Trader Koo &middot; Haoming Koo</title>
+    <meta name="description" content="Case study: Trader Koo is a personal research tool that scans US stocks and crypto each weekday evening, scores trade setups and tests them with simulated trades only." />
     <link rel="canonical" href="https://kooexperience.com/projects/trader-koo.html" />
 
-    <meta property="og:title" content="Trader Koo &mdash; Production financial-markets AI" />
-    <meta property="og:description" content="Multi-agent critic + LightGBM walk-forward classifier. Safe-by-design: VIX hard blocks, daily loss breaker, paper-trade only." />
+    <meta property="og:title" content="Trader Koo" />
+    <meta property="og:description" content="A research tool that scores trade setups and tests them with simulated trades only." />
     <meta property="og:url" content="https://kooexperience.com/projects/trader-koo.html" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://kooexperience.com/assets/images/projects/trader-koo/chart-analysis.webp" />
+    <meta property="og:image" content="https://kooexperience.com/assets/images/projects/trader-koo/chart-desktop.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Trader Koo" />
+    <meta name="twitter:description" content="A research tool that scores trade setups and tests them with simulated trades only." />
+    <meta name="twitter:image" content="https://kooexperience.com/assets/images/projects/trader-koo/chart-desktop.webp" />
 
     <link rel="stylesheet" href="/assets/fonts/fonts.css" />
-
     <link rel="stylesheet" href="/system/tokens.css" />
     <link rel="stylesheet" href="/system/base.css" />
+    <link rel="stylesheet" href="/system/chrome.css" />
     <link rel="stylesheet" href="/system/projects.css" />
-      <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Trader Koo &mdash; Production financial-markets AI" />
-    <meta name="twitter:description" content="Multi-agent critic + LightGBM walk-forward classifier. Safe-by-design: VIX hard blocks, daily loss breaker, paper-trade only." />
-    <meta name="twitter:image" content="https://kooexperience.com/assets/images/projects/trader-koo/chart-analysis.webp" />
-</head>
+  </head>
   <body>
-    <nav class="project-nav">
-      <a href="/">&larr; Back</a>
-      <a class="nav-brand" href="/">Haoming <em>Koo</em></a>
-      <a href="https://trader.kooexperience.com" target="_blank" rel="noopener" class="nav-cta">Open live &rarr;</a>
-    </nav>
+    <header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work" aria-current="page">Work</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/travel/">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
 
-    <section class="hero">
-      <div class="hero-bg" style="background-image: url('/assets/images/projects/trader-koo/chart-analysis.webp')"></div>
-      <div class="hero-gradient"></div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">Project &middot; Financial AI</div>
-        <h1 class="hero-title">Trader <em>Koo</em></h1>
-        <p class="hero-sub">A production financial-markets system &mdash; multi-agent critic, walk-forward ML, four hard safety guardrails. Paper-trade only, by design.</p>
-        <div class="hero-pills">
-          <span class="pill">Financial AI</span>
-          <span class="pill">Safety-Critical</span>
-          <span class="pill">Multi-Agent</span>
-          <span class="pill">Production</span>
+    <main>
+      <header class="case-hero">
+        <h1 class="case-title">Trader Koo</h1>
+        <p class="case-lede">A personal research tool that scans US stocks and crypto each weekday evening, scores trade setups and tests them with simulated trades only.</p>
+        <div class="case-actions">
+          <a class="btn-primary" href="https://trader.kooexperience.com" target="_blank" rel="noopener">Open live app</a>
+          <a class="text-link" href="https://github.com/haomingkoo/trader-koo" target="_blank" rel="noopener">Source on GitHub</a>
+        </div>
+        <p class="case-stack">Python, FastAPI, LightGBM, YOLOv8 and React, deployed on Railway.</p>
+      </header>
+
+      <figure class="case-figure">
+        <div class="frame">
+          <div class="frame-bar" aria-hidden="true">trader.kooexperience.com/chart</div>
+          <img src="/assets/images/projects/trader-koo/chart-desktop.webp" width="2880" height="1800" alt="Trader Koo chart view for SPY with candlesticks, moving averages, marked support and resistance levels, a detected head-and-shoulders pattern, and a written setup assessment." />
+        </div>
+        <figcaption>The chart view for SPY: support and resistance levels, a detected head-and-shoulders pattern, and the written assessment of the setup.</figcaption>
+      </figure>
+
+      <div class="case-body">
+        <section class="case-section">
+          <h2>The problem</h2>
+          <div class="case-text">
+            <p>Trading signals that look good in a backtest often fall apart on new data, and a classifier barely better than a coin flip still produces confident buy signals. I wanted every idea to pass checks I would trust before it touched even a simulated book.</p>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>What it does</h2>
+          <div class="case-text">
+            <p>Each weekday at 22:00 UTC a pipeline pulls prices and macro data, detects chart patterns and writes a daily report. Candidate setups go through a rule-based critic, and the ones it approves become paper trades sized to risk 0.5% of the simulated account. No broker is connected.</p>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>How it works</h2>
+          <div class="case-text">
+            <ul class="points">
+              <li><strong>Signals from several angles</strong>A technical ensemble weighs trend, mean reversion, momentum, volatility and statistical-arbitrage signals. A YOLOv8 model reads chart images for patterns such as head-and-shoulders.</li>
+              <li><strong>Regime first</strong>A hidden Markov model labels the volatility regime as low, normal or high. A trend signal that runs against the regime is blocked, with no override.</li>
+              <li><strong>A critic that fails closed</strong>VIX above 25 blocks new long entries and above 35 blocks all entries. If the regime is unknown and VIX is missing, the critic rejects the trade rather than guessing.</li>
+              <li><strong>Loss breakers</strong>A 5% daily loss or a 15% drawdown in the paper book stops new entries.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>What was hard</h2>
+          <div class="case-text">
+            <p>Keeping the machine-learning model honest. A LightGBM walk-forward classifier runs in observation mode: it scores every trade but cannot gate one until there are 20 closed paper trades and an average AUC of at least 0.55 across five folds.</p>
+            <p>An early version tied that scoring to the switch that enables the model, so the gate could never collect the data it needed to open. Scoring now runs on its own.</p>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>Results</h2>
+          <div class="case-text">
+            <p>The app is live as a research and paper-trading tool, with a daily report, chart analysis and an audit trail of simulated trades. It is not financial advice, and no real money is at risk.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="case-next">
+        <div class="case-actions">
+          <a class="btn-primary" href="https://trader.kooexperience.com" target="_blank" rel="noopener">Open live app</a>
+          <a class="text-link" href="https://github.com/haomingkoo/trader-koo" target="_blank" rel="noopener">Source on GitHub</a>
+          <a class="text-link" href="/blog/posts/trader-koo.html">Read the build log</a>
+          <a class="text-link" href="/blog/posts/hmm-regime.html">How the regime model works</a>
         </div>
       </div>
-    </section>
-
-    <main class="page-body">
-
-      <section class="block">
-        <h2>The <em>problem</em></h2>
-        <p>Markets are noisy. ML classifiers overfit. Most personal trading projects amplify risk without serious checks &mdash; a candidate model with AUC 0.52 is indistinguishable from luck, but it still tells you to buy.</p>
-        <p>I wanted a system where every signal passes through gates I would actually trust: regime alignment, volatility threshold, model confidence floor, position sizing capped on dollar risk &mdash; not on tier notional. And one where the worst possible outcome is a paper loss.</p>
-      </section>
-
-      <section class="block">
-        <h2>Architecture</h2>
-        <div class="arch-grid">
-          <div class="arch-item">
-            <div class="arch-label">Ingest</div>
-            <div class="arch-desc">yfinance + Finviz + Finnhub WS + Binance WS + FRED + Polymarket. Nightly orchestrated update at 22:00 UTC plus 24-hour cache TTL on heavy endpoints.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Predict</div>
-            <div class="arch-desc"><strong>LightGBM walk-forward classifier</strong> on 51 engineered features. <strong>HMM regime detector</strong> (calm/normal/stormy). <strong>YOLOv8 chart-pattern detector</strong> (foduucom/stockmarket-pattern-detection-yolov8) run batch nightly.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Critic</div>
-            <div class="arch-desc">A <strong>Claude-backed critic</strong> reviews every candidate setup against regime, VIX threshold, ML confidence, and a 5-strategy signal ensemble. Setups failing any gate are rejected before they reach the paper book.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Sizing</div>
-            <div class="arch-desc">Dollar-risk-budget-based at ~0.5% per trade, anchored to <strong>next-day open + slippage</strong>, capped by tier ceilings. Wide-stop trades automatically sized down.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Execution</div>
-            <div class="arch-desc">Paper book only. Next-day open entry, slippage, commissions, borrow costs simulated. ADV gate, gap fill, dividend handling, SPY benchmark with dividends reinvested.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Observability</div>
-            <div class="arch-desc">Pipeline health dashboards, per-ticker YOLO event tracking (ok/skipped/timeout/failed), paper-trade equity curve vs SPY, Sortino + Calmar + expectancy gate.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Evals</div>
-            <div class="arch-desc">Walk-forward backtester. Feature-activation checklist before any new gate goes live: sample size &ge; 20, AUC &gt; 0.55 on 5+ folds, calibration curve check, leakage audit.</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="block">
-        <h2>Safety &mdash; the part that <em>matters</em></h2>
-        <p>This is where the FDE instinct lives. Every guardrail is a hard block, not a soft suggestion. No override-on-high-score escape hatches.</p>
-        <ul class="bullets">
-          <li><strong>VIX &gt; 25 hard-blocks all long signals.</strong> No tier override, no model confidence override, no exceptions. The first thing I learned shipping ML to production is that overrides become the leak.</li>
-          <li><strong>Daily loss breaker.</strong> N consecutive losing days pauses all new entries. The breaker resets only after a manual review.</li>
-          <li><strong>ML observation mode.</strong> Gating stays disabled until &ge; 20 closed paper trades have <code>ml_predicted_win_prob</code> populated and AUC &gt; 0.55 on 5+ independent walk-forward folds. Calibration curve must show predicted 0.6 &asymp; actual 60%.</li>
-          <li><strong>HMM counter-trend = block.</strong> A regime mismatch overrides tier and score. Trend signals only fire in matching regimes.</li>
-        </ul>
-      </section>
-
-      <section class="block">
-        <h2>What the numbers say</h2>
-        <div class="proj-metrics">
-          <div class="proj-metric">
-            <div class="proj-metric-val">603<span class="accent">+</span></div>
-            <div class="proj-metric-lbl">Tests passing</div>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-metric-val">51</div>
-            <div class="proj-metric-lbl">ML features</div>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-metric-val">5</div>
-            <div class="proj-metric-lbl">Signal strategies</div>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-metric-val">$0</div>
-            <div class="proj-metric-lbl">Real capital at risk</div>
-          </div>
-        </div>
-        <p style="margin-top: 24px; font-size: 14px; color: var(--ink-mute);">By design. Not for sale, not for advice. The point isn't to make money &mdash; it's to demonstrate that LLM-orchestrated decisioning can be built with the same discipline as a regulated trading system.</p>
-      </section>
-
-      <section class="block">
-        <h2>Tech stack</h2>
-        <div class="tech-stack">
-          <span class="tech-pill">Python</span>
-          <span class="tech-pill">FastAPI</span>
-          <span class="tech-pill">APScheduler</span>
-          <span class="tech-pill">Claude</span>
-          <span class="tech-pill">LightGBM</span>
-          <span class="tech-pill">YOLOv8</span>
-          <span class="tech-pill">PyTorch</span>
-          <span class="tech-pill">SQLite</span>
-          <span class="tech-pill">React 19</span>
-          <span class="tech-pill">Vite 8</span>
-          <span class="tech-pill">TypeScript</span>
-          <span class="tech-pill">Plotly</span>
-          <span class="tech-pill">Railway</span>
-        </div>
-      </section>
-
-      <section class="block">
-        <div class="cta-block">
-          <a class="cta-primary" href="https://trader.kooexperience.com" target="_blank" rel="noopener">Open Trader Koo &rarr;</a>
-          <a class="cta-secondary" href="/blog/posts/trader-koo.html">Read the build log &rarr;</a>
-          <a class="cta-secondary" href="/blog/posts/hmm-regime.html">HMM regime deep-dive &rarr;</a>
-        </div>
-      </section>
-
     </main>
 
-    <footer class="project-footer">
-      Built in Singapore &middot; <a href="/">Back to portfolio</a> &middot; <a href="/about.html">About Haoming</a>
+    <footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
     </footer>
+    <script src="/assets/scripts/chrome.js" defer></script>
   </body>
 </html>

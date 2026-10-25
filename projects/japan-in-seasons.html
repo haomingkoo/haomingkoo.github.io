@@ -3,161 +3,128 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>try { var t = localStorage.getItem('hk-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 
-    <title>Japan in Seasons &mdash; Production MCP server for Claude &middot; Haoming Koo</title>
-    <meta name="description" content="Case study: Japan in Seasons, a production MCP server with 17 read-only tools, 1,700+ places, and a 100/100 Smithery score." />
+    <title>Japan in Seasons &middot; Haoming Koo</title>
+    <meta name="description" content="Case study: Japan in Seasons is a map and MCP server that tells travellers, and the AI assistants they use, when and where seasonal sights are happening across Japan." />
     <link rel="canonical" href="https://kooexperience.com/projects/japan-in-seasons.html" />
 
-    <meta property="og:title" content="Japan in Seasons &mdash; Production MCP server for Claude" />
-    <meta property="og:description" content="17 read-only tools, 1,700+ places, and a 100/100 Smithery score." />
+    <meta property="og:title" content="Japan in Seasons" />
+    <meta property="og:description" content="A map and MCP server for seasonal travel in Japan, answered from live forecasts." />
     <meta property="og:url" content="https://kooexperience.com/projects/japan-in-seasons.html" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://kooexperience.com/assets/images/projects/japan-in-seasons/sakura-map.webp" />
+    <meta property="og:image" content="https://kooexperience.com/assets/images/projects/japan-in-seasons/koyo-map-desktop.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Japan in Seasons" />
+    <meta name="twitter:description" content="A map and MCP server for seasonal travel in Japan, answered from live forecasts." />
+    <meta name="twitter:image" content="https://kooexperience.com/assets/images/projects/japan-in-seasons/koyo-map-desktop.webp" />
 
     <link rel="stylesheet" href="/assets/fonts/fonts.css" />
-
     <link rel="stylesheet" href="/system/tokens.css" />
     <link rel="stylesheet" href="/system/base.css" />
+    <link rel="stylesheet" href="/system/chrome.css" />
     <link rel="stylesheet" href="/system/projects.css" />
-      <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Japan in Seasons &mdash; Production MCP server for Claude" />
-    <meta name="twitter:description" content="17 read-only tools, 1,700+ places, and a 100/100 Smithery score." />
-    <meta name="twitter:image" content="https://kooexperience.com/assets/images/projects/japan-in-seasons/sakura-map.webp" />
-</head>
+  </head>
   <body>
-    <nav class="project-nav">
-      <a href="/">&larr; Back</a>
-      <a class="nav-brand" href="/">Haoming <em>Koo</em></a>
-      <a href="https://seasons.kooexperience.com" target="_blank" rel="noopener" class="nav-cta">Open live &rarr;</a>
-    </nav>
+    <header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work" aria-current="page">Work</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/travel/">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
 
-    <section class="hero">
-      <div class="hero-bg" style="background-image: url('/assets/images/projects/japan-in-seasons/sakura-map.webp')"></div>
-      <div class="hero-gradient"></div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">Project &middot; MCP Server</div>
-        <h1 class="hero-title">Japan in <em>Seasons</em></h1>
-        <p class="hero-sub">A production MCP server for Claude &mdash; 17 read-only tools, 1,700+ places, 100/100 on Smithery. The agent answers seasonal travel questions with current sources.</p>
-        <div class="hero-pills">
-          <span class="pill">MCP Server</span>
-          <span class="pill">Tool Use</span>
-          <span class="pill">Claude</span>
-          <span class="pill">100/100 Smithery</span>
+    <main>
+      <header class="case-hero">
+        <h1 class="case-title">Japan in Seasons</h1>
+        <p class="case-lede">A map and an MCP server that tell travellers, and the AI assistants they use, when and where cherry blossoms, autumn leaves, flowers, festivals and fruit picking are happening across Japan.</p>
+        <div class="case-actions">
+          <a class="btn-primary" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Open live app</a>
+          <a class="text-link" href="https://github.com/haomingkoo/japan-seasons-mcp" target="_blank" rel="noopener">Source on GitHub</a>
+        </div>
+        <p class="case-stack">TypeScript, Node.js and the MCP SDK, deployed on Railway and published on npm and Smithery.</p>
+      </header>
+
+      <figure class="case-figure">
+        <div class="frame">
+          <div class="frame-bar" aria-hidden="true">seasons.kooexperience.com</div>
+          <img src="/assets/images/projects/japan-in-seasons/koyo-map-desktop.webp" width="2880" height="1800" alt="Japan in Seasons autumn leaves view: a map of Japan with clustered spot counts, a leaf-status legend, and a side panel with status filters, travel-date search and a city list." />
+        </div>
+        <figcaption>The autumn leaves view. Spot reports and forecasts from Japan Meteorological Corporation are clustered on the map, with status filters, a travel-date search and a city list beside it.</figcaption>
+      </figure>
+
+      <div class="case-body">
+        <section class="case-section">
+          <h2>The problem</h2>
+          <div class="case-text">
+            <p>Bloom and foliage timing shifts by days each year and differs from city to city. A language model answers from its training data, so a question like &ldquo;where are the leaves at their best next week?&rdquo; gets a stale or invented answer.</p>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>What it does</h2>
+          <div class="case-text">
+            <p>The web map shows the current status and forecast for each spot. The same data is served as an MCP server with 17 read-only tools, including <code>sakura_now</code>, <code>koyo_forecast</code>, <code>festivals_list</code> and <code>weather_forecast</code>, so Claude or any MCP client can answer from today's forecast.</p>
+            <p>It runs locally with <code>npx japan-seasons-mcp</code> or as a hosted server at <code>seasons.kooexperience.com/mcp</code>, which needs no sign-in.</p>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>How it works</h2>
+          <div class="case-text">
+            <ul class="points">
+              <li><strong>Refreshed when the source publishes</strong>Japan Meteorological Corporation publishes at 9 AM JST. The cache flushes then and preloads forecasts and spots, so the first visitor after a publish gets fresh data without waiting.</li>
+              <li><strong>One rule for which source to trust</strong>A reporter's on-site observation wins if it was filed in the last 48 hours. After that the app falls back to the forecast estimate and shows the older observation as context.</li>
+              <li><strong>Safe for agents to call</strong>Every tool is annotated <code>readOnlyHint</code> and <code>idempotentHint</code>, so a client knows a retry cannot change anything.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>What was hard</h2>
+          <div class="case-text">
+            <p>Building the nationwide spot list takes one upstream request per prefecture. The result is cached and shared across users, concurrent refreshes collapse into a single request, a file cache carries it across restarts, and unused fields are stripped before it is sent to the browser.</p>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>Results</h2>
+          <div class="case-text">
+            <p>The map is live, and the MCP server is published on npm as <code>japan-seasons-mcp</code> and listed on Smithery. The build notes cover how I worked through Smithery's quality checks.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="case-next">
+        <div class="case-actions">
+          <a class="btn-primary" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Open live app</a>
+          <a class="text-link" href="https://github.com/haomingkoo/japan-seasons-mcp" target="_blank" rel="noopener">Source on GitHub</a>
+          <a class="text-link" href="/blog/posts/create-mcp.html">Read the build notes</a>
         </div>
       </div>
-    </section>
-
-    <main class="page-body">
-
-      <section class="block">
-        <h2>Why <em>MCP</em></h2>
-        <p>Anthropic's Model Context Protocol turns Claude into a tool-using agent. The catch: most MCP servers are toys &mdash; one tool, no caching, no annotations, undocumented inputs. They pass the spec but they don't pass the bar for production.</p>
-        <p>I built Japan in Seasons to find out how far the bar actually goes. The result: a server that scores 100/100 on Smithery's quality audit and answers questions like &ldquo;where should I see cherry blossoms next week?&rdquo; with current forecast data &mdash; not training-time guesses.</p>
-      </section>
-
-      <section class="block">
-        <h2>The 17 tools</h2>
-        <div class="arch-grid">
-          <div class="arch-item">
-            <div class="arch-label">Sakura</div>
-            <div class="arch-desc"><code>sakura_now</code>, <code>sakura_forecast</code>, <code>sakura_best_dates</code>, <code>sakura_spots</code>, <code>kawazu_forecast</code> &mdash; cherry blossom timing by city + best viewing spots, including the early-January Izu Kawazu-zakura.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Koyo</div>
-            <div class="arch-desc"><code>koyo_now</code>, <code>koyo_forecast</code>, <code>koyo_best_dates</code>, <code>koyo_spots</code> &mdash; autumn-leaves timing and spots.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Flowers</div>
-            <div class="arch-desc"><code>flowers_spots</code> &mdash; non-sakura seasonal flowers: plum, wisteria, hydrangea, lavender, sunflower, cosmos.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Festivals</div>
-            <div class="arch-desc"><code>festivals_list</code> &mdash; recurring fireworks, matsuri, and winter events with official links.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Fruit</div>
-            <div class="arch-desc"><code>fruit_seasons</code>, <code>fruit_farms</code> &mdash; what's in season and where to pick it.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Weather</div>
-            <div class="arch-desc"><code>weather_forecast</code> &mdash; short-range weather for trip-planning.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Routing</div>
-            <div class="arch-desc"><code>japan_seasonal_answer</code> &mdash; the meta-tool that picks the right specific tool given a broad question.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Discovery</div>
-            <div class="arch-desc"><code>search</code>, <code>fetch</code> &mdash; find seasonal pages and retrieve crawlable source-backed content.</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="block">
-        <h2>How I went from 64/100 to <em>100/100</em></h2>
-        <p>The first Smithery audit scored 64. Every gap turned into a fix, and every fix taught me something about how the protocol expects you to behave:</p>
-        <ul class="bullets">
-          <li><strong>Tool descriptions</strong> need to read like API docs, not blog posts. Action verb first, scope second, side-effects third.</li>
-          <li><strong>Dot-notation naming</strong> (<code>sakura.now</code> not <code>get_sakura_now</code>) reads cleanly in tool-use traces and helps Claude pick the right tool.</li>
-          <li><strong>Annotations</strong> (<code>readOnlyHint</code>, <code>idempotentHint</code>) let the client decide whether retries are safe.</li>
-          <li><strong>Caching</strong> on heavy endpoints &mdash; forecasts don't change every minute; 24-hour TTLs survive token budgets and reduce origin load.</li>
-          <li><strong>Smithery YAML</strong> with full metadata, license, and a clean install path. Quality bar items, not afterthoughts.</li>
-        </ul>
-        <p>The full walkthrough is the most-read post on my blog &mdash; it's reusable as a skill template for any MCP server.</p>
-      </section>
-
-      <section class="block">
-        <h2>What gets shipped</h2>
-        <div class="proj-metrics">
-          <div class="proj-metric">
-            <div class="proj-metric-val">100<span class="accent">/100</span></div>
-            <div class="proj-metric-lbl">Smithery score</div>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-metric-val">17</div>
-            <div class="proj-metric-lbl">Tools exposed</div>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-metric-val">1,700<span class="accent">+</span></div>
-            <div class="proj-metric-lbl">Places indexed</div>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-metric-val">24h</div>
-            <div class="proj-metric-lbl">Forecast cache TTL</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="block">
-        <h2>Tech stack</h2>
-        <div class="tech-stack">
-          <span class="tech-pill">TypeScript</span>
-          <span class="tech-pill">MCP SDK</span>
-          <span class="tech-pill">Smithery</span>
-          <span class="tech-pill">Claude</span>
-          <span class="tech-pill">Node.js</span>
-          <span class="tech-pill">FastAPI</span>
-          <span class="tech-pill">Python</span>
-          <span class="tech-pill">SQLite</span>
-          <span class="tech-pill">Vercel</span>
-          <span class="tech-pill">Railway</span>
-        </div>
-      </section>
-
-      <section class="block">
-        <div class="cta-block">
-          <a class="cta-primary" href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Open Japan in Seasons &rarr;</a>
-          <a class="cta-secondary" href="/blog/posts/create-mcp.html">Read the 100/100 walkthrough &rarr;</a>
-        </div>
-      </section>
-
     </main>
 
-    <footer class="project-footer">
-      Built in Singapore &middot; <a href="/">Back to portfolio</a> &middot; <a href="/about.html">About Haoming</a>
+    <footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
     </footer>
+    <script src="/assets/scripts/chrome.js" defer></script>
   </body>
 </html>
