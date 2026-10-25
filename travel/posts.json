@@ -1,7 +1,7 @@
 [
   {
     "slug": "japan",
-    "title": "10 Days in Japan — Snow Festivals, Early Sakura & Mount Fuji",
+    "title": "10 Days in Japan: Snow Festivals, Early Sakura & Mount Fuji",
     "date": "2025-02-18",
     "tags": [
       "Japan",
@@ -18,15 +18,14 @@
   },
   {
     "slug": "italy",
-    "title": "13 Days Across Italy — A Winter Family Trip",
+    "title": "13 Days Across Italy: A Winter Family Trip",
     "date": "2025-01-05",
     "tags": [
       "Italy",
-      "Budget",
       "Family",
       "Winter"
     ],
-    "excerpt": "Milan \u2192 Florence \u2192 Pisa \u2192 Rome \u2192 Venice. Christmas in Milan, NYE at the Colosseum, a gondola through Venice \u2014 a comfortable family winter trip with full cost breakdown.",
+    "excerpt": "Milan \u2192 Florence \u2192 Pisa \u2192 Rome \u2192 Venice. Christmas in Milan, NYE at the Colosseum and a gondola through Venice. A comfortable family winter trip with full cost breakdown.",
     "cover": "",
     "readingTime": "14 min",
     "lat": 43.0,
@@ -34,7 +33,7 @@
   },
   {
     "slug": "korea",
-    "title": "5 Days in Seoul — Palaces, Street Food & Cafe Culture",
+    "title": "5 Days in Seoul: Palaces, Street Food & Cafe Culture",
     "date": "2023-08-13",
     "tags": [
       "Korea",
@@ -42,7 +41,7 @@
       "Food",
       "Summer"
     ],
-    "excerpt": "Gyeongbokgung \u2192 Bukchon \u2192 Nami Island \u2192 DMZ \u2192 Hongdae. Hanbok-clad palace walks, BBQ feasts, extraordinary cafe culture, and a sobering trip to the DMZ.",
+    "excerpt": "Gyeongbokgung \u2192 Bukchon \u2192 Nami Island \u2192 DMZ \u2192 Hongdae. Hanbok-clad palace walks, BBQ feasts, cafe culture, and a sobering trip to the DMZ.",
     "cover": "",
     "readingTime": "10 min",
     "lat": 37.5665,
@@ -50,7 +49,7 @@
   },
   {
     "slug": "netherlands",
-    "title": "9 Days in the Netherlands \u2014 Tulips, Windmills & Dutch Masters",
+    "title": "9 Days in the Netherlands: Tulips, Windmills & Dutch Masters",
     "date": "2025-04-19",
     "tags": [
       "Netherlands",
@@ -65,7 +64,7 @@
   },
   {
     "slug": "japan-sakura",
-    "title": "11 Days Across Japan \u2014 Sakura Season from Tokyo to Hiroshima",
+    "title": "11 Days Across Japan: Sakura Season from Tokyo to Hiroshima",
     "date": "2023-04-10",
     "tags": [
       "Japan",
