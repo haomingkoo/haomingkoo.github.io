@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>try { var t = localStorage.getItem('hk-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
@@ -11,7 +12,7 @@
     <link rel="me" href="https://github.com/haomingkoo" />
     <link rel="alternate" type="application/json" title="Haoming Koo structured profile" href="https://kooexperience.com/profile.json" />
     <title>Haoming Koo | Senior Software Development Engineer (AI Agentic) at AMD</title>
-    <meta name="description" content="Haoming Koo — Senior Software Development Engineer (AI Agentic) at AMD, Certified AI Engineer by AI Singapore, and builder of 8 live AI products." />
+    <meta name="description" content="Haoming Koo: Senior Software Development Engineer (AI Agentic) at AMD, Certified AI Engineer by AI Singapore, and builder of 8 live AI products." />
     <meta name="author" content="Haoming Koo" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <link rel="canonical" href="https://kooexperience.com/hire.html" />
@@ -138,7 +139,7 @@
       .hire-hero .eyebrow {
         font-family: var(--mono); font-size: 11px;
         letter-spacing: 0.22em; text-transform: uppercase;
-        color: var(--accent-2); margin-bottom: 28px;
+        color: var(--accent); margin-bottom: 28px;
         display: flex; align-items: center; gap: 12px;
       }
       .hire-hero .eyebrow::before {
@@ -234,15 +235,29 @@
         .pillar { grid-template-columns: 1fr; gap: 8px; padding: 22px 4px; }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="/system/chrome.css" />
+</head>
   <body>
     <div class="grain"></div>
 
-    <nav class="hire-nav">
-      <a href="/">&larr; Back to portfolio</a>
-      <a href="/" class="brand">Haoming <em>Koo</em></a>
-      <a href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener" class="nav-linkedin">LinkedIn &rarr;</a>
-    </nav>
+    <header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/travel/">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
 
     <main class="hire-main">
       <section class="hire-hero">
@@ -264,7 +279,7 @@
         </div>
         <div class="pillar">
           <div class="pillar-label">What I've shipped</div>
-          <div class="pillar-body"><strong>8 live AI products</strong> at <a href="/">kooexperience.com</a>. <strong>7 years at Micron Technology</strong> across four global fabs (Singapore, Boise, Hiroshima, Taichung). Co-led flagship DRAM and high-bandwidth-memory yield programs. Contributed to <strong>$600M+ in aggregate program outcomes</strong> across work I led, co-led, or supported.</div>
+          <div class="pillar-body"><strong>8 live AI products</strong> at <a href="/">kooexperience.com</a>. <strong>7 years at Micron Technology</strong> across four global fabs (Singapore, Boise, Hiroshima, Taichung). Co-led flagship DRAM and high-bandwidth-memory yield programs. Programs I led, co-led or supported identified <strong>$600M+ in opportunities, with $50M+ realized</strong>.</div>
         </div>
         <div class="pillar">
           <div class="pillar-label">What I'm looking for</div>
@@ -277,9 +292,12 @@
       </section>
     </main>
 
-    <footer class="hire-footer">
-      Built in Singapore &middot; <a href="/">Back to portfolio</a> &middot; <a href="/about.html">About</a>
+    <footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
     </footer>
-
-  </body>
+    <script src="/assets/scripts/chrome.js" defer></script></body>
 </html>

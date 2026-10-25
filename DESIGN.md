@@ -9,7 +9,7 @@ The first screen has one job: make a recruiter understand the person, the role, 
 - Name: Haoming Koo
 - Role: Senior Software Development Engineer (AI Agentic) at AMD
 - Story: turns complex operational work into AI systems people can trust and use
-- Proof: current senior AMD role, Certified AI Engineer by AI Singapore, 7 years at Micron, $600M+ aggregate program impact, 8 live apps
+- Proof: current senior AMD role, Certified AI Engineer by AI Singapore, 7 years at Micron, $600M+ in identified opportunities with $50M+ realized, 8 live apps
 - Next step: hire, open live apps, inspect enterprise pattern
 
 ## Visual story

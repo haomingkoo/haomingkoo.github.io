@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>try { var t = localStorage.getItem('hk-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
@@ -48,7 +49,7 @@
       --accent-glow: rgba(59,130,246,0.15);
       --text: #eeeef0;
       --text-secondary: #b0b0b8;
-      --muted: #64647a;
+      --muted: #8a8aa0;
       --green: #22c55e;
       --purple: #a855f7;
       --amber: #f59e0b;
@@ -65,7 +66,7 @@
       --accent-glow: rgba(37,99,235,0.08);
       --text: #111118;
       --text-secondary: #444454;
-      --muted: #888898;
+      --muted: #6b7280;
       --green: #16a34a;
       --purple: #7c3aed;
       --amber: #d97706;
@@ -122,7 +123,7 @@
     .nav-logo {
       font-weight: 800; font-size: 1.1rem;
       background: linear-gradient(135deg, var(--accent), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: currentColor;
       background-clip: text;
     }
     .nav-title {
@@ -165,7 +166,7 @@
     }
     .gradient-text {
       background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: currentColor;
       background-clip: text;
     }
     .hero-sub { font-size: 1.15rem; color: var(--text-secondary); max-width: 640px; margin-bottom: 24px; }
@@ -1291,18 +1292,29 @@
 </script>
   <meta property="og:image" content="https://kooexperience.com/assets/og/pdf-parsing-comparison.png" />
   <meta name="twitter:image" content="https://kooexperience.com/assets/og/pdf-parsing-comparison.png" />
+<link rel="stylesheet" href="/system/chrome.css" />
 </head>
 <body>
 
 <!-- ── Navigation ──────────────────────────────────────────────── -->
-<nav class="nav">
-  <div class="nav-inner">
-    <span class="nav-logo">HK</span>
-    <span class="nav-title">PDF Parsing for Complaint Forms</span>
-    <a href="/blog/" class="nav-blog">← Blog</a>
-    <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☀︎</button>
-  </div>
-</nav>
+<header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/blog/" aria-current="page">Writing</a></li>
+          <li><a href="/travel/">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
 
 <!-- ── Hero ──────────────────────────────────────────────────────── -->
 <div class="container">
@@ -3199,17 +3211,14 @@ flowchart TD
 </section>
 
 <!-- ── Footer ──────────────────────────────────────────────────────── -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <span>Haoming Koo · 2026 · <a href="https://kooexperience.com">kooexperience.com</a></span>
-      <span style="color:var(--muted)">This page mixes local measurements with cited external benchmarks. Measure on your own corpus before tool selection.</span>
-      <a href="/blog/">← Back to Blog</a>
-    </div>
-  </div>
-</footer>
-
-<script>
+<footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
+    </footer>
+    <script src="/assets/scripts/chrome.js" defer></script><script>
 // ── Theme toggle ────────────────────────────────────────────────── //
 const themeBtn = document.getElementById('themeToggle');
 const html = document.documentElement;

@@ -2,7 +2,7 @@
 
 :root {
   --frame: color-mix(in srgb, var(--ink) 14%, transparent);
-  --wide: 1120px;
+  --wide: 1200px;
   --measure: 68ch;
   --gutter: clamp(20px, 5vw, 48px);
 }

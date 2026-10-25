@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>try { var t = localStorage.getItem('hk-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
@@ -10,12 +11,12 @@
     <link rel="me" href="https://linkedin.com/in/haomingkoo" />
     <link rel="me" href="https://github.com/haomingkoo" />
     <link rel="alternate" type="application/json" title="Haoming Koo structured profile" href="https://kooexperience.com/profile.json" />
-    <title>About — Haoming Koo</title>
-    <meta name="description" content="Haoming Koo — Senior Software Development Engineer (AI Agentic) at AMD and Certified AI Engineer by AI Singapore." />
+    <title>About · Haoming Koo</title>
+    <meta name="description" content="Haoming Koo: Senior Software Development Engineer (AI Agentic) at AMD and Certified AI Engineer by AI Singapore." />
     <meta name="author" content="Haoming Koo" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <link rel="canonical" href="https://kooexperience.com/about.html" />
-    <meta property="og:title" content="About — Haoming Koo" />
+    <meta property="og:title" content="About · Haoming Koo" />
     <meta property="og:description" content="Senior Software Development Engineer (AI Agentic) at AMD, AI Singapore Certified AI Engineer, MSc NUS, and builder of 8 live apps." />
     <meta property="og:url" content="https://kooexperience.com/about.html" />
     <meta property="og:type" content="profile" />
@@ -27,7 +28,7 @@
     <meta property="profile:username" content="haomingkoo" />
     <meta property="article:author" content="https://kooexperience.com/about.html" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="About — Haoming Koo" />
+    <meta name="twitter:title" content="About · Haoming Koo" />
     <meta name="twitter:description" content="Senior Software Development Engineer (AI Agentic) at AMD and AI Singapore Certified AI Engineer." />
     <!-- JSON-LD Person -->
     <script type="application/ld+json">
@@ -48,7 +49,7 @@
       "givenName": "Haoming",
       "familyName": "Koo",
       "jobTitle": "Senior Software Development Engineer (AI Agentic)",
-      "description": "Senior Software Development Engineer (AI Agentic) at AMD and Certified AI Engineer by AI Singapore. Previously spent 7 years at Micron Technology across semiconductor manufacturing, cloud infrastructure, data platforms, and production ML. Contributed to USD 600M+ in program outcomes and built 8 live portfolio applications.",
+      "description": "Senior Software Development Engineer (AI Agentic) at AMD and Certified AI Engineer by AI Singapore. Previously spent 7 years at Micron Technology across semiconductor manufacturing, cloud infrastructure, data platforms, and production ML. Programs he led, co-led or supported identified USD 600M+ in opportunities, with USD 50M+ realized. He has built 8 live portfolio applications.",
       "url": "https://kooexperience.com",
       "image": "https://kooexperience.com/assets/haoming-portrait.jpg",
       "email": "haomingkoo@gmail.com",
@@ -115,7 +116,7 @@
         "Data Analytics", "Risk Analytics", "Process Automation", "RPA"
       ],
       "hasCredential": [
-        { "@type": "EducationalOccupationalCredential", "name": "Claude Certified Architect — Foundations, Anthropic (2026)", "url": "https://www.credly.com/badges/72faeea1-bb8f-4194-80d8-e9b1daee769e/public_url" },
+        { "@type": "EducationalOccupationalCredential", "name": "Claude Certified Architect: Foundations, Anthropic (2026)", "url": "https://www.credly.com/badges/72faeea1-bb8f-4194-80d8-e9b1daee769e/public_url" },
         { "@type": "EducationalOccupationalCredential", "name": "MSc Smart Industries & Digital Transformation, NUS (GPA 4.85/5.00)" },
         { "@type": "EducationalOccupationalCredential", "name": "BSc (Honours) Chemistry & Nanoscience, NUS (Distinction)" },
         { "@type": "EducationalOccupationalCredential", "name": "Full Stack Development with AI, NUS x Emeritus" },
@@ -124,10 +125,10 @@
         { "@type": "EducationalOccupationalCredential", "name": "Lean Six Sigma (Green Belt Equivalent)" }
       ],
       "award": [
-        "Micron Innovation Award (2022) — Built ResNet-50 computer vision model for inline wafer defect detection",
-        "Micron Idea of the Quarter — Digital twin of TEL Celesta achieving 60% chemical reduction and $7M+ savings",
-        "Micron Culture Champion — Cross-site collaboration, scanner wafer rejection <0.5%",
-        "NUS Awards for Study Abroad (NASA) — Received twice"
+        "Micron Innovation Award (2022): built ResNet-50 computer vision model for inline wafer defect detection",
+        "Micron Idea of the Quarter: digital twin of TEL Celesta achieving 60% chemical reduction and $7M+ savings",
+        "Micron Culture Champion: cross-site collaboration, scanner wafer rejection <0.5%",
+        "NUS Awards for Study Abroad (NASA), received twice"
       ]
     }
     </script>
@@ -169,12 +170,25 @@
         --accent-dim: rgba(91,142,251,0.10);
         --text: #f4f4f6;
         --text-secondary: rgba(244,244,246,0.66);
-        --muted: rgba(244,244,246,0.42);
+        --muted: rgba(244,244,246,0.62);
         --purple: #a855f7;
         --amber: #f59e0b;
         --display: "Fraunces","Times New Roman",serif;
         --body-font: "Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
         --mono: "JetBrains Mono",ui-monospace,Menlo,monospace;
+      }
+
+      [data-theme="light"] {
+        --bg: #fafafc;
+        --surface: #ffffff;
+        --surface-hover: #f1f2f6;
+        --border: rgba(6,7,13,0.12);
+        --border-hover: rgba(6,7,13,0.22);
+        --accent: #2563eb;
+        --accent-dim: rgba(37,99,235,0.08);
+        --text: #06070d;
+        --text-secondary: rgba(6,7,13,0.70);
+        --muted: rgba(6,7,13,0.62);
       }
 
       html { scroll-behavior: smooth; }
@@ -273,13 +287,14 @@
         font-weight: 600;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: var(--accent-2);
+        color: var(--accent);
         margin-bottom: 20px;
         padding: 5px 14px;
         background: var(--accent-dim);
         border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
         border-radius: 99px;
       }
+      [data-theme="light"] .page-status { color: #1d4ed8; }
       .page-status::before {
         content: "";
         width: 6px; height: 6px;
@@ -326,7 +341,7 @@
         transition: color 0.2s;
       }
       .page-meta a:hover { color: var(--text); }
-      .page-meta-sep { color: var(--border); }
+      .page-meta-sep { color: var(--muted); }
 
       /* ── Key Metrics Bar ──────────────────────────────────────── */
       .metrics-bar {
@@ -797,23 +812,30 @@
         .footer-cols { gap: 32px; }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="/system/chrome.css" />
+</head>
   <body>
     <div class="grain"></div>
     <!-- Nav -->
     <div class="nav-wrap">
-      <nav>
-        <a class="nav-logo" href="./">HK</a>
-        <div class="nav-links">
-          <a href="./hire.html">Hire</a>
-          <a href="./about.html" class="active">About</a>
-          <a href="./#work">Projects</a>
-          <a href="./#writing">Blog</a>
-          <a href="/travel/">Travel</a>
-          <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
-          <a href="mailto:haomingkoo@gmail.com">Contact</a>
-        </div>
+      <header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/travel/">Travel</a></li>
+          <li><a href="/about.html" aria-current="page">About</a></li>
+        </ul>
       </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
     </div>
 
     <div class="container">
@@ -824,7 +846,7 @@
         <p class="page-subtitle">
           Senior Software Development Engineer (AI Agentic) at AMD in Singapore. I build production AI systems for work with complex context:
           RAG, tool use, evals, observability, vision pipelines, and sequence modelling.
-          7 years at Micron contributing to $600M+ in program outcomes across four global fabs.
+          7 years at Micron across four global fabs, where programs I led, co-led or supported identified $600M+ in opportunities, with $50M+ realized.
           Certified AI Engineer by AI Singapore after completing AIAP in July 2026.
         </p>
         <div class="page-meta">
@@ -840,7 +862,7 @@
       <div class="metrics-bar reveal">
         <div class="metric-item">
           <div class="metric-value">$600M<span class="accent">+</span></div>
-          <div class="metric-label">Program Outcomes</div>
+          <div class="metric-label">Opportunities identified</div>
         </div>
         <div class="metric-item">
           <div class="metric-value">3,000<span class="accent">+</span></div>
@@ -860,7 +882,7 @@
         </div>
       </div>
       <p class="metric-note reveal">
-        $600M+ is the aggregate value of programs I led, co-led, or contributed to as tracked in Micron internal program reviews.
+        $600M+ in opportunities identified and $50M+ realized across programs I led, co-led or supported, as tracked in Micron internal program reviews.
       </p>
 
       <!-- Forward-deployed pattern -->
@@ -968,7 +990,7 @@
                   <li>Completed <strong>Full Stack Development with AI</strong> (NUS x Emeritus, 24 weeks) &ndash; React, Flask, MongoDB, SQL, Node.js, REST APIs, AI integration</li>
                   <li>Completed <strong>GA100 Generative AI</strong> (Heicoders Academy, WSQ) &ndash; prompt engineering, RAG, AI agents, workflow automation (n8n), MCP</li>
                   <li>Built public portfolio applications deployed at kooexperience.com: LLM workflows, agent systems, vision pipelines, and RAG</li>
-                  <li>Shipped a production <strong>MCP server</strong> (Japan in Seasons) with 17 read-only tools and 1,700+ seasonal travel places</li>
+                  <li>Shipped a production <strong>MCP server</strong> (Japan in Seasons) with 17 read-only tools and about 1,900 seasonal travel places</li>
                 </ul>
               </div>
             </div>
@@ -1351,28 +1373,14 @@
       </section>
 
       <!-- Footer -->
-      <footer class="reveal">
-        <div class="footer-brand">
-          <span class="footer-brand-name">Haoming Koo</span>
-          <span class="footer-copy">&copy; 2026 &middot; Built in Singapore.</span>
-        </div>
-        <div class="footer-cols">
-          <div class="footer-col">
-            <div class="footer-col-title">Links</div>
-            <a href="https://github.com/haomingkoo" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://linkedin.com/in/haomingkoo" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="mailto:haomingkoo@gmail.com">Email</a>
-          </div>
-          <div class="footer-col">
-            <div class="footer-col-title">Explore</div>
-            <a href="./">Home</a>
-            <a href="./#work">Projects</a>
-            <a href="./#writing">Blog</a>
-            <a href="/travel/">Travel</a>
-          </div>
-        </div>
-      </footer>
-    </div>
+      <footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
+    </footer>
+    <script src="/assets/scripts/chrome.js" defer></script></div>
 
     <script>
       (function () {
