@@ -1,0 +1,37 @@
+name: Rendered pages
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency: rendered
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright
+        run: |
+          pip install playwright==1.58.0
+          python -m playwright install --with-deps chromium
+      - name: Render each site and sync the rendered-pages issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 uptime/rendered.py --sync-issue
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-screenshots
+          path: rendered-screenshots/
+          retention-days: 14
