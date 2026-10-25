@@ -3,148 +3,130 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>try { var t = localStorage.getItem('hk-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 
-    <title>Photo Compliance Studio &mdash; Passport-photo pipeline &middot; Haoming Koo</title>
-    <meta name="description" content="Case study: Photo Compliance Studio, a passport-photo compliance pipeline with MediaPipe face mesh, rembg segmentation, 25+ checks, and country-specific rules for 6 countries." />
+    <title>Photo ID Studio &middot; Haoming Koo</title>
+    <meta name="description" content="Case study: Photo ID Studio checks a passport or ID photo against a country's rules, says what to fix, and returns a crop at the right size." />
     <link rel="canonical" href="https://kooexperience.com/projects/photo-compliance-studio.html" />
 
-    <meta property="og:title" content="Photo Compliance Studio &mdash; Passport-photo pipeline" />
-    <meta property="og:description" content="MediaPipe face mesh, rembg segmentation, 25+ compliance checks across 6 countries." />
+    <meta property="og:title" content="Photo ID Studio" />
+    <meta property="og:description" content="Checks a passport or ID photo against a country's rules, says what to fix, and returns a crop at the right size." />
     <meta property="og:url" content="https://kooexperience.com/projects/photo-compliance-studio.html" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://kooexperience.com/assets/images/projects/photo-compliance-studio/compliance-result.webp" />
+    <meta property="og:image" content="https://kooexperience.com/assets/images/projects/photo-compliance-studio/studio-desktop.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Photo ID Studio" />
+    <meta name="twitter:description" content="Checks a passport or ID photo against a country's rules, says what to fix, and returns a crop at the right size." />
+    <meta name="twitter:image" content="https://kooexperience.com/assets/images/projects/photo-compliance-studio/studio-desktop.webp" />
 
     <link rel="stylesheet" href="/assets/fonts/fonts.css" />
-
     <link rel="stylesheet" href="/system/tokens.css" />
     <link rel="stylesheet" href="/system/base.css" />
+    <link rel="stylesheet" href="/system/chrome.css" />
     <link rel="stylesheet" href="/system/projects.css" />
-      <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Photo Compliance Studio &mdash; Passport-photo pipeline" />
-    <meta name="twitter:description" content="MediaPipe face mesh, rembg segmentation, 25+ compliance checks across 6 countries." />
-    <meta name="twitter:image" content="https://kooexperience.com/assets/images/projects/photo-compliance-studio/compliance-result.webp" />
-</head>
+  </head>
   <body>
-    <nav class="project-nav">
-      <a href="/">&larr; Back</a>
-      <a class="nav-brand" href="/">Haoming <em>Koo</em></a>
-      <a href="https://studio.kooexperience.com" target="_blank" rel="noopener" class="nav-cta">Open live &rarr;</a>
-    </nav>
+    <header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work" aria-current="page">Work</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/travel/">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
 
-    <section class="hero">
-      <div class="hero-bg" style="background-image: url('/assets/images/projects/photo-compliance-studio/compliance-result.webp')"></div>
-      <div class="hero-gradient"></div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">Project &middot; Computer Vision</div>
-        <h1 class="hero-title">Photo <em>Studio</em></h1>
-        <p class="hero-sub">A passport-photo compliance pipeline. 468 facial landmarks, 25+ rule checks, and country-specific spec sheets for six destinations.</p>
-        <div class="hero-pills">
-          <span class="pill">Computer Vision</span>
-          <span class="pill">Multi-Country</span>
-          <span class="pill">Production</span>
-          <span class="pill">MediaPipe</span>
+    <main>
+      <header class="case-hero">
+        <h1 class="case-title">Photo ID Studio</h1>
+        <p class="case-lede">For anyone taking their own passport or ID photo: it checks the picture against a country's rules, says what to fix, and returns a crop at the right size.</p>
+        <div class="case-actions">
+          <a class="btn-primary" href="https://studio.kooexperience.com" target="_blank" rel="noopener">Open live app</a>
+          <a class="text-link" href="https://github.com/haomingkoo/photo-id-studio" target="_blank" rel="noopener">Source on GitHub</a>
+        </div>
+        <p class="case-stack">Python, FastAPI, MediaPipe, OpenCV and rembg, deployed on Railway.</p>
+      </header>
+
+      <figure class="case-figure">
+        <div class="frame">
+          <div class="frame-bar" aria-hidden="true">studio.kooexperience.com</div>
+          <img src="/assets/images/projects/photo-compliance-studio/studio-desktop.webp" width="2880" height="2320" alt="Photo ID Studio with the Singapore profile selected. A synthetic test portrait is shown next to its processed crop, with a FAIL status for image blur and a list of fixes." />
+        </div>
+        <figcaption>A synthetic test portrait checked against the Singapore profile. The input is too soft, so the result fails on sharpness and lists what to change before retaking it.</figcaption>
+      </figure>
+
+      <div class="case-body">
+        <section class="case-section">
+          <h2>The problem</h2>
+          <div class="case-text">
+            <p>Passport photo rules are specific and differ by country: the output size, how much of the frame the head fills, how bright and plain the background is, and how recent the photo must be. They are easy to break without noticing, and a rejected photo means another retake and another submission.</p>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>What it does</h2>
+          <div class="case-text">
+            <p>You pick a country profile and upload a photo. The server checks face size, head tilt, eyes, mouth, sharpness, lighting, background, text overlays and photo age, and returns each result as a named code with a status, a message and a suggested fix.</p>
+            <p>When the crop can be satisfied it returns a JPEG at the profile's exact pixel size. Profiles cover Singapore, the United States, the United Kingdom, Canada, Australia and India.</p>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>How it works</h2>
+          <div class="case-text">
+            <ul class="points">
+              <li><strong>Face landmarks on the server</strong>MediaPipe Face Mesh locates the face and its landmarks. Head roll, yaw and pitch, eye visibility and mouth closure are measured from those points.</li>
+              <li><strong>A crop anchored on the eyes</strong>Crop width comes from the distance between the eyes and a per-country ratio, and the eye line sits at a set fraction from the top. Minimum margins for hair, sides and shoulders keep the head from being clipped.</li>
+              <li><strong>Background measured on its own</strong>rembg with the <code>u2net_human_seg</code> model cuts the person out, so the wall behind them can be scored for brightness, saturation and variation against each country's thresholds. MediaPipe selfie segmentation is the fallback.</li>
+              <li><strong>Text and watermarks without OCR</strong>Plain OpenCV finds stroke-like edges, joins them into blocks and filters the blocks by shape, which is enough to catch stamped text and watermarks.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>What was hard</h2>
+          <div class="case-text">
+            <p>The segmentation model is the heaviest part of the service and runs on a small server. It loads on first use and unloads after 15 minutes idle, and no more than three analyses run at once.</p>
+            <p>Photos are personal, so they stay in server memory for the length of one check, are never written to disk, and are returned with <code>no-store</code> caching.</p>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2>Results</h2>
+          <div class="case-text">
+            <p>The app is live with six country profiles. Every result is a list of codes such as <code>FACE_HEIGHT_BORDERLINE</code> or <code>BACKGROUND_NOT_COMPLIANT</code>, so the user sees exactly which rule a photo missed. It gives technical guidance only, not legal or immigration advice.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="case-next">
+        <div class="case-actions">
+          <a class="btn-primary" href="https://studio.kooexperience.com" target="_blank" rel="noopener">Open live app</a>
+          <a class="text-link" href="https://github.com/haomingkoo/photo-id-studio" target="_blank" rel="noopener">Source on GitHub</a>
+          <a class="text-link" href="/blog/posts/photo-id-studio.html">Read the build log</a>
         </div>
       </div>
-    </section>
-
-    <main class="page-body">
-
-      <section class="block">
-        <h2>The <em>problem</em></h2>
-        <p>Passport-photo specifications are tighter than most users realise. Singapore wants 35&times;45mm with a specific head-to-frame ratio. The US wants 2&times;2in with a different ratio. Each country has its own list of forbidden things: glasses, smiles, shadows on the face, neutral backgrounds within a specific RGB band.</p>
-        <p>Most online photo tools either reject silently or accept things they shouldn't. I wanted one that explains what's wrong, in plain language, in real time, and links the user back to the section of the rule that failed.</p>
-      </section>
-
-      <section class="block">
-        <h2>Architecture</h2>
-        <div class="arch-grid">
-          <div class="arch-item">
-            <div class="arch-label">Face mesh</div>
-            <div class="arch-desc"><strong>MediaPipe 468-point face mesh</strong> runs in the browser. Detects head pose, eye-line, mouth opening, ear visibility, frame coverage. Local-first &mdash; the user's photo never leaves the device unless they hit submit.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Segmentation</div>
-            <div class="arch-desc"><strong>rembg</strong> with u2net model produces a clean person cutout server-side for background analysis &mdash; checks the wall behind the subject for compliance (off-white range for SG, plain white for US, no shadows).</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Rule engine</div>
-            <div class="arch-desc">25+ named compliance rules, each with a pass/fail result and a human-readable explanation. Country-specific rule packs override defaults.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">UX feedback</div>
-            <div class="arch-desc">Each failed check renders as a card with the rule name, what was detected, and the official source link. The user knows exactly what to fix.</div>
-          </div>
-          <div class="arch-item">
-            <div class="arch-label">Output</div>
-            <div class="arch-desc">Cropped, recoloured, correctly-sized JPEG ready for upload. Dimensions match the destination's spec sheet exactly.</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="block">
-        <h2>Country support</h2>
-        <ul class="bullets">
-          <li><strong>Singapore</strong> &mdash; 35&times;45mm, off-white background, head height 32-36mm.</li>
-          <li><strong>United States</strong> &mdash; 2&times;2in, plain white, head height 1-1&frac38;in.</li>
-          <li><strong>United Kingdom</strong> &mdash; 35&times;45mm, light grey/cream, no glasses, neutral expression.</li>
-          <li><strong>Japan</strong> &mdash; 35&times;45mm, plain background, head height 32-36mm.</li>
-          <li><strong>Schengen (EU)</strong> &mdash; 35&times;45mm, light grey, ICAO compliance.</li>
-          <li><strong>Canada</strong> &mdash; 50&times;70mm, plain white or light, specific head ratios.</li>
-        </ul>
-      </section>
-
-      <section class="block">
-        <h2>What gets shipped</h2>
-        <div class="proj-metrics">
-          <div class="proj-metric">
-            <div class="proj-metric-val">468</div>
-            <div class="proj-metric-lbl">Facial landmarks</div>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-metric-val">25<span class="accent">+</span></div>
-            <div class="proj-metric-lbl">Compliance rules</div>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-metric-val">6</div>
-            <div class="proj-metric-lbl">Countries supported</div>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-metric-val">100%</div>
-            <div class="proj-metric-lbl">Local face detection</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="block">
-        <h2>Tech stack</h2>
-        <div class="tech-stack">
-          <span class="tech-pill">Python</span>
-          <span class="tech-pill">FastAPI</span>
-          <span class="tech-pill">MediaPipe</span>
-          <span class="tech-pill">OpenCV</span>
-          <span class="tech-pill">rembg</span>
-          <span class="tech-pill">u2net</span>
-          <span class="tech-pill">Pillow</span>
-          <span class="tech-pill">Vue</span>
-          <span class="tech-pill">TypeScript</span>
-          <span class="tech-pill">Railway</span>
-        </div>
-      </section>
-
-      <section class="block">
-        <div class="cta-block">
-          <a class="cta-primary" href="https://studio.kooexperience.com" target="_blank" rel="noopener">Open Photo Studio &rarr;</a>
-          <a class="cta-secondary" href="/blog/posts/photo-id-studio.html">Read the build log &rarr;</a>
-        </div>
-      </section>
-
     </main>
 
-    <footer class="project-footer">
-      Built in Singapore &middot; <a href="/">Back to portfolio</a> &middot; <a href="/about.html">About Haoming</a>
+    <footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
     </footer>
+    <script src="/assets/scripts/chrome.js" defer></script>
   </body>
 </html>
