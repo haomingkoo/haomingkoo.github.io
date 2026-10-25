@@ -135,7 +135,7 @@
       .article a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
       .article ul, .article ol { margin-bottom: 18px; padding-left: 24px; color: var(--text-secondary); }
       .article li { margin-bottom: 6px; }
-      .article img:not(.hero-cover):not(.gallery-img) {
+      .article img:not(.hero-cover):not(.gallery-img):not(.leaflet-tile) {
         max-width: 100%; border-radius: 12px; margin: 24px 0;
         border: 1px solid var(--border);
       }
@@ -164,8 +164,9 @@
         margin: 32px 0;
       }
       .map-container .leaflet-container { height: 100%; width: 100%; }
-      /* dark tiles via CartoDB — no CSS filter needed */
       .leaflet-container { background: var(--bg); }
+      /* OSM tiles recoloured to match the old CARTO dark_all style */
+      .osm-dark-tiles { filter: invert(1) hue-rotate(180deg) grayscale(1) brightness(0.85) contrast(0.9); }
       .leaflet-popup-content-wrapper {
         background: var(--surface); color: var(--text);
         border: 1px solid var(--border); border-radius: 10px;
@@ -1189,10 +1190,10 @@
         scrollWheelZoom: false,
       }).setView([43.5, 11.5], 6);
 
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19,
-        subdomains: "abcd",
+        className: "osm-dark-tiles",
       }).addTo(map);
 
       const cities = [
