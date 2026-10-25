@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-theme-lock>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,10 +7,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-    <title>13 Days Across Italy — A Winter Family Trip — Haoming Koo</title>
-    <meta name="description" content="A family winter trip through Milan, Florence, Pisa, Rome, and Venice — with a full cost breakdown, interactive map, and practical tips." />
+    <title>13 Days Across Italy: A Winter Family Trip | Haoming Koo</title>
+    <meta name="description" content="A family winter trip through Milan, Florence, Pisa, Rome, and Venice, with a full cost breakdown, interactive map, and practical tips." />
     <link rel="canonical" href="https://kooexperience.com/travel/posts/italy.html" />
-    <meta property="og:title" content="13 Days Across Italy — A Winter Family Trip" />
+    <meta property="og:title" content="13 Days Across Italy: A Winter Family Trip" />
     <meta property="og:description" content="A family winter trip through Milan, Florence, Pisa, Rome, and Venice with itinerary, map, and practical tips." />
     <meta property="og:url" content="https://kooexperience.com/travel/posts/italy.html" />
     <meta property="og:type" content="article" />
@@ -21,7 +21,7 @@
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": "13 Days Across Italy — A Winter Family Trip",
+      "headline": "13 Days Across Italy: A Winter Family Trip",
       "author": { "@type": "Person", "name": "Haoming Koo" },
       "datePublished": "2025-01-05",
       "description": "A family winter trip through Milan, Florence, Pisa, Rome, and Venice with full cost breakdown."
@@ -31,7 +31,6 @@
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- PhotoSwipe lightbox -->
-    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       :root {
@@ -42,7 +41,7 @@
         --accent-dim: rgba(168,85,247,.10);
         --text: #eeeef0;
         --text-secondary: #b0b0b8;
-        --muted: #64647a;
+        --muted: #8a8aa0;
         --green: #22c55e;
         --green-dim: rgba(34,197,94,.10);
       }
@@ -172,7 +171,6 @@
       }
       .leaflet-popup-tip { background: var(--surface); }
       .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
-      .leaflet-control-attribution { font-size: 9px; opacity: .5; }
       .leaflet-control-zoom a {
         background: var(--surface) !important; color: var(--text) !important;
         border-color: var(--border) !important; text-decoration: none !important;
@@ -181,10 +179,20 @@
       /* city label on map */
       .city-label {
         background: none !important; border: none !important; box-shadow: none !important;
-        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600;
-        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
-        white-space: nowrap;
+        width: 0 !important; height: 0 !important;
       }
+      .city-label span {
+        position: absolute; left: 10px; top: -9px;
+        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600; line-height: 18px;
+        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
+        white-space: nowrap; pointer-events: none;
+      }
+      .city-label.is-left span { left: auto; right: 10px; }
+      .city-label.is-hidden { display: none; }
+      .leaflet-container .leaflet-control-attribution {
+        background: var(--surface); color: var(--text-secondary, var(--text)); font-size: 11px;
+      }
+      .leaflet-container .leaflet-control-attribution a { color: var(--text); }
 
       /* ── Itinerary timeline ───────────────────────────────────────────── */
       .itinerary { margin: 32px 0; }
@@ -365,20 +373,35 @@
     <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Travel","item":"https://kooexperience.com/travel/"},{"@type":"ListItem","position":3,"name":"Italy"}]}
 </script>
-  </head>
+  <link rel="stylesheet" href="/system/chrome.css" />
+</head>
   <body>
     <div class="nav-wrap">
-      <nav>
-        <a class="nav-logo" href="../../">HK</a>
-        <a href="../../#travel">Travel</a>
+      <header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/travel/" aria-current="page">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
       </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
     </div>
 
     <div class="container">
       <article class="article">
         <a class="back-link" href="../">&larr; Back to travel</a>
 
-        <!-- Hero image — replace src with your photo -->
+        <!-- Hero image: replace src with your photo -->
         <!-- <img class="hero-cover" src="" alt="Italian cityscape" loading="eager" /> -->
 
         <div class="article-meta">
@@ -388,7 +411,7 @@
           <span class="reading-time">14 min read</span>
         </div>
 
-        <h1>13 Days Across Italy — A Winter Family Trip</h1>
+        <h1>13 Days Across Italy: A Winter Family Trip</h1>
         <p class="subtitle">
           Milan &rarr; Florence &rarr; Pisa &rarr; Rome &rarr; Venice.
           A Christmas spa in Milan, NYE fireworks over Rome, and a gondola ride
@@ -402,17 +425,16 @@
           <a href="#overview">Overview</a>
           <a href="#for-you">Is This Trip For You?</a>
           <a href="#map">Route Map</a>
-          <a href="#milan">Milan — Fashion, Da Vinci, and a Spa</a>
-          <a href="#florence">Florence — Renaissance Overload</a>
-          <a href="#rome">Rome — When in Rome (NYE Edition)</a>
-          <a href="#venice">Venice — Canals and Goodbyes</a>
+          <a href="#milan">Milan: Fashion, Da Vinci, and a Spa</a>
+          <a href="#florence">Florence: Renaissance Overload</a>
+          <a href="#rome">Rome: When in Rome (NYE Edition)</a>
+          <a href="#venice">Venice: Canals and Goodbyes</a>
           <a href="#hindsight">What I'd Do Differently</a>
           <a href="#tickets">Ticket Booking Guide</a>
           <a href="#planning-timeline">Planning Timeline</a>
-          <a href="#seasons">When to Go — Seasons &amp; Weather</a>
+          <a href="#seasons">When to Go: Seasons &amp; Weather</a>
           <a href="#other-places">Other Places to Consider</a>
           <a href="#costs">Full Cost Breakdown</a>
-          <a href="#photos">Photos</a>
           <a href="#tips">Practical Tips</a>
         </div>
 
@@ -456,23 +478,23 @@
         </div>
 
         <p>
-          Family trip — four of us, 13 days, five cities. Comfortable hotels, sit-down meals,
+          Family trip: four of us, 13 days, five cities. Comfortable hotels, sit-down meals,
           and enough time in each city to actually enjoy it.
         </p>
         <p>
-          Italy gets 50+ million visitors a year. The history runs deep — Roman civilisation
+          The history runs deep: Roman civilisation
           (753 BC), Etruscans in Tuscany (900 BC), the Renaissance in Florence (14th century).
-          Nearly 3,000 years of history layered into one country. But that popularity means
-          <strong>planning is tough</strong>. The Colosseum, the Vatican, The Last Supper —
+          Nearly 3,000 years of history layered into one country. The big sights are popular, so
+          <strong>planning is tough</strong>. The Colosseum, the Vatican, The Last Supper:
           you can't just walk up. Tickets sell out months ahead. I wrote this post mainly so
           the <a href="#tickets">ticket booking guide</a> and
           <a href="#planning-timeline">planning timeline</a> can save you the stress I went through.
         </p>
         <p>
-          Our trip coincided with the <strong>Catholic Jubilee Year 2025</strong> — a once-every-25-years
+          Our trip coincided with the <strong>Catholic Jubilee Year 2025</strong>, a once-every-25-years
           event. Pope Francis opened the Holy Door at St. Peter's on Christmas Eve 2024, and we
-          got to walk through it. The Jubilee has since ended (January 2026), but Rome had a
-          special energy — pilgrims everywhere, extra celebrations. The next one isn't until 2050.
+          got to walk through it. The Jubilee ended in January 2026. While we were there, Rome
+          was full of pilgrims and extra celebrations.
         </p>
         <p>
           We went in winter: 5–12°C, fewer crowds, Christmas markets, and you can stand in front
@@ -497,7 +519,7 @@
             <span class="info-box-label">You're willing to plan and book tickets in advance</span>
           </div>
           <div class="info-box-row">
-            <span class="info-box-label">You love food — pasta, pizza, gelato, wine</span>
+            <span class="info-box-label">You love food: pasta, pizza, gelato, wine</span>
           </div>
           <div class="info-box-row">
             <span class="info-box-label">You can set aside about 2 weeks</span>
@@ -544,15 +566,15 @@
         <p>
           Milan in December is cold and impossibly stylish. Christmas lights on every street,
           the Duomo lit up like a postcard. Fun fact: the Duomo took 600 years to complete
-          (1386–1965) — started before Columbus, finished after the moon landing.
+          (1386–1965): started before Columbus, finished after the moon landing.
         </p>
 
         <div class="itinerary">
           <div class="day-card">
-            <div class="day-label">Day 1 — Dec 24</div>
+            <div class="day-label">Day 1 &middot; Dec 24</div>
             <div class="day-title">Departure</div>
             <div class="day-desc">
-              Flew SQ378 from Singapore on Christmas Eve. Overnight flight — the trick
+              Flew SQ378 from Singapore on Christmas Eve. Overnight flight. The trick
               is sleeping on the plane so you land fresh.
             </div>
             <div class="day-tags">
@@ -561,11 +583,11 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 2 — Dec 25</div>
+            <div class="day-label">Day 2 &middot; Dec 25</div>
             <div class="day-title">QC Terme, Navigli Canals</div>
             <div class="day-desc">
-              Arrived at Malpensa 6:15am. Christmas Day — most shops closed, but we headed
-              straight to QC Termemilano (~3 hrs — thermal spa built in old Milan tram
+              Arrived at Malpensa 6:15am. Christmas Day: most shops closed, but we headed
+              straight to QC Termemilano (~3 hrs, a thermal spa built in old Milan tram
               tunnels, with a rooftop jacuzzi overlooking the city skyline). One of the trip
               highlights and the perfect way to shake off a 13-hour flight. Later, walked the
               Navigli Canals area. Even on Christmas, there were buskers and crowds at the
@@ -579,13 +601,13 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 3 — Dec 26</div>
+            <div class="day-label">Day 3 &middot; Dec 26</div>
             <div class="day-title">The Last Supper, Duomo, Galleria</div>
             <div class="day-desc">
-              The Last Supper at 7:45am (15 min viewing with 30 people — book months ahead
+              The Last Supper at 7:45am (15 min viewing with 30 people. Book months ahead
               or camp the site for cancellation drops). Then Sforza Castle (~1 hr, has
               unfinished Michelangelo works), wandered through the Brera District (~1 hr).
-              Climbed the Duomo rooftop terraces at 2pm (~1.5 hrs — views of the Alps on a
+              Climbed the Duomo rooftop terraces at 2pm (~1.5 hrs, with views of the Alps on a
               clear day). Strolled the Galleria Vittorio Emanuele II, Italy's oldest
               shopping gallery. Ended the day with pizza at Gino Sorbillo.
             </div>
@@ -607,20 +629,20 @@
         <p>
           Florence is an entire city that decided to be a museum. Try the bistecca alla
           fiorentina (thick-cut T-bone, barely seasoned, rare over wood fire). Leather shops
-          everywhere — they've been making leather here since the 1200s. You will eat your
+          everywhere. They've been making leather here since the 1200s. You will eat your
           body weight in gelato. Our hotel (25hours) had a rooftop bar with Duomo views.
         </p>
 
         <div class="itinerary">
           <div class="day-card">
-            <div class="day-label">Day 4 — Dec 27</div>
+            <div class="day-label">Day 4 &middot; Dec 27</div>
             <div class="day-title">Arrival, Accademia, Piazzale Michelangelo</div>
             <div class="day-desc">
               Train from Milan (9am Trenitalia, 1h 45m). Dropped bags and grabbed
-              sandwiches at All'Antico Vinaio (the queue is worth it — 15 min wait).
-              Galleria dell'Accademia in the afternoon (~1.5 hrs) — Michelangelo's David
+              sandwiches at All'Antico Vinaio (the 15 min queue is worth it).
+              Galleria dell'Accademia in the afternoon (~1.5 hrs). Michelangelo's David
               floors you in person (5.17m tall, you can see veins in the hands). Sunset at
-              Piazzale Michelangelo — panoramic views of Florence with the Duomo and Ponte
+              Piazzale Michelangelo, with panoramic views of Florence with the Duomo and Ponte
               Vecchio below. Dinner at Trattoria dall'Oste.
             </div>
             <div class="day-tags">
@@ -631,13 +653,13 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 5 — Dec 28</div>
+            <div class="day-label">Day 5 &middot; Dec 28</div>
             <div class="day-title">Duomo, San Lorenzo, Uffizi</div>
             <div class="day-desc">
               Climbed the Duomo di Firenze morning (~1 hr for the 463-step climb).
               Brunelleschi's dome (1400s) is still an engineering marvel. San Lorenzo
               Market for leather goods and souvenirs (~1 hr browsing). Afternoon at the
-              Uffizi (~3 hrs, and we barely scratched the surface) — Botticelli's
+              Uffizi (~3 hrs, and we barely scratched the surface): Botticelli's
               <em>Birth of Venus</em>, Caravaggio, Raphael. Walked across Ponte Vecchio
               at sunset (jewellery shops since the 1500s). Dinner at Za Za.
             </div>
@@ -649,12 +671,12 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 6 — Dec 29</div>
+            <div class="day-label">Day 6 &middot; Dec 29</div>
             <div class="day-title">The Mall Firenze + Chianti Wine</div>
             <div class="day-desc">
-              Rented a car and drove to The Mall Firenze — luxury outlet shopping in the
+              Rented a car and drove to The Mall Firenze for luxury outlet shopping in the
               Tuscan hills (Gucci, Prada, Bottega Veneta at outlet prices). Then to Castello
-              di Verrazzano in Chianti — wine tasting at a historic estate surrounded by
+              di Verrazzano in Chianti for wine tasting at a historic estate surrounded by
               vineyards. Tuscany at its best.
             </div>
             <div class="day-tags">
@@ -665,13 +687,13 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 7 — Dec 30</div>
+            <div class="day-label">Day 7 &middot; Dec 30</div>
             <div class="day-title">Day Trip to Pisa &rarr; Train to Rome</div>
             <div class="day-desc">
-              Morning train to Pisa (~1 hr from Florence). Half-day here (~3 hrs) — Leaning
+              Morning train to Pisa (~1 hr from Florence). Half-day here (~3 hrs): Leaning
               Tower, Baptistery, Cathedral, Camposanto. Yes, we did the obligatory "holding
               up the tower" photo. The entire Piazza dei Miracoli (Field of Miracles) is
-              gorgeous. The Tower leans at 3.97 degrees — centuries of stabilisation efforts.
+              gorgeous. The Tower leans at 3.97 degrees after centuries of stabilisation efforts.
               Afternoon train to Rome (~2.5 hrs on Trenitalia high-speed).
             </div>
             <div class="day-tags">
@@ -690,31 +712,31 @@
         </div>
 
         <p>
-          Rome is chaos, beauty, and carbs. Hotel was next to the Colosseum — could see it
+          Rome is chaos, beauty, and carbs. Hotel was next to the Colosseum. We could see it
           from the window. You'll stumble into 2,000-year-old temples on the way to get coffee.
         </p>
 
         <div class="itinerary">
           <div class="day-card">
-            <div class="day-label">Day 8 — Dec 31</div>
+            <div class="day-label">Day 8 &middot; Dec 31</div>
             <div class="day-title">Vatican + Colosseum + NYE</div>
             <div class="day-desc">
               The big day. Guided tour of Vatican Museum + Sistine Chapel starting 8:30am
               (~3 hrs with guide). Michelangelo painted the Sistine ceiling over 4 years
-              on scaffolding — he wrote a poem about how miserable it was. The result is
+              on scaffolding, and he wrote a poem about how miserable it was. The result is
               one of the greatest works ever made. A guide is essential here.
             </div>
             <div class="day-desc" style="margin-top: 10px;">
               Rushed to the Colosseum for our 1:35pm Attico (top level) slot (~2 hrs
               including Palatine Hill and Roman Forum). 50,000 seats, 80 entrances,
-              retractable awnings, underground tunnels — engineering centuries ahead of its
+              retractable awnings, underground tunnels: engineering centuries ahead of its
               time. I was checking the site daily for weeks to snag Attico tickets and
               finally got Dec 31
               (see <a href="#tickets" style="color: var(--accent);">ticket guide</a>).
             </div>
             <div class="day-desc" style="margin-top: 10px;">
-              NYE countdown from our hotel rooftop. Fireworks 360 degrees — every direction,
-              the sky was lit up. Could see the Colosseum with fireworks behind it from our
+              NYE countdown from our hotel rooftop. Fireworks went off 360 degrees around us
+              and lit up the sky. Could see the Colosseum with fireworks behind it from our
               room. Unforgettable way to end 2024.
             </div>
             <div class="day-tags">
@@ -725,15 +747,15 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 9 — Jan 1</div>
+            <div class="day-label">Day 9 &middot; Jan 1</div>
             <div class="day-title">Trevi, Spanish Steps, Trastevere</div>
             <div class="day-desc">
-              New Year's Day — the Vatican Museum is closed on Jan 1, but St. Peter's
+              New Year's Day. The Vatican Museum is closed on Jan 1, but St. Peter's
               Basilica is open (and you can climb the dome). The Pantheon was open too.
               Crowds were thin, breakfast timings extended at hotels, and there was still
-              plenty happening around the city. We hit Trevi Fountain (throw the coin —
+              plenty happening around the city. We hit Trevi Fountain (throw the coin so
               you'll come back), Spanish Steps, a bit of shopping. Piazza Navona Christmas
-              Market was still running. Ended the evening in Trastevere — cobblestone
+              Market was still running. Ended the evening in Trastevere: cobblestone
               streets, ivy-covered buildings, arguably Rome's best food neighbourhood.
             </div>
             <div class="day-tags">
@@ -743,13 +765,13 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 10 — Jan 2</div>
+            <div class="day-label">Day 10 &middot; Jan 2</div>
             <div class="day-title">St. Peter's Basilica + Pantheon &rarr; Venice</div>
             <div class="day-desc">
-              Climbed St. Peter's Basilica dome (~1.5 hrs, 551 steps — the view from the
+              Climbed St. Peter's Basilica dome (~1.5 hrs, 551 steps, and the view from the
               top of the world's largest church is worth every one). Walked through the Holy
-              Door (Jubilee Year — once every 25 years, next one in 2050). Then the Pantheon
-              (~30 min — 2,000-year-old concrete dome with a perfect oculus, still the
+              Door (Jubilee Year, once every 25 years, next one in 2050). Then the Pantheon
+              (~30 min, a 2,000-year-old concrete dome with a perfect oculus, still the
               world's largest unreinforced concrete dome). Afternoon train to Venice
               (~3.5 hrs Trenitalia high-speed). Dinner at Osteria Ai Assassini.
             </div>
@@ -769,19 +791,19 @@
         </div>
 
         <p>
-          Venice doesn't feel real. No cars. Streets are water. 118 islands, 400+ bridges.
-          You will get lost — that's the point. Every wrong turn leads to a hidden piazza
+          Venice doesn't feel real. There are no cars, the streets are water, and the city
+          spreads across 118 islands and 400+ bridges. You will get lost, and that's the point. Every wrong turn leads to a hidden piazza
           or a tiny bakery you'd never find otherwise.
         </p>
 
         <div class="itinerary">
           <div class="day-card">
-            <div class="day-label">Day 11 — Jan 3</div>
+            <div class="day-label">Day 11 &middot; Jan 3</div>
             <div class="day-title">Rialto, Murano, Gondola</div>
             <div class="day-desc">
-              Morning at Rialto Market (~1 hr — fresh produce, seafood, local Venetian
+              Morning at Rialto Market (~1 hr, fresh produce, seafood, local Venetian
               specialties). Vaporetto to Murano (~40 min each way) for a live glassblowing
-              demonstration — they shape molten glass into intricate pieces in seconds.
+              demonstration. They shape molten glass into intricate pieces in seconds.
               St. Mark's Campanile for panoramic views. Gondola ride (~30 min) as the sun
               set over the canals.
             </div>
@@ -793,11 +815,11 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 12 — Jan 4</div>
+            <div class="day-label">Day 12 &middot; Jan 4</div>
             <div class="day-title">Doge's Palace + St. Mark's + Departure</div>
             <div class="day-desc">
-              Doge's Palace Secret Itineraries Tour (~2 hrs — hidden chambers, prison
-              cells, and the story of Casanova's escape). St. Mark's Basilica (~1 hr —
+              Doge's Palace Secret Itineraries Tour (~2 hrs: hidden chambers, prison
+              cells, and the story of Casanova's escape). St. Mark's Basilica (~1 hr:
               glittering mosaics, Pala d'Oro with 1,900+ gemstones, and the loggia for
               views of Piazza San Marco). Final stroll, then to Marco Polo Airport.
               Flight via Zurich (LX1665).
@@ -809,7 +831,7 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 13 — Jan 5</div>
+            <div class="day-label">Day 13 &middot; Jan 5</div>
             <div class="day-title">Back in Singapore</div>
             <div class="day-desc">
               Landed at Changi T3. Sore feet, full camera roll, already planning the next one.
@@ -826,13 +848,13 @@
         <h3>Pair Vatican Museum + St. Peter's, give the Colosseum its own day</h3>
         <p>
           We did the Vatican Museum + Colosseum on the same day (Dec 31) because that's
-          when I managed to get Attico tickets — I was checking daily for weeks. Then
+          when I managed to get Attico tickets. I was checking daily for weeks. Then
           St. Peter's ended up on a separate day (Jan 2) because the Vatican Museum is
           closed on Jan 1, so we had to work around the holiday. It worked, but it wasn't
           ideal. If you're not constrained by holidays or timing, do the Vatican Museum
           and St. Peter's Basilica on the same day (they're right next to each other),
           then give the Colosseum its own day so you can take your time at Palatine Hill,
-          the Roman Forum, and the surrounding area. Seriously — plan your Rome days
+          the Roman Forum, and the surrounding area. Seriously, plan your Rome days
           early and camp the ticket sites. The Colosseum Attico slots drop in small
           batches and sell out in minutes. I was refreshing daily for weeks before I
           got lucky. Don't leave it to the last minute.
@@ -849,14 +871,14 @@
           Three nights in Florence was tight. With more time I'd have:
         </p>
         <ul>
-          <li><strong>Vasari Corridor</strong> — elevated passageway (built 1565) from the Uffizi
+          <li><strong>Vasari Corridor</strong>: elevated passageway (built 1565) from the Uffizi
             across the Ponte Vecchio. Reopened 2024, was fully booked when I tried.</li>
-          <li><strong>Boboli Gardens</strong> — Renaissance garden behind Palazzo Pitti, 45,000 sqm
+          <li><strong>Boboli Gardens</strong>: Renaissance garden behind Palazzo Pitti, 45,000 sqm
             of fountains and sculptures.</li>
-          <li><strong>Oltrarno</strong> — quieter side of the Arno, artisan workshops, fewer tourists.</li>
+          <li><strong>Oltrarno</strong>: quieter side of the Arno, artisan workshops, fewer tourists.</li>
         </ul>
         <p>
-          Venice (2 nights) also felt short. Add a third night if you can — take the vaporetto
+          Venice (2 nights) also felt short. Add a third night if you can and take the vaporetto
           to Burano (the colourful island).
         </p>
 
@@ -865,7 +887,7 @@
 
         <p>
           The most stressful part of planning. Every attraction has a different booking
-          window. Here's what I learned — all links verified as official sites.
+          window. Here's what I learned (all links verified as official sites).
         </p>
 
         <table class="cost-table">
@@ -894,7 +916,7 @@
             </tr>
             <tr>
               <td><strong>Duomo di Firenze</strong> (dome climb)</td>
-              <td style="text-align: left;">2–4 weeks. Timed entry — book the earliest slot for fewer crowds on the 463-step climb.<br><a href="https://tickets.duomo.firenze.it/en/" target="_blank" rel="noopener">tickets.duomo.firenze.it</a></td>
+              <td style="text-align: left;">2–4 weeks. Timed entry. Book the earliest slot for fewer crowds on the 463-step climb.<br><a href="https://tickets.duomo.firenze.it/en/" target="_blank" rel="noopener">tickets.duomo.firenze.it</a></td>
             </tr>
             <tr>
               <td><strong>Galleria degli Uffizi</strong></td>
@@ -902,15 +924,15 @@
             </tr>
             <tr>
               <td><strong>Vasari Corridor</strong> (Florence)</td>
-              <td style="text-align: left;">2–3 months. The elevated walkway from the Uffizi to Palazzo Pitti across the Ponte Vecchio. Reopened in 2024 after years of renovation. Extremely limited slots — I tried to book but it was fully booked. Start checking early.<br><a href="https://www.uffizi.it/en/tickets" target="_blank" rel="noopener">uffizi.it</a> (same ticketing as Uffizi)</td>
+              <td style="text-align: left;">2–3 months. The elevated walkway from the Uffizi to Palazzo Pitti across the Ponte Vecchio. Reopened in 2024 after years of renovation. Extremely limited slots. I tried to book but it was fully booked. Start checking early.<br><a href="https://www.uffizi.it/en/tickets" target="_blank" rel="noopener">uffizi.it</a> (same ticketing as Uffizi)</td>
             </tr>
             <tr>
               <td><strong>Vatican Museum + Sistine Chapel</strong></td>
-              <td style="text-align: left;">2–4 weeks. Book the first morning slot (7:30am). By 10am the queues are absurd. A guided tour is worth it.<br><a href="https://tickets.museivaticani.va/home/" target="_blank" rel="noopener">tickets.museivaticani.va</a> (look for the .va domain — that's the Vatican)</td>
+              <td style="text-align: left;">2–4 weeks. Book the first morning slot (7:30am). By 10am the queues are absurd. A guided tour is worth it.<br><a href="https://tickets.museivaticani.va/home/" target="_blank" rel="noopener">tickets.museivaticani.va</a> (look for the .va domain, which is the Vatican's)</td>
             </tr>
             <tr>
               <td><strong>Colosseum + Attico</strong> (Rome)</td>
-              <td style="text-align: left;">Check daily, 1–2 months out. Attico tickets released in small batches, sell out in minutes. Standard tickets are easier — 1–2 weeks is fine.<br><a href="https://ticketing.colosseo.it/en/" target="_blank" rel="noopener">ticketing.colosseo.it</a></td>
+              <td style="text-align: left;">Check daily, 1–2 months out. Attico tickets released in small batches, sell out in minutes. Standard tickets are easier: 1–2 weeks is fine.<br><a href="https://ticketing.colosseo.it/en/" target="_blank" rel="noopener">ticketing.colosseo.it</a></td>
             </tr>
             <tr>
               <td><strong>Doge's Palace</strong> (Venice)</td>
@@ -922,7 +944,7 @@
             </tr>
             <tr>
               <td><strong>Gondola Ride</strong> (Venice)</td>
-              <td style="text-align: left;">No booking needed. Walk to any gondola station. Standard rate is EUR 80 per gondola (seats up to 6) — split with family/friends.</td>
+              <td style="text-align: left;">No booking needed. Walk to any gondola station. Standard rate is EUR 80 per gondola (seats up to 6), so split with family/friends.</td>
             </tr>
           </tbody>
         </table>
@@ -932,7 +954,7 @@
           unofficial resellers that charge 2–5x the real price. Some look almost identical to
           the official sites. A few rules to stay safe:
           <ul style="margin-top: 8px; margin-bottom: 0;">
-            <li>Always start from the links above or the attraction's official website — don't Google "buy tickets" and click the first ad.</li>
+            <li>Always start from the links above or the attraction's official website. Don't Google "buy tickets" and click the first ad.</li>
             <li>Official Italian sites use <strong>.it</strong> domains. The Vatican uses <strong>.va</strong>. Be skeptical of .com or .org sites with similar names.</li>
             <li>If the price is significantly higher than listed on the official site, you're on a reseller.</li>
             <li>Third-party platforms like GetYourGuide or Viator are legitimate but charge a premium. Useful if the official site is sold out, but try official first.</li>
@@ -960,15 +982,15 @@
             </tr>
             <tr>
               <td><strong>3–4 months before</strong></td>
-              <td style="text-align: left;">Book hotels. Good-location hotels in Rome and Venice go fast, especially around Christmas/NYE and summer. Check cancellation policies — flexible rates are worth the slight premium.</td>
+              <td style="text-align: left;">Book hotels. Good-location hotels in Rome and Venice go fast, especially around Christmas/NYE and summer. Check cancellation policies: flexible rates are worth the slight premium.</td>
             </tr>
             <tr>
               <td><strong>2–3 months before</strong></td>
-              <td style="text-align: left;">Book The Last Supper (tickets release ~2 months ahead and sell out in days). Set a calendar reminder for the exact release date. Also book Vatican guided tours — morning slots fill up fast.</td>
+              <td style="text-align: left;">Book The Last Supper (tickets release ~2 months ahead and sell out in days). Set a calendar reminder for the exact release date. Also book Vatican guided tours, since morning slots fill up fast.</td>
             </tr>
             <tr>
               <td><strong>1–2 months before</strong></td>
-              <td style="text-align: left;">Book trains on Trenitalia/Italo (cheapest fares at this window). Book Colosseum tickets — start checking daily for Attico access. Book Uffizi, Accademia, Duomo climbs.</td>
+              <td style="text-align: left;">Book trains on Trenitalia/Italo (cheapest fares at this window). Book Colosseum tickets and start checking daily for Attico access. Book Uffizi, Accademia, Duomo climbs.</td>
             </tr>
             <tr>
               <td><strong>2–4 weeks before</strong></td>
@@ -976,7 +998,7 @@
             </tr>
             <tr>
               <td><strong>1 week before</strong></td>
-              <td style="text-align: left;">Confirm all bookings. Screenshot/print tickets (some attractions don't have reliable WiFi at the entrance). Pack layers — Italian winter weather is unpredictable. Bring a portable charger.</td>
+              <td style="text-align: left;">Confirm all bookings. Screenshot/print tickets (some attractions don't have reliable WiFi at the entrance). Pack layers, because Italian winter weather is unpredictable. Bring a portable charger.</td>
             </tr>
             <tr>
               <td><strong>1–2 days before each attraction</strong></td>
@@ -987,11 +1009,11 @@
 
         <div class="callout">
           <strong>Key takeaway:</strong> Italy isn't "book it and wing it." I started 3 months
-          before and it was tight — start at 5–6 months if you can.
+          before and it was tight. Start at 5–6 months if you can.
         </div>
 
         <!-- ── Seasons & Weather ─────────────────────────────────────────── -->
-        <h2 id="seasons">When to Go — Seasons &amp; Weather</h2>
+        <h2 id="seasons">When to Go: Seasons &amp; Weather</h2>
 
         <p>Each season is a very different experience:</p>
 
@@ -1005,11 +1027,11 @@
           <tbody>
             <tr>
               <td><strong>Spring</strong><br><span style="color: var(--muted); font-size: 12px;">Mar – May</span></td>
-              <td style="text-align: left;">12–22°C. Pleasant walking weather, flowers blooming, moderate crowds. Arguably the best time to visit. Easter in Rome is a major event. Book early — spring is popular for good reason.</td>
+              <td style="text-align: left;">12–22°C. Pleasant walking weather, flowers blooming, moderate crowds. Arguably the best time to visit. Easter in Rome is a major event. Book early. Spring is popular for good reason.</td>
             </tr>
             <tr>
               <td><strong>Summer</strong><br><span style="color: var(--muted); font-size: 12px;">Jun – Aug</span></td>
-              <td style="text-align: left;">25–35°C. Peak tourist season. Long days and warm evenings, but the heat can be brutal — especially in Rome and Florence. Expect long queues everywhere. Venice can smell in the heat (the canals). Hotels are at peak prices. Best for: Amalfi Coast, Cinque Terre, beaches.</td>
+              <td style="text-align: left;">25–35°C. Peak tourist season. Long days and warm evenings, but the heat can be brutal, especially in Rome and Florence. Expect long queues everywhere. Venice can smell in the heat (the canals). Hotels are at peak prices. Best for: Amalfi Coast, Cinque Terre, beaches.</td>
             </tr>
             <tr>
               <td><strong>Autumn</strong><br><span style="color: var(--muted); font-size: 12px;">Sep – Nov</span></td>
@@ -1056,7 +1078,7 @@
           <div class="info-box-row"><span class="info-box-label">Best season</span><span class="info-box-value">May – Jun or Sep – Oct</span></div>
           <div class="info-box-row"><span class="info-box-label">Getting there</span><span class="info-box-value">2.5h from Rome (train + bus)</span></div>
         </div>
-        <p>Positano, Amalfi, Ravello — colourful towns on cliffs above the Mediterranean. As stunning as the photos suggest. Avoid summer peak.</p>
+        <p>Positano, Amalfi, Ravello: colourful towns on cliffs above the Mediterranean. As stunning as the photos suggest. Avoid summer peak.</p>
 
         <div class="info-box">
           <div class="info-box-title">Cinque Terre</div>
@@ -1072,7 +1094,7 @@
           <div class="info-box-row"><span class="info-box-label">Best season</span><span class="info-box-value">Spring or autumn</span></div>
           <div class="info-box-row"><span class="info-box-label">Getting there</span><span class="info-box-value">1h from Rome by high-speed train</span></div>
         </div>
-        <p>Best pizza you'll ever eat (this is where pizza was invented). Pompeii is 30 min away — an entire Roman city preserved under volcanic ash from 79 AD.</p>
+        <p>Best pizza you'll ever eat (this is where pizza was invented). Pompeii is 30 min away: an entire Roman city preserved under volcanic ash from 79 AD.</p>
 
         <!-- ── Cost Breakdown ────────────────────────────────────────────── -->
         <h2 id="costs">Full Cost Breakdown</h2>
@@ -1104,7 +1126,7 @@
 
             <tr class="category-row"><td colspan="2">Attractions</td></tr>
             <tr><td>QC Termemilano (spa)</td><td>70.95</td></tr>
-            <tr><td>Cenacolo Vinciano — The Last Supper</td><td>38.31</td></tr>
+            <tr><td>Cenacolo Vinciano (The Last Supper)</td><td>38.31</td></tr>
             <tr><td>Sforza Castle</td><td>7.10</td></tr>
             <tr><td>Duomo di Milano (rooftop)</td><td>44.70</td></tr>
             <tr><td>Galleria dell'Accademia</td><td>28.38</td></tr>
@@ -1113,7 +1135,7 @@
             <tr><td>Vatican Museum + Sistine Chapel (guided)</td><td>36.89</td></tr>
             <tr><td>Colosseum with Attico Access</td><td>34.06</td></tr>
             <tr><td>Gondola Ride</td><td>28.38</td></tr>
-            <tr><td>Doge's Palace — Secret Itineraries</td><td>36.89</td></tr>
+            <tr><td>Doge's Palace: Secret Itineraries</td><td>36.89</td></tr>
             <tr><td>St. Mark's Basilica + Pala d'Oro + Museum</td><td>28.38</td></tr>
 
             <tr class="total-row">
@@ -1128,56 +1150,31 @@
           or shopping. For food, budget roughly EUR 40–60 per person per day for sit-down meals.
         </div>
 
-        <!-- ── Photos ────────────────────────────────────────────────────── -->
-        <h2 id="photos">Photos</h2>
-        <p>Click any photo to view full-size. (Photos coming soon — upload your favourites!)</p>
-
-        <div class="gallery" id="travel-gallery">
-          <a class="gallery-item featured" href="#" data-pswp-src="https://placehold.co/1200x800/1c1c24/64647a?text=Duomo+di+Milano" data-pswp-width="1200" data-pswp-height="800">
-            <img class="gallery-img" src="https://placehold.co/600x400/1c1c24/64647a?text=Duomo+di+Milano" alt="Duomo di Milano at night" loading="lazy" />
-            <div class="gallery-caption">Duomo di Milano on Christmas Eve</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Florence" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Florence" alt="Florence skyline" loading="lazy" />
-            <div class="gallery-caption">Florence from the Duomo</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Leaning+Tower" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Pisa" alt="Leaning Tower of Pisa" loading="lazy" />
-            <div class="gallery-caption">Yes, we did the pose</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Colosseum" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Colosseum" alt="Colosseum from Attico level" loading="lazy" />
-            <div class="gallery-caption">Colosseum — top level access</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Venice+Gondola" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Gondola" alt="Gondola ride in Venice" loading="lazy" />
-            <div class="gallery-caption">Gondola through the canals</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=NYE+Rome" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=NYE" alt="New Year's Eve in Rome" loading="lazy" />
-            <div class="gallery-caption">NYE fireworks over Rome</div>
-          </a>
-        </div>
-
         <!-- ── Tips ──────────────────────────────────────────────────────── -->
         <h2 id="tips">Quick Tips</h2>
         <ul>
           <li><strong>Trains:</strong> Book Trenitalia/Italo 1–2 months ahead. Regional trains (e.g. Florence–Pisa) don't need advance booking.</li>
-          <li><strong>Venice vaporetto:</strong> Get a 24h/48h pass — individual rides are EUR 9.50 each.</li>
+          <li><strong>Venice vaporetto:</strong> Get a 24h/48h pass. Individual rides are EUR 9.50 each.</li>
           <li><strong>Money:</strong> Card accepted almost everywhere. Keep some cash for markets. Tipping not expected (coperto is included).</li>
           <li><strong>EUR 1 ≈ SGD 1.42</strong> at the time of our trip.</li>
-          <li><strong>Download offline maps</strong> before you go — WiFi can be spotty at some attractions.</li>
-          <li><strong>Public holidays:</strong> Christmas Day and Jan 1 = many places closed. St. Peter's Basilica stays open on Jan 1 (Vatican Museum doesn't). Hotels often extend breakfast hours. Pro tip: check Uber Eats — if a restaurant is delivering, it's open. Saved us a few times on holidays.</li>
+          <li><strong>Download offline maps</strong> before you go. WiFi can be spotty at some attractions.</li>
+          <li><strong>Public holidays:</strong> Christmas Day and Jan 1 = many places closed. St. Peter's Basilica stays open on Jan 1 (Vatican Museum doesn't). Hotels often extend breakfast hours. Pro tip: check Uber Eats: if a restaurant is delivering, it's open. Saved us a few times on holidays.</li>
         </ul>
 
         <hr class="divider" />
         <p>
-          One of the best trips we've done as a family. Hope this helps with your planning —
-          feel free to <a href="mailto:haomingkoo@gmail.com">reach out</a> if you have questions.
+          One of the best trips we've done as a family. Hope this helps with your planning.
+          Feel free to <a href="mailto:haomingkoo@gmail.com">reach out</a> if you have questions.
         </p>
       </article>
-      <footer>&copy; 2025 Haoming Koo</footer>
-    </div>
+      <footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
+    </footer>
+    <script src="/assets/scripts/chrome.js" defer></script></div>
 
     <!-- ── Scripts ──────────────────────────────────────────────────────── -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -1240,6 +1237,7 @@
       }).addTo(map);
 
       // Add numbered city markers
+      const cityLabels = [];
       cities.forEach((c, i) => {
         const marker = L.circleMarker([c.lat, c.lng], {
           radius: c.nights > 0 ? 9 : 6,
@@ -1257,31 +1255,36 @@
         );
 
         // City labels on map
-        L.marker([c.lat, c.lng], {
-          icon: L.divIcon({
-            className: "city-label",
-            html: c.name,
-            iconSize: [60, 16],
-            iconAnchor: [-8, 8],
-          }),
-        }).addTo(map);
+        cityLabels.push({ nights: c.nights, marker: L.marker([c.lat, c.lng], {
+          icon: L.divIcon({ className: "city-label", html: `<span>${c.name}</span>`, iconSize: null }),
+          interactive: false, keyboard: false,
+        }).addTo(map) });
       });
+      // Hide or flip city labels that would collide with each other or the map controls.
+      function declutterLabels() {
+        const box = map.getContainer().getBoundingClientRect();
+        const placed = [...map.getContainer().querySelectorAll(".leaflet-control")].map((el) => el.getBoundingClientRect());
+        const clear = (r) => r.left >= box.left && r.right <= box.right && r.top >= box.top && r.bottom <= box.bottom &&
+          !placed.some((p) => r.left < p.right + 4 && r.right > p.left - 4 && r.top < p.bottom + 2 && r.bottom > p.top - 2);
+        [...cityLabels].sort((a, b) => b.nights - a.nights).forEach(({ marker }) => {
+          const el = marker.getElement();
+          if (!el) return;
+          el.classList.remove("is-left", "is-hidden");
+          let r = el.firstChild.getBoundingClientRect();
+          if (!clear(r)) { el.classList.add("is-left"); r = el.firstChild.getBoundingClientRect(); }
+          if (!clear(r)) { el.classList.add("is-hidden"); return; }
+          placed.push(r);
+        });
+      }
+      map.on("zoomend moveend resize", declutterLabels);
+      requestAnimationFrame(declutterLabels);
+
 
       // Fit map to show all markers
       const bounds = cities.map((c) => [c.lat, c.lng]);
       map.fitBounds(bounds, { padding: [50, 50] });
 
       /* ── PhotoSwipe lightbox ────────────────────────────────────────── */
-      import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
-
-      const lightbox = new PhotoSwipeLightbox({
-        gallery: "#travel-gallery",
-        children: "a.gallery-item",
-        pswpModule: () => import("https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.esm.min.js"),
-        bgOpacity: 0.92,
-        padding: { top: 20, bottom: 20, left: 20, right: 20 },
-      });
-      lightbox.init();
     </script>
   </body>
 </html>

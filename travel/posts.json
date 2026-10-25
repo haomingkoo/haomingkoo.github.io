@@ -1,7 +1,7 @@
 [
   {
     "slug": "japan",
-    "title": "10 Days in Japan — Snow Festivals, Early Sakura & Mount Fuji",
+    "title": "10 Days in Japan: Snow Festivals, Early Sakura & Mount Fuji",
     "date": "2025-02-18",
     "tags": [
       "Japan",
@@ -10,7 +10,7 @@
       "Winter",
       "Road Trip"
     ],
-    "excerpt": "Sapporo \u2192 Asahikawa \u2192 Otaru \u2192 Odawara \u2192 Izu \u2192 Tokyo. Snow festivals and penguin parades in Hokkaido, then early-blooming sakura and coastal drives through the Izu Peninsula.",
+    "excerpt": "Sapporo → Asahikawa → Otaru → Odawara → Izu → Tokyo. Snow festivals and penguin parades in Hokkaido, then early-blooming sakura and coastal drives through the Izu Peninsula.",
     "cover": "",
     "readingTime": "14 min",
     "lat": 39.0,
@@ -18,23 +18,23 @@
   },
   {
     "slug": "italy",
-    "title": "13 Days Across Italy — A Winter Family Trip",
+    "title": "13 Days Across Italy: A Winter Family Trip",
     "date": "2025-01-05",
     "tags": [
       "Italy",
-      "Budget",
       "Family",
       "Winter"
     ],
-    "excerpt": "Milan \u2192 Florence \u2192 Pisa \u2192 Rome \u2192 Venice. Christmas in Milan, NYE at the Colosseum, a gondola through Venice \u2014 a comfortable family winter trip with full cost breakdown.",
+    "excerpt": "Milan → Florence → Pisa → Rome → Venice. Christmas in Milan, NYE at the Colosseum and a gondola through Venice. A comfortable family winter trip with full cost breakdown.",
     "cover": "",
     "readingTime": "14 min",
     "lat": 43.0,
-    "lng": 11.5
+    "lng": 11.5,
+    "dateLabel": "Dec 2024 to Jan 2025"
   },
   {
     "slug": "korea",
-    "title": "5 Days in Seoul — Palaces, Street Food & Cafe Culture",
+    "title": "5 Days in Seoul: Palaces, Street Food & Cafe Culture",
     "date": "2023-08-13",
     "tags": [
       "Korea",
@@ -42,7 +42,7 @@
       "Food",
       "Summer"
     ],
-    "excerpt": "Gyeongbokgung \u2192 Bukchon \u2192 Nami Island \u2192 DMZ \u2192 Hongdae. Hanbok-clad palace walks, BBQ feasts, extraordinary cafe culture, and a sobering trip to the DMZ.",
+    "excerpt": "Gyeongbokgung → Bukchon → Nami Island → DMZ → Hongdae. Hanbok-clad palace walks, BBQ feasts, cafe culture, and a sobering trip to the DMZ.",
     "cover": "",
     "readingTime": "10 min",
     "lat": 37.5665,
@@ -50,14 +50,14 @@
   },
   {
     "slug": "netherlands",
-    "title": "9 Days in the Netherlands \u2014 Tulips, Windmills & Dutch Masters",
+    "title": "9 Days in the Netherlands: Tulips, Windmills & Dutch Masters",
     "date": "2025-04-19",
     "tags": [
       "Netherlands",
       "Flowers",
       "Spring"
     ],
-    "excerpt": "Amsterdam \u2192 Sassenheim \u2192 Haarlem \u2192 Keukenhof \u2192 The Hague \u2192 Delft \u2192 Rotterdam \u2192 Kinderdijk. Flower parades, tulip fields by bike, Delft tile painting, and the best Indonesian food outside Asia.",
+    "excerpt": "Amsterdam → Sassenheim → Haarlem → Keukenhof → The Hague → Delft → Rotterdam → Kinderdijk. Flower parades, tulip fields by bike, Delft tile painting, and the best Indonesian food outside Asia.",
     "cover": "",
     "readingTime": "14 min",
     "lat": 52.2,
@@ -65,7 +65,7 @@
   },
   {
     "slug": "japan-sakura",
-    "title": "11 Days Across Japan \u2014 Sakura Season from Tokyo to Hiroshima",
+    "title": "11 Days Across Japan: Sakura Season from Tokyo to Hiroshima",
     "date": "2023-04-10",
     "tags": [
       "Japan",
@@ -73,7 +73,7 @@
       "Spring",
       "Road Trip"
     ],
-    "excerpt": "Tokyo \u2192 Mt Fuji \u2192 Hakone \u2192 Osaka \u2192 Yoshino \u2192 Kobe \u2192 Himeji \u2192 Kurashiki \u2192 Hiroshima \u2192 Shimanami Kaido \u2192 Miyajima. Cherry blossoms, DisneySea, Kobe beef, and the Peace Memorial.",
+    "excerpt": "Tokyo → Mt Fuji → Hakone → Osaka → Yoshino → Kobe → Himeji → Kurashiki → Hiroshima → Shimanami Kaido → Miyajima. Cherry blossoms, DisneySea, Kobe beef, and the Peace Memorial.",
     "cover": "",
     "readingTime": "16 min",
     "lat": 35.0,

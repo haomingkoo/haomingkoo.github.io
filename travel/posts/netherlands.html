@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-theme-lock>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,11 +7,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-    <title>9 Days in the Netherlands &mdash; Tulips, Windmills &amp; Dutch Masters — Haoming Koo</title>
-    <meta name="description" content="A spring trip through the Netherlands &mdash; Keukenhof tulips, Kinderdijk windmills, the Flower Parade, Van Gogh Museum, and the best Indonesian food outside Indonesia." />
+    <title>9 Days in the Netherlands: Tulips, Windmills &amp; Dutch Masters | Haoming Koo</title>
+    <meta name="description" content="A spring trip through the Netherlands: Keukenhof tulips, Kinderdijk windmills, the Flower Parade, Van Gogh Museum, and the best Indonesian food outside Indonesia." />
     <link rel="canonical" href="https://kooexperience.com/travel/posts/netherlands.html" />
-    <meta property="og:title" content="9 Days in the Netherlands &mdash; Tulips, Windmills &amp; Dutch Masters" />
-    <meta property="og:description" content="Keukenhof, Kinderdijk, the Flower Parade, Van Gogh Museum, and rijsttafel &mdash; a spring trip from Singapore." />
+    <meta property="og:title" content="9 Days in the Netherlands: Tulips, Windmills &amp; Dutch Masters" />
+    <meta property="og:description" content="Keukenhof, Kinderdijk, the Flower Parade, Van Gogh Museum, and rijsttafel, from a spring trip out of Singapore." />
     <meta property="og:url" content="https://kooexperience.com/travel/posts/netherlands.html" />
     <meta property="og:type" content="article" />
     <meta property="og:image" content="https://kooexperience.com/assets/og-image.png" />
@@ -21,15 +21,14 @@
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": "9 Days in the Netherlands — Tulips, Windmills & Dutch Masters",
+      "headline": "9 Days in the Netherlands: Tulips, Windmills & Dutch Masters",
       "author": { "@type": "Person", "name": "Haoming Koo" },
       "datePublished": "2025-04-19",
-      "description": "A spring trip through the Netherlands — Keukenhof tulips, Kinderdijk windmills, the Flower Parade, Van Gogh Museum, and Dutch Masters."
+      "description": "A spring trip through the Netherlands: Keukenhof tulips, Kinderdijk windmills, the Flower Parade, Van Gogh Museum, and Dutch Masters."
     }
     </script>
     <link rel="stylesheet" href="/assets/fonts/fonts.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       :root {
@@ -40,7 +39,7 @@
         --accent-dim: rgba(168,85,247,.10);
         --text: #eeeef0;
         --text-secondary: #b0b0b8;
-        --muted: #64647a;
+        --muted: #8a8aa0;
         --green: #22c55e;
         --green-dim: rgba(34,197,94,.10);
         --pink: #f472b6;
@@ -168,17 +167,26 @@
       }
       .leaflet-popup-tip { background: var(--surface); }
       .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 13px; }
-      .leaflet-control-attribution { font-size: 9px; opacity: .5; }
       .leaflet-control-zoom a {
         background: var(--surface) !important; color: var(--text) !important;
         border-color: var(--border) !important; text-decoration: none !important;
       }
       .city-label {
         background: none !important; border: none !important; box-shadow: none !important;
-        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600;
-        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
-        white-space: nowrap;
+        width: 0 !important; height: 0 !important;
       }
+      .city-label span {
+        position: absolute; left: 10px; top: -9px;
+        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600; line-height: 18px;
+        color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.8);
+        white-space: nowrap; pointer-events: none;
+      }
+      .city-label.is-left span { left: auto; right: 10px; }
+      .city-label.is-hidden { display: none; }
+      .leaflet-container .leaflet-control-attribution {
+        background: var(--surface); color: var(--text-secondary, var(--text)); font-size: 11px;
+      }
+      .leaflet-container .leaflet-control-attribution a { color: var(--text); }
 
       .itinerary { margin: 32px 0; }
       .city-section-header {
@@ -338,20 +346,35 @@
     <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kooexperience.com/"},{"@type":"ListItem","position":2,"name":"Travel","item":"https://kooexperience.com/travel/"},{"@type":"ListItem","position":3,"name":"Netherlands"}]}
 </script>
-  </head>
+  <link rel="stylesheet" href="/system/chrome.css" />
+</head>
   <body>
     <div class="nav-wrap">
-      <nav>
-        <a class="nav-logo" href="../../">HK</a>
-        <a href="../">Travel</a>
+      <header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/travel/" aria-current="page">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
       </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
     </div>
 
     <div class="container">
       <article class="article">
         <a class="back-link" href="../">&larr; Back to travel</a>
 
-        <!-- Hero image — replace src with your photo -->
+        <!-- Hero image: replace src with your photo -->
         <!-- <img class="hero-cover" src="" alt="Keukenhof tulip fields, Netherlands" loading="eager" /> -->
 
         <div class="article-meta">
@@ -362,7 +385,7 @@
           <span class="reading-time">14 min read</span>
         </div>
 
-        <h1>9 Days in the Netherlands &mdash; Tulips, Windmills &amp; Dutch Masters</h1>
+        <h1>9 Days in the Netherlands: Tulips, Windmills &amp; Dutch Masters</h1>
         <p class="subtitle">
           Amsterdam &rarr; Sassenheim &rarr; Haarlem &rarr; Keukenhof &rarr; Volendam &rarr; Zaanse Schans &rarr; The Hague &rarr; Delft &rarr; Rotterdam &rarr; Kinderdijk &rarr; Leiden &rarr; Amsterdam.
           Millions of tulips in bloom, iconic windmills, Van Gogh and Vermeer, and the best Indonesian food outside Indonesia.
@@ -374,8 +397,8 @@
           <a href="#overview">Overview</a>
           <a href="#for-you">Is This Trip For You?</a>
           <a href="#map">Route Map</a>
-          <a href="#amsterdam">Amsterdam (Days 1, 5, 6 &mdash; Town Center, Museums, Countryside Tour)</a>
-          <a href="#flower-parade">Flower Parade &mdash; Sassenheim (Day 2)</a>
+          <a href="#amsterdam">Amsterdam (Days 1, 5, 6: Town Center, Museums, Countryside Tour)</a>
+          <a href="#flower-parade">Flower Parade: Sassenheim (Day 2)</a>
           <a href="#haarlem">Haarlem Day Trip (Day 3)</a>
           <a href="#keukenhof">Keukenhof &amp; Tulip Fields (Day 4)</a>
           <a href="#the-hague-delft">The Hague &amp; Delft (Day 7)</a>
@@ -384,7 +407,6 @@
           <a href="#tickets">Booking Guide</a>
           <a href="#planning-timeline">Planning Timeline</a>
           <a href="#when-to-go">When to Go</a>
-          <a href="#photos">Photos</a>
           <a href="#food">What to Eat</a>
           <a href="#tips">Quick Tips</a>
         </div>
@@ -416,15 +438,15 @@
           </div>
           <div class="info-box-row">
             <span class="info-box-label">Season</span>
-            <span class="info-box-value">Spring &mdash; tulip season (10&ndash;15&deg;C)</span>
+            <span class="info-box-value">Spring, tulip season (10&ndash;15&deg;C)</span>
           </div>
         </div>
 
         <p>
-          The Netherlands in mid-April is one of the most visually striking places on earth. Millions
+          The Netherlands in mid-April is hard to beat for scenery. Millions
           of tulips in full bloom, historic windmills turning against flat Dutch skies, and centuries-old
           canal towns that look exactly like the paintings hanging in the Rijksmuseum. It's a compact
-          country &mdash; you can reach almost anything within two hours of Amsterdam &mdash; which makes
+          country (you can reach almost anything within two hours of Amsterdam), which makes
           it ideal for a single-base trip with day excursions.
         </p>
         <p>
@@ -433,7 +455,7 @@
           days were dedicated to day trips: Sassenheim for the Flower Parade, Haarlem for its charming
           streets and windmill, Keukenhof for the tulip gardens and cycling through flower fields,
           a countryside tour to Volendam and Zaanse Schans, a rental car day to The Hague and Delft,
-          and another driving day to Rotterdam, Kinderdijk, and Leiden. The pacing felt right &mdash;
+          and another driving day to Rotterdam, Kinderdijk, and Leiden. The pacing felt right:
           busy but not exhausting, with enough variety to keep each day fresh.
         </p>
 
@@ -446,7 +468,7 @@
             <span class="info-box-label">You want to see millions of tulips in bloom at the world's most famous flower garden</span>
           </div>
           <div class="info-box-row">
-            <span class="info-box-label">You're interested in Dutch masters &mdash; Van Gogh, Vermeer, Rembrandt</span>
+            <span class="info-box-label">You're interested in Dutch masters: Van Gogh, Vermeer, Rembrandt</span>
           </div>
           <div class="info-box-row">
             <span class="info-box-label">You love cycling through flat countryside and flower fields</span>
@@ -503,37 +525,37 @@
           Amsterdam was both our base and the anchor for three very different days: the arrival day
           exploring the town center, a full museum and canal day, and a countryside tour returning
           to the city for the Heineken Experience. The M&ouml;venpick is well located near Centraal
-          Station &mdash; walkable to most of the canal ring, with easy access to the ferry terminal
+          Station, walkable to most of the canal ring, with easy access to the ferry terminal
           and tram lines. The city rewards walking, but cycling is the real way to experience
-          Amsterdam &mdash; flat, well-signed, and thrilling once you get used to the pace.
+          Amsterdam: flat, well-signed, and thrilling once you get used to the pace.
         </p>
 
         <div class="itinerary">
           <div class="day-card">
-            <div class="day-label">Day 1 &mdash; Apr 11 (Fri)</div>
+            <div class="day-label">Day 1 &middot; Apr 11 (Fri)</div>
             <div class="day-title">Arrival &amp; Amsterdam Town Center</div>
             <div class="day-desc">
               Arrived Schiphol at 9:40am on Turkish Airlines TK 55/1951, transferred to
               <a href="https://maps.app.goo.gl/mYgfddAE1cv7is3i9" target="_blank" rel="noopener"><strong>M&ouml;venpick Hotel Amsterdam City Centre</strong></a> and dropped bags.
-              Lunch at <strong>The Pancake Bakery</strong> &mdash; classic Dutch pancakes, both
+              Lunch at <strong>The Pancake Bakery</strong>: classic Dutch pancakes, both
               savory and sweet, in a cozy canal-side setting. A proper introduction to Amsterdam.<br><br>
-              Walked to <a href="https://maps.app.goo.gl/JPkjfKrVpvn4gAHU7" target="_blank" rel="noopener"><strong>Dam Square</strong></a>, the historic heart of the city &mdash; the Royal
+              Walked to <a href="https://maps.app.goo.gl/JPkjfKrVpvn4gAHU7" target="_blank" rel="noopener"><strong>Dam Square</strong></a>, the historic heart of the city. The Royal
               Palace, the National Monument, and the Nieuwe Kerk all front this busy square. Then to
               <a href="https://maps.app.goo.gl/JYGij5GcVQTJSJRN9" target="_blank" rel="noopener"><strong>Van Stapele Koekmakerij</strong></a> for their famous dark chocolate cookies with
               white chocolate centers (they sell out, so go early or queue).<br><br>
-              <a href="https://maps.app.goo.gl/P8R3gDyjRUxGshLk6" target="_blank" rel="noopener"><strong>Begijnhof</strong></a> next &mdash; a hidden courtyard from the 14th century, one of
+              <a href="https://maps.app.goo.gl/P8R3gDyjRUxGshLk6" target="_blank" rel="noopener"><strong>Begijnhof</strong></a> next, a hidden courtyard from the 14th century, one of
               the oldest inner courts in Amsterdam. Serene and easy to miss if you don't know to look
               for the entrance. From there, <a href="https://maps.app.goo.gl/xvwS8dWaBgqEDH6R7" target="_blank" rel="noopener"><strong>Bloemenmarkt</strong></a>, the world's only floating
-              flower market. Touristy but beautiful &mdash; buy bulbs here if you want to take
+              flower market. Touristy but beautiful. Buy bulbs here if you want to take
               tulips home.<br><br>
-              Afternoon wandering through <a href="https://maps.app.goo.gl/unVpQhqHUq1ayQxP7" target="_blank" rel="noopener"><strong>De 9 Straatjes</strong></a> (Nine Streets) &mdash; nine
+              Afternoon wandering through <a href="https://maps.app.goo.gl/unVpQhqHUq1ayQxP7" target="_blank" rel="noopener"><strong>De 9 Straatjes</strong></a> (Nine Streets), nine
               charming streets connecting the main canal rings, filled with independent boutiques,
               vintage shops, and specialty cafes. Then a quick browse through <a href="https://maps.app.goo.gl/eyruYmTejaswdWhw6" target="_blank" rel="noopener"><strong>de Bijenkorf
               Amsterdam</strong></a>, the upscale department store on Dam Square.<br><br>
-              <a href="https://maps.app.goo.gl/bVxASPWJFTgkJgas8" target="_blank" rel="noopener"><strong>Manneken Pis Damrak</strong></a> for traditional Dutch fries &mdash; thick-cut,
+              <a href="https://maps.app.goo.gl/bVxASPWJFTgkJgas8" target="_blank" rel="noopener"><strong>Manneken Pis Damrak</strong></a> for traditional Dutch fries: thick-cut,
               served in a cone with mayo or peanut satay sauce. Dinner at <a href="https://maps.app.goo.gl/L371aYeMPsAkphi77" target="_blank" rel="noopener"><strong>Sampurna</strong></a>
-              for Indonesian rijsttafel &mdash; a "rice table" with a dozen small dishes.
-              Sampurna was one of the best meals of the entire trip &mdash; make a reservation.
+              for Indonesian rijsttafel, a "rice table" with a dozen small dishes.
+              Sampurna was one of the best meals of the entire trip, so make a reservation.
               The Netherlands' colonial connection to Indonesia means the Indonesian food here is
               genuinely excellent, and rijsttafel is the quintessential way to experience it.
             </div>
@@ -546,22 +568,22 @@
           </div>
 
           <div class="day-card" id="flower-parade">
-            <div class="day-label">Day 2 &mdash; Apr 12 (Sat)</div>
+            <div class="day-label">Day 2 &middot; Apr 12 (Sat)</div>
             <div class="day-title">Flower Parade Day</div>
             <div class="day-desc">
               Started with the <a href="https://maps.app.goo.gl/VN2UjohBJJnkiucx8" target="_blank" rel="noopener"><strong>Ferry F3</strong></a> behind Centraal Station across the IJ river
-              to Amsterdam Noord. Picked up <a href="https://maps.app.goo.gl/ybY4J7U9Dujak3tG8" target="_blank" rel="noopener"><strong>This is Holland</strong></a> exchange tickets &mdash; an
+              to Amsterdam Noord. Picked up <a href="https://maps.app.goo.gl/ybY4J7U9Dujak3tG8" target="_blank" rel="noopener"><strong>This is Holland</strong></a> exchange tickets. It's an
               interactive flying experience simulating a flight over Dutch landmarks. Quick stop at
               an <a href="https://maps.app.goo.gl/VLbJQxNDNYqqkHgK9" target="_blank" rel="noopener"><strong>AH Supermarket</strong></a> for snacks (Albert Heijn is everywhere and great
               for cheap sandwiches, drinks, and stroopwafels).<br><br>
               Transferred to <a href="https://maps.app.goo.gl/72B5UF1DP3VzcVKRA" target="_blank" rel="noopener"><strong>Grandstand Sassenheim</strong></a> for the annual <strong>Flower
               Parade (Bloemencorso)</strong>. This is a once-a-year event, usually mid-April Saturday,
               where enormous floats covered entirely in flowers parade through the Bollenstreek
-              (bulb region) towns. The floats are astonishing &mdash; intricate designs made from
+              (bulb region) towns. The floats are intricate designs made from
               millions of blooms, each one a work of art. Arrived early to secure grandstand
               seats; the parade passes Sassenheim around 11:50am. After the parade, the floats are
               parked on display for closer inspection.<br><br>
-              Getting back to Amsterdam took much longer than expected &mdash; around <strong>three
+              Getting back to Amsterdam took much longer than expected: around <strong>three
               hours</strong> with the tour due to heavy traffic. Everyone is heading back at the same
               time after the parade, so be prepared for a slow return. We'd originally planned to do
               This is Holland in the afternoon, but by the time we got back we were wiped. Late lunch
@@ -576,22 +598,22 @@
           </div>
 
           <div class="day-card" id="haarlem">
-            <div class="day-label">Day 3 &mdash; Apr 13 (Sun)</div>
+            <div class="day-label">Day 3 &middot; Apr 13 (Sun)</div>
             <div class="day-title">Haarlem Day Trip</div>
             <div class="day-desc">
               Quick 15-minute train ride to <a href="https://maps.app.goo.gl/wsfsxWNogV8De8Tg9" target="_blank" rel="noopener"><strong>Haarlem</strong></a>, one of the prettiest towns in
               the Netherlands. Started at <a href="https://maps.app.goo.gl/Q3kyDwD3NBAoSyp59" target="_blank" rel="noopener"><strong>Amsterdamse Poort</strong></a>, the medieval city gate
-              &mdash; the last surviving gate of the original twelve, dating to around 1355.<br><br>
-              <a href="https://maps.app.goo.gl/NAviENoDpUZCcDid8" target="_blank" rel="noopener"><strong>Molen De Adriaan</strong></a> English tour &mdash; an iconic windmill on the banks
+              and the last surviving gate of the original twelve, dating to around 1355.<br><br>
+              <a href="https://maps.app.goo.gl/NAviENoDpUZCcDid8" target="_blank" rel="noopener"><strong>Molen De Adriaan</strong></a> English tour, an iconic windmill on the banks
               of the Spaarne river. The guided tour explains how windmills actually work and gives you
               access to the top for panoramic views over Haarlem's rooftops. Worth the 30 minutes.<br><br>
-              Lunch at <a href="https://maps.app.goo.gl/xfdBt1ju2EQbDcH67" target="_blank" rel="noopener"><strong>by Lima</strong></a>, then a stroll through <a href="https://maps.app.goo.gl/xxk53QPK8a37WXcN8" target="_blank" rel="noopener"><strong>Grote Markt</strong></a>
-              &mdash; the main market square surrounded by medieval buildings, the Grote Kerk (St Bavo
+              Lunch at <a href="https://maps.app.goo.gl/xfdBt1ju2EQbDcH67" target="_blank" rel="noopener"><strong>by Lima</strong></a>, then a stroll through <a href="https://maps.app.goo.gl/xxk53QPK8a37WXcN8" target="_blank" rel="noopener"><strong>Grote Markt</strong></a>,
+              the main market square surrounded by medieval buildings, the Grote Kerk (St Bavo
               Church), and lively with a fair and post-parade float displays on this particular weekend.<br><br>
-              <a href="https://maps.app.goo.gl/ooRDcCsg4EorYobh8" target="_blank" rel="noopener"><strong>Teylers Museum</strong></a> &mdash; the oldest museum in the Netherlands (founded 1778).
+              <a href="https://maps.app.goo.gl/ooRDcCsg4EorYobh8" target="_blank" rel="noopener"><strong>Teylers Museum</strong></a>, the oldest museum in the Netherlands (founded 1778).
               An eclectic collection spanning fossils, scientific instruments, coins, and paintings,
               housed in beautifully preserved period rooms. The oval room alone is worth the visit.<br><br>
-              Walked the charming streets, then tea at <a href="https://maps.app.goo.gl/GmsfAaBdfLoHTY297" target="_blank" rel="noopener"><strong>Jopenkerk</strong></a> &mdash; a converted
+              Walked the charming streets, then tea at <a href="https://maps.app.goo.gl/GmsfAaBdfLoHTY297" target="_blank" rel="noopener"><strong>Jopenkerk</strong></a>, a converted
               church now housing a brewery and cafe. The interior is spectacular: stained glass windows
               and vaulted ceilings with copper brewing equipment. Dinner at <a href="https://maps.app.goo.gl/94dxw4dpvuhjq4je6" target="_blank" rel="noopener"><strong>De Lachende
               Javaan</strong></a> for more Indonesian food. Train back to Amsterdam.
@@ -605,30 +627,30 @@
           </div>
 
           <div class="day-card" id="keukenhof">
-            <div class="day-label">Day 4 &mdash; Apr 14 (Mon)</div>
+            <div class="day-label">Day 4 &middot; Apr 14 (Mon)</div>
             <div class="day-title">Keukenhof Tulip Fields</div>
             <div class="day-desc">
               The day we came for. Uber to <a href="https://maps.app.goo.gl/bXX8esa3JmhxJpLR7" target="_blank" rel="noopener"><strong>Amsterdam RAI</strong></a>, then the Keukenhof combo
-              bus to the gardens. Arrived right at <strong>8:00am opening</strong> &mdash; critical
+              bus to the gardens. Arrived right at <strong>8:00am opening</strong>, which is critical
               for beating the crowds. Started with the <a href="https://maps.app.goo.gl/2A2P2fdqzLE8Ncaa6" target="_blank" rel="noopener"><strong>windmill area</strong></a> in the back of the park,
               then worked through <a href="https://maps.app.goo.gl/gzg8zkqrxhgxQLUM7" target="_blank" rel="noopener"><strong>Wilhelmina</strong> and <strong>Juliana</strong></a> garden
               sections, followed by <a href="https://maps.app.goo.gl/fsCGdqkUteSVCLkv8" target="_blank" rel="noopener"><strong>Willem-Alexander</strong> and <strong>Oranje Nassau</strong></a>
               pavilions and the remaining exhibition halls.<br><br>
-              Keukenhof is staggering. Seven million bulbs across 32 hectares &mdash; tulips, hyacinths,
+              Keukenhof is staggering. Seven million bulbs across 32 hectares: tulips, hyacinths,
               daffodils, and dozens of other varieties in every colour imaginable. The indoor pavilions
               are just as impressive, with themed exhibitions and special cultivars. Mid-April is peak
-              bloom &mdash; every bed was at its fullest.<br><br>
+              bloom, and every bed was at its fullest.<br><br>
               At 12:30 we <a href="https://maps.app.goo.gl/wfzjjLYEwgWxRk2u6" target="_blank" rel="noopener"><strong>rented bikes</strong></a> from the park to explore the surrounding flower
-              fields. This is the hidden gem of the Keukenhof experience &mdash; cycling through vast
+              fields. This was the best part of the Keukenhof day: cycling through vast
               commercial tulip fields stretching to the horizon, row after row of colour. A practical
               tip: you can always leave the park with your bike, explore the fields, and return to
-              Keukenhof to continue sightseeing. Don't try to hit every farm on the route though &mdash;
-              it's very difficult to do all of them in one day. Pick one and enjoy it properly. We
+              Keukenhof to continue sightseeing. Don't try to hit every farm on the route though.
+              It's very difficult to do all of them in one day. Pick one and enjoy it properly. We
               chose <a href="https://maps.app.goo.gl/dvYhuQV4Ps7mR3kV8" target="_blank" rel="noopener"><strong>Tulip Experience Amsterdam</strong></a> because they had a great indoor museum
-              before the fields &mdash; the outdoor fields are smaller, but the museum makes up for it.
+              before the fields. The outdoor fields are smaller, but the museum makes up for it.
               Lunch at <a href="https://maps.app.goo.gl/svkoHmCaQRv6vxZ47" target="_blank" rel="noopener"><strong>Hofboerderij</strong></a>, a farm-style restaurant near the park. Then
               <a href="https://maps.app.goo.gl/T2KrVVQPeySjdsWv6" target="_blank" rel="noopener"><strong>Keukenhof Castle</strong></a> before returning bikes.<br><br>
-              Back to Amsterdam. Dinner at <a href="https://maps.app.goo.gl/kFUgWg7J5CFDcqEbA" target="_blank" rel="noopener"><strong>Loetje</strong></a> &mdash; known for their biefstuk
+              Back to Amsterdam. Dinner at <a href="https://maps.app.goo.gl/kFUgWg7J5CFDcqEbA" target="_blank" rel="noopener"><strong>Loetje</strong></a>, known for their biefstuk
               (steak), a local institution.
             </div>
             <div class="day-tags">
@@ -640,10 +662,10 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 5 &mdash; Apr 15 (Tue)</div>
+            <div class="day-label">Day 5 &middot; Apr 15 (Tue)</div>
             <div class="day-title">Amsterdam Museums &amp; Canals</div>
             <div class="day-desc">
-              Full museum day. <a href="https://maps.app.goo.gl/4SU55mWCVkJ5v9Ww5" target="_blank" rel="noopener"><strong>Van Gogh Museum</strong></a> in the morning &mdash; spent over
+              Full museum day. <a href="https://maps.app.goo.gl/4SU55mWCVkJ5v9Ww5" target="_blank" rel="noopener"><strong>Van Gogh Museum</strong></a> in the morning and spent over
               four hours here. The collection is extraordinary: from the early dark Dutch period
               through the explosion of colour in Arles and Saint-R&eacute;my. Seeing the progression
               of his work chronologically, room by room, is far more powerful than encountering
@@ -651,16 +673,16 @@
               Lunch at <a href="https://maps.app.goo.gl/JSvrc3fQjR98HqXJ7" target="_blank" rel="noopener"><strong>The Pantry</strong></a> for traditional Dutch food, or <strong>The Seafood
               Bar</strong> nearby if you're in the mood for fresh oysters and fish.<br><br>
               <a href="https://maps.app.goo.gl/h36qjtSjHBKerHny6" target="_blank" rel="noopener"><strong>Anne Frank House</strong></a> at 3pm (pre-booked). This is a must but also deeply
-              sobering. The house itself is small and austere &mdash; walking through the concealed
+              sobering. The house itself is small and austere. Walking through the concealed
               annex where the Frank family hid for two years is an experience that stays with you.
               Tickets release online about six weeks ahead and sell out within minutes. Set a reminder
               and be ready to book the moment they go live.<br><br>
-              Late afternoon <a href="https://maps.app.goo.gl/2UvFWcZUgmNe6efV9" target="_blank" rel="noopener"><strong>canal tour with Those Dam Boat Guys</strong></a> &mdash; a
+              Late afternoon <a href="https://maps.app.goo.gl/2UvFWcZUgmNe6efV9" target="_blank" rel="noopener"><strong>canal tour with Those Dam Boat Guys</strong></a>, a
               small-boat, guide-led tour (~75 minutes) through the UNESCO-listed canal ring. More
               intimate than the big tourist boats, with local stories and good commentary. Desserts
-              at <a href="https://maps.app.goo.gl/B39VdJ4v4bWPikSn7" target="_blank" rel="noopener"><strong>Winkel 43</strong></a> for their famous apple pie &mdash; widely considered the
+              at <a href="https://maps.app.goo.gl/B39VdJ4v4bWPikSn7" target="_blank" rel="noopener"><strong>Winkel 43</strong></a> for their famous apple pie, widely considered the
               best in Amsterdam, served warm with whipped cream.<br><br>
-              Dinner at <strong>De Kas</strong> &mdash; farm-to-table dining in a converted greenhouse
+              Dinner at <strong>De Kas</strong>: farm-to-table dining in a converted greenhouse
               on the outskirts of the city. The restaurant grows its own herbs and vegetables in the
               surrounding gardens. A special meal.
             </div>
@@ -673,25 +695,25 @@
           </div>
 
           <div class="day-card">
-            <div class="day-label">Day 6 &mdash; Apr 16 (Wed)</div>
+            <div class="day-label">Day 6 &middot; Apr 16 (Wed)</div>
             <div class="day-title">Countryside &amp; Windmills Tour</div>
             <div class="day-desc">
               Full-day guided tour to <strong>Volendam</strong>, <strong>Marken</strong>, and
               <strong>Zaanse Schans</strong>. Booked through tours-tickets.com. The tour covers the
-              traditional Dutch countryside &mdash; fishing villages, wooden shoe demonstrations,
+              traditional Dutch countryside: fishing villages, wooden shoe demonstrations,
               cheese-making, and the iconic windmills of Zaanse Schans.<br><br>
-              <strong>Volendam</strong> is a picturesque fishing village on the Markermeer lake &mdash;
+              <strong>Volendam</strong> is a picturesque fishing village on the Markermeer lake, with
               colourful wooden houses along the harbour, fish stalls selling smoked eel and kibbeling.
               <strong>Marken</strong> is a former island village with characteristic green wooden houses.
-              <strong>Zaanse Schans</strong> is the star &mdash; an open-air museum with working
+              <strong>Zaanse Schans</strong> is the star, an open-air museum with working
               windmills, a pewter factory, a clog workshop, and a cheese farm. Touristy, yes, but worth
               it for first-timers. The windmills against the flat Dutch sky are exactly as photogenic as
               you'd expect.<br><br>
               Returned to Amsterdam around 3pm. Quick <a href="https://maps.app.goo.gl/Aa35XkhWDZfwmAr76" target="_blank" rel="noopener"><strong>laundry run at Wash Place</strong></a> (useful
-              to know about for a longer trip), then the <a href="https://maps.app.goo.gl/gLvccBhufF2g2hep9" target="_blank" rel="noopener"><strong>Heineken Experience</strong></a> &mdash; an
+              to know about for a longer trip), then the <a href="https://maps.app.goo.gl/gLvccBhufF2g2hep9" target="_blank" rel="noopener"><strong>Heineken Experience</strong></a>, an
               interactive brewery tour through the original Heineken brewery. More entertaining than
               expected, with a tasting at the end. Book online to skip the queue.<br><br>
-              Dinner at <a href="https://maps.app.goo.gl/cd98ke9yagK64Nq69" target="_blank" rel="noopener"><strong>Sea Palace</strong></a> &mdash; a floating Chinese restaurant in the harbour
+              Dinner at <a href="https://maps.app.goo.gl/cd98ke9yagK64Nq69" target="_blank" rel="noopener"><strong>Sea Palace</strong></a>, a floating Chinese restaurant in the harbour
               near Centraal Station. The setting is unique even if the food is more about location.
             </div>
             <div class="day-tags">
@@ -712,35 +734,35 @@
 
         <p>
           Day 7 was our first rental car day. Enterprise pick-up near Centraal Station, then south
-          to The Hague and Delft. The Netherlands is small and the motorways are excellent &mdash;
+          to The Hague and Delft. The Netherlands is small and the motorways are excellent.
           The Hague is about 50 minutes from Amsterdam, and Delft is just 15 minutes further. Having
           a car made the day flexible and allowed us to catch sunset at the coast.
         </p>
 
         <div class="itinerary">
           <div class="day-card">
-            <div class="day-label">Day 7 &mdash; Apr 17 (Thu)</div>
+            <div class="day-label">Day 7 &middot; Apr 17 (Thu)</div>
             <div class="day-title">Madurodam, Royal Delft &amp; Sunset at De Pier</div>
             <div class="day-desc">
               Picked up the rental car at <a href="https://maps.app.goo.gl/eyEzhKdxaFJDB9z76" target="_blank" rel="noopener"><strong>Enterprise</strong></a> and drove to The Hague.
               First stop: <a href="https://maps.app.goo.gl/6ximaEmwp6LCGN1g9" target="_blank" rel="noopener"><strong>Madurodam</strong></a>, a miniature park with 1:25 scale models of famous
-              Dutch landmarks, buildings, and infrastructure. Sounds kitsch but it's genuinely well done
-              &mdash; interactive exhibits, working models, and a great way to see the entire country
+              Dutch landmarks, buildings, and infrastructure. Sounds kitsch but it's genuinely well done,
+              with interactive exhibits, working models, and a great way to see the entire country
               in miniature before seeing it for real.<br><br>
-              Drove to <strong>Delft</strong> &mdash; a beautiful canal town and the birthplace of
+              Drove to <strong>Delft</strong>, a beautiful canal town and the birthplace of
               Vermeer. <a href="https://maps.app.goo.gl/TqtPqwrZdJrLBfKv5" target="_blank" rel="noopener"><strong>Royal Delft Store</strong></a> for the iconic blue-and-white Delftware
-              pottery. Had <strong>high tea lunch at Royal Delft</strong> &mdash; served on Delftware,
+              pottery. Had <strong>high tea lunch at Royal Delft</strong>, served on Delftware,
               naturally. Then the hands-on highlight: a <strong>traditional tile painting workshop</strong>
-              where you paint your own Delft tile under guidance. Book in advance &mdash; it's a genuine
+              where you paint your own Delft tile under guidance. Book in advance. It's a genuine
               craft experience, not a tourist assembly line. Toured the <strong>Royal Delft Museum</strong>
               to see the full production process and historic collections.<br><br>
-              Back to <a href="https://maps.app.goo.gl/XwYCHsRbzDT8Bpay9" target="_blank" rel="noopener"><strong>The Hague</strong></a> to explore the city center &mdash; the Binnenhof
+              Back to <a href="https://maps.app.goo.gl/XwYCHsRbzDT8Bpay9" target="_blank" rel="noopener"><strong>The Hague</strong></a> to explore the city center: the Binnenhof
               (the Dutch parliament complex), Mauritshuis exterior (home of Vermeer's "Girl with a
               Pearl Earring"), and the surrounding streets. Dinner at <a href="https://maps.app.goo.gl/fSqTmpCFGNUH8o1X8" target="_blank" rel="noopener"><strong>Waroeng Padang
-              Lapek</strong></a> for more Indonesian food &mdash; the Indonesian restaurants in The Hague
+              Lapek</strong></a> for more Indonesian food. The Indonesian restaurants in The Hague
               are arguably even better than Amsterdam's.<br><br>
               Ended the day at <a href="https://maps.app.goo.gl/cFuARuCmfckNSfpx7" target="_blank" rel="noopener"><strong>De Pier</strong></a> in Scheveningen, The Hague's seaside district.
-              Sunset at approximately 20:44 &mdash; watching the sun drop into the North Sea from
+              Sunset at approximately 20:44. Watching the sun drop into the North Sea from
               the pier is a perfect way to close the day.
             </div>
             <div class="day-tags">
@@ -762,32 +784,32 @@
         <p>
           The second rental car day covered the most ground: south to Kinderdijk for the UNESCO
           windmills, then Rotterdam for modern architecture and the Markthal, and a dinner stop
-          in historic Leiden on the way back. A long day but every stop was worth it &mdash;
+          in historic Leiden on the way back. A long day but every stop was worth it, and
           <strong>Kinderdijk especially is unmissable</strong>.
         </p>
 
         <div class="itinerary">
           <div class="day-card">
-            <div class="day-label">Day 8 &mdash; Apr 18 (Fri)</div>
+            <div class="day-label">Day 8 &middot; Apr 18 (Fri)</div>
             <div class="day-title">UNESCO Kinderdijk, Rotterdam &amp; Leiden</div>
             <div class="day-desc">
-              Departed Amsterdam by car, driving south to <a href="https://maps.app.goo.gl/CoyStcqStZWHYD4f8" target="_blank" rel="noopener"><strong>Kinderdijk</strong></a> &mdash; a
+              Departed Amsterdam by car, driving south to <a href="https://maps.app.goo.gl/CoyStcqStZWHYD4f8" target="_blank" rel="noopener"><strong>Kinderdijk</strong></a>, a
               UNESCO World Heritage site with 19 historic windmills built around 1740 to drain the
               polders. Started with the <strong>Secondary Pumping Station film</strong> for context,
               then visited <strong>Blokweer Museum Mill</strong> (see how a windmill keeper's family
               actually lived), <strong>Nederwaard Museum Mill</strong> (the working mechanics of
               water management), and <strong>Wisboom Pumping Station</strong>. The scale of the
-              Dutch water management system is extraordinary &mdash; the entire country exists because
-              of these engineering feats. This was one of the highlights of the entire trip &mdash;
-              don't skip it. Shuttle back to the car park.<br><br>
-              Drove to <a href="https://maps.app.goo.gl/aopWBVZhmysd2aoy8" target="_blank" rel="noopener"><strong>Rotterdam</strong></a> &mdash; a completely different city from Amsterdam.
+              Dutch water management system is extraordinary: the entire country exists because
+              of these engineering feats. This was one of the highlights of the entire trip,
+              so don't skip it. Shuttle back to the car park.<br><br>
+              Drove to <a href="https://maps.app.goo.gl/aopWBVZhmysd2aoy8" target="_blank" rel="noopener"><strong>Rotterdam</strong></a>, a completely different city from Amsterdam.
               Bombed flat in WWII and rebuilt with bold modern architecture, Rotterdam feels more like
               a contemporary design showcase. Lunch at <a href="https://maps.app.goo.gl/gPvQSvTmtXFXYWxT8" target="_blank" rel="noopener"><strong>De Ballentent</strong></a> by the harbour.
               Walked through <a href="https://maps.app.goo.gl/FQqQoNJBqXhV4Z5n9" target="_blank" rel="noopener"><strong>Museum Park</strong></a> and <strong>Het Park</strong>, past the
               <a href="https://maps.app.goo.gl/FJ9XCKABp6Sy1otB6" target="_blank" rel="noopener"><strong>Art Depot Museum</strong></a> exterior (the mirrored-bowl Depot Boijmans, striking
-              from outside). <a href="https://maps.app.goo.gl/cogapwWhhQGK8gXe9" target="_blank" rel="noopener"><strong>Het Kijk Kubus Museum House</strong></a> &mdash; the famous Cube
+              from outside). <a href="https://maps.app.goo.gl/cogapwWhhQGK8gXe9" target="_blank" rel="noopener"><strong>Het Kijk Kubus Museum House</strong></a>: the famous Cube
               Houses by Piet Blom, one of which is open as a museum showing how people actually live
-              inside these tilted cubes. Finally, <a href="https://maps.app.goo.gl/Ai66yytpkHpKgBSG8" target="_blank" rel="noopener"><strong>Markthal</strong></a> &mdash; a horseshoe-shaped
+              inside these tilted cubes. Finally, <a href="https://maps.app.goo.gl/Ai66yytpkHpKgBSG8" target="_blank" rel="noopener"><strong>Markthal</strong></a>, a horseshoe-shaped
               building with apartments arching over a covered market hall, its ceiling covered in a
               massive colourful mural. Great architecture and great food stalls.<br><br>
               Left Rotterdam and drove to <a href="https://maps.app.goo.gl/XrJxC4uAWVDutLnK9" target="_blank" rel="noopener"><strong>Leiden</strong></a> for dinner at <a href="https://maps.app.goo.gl/Yh1uTPNXYRLRoSMw7" target="_blank" rel="noopener"><strong>Waag</strong></a>,
@@ -805,7 +827,7 @@
         </div>
 
         <!-- ── FINAL DAY ──────────────────────────────────────────────────── -->
-        <h2 id="final-day">Final Day &mdash; Amsterdam</h2>
+        <h2 id="final-day">Final Day: Amsterdam</h2>
         <div class="city-section-header">
           <span class="city-name">Amsterdam</span>
           <span class="city-nights">Departure day</span>
@@ -813,21 +835,21 @@
 
         <div class="itinerary">
           <div class="day-card">
-            <div class="day-label">Day 9 &mdash; Apr 19 (Sat)</div>
+            <div class="day-label">Day 9 &middot; Apr 19 (Sat)</div>
             <div class="day-title">This is Holland, Albert Cuyp Market &amp; Departure</div>
             <div class="day-desc">
-              Started the final day with <strong>This is Holland</strong> &mdash; this is a must-go.
+              Started the final day with <strong>This is Holland</strong>, which is a must-go.
               We'd originally planned it for Day 2 but the flower parade traffic wiped us out. The
               flying simulation is incredibly well done and gives you a breathtaking bird's-eye view
               of the Dutch landscape, windmills, and tulip fields. You'll feel the wind and even
               catch scents of the flowers below. One of the standout experiences of the trip.
               Pick up your exchange tickets at the venue.<br><br>
-              Then over to <strong>Albert Cuyp Market</strong> &mdash; Amsterdam's most famous
+              Then over to <strong>Albert Cuyp Market</strong>, Amsterdam's most famous
               and largest street market, running daily in the De Pijp neighbourhood. Over 250 stalls
               selling everything from fresh stroopwafels and herring to cheese, flowers, and clothing.
               A great last stop for snacks, souvenirs, and soaking in the local atmosphere.<br><br>
               Headed to Schiphol for the 18:25 flight, Turkish Airlines TK 1954/54 back to Singapore.
-              Arrive 3 hours early for Schiphol departure &mdash; the airport can be slow during tulip
+              Arrive 3 hours early for Schiphol departure, as the airport can be slow during tulip
               season, and you'll want time for the tax refund e-kiosks.
             </div>
             <div class="day-tags">
@@ -844,14 +866,14 @@
         <h3>Book Anne Frank House tickets the moment they go on sale</h3>
         <p>
           Tickets release online approximately six weeks before your visit date. They sell out
-          within minutes &mdash; often in under two minutes. Set an alarm, have the page loaded,
+          within minutes, often in under two minutes. Set an alarm, have the page loaded,
           and be ready to click the instant they go live. This is not an exaggeration. If you miss
           the window, your only option is the last-minute release on the day (very limited).
         </p>
 
-        <h3>Spend more time at Keukenhof &mdash; arrive right at opening</h3>
+        <h3>Spend more time at Keukenhof: arrive right at opening</h3>
         <p>
-          Keukenhof opens at 8am and the first hour is magical &mdash; almost no crowds, perfect
+          Keukenhof opens at 8am and the first hour is the best: almost no crowds, perfect
           light for photos, and the gardens feel like they're yours alone. Plan for a full day:
           the gardens in the morning, bike the surrounding flower fields in the afternoon. We did
           this and it still felt like we could have stayed longer.
@@ -860,14 +882,14 @@
         <h3>Stay near the gardens instead of Amsterdam</h3>
         <p>
           If I did this trip again, I'd fly into Schiphol, rent a car immediately, and drive to
-          stay near the tulip fields &mdash; somewhere around <strong>Lisse</strong>,
+          stay near the tulip fields, somewhere around <strong>Lisse</strong>,
           <strong>Noordwijk</strong> (a nice beach town), or even <strong>Haarlem</strong>. This puts
           you right next to Keukenhof, the flower fields, and the parade route. You'd wake up
           surrounded by tulips instead of commuting an hour each way from Amsterdam. Save the
           Amsterdam hotel for the museum and city days later in the trip.
         </p>
 
-        <h3>The flower parade route is longer than you think &mdash; use it</h3>
+        <h3>The flower parade route is longer than you think, so use it</h3>
         <p>
           The Bloemencorso doesn't just pass through Sassenheim. The floats start at
           <strong>Noordwijk</strong> (the beach town) the day before the parade for an evening
@@ -882,7 +904,7 @@
         <p>
           The driving days (Days 7 and 8) were long. An overnight in Rotterdam or The Hague would
           have broken up the driving and given more time to explore each city properly. Rotterdam
-          in particular deserves more than an afternoon &mdash; the modern architecture and food
+          in particular deserves more than an afternoon. The modern architecture and food
           scene justify a full day.
         </p>
 
@@ -896,10 +918,10 @@
 
         <h3>Rent a bike in Amsterdam for at least one day</h3>
         <p>
-          Amsterdam is built for cycling. The bike infrastructure is extraordinary &mdash; dedicated
+          Amsterdam is built for cycling. The bike infrastructure is excellent: dedicated
           lanes everywhere, traffic lights for cyclists, and a city that's perfectly flat. Walking
           is fine, but cycling lets you cover three times the ground and experience the city the way
-          locals do. Just watch the bike lanes when you're on foot &mdash; locals will ring at you.
+          locals do. Just watch the bike lanes when you're on foot, because locals will ring at you.
         </p>
 
         <!-- ── Booking Guide ────────────────────────────────────────────── -->
@@ -924,7 +946,7 @@
             </tr>
             <tr>
               <td><strong>Anne Frank House</strong></td>
-              <td style="text-align: left;">Tickets release online ~6 weeks ahead. Set a reminder &mdash; they sell out in minutes. This is the hardest ticket in Amsterdam.</td>
+              <td style="text-align: left;">Tickets release online ~6 weeks ahead. Set a reminder, as they sell out in minutes. This is the hardest ticket in Amsterdam.</td>
             </tr>
             <tr>
               <td><strong>Van Gogh Museum</strong></td>
@@ -932,7 +954,7 @@
             </tr>
             <tr>
               <td><strong>This is Holland</strong></td>
-              <td style="text-align: left;">Book at least a day in advance &mdash; slots sell out, especially during tulip season. Exchange tickets at the venue.</td>
+              <td style="text-align: left;">Book at least a day in advance, as slots sell out, especially during tulip season. Exchange tickets at the venue.</td>
             </tr>
             <tr>
               <td><strong>Heineken Experience</strong></td>
@@ -952,7 +974,7 @@
             </tr>
             <tr>
               <td><strong>Teylers Museum</strong></td>
-              <td style="text-align: left;">Book a timed entry online. The oldest museum in the Netherlands &mdash; art, science, and natural history in Haarlem.</td>
+              <td style="text-align: left;">Book a timed entry online. The oldest museum in the Netherlands: art, science, and natural history in Haarlem.</td>
             </tr>
             <tr>
               <td><strong>Flower Parade</strong></td>
@@ -989,7 +1011,7 @@
             </tr>
             <tr>
               <td><strong>6 weeks before</strong></td>
-              <td style="text-align: left;">Anne Frank House tickets (critical &mdash; set an alarm). This is the single most important booking of the trip.</td>
+              <td style="text-align: left;">Anne Frank House tickets (critical: set an alarm). This is the single most important booking of the trip.</td>
             </tr>
             <tr>
               <td><strong>1 month before</strong></td>
@@ -1021,83 +1043,52 @@
           </div>
           <div class="info-box-row">
             <span class="info-box-label">Temperature</span>
-            <span class="info-box-value">10&ndash;15&deg;C &mdash; layers essential</span>
+            <span class="info-box-value">10&ndash;15&deg;C: layers essential</span>
           </div>
           <div class="info-box-row">
             <span class="info-box-label">Weather</span>
-            <span class="info-box-value">Mix of sun and rain &mdash; always carry a rain jacket</span>
+            <span class="info-box-value">Mix of sun and rain: always carry a rain jacket</span>
           </div>
           <div class="info-box-row">
             <span class="info-box-label">Crowds</span>
-            <span class="info-box-value">High season for tulip tourism &mdash; book everything early</span>
+            <span class="info-box-value">High season for tulip tourism: book everything early</span>
           </div>
         </div>
 
         <p>
           Mid-April is the sweet spot. Keukenhof opens late March and runs to mid-May, but the
-          fullest blooms &mdash; when every bed is at peak colour &mdash; happen around the second
+          fullest blooms (when every bed is at peak colour) happen around the second
           and third weeks of April. The Flower Parade is timed to this period. Weather is
           unpredictable: expect anything from bright sunshine to sudden rain showers in the
           same afternoon. Pack layers and always have a compact rain jacket or umbrella.
         </p>
-
-        <!-- ── Photos ────────────────────────────────────────────────────── -->
-        <h2 id="photos">Photos</h2>
-        <p>Click any photo to view full-size. (Photos coming soon!)</p>
-
-        <div class="gallery" id="travel-gallery">
-          <a class="gallery-item featured" href="#" data-pswp-src="https://placehold.co/1200x800/1c1c24/64647a?text=Keukenhof+Tulips" data-pswp-width="1200" data-pswp-height="800">
-            <img class="gallery-img" src="https://placehold.co/600x400/1c1c24/64647a?text=Keukenhof+Tulips" alt="Keukenhof tulip gardens" loading="lazy" />
-            <div class="gallery-caption">Millions of tulips in bloom at Keukenhof</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Flower+Parade" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Flower+Parade" alt="Bloemencorso Flower Parade float" loading="lazy" />
-            <div class="gallery-caption">Flower Parade float at Sassenheim</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Kinderdijk" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Kinderdijk" alt="Kinderdijk windmills" loading="lazy" />
-            <div class="gallery-caption">UNESCO Kinderdijk windmills</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Zaanse+Schans" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Zaanse+Schans" alt="Zaanse Schans windmills" loading="lazy" />
-            <div class="gallery-caption">Historic windmills at Zaanse Schans</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Amsterdam+Canals" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Amsterdam+Canals" alt="Amsterdam canal houses" loading="lazy" />
-            <div class="gallery-caption">Amsterdam's UNESCO-listed canal ring</div>
-          </a>
-          <a class="gallery-item" href="#" data-pswp-src="https://placehold.co/800x600/1c1c24/64647a?text=Cube+Houses" data-pswp-width="800" data-pswp-height="600">
-            <img class="gallery-img" src="https://placehold.co/400x300/1c1c24/64647a?text=Cube+Houses" alt="Rotterdam Cube Houses" loading="lazy" />
-            <div class="gallery-caption">Piet Blom's Cube Houses in Rotterdam</div>
-          </a>
-        </div>
 
         <!-- ── What to Eat ──────────────────────────────────────────────── -->
         <h2 id="food">What to Eat</h2>
 
         <p>
           Dutch cuisine gets an unfair reputation. The street food is excellent, the cheese is
-          worth seeking out, and the Indonesian food &mdash; a legacy of the Netherlands' colonial history
-          &mdash; is genuinely the best you'll find outside Indonesia. Here's what to prioritise:
+          worth seeking out, and the Indonesian food (a legacy of the Netherlands' colonial history)
+          is genuinely the best you'll find outside Indonesia. Here's what to prioritise:
         </p>
 
         <div class="info-box">
           <div class="info-box-title">Dutch Must-Eats</div>
-          <div class="info-box-row"><span class="info-box-label">Stroopwafel</span><span class="info-box-value">Warm, fresh from street stalls &mdash; not the packaged ones</span></div>
-          <div class="info-box-row"><span class="info-box-label">Dutch Pancakes</span><span class="info-box-value">The Pancake Bakery &mdash; savory and sweet, a full meal</span></div>
-          <div class="info-box-row"><span class="info-box-label">Bitterballen</span><span class="info-box-value">Deep-fried meat ragout balls with mustard &mdash; the bar snack staple</span></div>
+          <div class="info-box-row"><span class="info-box-label">Stroopwafel</span><span class="info-box-value">Warm, fresh from street stalls, not the packaged ones</span></div>
+          <div class="info-box-row"><span class="info-box-label">Dutch Pancakes</span><span class="info-box-value">The Pancake Bakery: savory and sweet, a full meal</span></div>
+          <div class="info-box-row"><span class="info-box-label">Bitterballen</span><span class="info-box-value">Deep-fried meat ragout balls with mustard, the bar snack staple</span></div>
           <div class="info-box-row"><span class="info-box-label">Frikandel</span><span class="info-box-value">Dutch minced meat sausage from snack bars</span></div>
-          <div class="info-box-row"><span class="info-box-label">Haring (Herring)</span><span class="info-box-value">Raw herring with onions &mdash; Dutch street food classic</span></div>
+          <div class="info-box-row"><span class="info-box-label">Haring (Herring)</span><span class="info-box-value">Raw herring with onions, a Dutch street food classic</span></div>
           <div class="info-box-row"><span class="info-box-label">Kibbeling</span><span class="info-box-value">Battered fried fish (usually cod) with garlic sauce</span></div>
-          <div class="info-box-row"><span class="info-box-label">Apple Pie</span><span class="info-box-value">Winkel 43 is the gold standard &mdash; warm with whipped cream</span></div>
+          <div class="info-box-row"><span class="info-box-label">Apple Pie</span><span class="info-box-value">Winkel 43 is the gold standard: warm with whipped cream</span></div>
           <div class="info-box-row"><span class="info-box-label">Dutch Fries</span><span class="info-box-value">Thick cut with mayo or peanut satay sauce</span></div>
           <div class="info-box-row"><span class="info-box-label">Poffertjes</span><span class="info-box-value">Mini fluffy pancakes with powdered sugar and butter</span></div>
-          <div class="info-box-row"><span class="info-box-label">Cheese</span><span class="info-box-value">Gouda, Edam, aged varieties &mdash; buy at markets</span></div>
+          <div class="info-box-row"><span class="info-box-label">Cheese</span><span class="info-box-value">Gouda, Edam, aged varieties, bought at markets</span></div>
         </div>
 
         <div class="info-box">
-          <div class="info-box-title">Indonesian Connection (Colonial Heritage &mdash; Excellent in NL)</div>
-          <div class="info-box-row"><span class="info-box-label">Rijsttafel</span><span class="info-box-value">12&ndash;20 small dishes &mdash; the quintessential colonial Dutch meal</span></div>
+          <div class="info-box-title">Indonesian Connection (Colonial Heritage, Excellent in NL)</div>
+          <div class="info-box-row"><span class="info-box-label">Rijsttafel</span><span class="info-box-value">12&ndash;20 small dishes, the quintessential colonial Dutch meal</span></div>
           <div class="info-box-row"><span class="info-box-label">Nasi Goreng</span><span class="info-box-value">Indonesian fried rice, practically Dutch comfort food</span></div>
           <div class="info-box-row"><span class="info-box-label">Rendang</span><span class="info-box-value">Slow-cooked beef in coconut and spices</span></div>
           <div class="info-box-row"><span class="info-box-label">Satay</span><span class="info-box-value">Grilled skewers with peanut sauce</span></div>
@@ -1106,10 +1097,10 @@
         <div class="callout">
           <strong>Don't skip Indonesian food:</strong> The Netherlands has arguably the best Indonesian
           food outside Indonesia, thanks to centuries of colonial history. Rijsttafel (rice table) is
-          the must-try &mdash; a parade of 12&ndash;20 small dishes served with rice.
-          <strong>Sampurna</strong> in Amsterdam was genuinely excellent &mdash; one of the best meals
+          the must-try: a parade of 12&ndash;20 small dishes served with rice.
+          <strong>Sampurna</strong> in Amsterdam was genuinely excellent, one of the best meals
           of the trip. De Lachende Javaan in Haarlem and Waroeng Padang Lapek in The Hague were
-          also great. Make reservations in advance for all of these &mdash; they fill up quickly,
+          also great. Make reservations in advance for all of these, as they fill up quickly,
           especially during tulip season.
         </div>
 
@@ -1117,28 +1108,34 @@
         <h2 id="tips">Quick Tips</h2>
         <ul>
           <li><strong>OV-chipkaart:</strong> Get an anonymous card at Schiphol for all public transport (trains, trams, buses, metro). Top up at machines throughout the country.</li>
-          <li><strong>Weather:</strong> April is unpredictable &mdash; pack layers and always carry a rain jacket or compact umbrella. You'll likely see sun and rain in the same afternoon.</li>
-          <li><strong>Cycling:</strong> Amsterdam is bike-first. Walk carefully in bike lanes (locals will ring at you). Consider renting a bike for at least one day &mdash; it transforms the experience.</li>
+          <li><strong>Weather:</strong> April is unpredictable. Pack layers and always carry a rain jacket or compact umbrella. You'll likely see sun and rain in the same afternoon.</li>
+          <li><strong>Cycling:</strong> Amsterdam is bike-first. Walk carefully in bike lanes (locals will ring at you). Consider renting a bike for at least one day. It makes getting around much easier.</li>
           <li><strong>Tipping:</strong> Not obligatory but 5&ndash;10% is appreciated at sit-down restaurants. Round up at cafes.</li>
-          <li><strong>Tax refund:</strong> Keep receipts for purchases above the minimum. Process the refund at Schiphol's e-kiosks before departure &mdash; quick and painless.</li>
-          <li><strong>Museums:</strong> Most require pre-booked timed entry. Don't assume you can walk up &mdash; especially Van Gogh Museum and Anne Frank House.</li>
+          <li><strong>Tax refund:</strong> Keep receipts for purchases above the minimum. Process the refund at Schiphol's e-kiosks before departure. It's quick.</li>
+          <li><strong>Museums:</strong> Most require pre-booked timed entry. Don't assume you can walk up, especially at the Van Gogh Museum and Anne Frank House.</li>
           <li><strong>Albert Heijn (AH):</strong> The main supermarket chain. Great for cheap snacks, sandwiches, and drinks on the go. Branches everywhere.</li>
           <li><strong>Indonesian food:</strong> The Netherlands has arguably the best Indonesian food outside Indonesia, thanks to colonial history. Don't miss rijsttafel at least once.</li>
-          <li><strong>Schiphol departure:</strong> The airport can be slow &mdash; arrive 3 hours early, especially during tulip season when it's packed with tourists.</li>
-          <li><strong>Car rental:</strong> If you're staying in the city centre (like M&ouml;venpick), be aware that parking is expensive and limited. The hotel is also a tram ride from Centraal Station, so factor that into your pickup plan. Enterprise near Centraal Station is convenient for day trips &mdash; the Netherlands is small enough to do The Hague, Delft, or Rotterdam as comfortable day drives.</li>
+          <li><strong>Schiphol departure:</strong> The airport can be slow, so arrive 3 hours early, especially during tulip season when it's packed with tourists.</li>
+          <li><strong>Car rental:</strong> If you're staying in the city centre (like M&ouml;venpick), be aware that parking is expensive and limited. The hotel is also a tram ride from Centraal Station, so factor that into your pickup plan. Enterprise near Centraal Station is convenient for day trips, and the Netherlands is small enough to do The Hague, Delft, or Rotterdam as comfortable day drives.</li>
         </ul>
 
         <hr class="divider" />
         <p>
           Nine days in the Netherlands during tulip season felt like the perfect amount of time.
-          The country is compact, beautiful, and endlessly varied &mdash; from Keukenhof's seven
+          The country is compact and varied, from Keukenhof's seven
           million blooms to Kinderdijk's UNESCO windmills, from Van Gogh's masterpieces to a
           quiet rijsttafel dinner. Hope this helps with planning. Feel free to
           <a href="mailto:haomingkoo@gmail.com">reach out</a> if you have questions.
         </p>
       </article>
-      <footer>&copy; 2025 Haoming Koo</footer>
-    </div>
+      <footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
+    </footer>
+    <script src="/assets/scripts/chrome.js" defer></script></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script type="module">
@@ -1236,6 +1233,7 @@
         dashArray: "8, 8",
       }).addTo(map);
 
+      const cityLabels = [];
       cities.forEach((c) => {
         const marker = L.circleMarker([c.lat, c.lng], {
           radius: c.nights > 0 ? 10 : 6,
@@ -1252,26 +1250,33 @@
           `<span style="color:#b0b0b8;font-size:12px">${c.highlights}</span>`
         );
 
-        L.marker([c.lat, c.lng], {
-          icon: L.divIcon({
-            className: "city-label",
-            html: c.name,
-            iconSize: [100, 16],
-            iconAnchor: [-8, 8],
-          }),
-        }).addTo(map);
-      });
+        cityLabels.push({ nights: c.nights, marker: L.marker([c.lat, c.lng], {
 
-      import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
+          icon: L.divIcon({ className: "city-label", html: `<span>${c.name}</span>`, iconSize: null }),
 
-      const lightbox = new PhotoSwipeLightbox({
-        gallery: "#travel-gallery",
-        children: "a.gallery-item",
-        pswpModule: () => import("https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.esm.min.js"),
-        bgOpacity: 0.92,
-        padding: { top: 20, bottom: 20, left: 20, right: 20 },
+          interactive: false, keyboard: false,
+
+        }).addTo(map) });
       });
-      lightbox.init();
+      // Hide or flip city labels that would collide with each other or the map controls.
+      function declutterLabels() {
+        const box = map.getContainer().getBoundingClientRect();
+        const placed = [...map.getContainer().querySelectorAll(".leaflet-control")].map((el) => el.getBoundingClientRect());
+        const clear = (r) => r.left >= box.left && r.right <= box.right && r.top >= box.top && r.bottom <= box.bottom &&
+          !placed.some((p) => r.left < p.right + 4 && r.right > p.left - 4 && r.top < p.bottom + 2 && r.bottom > p.top - 2);
+        [...cityLabels].sort((a, b) => b.nights - a.nights).forEach(({ marker }) => {
+          const el = marker.getElement();
+          if (!el) return;
+          el.classList.remove("is-left", "is-hidden");
+          let r = el.firstChild.getBoundingClientRect();
+          if (!clear(r)) { el.classList.add("is-left"); r = el.firstChild.getBoundingClientRect(); }
+          if (!clear(r)) { el.classList.add("is-hidden"); return; }
+          placed.push(r);
+        });
+      }
+      map.on("zoomend moveend resize", declutterLabels);
+      requestAnimationFrame(declutterLabels);
+
     </script>
   </body>
 </html>
