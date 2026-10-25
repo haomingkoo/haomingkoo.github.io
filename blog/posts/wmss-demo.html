@@ -8,12 +8,12 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <title>WMSS Interactive Demo — Weak-Driven Learning</title>
+  <title>WMSS Interactive Demo: Weak-Driven Learning</title>
   <meta name="description" content="Interactive visualization of WMSS: how weak agents make strong agents stronger through logit mixing and curriculum-enhanced training.">
   <link rel="canonical" href="https://kooexperience.com/blog/posts/wmss-demo.html" />
   <meta name="author" content="Haoming Koo" />
   <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="WMSS Interactive Demo — Weak-Driven Learning" />
+  <meta property="og:title" content="WMSS Interactive Demo: Weak-Driven Learning" />
   <meta property="og:description" content="Interactive visualization of WMSS: how weak agents make strong agents stronger through logit mixing and curriculum-enhanced training." />
   <meta property="og:url" content="https://kooexperience.com/blog/posts/wmss-demo.html" />
   <meta property="og:type" content="article" />
@@ -22,7 +22,7 @@
   <meta property="og:locale" content="en_SG" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://kooexperience.com/assets/og/wmss-demo.png" />
-  <meta name="twitter:title" content="WMSS Interactive Demo — Weak-Driven Learning" />
+  <meta name="twitter:title" content="WMSS Interactive Demo: Weak-Driven Learning" />
   <meta name="twitter:description" content="Interactive visualization of WMSS: how weak agents make strong agents stronger." />
   <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
   <link rel="stylesheet" href="/assets/fonts/fonts.css">
@@ -45,9 +45,7 @@
   --text-secondary: #b0b0b8;
   --muted: #8a8aa0;
   --live: #22c55e;
-  --purple: #a855f7;
   --amber: #f59e0b;
-  --red: #ef4444;
   --nav-bg: rgba(6,6,8,0.85);
   --code-bg: rgba(255,255,255,0.04);
 }
@@ -57,16 +55,9 @@
   --surface-hover: #f1f3f5;
   --border: #dde1e6;
   --border-hover: #c1c7cf;
-  --accent: #2563eb;
-  --accent-dim: rgba(37,99,235,0.08);
   --accent-glow: rgba(37,99,235,0.18);
   --text: #111827;
   --text-secondary: #4b5563;
-  --muted: #6b7280;
-  --live: #16a34a;
-  --purple: #7c3aed;
-  --amber: #d97706;
-  --red: #dc2626;
   --nav-bg: rgba(248,249,251,0.88);
   --code-bg: rgba(0,0,0,0.04);
 }
@@ -216,7 +207,7 @@ code,.mono{font-family:"JetBrains Mono",monospace;font-size:0.88em}
   transition:all .2s;display:inline-flex;align-items:center;gap:6px;
 }
 .btn:hover{border-color:var(--border-hover);background:var(--surface-hover)}
-.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .btn-primary:hover{filter:brightness(1.15)}
 .btn-sm{padding:5px 12px;font-size:12px;border-radius:8px}
 .btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
@@ -262,7 +253,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   transition:all .4s;position:relative;
 }
 .pipe-node.active{border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow)}
-.pipe-node.done{border-color:var(--live);opacity:0.7}
+.pipe-node.done{border-color:var(--live)}
 .pipe-node-title{font-size:13px;font-weight:600;color:var(--text)}
 .pipe-node-sub{font-size:11px;color:var(--muted);margin-top:2px}
 .pipe-arrow{
@@ -413,7 +404,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 }
 .train-step:hover{border-color:var(--border-hover);transform:translateY(-2px)}
 .train-step-num{
-  font-size:28px;font-weight:800;color:var(--accent);opacity:0.3;
+  font-size:28px;font-weight:800;color:var(--muted);
   font-family:"JetBrains Mono",monospace;
   position:absolute;top:12px;right:16px;
 }
@@ -512,7 +503,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   background:var(--surface);
 }
 .limit-card .limit-num{
-  font-size:20px;font-weight:800;color:var(--muted);opacity:0.4;
+  font-size:20px;font-weight:800;color:var(--muted);
   font-family:"JetBrains Mono",monospace;float:right;margin-left:8px;
 }
 .limit-card h4{font-size:13px;font-weight:700;margin-bottom:4px}
@@ -613,7 +604,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "WMSS Interactive Demo — Weak-Driven Learning",
+    "headline": "WMSS Interactive Demo: Weak-Driven Learning",
     "description": "Interactive visualization of WMSS: how weak agents make strong agents stronger through logit mixing and curriculum-enhanced training.",
     "url": "https://kooexperience.com/blog/posts/wmss-demo.html",
     "datePublished": "2026-03-13",
@@ -631,6 +622,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 (function(){try{var saved=localStorage.getItem("hk-theme")||localStorage.getItem("theme");if(saved)document.documentElement.setAttribute("data-theme",saved);}catch(e){}document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[aria-label=\"Toggle theme\"], .theme-btn, .theme-toggle, #themeToggle");if(!b)return;requestAnimationFrame(function(){try{var theme=document.documentElement.getAttribute("data-theme")||document.documentElement.dataset.theme||"dark";localStorage.setItem("hk-theme",theme);localStorage.setItem("theme",theme);}catch(e){}});},true);})();
 </script>
 <link rel="stylesheet" href="/system/chrome.css" />
+<link rel="stylesheet" href="/system/post-palette.css" />
 </head>
 <body>
 
@@ -1126,7 +1118,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
       </div>
 
       <div class="paradigm-card highlight">
-        <div class="paradigm-badge" style="background:rgba(59,130,246,0.15);color:var(--accent)">WMSS (This Paper)</div>
+        <div class="paradigm-badge" style="background:rgba(59,130,246,0.1);color:var(--accent)">WMSS (This Paper)</div>
         <h3>Weak-Driven Learning</h3>
         <div class="paradigm-flow">
           <span class="paradigm-node" style="border-color:var(--accent)">$M_{\text{strong}}$</span>
@@ -1660,7 +1652,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:16px">Early Training</div>
           <div style="display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:16px">
             <div style="width:48px;height:48px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--bg)">W</div>
-            <div style="width:52px;height:52px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">S</div>
+            <div style="width:52px;height:52px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--on-accent)">S</div>
           </div>
           <div style="font-size:12px;color:var(--text-secondary)">Weak influence: <strong style="color:var(--amber)">High</strong></div>
           <div style="font-size:11px;color:var(--muted);margin-top:4px">Weak model guides learning</div>
@@ -1671,8 +1663,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div style="text-align:center;padding:24px 20px;border-radius:14px;background:var(--code-bg);min-width:160px;border:1px solid var(--border)">
           <div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:16px">Mid Training</div>
           <div style="display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:16px">
-            <div style="width:32px;height:32px;border-radius:50%;background:var(--amber);opacity:0.5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--bg)">W</div>
-            <div style="width:60px;height:60px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">S</div>
+            <div style="width:32px;height:32px;border-radius:50%;background:color-mix(in srgb,var(--amber) 50%,var(--bg));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text)">W</div>
+            <div style="width:60px;height:60px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--on-accent)">S</div>
           </div>
           <div style="font-size:12px;color:var(--text-secondary)">Weak influence: <strong style="color:var(--purple)">Fading</strong></div>
           <div style="font-size:11px;color:var(--muted);margin-top:4px">Strong model catching up</div>
@@ -1683,8 +1675,8 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
         <div style="text-align:center;padding:24px 20px;border-radius:14px;background:var(--code-bg);min-width:160px;border:1px solid var(--border)">
           <div style="font-size:12px;font-weight:600;color:var(--live);margin-bottom:16px">Late Training</div>
           <div style="display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:16px">
-            <div style="width:16px;height:16px;border-radius:50%;background:var(--muted);opacity:0.3;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--bg)">w</div>
-            <div style="width:68px;height:68px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff">S</div>
+            <div style="width:16px;height:16px;border-radius:50%;background:color-mix(in srgb,var(--muted) 30%,var(--bg));display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--text)">w</div>
+            <div style="width:68px;height:68px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--on-accent)">S</div>
           </div>
           <div style="font-size:12px;color:var(--text-secondary)">Weak influence: <strong style="color:var(--live)">~Zero</strong></div>
           <div style="font-size:11px;color:var(--muted);margin-top:4px">Strong model takes over</div>
@@ -1708,7 +1700,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <div style="position:relative;height:50px;background:var(--border);border-radius:6px;margin:12px 0">
             <div style="position:absolute;left:10%;top:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--bg)">C</div>
             <div style="position:absolute;left:35%;top:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--bg)">B</div>
-            <div style="position:absolute;left:60%;top:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">A</div>
+            <div style="position:absolute;left:60%;top:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--on-accent)">A</div>
           </div>
           <div style="font-size:13px;color:var(--text-secondary);margin-top:12px">C=1, B=3, <strong style="color:var(--text)">A=5</strong> (winner)</div>
           <div style="font-size:12px;color:var(--muted);margin-top:4px">Gaps: A-B = 2, A-C = 4</div>
@@ -1725,7 +1717,7 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
           <div style="position:relative;height:50px;background:var(--border);border-radius:6px;margin:12px 0">
             <div style="position:absolute;left:35%;top:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--bg)">C</div>
             <div style="position:absolute;left:60%;top:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--bg)">B</div>
-            <div style="position:absolute;left:85%;top:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">A</div>
+            <div style="position:absolute;left:85%;top:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--on-accent)">A</div>
           </div>
           <div style="font-size:13px;color:var(--text-secondary);margin-top:12px">C=4, B=6, <strong style="color:var(--text)">A=8</strong> (still winner!)</div>
           <div style="font-size:12px;color:var(--muted);margin-top:4px">Gaps: A-B = 2, A-C = 4 (unchanged)</div>
@@ -2567,7 +2559,7 @@ function drawResultsChart() {
     '<text x="' + (W / 2) + '" y="' + (H - 8) + '" fill="' + textColor + '" font-size="11" font-family="Inter,sans-serif" text-anchor="middle">Training Steps</text>' +
     '<text x="14" y="' + (H / 2) + '" fill="' + textColor + '" font-size="11" font-family="Inter,sans-serif" text-anchor="middle" transform="rotate(-90,14,' + (H / 2) + ')">Performance</text>' +
     '<line x1="' + (pad.l + 0.5 * cw) + '" y1="' + pad.t + '" x2="' + (pad.l + 0.5 * cw) + '" y2="' + (H - pad.b) + '" stroke="var(--red)" stroke-width="1" stroke-dasharray="6,4" opacity="0.5"/>' +
-    '<text x="' + (pad.l + 0.5 * cw) + '" y="' + (pad.t - 8) + '" fill="var(--red)" font-size="10" font-family="Inter,sans-serif" text-anchor="middle" opacity="0.7">Saturation Point</text>' +
+    '<text x="' + (pad.l + 0.5 * cw) + '" y="' + (pad.t - 8) + '" fill="var(--red)" font-size="10" font-family="Inter,sans-serif" text-anchor="middle">Saturation Point</text>' +
     '<path d="' + toPath(sftData) + '" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" id="sft-curve" stroke-dasharray="' + (cw * 1.5) + '" stroke-dashoffset="' + (cw * 1.5) + '"/>' +
     '<path d="' + toPath(wmssData) + '" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round" id="wmss-curve" stroke-dasharray="' + (cw * 1.5) + '" stroke-dashoffset="' + (cw * 1.5) + '"/>';
 }

@@ -8,13 +8,13 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 
-  <title>PDF Parsing for Complaint Forms — Docling vs PyMuPDF vs PaddleOCR</title>
+  <title>PDF Parsing for Complaint Forms: Docling vs PyMuPDF vs PaddleOCR</title>
   <meta name="description" content="A head-to-head evaluation of the top open-source PDF parsing tools for customer complaint form processing. Ablation tests, rubric scoring, decision framework.">
   <link rel="canonical" href="https://kooexperience.com/blog/posts/pdf-parsing-comparison.html" />
   <meta name="author" content="Haoming Koo" />
   <meta name="robots" content="index, follow" />
 
-  <meta property="og:title" content="PDF Parsing for Complaint Forms — Docling vs PyMuPDF vs PaddleOCR" />
+  <meta property="og:title" content="PDF Parsing for Complaint Forms: Docling vs PyMuPDF vs PaddleOCR" />
   <meta property="og:description" content="A head-to-head evaluation of the top open-source PDF parsing tools for customer complaint form processing." />
   <meta property="og:url" content="https://kooexperience.com/blog/posts/pdf-parsing-comparison.html" />
   <meta property="og:type" content="article" />
@@ -28,7 +28,7 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "PDF Parsing for Complaint Forms — Docling vs PyMuPDF vs PaddleOCR",
+    "headline": "PDF Parsing for Complaint Forms: Docling vs PyMuPDF vs PaddleOCR",
     "author": {"@type": "Person", "name": "Haoming Koo"},
     "datePublished": "2026-04-10",
     "description": "Open-source PDF parsing evaluation for customer complaint forms.",
@@ -46,14 +46,13 @@
       --border: #1c1c24;
       --border-hover: #2a2a36;
       --accent: #3b82f6;
-      --accent-glow: rgba(59,130,246,0.15);
+      --accent-glow: rgba(59,130,246,0.10);
+      --sky: #60a5fa;
       --text: #eeeef0;
       --text-secondary: #b0b0b8;
       --muted: #8a8aa0;
       --green: #22c55e;
-      --purple: #a855f7;
       --amber: #f59e0b;
-      --red: #ef4444;
       --code-bg: #0a0a10;
     }
     [data-theme="light"] {
@@ -62,15 +61,10 @@
       --surface-hover: #f0f0f8;
       --border: #e2e2ec;
       --border-hover: #c8c8d8;
-      --accent: #2563eb;
       --accent-glow: rgba(37,99,235,0.08);
+      --sky: #1d4ed8;
       --text: #111118;
       --text-secondary: #444454;
-      --muted: #6b7280;
-      --green: #16a34a;
-      --purple: #7c3aed;
-      --amber: #d97706;
-      --red: #dc2626;
       --code-bg: #f0f0f8;
     }
 
@@ -178,7 +172,7 @@
       display: inline-block; padding: 3px 10px; border-radius: 12px;
       font-size: 0.75rem; font-weight: 600; border: 1px solid;
     }
-    .tag.blue { background: var(--accent-glow); color: var(--accent); border-color: rgba(59,130,246,0.3); }
+    .tag.blue { background: var(--accent-glow); color: var(--sky); border-color: rgba(59,130,246,0.3); }
     .tag.purple { background: rgba(168,85,247,0.1); color: var(--purple); border-color: rgba(168,85,247,0.3); }
     .tag.amber { background: rgba(245,158,11,0.1); color: var(--amber); border-color: rgba(245,158,11,0.3); }
     .tag.green { background: rgba(34,197,94,0.1); color: var(--green); border-color: rgba(34,197,94,0.3); }
@@ -710,22 +704,22 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
     }
     .ink-char.sky {
-      color: #60a5fa;
+      color: var(--sky);
       border-color: rgba(96,165,250,0.35);
       background: rgba(96,165,250,0.10);
     }
     .ink-char.amber {
-      color: #f59e0b;
+      color: var(--amber);
       border-color: rgba(245,158,11,0.35);
       background: rgba(245,158,11,0.10);
     }
     .ink-char.green {
-      color: #22c55e;
+      color: var(--green);
       border-color: rgba(34,197,94,0.35);
       background: rgba(34,197,94,0.10);
     }
     .ink-char.red {
-      color: #ef4444;
+      color: var(--red);
       border-color: rgba(239,68,68,0.35);
       background: rgba(239,68,68,0.10);
     }
@@ -1044,7 +1038,7 @@
     .h-acc-row { display: flex; align-items: center; gap: 10px; }
     .h-acc-label { font-size: 0.78rem; color: var(--text-secondary); width: 130px; flex-shrink: 0; text-align: right; }
     .h-acc-track { flex: 1; background: var(--border); border-radius: 6px; height: 26px; overflow: hidden; }
-    .h-acc-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; font-size: 0.75rem; font-weight: 700; color: #fff; transition: width 1.1s cubic-bezier(.34,1.56,.64,1); width: 0; }
+    .h-acc-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; font-size: 0.75rem; font-weight: 700; color: #060608; transition: width 1.1s cubic-bezier(.34,1.56,.64,1); width: 0; }
 
     /* ── SVG bar chart (replaces CSS bars) ──────────────────────── */
     .chart-bars { overflow: visible; }
@@ -1293,6 +1287,7 @@
   <meta property="og:image" content="https://kooexperience.com/assets/og/pdf-parsing-comparison.png" />
   <meta name="twitter:image" content="https://kooexperience.com/assets/og/pdf-parsing-comparison.png" />
 <link rel="stylesheet" href="/system/chrome.css" />
+<link rel="stylesheet" href="/system/post-palette.css" />
 </head>
 <body>
 
@@ -1343,7 +1338,7 @@
     <p class="section-intro">Most PDF parsing benchmarks test clean academic papers or financial reports. Complaint forms are harder — they stack six difficulty layers at once.</p>
 
     <div class="viz reveal">
-      <div class="viz-title">Difficulty Stack — Customer Complaint Forms</div>
+      <div class="viz-title">Difficulty Stack: Customer Complaint Forms</div>
       <div class="pipeline">
         <div class="pipe-node warn">Content Mix<sub>Print + Handwriting</sub></div>
         <div class="pipe-arrow">→</div>
@@ -1472,7 +1467,7 @@
             <td class="cell-good">~415 p/s</td>
             <td>AcroForm digital fields (fastest)</td>
           </tr>
-          <tr style="opacity:0.7">
+          <tr style="filter:grayscale(1)">
             <td><em>Claude API</em> <span class="tag red" style="margin-left:4px;font-size:0.65rem">Not on-prem</span></td>
             <td class="cell-bad">Proprietary</td>
             <td class="cell-good">✓</td>
@@ -1533,13 +1528,13 @@
 
     <!-- ── 3.1 Text extraction ── -->
     <div class="viz reveal">
-      <div class="viz-title">Category 1 — Text extraction (pypdf · PyMuPDF · pdfplumber)</div>
+      <div class="viz-title">Category 1: Text extraction (pypdf · PyMuPDF · pdfplumber)</div>
       <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">No image processing. No machine learning. Pure parsing of PDF's internal byte structure.</p>
 
       <div class="explain-demo js-stepper" data-interval="6000">
         <div class="explain-head">
           <div>
-            <div class="explain-kicker">Step-by-step walkthrough — one PDF operator at a time</div>
+            <div class="explain-kicker">Step-by-step walkthrough: one PDF operator at a time</div>
             <p class="explain-caption" aria-live="polite">Step 1 of 7. Open the PDF binary. Everything is stored as numbered objects — like rows in a database. Object 12 is the Page. Object 14 is the Font. Object 15 is the Contents stream.</p>
           </div>
           <span class="tag blue">Use Prev / Next or click any step</span>
@@ -1570,7 +1565,7 @@
           <div class="explain-panel is-active">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">PDF object tree — what the parser traverses</div>
+                <div class="demo-label">PDF object tree: what the parser traverses</div>
                 <div class="demo-stack">
                   <div class="demo-card"><strong>xref table</strong><span>Object 12 → Page 1.</span></div>
                   <div class="demo-card"><strong>Page object 12</strong><span>Links to Font obj 14 and Contents obj 15.</span></div>
@@ -1592,7 +1587,7 @@
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Contents stream — BT is executing (blue)</div>
+                <div class="demo-label">Contents stream: BT is executing (blue)</div>
                 <div class="demo-code-lines">
                   <div class="demo-line highlight"><span class="demo-token operator">BT</span><span>Begin text block — opens drawing context.</span></div>
                   <div class="demo-line"><span class="demo-token operator">Tf</span><span>Set font (next step).</span></div>
@@ -1616,7 +1611,7 @@
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Contents stream — Tf is executing (blue)</div>
+                <div class="demo-label">Contents stream: Tf is executing (blue)</div>
                 <div class="demo-code-lines">
                   <div class="demo-line"><span class="demo-token operator">BT</span><span>Begin text block.</span></div>
                   <div class="demo-line highlight"><span class="demo-token operator">Tf</span><span><strong>/Helvetica 12</strong> — set font + size.</span></div>
@@ -1639,7 +1634,7 @@
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Contents stream — Td is executing (blue)</div>
+                <div class="demo-label">Contents stream: Td is executing (blue)</div>
                 <div class="demo-code-lines">
                   <div class="demo-line"><span class="demo-token operator">BT</span><span>Begin text block.</span></div>
                   <div class="demo-line"><span class="demo-token operator">Tf</span><span>/Helvetica 12 — font set.</span></div>
@@ -1662,7 +1657,7 @@
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Contents stream — Tj is executing (blue)</div>
+                <div class="demo-label">Contents stream: Tj is executing (blue)</div>
                 <div class="demo-code-lines">
                   <div class="demo-line"><span class="demo-token operator">BT</span><span>Begin text block.</span></div>
                   <div class="demo-line"><span class="demo-token operator">Tf</span><span>/Helvetica 12.</span></div>
@@ -1778,7 +1773,7 @@ endbfchar</div>
       </div>
 
       <div class="dialog-thread">
-        <div class="dialog-thread-title">Lecture — tracing a real PDF file in memory</div>
+        <div class="dialog-thread-title">Lecture: tracing a real PDF file in memory</div>
         <div class="dialog-turn">
           <div class="dialog-avatar prof">🎓</div>
           <div class="dialog-body">
@@ -1826,7 +1821,7 @@ endbfchar</div>
 
     <!-- ── 3.2 OCR ── -->
     <div class="viz reveal">
-      <div class="viz-title">Category 2 — Traditional OCR (Tesseract · PaddleOCR PP-OCRv4<span class="cite"><a href="#ref-6">[6]</a></span>)</div>
+      <div class="viz-title">Category 2: Traditional OCR (Tesseract · PaddleOCR PP-OCRv4<span class="cite"><a href="#ref-6">[6]</a></span>)</div>
       <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">Converts a raster image to text through a multi-stage pipeline — each stage feeds the next.</p>
 
       <div class="explain-demo js-stepper" data-interval="6000">
@@ -1917,7 +1912,7 @@ endbfchar</div>
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Raw character read — what OCR sees</div>
+                <div class="demo-label">Raw character read: what OCR sees</div>
                 <div class="ocr-char-row">
                   <div class="ocr-char good">C</div>
                   <div class="ocr-char good">o</div>
@@ -2015,7 +2010,7 @@ endbfchar</div>
       </div>
 
       <div class="dialog-thread">
-        <div class="dialog-thread-title">Lecture — pixel density, binarization, and why preprocessing can hurt</div>
+        <div class="dialog-thread-title">Lecture: pixel density, binarization, and why preprocessing can hurt</div>
         <div class="dialog-turn">
           <div class="dialog-avatar prof">🎓</div>
           <div class="dialog-body">
@@ -2063,13 +2058,13 @@ endbfchar</div>
 
     <!-- ── 3.3 ML layout parsers ── -->
     <div class="viz reveal">
-      <div class="viz-title">Category 3 — ML layout parsing (Docling · TableFormer)</div>
+      <div class="viz-title">Category 3: ML layout parsing (Docling · TableFormer)</div>
       <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">Treats a document page as a 2D photograph. A <strong style="color:var(--text)">vision model</strong> recognises regions — text block, table, figure, heading — and TableFormer reconstructs table structure from patterns learned across large document corpora.</p>
 
       <div class="explain-demo js-stepper" data-interval="6000">
         <div class="explain-head">
           <div>
-            <div class="explain-kicker">Animated walkthrough — Docling 5-stage pipeline</div>
+            <div class="explain-kicker">Animated walkthrough: Docling 5-stage pipeline</div>
             <p class="explain-caption" aria-live="polite">Step 1. The page image is sliced into a grid of 16×16 pixel patches — the same way modern AI image models process photographs. Each patch becomes one token (a 768-dimensional vector).</p>
           </div>
           <span class="tag blue">Tap a step or let it play</span>
@@ -2093,7 +2088,7 @@ endbfchar</div>
           <div class="explain-panel is-active">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Page divided into 16×16 px patches — colour shows region type</div>
+                <div class="demo-label">Page divided into 16×16 px patches: colour shows region type</div>
                 <div class="attn-grid">
                   <div class="attn-cell c-heading"></div><div class="attn-cell c-heading"></div><div class="attn-cell c-heading"></div><div class="attn-cell c-heading"></div><div class="attn-cell c-heading"></div><div class="attn-cell c-heading"></div><div class="attn-cell c-heading"></div><div class="attn-cell c-heading"></div>
                   <div class="attn-cell c-text"></div><div class="attn-cell c-text"></div><div class="attn-cell c-text"></div><div class="attn-cell c-text"></div><div class="attn-cell c-text"></div><div class="attn-cell"></div><div class="attn-cell"></div><div class="attn-cell"></div>
@@ -2125,7 +2120,7 @@ endbfchar</div>
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Attention map — table header row attends to data cells below</div>
+                <div class="demo-label">Attention map: table header row attends to data cells below</div>
                 <div class="attn-grid">
                   <div class="attn-cell"></div><div class="attn-cell"></div><div class="attn-cell"></div><div class="attn-cell"></div><div class="attn-cell"></div><div class="attn-cell"></div><div class="attn-cell"></div><div class="attn-cell"></div>
                   <div class="attn-cell hot-3"></div><div class="attn-cell hot-3"></div><div class="attn-cell hot-2"></div><div class="attn-cell hot-1"></div><div class="attn-cell hot-2"></div><div class="attn-cell hot-3"></div><div class="attn-cell hot-3"></div><div class="attn-cell"></div>
@@ -2152,7 +2147,7 @@ endbfchar</div>
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Detection head output — labelled bounding boxes</div>
+                <div class="demo-label">Detection head output: labelled bounding boxes</div>
                 <div class="region-demo">
                   <div class="region-box type-heading">Customer Complaint Form — Q1 2024 <span class="region-label">HEADING</span></div>
                   <div class="region-box type-text">The customer reported that the product arrived damaged on 15 January… <span class="region-label">TEXT</span></div>
@@ -2215,7 +2210,7 @@ endbfchar</div>
           <div class="explain-panel">
             <div class="explain-grid-2">
               <div>
-                <div class="demo-label">Docling final output — ready for downstream NLP</div>
+                <div class="demo-label">Docling final output: ready for downstream NLP</div>
                 <pre class="code-block" style="font-size:0.74rem;margin:0;padding:12px;line-height:1.5">## Customer Complaint Form — Q1 2024
 
 The customer reported that the product arrived
@@ -2242,7 +2237,7 @@ damaged on 15 January...
       </div>
 
       <div class="dialog-thread">
-        <div class="dialog-thread-title">Lecture — why ML layout is a completely different category</div>
+        <div class="dialog-thread-title">Lecture: why ML layout is a completely different category</div>
         <div class="dialog-turn">
           <div class="dialog-avatar prof">🎓</div>
           <div class="dialog-body">
@@ -2294,7 +2289,7 @@ damaged on 15 January...
 
     <!-- ── 3.4 Handwriting ── -->
     <div class="viz reveal">
-      <div class="viz-title">Category 4 — Handwriting recognition (TrOCR<span class="cite"><a href="#ref-5">[5]</a></span>)</div>
+      <div class="viz-title">Category 4: Handwriting recognition (TrOCR<span class="cite"><a href="#ref-5">[5]</a></span>)</div>
       <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">Microsoft TrOCR is a Vision-Encoder–Language-Decoder transformer fine-tuned for handwritten text recognition. Unlike traditional OCR, it skips explicit character segmentation entirely.</p>
 
       <div class="explain-demo js-stepper" data-interval="6000">
@@ -2634,7 +2629,7 @@ damaged on 15 January...
       </div>
 
       <div class="dialog-thread">
-        <div class="dialog-thread-title">Lecture — why TrOCR does not rely on explicit character boundaries</div>
+        <div class="dialog-thread-title">Lecture: why TrOCR does not rely on explicit character boundaries</div>
         <div class="dialog-turn">
           <div class="dialog-avatar prof">🎓</div>
           <div class="dialog-body">
@@ -2699,7 +2694,7 @@ damaged on 15 January...
 
     <!-- Real measured results table -->
     <div class="viz reveal">
-      <div class="viz-title">Measured Results — Digital AcroForms (N=20 synthetic) ✓</div>
+      <div class="viz-title">Measured Results: Digital AcroForms (N=20 synthetic) ✓</div>
       <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:16px">Synthetic complaint forms with real AcroForm field widgets. Ground truth: programmatically exact. CER measures full text extraction; Field F1 measures AcroForm field value extraction.</p>
       <div class="table-wrap">
         <table>
@@ -2718,7 +2713,7 @@ damaged on 15 January...
     </div>
 
     <div class="viz reveal">
-      <div class="viz-title">Measured Results — Scanned Forms FUNSD (N=10) ✓</div>
+      <div class="viz-title">Measured Results: Scanned Forms FUNSD (N=10) ✓</div>
       <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:16px">Real scanned business forms from FUNSD (EPFL 2019).<span class="cite"><a href="#ref-1">[1]</a></span> Human-annotated ground truth. Text parsers return empty string (no text layer in raster-image PDFs). Tesseract runs OCR on the rendered image.</p>
       <div class="table-wrap">
         <table>
@@ -2743,14 +2738,14 @@ damaged on 15 January...
 
     <!-- Chart: Table Accuracy -->
     <div class="viz reveal">
-      <div class="viz-title">Table Cell Accuracy — Published Benchmarks</div>
+      <div class="viz-title">Table Cell Accuracy: Published Benchmarks</div>
       <div class="viz-row cols-2">
         <div class="chart">
           <div class="chart-label">Table extraction accuracy (various doc types)</div>
           <div class="chart-bars" id="tableAccChart"></div>
         </div>
         <div class="chart">
-          <div class="chart-label">CPU throughput — pages per second</div>
+          <div class="chart-label">CPU throughput: pages per second</div>
           <div class="chart-bars" id="speedChart"></div>
         </div>
       </div>
@@ -2759,7 +2754,7 @@ damaged on 15 January...
 
     <!-- Chart: Handwriting accuracy -->
     <div class="viz reveal reveal-d1">
-      <div class="viz-title">Handwriting Recognition — On Documents with Handwritten Notes</div>
+      <div class="viz-title">Handwriting Recognition: On Documents with Handwritten Notes</div>
       <div class="chart-bars" id="hwChart"></div>
       <p style="font-size:0.75rem;color:var(--muted);margin-top:12px">Source: Braincuber 2025 independent benchmark.<span class="cite"><a href="#ref-13">[13]</a></span> This chart mixes two kinds of evidence: cloud OCR numbers from document benchmarks with handwritten annotations, and a clean-reference TrOCR score from the IAM handwriting dataset.<span class="cite"><a href="#ref-7">[7]</a></span> Treat it as directional, not apples-to-apples.</p>
     </div>
@@ -2795,7 +2790,7 @@ damaged on 15 January...
 
     <!-- Preprocessing comparison table (measured) -->
     <div class="viz reveal">
-      <div class="viz-title">Preprocessing Effect — FUNSD N=10, Tesseract eng, 300 DPI ✓</div>
+      <div class="viz-title">Preprocessing Effect: FUNSD N=10, Tesseract eng, 300 DPI ✓</div>
       <div class="table-wrap">
         <table>
           <thead><tr>
@@ -2863,7 +2858,7 @@ damaged on 15 January...
     </div>
 
     <!-- Estimated scores (pre-measurement, from research) -->
-    <h3 style="margin:32px 0 16px;font-size:1.1rem">Estimated scores (from published research — measure on your corpus)</h3>
+    <h3 style="margin:32px 0 16px;font-size:1.1rem">Estimated scores (from published research, so measure on your corpus)</h3>
     <div class="table-wrap reveal reveal-d2">
       <table>
         <thead>
@@ -2900,7 +2895,7 @@ damaged on 15 January...
             <td class="cell-ok">3</td><td class="cell-ok">3</td><td class="cell-good">5</td><td class="cell-good">5</td><td class="cell-good">5</td>
             <td class="cell-bad"><strong>2.73</strong></td>
           </tr>
-          <tr style="opacity:0.6">
+          <tr style="filter:grayscale(1)">
             <td><em>Claude API*</em></td>
             <td class="cell-ok">4</td><td class="cell-ok">4</td><td class="cell-ok">4</td><td class="cell-ok">4</td><td class="cell-ok">4</td>
             <td class="cell-ok">4</td><td class="cell-bad">1</td><td class="cell-bad">1</td><td class="cell-bad">1</td><td class="cell-good">5</td>
@@ -2946,14 +2941,14 @@ flowchart TD
     N -->|NO — Printed text only| S{High monthly volume\nor lowest unit cost?}
     S -->|YES| U["✅ Self-hosted OCR/layout\nDocling or Tesseract path"]
     S -->|NO| T["☁️ Google Document AI\n$0.030 per page"]
-    style F fill:#1a3a1a,stroke:#22c55e,color:#22c55e
-    style H fill:#1a2a3a,stroke:#3b82f6,color:#3b82f6
-    style I fill:#1a2a3a,stroke:#3b82f6,color:#3b82f6
-    style P fill:#1a2a3a,stroke:#3b82f6,color:#3b82f6
-    style U fill:#1a2a3a,stroke:#3b82f6,color:#3b82f6
-    style K fill:#3a1a1a,stroke:#ef4444,color:#ef4444
-    style R fill:#2a1a3a,stroke:#a855f7,color:#a855f7
-    style T fill:#2a1a3a,stroke:#a855f7,color:#a855f7
+    style F fill:#1a3a1a,stroke:#22c55e,color:#86efac
+    style H fill:#1a2a3a,stroke:#3b82f6,color:#93c5fd
+    style I fill:#1a2a3a,stroke:#3b82f6,color:#93c5fd
+    style P fill:#1a2a3a,stroke:#3b82f6,color:#93c5fd
+    style U fill:#1a2a3a,stroke:#3b82f6,color:#93c5fd
+    style K fill:#3a1a1a,stroke:#ef4444,color:#fca5a5
+    style R fill:#2a1a3a,stroke:#a855f7,color:#d8b4fe
+    style T fill:#2a1a3a,stroke:#a855f7,color:#d8b4fe
       </div>
     </div>
   </div>
@@ -2967,7 +2962,7 @@ flowchart TD
     <p class="section-intro">No single parser handles all complaint form types optimally. Route by document type and confidence — different paths use different tools.</p>
 
     <div class="viz reveal">
-      <div class="viz-title">Hybrid Pipeline — Components and Flow</div>
+      <div class="viz-title">Hybrid Pipeline: Components and Flow</div>
       <div class="pipeline">
         <div class="pipe-node active">Intake<sub>S3 + SQS</sub></div>
         <div class="pipe-arrow">→</div>
@@ -2991,7 +2986,7 @@ flowchart TD
 
     <!-- Hybrid pipeline improvement estimate -->
     <div class="viz reveal" style="margin-top:24px">
-      <div class="viz-title">Illustrative Routing Benefit — Single parser vs hybrid pipeline</div>
+      <div class="viz-title">Illustrative Routing Benefit: Single parser vs hybrid pipeline</div>
       <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:20px">Routing each document type to the best-fit tool instead of running one parser on everything is often the highest-leverage improvement. The chart below is an illustrative scenario that mixes local measurements (✓), published benchmarks, and operational assumptions — your numbers will vary.</p>
 
       <div class="h-acc-chart" id="hybridImprovChart"></div>
@@ -3053,9 +3048,9 @@ flowchart TD
     </div>
 
     <!-- Cost model -->
-    <h3 style="margin:40px 0 16px;font-size:1.1rem">Cost at scale — cloud vs self-hosted</h3>
+    <h3 style="margin:40px 0 16px;font-size:1.1rem">Cost at scale: cloud vs self-hosted</h3>
     <div class="viz reveal reveal-d2">
-      <div class="viz-title">Monthly Cost Estimate — Structured Extraction (1 form ≈ 3 pages)</div>
+      <div class="viz-title">Monthly Cost Estimate: Structured Extraction (1 form ≈ 3 pages)</div>
       <div class="chart-bars" id="costChart" style="height:220px"></div>
       <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap" id="costLegend"></div>
       <p style="font-size:0.75rem;color:var(--muted);margin-top:12px">These numbers assume Docling on a shared server with reasonable utilisation. At 10K forms/month it already undercuts both cloud options shown. The actual crossover depends on your hardware cost and server load — calculate it against your own setup. Vendor pricing checked April 2026.</p>
@@ -3219,20 +3214,6 @@ flowchart TD
       <a href="/#work">More projects</a>
     </footer>
     <script src="/assets/scripts/chrome.js" defer></script><script>
-// ── Theme toggle ────────────────────────────────────────────────── //
-const themeBtn = document.getElementById('themeToggle');
-const html = document.documentElement;
-themeBtn.addEventListener('click', () => {
-  const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
-  html.dataset.theme = next;
-  themeBtn.textContent = next === 'dark' ? '☀︎' : '☾';
-  try { localStorage.setItem('theme', next); } catch(e) {}
-});
-try {
-  const saved = localStorage.getItem('theme');
-  if (saved) { html.dataset.theme = saved; themeBtn.textContent = saved === 'dark' ? '☀︎' : '☾'; }
-} catch(e) {}
-
 // ── Scroll reveal ───────────────────────────────────────────────── //
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -3351,7 +3332,7 @@ function renderBarChart(containerId, data, _ignored, unit = '%', _scale, opts = 
     const y = toY(t);
     if (y < padT - 4 || y > padT + cH + 4) return;
     svg += `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${padL + cW}" y2="${y.toFixed(1)}" stroke="#1c1c24" stroke-width="1"/>`;
-    svg += `<text x="${padL - 5}" y="${(y + 4).toFixed(1)}" text-anchor="end" font-size="9" fill="#64647a">${fmtVal(t)}${unit}</text>`;
+    svg += `<text x="${padL - 5}" y="${(y + 4).toFixed(1)}" text-anchor="end" font-size="9" fill="var(--muted)">${fmtVal(t)}${unit}</text>`;
   });
   // Axes
   svg += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + cH}" stroke="#2a2a36" stroke-width="1.5"/>`;
@@ -3370,7 +3351,7 @@ function renderBarChart(containerId, data, _ignored, unit = '%', _scale, opts = 
     const col = COLORS[d.cls] || '#3b82f6';
 
     svg += `<rect x="${bx.toFixed(1)}" y="${yTop.toFixed(1)}" width="${barW.toFixed(1)}" height="${bH.toFixed(1)}" rx="4" fill="${col}" opacity="0.88"/>`;
-    svg += `<text x="${(bx + barW/2).toFixed(1)}" y="${(yTop - 5).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="${col}">${fmtVal(d.val)}${unit}</text>`;
+    svg += `<text x="${(bx + barW/2).toFixed(1)}" y="${(yTop - 5).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text-secondary)">${fmtVal(d.val)}${unit}</text>`;
 
     // X-label — split on space if long
     const cx2 = bx + barW / 2;
@@ -3378,15 +3359,15 @@ function renderBarChart(containerId, data, _ignored, unit = '%', _scale, opts = 
     const lx = cx2.toFixed(1), ly = padT + cH + 14;
     if (parts.length >= 2 && (d.name || d.label).length > 11) {
       const mid = Math.ceil(parts.length / 2);
-      svg += `<text x="${lx}" y="${ly}" text-anchor="middle" font-size="9" fill="#b0b0b8">${parts.slice(0, mid).join(' ')}</text>`;
-      svg += `<text x="${lx}" y="${ly + 11}" text-anchor="middle" font-size="9" fill="#b0b0b8">${parts.slice(mid).join(' ')}</text>`;
+      svg += `<text x="${lx}" y="${ly}" text-anchor="middle" font-size="9" fill="var(--text-secondary)">${parts.slice(0, mid).join(' ')}</text>`;
+      svg += `<text x="${lx}" y="${ly + 11}" text-anchor="middle" font-size="9" fill="var(--text-secondary)">${parts.slice(mid).join(' ')}</text>`;
     } else {
-      svg += `<text x="${lx}" y="${ly}" text-anchor="middle" font-size="9" fill="#b0b0b8">${d.name || d.label}</text>`;
+      svg += `<text x="${lx}" y="${ly}" text-anchor="middle" font-size="9" fill="var(--text-secondary)">${d.name || d.label}</text>`;
     }
   });
 
   if (useLog) {
-    svg += `<text x="${padL + cW / 2}" y="${H - 2}" text-anchor="middle" font-size="9" fill="#64647a" font-style="italic">log scale</text>`;
+    svg += `<text x="${padL + cW / 2}" y="${H - 2}" text-anchor="middle" font-size="9" fill="var(--muted)" font-style="italic">log scale</text>`;
   }
 
   svg += '</svg>';
@@ -3462,13 +3443,13 @@ function renderHybridImprovChart() {
         <div style="display:flex;align-items:center;gap:8px">
           <span style="font-size:0.68rem;color:var(--muted);width:90px;flex-shrink:0;text-align:right">Single parser</span>
           <div style="flex:1;background:var(--border);border-radius:4px;height:20px;overflow:hidden">
-            <div class="h-acc-fill" style="width:0;background:rgba(239,68,68,0.55);height:100%;display:flex;align-items:center;padding-right:8px;justify-content:flex-end;font-size:0.72rem;font-weight:700;color:#fff" data-target="${sPct}">${d.single}%</div>
+            <div class="h-acc-fill" style="width:0;background:#f87171;height:100%;display:flex;align-items:center;padding-right:8px;justify-content:flex-end;font-size:0.72rem;font-weight:700;color:#060608" data-target="${sPct}">${d.single}%</div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
           <span style="font-size:0.68rem;color:var(--muted);width:90px;flex-shrink:0;text-align:right">Hybrid routed</span>
           <div style="flex:1;background:var(--border);border-radius:4px;height:20px;overflow:hidden">
-            <div class="h-acc-fill" style="width:0;background:rgba(34,197,94,0.65);height:100%;display:flex;align-items:center;padding-right:8px;justify-content:flex-end;font-size:0.72rem;font-weight:700;color:#fff" data-target="${rPct}">${d.routed}%</div>
+            <div class="h-acc-fill" style="width:0;background:#4ade80;height:100%;display:flex;align-items:center;padding-right:8px;justify-content:flex-end;font-size:0.72rem;font-weight:700;color:#060608" data-target="${rPct}">${d.routed}%</div>
           </div>
         </div>
       </div>`;
@@ -3532,8 +3513,8 @@ function renderRubricRings() {
     <div class="rubric-donut-chart">
       <svg viewBox="0 0 216 216" style="width:200px;height:200px">
         ${paths}
-        <text x="108" y="103" text-anchor="middle" font-size="13" font-weight="700" fill="#eeeef0">Scoring</text>
-        <text x="108" y="120" text-anchor="middle" font-size="11" fill="#64647a">weights</text>
+        <text x="108" y="103" text-anchor="middle" font-size="13" font-weight="700" fill="var(--text)">Scoring</text>
+        <text x="108" y="120" text-anchor="middle" font-size="11" fill="var(--muted)">weights</text>
       </svg>
     </div>
     <div class="rubric-legend">${legend}</div>
@@ -3664,6 +3645,7 @@ if (typeof mermaid !== 'undefined') {
     themeVariables: {
       primaryColor: '#1d4ed8',
       primaryTextColor: '#eeeef0',
+      textColor: '#eeeef0',
       primaryBorderColor: '#3b82f6',
       lineColor: '#64647a',
       secondaryColor: '#0e0e12',

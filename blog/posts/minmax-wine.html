@@ -8,12 +8,12 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-    <title>I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me - Haoming Koo</title>
+    <title>I Built an AI Wine Deal Finder. Here's What 50 Bottles Taught Me - Haoming Koo</title>
     <meta name="description" content="How I built a wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Brave-powered URL resolution, bundle-aware pricing, and a guarded daily pipeline with local review for edge cases." />
     <meta name="keywords" content="wine price comparison, Singapore wine, Brave Search API, HTML scraping, FastAPI, Vivino, Platinum Wine Club, Grand Cru, deal finder" />
     <meta name="author" content="Haoming Koo" />
     <link rel="canonical" href="https://kooexperience.com/blog/posts/minmax-wine.html" />
-    <meta property="og:title" content="I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me" />
+    <meta property="og:title" content="I Built an AI Wine Deal Finder. Here's What 50 Bottles Taught Me." />
     <meta property="og:description" content="How I built a wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Brave-powered URL resolution, bundle-aware pricing, and a guarded daily pipeline with local review for edge cases." />
     <meta property="og:url" content="https://kooexperience.com/blog/posts/minmax-wine.html" />
     <meta property="og:type" content="article" />
@@ -24,7 +24,7 @@
     <meta property="article:author" content="Haoming Koo" />
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://kooexperience.com/assets/wine-og.png">
-    <meta name="twitter:title" content="I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me">
+    <meta name="twitter:title" content="I Built an AI Wine Deal Finder. Here's What 50 Bottles Taught Me.">
     <meta name="twitter:description" content="How I built a wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Brave-powered URL resolution, bundle-aware pricing, and a guarded daily pipeline with local review for edge cases.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="alternate" type="application/rss+xml" title="Haoming Koo Blog" href="https://kooexperience.com/feed.xml">
@@ -46,11 +46,8 @@
         --bg: #f8f9fb;
         --surface: #ffffff;
         --border: #dde1e6;
-        --accent: #2563eb;
-        --accent-dim: rgba(37,99,235,0.08);
         --text: #111318;
         --text-secondary: #3d4250;
-        --muted: #6b7280;
         --nav-bg: rgba(248,249,251,0.85);
       }
       html { scroll-behavior: smooth; }
@@ -171,7 +168,7 @@
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": "I Built an AI Wine Deal Finder — Here's What 50 Bottles Taught Me - Haoming Koo",
+      "headline": "I Built an AI Wine Deal Finder. Here's What 50 Bottles Taught Me - Haoming Koo",
       "description": "How I built a wine price comparison tool for Singapore that compares Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Brave-powered URL resolution, bundle-aware pricing, and a guarded daily pipeline with local review for edge cases.",
       "url": "https://kooexperience.com/blog/posts/minmax-wine.html",
       "datePublished": "2026-03-27",
@@ -189,6 +186,7 @@
 (function(){try{var saved=localStorage.getItem("hk-theme")||localStorage.getItem("theme");if(saved)document.documentElement.setAttribute("data-theme",saved);}catch(e){}document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[aria-label=\"Toggle theme\"], .theme-btn, .theme-toggle, #themeToggle");if(!b)return;requestAnimationFrame(function(){try{var theme=document.documentElement.getAttribute("data-theme")||document.documentElement.dataset.theme||"dark";localStorage.setItem("hk-theme",theme);localStorage.setItem("theme",theme);}catch(e){}});},true);})();
 </script>
 <link rel="stylesheet" href="/system/chrome.css" />
+<link rel="stylesheet" href="/system/post-palette.css" />
 </head>
   <body>
     <div class="nav-wrap">
@@ -223,7 +221,7 @@
           <span>March 27, 2026</span>
           <span class="reading-time">8 min read</span>
         </div>
-        <h1>I Built an AI Wine Deal Finder &mdash; Here's What 50 Bottles Taught Me</h1>
+        <h1>I Built an AI Wine Deal Finder. Here's What 50 Bottles Taught Me.</h1>
         <p class="subtitle">
           How I built a wine price comparison tool for Singapore that compares
           Platinum Wine Club vs Grand Cru vs Vivino, using web scraping, Brave-powered
@@ -247,7 +245,7 @@
 
         <div class="toc">
           <div class="toc-title">Contents</div>
-          <a href="#problem">The idea &mdash; spend smarter on wine</a>
+          <a href="#problem">The idea: spend smarter on wine</a>
           <a href="#try-it">Try it yourself</a>
           <a href="#numbers">The numbers</a>
           <a href="#pipeline">How the pipeline works</a>
@@ -261,7 +259,7 @@
           <a href="#update-march">Update: Global market prices</a>
         </div>
 
-        <h2 id="problem">The idea &mdash; spend smarter on wine</h2>
+        <h2 id="problem">The idea: spend smarter on wine</h2>
 
         <p>
           It started with a simple question: where's the best value?
@@ -567,7 +565,7 @@ Cost:       ~$0/month (free tiers)</code></pre>
           review the risky parts. Missing data is acceptable. Fabricated price data isn't.
         </p>
 
-        <h2 id="update-march">Update: Global market prices &mdash; what worked and what didn't</h2>
+        <h2 id="update-march">Update on global market prices: what worked and what didn't</h2>
 
         <p>
           After launch, I explored adding Wine-Searcher's global average as a fourth price reference.
@@ -674,6 +672,7 @@ Cost:       ~$0/month (free tiers)</code></pre>
         </div>
       </section>
 
+      </div>
       <footer class="site-footer">
       <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
@@ -681,7 +680,7 @@ Cost:       ~$0/month (free tiers)</code></pre>
       <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
       <a href="/#work">More projects</a>
     </footer>
-    <script src="/assets/scripts/chrome.js" defer></script></div>
+    <script src="/assets/scripts/chrome.js" defer></script>
   <script>
 function toggleTheme() {
   const html = document.documentElement;

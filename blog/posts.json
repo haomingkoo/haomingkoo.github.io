@@ -9,7 +9,7 @@
       "Long COVID",
       "Clinical Research"
     ],
-    "excerpt": "How an auditable PubMed pipeline surfaced supervised rehabilitation—and what six randomized trials, including REGAIN, actually support.",
+    "excerpt": "How an auditable PubMed pipeline surfaced supervised rehabilitation, and what six randomized trials, including REGAIN, actually support.",
     "cover": "/assets/og/long-covid-evidence-pipeline.png",
     "readingTime": "14 min"
   },
@@ -57,7 +57,7 @@
   },
   {
     "slug": "pdf-parsing-comparison",
-    "title": "PDF Parsing for Complaint Forms \u2014 Docling vs PyMuPDF vs PaddleOCR",
+    "title": "PDF Parsing for Complaint Forms: Docling vs PyMuPDF vs PaddleOCR",
     "date": "2026-04-10",
     "tags": [
       "Building",
@@ -71,7 +71,7 @@
   },
   {
     "slug": "minmax-wine",
-    "title": "I Built an AI Wine Deal Finder \u2014 Here's What 50 Bottles Taught Me",
+    "title": "I Built an AI Wine Deal Finder. Here's What 50 Bottles Taught Me.",
     "date": "2026-03-27",
     "tags": [
       "Building",
