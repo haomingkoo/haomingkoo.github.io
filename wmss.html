@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>try { var t = localStorage.getItem('hk-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
   <title>WMSS Interactive Demo — Weak-Driven Learning</title>
   <meta name="description" content="Interactive visualization of WMSS: how weak agents make strong agents stronger through logit mixing and curriculum-enhanced training.">
   <meta name="author" content="Haoming Koo" />
@@ -36,7 +37,7 @@
   --accent-glow: rgba(59,130,246,0.25);
   --text: #eeeef0;
   --text-secondary: #b0b0b8;
-  --muted: #64647a;
+  --muted: #8a8aa0;
   --live: #22c55e;
   --purple: #a855f7;
   --amber: #f59e0b;
@@ -55,7 +56,7 @@
   --accent-glow: rgba(37,99,235,0.18);
   --text: #111827;
   --text-secondary: #4b5563;
-  --muted: #9ca3af;
+  --muted: #6b7280;
   --live: #16a34a;
   --purple: #7c3aed;
   --amber: #d97706;
@@ -128,7 +129,7 @@ code,.mono{font-family:"JetBrains Mono",monospace;font-size:0.88em}
   font-size:clamp(36px,6vw,64px);font-weight:800;letter-spacing:-1.5px;
   line-height:1.1;margin-bottom:16px;
   background:linear-gradient(135deg,var(--text) 30%,var(--accent) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  -webkit-background-clip:text;-webkit-text-fill-color: currentColor;
   background-clip:text;
 }
 .hero-sub{font-size:clamp(16px,2.5vw,22px);color:var(--text-secondary);font-weight:500;margin-bottom:10px}
@@ -362,28 +363,31 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
   "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kooexperience.com/wmss.html"}
 }
 </script>
+<link rel="stylesheet" href="/system/chrome.css" />
 </head>
 <body>
 
 <!-- ════════════════════════════════════════════════════════════════════
      NAV
      ════════════════════════════════════════════════════════════════════ -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="/" class="nav-logo">HK</a>
-    <span class="nav-title">WMSS &mdash; Weak-Driven Learning Demo</span>
-    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-      <svg viewBox="0 0 24 24" class="icon-theme">
-        <circle cx="12" cy="12" r="5" stroke-width="2"/>
-        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-      </svg>
-      <span class="theme-label">Dark</span>
-    </button>
-  </div>
-</nav>
+<header class="site-nav">
+      <a class="wordmark" href="/">Haoming <em>Koo</em></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/blog/" aria-current="page">Writing</a></li>
+          <li><a href="/travel/">Travel</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-end">
+        <button class="theme-switch" id="themeSwitch" type="button" aria-label="Switch light or dark theme">
+          <svg class="moon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M11 8.5A4.5 4.5 0 016.5 3a4 4 0 00-1 .12A5 5 0 1011 8.5z"/></svg>
+          <svg class="sun" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.6 2.6l1 1M10.4 10.4l1 1M11.4 2.6l-1 1M3.6 10.4l-1 1"/></svg>
+        </button>
+        <a class="nav-button" href="mailto:haomingkoo@gmail.com">Contact</a>
+      </div>
+    </header>
 
 <!-- ════════════════════════════════════════════════════════════════════
      HERO
@@ -836,15 +840,14 @@ input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--accen
 <!-- ════════════════════════════════════════════════════════════════════
      FOOTER
      ════════════════════════════════════════════════════════════════════ -->
-<footer class="footer">
-  <div class="container">
-    <p>Interactive demo by <a href="/">Haoming Koo</a> &middot;
-    Paper: <a href="https://arxiv.org/abs/2602.08222" target="_blank" rel="noopener">WMSS (Chen et al., 2026)</a> &middot;
-    Code: <a href="https://github.com/chenzehao82/Weak-Driven-Learning" target="_blank" rel="noopener">GitHub</a></p>
-  </div>
-</footer>
-
-<!-- ════════════════════════════════════════════════════════════════════
+<footer class="site-footer">
+      <span>&copy; 2026 Haoming Koo</span><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/privacy.html">Privacy</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/terms.html">Terms</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:privacy@kooexperience.com">Contact (privacy@kooexperience.com)</a><span class="sep" aria-hidden="true">&middot;</span>
+      <a href="/#work">More projects</a>
+    </footer>
+    <script src="/assets/scripts/chrome.js" defer></script><!-- ════════════════════════════════════════════════════════════════════
      JAVASCRIPT
      ════════════════════════════════════════════════════════════════════ -->
 <script>

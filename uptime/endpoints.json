@@ -5,7 +5,7 @@
   {"name": "Preflight", "url": "https://preflight.kooexperience.com", "contains": "<title>Preflight</title>"},
   {"name": "Trader Koo", "url": "https://trader.kooexperience.com", "contains": "Trader Koo"},
   {"name": "Trader Koo API", "url": "https://trader.kooexperience.com/api/health", "json_ok": true},
-  {"name": "Photo Studio", "url": "https://studio.kooexperience.com", "contains": "Photo Compliance Studio"},
+  {"name": "Photo ID Studio", "url": "https://studio.kooexperience.com", "contains": "Photo Compliance Studio"},
   {"name": "Japan in Seasons", "url": "https://seasons.kooexperience.com", "contains": "Japan in Seasons"},
   {"name": "Japan in Seasons MCP", "url": "https://seasons.kooexperience.com/mcp", "contains": "serverInfo",
    "post": {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-03-26", "capabilities": {}, "clientInfo": {"name": "uptime-monitor", "version": "1.0"}}}},

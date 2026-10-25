@@ -12,7 +12,8 @@ semantics.
 | `tokens.css` | Light + dark CSS custom properties (colors, fonts, easing, max-width) |
 | `base.css` | Reset, base body styles, `::selection`, anchor inheritance |
 | `atmosphere.css` | Grain overlay and scroll progress bar |
-| `nav.css` | Top navigation bar, clock pill, theme toggle |
+| `chrome.css` | Shared site header, footer and focus ring, with its own tokens so every page gets identical chrome |
+| `projects.css` | Case-study, privacy and terms page layout |
 
 ## Required font imports (in `<head>`)
 
@@ -26,7 +27,7 @@ semantics.
 <link rel="stylesheet" href="/system/tokens.css" />
 <link rel="stylesheet" href="/system/base.css" />
 <link rel="stylesheet" href="/system/atmosphere.css" />
-<link rel="stylesheet" href="/system/nav.css" />
+<link rel="stylesheet" href="/system/chrome.css" />
 ```
 
 `tokens.css` must come first — every other file references its custom properties.

@@ -470,7 +470,7 @@
       ]
     },
     {
-      "name": "Photo Compliance Studio",
+      "name": "Photo ID Studio",
       "url": "https://studio.kooexperience.com",
       "description": "Passport/ID photo rules engine with face landmarks, segmentation, crop/background assist, and country-profile checks.",
       "tech": [
