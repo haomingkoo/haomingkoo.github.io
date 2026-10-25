@@ -16,11 +16,11 @@
     <meta property="og:description" content="Checks a passport or ID photo against a country's rules, says what to fix, and returns a crop at the right size." />
     <meta property="og:url" content="https://kooexperience.com/projects/photo-compliance-studio.html" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://kooexperience.com/assets/images/projects/photo-compliance-studio/studio-desktop.webp" />
+    <meta property="og:image" content="https://kooexperience.com/assets/images/projects/photo-compliance-studio/studio-upload-desktop.webp" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Photo ID Studio" />
     <meta name="twitter:description" content="Checks a passport or ID photo against a country's rules, says what to fix, and returns a crop at the right size." />
-    <meta name="twitter:image" content="https://kooexperience.com/assets/images/projects/photo-compliance-studio/studio-desktop.webp" />
+    <meta name="twitter:image" content="https://kooexperience.com/assets/images/projects/photo-compliance-studio/studio-upload-desktop.webp" />
 
     <link rel="stylesheet" href="/assets/fonts/fonts.css" />
     <link rel="stylesheet" href="/system/tokens.css" />
@@ -62,9 +62,9 @@
       <figure class="case-figure">
         <div class="frame">
           <div class="frame-bar" aria-hidden="true">studio.kooexperience.com</div>
-          <img src="/assets/images/projects/photo-compliance-studio/studio-desktop.webp" width="2880" height="2320" alt="Photo ID Studio with the Singapore profile selected. A synthetic test portrait is shown next to its processed crop, with a FAIL status for image blur and a list of fixes." />
+          <img src="/assets/images/projects/photo-compliance-studio/studio-upload-desktop.webp" width="2880" height="1800" alt="Photo ID Studio upload screen headed &ldquo;Will this photo pass?&rdquo;, with a document picker set to Singapore Passport / IC, a photo upload area, a consent checkbox and a Check photo button, next to an outline showing the 400 by 514 pixel output size." />
         </div>
-        <figcaption>A synthetic test portrait checked against the Singapore profile. The input is too soft, so the result fails on sharpness and lists what to change before retaking it.</figcaption>
+        <figcaption>The upload screen with the Singapore Passport / IC profile selected. The outline on the right shows the size of the cropped copy before any photo is checked.</figcaption>
       </figure>
 
       <div class="case-body">
@@ -78,7 +78,7 @@
         <section class="case-section">
           <h2>What it does</h2>
           <div class="case-text">
-            <p>You pick a country profile and upload a photo. The server checks face size, head tilt, eyes, mouth, sharpness, lighting, background, text overlays and photo age, and returns each result as a named code with a status, a message and a suggested fix.</p>
+            <p>You pick a country profile and upload a photo. The server checks face size, head tilt, eyes, mouth, sharpness, lighting, background, text overlays and photo age, and returns each result with a status and a suggested fix. The page shows each one in plain words.</p>
             <p>When the crop can be satisfied it returns a JPEG at the profile's exact pixel size. Profiles cover Singapore, the United States, the United Kingdom, Canada, Australia and India.</p>
           </div>
         </section>
@@ -106,7 +106,7 @@
         <section class="case-section">
           <h2>Results</h2>
           <div class="case-text">
-            <p>The app is live with six country profiles. Every result is a list of codes such as <code>FACE_HEIGHT_BORDERLINE</code> or <code>BACKGROUND_NOT_COMPLIANT</code>, so the user sees exactly which rule a photo missed. It gives technical guidance only, not legal or immigration advice.</p>
+            <p>The app is live with six country profiles. Each check comes back from the server as a named code, such as <code>FACE_HEIGHT_BORDERLINE</code>, and the page turns it into a plain-language note on what to fix. It gives technical guidance only, not legal or immigration advice.</p>
           </div>
         </section>
       </div>
