@@ -229,7 +229,7 @@
     padding: 36px 0;
     border-bottom: 1px solid var(--rule);
   }
-  .project-thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--rule); border-radius: 6px; }
+  .project-thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: top; border: 1px solid var(--rule); border-radius: 6px; }
   .project-thumb.case-video { overflow: hidden; background: var(--bg); }
   .project-thumb .video-controls { left: 8px; bottom: 8px; }
   .catalogue-credit { margin-top: 20px; color: var(--ink-mute); font-size: 13px; line-height: 1.5; }
