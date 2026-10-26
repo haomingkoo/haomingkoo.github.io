@@ -75,6 +75,8 @@ Senior Software Development Engineer (AI Agentic), agentic AI engineering, forwa
 - [Photo ID Studio](https://studio.kooexperience.com): passport-style photo compliance checks with MediaPipe and OpenCV. [Case study](https://kooexperience.com/projects/photo-compliance-studio.html). [Source](https://github.com/haomingkoo/photo-id-studio).
 - [Preflight](https://preflight.kooexperience.com): automated EDA and baseline ML for CSV/Parquet files. [Source](https://github.com/haomingkoo/preflight).
 - [MinMax Wine](https://wine.kooexperience.com): Singapore wine price comparison and deal scoring. [Source](https://github.com/haomingkoo/grandcru-value-api).
+- [Handwriting Lab](https://handwriting.kooexperience.com): draw a digit and a small PyTorch CNN trained on MNIST guesses it, served from FastAPI. [Source](https://github.com/haomingkoo/handwriting-lab).
+- [SingLah](https://singlah.kooexperience.com): synced karaoke lyrics with pinyin, romaji or Korean romanization under each line, with offline saves. [Source](https://github.com/haomingkoo/singlah).
 
 ## Selected Research Note
 

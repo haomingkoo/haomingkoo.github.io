@@ -113,6 +113,14 @@ Start with Job Hunter SG to inspect RAG matching, ATS scoring, validation gates,
    Singapore wine deal intelligence with scraping, fuzzy matching, Brave/Vivino resolution, identity cache, quarantine checks, guarded review loop, and 0-100 deal scoring.
    Source: https://github.com/haomingkoo/grandcru-value-api
 
+9. Handwriting Lab - https://handwriting.kooexperience.com
+   Draw a digit and a small PyTorch CNN trained on MNIST guesses it. FastAPI inference service with a custom web UI.
+   Source: https://github.com/haomingkoo/handwriting-lab
+
+10. SingLah - https://singlah.kooexperience.com
+   Synced karaoke lyrics with Chinese pinyin, Japanese romaji or Korean romanization under each line. Installable PWA with offline saves.
+   Source: https://github.com/haomingkoo/singlah
+
 ## Blog Topics
 
 Technical posts cover evidence engineering, LLM serving, Direct Preference Optimization, OCR/PDF parsing, market regime detection, computer vision, weather forecasting, product builds, and MCP server quality.

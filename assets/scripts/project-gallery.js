@@ -17,8 +17,11 @@
         slide.classList.toggle('is-active', slideIndex === activeIndex);
         slide.classList.toggle('is-before', slideIndex < activeIndex);
         slide.setAttribute('aria-hidden', slideIndex === activeIndex ? 'false' : 'true');
-        slide.querySelectorAll('a').forEach((link) => { link.tabIndex = slideIndex === activeIndex ? 0 : -1; });
+        slide.querySelectorAll('a, button').forEach((control) => { control.tabIndex = slideIndex === activeIndex ? 0 : -1; });
+        const video = slide.querySelector('video');
+        if (video && slideIndex !== activeIndex && !video.paused) video.pause();
       });
+      slides[activeIndex].querySelector('.case-video')?.dispatchEvent(new Event('gallery:show'));
       counter.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
       label.textContent = slides[activeIndex].dataset.galleryLabel;
     };
@@ -26,6 +29,8 @@
     const stop = () => clearInterval(timer);
     const start = () => {
       stop();
+      // A recording advances the gallery when it ends instead of on the timer.
+      if (slides[activeIndex].querySelector('video')) return;
       if (!reduceMotion && inView && !document.hidden) timer = setInterval(() => render(activeIndex + 1), 6500);
     };
     const choose = (index) => { render(index); start(); };
@@ -41,6 +46,10 @@
       inView = entry.isIntersecting;
       if (inView) start(); else stop();
     }, { threshold: .35 }).observe(gallery);
+
+    gallery.querySelectorAll('video').forEach((video) => {
+      video.addEventListener('ended', () => { if (!reduceMotion) choose(activeIndex + 1); });
+    });
 
     document.addEventListener('visibilitychange', start);
     render(0);

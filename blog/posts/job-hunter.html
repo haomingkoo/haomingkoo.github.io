@@ -291,6 +291,7 @@ p{margin-bottom:16px}
 </script>
 <link rel="stylesheet" href="/system/chrome.css" />
 <link rel="stylesheet" href="/system/post-palette.css" />
+<link rel="stylesheet" href="/system/video.css" />
 </head>
 <body>
 
@@ -329,6 +330,17 @@ p{margin-bottom:16px}
     <span class="tag green">5 Validation Gates</span>
   </div>
 </header>
+
+<figure class="video-figure">
+  <div class="case-video">
+    <video muted playsinline loop preload="none" width="1280" height="800" poster="/assets/video/job-poster.webp" aria-label="Screen recording of Job Hunter SG: searching current Singapore postings and opening one, with no account.">
+      <source data-src="/assets/video/job.webm" type="video/webm" />
+      <source data-src="/assets/video/job.mp4" type="video/mp4" />
+    </video>
+    <div class="video-controls"><button class="video-play" type="button" aria-label="Play video"><svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4.5v16H6zM13.5 4H18v16h-4.5z"/></svg></button><button class="video-sound" type="button" aria-pressed="false" hidden>Sound off</button></div>
+  </div>
+  <figcaption>A screen recording of the live app: searching current Singapore postings and opening one, with no account needed.<span class="case-credit">Music: Sascha Ende, ende.app (CC BY 4.0)</span></figcaption>
+</figure>
 
 <!-- ── The Problem ────────────────────────────────────────────────── -->
 <section class="section" id="s-problem">
@@ -718,6 +730,7 @@ p{margin-bottom:16px}
       <a href="/#work">More projects</a>
     </footer>
     <script src="/assets/scripts/chrome.js" defer></script>
+    <script src="/assets/scripts/case-video.js" defer></script>
 
 <script>
 // Scroll reveal
