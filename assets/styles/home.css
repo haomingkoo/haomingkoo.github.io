@@ -3,7 +3,7 @@
     position: relative;
     padding: clamp(64px, 9vw, 120px) 40px clamp(48px, 7vw, 96px);
     display: grid;
-    grid-template-columns: minmax(0, 34rem) minmax(280px, 440px);
+    grid-template-columns: minmax(0, 34rem) clamp(240px, 36vw, 440px);
     justify-content: center;
     gap: clamp(40px, 7vw, 112px); align-items: center;
     max-width: var(--max); margin: 0 auto; z-index: 2;
