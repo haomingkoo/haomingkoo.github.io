@@ -20,6 +20,25 @@
   }
   h1.display .row { display: block; }
   h1.display .r2 { font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 15; color: var(--accent); }
+  h1.display:has(+ .hero-tagline) { margin-bottom: 20px; }
+  .hero-tagline {
+    font-family: var(--display); font-variation-settings: "opsz" 36, "SOFT" 0;
+    font-weight: 400; font-size: clamp(22px, 2vw, 28px); line-height: 1.25;
+    color: var(--ink); margin-bottom: 16px; text-wrap: balance;
+  }
+  .hero-credentials { margin-top: 32px; max-width: 34rem; overflow: hidden; }
+  .hero-credentials ul {
+    display: flex; flex-wrap: wrap; row-gap: 4px;
+    margin: 0 0 0 -1.25em; padding: 0; list-style: none;
+    color: var(--ink-mute); font-size: 14px; line-height: 1.5;
+  }
+  .hero-credentials li { position: relative; padding-left: 1.25em; white-space: nowrap; }
+  .hero-credentials li::before { content: "\00b7"; position: absolute; left: .45em; }
+  .hero-credentials a {
+    color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--ink) 30%, transparent);
+  }
+  .hero-credentials a:hover { color: var(--accent); text-decoration-color: currentColor; }
   .hero-sub {
     max-width: 34ch; color: var(--ink-soft);
     font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; margin-bottom: 32px;
