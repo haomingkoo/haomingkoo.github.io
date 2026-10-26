@@ -124,16 +124,16 @@
 <link rel="stylesheet" href="/system/tokens.css" />
 <link rel="stylesheet" href="/system/base.css" />
 <link rel="stylesheet" href="/system/atmosphere.css" />
-<link rel="stylesheet" href="/assets/styles/chat.css?v=20261026" media="print" onload="this.media='all'" />
+<link rel="stylesheet" href="/assets/styles/chat.css?v=20261027-launcher" media="print" onload="this.media='all'" />
 <link rel="stylesheet" href="/assets/styles/project-gallery.css?v=20261027-169" media="print" onload="this.media='all'" />
-<noscript><link rel="stylesheet" href="/assets/styles/chat.css?v=20261026" /><link rel="stylesheet" href="/assets/styles/project-gallery.css?v=20261027-169" /></noscript>
+<noscript><link rel="stylesheet" href="/assets/styles/chat.css?v=20261027-launcher" /><link rel="stylesheet" href="/assets/styles/project-gallery.css?v=20261027-169" /></noscript>
 <link rel="stylesheet" href="/assets/styles/hero-atmosphere.css?v=20261027-labels" />
-<script src="/assets/scripts/chat.js?v=20261026" defer></script>
+<script src="/assets/scripts/chat.js?v=20261027-launcher" defer></script>
 <script src="/assets/scripts/project-gallery.js?v=20261026-video" defer></script>
 <script src="/assets/scripts/case-video.js?v=20261027-sound" defer></script>
 <link rel="stylesheet" href="/system/video.css?v=20261027b" />
 
-<link rel="stylesheet" href="/assets/styles/home.css?v=20261027-stack" />
+<link rel="stylesheet" href="/assets/styles/home.css?v=20261027-terse" />
 <link rel="stylesheet" href="/system/chrome.css" />
 </head>
 <body>
@@ -220,56 +220,52 @@
   <div class="stack-inner">
     <div class="stack-head">
       <h2 class="stack-title" id="stack-title">Applied AI, from workflow to <em>deployment</em>.</h2>
-      <p class="stack-copy">What I build with, and where you can see it running.</p>
+      <p class="stack-copy">Where you can see it running.</p>
     </div>
     <div class="stack-rows">
       <div class="stack-row stack-legend" aria-hidden="true"><span></span><span>Where to see it</span><span>Built with</span></div>
       <article class="stack-row">
         <h3>LLM systems and agents</h3>
         <ul class="stack-proof" aria-label="Where to see it">
-          <li><a href="https://job.kooexperience.com" target="_blank" rel="noopener">Job Hunter SG</a><span>Resume tailoring agent, with five code gates that block invented facts</span></li>
-          <li><a href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Japan in Seasons</a><span>MCP server with 17 read-only tools over live seasonal data</span></li>
+          <li><a href="https://job.kooexperience.com" target="_blank" rel="noopener">Job Hunter SG</a><span>resume agent, fact-checked</span></li>
+          <li><a href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Japan in Seasons</a><span>17-tool MCP server</span></li>
         </ul>
         <div class="stack-tools">
-          <p><span class="sr-only">Built with: </span>LangGraph, LangChain, MCP, SEA-LION, sentence-transformers</p>
-          <p class="stack-work">At work: a RAG assistant over audited SOPs, used by about 3,000 engineers at Micron</p>
+          <p><span class="sr-only">Built with: </span>LangGraph, LangChain, MCP, SEA-LION</p>
+          <p class="stack-work">At work: SOP assistant for about 3,000 Micron engineers</p>
         </div>
       </article>
       <article class="stack-row">
         <h3>Evals and observability</h3>
         <ul class="stack-proof" aria-label="Where to see it">
-          <li><a href="https://github.com/haomingkoo/job-hunter-sg/tree/main/backend/evals" target="_blank" rel="noopener">Job Hunter SG evals</a><span>Release gates for job ranking, plus OpenTelemetry traces on the resume agent</span></li>
-          <li><a href="https://github.com/haomingkoo/amex-dining-map/tree/main/reminders/evals" target="_blank" rel="noopener">Amex Explorer evals</a><span>Scored test cases for the Table for Two guide, and an LLM judge for restaurant matching</span></li>
-          <li><a href="https://github.com/haomingkoo/haomingkoo.github.io/tree/main/evals" target="_blank" rel="noopener">This site&rsquo;s chat evals</a><span>promptfoo checks on the portfolio guide&rsquo;s answers</span></li>
+          <li><a href="https://github.com/haomingkoo/job-hunter-sg/tree/main/backend/evals" target="_blank" rel="noopener">Job Hunter SG</a><span>ranking gates, traces</span></li>
+          <li><a href="https://github.com/haomingkoo/amex-dining-map/tree/main/reminders/evals" target="_blank" rel="noopener">Amex Explorer</a><span>guide test cases, LLM judge</span></li>
         </ul>
         <div class="stack-tools">
-          <p><span class="sr-only">Built with: </span>promptfoo, OpenTelemetry, LLM judges</p>
+          <p><span class="sr-only">Built with: </span>OpenTelemetry, LLM judges, promptfoo</p>
           <p class="stack-work">At work: Langfuse, Arize Phoenix</p>
         </div>
       </article>
       <article class="stack-row">
         <h3>ML and computer vision</h3>
         <ul class="stack-proof" aria-label="Where to see it">
-          <li><a href="https://lionweather.kooexperience.com" target="_blank" rel="noopener">LionWeather</a><span>LightGBM rainfall forecasts, explained with SHAP</span></li>
+          <li><a href="https://lionweather.kooexperience.com" target="_blank" rel="noopener">LionWeather</a><span>LightGBM rain forecasts, SHAP</span></li>
           <li><a href="https://trader.kooexperience.com" target="_blank" rel="noopener">Trader Koo</a><span>YOLOv8 chart-pattern detection</span></li>
-          <li><a href="https://studio.kooexperience.com" target="_blank" rel="noopener">Photo ID Studio</a><span>MediaPipe face landmarks and OpenCV photo checks</span></li>
-          <li><a href="https://handwriting.kooexperience.com" target="_blank" rel="noopener">Handwriting Lab</a><span>PyTorch digit model, training runs tracked in MLflow</span></li>
         </ul>
         <div class="stack-tools">
-          <p><span class="sr-only">Built with: </span>LightGBM, SHAP, scikit-learn, PyTorch, YOLOv8, MediaPipe, OpenCV, MLflow</p>
-          <p class="stack-work">At work: TensorFlow, and a ResNet-50 wafer defect model at Micron</p>
+          <p><span class="sr-only">Built with: </span>LightGBM, SHAP, scikit-learn, PyTorch, YOLOv8, MediaPipe, OpenCV</p>
+          <p class="stack-work">At work: ResNet-50 wafer defect model, TensorFlow</p>
         </div>
       </article>
       <article class="stack-row">
         <h3>Product engineering and deployment</h3>
         <ul class="stack-proof" aria-label="Where to see it">
-          <li><a href="https://lionweather.kooexperience.com" target="_blank" rel="noopener">LionWeather</a><span>React and FastAPI over PostgreSQL, with scheduled live data pulls</span></li>
-          <li><a href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener">Amex Explorer</a><span>Playwright scrapers on GitHub Actions schedules, source-change checks</span></li>
-          <li><a href="https://preflight.kooexperience.com" target="_blank" rel="noopener">Preflight</a><span>Dash data workbench, shipped in Docker</span></li>
+          <li><a href="https://lionweather.kooexperience.com" target="_blank" rel="noopener">LionWeather</a><span>React, FastAPI, PostgreSQL</span></li>
+          <li><a href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener">Amex Explorer</a><span>scheduled Playwright scrapers</span></li>
         </ul>
         <div class="stack-tools">
-          <p><span class="sr-only">Built with: </span>FastAPI, React, TypeScript, Dash, PostgreSQL, SQLAlchemy, SQLite, Docker, Railway, GitHub Actions, Playwright, APScheduler</p>
-          <p class="stack-work">At work: GCP (moved infrastructure off Hadoop), AWS, Snowflake, Airflow, Kedro</p>
+          <p><span class="sr-only">Built with: </span>FastAPI, React, TypeScript, PostgreSQL, Docker, Railway, GitHub Actions</p>
+          <p class="stack-work">At work: GCP, AWS, Snowflake, Airflow, Kedro</p>
         </div>
       </article>
     </div>
@@ -486,11 +482,12 @@
   <h2 class="big">Hiring for applied AI? <em>Email me.</em></h2>
   <p class="lede">Senior Software Development Engineer (AI Agentic) at AMD, based in Singapore.</p>
   <a class="mail" href="mailto:haomingkoo@gmail.com?subject=AI%20engineering%20role%20with%20Haoming%20Koo">haomingkoo@gmail.com</a>
-  <div><button class="chat-launcher" id="chatLauncher" type="button" aria-controls="portfolioChat" aria-expanded="false">Or ask the portfolio guide about my work</button></div>
+  <div><button class="chat-inline" type="button" data-chat-open aria-controls="portfolioChat">Or ask the portfolio guide about my work</button></div>
 </section>
 
 </main>
 
+<button class="chat-launcher" id="chatLauncher" type="button" aria-controls="portfolioChat" aria-expanded="false">Ask about my work</button>
 <dialog class="portfolio-chat" id="portfolioChat" aria-labelledby="chatTitle" aria-describedby="chatDescription">
   <div class="chat-shell">
     <header class="chat-head">

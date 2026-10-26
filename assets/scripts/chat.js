@@ -19,6 +19,35 @@
     dialog.classList.toggle('avoid-portrait', Boolean(portraitVisible) && innerWidth > 520);
   }
 
+  // Tuck the floating launcher away whenever it would sit on the hero text or portrait.
+  const heroParts = [...document.querySelectorAll('.hero-text > *, .portrait-col .portrait-base')];
+  let tuckScheduled = false;
+  function syncLauncher() {
+    tuckScheduled = false;
+    const b = launcher.getBoundingClientRect();
+    const range = document.createRange();
+    const near = (r) => r.left < b.right + 8 && r.right > b.left - 8 && r.top < b.bottom + 8 && r.bottom > b.top - 8;
+    const covers = heroParts.some((el) => {
+      if (el.tagName === 'IMG' || el.classList.contains('cta-row')) return near(el.getBoundingClientRect());
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) {
+        range.selectNodeContents(walker.currentNode);
+        if ([...range.getClientRects()].some(near)) return true;
+      }
+      return false;
+    });
+    launcher.classList.toggle('is-tucked', covers);
+  }
+  function scheduleLauncher() {
+    if (tuckScheduled) return;
+    tuckScheduled = true;
+    requestAnimationFrame(syncLauncher);
+  }
+  addEventListener('scroll', scheduleLauncher, { passive: true });
+  addEventListener('resize', scheduleLauncher, { passive: true });
+  addEventListener('load', scheduleLauncher);
+  scheduleLauncher();
+
   function message(text, role, sources = []) {
     const item = document.createElement('div');
     item.className = `chat-message ${role}`;
@@ -54,6 +83,7 @@
   }
 
   launcher.addEventListener('click', openChat);
+  document.querySelectorAll('[data-chat-open]').forEach((button) => button.addEventListener('click', openChat));
   addEventListener('resize', () => { if (dialog.open) positionChat(); }, { passive: true });
   close.addEventListener('click', closeChat);
   dialog.addEventListener('keydown', (event) => {
