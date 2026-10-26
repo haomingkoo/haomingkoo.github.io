@@ -230,12 +230,6 @@
     border-bottom: 1px solid var(--rule);
   }
   .project-thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--rule); border-radius: 6px; }
-  .project-picture { display: block; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg-warm); }
-  .project-picture .project-thumb { height: 100%; border: 0; border-radius: 0; }
-  .project-picture--wide .project-thumb { aspect-ratio: auto; object-fit: contain; object-position: center; }
-  .theme-dark { display: none; }
-  [data-theme="dark"] .theme-light { display: none; }
-  [data-theme="dark"] .theme-dark { display: block; }
   .project-row h3 { font-family: var(--display); font-size: 24px; font-weight: 400; line-height: 1.1; }
   .project-row p { color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
   .row-actions { display: flex; gap: 14px; white-space: nowrap; }
