@@ -116,9 +116,14 @@ section.hero { overflow: clip; }
   animation: portal-turn 14s linear infinite;
 }
 
+/* A circle, so its rotation never reaches past the column. */
 .portrait-orbit {
   position: absolute;
-  inset: 13% 2% 4%;
+  inset: 0;
+  width: 92%;
+  height: auto;
+  aspect-ratio: 1;
+  margin: auto;
   z-index: 1;
   border: 1px solid color-mix(in srgb, var(--accent) 21%, transparent);
   border-radius: 50%;
@@ -224,7 +229,6 @@ section.hero { overflow: clip; }
   .portrait-col::before { inset: 2% -10% 0 0; }
   .portrait-topography { inset: -2% -16% 0 0; }
   .portrait-portal { inset: 7% 0 2%; opacity: .14; }
-  .portrait-orbit { inset: 8% 3% 2%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
