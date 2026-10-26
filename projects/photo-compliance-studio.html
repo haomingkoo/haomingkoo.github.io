@@ -62,9 +62,18 @@
       <figure class="case-figure">
         <div class="frame">
           <div class="frame-bar" aria-hidden="true">studio.kooexperience.com</div>
-          <img src="/assets/images/projects/photo-compliance-studio/studio-upload-desktop.webp" width="2880" height="1800" alt="Photo ID Studio upload screen headed &ldquo;Will this photo pass?&rdquo;, with a document picker set to Singapore Passport / IC, a photo upload area, a consent checkbox and a Check photo button, next to an outline showing the 400 by 514 pixel output size." />
+          <div class="case-video">
+            <video muted playsinline loop preload="none" width="1280" height="800" poster="/assets/video/studio-poster.webp" aria-label="Screen recording of Photo ID Studio: an illustrated portrait, tilted and turned on a grey background, is checked against UK passport rules and marked likely to be rejected; a straight retake on a white background comes back with three points to check and no definite rejection.">
+              <source data-src="/assets/video/studio.webm" type="video/webm" />
+              <source data-src="/assets/video/studio.mp4" type="video/mp4" />
+            </video>
+            <div class="video-controls">
+              <button class="video-play" type="button" aria-label="Play video"><svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4.5v16H6zM13.5 4H18v16h-4.5z"/></svg></button>
+              <button class="video-sound" type="button" aria-pressed="false" hidden>Sound off</button>
+            </div>
+          </div>
         </div>
-        <figcaption>The upload screen with the Singapore Passport / IC profile selected. The outline on the right shows the size of the cropped copy before any photo is checked.</figcaption>
+        <figcaption>A screen recording of the live app with an illustrated test portrait, not a real person. The first upload, tilted on a grey background, is marked likely to be rejected and lists what to fix. The straight retake has no definite rejection left.<span class="case-credit">Music: Sascha Ende, ende.app (CC BY 4.0)</span></figcaption>
       </figure>
 
       <div class="case-body">
@@ -128,5 +137,6 @@
       <a href="/#work">More projects</a>
     </footer>
     <script src="/assets/scripts/chrome.js" defer></script>
+    <script src="/assets/scripts/case-video.js" defer></script>
   </body>
 </html>
