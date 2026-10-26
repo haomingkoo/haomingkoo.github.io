@@ -125,15 +125,15 @@
 <link rel="stylesheet" href="/system/base.css" />
 <link rel="stylesheet" href="/system/atmosphere.css" />
 <link rel="stylesheet" href="/assets/styles/chat.css?v=20261026" media="print" onload="this.media='all'" />
-<link rel="stylesheet" href="/assets/styles/project-gallery.css?v=20261026-video" media="print" onload="this.media='all'" />
-<noscript><link rel="stylesheet" href="/assets/styles/chat.css?v=20261026" /><link rel="stylesheet" href="/assets/styles/project-gallery.css?v=20261026-video" /></noscript>
+<link rel="stylesheet" href="/assets/styles/project-gallery.css?v=20261027-169" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="/assets/styles/chat.css?v=20261026" /><link rel="stylesheet" href="/assets/styles/project-gallery.css?v=20261027-169" /></noscript>
 <link rel="stylesheet" href="/assets/styles/hero-atmosphere.css?v=20261026-orbit" />
 <script src="/assets/scripts/chat.js?v=20261026" defer></script>
 <script src="/assets/scripts/project-gallery.js?v=20261026-video" defer></script>
-<script src="/assets/scripts/case-video.js?v=20261026-hover" defer></script>
-<link rel="stylesheet" href="/system/video.css?v=20261027" />
+<script src="/assets/scripts/case-video.js?v=20261027-sound" defer></script>
+<link rel="stylesheet" href="/system/video.css?v=20261027b" />
 
-<link rel="stylesheet" href="/assets/styles/home.css?v=20261027-169" />
+<link rel="stylesheet" href="/assets/styles/home.css?v=20261027-credit" />
 <link rel="stylesheet" href="/system/chrome.css" />
 </head>
 <body>
@@ -251,7 +251,7 @@
 
     <div class="featured-projects">
       <article class="featured-project">
-        <div class="project-proof project-gallery project-gallery--contain" data-project-gallery role="region" aria-label="Job Hunter SG feature gallery">
+        <div class="project-proof project-gallery project-gallery--contain project-gallery--video" data-project-gallery role="region" aria-label="Job Hunter SG feature gallery">
           <div class="gallery-viewport">
             <div class="gallery-slide gallery-video is-active" data-gallery-label="Search Singapore postings and open one, no account needed"><div class="case-video is-overlay"><img class="video-poster" src="./assets/video/job-poster.webp?v=2" width="1280" height="720" loading="lazy" alt="" /><video muted playsinline preload="none" width="1280" height="720" aria-label="Launch video for Job Hunter SG: searching current Singapore postings, setting a pay floor, seeing what a sector pays, and checking the built-in sample resume."><source data-src="./assets/video/job.webm?v=2" type="video/webm" /><source data-src="./assets/video/job.mp4?v=2" type="video/mp4" /></video><div class="video-controls"><button class="video-play" type="button" aria-label="Play video"><svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4.5v16H6zM13.5 4H18v16h-4.5z"/></svg></button><button class="video-sound" type="button" aria-pressed="false" hidden>Sound off</button></div></div></div>
             <a class="gallery-slide" data-gallery-label="Search 72,000+ Singapore roles" href="https://job.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/job-hunter-sg/jobs-search.webp" width="2498" height="1620" loading="lazy" alt="Job Hunter SG job search interface showing Singapore listings, filters, skills, and resume-tailoring actions." /></a>
@@ -269,12 +269,13 @@
             <li><strong>Checks:</strong> Postings from MyCareersFuture and Careers@Gov; every AI rewrite is checked in code for invented facts</li>
             <li><strong>Stack:</strong> React, FastAPI, SEA-LION, sentence-transformers</li>
           </ul>
+          <p class="project-credit">Video music: Sascha Ende, ende.app (CC BY 4.0)</p>
           <div class="project-actions"><a href="./blog/posts/job-hunter.html">Read case study</a><a href="https://job.kooexperience.com" target="_blank" rel="noopener">Open live app</a><a href="https://github.com/haomingkoo/job-hunter-sg" target="_blank" rel="noopener">View source</a></div>
         </div>
       </article>
 
       <article class="featured-project">
-        <div class="project-proof project-gallery project-gallery--contain" data-project-gallery role="region" aria-label="Japan in Seasons feature gallery">
+        <div class="project-proof project-gallery project-gallery--contain project-gallery--video" data-project-gallery role="region" aria-label="Japan in Seasons feature gallery">
           <div class="gallery-viewport">
             <div class="gallery-slide gallery-video is-active" data-gallery-label="The bloom front, the Kyoto chart and peak autumn leaves"><div class="case-video is-overlay"><img class="video-poster" src="./assets/video/seasons-poster.webp?v=2" width="1280" height="720" loading="lazy" alt="" /><video muted playsinline preload="none" width="1280" height="720" aria-label="Launch video for Japan in Seasons: the 2026 cherry blossom front moving north across 3D Japan, an orbit around Mt Fuji, Kyoto full-bloom dates since 812, and autumn colour moving down the Alps."><source data-src="./assets/video/seasons.webm?v=2" type="video/webm" /><source data-src="./assets/video/seasons.mp4?v=2" type="video/mp4" /></video><div class="video-controls"><button class="video-play" type="button" aria-label="Play video"><svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4.5v16H6zM13.5 4H18v16h-4.5z"/></svg></button><button class="video-sound" type="button" aria-pressed="false" hidden>Sound off</button></div></div></div>
             <a class="gallery-slide" data-gallery-label="Cherry blossom forecast map" href="https://seasons.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/japan-in-seasons/sakura-map.webp" width="1280" height="800" loading="lazy" alt="Japan in Seasons cherry blossom forecast map with bloom stages across Japan and a searchable city panel." /></a>
@@ -291,6 +292,7 @@
             <li><strong>Data:</strong> About 1,900 places; spot reports from Japan Meteorological Corporation, weather from JMA</li>
             <li><strong>Stack:</strong> TypeScript, MCP SDK, Node HTTP, Zod</li>
           </ul>
+          <p class="project-credit">Video music: Sascha Ende, ende.app (CC BY 4.0)</p>
           <div class="project-actions"><a href="./projects/japan-in-seasons.html">Read case study</a><a href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Open live app</a><a href="https://github.com/haomingkoo/japan-seasons-mcp" target="_blank" rel="noopener">View source</a></div>
         </div>
       </article>
@@ -364,7 +366,7 @@
         <div class="row-actions"><a href="https://singlah.kooexperience.com" target="_blank" rel="noopener">Live</a><a href="https://github.com/haomingkoo/singlah" target="_blank" rel="noopener">Source</a></div>
       </article>
     </div>
-    <p class="catalogue-credit">Recordings of the live apps. Hover or tap a preview to play it. Music: Sascha Ende, ende.app (CC BY 4.0)</p>
+    <p class="catalogue-credit">Recordings of the live apps. Hover to preview, or press play for sound. Music: Sascha Ende, ende.app (CC BY 4.0)</p>
   </div>
 </section>
 

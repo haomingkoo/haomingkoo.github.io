@@ -1,6 +1,6 @@
 /* App screen recordings (case-video.js). Works on project pages, blog posts and the home page. */
 .case-video { position: relative; }
-.case-video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: var(--paper, #0e1018); cursor: pointer; }
+.case-video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: var(--paper, #0e1018); cursor: pointer; }
 .video-controls {
   position: absolute; left: 12px; bottom: 12px;
   display: flex; gap: 8px;
@@ -12,8 +12,9 @@
   font: 600 14px/1 var(--body, system-ui, sans-serif); cursor: pointer;
   box-shadow: 0 2px 10px rgba(0,0,0,.22);
 }
-.video-play { width: 44px; padding: 0; }
+.video-play, .video-sound { width: 44px; padding: 0; }
 .video-play svg { width: 18px; height: 18px; fill: currentColor; }
+.video-sound svg { width: 22px; height: 22px; fill: currentColor; }
 .video-play .icon-pause { display: none; }
 .case-video.is-playing .video-play .icon-play { display: none; }
 .case-video.is-playing .video-play .icon-pause { display: block; }
@@ -22,8 +23,8 @@
 .case-credit { display: block; margin-top: 6px; font-size: 13px; }
 
 /* Lazy poster image under the video: the video fades in once it plays */
-.case-video .video-poster { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.case-video .video-poster ~ video { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 240ms ease; }
+.case-video .video-poster { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.case-video .video-poster ~ video { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; opacity: 0; transition: opacity 240ms ease; }
 .case-video.is-started .video-poster ~ video { opacity: 1; }
 
 /* Blog figure */
@@ -40,5 +41,5 @@
 @media (max-width: 600px) {
   .case-video.is-overlay .video-controls { left: 8px; bottom: 8px; gap: 6px; }
   .case-video.is-overlay .video-play, .case-video.is-overlay .video-sound { min-height: 36px; font-size: 13px; padding: 0 12px; }
-  .case-video.is-overlay .video-play { width: 36px; padding: 0; }
+  .case-video.is-overlay .video-play, .case-video.is-overlay .video-sound { width: 40px; min-height: 40px; padding: 0; }
 }
