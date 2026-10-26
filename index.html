@@ -133,7 +133,7 @@
 <script src="/assets/scripts/case-video.js?v=20261027-sound" defer></script>
 <link rel="stylesheet" href="/system/video.css?v=20261027b" />
 
-<link rel="stylesheet" href="/assets/styles/home.css?v=20261027-hero" />
+<link rel="stylesheet" href="/assets/styles/home.css?v=20261027-stack" />
 <link rel="stylesheet" href="/system/chrome.css" />
 </head>
 <body>
@@ -218,42 +218,69 @@
 <!-- CORE STACK -->
 <section class="stack-map" id="stack" aria-labelledby="stack-title">
   <div class="stack-inner">
-    <div>
-      <div class="sec-eyebrow align-left">Core stack</div>
+    <div class="stack-head">
       <h2 class="stack-title" id="stack-title">Applied AI, from workflow to <em>deployment</em>.</h2>
-      <p class="stack-copy">The work spans the parts recruiters now screen for: LLM systems, retrieval, agents, evals, observability, ML models, APIs, data pipelines, and shipped user interfaces.</p>
+      <p class="stack-copy">What I build with, and where you can see it running.</p>
     </div>
-    <div class="stack-groups" role="group" aria-label="Technical skills and architecture">
-      <article class="stack-group">
-        <span class="stack-index">01</span>
-        <h3>LLM systems</h3>
-        <p><strong>RAG, LangGraph, LangChain, MCP, tool-calling agents, SEA-LION, prompt management, human-in-the-loop workflows.</strong></p>
+    <div class="stack-rows">
+      <div class="stack-row stack-legend" aria-hidden="true"><span></span><span>Where to see it</span><span>Built with</span></div>
+      <article class="stack-row">
+        <h3>LLM systems and agents</h3>
+        <ul class="stack-proof" aria-label="Where to see it">
+          <li><a href="https://job.kooexperience.com" target="_blank" rel="noopener">Job Hunter SG</a><span>Resume tailoring agent, with five code gates that block invented facts</span></li>
+          <li><a href="https://seasons.kooexperience.com" target="_blank" rel="noopener">Japan in Seasons</a><span>MCP server with 17 read-only tools over live seasonal data</span></li>
+        </ul>
+        <div class="stack-tools">
+          <p><span class="sr-only">Built with: </span>LangGraph, LangChain, MCP, SEA-LION, sentence-transformers</p>
+          <p class="stack-work">At work: a RAG assistant over audited SOPs, used by about 3,000 engineers at Micron</p>
+        </div>
       </article>
-      <article class="stack-group">
-        <span class="stack-index">02</span>
+      <article class="stack-row">
         <h3>Evals and observability</h3>
-        <p><strong>Evaluation harnesses, Langfuse, Arize Phoenix, MLflow, trace review, failure analysis, source grounding.</strong></p>
+        <ul class="stack-proof" aria-label="Where to see it">
+          <li><a href="https://github.com/haomingkoo/job-hunter-sg/tree/main/backend/evals" target="_blank" rel="noopener">Job Hunter SG evals</a><span>Release gates for job ranking, plus OpenTelemetry traces on the resume agent</span></li>
+          <li><a href="https://github.com/haomingkoo/amex-dining-map/tree/main/reminders/evals" target="_blank" rel="noopener">Amex Explorer evals</a><span>Scored test cases for the Table for Two guide, and an LLM judge for restaurant matching</span></li>
+          <li><a href="https://github.com/haomingkoo/haomingkoo.github.io/tree/main/evals" target="_blank" rel="noopener">This site&rsquo;s chat evals</a><span>promptfoo checks on the portfolio guide&rsquo;s answers</span></li>
+        </ul>
+        <div class="stack-tools">
+          <p><span class="sr-only">Built with: </span>promptfoo, OpenTelemetry, LLM judges</p>
+          <p class="stack-work">At work: Langfuse, Arize Phoenix</p>
+        </div>
       </article>
-      <article class="stack-group">
-        <span class="stack-index">03</span>
+      <article class="stack-row">
         <h3>ML and computer vision</h3>
-        <p><strong>LightGBM, scikit-learn, PyTorch, TensorFlow, YOLOv8, OpenCV, MediaPipe, SHAP, feature engineering.</strong></p>
+        <ul class="stack-proof" aria-label="Where to see it">
+          <li><a href="https://lionweather.kooexperience.com" target="_blank" rel="noopener">LionWeather</a><span>LightGBM rainfall forecasts, explained with SHAP</span></li>
+          <li><a href="https://trader.kooexperience.com" target="_blank" rel="noopener">Trader Koo</a><span>YOLOv8 chart-pattern detection</span></li>
+          <li><a href="https://studio.kooexperience.com" target="_blank" rel="noopener">Photo ID Studio</a><span>MediaPipe face landmarks and OpenCV photo checks</span></li>
+          <li><a href="https://handwriting.kooexperience.com" target="_blank" rel="noopener">Handwriting Lab</a><span>PyTorch digit model, training runs tracked in MLflow</span></li>
+        </ul>
+        <div class="stack-tools">
+          <p><span class="sr-only">Built with: </span>LightGBM, SHAP, scikit-learn, PyTorch, YOLOv8, MediaPipe, OpenCV, MLflow</p>
+          <p class="stack-work">At work: TensorFlow, and a ResNet-50 wafer defect model at Micron</p>
+        </div>
       </article>
-      <article class="stack-group">
-        <span class="stack-index">04</span>
-        <h3>Product engineering</h3>
-        <p><strong>FastAPI, React, TypeScript, Dash, SQLAlchemy, PostgreSQL, SQLite, auth, rate limits, background jobs.</strong></p>
+      <article class="stack-row">
+        <h3>Product engineering and deployment</h3>
+        <ul class="stack-proof" aria-label="Where to see it">
+          <li><a href="https://lionweather.kooexperience.com" target="_blank" rel="noopener">LionWeather</a><span>React and FastAPI over PostgreSQL, with scheduled live data pulls</span></li>
+          <li><a href="https://amex-explorer.kooexperience.com" target="_blank" rel="noopener">Amex Explorer</a><span>Playwright scrapers on GitHub Actions schedules, source-change checks</span></li>
+          <li><a href="https://preflight.kooexperience.com" target="_blank" rel="noopener">Preflight</a><span>Dash data workbench, shipped in Docker</span></li>
+        </ul>
+        <div class="stack-tools">
+          <p><span class="sr-only">Built with: </span>FastAPI, React, TypeScript, Dash, PostgreSQL, SQLAlchemy, SQLite, Docker, Railway, GitHub Actions, Playwright, APScheduler</p>
+          <p class="stack-work">At work: GCP (moved infrastructure off Hadoop), AWS, Snowflake, Airflow, Kedro</p>
+        </div>
       </article>
-      <article class="stack-group">
-        <span class="stack-index">05</span>
-        <h3>Data and deployment</h3>
-        <p><strong>Docker, Railway, GitHub Actions, Playwright, APScheduler, GCP, AWS, Snowflake, Airflow, Kedro.</strong></p>
-      </article>
-      <article class="stack-group">
-        <span class="stack-index">06</span>
-        <h3>Enterprise delivery</h3>
-        <p><strong>Workflow automation, semantic search, text-to-SQL patterns, root-cause investigation, stakeholder reviews, cross-site rollout.</strong></p>
-      </article>
+    </div>
+    <div class="credentials" aria-labelledby="credentials-title">
+      <h3 id="credentials-title">Credentials</h3>
+      <ul>
+        <li><a href="/blog/posts/claude-certified-architect.html">Claude Certified Architect: Foundations</a><span>Anthropic, 2026</span></li>
+        <li><strong>Certified AI Engineer</strong><span>AI Singapore, 2026</span></li>
+        <li><strong>MSc, Smart Industries and Digital Transformation</strong><span>National University of Singapore, 2021</span></li>
+        <li><strong>Micron Innovation Award</strong><span>2022, for a ResNet-50 wafer defect model</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -317,7 +344,7 @@
           <div class="gallery-viewport">
             <a class="gallery-slide is-active" data-gallery-label="Chart with support, resistance and written notes" href="https://trader.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/trader-koo/chart-analysis.webp" width="1226" height="790" loading="lazy" alt="Trader Koo chart analysis with candlesticks, indicators, evidence-backed commentary, support, and resistance levels." /></a>
             <a class="gallery-slide" data-gallery-label="Reports flag stale or missing sources" href="https://trader.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/trader-koo/report-freshness.webp" width="1914" height="900" loading="lazy" alt="Trader Koo research report showing source timestamps, explicit incomplete-coverage warnings, and research-mode gates." /></a>
-            <a class="gallery-slide" data-gallery-label="Setups ranked with their calibration history" href="https://trader.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/trader-koo/setup-quality.webp" width="1914" height="900" loading="lazy" alt="Trader Koo setup ranking view showing model calibration history, evidence tiers, market bias, and critic agreement." /></a>
+            <a class="gallery-slide" data-gallery-label="Setups ranked, with the critic&rsquo;s review" href="https://trader.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/trader-koo/setup-quality.webp" width="1914" height="900" loading="lazy" alt="Trader Koo setup ranking view showing evidence tiers, market bias, and critic agreement." /></a>
             <a class="gallery-slide" data-gallery-label="Paper trades only, never a real broker" href="https://trader.kooexperience.com" target="_blank" rel="noopener"><img src="./assets/images/projects/trader-koo/paper-trade-audit.webp" width="1914" height="900" loading="lazy" alt="Trader Koo simulated paper-trade audit showing candidate selection, critic review, risk budget, outcome memory, and a prominent simulated-trades-only notice." /></a>
           </div>
           <div class="gallery-chrome"><span class="gallery-counter">01 / 04</span><span class="gallery-label">Chart with support, resistance and written notes</span><span class="gallery-actions"><button class="gallery-arrow" data-gallery-previous type="button" aria-label="Previous view">←</button><button class="gallery-arrow" data-gallery-next type="button" aria-label="Next view">→</button></span></div>
@@ -325,10 +352,10 @@
         <div class="project-copy">
           <span class="project-index">03 · Market intelligence</span>
           <h3>Trader Koo</h3>
-          <p>Turns market data into source-dated research, ranked setups, calibrated evidence, and explicitly simulated paper-trade learning.</p>
+          <p>Turns market data into source-dated research and chart-pattern boxes, then tests setups with paper trades only, each one gated by a rule-based critic.</p>
           <ul class="project-facts">
             <li><strong>What I built:</strong> The daily research pipeline, the dashboard and the paper-trade log</li>
-            <li><strong>Checks:</strong> Every report shows how old its sources are; paper trades never reach a broker</li>
+            <li><strong>Checks:</strong> Every view flags stale sources; a 9-check critic gates each paper trade; nothing reaches a broker</li>
             <li><strong>Stack:</strong> React 19, FastAPI, Python, SQLite</li>
           </ul>
           <div class="project-actions"><a href="./projects/trader-koo.html">Read case study</a><a href="https://trader.kooexperience.com" target="_blank" rel="noopener">Open live app</a><a href="https://github.com/haomingkoo/trader-koo" target="_blank" rel="noopener">View source</a></div>

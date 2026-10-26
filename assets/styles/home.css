@@ -124,22 +124,17 @@
     border-top: 1px solid var(--rule-soft);
     border-bottom: 1px solid var(--rule-soft);
   }
-  .stack-inner {
-    max-width: var(--max);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.4fr);
-    gap: clamp(48px, 7vw, 96px);
-    align-items: start;
-  }
+  .stack-inner { max-width: var(--max); margin: 0 auto; }
+  .stack-head { margin-bottom: 56px; }
   .stack-title {
     font-family: var(--display);
     font-variation-settings: "opsz" 72, "SOFT" 0;
     font-weight: 360;
-    font-size: clamp(38px, 5vw, 76px);
-    line-height: 0.96;
+    font-size: clamp(36px, 4.6vw, 64px);
+    line-height: 1;
     letter-spacing: -0.025em;
-    max-width: 9ch;
+    max-width: 14ch;
+    text-wrap: balance;
   }
   .stack-title em {
     color: var(--accent);
@@ -147,58 +142,60 @@
     font-variation-settings: "opsz" 72, "SOFT" 15;
   }
   .stack-copy {
-    margin-top: 28px;
-    max-width: 42ch;
+    margin-top: 20px;
     color: var(--ink-soft);
-    font-size: 17px;
-    line-height: 1.65;
+    font-size: 18px;
+    line-height: 1.5;
   }
-  .stack-groups {
+  .stack-row {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(180px, .75fr) minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 16px 48px;
+    padding: 28px 0;
     border-top: 1px solid var(--rule);
-    border-left: 1px solid var(--rule);
   }
-  .stack-group {
-    min-height: 190px;
-    padding: 28px;
-    border-right: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-    background:
-      linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent 42%),
-      var(--paper);
-    transition: transform 320ms var(--ease), background 320ms var(--ease), border-color 320ms var(--ease);
+  .stack-row:last-child { border-bottom: 1px solid var(--rule); }
+  .stack-legend {
+    padding: 0 0 12px; border-top: 0;
+    color: var(--ink-mute); font-size: 13px;
   }
-  .stack-group:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in srgb, var(--accent) 44%, var(--rule));
-  }
-  .stack-index {
-    display: block;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    color: var(--accent);
-    margin-bottom: 22px;
-  }
-  .stack-group h3 {
+  .stack-row h3 {
     font-family: var(--display);
     font-variation-settings: "opsz" 40, "SOFT" 0;
-    font-weight: 390;
-    font-size: 25px;
-    line-height: 1.08;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.15;
     letter-spacing: -0.01em;
-    margin-bottom: 14px;
+    text-wrap: balance;
   }
-  .stack-group p {
-    color: var(--ink-soft);
-    font-size: 14px;
-    line-height: 1.55;
+  .stack-proof { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .stack-proof li { line-height: 1.5; }
+  .stack-proof span { margin-left: 8px; }
+  .stack-proof a, .credentials a {
+    color: var(--ink); font-size: 16px; font-weight: 500;
+    text-decoration: underline; text-underline-offset: 4px;
+    text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    transition: color 200ms var(--ease), text-decoration-color 200ms var(--ease);
   }
-  .stack-group strong {
-    color: var(--ink);
-    font-weight: 500;
+  .stack-proof a:hover, .credentials a:hover { color: var(--accent); text-decoration-color: currentColor; }
+  .stack-proof span { color: var(--ink-soft); font-size: 15px; line-height: 1.5; }
+  .stack-tools .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .stack-tools p { color: var(--ink-soft); font-size: 15px; line-height: 1.6; }
+  .stack-tools .stack-work { margin-top: 10px; color: var(--ink-mute); font-size: 14px; }
+
+  .credentials { margin-top: 64px; }
+  .credentials h3 {
+    font-family: var(--display); font-variation-settings: "opsz" 40, "SOFT" 0;
+    font-weight: 400; font-size: 24px; line-height: 1.15; margin-bottom: 20px;
   }
+  .credentials ul {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 32px;
+  }
+  .credentials li { display: grid; align-content: start; gap: 4px; padding-top: 16px; border-top: 1px solid var(--rule); }
+  .credentials strong { color: var(--ink); font-size: 16px; font-weight: 500; line-height: 1.35; }
+  .credentials a { justify-self: start; line-height: 1.35; }
+  .credentials span { color: var(--ink-mute); font-size: 14px; line-height: 1.45; }
 
   /* work */
   section.work { position: relative; z-index: 2; background: var(--paper); padding: 140px 40px; }
@@ -372,8 +369,10 @@
     .project-row { grid-template-columns: minmax(160px, .6fr) minmax(180px, .6fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 40px); }
     .row-actions { grid-column: 2 / -1; }
     .post-grid { grid-template-columns: repeat(2, 1fr); }
-    .stack-inner { grid-template-columns: 1fr; gap: 44px; }
-    .stack-title { max-width: 12ch; }
+    .stack-row { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+    .stack-row h3 { grid-column: 1 / -1; }
+    .stack-legend { display: none; }
+    .credentials ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 760px) {
     section.hero {
@@ -385,9 +384,13 @@
     .portrait-col img { object-position: left bottom; }
     section.work, section.stack-map, section.about, section.writing, section.hire { padding-left: 24px; padding-right: 24px; }
     section.stack-map { padding-top: 84px; padding-bottom: 84px; }
-    .stack-groups { grid-template-columns: 1fr; }
-    .stack-group { min-height: 0; padding: 24px; }
-    .stack-copy { font-size: 15px; }
+    .stack-head { margin-bottom: 40px; }
+    .stack-copy { font-size: 16px; }
+    .stack-row { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+    .stack-tools { padding-top: 4px; }
+    .credentials { margin-top: 48px; }
+    .credentials ul { grid-template-columns: 1fr; gap: 0; }
+    .credentials li { padding: 14px 0; }
     section.work { padding-top: 80px; padding-bottom: 80px; }
     .featured-projects { gap: 64px; margin-bottom: 80px; }
     .project-copy p { font-size: 16px; }
