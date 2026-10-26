@@ -170,6 +170,65 @@ section.hero { overflow: clip; }
   box-shadow: 0 0 16px var(--accent-2);
 }
 
+/* Capability labels ride the orbit ring, stay upright, and fade out across the top arc so they never sit on the face. */
+.hero-capabilities {
+  position: absolute;
+  inset: 0;
+  width: 92%;
+  height: auto;
+  aspect-ratio: 1;
+  margin: auto;
+  z-index: 4;
+  pointer-events: none;
+  animation: capability-orbit 24s linear infinite;
+  transition: opacity 520ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.hero-capability {
+  position: absolute;
+  inset: 0;
+  transform: rotate(var(--a));
+}
+
+.hero-capability:nth-child(1) { --a: 75deg; --phase: -5s; --static-a: 62deg; --phone-a: 40deg; }
+.hero-capability:nth-child(2) { --a: 165deg; --phase: -11s; --static-a: 118deg; --phone-a: 75deg; }
+.hero-capability:nth-child(3) { --a: 255deg; --phase: -17s; --static-a: 242deg; --phone-a: 110deg; }
+.hero-capability:nth-child(4) { --a: 345deg; --phase: -23s; --static-a: 298deg; --phone-a: 145deg; }
+
+.hero-capability > span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% -50%;
+  transform: rotate(calc(-1 * var(--a)));
+  padding: 4px 8px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink-soft);
+  font: 500 12px/1.2 var(--body);
+  white-space: nowrap;
+  animation: capability-upright 24s linear infinite, capability-face-gap 24s linear infinite;
+  animation-delay: 0s, var(--phase);
+}
+
+.portrait-col.is-transforming .hero-capabilities { opacity: .45; }
+
+@keyframes capability-orbit {
+  to { rotate: 360deg; }
+}
+
+@keyframes capability-upright {
+  to { rotate: -360deg; }
+}
+
+/* Angle from the top of the ring: hidden within 50deg of the top, faded in by 65deg. */
+@keyframes capability-face-gap {
+  0%, 13.9% { opacity: 0; }
+  18.1%, 81.9% { opacity: 1; }
+  86.1%, 100% { opacity: 0; }
+}
+
 .portrait-col .portrait-base {
   position: relative;
   z-index: 1;
@@ -223,6 +282,28 @@ section.hero { overflow: clip; }
 
 @keyframes portal-counterspin {
   to { transform: rotate(-360deg); }
+}
+
+/* Static placement on the ring: phones hang the labels off the right side, reduced motion spreads them clear of the face. */
+@media (max-width: 760px), (prefers-reduced-motion: reduce) {
+  .hero-capabilities,
+  .hero-capability > span { animation: none; }
+  .hero-capability { transform: none; }
+  .hero-capability > span {
+    top: calc(50% - 50% * cos(var(--static-a)));
+    left: calc(50% + 50% * sin(var(--static-a)));
+    transform: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-capability > span {
+    top: calc(50% - 50% * cos(var(--phone-a)));
+    left: calc(50% + 50% * sin(var(--phone-a)));
+    translate: 0 -50%;
+    padding: 3px 7px;
+    font-size: 11px;
+  }
 }
 
 @media (max-width: 760px) {
