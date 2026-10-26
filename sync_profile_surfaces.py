@@ -74,7 +74,7 @@ def app_description(app: dict[str, Any]) -> str:
         "Japan in Seasons": "Japan seasonal travel map, REST API, and MCP server with 17 read-only tools and 1,700+ places",
         "Amex Explorer": "Source-backed benefit explorer with maps, official data tracking, and stale-source alerts",
         "LionWeather": "Singapore weather app with live NEA ingestion, radar cache, saved locations, and LightGBM rainfall forecasts",
-        "Photo Compliance Studio": "Passport/ID photo rules engine with face landmarks, segmentation, crop assistance, and country-profile checks",
+        "Photo ID Studio": "Passport/ID photo rules engine with face landmarks, segmentation, crop assistance, and country-profile checks",
         "Preflight": "Dash workbench for CSV/Parquet uploads, EDA charts, baseline classifiers, and CV metrics",
         "MinMax Wine": "Wine deal engine with retailer scraping, bundle normalization, Vivino matching, and confidence-aware scoring",
     }
@@ -103,7 +103,7 @@ def render_readme(profile: dict[str, Any], posts: list[dict[str, Any]]) -> str:
 
 **Senior Software Development Engineer (AI Agentic) at AMD**
 
-Production AI systems, RAG, agent workflows, and evals | AMD | Certified AI Engineer by AI Singapore | Ex-Micron (contributed to {metrics["businessImpact"]} in program outcomes) | MSc NUS
+Production AI systems, RAG, agent workflows, and evals | AMD | Certified AI Engineer by AI Singapore | Claude Certified Architect: Foundations (Anthropic) | Ex-Micron (contributed to {metrics["businessImpact"]} in program outcomes) | MSc NUS
 
 GitHub username: [`haomingkoo`](https://github.com/haomingkoo)
 
