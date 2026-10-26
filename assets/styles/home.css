@@ -3,8 +3,9 @@
     position: relative;
     padding: clamp(64px, 9vw, 120px) 40px clamp(48px, 7vw, 96px);
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
-    gap: 56px; align-items: center;
+    grid-template-columns: minmax(0, 34rem) minmax(280px, 440px);
+    justify-content: center;
+    gap: clamp(40px, 7vw, 112px); align-items: center;
     max-width: var(--max); margin: 0 auto; z-index: 2;
   }
   h1.display {
@@ -196,8 +197,7 @@
   }
   .project-proof img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
   .project-index {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
+    font-family: var(--mono); font-size: 13px; color: var(--accent);
   }
   .project-copy h3 {
     font-family: var(--display); font-size: clamp(34px, 4vw, 58px);
@@ -230,6 +230,9 @@
     border-bottom: 1px solid var(--rule);
   }
   .project-thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--rule); border-radius: 6px; }
+  .project-thumb.case-video { overflow: hidden; background: var(--bg); }
+  .project-thumb .video-controls { left: 8px; bottom: 8px; }
+  .catalogue-credit { margin-top: 20px; color: var(--ink-mute); font-size: 13px; line-height: 1.5; }
   .project-row h3 { font-family: var(--display); font-size: 24px; font-weight: 400; line-height: 1.1; }
   .project-row p { color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
   .row-actions { display: flex; gap: 14px; white-space: nowrap; }

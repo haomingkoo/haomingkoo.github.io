@@ -337,6 +337,7 @@
 </script>
 <link rel="stylesheet" href="/system/chrome.css" />
 <link rel="stylesheet" href="/system/post-palette.css" />
+<link rel="stylesheet" href="/system/video.css" />
 </head>
   <body>
     <div class="nav-wrap">
@@ -377,6 +378,17 @@
           SHAP explainability, animated radar, and tropical weather data from 2016 to 2024.
           Now with interactive charts so you can explore the data yourself.
         </p>
+
+        <figure class="video-figure">
+          <div class="case-video">
+            <video muted playsinline loop preload="none" width="1280" height="800" poster="/assets/video/lionweather-poster.webp" aria-label="Screen recording of LionWeather: NEA readings, the next 12 hours, and the last hour of rain radar.">
+              <source data-src="/assets/video/lionweather.webm" type="video/webm" />
+              <source data-src="/assets/video/lionweather.mp4" type="video/mp4" />
+            </video>
+            <div class="video-controls"><button class="video-play" type="button" aria-label="Play video"><svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4.5v16H6zM13.5 4H18v16h-4.5z"/></svg></button><button class="video-sound" type="button" aria-pressed="false" hidden>Sound off</button></div>
+          </div>
+          <figcaption>A screen recording of the live app: the current NEA reading, the next 12 hours, and the last hour of rain radar.<span class="case-credit">Music: Sascha Ende, ende.app (CC BY 4.0)</span></figcaption>
+        </figure>
 
         <div class="stack-box">
           <div class="stack-box-title">Tech Stack</div>
@@ -1353,6 +1365,7 @@ params = {
       <a href="/#work">More projects</a>
     </footer>
     <script src="/assets/scripts/chrome.js" defer></script>
+    <script src="/assets/scripts/case-video.js" defer></script>
 
     <!-- ================================================================ -->
     <!-- JAVASCRIPT: Data fetching, chart rendering, interactivity        -->

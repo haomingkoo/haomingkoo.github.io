@@ -14,6 +14,7 @@ semantics.
 | `atmosphere.css` | Grain overlay and scroll progress bar |
 | `chrome.css` | Shared site header, footer and focus ring, with its own tokens so every page gets identical chrome |
 | `projects.css` | Case-study, privacy and terms page layout |
+| `video.css` | App screen recordings driven by `/assets/scripts/case-video.js` |
 | `post-palette.css` | AA-tuned accent, muted and status colours for long-form posts; link it after the post's inline `<style>` |
 
 ## Required font imports (in `<head>`)

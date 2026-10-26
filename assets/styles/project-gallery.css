@@ -43,49 +43,9 @@
   object-position: center;
 }
 
-.gallery-diagram {
-  display: grid;
-  place-items: center;
-  padding: clamp(28px, 5vw, 64px);
-  background:
-    radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 45%),
-    var(--bg-warm);
-}
-
-.architecture-diagram { width: 100%; height: 100%; overflow: visible; }
-.architecture-diagram .diagram-node {
-  fill: var(--paper);
-  stroke: var(--rule);
-  stroke-width: 2;
-}
-.architecture-diagram .diagram-node-emphasis {
-  fill: color-mix(in srgb, var(--accent) 10%, var(--paper));
-  stroke: var(--accent);
-}
-.architecture-diagram .diagram-title {
-  fill: var(--ink);
-  font: 600 22px var(--body);
-  letter-spacing: -.01em;
-}
-.architecture-diagram .diagram-copy {
-  fill: var(--ink-soft);
-  font: 400 16px var(--body);
-}
-.architecture-diagram .diagram-kicker {
-  fill: var(--accent);
-  font: 500 13px var(--mono);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
-.architecture-diagram .diagram-edge {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-dasharray: 10 10;
-  opacity: .72;
-}
-.gallery-slide.is-active .diagram-edge { animation: diagram-flow 1.8s linear infinite; }
+.gallery-video .case-video { height: 100%; }
+.gallery-video .video-poster { object-fit: contain; object-position: center; }
+.gallery-video .video-controls { left: 14px; bottom: 10px; }
 
 .gallery-chrome {
   position: absolute;
@@ -124,11 +84,8 @@
 .gallery-arrow:hover { background: rgba(247, 248, 251, .14); border-color: rgba(247, 248, 251, .6); }
 .gallery-arrow:focus-visible { outline: 2px solid #f7f8fb; outline-offset: 2px; }
 
-@keyframes diagram-flow { to { stroke-dashoffset: -40; } }
-
 @media (max-width: 760px) {
   .project-gallery--contain .gallery-viewport { bottom: 58px; }
-  .gallery-diagram { padding: 32px 22px 72px; }
   .gallery-chrome { gap: 10px; min-height: 58px; padding: 10px 12px; }
   .gallery-label { font-size: 12px; }
   .gallery-counter { font-size: 9px; }
@@ -137,5 +94,4 @@
 
 @media (prefers-reduced-motion: reduce) {
   .gallery-slide { transition: none; }
-  .gallery-slide.is-active .diagram-edge { animation: none; }
 }
