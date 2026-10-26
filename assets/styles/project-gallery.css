@@ -43,6 +43,11 @@
   object-position: center;
 }
 
+/* Galleries that lead with a 16:9 launch video: the stage is exactly 16:9 and the chrome sits below it */
+.project-gallery--video { aspect-ratio: auto; padding-bottom: 64px; }
+.project-gallery--video .gallery-viewport { position: relative; inset: auto; bottom: auto; aspect-ratio: 16 / 9; }
+.project-gallery--video .gallery-chrome { background: rgba(4, 6, 12, .92); }
+
 .gallery-video .case-video { height: 100%; }
 .gallery-video .video-poster { object-fit: contain; object-position: center; }
 .gallery-video .video-controls { left: 14px; bottom: 10px; }
@@ -86,6 +91,8 @@
 
 @media (max-width: 760px) {
   .project-gallery--contain .gallery-viewport { bottom: 58px; }
+  .project-gallery--video { padding-bottom: 58px; }
+  .project-gallery--video .gallery-viewport { bottom: auto; }
   .gallery-chrome { gap: 10px; min-height: 58px; padding: 10px 12px; }
   .gallery-label { font-size: 12px; }
   .gallery-counter { font-size: 9px; }

@@ -232,6 +232,7 @@
   .project-thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: top; border: 1px solid var(--rule); border-radius: 6px; }
   .project-thumb.case-video { overflow: hidden; background: var(--bg); }
   .project-thumb .video-controls { left: 8px; bottom: 8px; }
+  .project-credit { margin-top: 12px; color: var(--ink-mute); font-size: 13px; line-height: 1.5; }
   .catalogue-credit { margin-top: 20px; color: var(--ink-mute); font-size: 13px; line-height: 1.5; }
   .project-row h3 { font-family: var(--display); font-size: 24px; font-weight: 400; line-height: 1.1; }
   .project-row p { color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
