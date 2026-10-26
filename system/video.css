@@ -19,7 +19,6 @@
 .case-video.is-playing .video-play .icon-play { display: none; }
 .case-video.is-playing .video-play .icon-pause { display: block; }
 .video-play:focus-visible, .video-sound:focus-visible { outline: 2px solid var(--accent, #5b8efb); outline-offset: 2px; }
-.case-video.is-1610 video { aspect-ratio: 16 / 10; }
 .case-credit { display: block; margin-top: 6px; font-size: 13px; }
 
 /* Lazy poster image under the video: the video fades in once it plays */
