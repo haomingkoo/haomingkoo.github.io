@@ -83,7 +83,7 @@ Start with Job Hunter SG to inspect RAG matching, ATS scoring, validation gates,
    Source: https://github.com/haomingkoo/job-hunter-sg
 
 2. Trader Koo - https://trader.kooexperience.com
-   Evidence-first market research workflow with source freshness, ranked setups, chart-pattern detection, paper-trade audit trails, Telegram alerts, model versioning, and clear research/execution boundaries.
+   Evidence-first market research workflow with source-freshness flags, YOLOv8 chart-pattern detection (pretrained third-party model), a rule-based 9-check critic, a paper-only trade audit, Telegram alerts, and clear research/execution boundaries.
    Case study: https://kooexperience.com/projects/trader-koo.html
    Source: https://github.com/haomingkoo/trader-koo
 

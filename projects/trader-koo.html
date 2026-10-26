@@ -56,7 +56,7 @@
           <a class="btn-primary" href="https://trader.kooexperience.com" target="_blank" rel="noopener">Open live app</a>
           <a class="text-link" href="https://github.com/haomingkoo/trader-koo" target="_blank" rel="noopener">Source on GitHub</a>
         </div>
-        <p class="case-stack">Python, FastAPI, LightGBM, YOLOv8 and React, deployed on Railway.</p>
+        <p class="case-stack">Python, FastAPI, YOLOv8 and React, deployed on Railway.</p>
       </header>
 
       <figure class="case-figure">
@@ -78,7 +78,7 @@
         <section class="case-section">
           <h2>What it does</h2>
           <div class="case-text">
-            <p>Each weekday at 22:00 UTC a pipeline pulls prices and macro data, detects chart patterns and writes a daily report. Candidate setups go through a rule-based critic, and the ones it approves become paper trades sized to risk 0.5% of the simulated account. No broker is connected.</p>
+            <p>Each weekday at 22:00 UTC a pipeline pulls prices and macro data, detects chart patterns and writes a daily report. Every view flags sources that are stale or missing. Candidate setups go through a rule-based critic with nine checks, and the ones it approves become paper trades sized to risk 0.5% of the simulated account. Trades are paper only: no broker is connected.</p>
           </div>
         </section>
 
@@ -86,9 +86,9 @@
           <h2>How it works</h2>
           <div class="case-text">
             <ul class="points">
-              <li><strong>Signals from several angles</strong>A technical ensemble weighs trend, mean reversion, momentum, volatility and statistical-arbitrage signals. A YOLOv8 model reads chart images for patterns such as head-and-shoulders.</li>
+              <li><strong>Signals from several angles</strong>A technical ensemble weighs trend, mean reversion, momentum, volatility and statistical-arbitrage signals. A pretrained third-party YOLOv8 model detects patterns such as head-and-shoulders and boxes them on the chart.</li>
               <li><strong>Regime first</strong>A hidden Markov model labels the volatility regime as low, normal or high. A trend signal that runs against the regime is blocked, with no override.</li>
-              <li><strong>A critic that fails closed</strong>VIX above 25 blocks new long entries and above 35 blocks all entries. If the regime is unknown and VIX is missing, the critic rejects the trade rather than guessing.</li>
+              <li><strong>A critic that fails closed</strong>Nine rule-based checks cover conviction, risk to reward, regime, concentration, volatility, caution flags and each setup family&rsquo;s track record. VIX above 25 blocks new long entries and above 35 blocks all entries. If the regime is unknown and VIX is missing, the critic rejects the trade rather than guessing.</li>
               <li><strong>Loss breakers</strong>A 5% daily loss or a 15% drawdown in the paper book stops new entries.</li>
             </ul>
           </div>
@@ -97,15 +97,15 @@
         <section class="case-section">
           <h2>What was hard</h2>
           <div class="case-text">
-            <p>Keeping the machine-learning model honest. A LightGBM walk-forward classifier runs in observation mode: it scores every trade but cannot gate one until there are 20 closed paper trades and an average AUC of at least 0.55 across five folds.</p>
-            <p>An early version tied that scoring to the switch that enables the model, so the gate could never collect the data it needed to open. Scoring now runs on its own.</p>
+            <p>Keeping the research honest. A LightGBM classifier ran in observation mode but never qualified, and it never vetoed, ranked or sized a trade, so I removed it. The repo&rsquo;s research notes record that the setup score shows no measurable edge, and the app makes no claim that it does.</p>
+            <p>What stays is the plumbing I would trust: dated sources, a critic that fails closed, and an audit trail of every simulated trade.</p>
           </div>
         </section>
 
         <section class="case-section">
           <h2>Results</h2>
           <div class="case-text">
-            <p>The app is live as a research and paper-trading tool, with a daily report, chart analysis and an audit trail of simulated trades. It is not financial advice, and no real money is at risk.</p>
+            <p>The app is live as a research and paper-trading tool, with a daily report, chart analysis and a paper-only audit trail of simulated trades. It is not financial advice, and no real money is at risk.</p>
           </div>
         </section>
       </div>

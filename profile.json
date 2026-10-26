@@ -421,11 +421,10 @@
     {
       "name": "Trader Koo",
       "url": "https://trader.kooexperience.com",
-      "description": "Evidence-first market research workflow with source freshness, ranked setups, chart-pattern detection, paper-trade audit trails, Telegram alerts, and model versioning.",
+      "description": "Evidence-first market research workflow with source-freshness flags, YOLOv8 chart-pattern detection, a rule-based 9-check critic, a paper-only trade audit, and Telegram alerts.",
       "tech": [
         "FastAPI",
         "React",
-        "LightGBM",
         "YOLOv8",
         "SQLite",
         "APScheduler",
