@@ -13,6 +13,7 @@
   {"name": "LionWeather", "url": "https://lionweather.kooexperience.com", "contains": "LionWeather"},
   {"name": "LionWeather API", "url": "https://lionweather-backend-production.up.railway.app/health", "contains": "healthy"},
   {"name": "MinMax Wine", "url": "https://wine.kooexperience.com", "contains": "MinMax Wine"},
+  {"name": "MinMax Wine market prices", "url": "https://wine.kooexperience.com/health", "contains": "\"vivino_ok\":true"},
   {"name": "Job Hunter", "url": "https://jobhunter.kooexperience.com", "contains": "Job Hunter"},
   {"name": "TravelBetter", "url": "https://travelbetter.kooexperience.com", "contains": "travel planner"},
   {"name": "Long COVID Atlas", "url": "https://longcovid-atlas-production.up.railway.app", "contains": "Long COVID Evidence Atlas"},
