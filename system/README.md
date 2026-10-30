@@ -20,16 +20,16 @@ semantics.
 ## Required font imports (in `<head>`)
 
 ```html
-<link rel="stylesheet" href="/assets/fonts/fonts.css" />
+<link rel="stylesheet" href="/assets/fonts/fonts.css?v=20261030" />
 ```
 
 ## Required import order
 
 ```html
-<link rel="stylesheet" href="/system/tokens.css" />
+<link rel="stylesheet" href="/system/tokens.css?v=20261030" />
 <link rel="stylesheet" href="/system/base.css" />
 <link rel="stylesheet" href="/system/atmosphere.css" />
-<link rel="stylesheet" href="/system/chrome.css" />
+<link rel="stylesheet" href="/system/chrome.css?v=20261030" />
 ```
 
 `tokens.css` must come first — every other file references its custom properties.

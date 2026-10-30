@@ -11,7 +11,7 @@
   --accent-2: #5b8efb;
   --grain-op: 0.16;
   --grain-blend: multiply;
-  --display: "Fraunces","Times New Roman",serif;
+  --display: "Newsreader","Times New Roman",serif;
   --body: "Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
   --mono: "JetBrains Mono",ui-monospace,Menlo,monospace;
   --ease: cubic-bezier(.2,.7,.2,1);
