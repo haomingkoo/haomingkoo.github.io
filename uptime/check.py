@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 import time
@@ -46,7 +47,8 @@ def probe(ep: dict) -> str | None:
         except json.JSONDecodeError:
             return "invalid JSON"
     if "contains" in ep and ep["contains"] not in body:
-        return f"missing marker {ep['contains']!r}"
+        title = re.search(r"<title[^>]*>([^<]{0,80})", body, re.IGNORECASE)
+        return f"missing marker {ep['contains']!r} (got {title.group(1).strip() if title else body[:80]!r})"
     return None
 
 
