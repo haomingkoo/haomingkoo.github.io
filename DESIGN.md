@@ -28,6 +28,14 @@ Storyline:
 3. Product layer: live apps someone can open and test.
 4. Enterprise layer: planning work becomes governed SQL, evidence, root-cause notes, and reviewable handoff.
 
+## Type
+
+All fonts are self-hosted in `assets/fonts/` and declared in `assets/fonts/fonts.css`.
+
+- Display and headings: Newsreader (variable, opsz 6 to 72, weight 200 to 800, upright and italic), via `--display` in `system/tokens.css` and `--chrome-display` in `system/chrome.css`. Italic accents in headings use the same family. It replaced Fraunces, whose capital J bulged at display sizes.
+- Body: Inter Tight. Code, eyebrows and labels: JetBrains Mono.
+- Newsreader is wider than Fraunces at display sizes. Check long headings at 1400px and 390px when changing copy; tighten letter-spacing before shrinking type.
+
 ## Product proof order
 
 Homepage order:

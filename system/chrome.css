@@ -8,7 +8,7 @@
   --chrome-rule: rgba(6,7,13,0.10);
   --chrome-accent: #2563eb;
   --chrome-on-accent: #ffffff;
-  --chrome-display: "Fraunces", "Times New Roman", serif;
+  --chrome-display: "Newsreader", "Times New Roman", serif;
   --chrome-body: "Inter Tight", -apple-system, BlinkMacSystemFont, sans-serif;
   --chrome-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
 }
