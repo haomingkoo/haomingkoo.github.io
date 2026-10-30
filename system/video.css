@@ -5,20 +5,44 @@
   position: absolute; left: 12px; bottom: 12px;
   display: flex; gap: 8px;
 }
-.video-play, .video-sound {
+/* Seek bar: a thin track on the bottom edge that thickens on hover or focus. */
+.video-seek {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  width: 100%; height: 14px; margin: 0; padding: 0;
+  appearance: none; -webkit-appearance: none; background: transparent; cursor: pointer;
+  opacity: 0; pointer-events: none; transition: opacity 160ms ease;
+}
+.case-video.has-seek .video-seek { opacity: 1; pointer-events: auto; }
+.video-seek::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(to right, var(--accent, #5b8efb) var(--seek, 0%), rgba(255,255,255,.28) var(--seek, 0%)); transition: height 120ms ease; }
+.video-seek::-moz-range-track { height: 4px; border-radius: 2px; background: rgba(255,255,255,.28); }
+.video-seek::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--accent, #5b8efb); }
+.video-seek::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -4px; border-radius: 50%; background: #fff; border: 0; }
+.video-seek::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 0; }
+.video-seek:hover::-webkit-slider-runnable-track, .video-seek:focus-visible::-webkit-slider-runnable-track { height: 6px; }
+.video-seek:focus-visible { outline: 2px solid var(--accent, #5b8efb); outline-offset: 2px; }
+.case-video.has-seek .video-controls { bottom: 22px; }
+
+/* Full screen: the player fills the screen, video letterboxed, controls stay on top. */
+.case-video.is-fullscreen { display: flex; align-items: center; justify-content: center; background: #000; }
+.case-video.is-fullscreen video, .case-video.is-fullscreen .video-poster { width: 100%; height: 100%; aspect-ratio: auto; object-fit: contain; }
+.case-video.is-fullscreen .video-controls { left: 24px; bottom: 36px; }
+.case-video.is-fullscreen .video-seek { left: 24px; right: 24px; width: auto; bottom: 12px; }
+
+.video-play, .video-sound, .video-full {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 44px; padding: 0 16px; border: 1px solid rgba(255,255,255,.2); border-radius: 6px;
   background: #06070d; color: #fff;
   font: 600 14px/1 var(--body, system-ui, sans-serif); cursor: pointer;
   box-shadow: 0 2px 10px rgba(0,0,0,.22);
 }
-.video-play, .video-sound { width: 44px; padding: 0; }
+.video-play, .video-sound, .video-full { width: 44px; padding: 0; }
+.video-full svg { width: 20px; height: 20px; }
 .video-play svg { width: 18px; height: 18px; fill: currentColor; }
 .video-sound svg { width: 22px; height: 22px; fill: currentColor; }
 .video-play .icon-pause { display: none; }
 .case-video.is-playing .video-play .icon-play { display: none; }
 .case-video.is-playing .video-play .icon-pause { display: block; }
-.video-play:focus-visible, .video-sound:focus-visible { outline: 2px solid var(--accent, #5b8efb); outline-offset: 2px; }
+.video-play:focus-visible, .video-sound:focus-visible, .video-full:focus-visible { outline: 2px solid var(--accent, #5b8efb); outline-offset: 2px; }
 .case-credit { display: block; margin-top: 6px; font-size: 13px; }
 
 /* Lazy poster image under the video: the video fades in once it plays */
@@ -35,10 +59,12 @@
 .video-figure figcaption { margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--ink-soft, var(--text-secondary, inherit)); }
 
 @media (max-width: 600px) {
+  .case-video:not(.is-overlay):not(.is-fullscreen) .video-seek { position: static; display: block; }
   .case-video:not(.is-overlay) .video-controls { position: static; padding: 8px; border-top: 1px solid var(--frame, var(--rule, rgba(127,127,127,.28))); }
 }
 @media (max-width: 600px) {
   .case-video.is-overlay .video-controls { left: 8px; bottom: 8px; gap: 6px; }
-  .case-video.is-overlay .video-play, .case-video.is-overlay .video-sound { min-height: 36px; font-size: 13px; padding: 0 12px; }
-  .case-video.is-overlay .video-play, .case-video.is-overlay .video-sound { width: 40px; min-height: 40px; padding: 0; }
+  .case-video.is-overlay.has-seek .video-controls { bottom: 20px; }
+  .case-video.is-overlay .video-play, .case-video.is-overlay .video-sound, .case-video.is-overlay .video-full { min-height: 36px; font-size: 13px; padding: 0 12px; }
+  .case-video.is-overlay .video-play, .case-video.is-overlay .video-sound, .case-video.is-overlay .video-full { width: 40px; min-height: 40px; padding: 0; }
 }
