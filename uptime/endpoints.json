@@ -17,6 +17,6 @@
   {"name": "Job Hunter", "url": "https://jobhunter.kooexperience.com", "contains": "Job Hunter"},
   {"name": "TravelBetter", "url": "https://travelbetter.kooexperience.com", "contains": "travel planner"},
   {"name": "Long COVID Atlas", "url": "https://longcovid-atlas-production.up.railway.app", "contains": "Long COVID Evidence Atlas"},
-  {"name": "SingLah API", "url": "https://singlah-production.up.railway.app/docs", "contains": "Swagger UI"},
+  {"name": "SingLah API", "url": "https://singlah-production.up.railway.app/rooms/AAAAAA", "contains": "\"exists\":false"},
   {"name": "Admin (Cloudflare Access gate only)", "url": "https://admin.kooexperience.com", "contains": "Cloudflare Access"}
 ]

@@ -52,8 +52,9 @@ def classify(url: str, cfg: dict) -> str:
     return "unexpected"
 
 
-def watch(page: Page, cfg: dict) -> list[str]:
+def watch(page: Page, cfg: dict) -> tuple[list[str], list[str]]:
     problems: list[str] = []
+    vector_tiles: list[str] = []
     ignored = [re.compile(p) for p in cfg["ignored_problem_patterns"]]
 
     def add(problem: str, context: str = "") -> None:
@@ -72,6 +73,8 @@ def watch(page: Page, cfg: dict) -> list[str]:
     def on_response(resp) -> None:
         if resp.status >= 400 and classify(resp.url, cfg) == "first":
             add(f"HTTP {resp.status}: {resp.url[:120]}")
+        if resp.ok and urlparse(resp.url).path.endswith(".pbf"):
+            vector_tiles.append(resp.url)
 
     def on_failed(req) -> None:
         failure = req.failure or ""
@@ -83,14 +86,18 @@ def watch(page: Page, cfg: dict) -> list[str]:
     page.on("request", on_request)
     page.on("response", on_response)
     page.on("requestfailed", on_failed)
-    return problems
+    return problems, vector_tiles
 
 
-def render_checks(page: Page) -> list[str]:
+def render_checks(page: Page, vector_tiles: list[str]) -> list[str]:
     problems = []
     if page.evaluate(CONTENT_JS) < MIN_CONTENT_CHARS:
         problems.append("main content empty")
-    if page.locator(".leaflet-container").count():
+    # A MapLibre layer draws vector tiles on a canvas, so count the tiles it fetched.
+    if page.locator(".leaflet-container .maplibregl-canvas").count():
+        if not vector_tiles:
+            problems.append("vector map fetched no tiles")
+    elif page.locator(".leaflet-container").count():
         try:
             page.wait_for_selector("img.leaflet-tile-loaded", timeout=TILE_TIMEOUT_MS)
         except PlaywrightError:
@@ -100,7 +107,7 @@ def render_checks(page: Page) -> list[str]:
 
 def visit(browser, site: dict, cfg: dict) -> list[str]:
     page = browser.new_page(viewport=VIEWPORT)
-    problems = watch(page, cfg)
+    problems, vector_tiles = watch(page, cfg)
     try:
         page.goto(site["url"], wait_until="load", timeout=GOTO_TIMEOUT_MS)
         try:
@@ -108,7 +115,7 @@ def visit(browser, site: dict, cfg: dict) -> list[str]:
         except PlaywrightError:
             pass  # pages that poll never go idle; the settle wait still runs
         page.wait_for_timeout(SETTLE_MS)
-        problems += render_checks(page)
+        problems += render_checks(page, vector_tiles)
     except PlaywrightError as e:
         problems.append(f"load error: {str(e).splitlines()[0][:160]}")
     slug = re.sub(r"[^a-z0-9]+", "-", site["name"].lower()).strip("-")

@@ -15,6 +15,6 @@
   ],
   "first_party_suffixes": ["kooexperience.com", "up.railway.app"],
   "banned_host_substrings": ["cartocdn", "fonts.googleapis.com"],
-  "allowed_third_party_hosts": ["static.cloudflareinsights.com", "unpkg.com", "cdn.jsdelivr.net", "tile.openstreetmap.org", "tile.openstreetmap.de", "app.netsuite.com"],
+  "allowed_third_party_hosts": ["static.cloudflareinsights.com", "unpkg.com", "cdn.jsdelivr.net", "tile.openstreetmap.org", "tile.openstreetmap.de", "tiles.openfreemap.org", "app.netsuite.com"],
   "ignored_problem_patterns": ["^HTTP 401: https://job\\.kooexperience\\.com/api/auth/me", "status of 401 .*job\\.kooexperience\\.com/api/auth/me"]
 }
