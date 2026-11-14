@@ -16,7 +16,7 @@ Search aliases: Haoming Koo, Haoming Koo GitHub, Haoming Koo LinkedIn, Haoming K
 
 ## Career Summary
 
-- Current role: Senior Software Development Engineer (AI Agentic) at AMD, August 2026–present.
+- Current role: Senior Software Development Engineer (AI Agentic) at AMD, August 2026–present. Built and deployed two end-to-end agentic AI solutions for the logistics and lab domains.
 - AI Singapore: completed the AI Apprenticeship Programme from January–July 2026 and graduated as a Certified AI Engineer after building production ML systems across structured data, vision, and sequence modelling, including a 100E industry AI solution for complex operational planning.
 - Previous role: 7 years at Micron Technology in Singapore, most recently Manager, Front End Central Process Integration Engineering (August 2022–January 2025), leading a team of 6 direct and 9 indirect engineers and a USD 9M operational portfolio.
 - Program outcomes: identified USD 600M+ in opportunities with USD 50M+ realized across semiconductor manufacturing, risk analytics, yield optimisation, cloud infrastructure, and platform unification.

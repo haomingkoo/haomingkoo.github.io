@@ -155,6 +155,7 @@
           "location": "Singapore",
           "description": "Build and deploy agentic AI systems end to end, from prompt and context engineering through production integration and evaluation.",
           "bullets": [
+            "Built and deployed two end-to-end agentic AI solutions for the logistics and lab domains",
             "Design AI agents with multi-step workflows, tool use, memory, function calling, and structured outputs",
             "Build RAG pipelines and context-management strategies to improve reliability and reduce hallucinations",
             "Develop evaluation and testing frameworks for response quality, consistency, and latency",
@@ -179,8 +180,22 @@
             "Built vision models for image classification, object detection, and quality checks",
             "Developed sequence modelling systems for time-series prediction",
             "Implemented containerised deployment, model lifecycle management, and MLOps automation",
-            "Separately built and maintained 8 public portfolio applications at kooexperience.com, including RAG workflows, market research tools, MCP travel intelligence, and ML demos",
             "Developed skills in NLP, LLM architectures, LangGraph-style orchestration, observability, and agentic AI workflows"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Koo Experience",
+      "roles": [
+        {
+          "title": "Founder and AI Engineer",
+          "startDate": "2025-01",
+          "endDate": null,
+          "location": "Singapore",
+          "description": "Founded and operate a portfolio of live AI products at kooexperience.com, owned end to end and in production.",
+          "bullets": [
+            "Built and operate 8 public AI applications at kooexperience.com, including RAG workflows, market research tools, MCP travel intelligence, and ML demos"
           ]
         }
       ]
@@ -196,12 +211,12 @@
           "location": "Singapore",
           "description": "Led global AI-enabled transformation and cross-site program delivery across four fabs (Singapore, Boise, Hiroshima, Taichung). Managed a team of 6 direct and up to 9 indirect engineers with a USD 9M operational portfolio.",
           "bullets": [
-            "Designed and executed a 5-year autonomous conversion roadmap using 3M strategy (Method, Metrics, Mindset) — USD 600M+ in opportunities identified, USD 50M+ realized",
+            "Designed and executed a 5-year autonomous conversion roadmap using 3M strategy (Method, Metrics, Mindset), delivering USD 50M+ in realised savings",
             "Unified fragmented process platforms (C3, iConS, PIP) into a single AI-integrated ecosystem — standardised 80% of workflows across 4 countries while preserving 20% site flexibility",
             "Co-led a flagship low-power DRAM yield ramp — maturity pulled in by 7 months on a multi-quarter mobile-DRAM program",
             "Co-led a high-bandwidth-memory yield program supporting Micron's first HBM market entry",
             "Modernised infrastructure from Hadoop to Google Cloud Platform (GCP), improving model deployment speed, traceability, and cost efficiency",
-            "Developed ML risk-scoring dashboards using anomaly detection for yield and reliability — preventing USD 100M+ potential losses",
+            "Developed ML risk-scoring dashboards using anomaly detection for yield and reliability, improving yield by 1-2% at production scale",
             "Built and deployed GenAI SOP Assistant: prompt packs + retrieval on audited SOPs; 80-90% answer relevance, ~15 min/query deflection, ~2 weeks faster onboarding, scaled to ~3,000 engineers",
             "Designed public-safe enterprise planning workflow patterns with retrieval, governed text-to-SQL, root-cause investigation, validation gates, traceability, human review, and auditable recommendations",
             "Scaled RPA (UiPath/Power Automate) for targeting-lot workflow — 100% adoption; mentored ~30 engineers",

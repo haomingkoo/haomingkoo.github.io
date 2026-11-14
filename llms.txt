@@ -17,7 +17,7 @@ Haoming Koo is a Senior Software Development Engineer (AI Agentic) at AMD in Sin
 
 ## Career History
 
-- AMD — Senior Software Development Engineer (AI Agentic), August 2026–present.
+- AMD — Senior Software Development Engineer (AI Agentic), August 2026–present. Built and deployed two end-to-end agentic AI solutions for the logistics and lab domains.
 - AI Singapore — Associate AI Engineer, AI Apprenticeship Programme (AIAP), January–July 2026. Graduated as a Certified AI Engineer.
 - Micron Technology — 7 years, most recently Manager, Front End Central Process Integration Engineering (August 2022–January 2025). Led a team of 6 direct and 9 indirect engineers and a USD 9M operational portfolio across four fabs.
 - Tagvance x Maritime & Port Authority of Singapore — Capstone Consultant, Geospatial Analytics (2021). Industrial IoT and applied ML for maritime safety and enforcement.
