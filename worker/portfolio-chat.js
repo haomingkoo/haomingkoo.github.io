@@ -2,8 +2,8 @@ import { evidenceContext, retrieveEvidence } from "./retrieval.js";
 import KNOWLEDGE from "../llms.txt";
 
 const API_URL = "https://api.sea-lion.ai/v1/chat/completions";
-const KNOWLEDGE_RELEASE = "2026-10-26b";
-const KNOWLEDGE_DIGEST = "sha256:872aec70f4cf99a44129212e6acdf7b492089e36267f8f49c547a965a8fe37ce";
+const KNOWLEDGE_RELEASE = "2026-11-14a";
+const KNOWLEDGE_DIGEST = "sha256:3fb1a008efa7d5c0693127b20360e95c4fa8a0e5072835b7555241a731afc74a";
 const PROMPT_VERSION = "portfolio-guide-v3";
 const ALLOWED_ORIGINS = new Set([
   "https://kooexperience.com",

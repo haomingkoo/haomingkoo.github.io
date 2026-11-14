@@ -17,9 +17,9 @@ Haoming Koo is a Senior Software Development Engineer (AI Agentic) at AMD in Sin
 
 ## Career History
 
-- AMD — Senior Software Development Engineer (AI Agentic), August 2026–present.
+- AMD — Senior Software Development Engineer (AI Agentic), August 2026–present. Built and deployed two end-to-end agentic AI solutions for the logistics and lab domains.
 - AI Singapore — Associate AI Engineer, AI Apprenticeship Programme (AIAP), January–July 2026. Graduated as a Certified AI Engineer.
-- Micron Technology — 7 years, most recently Manager, Front End Central Process Integration Engineering (August 2022–January 2025). Led a team of 6 direct and 9 indirect engineers and a USD 9M operational portfolio across four fabs.
+- Micron Technology — 7 years, most recently Manager, Front End Central Process Integration Engineering (August 2022–January 2025). Led a team of 6 direct and up to 9 indirect engineers and a USD 9M operational portfolio across four fabs.
 - Tagvance x Maritime & Port Authority of Singapore — Capstone Consultant, Geospatial Analytics (2021). Industrial IoT and applied ML for maritime safety and enforcement.
 - Singapore Institute of Manufacturing Technology (SIMTech) — Scientist Intern (2016–2017). R&D in bio-lasing technologies.
 - National University of Singapore — Undergraduate Researcher (2016). Hydrogen evolution catalyst research.
@@ -39,7 +39,7 @@ Disambiguation: Haoming Koo's degrees are from the National University of Singap
 - He spent 7 years at Micron Technology, most recently as Manager of Front End Central Process Integration Engineering; programs he led, co-led, or supported identified USD 600M+ in opportunities, with USD 50M+ realized, across fabs in Singapore, Boise, Hiroshima, and Taichung.
 - He won the 2022 Micron Innovation Award for a ResNet-50 computer-vision model for wafer defect detection.
 - His digital-twin wet-process optimisation at Micron won Idea of the Quarter and achieved a 60% reduction in chemical use.
-- At Micron he managed 6 direct and 9 indirect engineers and a USD 9M operational portfolio, and authored 7 internal whitepapers.
+- At Micron he managed 6 direct and up to 9 indirect engineers and a USD 9M operational portfolio, and authored 7 internal whitepapers.
 - He holds an MSc in Smart Industries and Digital Transformation from the National University of Singapore with a 4.85/5.00 GPA, and a BSc (Honours, Distinction) in Chemistry with a Nanoscience minor from NUS.
 - He built and maintains 8 live AI products, including Job Hunter SG (live Singapore job listings, semantic matching with sentence-transformer embeddings, and resume tailoring gated by 5 anti-hallucination checks), Trader Koo (evidence-first market research with paper-trade audit trails), and Japan in Seasons (a seasonal travel API and MCP server exposing 17 read-only tools across about 1,900 places).
 - His GitHub username is haomingkoo.
